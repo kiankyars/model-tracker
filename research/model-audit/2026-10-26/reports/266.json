@@ -1,0 +1,288 @@
+{
+  "index": 266,
+  "model_id": "meta/llama-3-8b",
+  "reviewed_at": "2026-10-26T21:31:04.622022Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/meta-llama/Meta-Llama-3-8B",
+      "title": "Meta-Llama-3-8B model card",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "The exact base-model repository identifies Meta-Llama-3-8B and provides original and Transformers formats. Its card gives Meta as developer, nominal 8B parameters, text input/output, GQA, 8k context, April 18, 2024 release and the custom Llama 3 license. The page links Llama 3.1 as a newer, separate model."
+    },
+    {
+      "id": "s2",
+      "url": "https://github.com/meta-llama/llama3/blob/main/MODEL_CARD.md",
+      "title": "Original Meta Llama 3 model card",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Original release card distinguishes pretrained and instruction-tuned 8B and 70B models, describes autoregressive Transformers using GQA and 8,192-token training sequences, and reports the April 18, 2024 release. Base benchmarks include prompted chain-of-thought tasks but do not specify a dedicated reasoning mode or an active-parameter count."
+    },
+    {
+      "id": "s3",
+      "url": "https://ai.meta.com/blog/meta-llama-3/",
+      "title": "Introducing Meta Llama 3",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Dated April 18, 2024 announcement releases pretrained and instruction-fine-tuned 8B and 70B text models. It describes a standard decoder-only Transformer, GQA for both sizes, and training sequences of 8,192 tokens."
+    },
+    {
+      "id": "s4",
+      "url": "https://github.com/meta-llama/llama3/blob/main/README.md",
+      "title": "Original Llama 3 README",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Confirms release of model weights under license, an 8,192-token supported sequence limit, and separate pretrained versus instruction-tuned usage. Its exact Meta-Llama-3-8B example uses text completion; pretrained models are explicitly not fine-tuned for chat or Q&A."
+    },
+    {
+      "id": "s5",
+      "url": "https://github.com/meta-llama/llama3/blob/main/llama/model.py",
+      "title": "Original Llama 3 Transformer implementation",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "TransformerBlock applies attention and a shared SwiGLU feed-forward network on every layer, with no expert router; GQA repeats key/value heads. This supports the dense architecture classification without using runtime cache defaults as the model context limit."
+    },
+    {
+      "id": "s6",
+      "url": "https://github.com/meta-llama/llama3/blob/main/LICENSE",
+      "title": "Meta Llama 3 Community License Agreement",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Names the Meta Llama 3 Community License Agreement and April 18, 2024 version; grants limited rights over distributed weights and code subject to custom terms."
+    },
+    {
+      "id": "s7",
+      "url": "https://github.com/meta-llama/llama3/blob/main/llama/generation.py",
+      "title": "Original Llama 3 generation implementation",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "The documented base interface accepts plain string prompts and returns generated text with optional tokens and log probabilities. It provides no separately specified reasoning output or thinking-budget interface."
+    },
+    {
+      "id": "s8",
+      "url": "https://github.com/meta-llama/llama3/blob/main/llama/tokenizer.py",
+      "title": "Original Llama 3 tokenizer and chat format",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "The original message structure has system, user and assistant roles with string content; special tokens do not define a separate reasoning channel. This does not itself prove that a model lacks general reasoning capability."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/api/models/meta-llama/Meta-Llama-3-8B",
+      "title": "Public metadata for the exact Meta-Llama-3-8B repository",
+      "publisher": "Hugging Face metadata for Meta repository",
+      "accessed": true,
+      "evidence": "Public metadata at revision 8cde5ca8380496c9a6cc7ef3a8b46a0372a1d920 reports safetensors.total=8030261248, entirely BF16, and LlamaForCausalLM. The aggregate does not expose tensor shapes or distinguish learned tensors from any persistent buffers; it is corroboration of the nominal scale, not an independently audited exact learned-parameter count."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/meta-llama/Meta-Llama-3-8B/resolve/main/config.json",
+      "title": "Exact Meta-Llama-3-8B checkpoint config",
+      "publisher": "Meta",
+      "accessed": false,
+      "evidence": "The normal unauthenticated request returned HTTP 401. No access restriction was bypassed and no weight shards were downloaded."
+    },
+    {
+      "id": "s11",
+      "url": "https://arxiv.org/html/2407.21783v3#S1.T1",
+      "title": "The Llama 3 Herd of Models, Table 1",
+      "publisher": "Llama Team, AI at Meta",
+      "accessed": true,
+      "evidence": "Table 1 explicitly gives original Llama 3 8B Finetuned=no, Tool use=no and Release=April 2024, separately from Llama 3.1. The paper states its later benchmark results describe Llama 3.1; those specifications are not transferred to this original checkpoint."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Llama 3 8B",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s11"
+      ],
+      "note": "The original 8B pretrained model; the exact repository has no Instruct or 3.1 suffix."
+    },
+    "developer": {
+      "value": "Meta",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Meta is explicitly named as model developer."
+    },
+    "family": {
+      "value": "llama-3",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s11"
+      ],
+      "note": "Catalog key for the original Llama 3 family; the paper distinguishes it from Llama 3.1."
+    },
+    "release_date": {
+      "value": "2024-04-18",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s6"
+      ],
+      "note": "Day-precise original public release is stated by the card, announcement and license."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s6"
+      ],
+      "note": "Meta distributes pretrained weights under the custom license and access terms. Open weights does not imply unrestricted licensing."
+    },
+    "license": {
+      "value": "Llama 3 Community License",
+      "status": "verified",
+      "source_ids": [
+        "s6"
+      ],
+      "note": "Supported short name for the custom Meta Llama 3 Community License Agreement."
+    },
+    "parameters_b": {
+      "value": 8,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s9",
+        "s10"
+      ],
+      "note": "Meta’s nominal 8-billion parameter size. Public metadata reports 8,030,261,248 BF16 tensor elements, but exact learned-parameter counting was not established from the accessible aggregate and gated config; retain nominal precision."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s2",
+        "s5",
+        "s11"
+      ],
+      "note": "No separately defined active-parameter count for this exact original model is reported. Dense execution does not justify copying its nominal total into this field."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s5"
+      ],
+      "note": "The original decoder-only Transformer implementation uses attention plus dense SwiGLU feed-forward layers without expert routing; GQA is an attention design, not sparse expert activation."
+    },
+    "context_window": {
+      "value": 8192,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "note": "The original README explicitly supports sequences up to 8,192 tokens. Later 128K Llama 3.1 specifications do not apply."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "The card specifies text-only input and text/code output; code is represented as text."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s2",
+        "s7",
+        "s8"
+      ],
+      "note": "The original sources report general and prompted reasoning benchmarks but do not explicitly establish a dedicated reasoning mode. Plain completion code alone does not justify an affirmative or negative capability flag."
+    },
+    "tool_call": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s11",
+        "s4"
+      ],
+      "note": "Meta’s comparison Table 1 explicitly marks Tool use absent for the exact original Llama 3 8B base model. This concerns native support, not downstream wrappers or fine-tunes."
+    },
+    "description": {
+      "value": "Meta’s original Llama 3 8B pretrained text-generation model, using a dense decoder-only Transformer with grouped-query attention and an 8,192-token context window.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "note": "Expands the accurate but sparse baseline description while identifying the base checkpoint and original architecture/context."
+    }
+  },
+  "patch": {
+    "parameters_source": "primary_source",
+    "tool_call": false,
+    "description": "Meta’s original Llama 3 8B pretrained text-generation model, using a dense decoder-only Transformer with grouped-query attention and an 8,192-token context window.",
+    "notes": "The 8B parameter value is Meta’s nominal size, not an independently audited exact learned-parameter total. Active parameters and a dedicated reasoning mode are not separately established. Meta explicitly marks native tool use absent for this original pretrained checkpoint; later Llama 3.1 capabilities do not apply.",
+    "sources": [
+      {
+        "label": "Original release announcement",
+        "url": "https://ai.meta.com/blog/meta-llama-3/",
+        "type": "primary"
+      },
+      {
+        "label": "Exact 8B base model card",
+        "url": "https://huggingface.co/meta-llama/Meta-Llama-3-8B",
+        "type": "weights"
+      },
+      {
+        "label": "Original model card",
+        "url": "https://github.com/meta-llama/llama3/blob/main/MODEL_CARD.md",
+        "type": "weights"
+      },
+      {
+        "label": "Original model usage and context",
+        "url": "https://github.com/meta-llama/llama3/blob/main/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Original Transformer implementation",
+        "url": "https://github.com/meta-llama/llama3/blob/main/llama/model.py",
+        "type": "primary"
+      },
+      {
+        "label": "Original Llama 3 license",
+        "url": "https://github.com/meta-llama/llama3/blob/main/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "Meta comparison of original Llama 3 and 3.1",
+        "url": "https://arxiv.org/html/2407.21783v3#S1.T1",
+        "type": "primary"
+      },
+      {
+        "label": "Public exact-repository tensor metadata",
+        "url": "https://huggingface.co/api/models/meta-llama/Meta-Llama-3-8B",
+        "type": "catalog"
+      }
+    ]
+  },
+  "summary": "Confirmed the original base model, nominal 8B size, dense decoder-only GQA architecture, 8,192-token context, April 18, 2024 release, text modalities and custom open-weight license. Set native tool calling false from Meta’s exact-model comparison and expanded the description. Active count and dedicated reasoning remain undisclosed. Public BF16 aggregate metadata was inspected but not promoted to an exact learned-parameter count; normal config access was gated."
+}
