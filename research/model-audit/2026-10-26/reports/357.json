@@ -1,0 +1,259 @@
+{
+  "index": 357,
+  "model_id": "moonshotai/kimi-k2-thinking",
+  "reviewed_at": "2026-10-26T23:50:13.257Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/moonshotai/Kimi-K2-Thinking",
+      "title": "Kimi-K2-Thinking model card",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Exact Thinking checkpoint: 1T total parameters, 32B activated, MoE, MLA, 61 layers, 384 routed experts, eight selected experts and one shared expert. Documents 256K context, public weights, text chat, reasoning_content, and native function calling."
+    },
+    {
+      "id": "s2",
+      "url": "https://www.kimi.com/en/blog/kimi-k2-thinking",
+      "title": "Introducing Kimi K2 Thinking",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Original Thinking announcement describes stepwise reasoning interleaved with tool calls for agentic search, coding and writing. Quantization-aware post-training applies INT4 weight-only quantization to MoE components. Its evaluation footnotes explicitly identify 256k as the context limit."
+    },
+    {
+      "id": "s3",
+      "url": "https://www.kimi.com/en/blog/",
+      "title": "Kimi Research Blog release index",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "The Kimi K2 Thinking announcement is dated 2025-11-06, separately from July K2, September K2-Instruct-0905 and January K2.5."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/moonshotai/Kimi-K2-Thinking/blob/a51ccc050d73dab088bf7b0e2dd9b30ae85a4e55/config.json",
+      "title": "Kimi-K2-Thinking checkpoint configuration",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "model_type kimi_k2; DeepseekV3ForCausalLM; 61 layers, 384 routed experts, eight experts per token, one shared expert; max_position_embeddings 262144 and YaRN factor 64 from 4096. Uses compressed-tensors packed INT4 routed-expert weights, with listed exclusions."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/moonshotai/Kimi-K2-Thinking/blob/a51ccc050d73dab088bf7b0e2dd9b30ae85a4e55/LICENSE",
+      "title": "Kimi-K2-Thinking Modified MIT License",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Copyright 2025 Moonshot AI. MIT permission and notice terms plus a condition requiring prominent Kimi K2 UI attribution for commercial products/services exceeding 100 million monthly active users or USD 20 million monthly revenue. This is an attribution condition, not a prohibition on larger commercial use."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/moonshotai/Kimi-K2-Thinking/blob/a51ccc050d73dab088bf7b0e2dd9b30ae85a4e55/modeling_deepseek.py",
+      "title": "Kimi-K2-Thinking transformer implementation",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "DeepseekV3Model implements a Transformer decoder; decoder blocks combine self-attention with dense/MoE feed-forward modules, and DeepseekV3ForCausalLM produces token logits through an LM head."
+    },
+    {
+      "id": "s7",
+      "url": "https://arxiv.org/html/2507.20534v2",
+      "title": "Kimi K2: Open Agentic Intelligence, revised technical report",
+      "publisher": "Kimi Team / Moonshot AI",
+      "accessed": true,
+      "evidence": "Inspected the February 2026 revision of the July K2 report. It describes original K2; the accessed HTML contains no K2 Thinking mention. Its specifications are not used as Thinking-specific evidence."
+    },
+    {
+      "id": "s8",
+      "url": "https://arxiv.org/html/2602.02276v1",
+      "title": "Kimi K2.5: Visual Agentic Intelligence",
+      "publisher": "Kimi Team / Moonshot AI",
+      "accessed": true,
+      "evidence": "Later first-party report explicitly describes K2 Thinking as an earlier tool-using reasoning model and studies its token-efficient RL behavior in Figure 5. K2.5 architecture, vision inputs and counts are not transferred to this checkpoint."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/moonshotai/Kimi-K2.5",
+      "title": "Kimi-K2.5 later model card",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Later card explicitly links its native INT4 method and interleaved reasoning/tool-call design to K2 Thinking. Its parameter table describes K2.5, so it supplies no replacement count for the exact Thinking checkpoint."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Kimi K2 Thinking",
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Official announcement uses this name."
+    },
+    "developer": {
+      "value": "Moonshot AI",
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s1"
+      ],
+      "note": "Checkpoint publisher and license copyright identify Moonshot AI."
+    },
+    "family": {
+      "value": "kimi-k2",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4"
+      ],
+      "note": "Normalize to Kimi K2: the card explicitly starts from Kimi K2 and the checkpoint model_type is kimi_k2; Thinking is the variant."
+    },
+    "release_date": {
+      "value": "2025-11-06",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "Developer release index dates the announcement; this is the original public release, not a provider rollout."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Developer distributes the checkpoint and grants model-weight use under its published license."
+    },
+    "license": {
+      "value": "Modified MIT",
+      "status": "verified",
+      "source_ids": [
+        "s5"
+      ],
+      "note": "MIT-derived terms require prominent Kimi K2 UI attribution above either 100 million monthly active users or USD 20 million monthly revenue for a commercial product/service."
+    },
+    "parameters_b": {
+      "value": 1000,
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Nominal developer-reported 1T total, expressed in billions. Not an exact tensor census; quantization scales and packed-storage elements were not counted."
+    },
+    "active_parameters_b": {
+      "value": 32,
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Nominal developer-reported 32B activated parameters; retained at its published precision."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s6"
+      ],
+      "note": "Decoder-only MoE Transformer with MLA; exact checkpoint config and implementation corroborate the model card."
+    },
+    "context_window": {
+      "value": 262144,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4"
+      ],
+      "note": "Release evaluation specifies a supported 256K context limit; the matching checkpoint maximum is 262144 positions. The config corroborates the supported limit, rather than independently establishing it."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s6"
+      ],
+      "note": "Text generation checkpoint and documented text chat; code is token-input causal LM with no vision/audio encoder."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s8"
+      ],
+      "note": "Original announcement explicitly describes stepwise reasoning, and the later report identifies this exact model as a reasoning baseline."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s9"
+      ],
+      "note": "Native function calling is documented with tool schemas, tool_calls responses and interleaved reasoning; execution requires an external tool runtime."
+    },
+    "description": {
+      "value": "Open-weight Kimi K2 reasoning model with a mixture-of-experts Transformer, MLA attention, and native tool calling for multi-step research, coding, and writing.",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s6"
+      ],
+      "note": "Replaces vague speed/use-case copy with supported architecture and capabilities; does not claim present-day API availability."
+    }
+  },
+  "patch": {
+    "family": "kimi-k2",
+    "license": "Modified MIT",
+    "parameters_b": 1000,
+    "active_parameters_b": 32,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "description": "Open-weight Kimi K2 reasoning model with a mixture-of-experts Transformer, MLA attention, and native tool calling for multi-step research, coding, and writing.",
+    "source_url": "https://www.kimi.com/en/blog/kimi-k2-thinking",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Kimi K2 Thinking announcement",
+        "url": "https://www.kimi.com/en/blog/kimi-k2-thinking",
+        "type": "primary"
+      },
+      {
+        "label": "Moonshot release-date index",
+        "url": "https://www.kimi.com/en/blog/",
+        "type": "primary"
+      },
+      {
+        "label": "Kimi K2 Thinking model card",
+        "url": "https://huggingface.co/moonshotai/Kimi-K2-Thinking",
+        "type": "weights"
+      },
+      {
+        "label": "Kimi K2 Thinking configuration",
+        "url": "https://huggingface.co/moonshotai/Kimi-K2-Thinking/blob/a51ccc050d73dab088bf7b0e2dd9b30ae85a4e55/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Kimi K2 Thinking license",
+        "url": "https://huggingface.co/moonshotai/Kimi-K2-Thinking/blob/a51ccc050d73dab088bf7b0e2dd9b30ae85a4e55/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "Kimi K2 Thinking model code",
+        "url": "https://huggingface.co/moonshotai/Kimi-K2-Thinking/blob/a51ccc050d73dab088bf7b0e2dd9b30ae85a4e55/modeling_deepseek.py",
+        "type": "primary"
+      }
+    ],
+    "notes": "1T total and 32B activated are nominal developer counts, not exact counts of stored tensors. This is a decoder-only MoE Transformer with MLA and a supported 256K (262,144-token) context. Modified MIT requires prominent Kimi K2 UI attribution for commercial products/services above 100 million monthly active users or USD 20 million monthly revenue. This describes the released checkpoint and does not assert that its original API endpoint remains operational."
+  },
+  "summary": "All 14 fields verified for the exact Kimi K2 Thinking checkpoint. Add nominal 1000B total/32B activated parameters, MoE architecture and Modified MIT license; normalize family to kimi-k2 and replace unsupported relative-speed description. Confirm original 2025-11-06 release, 262144-token supported context, public weights, text modalities, reasoning and native tools. Exact checkpoint card/config are decisive; July K2 and later K2.5 specifications were not transferred."
+}
