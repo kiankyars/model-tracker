@@ -1,0 +1,367 @@
+{
+  "index": 164,
+  "model_id": "deepreinforce/ornith-1.0-9b",
+  "reviewed_at": "2026-10-26T18:48:43.115358+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/ornith-ai/Ornith-1.0-9B/raw/83dc1f5e24ef8527af019a6b3bf66ac0f1c2c999/README.md",
+      "title": "Ornith-1.0-9B model card",
+      "publisher": "DeepReinforce / Ornith",
+      "accessed": true,
+      "evidence": "Exact model card names the 9B dense Ornith variant, credits DeepReinforce Team, declares MIT, describes agentic coding/self-scaffolding RL, documents native reasoning and structured tool calls, and serves 262144-token context. Its ~9B label is nominal."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/ornith-ai/Ornith-1.0-9B/raw/83dc1f5e24ef8527af019a6b3bf66ac0f1c2c999/config.json",
+      "title": "Exact Ornith-1.0-9B configuration",
+      "publisher": "DeepReinforce / Ornith",
+      "accessed": true,
+      "evidence": "Qwen3_5ForConditionalGeneration; 32 text layers (24 linear_attention and 8 full_attention), dense FFNs, 27-layer vision encoder, max_position_embeddings=262144, distinct image/video tokens, BF16, and untied input/output embeddings."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/ornith-ai/Ornith-1.0-9B/resolve/83dc1f5e24ef8527af019a6b3bf66ac0f1c2c999/model.safetensors.index.json",
+      "title": "Exact checkpoint tensor index",
+      "publisher": "DeepReinforce / Ornith",
+      "accessed": true,
+      "evidence": "All 760 indexed tensor names match the four inspected safetensors headers. total_size=18819627488 equals the header-derived byte count. Its total_parameters=1469680 is inconsistent with both tensor shapes and byte count and is rejected."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/ornith-ai/Ornith-1.0-9B/resolve/83dc1f5e24ef8527af019a6b3bf66ac0f1c2c999/model-00001-of-00004.safetensors",
+      "title": "Checkpoint shard 1 safetensors header",
+      "publisher": "DeepReinforce / Ornith",
+      "accessed": true,
+      "evidence": "Inspected only the 8-byte length plus 4672-byte JSON header using HTTP 206 range requests, without downloading weights. 36 BF16 tensors contain 2471350720 learned elements; all four shards total 9409813744. No quantization scales or persistent buffers were present."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/ornith-ai/Ornith-1.0-9B/resolve/83dc1f5e24ef8527af019a6b3bf66ac0f1c2c999/model-00002-of-00004.safetensors",
+      "title": "Checkpoint shard 2 safetensors header",
+      "publisher": "DeepReinforce / Ornith",
+      "accessed": true,
+      "evidence": "Inspected only the 8-byte length plus 19552-byte JSON header using HTTP 206 range requests, without downloading weights. 150 BF16 tensors contain 2493869184 learned elements; all four shards total 9409813744. No quantization scales or persistent buffers were present."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/ornith-ai/Ornith-1.0-9B/resolve/83dc1f5e24ef8527af019a6b3bf66ac0f1c2c999/model-00003-of-00004.safetensors",
+      "title": "Checkpoint shard 3 safetensors header",
+      "publisher": "DeepReinforce / Ornith",
+      "accessed": true,
+      "evidence": "Inspected only the 8-byte length plus 20216-byte JSON header using HTTP 206 range requests, without downloading weights. 154 BF16 tensors contain 2477395008 learned elements; all four shards total 9409813744. No quantization scales or persistent buffers were present."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/ornith-ai/Ornith-1.0-9B/resolve/83dc1f5e24ef8527af019a6b3bf66ac0f1c2c999/model-00004-of-00004.safetensors",
+      "title": "Checkpoint shard 4 safetensors header",
+      "publisher": "DeepReinforce / Ornith",
+      "accessed": true,
+      "evidence": "Inspected only the 8-byte length plus 49160-byte JSON header using HTTP 206 range requests, without downloading weights. 420 BF16 tensors contain 1967198832 learned elements; all four shards total 9409813744. No quantization scales or persistent buffers were present."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/ornith-ai/Ornith-1.0-9B/raw/83dc1f5e24ef8527af019a6b3bf66ac0f1c2c999/processor_config.json",
+      "title": "Exact multimodal processor configuration",
+      "publisher": "DeepReinforce / Ornith",
+      "accessed": true,
+      "evidence": "Checkpoint includes Qwen3VLProcessor, an image processor, and Qwen3VLVideoProcessor with explicit frame sampling (2 fps, 4\u2013768 frames). This is checkpoint-native image/video preprocessing, not merely an agent wrapper."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/ornith-ai/Ornith-1.0-9B/raw/83dc1f5e24ef8527af019a6b3bf66ac0f1c2c999/chat_template.jinja",
+      "title": "Exact model chat template",
+      "publisher": "DeepReinforce / Ornith",
+      "accessed": true,
+      "evidence": "Serializes text, image and video content with native visual tokens; accepts tool schemas, structured tool_calls/tool responses, and reasoning_content; starts thinking by default and supports enable_thinking=false."
+    },
+    {
+      "id": "s10",
+      "url": "https://raw.githubusercontent.com/ornith-ai/Ornith-1/16d32b11211ac83373d37dc67234f77e77f909a1/README.md",
+      "title": "Original developer release README",
+      "publisher": "DeepReinforce",
+      "accessed": true,
+      "evidence": "Developer README says it is releasing Ornith-1.0 today, explicitly includes 9B Dense, and documents the exact 9B checkpoint. The June 25 dated commit corroborates the weight release date."
+    },
+    {
+      "id": "s11",
+      "url": "https://api.github.com/repos/ornith-ai/Ornith-1/commits/16d32b11211ac83373d37dc67234f77e77f909a1",
+      "title": "Developer release README commit metadata",
+      "publisher": "DeepReinforce / GitHub",
+      "accessed": true,
+      "evidence": "Release README commit timestamp is 2026-06-25T05:21:41Z."
+    },
+    {
+      "id": "s12",
+      "url": "https://huggingface.co/api/models/ornith-ai/Ornith-1.0-9B/commits/main",
+      "title": "Exact model repository history",
+      "publisher": "DeepReinforce / Hugging Face",
+      "accessed": true,
+      "evidence": "Commit 4402d8dc236fe9e09d12aeed907a763b66a60533, Add Ornith-1.0-9B model weights, is dated 2026-06-25T06:13:51Z. Earlier June 21\u201323 commits contain preparatory README/assets; their wording alone does not establish a prior public checkpoint release."
+    },
+    {
+      "id": "s13",
+      "url": "https://ornith.ai/ornith_1_5.html",
+      "title": "Later Ornith-1.5 announcement and comparison tables",
+      "publisher": "Ornith",
+      "accessed": true,
+      "evidence": "Later first-party table explicitly compares Ornith-1.0-9B on coding, reasoning and agentic tasks. It supplies no separately defined active-parameter count or more precise complete parameter count for Ornith-1.0-9B; sibling 35B-A3B counts are not transferred."
+    },
+    {
+      "id": "s14",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/v5.8.1/src/transformers/models/qwen3_5/modeling_qwen3_5.py",
+      "title": "Transformers Qwen3.5 implementation matching checkpoint version",
+      "publisher": "Hugging Face Transformers",
+      "accessed": true,
+      "evidence": "GatedDeltaNet implementation declares dt_bias and A_log as nn.Parameter, so those checkpoint tensors are learned parameters. Rotary inv_freq/original_inv_freq are nonpersistent buffers and absent from the inspected checkpoint. Dense text projections, norms, untied LM head and vision module weights/biases are learned tensors."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Ornith 1.0 9B",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Display normalization of Ornith-1.0-9B."
+    },
+    "developer": {
+      "value": "DeepReinforce",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s10"
+      ],
+      "note": "Original author attribution is DeepReinforce Team; current first-party URLs redirect to the renamed Ornith organization."
+    },
+    "family": {
+      "value": "ornith",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s10"
+      ],
+      "note": "Exact model is identified as part of the Ornith-1.0 family."
+    },
+    "release_date": {
+      "value": "2026-06-25",
+      "status": "verified",
+      "source_ids": [
+        "s10",
+        "s11",
+        "s12"
+      ],
+      "note": "June 25 developer release README plus exact checkpoint first weight commit. Earlier README/assets timestamps are preparation evidence, not a demonstrated earlier public weight release."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "note": "Publicly accessible full BF16 checkpoint index and all four shard headers were retrieved without authentication."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s10"
+      ],
+      "note": "Exact model card and original developer announcement explicitly declare MIT licensing."
+    },
+    "parameters_b": {
+      "value": 9.409813744,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s14"
+      ],
+      "note": "Complete published checkpoint count: 9409813744 learned parameters from 760 BF16 tensor shapes. Text model plus untied head totals 8953803264; vision encoder/projector totals 456010480. Nominal 9B refers to the size class. No packed quantized tensors/scales/buffers or duplicate tied head were counted; no MTP tensors occur in the index. Ignore erroneous index total_parameters=1469680; total_size corroborates the complete count."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s13"
+      ],
+      "note": "Dense model, but no separately defined active-per-token total is disclosed. Do not equate the full multimodal checkpoint count with parameters exercised by a particular input."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s14"
+      ],
+      "note": "Dense Qwen3.5 hybrid architecture: 24 GatedDeltaNet linear-attention layers alternating with 8 full-attention Transformer layers, dense FFNs, and a 27-layer vision encoder. Dense describes expert structure, not a claim that every layer uses full attention."
+    },
+    "context_window": {
+      "value": 262144,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Exact max_position_embeddings and both developer serving recipes agree on 262144 tokens. Benchmark footnote mentioning 400K does not establish a larger native context."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s8",
+        "s9"
+      ],
+      "note": "Add video: exact checkpoint has visual weights, image/video token IDs, image/video processors, and native image/video chat serialization. This establishes checkpoint input support, not a guarantee that every hosted coding endpoint enables it."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s9"
+      ],
+      "note": "Exact model card explicitly identifies reasoning output; native template implements think blocks and enable_thinking control."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s9"
+      ],
+      "note": "Exact model card describes emitted function calls; checkpoint template serializes tool schemas, XML function/parameter calls and tool responses."
+    },
+    "description": {
+      "value": "Open dense Qwen3.5-based reasoning model trained with self-scaffolding reinforcement learning for agentic coding.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s10"
+      ],
+      "note": "Makes the dense architecture and training-based meaning of self-improvement concrete; avoids implying automatic ongoing inference-time learning."
+    }
+  },
+  "patch": {
+    "description": "Open dense Qwen3.5-based reasoning model trained with self-scaffolding reinforcement learning for agentic coding.",
+    "parameters_b": 9.409813744,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "modalities": {
+      "input": [
+        "text",
+        "image",
+        "video"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "notes": "Full published BF16 checkpoint contains 9,409,813,744 learned parameters (8,953,803,264 text stack plus untied LM head; 456,010,480 vision encoder/projector), versus nominal 9B branding. All 760 tensor names match the index; shard headers contain no quantization scales or persistent buffers. Index total_parameters=1,469,680 is erroneous; its 18,819,627,488-byte total_size matches the header-derived total. Dense Qwen3.5 hybrid: 24 GatedDeltaNet linear-attention layers, 8 full-attention layers, and a 27-layer vision encoder. Active parameters are not separately disclosed. Native checkpoint accepts text, image and video and generates text; deployed endpoints may expose fewer inputs. June 25, 2026 is corroborated by the release README and exact weight-upload commit. Current distribution migrated from deepreinforce-ai to ornith-ai.",
+    "source_url": "https://raw.githubusercontent.com/ornith-ai/Ornith-1/16d32b11211ac83373d37dc67234f77e77f909a1/README.md",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Ornith-1.0-9B model card",
+        "url": "https://huggingface.co/ornith-ai/Ornith-1.0-9B/raw/83dc1f5e24ef8527af019a6b3bf66ac0f1c2c999/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Exact Ornith-1.0-9B configuration",
+        "url": "https://huggingface.co/ornith-ai/Ornith-1.0-9B/raw/83dc1f5e24ef8527af019a6b3bf66ac0f1c2c999/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Exact checkpoint tensor index",
+        "url": "https://huggingface.co/ornith-ai/Ornith-1.0-9B/resolve/83dc1f5e24ef8527af019a6b3bf66ac0f1c2c999/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 1 safetensors header",
+        "url": "https://huggingface.co/ornith-ai/Ornith-1.0-9B/resolve/83dc1f5e24ef8527af019a6b3bf66ac0f1c2c999/model-00001-of-00004.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 2 safetensors header",
+        "url": "https://huggingface.co/ornith-ai/Ornith-1.0-9B/resolve/83dc1f5e24ef8527af019a6b3bf66ac0f1c2c999/model-00002-of-00004.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 3 safetensors header",
+        "url": "https://huggingface.co/ornith-ai/Ornith-1.0-9B/resolve/83dc1f5e24ef8527af019a6b3bf66ac0f1c2c999/model-00003-of-00004.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 4 safetensors header",
+        "url": "https://huggingface.co/ornith-ai/Ornith-1.0-9B/resolve/83dc1f5e24ef8527af019a6b3bf66ac0f1c2c999/model-00004-of-00004.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Exact multimodal processor configuration",
+        "url": "https://huggingface.co/ornith-ai/Ornith-1.0-9B/raw/83dc1f5e24ef8527af019a6b3bf66ac0f1c2c999/processor_config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Exact model chat template",
+        "url": "https://huggingface.co/ornith-ai/Ornith-1.0-9B/raw/83dc1f5e24ef8527af019a6b3bf66ac0f1c2c999/chat_template.jinja",
+        "type": "primary"
+      },
+      {
+        "label": "Original developer release README",
+        "url": "https://raw.githubusercontent.com/ornith-ai/Ornith-1/16d32b11211ac83373d37dc67234f77e77f909a1/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Developer release README commit metadata",
+        "url": "https://api.github.com/repos/ornith-ai/Ornith-1/commits/16d32b11211ac83373d37dc67234f77e77f909a1",
+        "type": "primary"
+      },
+      {
+        "label": "Exact model repository history",
+        "url": "https://huggingface.co/api/models/ornith-ai/Ornith-1.0-9B/commits/main",
+        "type": "primary"
+      },
+      {
+        "label": "Later Ornith-1.5 announcement and comparison tables",
+        "url": "https://ornith.ai/ornith_1_5.html",
+        "type": "primary"
+      },
+      {
+        "label": "Transformers Qwen3.5 implementation matching checkpoint version",
+        "url": "https://raw.githubusercontent.com/huggingface/transformers/v5.8.1/src/transformers/models/qwen3_5/modeling_qwen3_5.py",
+        "type": "primary"
+      }
+    ]
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "text_and_head": 8.953803264,
+      "vision": 0.45601048
+    }
+  },
+  "summary": "Confirmed exact model identity, DeepReinforce attribution, June 25 release, MIT/open weights, 262144 context, native reasoning and tool calls. Replace nominal 9B with complete header-derived 9.409813744B learned count; reject inconsistent index parameter metadata. Add dense classification with hybrid-layer details and checkpoint-native video input. Active count remains undisclosed; description clarifies self-scaffolding training."
+}
