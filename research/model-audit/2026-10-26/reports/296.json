@@ -1,0 +1,329 @@
+{
+  "index": 296,
+  "model_id": "microsoft/phi-4-multimodal-instruct",
+  "reviewed_at": "2026-10-26T22:11:01.837043+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/microsoft/Phi-4-multimodal-instruct",
+      "title": "Phi-4-multimodal-instruct model card",
+      "publisher": "Microsoft",
+      "accessed": true,
+      "evidence": "Identifies the model, MIT release, text/image/audio input and text output, 128K context, nominal 5.6B size, function-calling format, and recommended audio lengths of 40 seconds generally or 30 minutes for summarization."
+    },
+    {
+      "id": "s2",
+      "url": "https://azure.microsoft.com/en-us/blog/empowering-innovation-the-next-generation-of-the-phi-family/",
+      "title": "Empowering innovation: The next generation of the Phi family",
+      "publisher": "Microsoft",
+      "accessed": true,
+      "evidence": "February 26, 2025 announcement explicitly says Phi-4-multimodal is now available on Hugging Face and Azure; reports 5.6B and mixture-of-LoRAs."
+    },
+    {
+      "id": "s3",
+      "url": "https://arxiv.org/html/2503.01743v2",
+      "title": "Phi-4-Mini Technical Report: Compact yet Powerful Multimodal Language Models via Mixture-of-LoRAs",
+      "publisher": "Microsoft researchers / arXiv",
+      "accessed": true,
+      "evidence": "Sections 2.1-2.2 describe the shared dense decoder backbone, vision/audio encoders and projectors, and modality LoRAs. Nominal components are 3.8B backbone, 440M vision encoder/projector, 370M vision LoRA, 460M audio encoder/projector, and 460M audio LoRA. Section 3.1.3 separates experimental reasoning training from the released backbone."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/microsoft/Phi-4-multimodal-instruct/blob/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/config.json",
+      "title": "Pinned released model configuration",
+      "publisher": "Microsoft",
+      "accessed": true,
+      "evidence": "32 layers, hidden width 3072, FFN width 8192, 24 query and 8 KV heads, vocabulary 200064, tied embeddings, max_position_embeddings 131072, vision LoRA rank 256 and speech rank 320; no quantization configuration."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/microsoft/Phi-4-multimodal-instruct/blob/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/model.safetensors.index.json",
+      "title": "Pinned safetensors shard index",
+      "publisher": "Microsoft",
+      "accessed": true,
+      "evidence": "2047 tensor entries over three root shards, total_size 11148920768 bytes; already includes both speech and vision LoRA matrices. No separate lm_head tensor is stored."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/microsoft/Phi-4-multimodal-instruct/resolve/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/model-00001-of-00003.safetensors",
+      "title": "Root shard 1 safetensors header",
+      "publisher": "Microsoft",
+      "accessed": true,
+      "evidence": "Read only 8-byte length and 237448-byte JSON header using verified HTTP 206 ranges; 1510 BF16 tensors. Header includes the image/audio components and two 80-element audio normalization buffers."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/microsoft/Phi-4-multimodal-instruct/resolve/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/model-00002-of-00003.safetensors",
+      "title": "Root shard 2 safetensors header",
+      "publisher": "Microsoft",
+      "accessed": true,
+      "evidence": "Read only 8-byte length and 56128-byte JSON header using verified HTTP 206 ranges; 436 BF16 tensors."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/microsoft/Phi-4-multimodal-instruct/resolve/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/model-00003-of-00003.safetensors",
+      "title": "Root shard 3 safetensors header",
+      "publisher": "Microsoft",
+      "accessed": true,
+      "evidence": "Read only 8-byte length and 12840-byte JSON header using verified HTTP 206 ranges; 101 BF16 tensors. Across the three headers, shapes sum to 5574460384 storage elements before excluding 160 buffer elements."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/microsoft/Phi-4-multimodal-instruct/blob/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/modeling_phi4mm.py",
+      "title": "Released model implementation and adapter routing",
+      "publisher": "Microsoft",
+      "accessed": true,
+      "evidence": "Defines dense Transformer blocks, tied LM output, learned image separators, and both LoRAs. Forward selects vision LoRA for vision/vision-speech, speech LoRA for speech, and disables LoRAs for language; audio projectors also depend on mode."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/microsoft/Phi-4-multimodal-instruct/blob/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/speech_conformer_encoder.py",
+      "title": "Released speech encoder implementation",
+      "publisher": "Microsoft",
+      "accessed": true,
+      "evidence": "global_mean and global_invstd are registered buffers, each length 80; exclude them from learned parameters. GLU b1/b2 are nn.Parameter and remain included."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/microsoft/Phi-4-multimodal-instruct/blob/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/vision_siglip_navit.py",
+      "title": "Released vision encoder implementation",
+      "publisher": "Microsoft",
+      "accessed": true,
+      "evidence": "The pooling probe and attention projections are learned parameters. Position IDs are a nonpersistent buffer, absent from checkpoint headers; stored learned pooling-head tensors remain part of the complete checkpoint total."
+    },
+    {
+      "id": "s12",
+      "url": "https://huggingface.co/microsoft/Phi-4-multimodal-instruct/blob/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/LICENSE",
+      "title": "Model repository MIT License",
+      "publisher": "Microsoft",
+      "accessed": true,
+      "evidence": "Exact license is MIT, copyright Microsoft Corporation; grants use, modification and redistribution subject to retaining the notice."
+    },
+    {
+      "id": "s13",
+      "url": "https://arxiv.org/html/2603.03975v1",
+      "title": "Phi-4-reasoning-vision-15B Technical Report, Table 5",
+      "publisher": "Microsoft Research / arXiv",
+      "accessed": true,
+      "evidence": "Later first-party comparison explicitly includes Phi-4-mm-instruct among non-thinking models. Its thinking-model table and explicit think/nothink control concern the newer reasoning-vision model, not this checkpoint."
+    },
+    {
+      "id": "s14",
+      "url": "https://huggingface.co/microsoft/Phi-4-multimodal-instruct/blob/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/tokenizer_config.json",
+      "title": "Released tokenizer and chat template",
+      "publisher": "Microsoft",
+      "accessed": true,
+      "evidence": "model_max_length is 131072. Chat template explicitly serializes provided tools between tool delimiters and has no separate thinking-mode switch."
+    },
+    {
+      "id": "s15",
+      "url": "https://huggingface.co/api/models/microsoft/Phi-4-multimodal-instruct",
+      "title": "Hugging Face repository metadata",
+      "publisher": "Hugging Face, for Microsoft repository",
+      "accessed": true,
+      "evidence": "Current revision is 93f923e1a7727d1c4f446756212d9d3e8fcc5d81; repository creation is February 24, 2025. Safetensors metadata calls all 5574460384 BF16 storage elements parameters, including the 160 buffers verified separately."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Phi-4-multimodal-instruct",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Exact Microsoft checkpoint name."
+    },
+    "developer": {
+      "value": "Microsoft",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s12"
+      ],
+      "note": "Official publisher and copyright holder."
+    },
+    "family": {
+      "value": "phi",
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Microsoft explicitly places this model in the Phi family."
+    },
+    "release_date": {
+      "value": "2025-02-26",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s15"
+      ],
+      "note": "Earliest explicit public-availability announcement verified. Repository creation on February 24 does not establish public availability; the later March 3 report date is not the launch date."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s12"
+      ],
+      "note": "Official checkpoint headers are publicly accessible and licensed for redistribution."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s12"
+      ],
+      "note": "Exact model repository license, rather than inferred terms from the code library."
+    },
+    "parameters_b": {
+      "value": 5.574460224,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9",
+        "s10",
+        "s11"
+      ],
+      "note": "Complete unique checkpoint count: 5574460384 BF16 elements minus two 80-element nonlearned audio-normalization buffers = 5574460224 parameters. Tied embeddings count once; both LoRAs already occur in root shards. Nominal 5.6B is consistent rounding. Separate exported LoRA files are not added again."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s3",
+        "s9",
+        "s13"
+      ],
+      "note": "No separately defined single active count is disclosed in the examined first-party materials. Encoder/projector and LoRA participation varies by modality and inference phase; total is not a valid per-token active count."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s9"
+      ],
+      "note": "Dense decoder-only Transformer backbone with GQA, vision and conformer audio encoders, projectors, and modality-specific LoRAs. Mixture-of-LoRAs is not sparse FFN expert routing."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s14",
+        "s1"
+      ],
+      "note": "Exact configured/tokenizer capacity. Audio recommendations remain task-specific: 40 seconds generally and 30 minutes for summarization; 128K is not evidence of validated hours-long audio performance."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "audio"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s9"
+      ],
+      "note": "Supported inputs can be combined; output is generated text. Video tasks use image/frame sequences, not an additional native video tensor interface."
+    },
+    "reasoning": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s13",
+        "s14"
+      ],
+      "note": "Later Microsoft comparison labels this exact variant non-thinking. Ordinary math/logic capability does not establish a dedicated reasoning mode."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s14"
+      ],
+      "note": "Native documented function-call prompt format and tools-aware chat template."
+    },
+    "description": {
+      "value": "Microsoft's multimodal instruction model for text, image, and audio understanding, with text output and modality-specific LoRA adapters.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Summarizes documented inputs, output and modality adaptation without performance rankings."
+    }
+  },
+  "patch": {
+    "parameters_b": 5.574460224,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "description": "Microsoft's multimodal instruction model for text, image, and audio understanding, with text output and modality-specific LoRA adapters.",
+    "source_url": "https://huggingface.co/microsoft/Phi-4-multimodal-instruct",
+    "source_type": "primary",
+    "notes": "Complete checkpoint: 5.574460224B learned parameters, nominally 5.6B. Header element total 5.574460384B includes 160 nonlearned audio-normalization buffer elements. Both modality LoRAs are included once; separate adapter exports are not additional parameters. Active parameters vary with input modality and phase and are not separately disclosed. Context is 131072 tokens; recommended audio lengths are 40 seconds generally or 30 minutes for summarization.",
+    "sources": [
+      {
+        "label": "Microsoft model card",
+        "url": "https://huggingface.co/microsoft/Phi-4-multimodal-instruct",
+        "type": "primary"
+      },
+      {
+        "label": "Microsoft release announcement",
+        "url": "https://azure.microsoft.com/en-us/blog/empowering-innovation-the-next-generation-of-the-phi-family/",
+        "type": "primary"
+      },
+      {
+        "label": "Microsoft technical report",
+        "url": "https://arxiv.org/html/2503.01743v2",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned model configuration",
+        "url": "https://huggingface.co/microsoft/Phi-4-multimodal-instruct/blob/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned tensor index",
+        "url": "https://huggingface.co/microsoft/Phi-4-multimodal-instruct/blob/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Speech encoder buffer definitions",
+        "url": "https://huggingface.co/microsoft/Phi-4-multimodal-instruct/blob/93f923e1a7727d1c4f446756212d9d3e8fcc5d81/speech_conformer_encoder.py",
+        "type": "primary"
+      },
+      {
+        "label": "Microsoft non-thinking model comparison",
+        "url": "https://arxiv.org/html/2603.03975v1",
+        "type": "primary"
+      }
+    ]
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "language_backbone": 3.83602176,
+      "vision_encoder_projector": 0.441550016,
+      "audio_encoder_projectors": 0.466416256,
+      "vision_lora": 0.369098752,
+      "speech_lora": 0.46137344
+    }
+  },
+  "summary": "Fill total parameters with the complete header/configuration-reconciled 5.574460224B and architecture with dense; clarify the description. Component totals include both modality LoRAs and exclude 160 audio normalization buffer elements. Confirm February 26, 2025 launch, MIT open weights, 131072-token context, native function calling and non-thinking classification. Retain null active parameters because routing depends on modality and phase. Only safetensors headers were read; no complete weights were downloaded or unpickled."
+}
