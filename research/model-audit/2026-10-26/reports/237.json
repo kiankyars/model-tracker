@@ -1,0 +1,346 @@
+{
+  "index": 237,
+  "model_id": "ibm/granite-4.2-8b",
+  "reviewed_at": "2026-10-26T20:48:02.467632Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/ibm-granite/granite-4.2-8b",
+      "title": "IBM Granite 4.2 8B official model card",
+      "publisher": "IBM Granite",
+      "accessed": true,
+      "evidence": "Identifies IBM, Granite 4.2 8B, Apache 2.0, text generation, dense decoder-only GraniteForCausalLM, nominal 8B size, configurable thinking and native tool calling. States native 128K with a 512K long-context extension; its serving examples use 131072."
+    },
+    {
+      "id": "s2",
+      "url": "https://raw.githubusercontent.com/ibm-granite/granite-4.2-language-models/main/disclosures/granite_4.2_8b_disclosure.json",
+      "title": "Granite 4.2 8B structured model disclosure",
+      "publisher": "IBM",
+      "accessed": true,
+      "evidence": "Dated 2026-09-03. Exact model entry specifies release_date 08/25/2026, approx_parameter_count 8000000000 and separately active_approx_parameter_count 8000000000. Identifies IBM Granite family, dense Transformer, Apache License 2.0, 40 layers and 128K context."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/ibm-granite/granite-4.2-8b/raw/a7042144125ce5ae64f89610e8289647fc000b9a/config.json",
+      "title": "Granite 4.2 8B checkpoint configuration",
+      "publisher": "IBM Granite",
+      "accessed": true,
+      "evidence": "GraniteForCausalLM; 40 dense layers, hidden size 4096, intermediate size 12800, 32 query and 8 KV heads, vocabulary 100352, tie_word_embeddings=false, BF16, max_position_embeddings=131072 and no RoPE scaling. No MoE routing, Mamba, multimodal or draft-head configuration."
+    },
+    {
+      "id": "s4",
+      "url": "https://research.ibm.com/blog/introducing-granite-4-2",
+      "title": "Granite 4.2 brings native reasoning to enterprise agents",
+      "publisher": "IBM Research",
+      "accessed": true,
+      "evidence": "Explicit release announcement dated 25 August 2026 says IBM is releasing the 3B, 8B and 30B language models that day under Apache 2.0. Describes dense architecture, reasoning and tool use. Separately discusses speech models; those are not this checkpoint."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/blog/ibm-granite/granite-4-2",
+      "title": "Granite 4.2 LLMs: How They're Built",
+      "publisher": "IBM Granite Team",
+      "accessed": true,
+      "evidence": "Technical account published 2026-08-25 and updated 2026-09-11. Its exact 8B comparison column confirms dense decoder-only architecture, 40 layers, 32 query heads, 8 KV heads and separate input/output embeddings. Covers reasoning/tool post-training and distinguishes BF16 checkpoints from separately released quantized variants."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/ibm-granite/granite-4.2-8b/raw/a7042144125ce5ae64f89610e8289647fc000b9a/model.safetensors.index.json",
+      "title": "Granite 4.2 8B complete checkpoint tensor index",
+      "publisher": "IBM Granite",
+      "accessed": true,
+      "evidence": "Maps 363 named weight tensors over four shards, including separate lm_head.weight and model.embed_tokens.weight. Header names exactly match this map. Its total_size 16761102336 bytes conflicts with the headers: they contain 17583185920 BF16 data bytes, a shortfall of 822083584 bytes (one embedding matrix in size)."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/api/models/ibm-granite/granite-4.2-8b",
+      "title": "Official IBM checkpoint Hub metadata",
+      "publisher": "Hugging Face / IBM Granite",
+      "accessed": true,
+      "evidence": "Revision a7042144125ce5ae64f89610e8289647fc000b9a. Safetensors metadata reports 8791592960 BF16 parameters, matching the independent four-header sum. Repository creation on August 7 is not used as the public release date."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/ibm-granite/granite-4.2-3b/discussions/3",
+      "title": "IBM Granite clarification of 128K versus 512K context",
+      "publisher": "IBM Granite (Gabe Goodhart)",
+      "accessed": true,
+      "evidence": "On 2026-09-11 IBM Granite organization member gabegoodhart explicitly answers for all models in the 4.2 family: trained to support 512K, users may raise the serving context flag without RoPE scaling. All were evaluated at 128K, explaining the distributed default and maximum evaluated length. This family-wide clarification corroborates the exact 8B card, rather than transferring a 3B-only specification."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/ibm-granite/granite-4.2-8b/resolve/a7042144125ce5ae64f89610e8289647fc000b9a/model-00001-of-00004.safetensors",
+      "title": "Granite 4.2 8B model-00001-of-00004.safetensors tensor header",
+      "publisher": "IBM Granite",
+      "accessed": true,
+      "evidence": "Only HTTP byte ranges for the 8-byte length and 9864-byte JSON header were read. Contains 85 BF16 learned-weight tensors with 2667655168 elements. Non-overlapping storage offsets; no quantization scales, buffers or packed elements. Whole shard was not downloaded."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/ibm-granite/granite-4.2-8b/resolve/a7042144125ce5ae64f89610e8289647fc000b9a/model-00002-of-00004.safetensors",
+      "title": "Granite 4.2 8B model-00002-of-00004.safetensors tensor header",
+      "publisher": "IBM Granite",
+      "accessed": true,
+      "evidence": "Only HTTP byte ranges for the 8-byte length and 13728-byte JSON header were read. Contains 118 BF16 learned-weight tensors with 2642518016 elements. Non-overlapping storage offsets; no quantization scales, buffers or packed elements. Whole shard was not downloaded."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/ibm-granite/granite-4.2-8b/resolve/a7042144125ce5ae64f89610e8289647fc000b9a/model-00003-of-00004.safetensors",
+      "title": "Granite 4.2 8B model-00003-of-00004.safetensors tensor header",
+      "publisher": "IBM Granite",
+      "accessed": true,
+      "evidence": "Only HTTP byte ranges for the 8-byte length and 14168-byte JSON header were read. Contains 122 BF16 learned-weight tensors with 2680270848 elements. Non-overlapping storage offsets; no quantization scales, buffers or packed elements. Whole shard was not downloaded."
+    },
+    {
+      "id": "s12",
+      "url": "https://huggingface.co/ibm-granite/granite-4.2-8b/resolve/a7042144125ce5ae64f89610e8289647fc000b9a/model-00004-of-00004.safetensors",
+      "title": "Granite 4.2 8B model-00004-of-00004.safetensors tensor header",
+      "publisher": "IBM Granite",
+      "accessed": true,
+      "evidence": "Only HTTP byte ranges for the 8-byte length and 4320-byte JSON header were read. Contains 38 BF16 learned-weight tensors with 801148928 elements. Non-overlapping storage offsets; no quantization scales, buffers or packed elements. Whole shard was not downloaded."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Granite 4.2 8B",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Normalized display name of the exact Granite-4.2-8B checkpoint."
+    },
+    "developer": {
+      "value": "IBM",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Official card identifies Granite Team, IBM."
+    },
+    "family": {
+      "value": "granite",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Catalog family key for the explicitly identified IBM Granite family."
+    },
+    "release_date": {
+      "value": "2026-08-25",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4"
+      ],
+      "note": "Exact release date independently given by the model disclosure and dated release announcement. August 7 repository creation and later provider listing dates do not replace public release."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6",
+        "s9",
+        "s10",
+        "s11",
+        "s12"
+      ],
+      "note": "Official BF16 checkpoint is publicly downloadable; bounded reads of every shard header succeeded."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4"
+      ],
+      "note": "Exact model card and disclosure specify Apache License 2.0."
+    },
+    "parameters_b": {
+      "value": 8.79159296,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s6",
+        "s7",
+        "s9",
+        "s10",
+        "s11",
+        "s12"
+      ],
+      "note": "Complete count: 8,791,592,960 unique learned parameters across 363 BF16 tensors. Both untied 100352 x 4096 embedding/output matrices count separately; no buffers, scales, expert routing or draft heads occur. All four headers exactly match the index name set. Formula: 2*100352*4096 + 40*(2*4096*4096 + 2*1024*4096 + 3*4096*12800 + 2*4096) + 4096. Nominal 8B differs from the complete count. Index total_size understates actual tensor bytes by 822,083,584, equivalent to 411,041,792 BF16 elements; do not derive count from that stale total."
+    },
+    "active_parameters_b": {
+      "value": 8,
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "IBM separately publishes active_approx_parameter_count=8000000000. This is its approximate active count, not an inference that exact dense active count equals exact total. No exact inference-active count is supplied."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s5",
+        "s9",
+        "s10",
+        "s11",
+        "s12"
+      ],
+      "note": "Decoder-only dense Transformer, GraniteForCausalLM, with 40 GQA/SwiGLU layers, 32 query heads and 8 KV heads. Exact config and all tensors exclude a Mamba/Transformer hybrid or MoE interpretation. Untied embeddings."
+    },
+    "context_window": {
+      "value": 524288,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s5",
+        "s8"
+      ],
+      "note": "Supported 512K extension, represented as 524288 tokens. Exact 8B card states the extension; the later IBM reply explicitly covers all 4.2 models and permits raising the context flag without RoPE scaling. Default config, serving examples and evaluated maximum are 131072. The extension is an IBM support/training claim; evaluation beyond 128K is not established. Neither length is asserted to be an architectural hard limit."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s6"
+      ],
+      "note": "Exact checkpoint is a text-generation causal language model with token embeddings and text outputs. It has no vision/audio encoder; separately announced Granite Speech models do not change its modality."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Native thinking mode with full, non-thinking and low-effort controls is documented for this exact model."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Native structured function/tool calling and multi-turn tool responses are explicitly documented."
+    },
+    "description": {
+      "value": "IBM text model with a dense decoder-only Transformer, configurable thinking modes, and native tool calling.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s5"
+      ],
+      "note": "Plain description of documented architecture and capabilities, without unsupported comparative performance claims."
+    }
+  },
+  "patch": {
+    "license": "Apache-2.0",
+    "parameters_b": 8.79159296,
+    "active_parameters_b": 8,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "context_window": 524288,
+    "description": "IBM text model with a dense decoder-only Transformer, configurable thinking modes, and native tool calling.",
+    "source_url": "https://huggingface.co/ibm-granite/granite-4.2-8b",
+    "source_type": "primary",
+    "notes": "Complete BF16 checkpoint: 8,791,592,960 learned parameters, including separate input/output embeddings. IBM publishes approximate total and active counts of 8B; active 8B is approximate, not an exact equality with the complete count. The index byte total is inconsistent; all four tensor headers and Hub metadata agree on the exact count. IBM supports a 524288-token context extension with a serving-flag change and no RoPE scaling; default and evaluated length remain 131072, with evaluation beyond 128K not established. Dense Transformer, without Mamba or MoE.",
+    "sources": [
+      {
+        "label": "IBM Granite 4.2 8B official model card",
+        "url": "https://huggingface.co/ibm-granite/granite-4.2-8b",
+        "type": "primary"
+      },
+      {
+        "label": "Granite 4.2 8B structured model disclosure",
+        "url": "https://raw.githubusercontent.com/ibm-granite/granite-4.2-language-models/main/disclosures/granite_4.2_8b_disclosure.json",
+        "type": "primary"
+      },
+      {
+        "label": "Granite 4.2 8B checkpoint configuration",
+        "url": "https://huggingface.co/ibm-granite/granite-4.2-8b/raw/a7042144125ce5ae64f89610e8289647fc000b9a/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Granite 4.2 brings native reasoning to enterprise agents",
+        "url": "https://research.ibm.com/blog/introducing-granite-4-2",
+        "type": "primary"
+      },
+      {
+        "label": "Granite 4.2 LLMs: How They're Built",
+        "url": "https://huggingface.co/blog/ibm-granite/granite-4-2",
+        "type": "primary"
+      },
+      {
+        "label": "Granite 4.2 8B complete checkpoint tensor index",
+        "url": "https://huggingface.co/ibm-granite/granite-4.2-8b/raw/a7042144125ce5ae64f89610e8289647fc000b9a/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Official IBM checkpoint Hub metadata",
+        "url": "https://huggingface.co/api/models/ibm-granite/granite-4.2-8b",
+        "type": "primary"
+      },
+      {
+        "label": "IBM Granite clarification of 128K versus 512K context",
+        "url": "https://huggingface.co/ibm-granite/granite-4.2-3b/discussions/3",
+        "type": "primary"
+      },
+      {
+        "label": "Granite 4.2 8B model-00001-of-00004.safetensors tensor header",
+        "url": "https://huggingface.co/ibm-granite/granite-4.2-8b/resolve/a7042144125ce5ae64f89610e8289647fc000b9a/model-00001-of-00004.safetensors",
+        "type": "primary"
+      },
+      {
+        "label": "Granite 4.2 8B model-00002-of-00004.safetensors tensor header",
+        "url": "https://huggingface.co/ibm-granite/granite-4.2-8b/resolve/a7042144125ce5ae64f89610e8289647fc000b9a/model-00002-of-00004.safetensors",
+        "type": "primary"
+      },
+      {
+        "label": "Granite 4.2 8B model-00003-of-00004.safetensors tensor header",
+        "url": "https://huggingface.co/ibm-granite/granite-4.2-8b/resolve/a7042144125ce5ae64f89610e8289647fc000b9a/model-00003-of-00004.safetensors",
+        "type": "primary"
+      },
+      {
+        "label": "Granite 4.2 8B model-00004-of-00004.safetensors tensor header",
+        "url": "https://huggingface.co/ibm-granite/granite-4.2-8b/resolve/a7042144125ce5ae64f89610e8289647fc000b9a/model-00004-of-00004.safetensors",
+        "type": "primary"
+      }
+    ]
+  },
+  "conflicts": [
+    {
+      "claim": "Index metadata total_size",
+      "resolution": "Use direct shape sum and actual offsets from all four BF16 headers: 17,583,185,920 data bytes / 2 = 8,791,592,960 parameters. Index metadata says 16,761,102,336, undercounting by 822,083,584 bytes, exactly the size of one embedding matrix; cause is not assumed."
+    },
+    {
+      "claim": "512K versus 128K context",
+      "resolution": "Exact card plus later IBM organization reply support 512K serving by changing the context flag. Keep 128K as default and maximum evaluated length, not a universal hard limit."
+    },
+    {
+      "claim": "Release article mentions a speculative-decoding layer",
+      "resolution": "No separate draft/speculative module is present in the exact configuration or complete 363-tensor checkpoint. The complete count includes all released checkpoint weights and does not add any external draft model."
+    }
+  ],
+  "summary": "Verified all 14 fields against IBM sources and exact checkpoint metadata. Corrected nominal 8B total to 8.79159296B complete unique parameters, filled explicitly disclosed approximate 8B active count, Apache-2.0 and dense architecture, and documented the supported 524288 context extension with the 131072 default/evaluated qualification. Release remains 2026-08-25; text modalities, reasoning and native tool calling confirmed. Four tensor-header reads resolve an inconsistent index byte total; no full weights downloaded."
+}
