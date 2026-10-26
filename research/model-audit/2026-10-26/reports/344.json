@@ -1,0 +1,266 @@
+{
+  "index": 344,
+  "model_id": "mistral/mistral-small-2603",
+  "reviewed_at": "2026-10-26T23:33:37.638426Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://docs.mistral.ai/models/mistral-small-4-0-26-03",
+      "title": "Mistral Small 4 official model documentation",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Maps Mistral Small 4 v26.03 to mistral-small-2603, dates release March 16, 2026, and identifies Apache 2.0, 119B total, 6.5B active, 256k context and function calling."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/mistralai/Mistral-Small-4-119B-2603/raw/a11f36bebf709121056b1dbcc943d1c6afbe494d/README.md",
+      "title": "Mistral-Small-4-119B-2603 model card, pinned revision",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Official downloadable model card states 119B total and 6.5B activated per token, text/image input and text output, configurable reasoning and function calling, Apache 2.0, and 256k context. Its serving command explicitly uses --max-model-len 262144."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/mistralai/Mistral-Small-4-119B-2603/raw/a11f36bebf709121056b1dbcc943d1c6afbe494d/params.json",
+      "title": "Mistral Small 4 native parameters, pinned revision",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Native configuration has 36 text layers, 128 routed experts with four selected per token and one shared expert, low-rank attention settings, and a vision encoder. max_position_embeddings is 1048576; FP8 quantization is explicit."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/mistralai/Mistral-Small-4-119B-2603/raw/a11f36bebf709121056b1dbcc943d1c6afbe494d/config.json",
+      "title": "Mistral Small 4 Transformers configuration, pinned revision",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Mistral3ForConditionalGeneration combines mistral4 text configuration and a 24-layer Pixtral vision encoder. Text configuration independently lists 128 routed experts, top-four routing, one shared expert, and 1048576 positional embeddings."
+    },
+    {
+      "id": "s5",
+      "url": "https://mistral.ai/news/mistral-small-4/",
+      "title": "Introducing Mistral Small 4",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "March 16, 2026 announcement places the model in the Mistral Small family, releases Apache 2.0 weights, and describes multimodal instruct, reasoning and coding uses. Reports 119B total, but calls active parameters 6B, or 8B including embedding/output layers, unlike the current 6.5B documentation."
+    },
+    {
+      "id": "s6",
+      "url": "https://raw.githubusercontent.com/mistralai/platform-docs-public/cd2192ef7d0e96388a4261dbb6d417869e4bb965/src/schema/models/models/mistral-small-4-0-26-03.ts",
+      "title": "Official Mistral Small 4 model schema, pinned documentation revision",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Exact API identifier mistral-small-2603 maps to Mistral Small 4, release 2026-03-16, open weights and Apache 2.0. The weights record separately lists parameters 119 and active 6.5, with 256k context, text/image inputs, reasoning/text outputs and function calling."
+    },
+    {
+      "id": "s7",
+      "url": "https://raw.githubusercontent.com/mistralai/platform-docs-public/cd2192ef7d0e96388a4261dbb6d417869e4bb965/src/app/%5Blocale%5D/(docs)/models/model-cards/%5Bslug%5D/components/weights-table.tsx",
+      "title": "Official model weights table column labels, pinned documentation revision",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Renderer labels the schema parameters and active fields as Parameters (B) and Active (B), separately from GPU RAM (GB), establishing units and preventing a memory-size misreading."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Mistral Small 4",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Exact release name associated with mistral-small-2603."
+    },
+    "developer": {
+      "value": "Mistral",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Mistral AI authors both the official release and model documentation; retain catalog developer spelling."
+    },
+    "family": {
+      "value": "mistral-small",
+      "status": "verified",
+      "source_ids": [
+        "s5"
+      ],
+      "note": "Announcement explicitly identifies this as the next major release of the Mistral Small family."
+    },
+    "release_date": {
+      "value": "2026-03-16",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5",
+        "s6"
+      ],
+      "note": "Explicit public announcement and exact-identifier schema agree on day-level release date; repository creation is not used as release evidence."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s5",
+        "s6"
+      ],
+      "note": "Official release distributes the exact 2603 checkpoint publicly; model schema classifies it as Open."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s5",
+        "s6"
+      ],
+      "note": "Apache 2.0 explicitly applies to this model."
+    },
+    "parameters_b": {
+      "value": 119,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "note": "Official nominal total in billions, independently labeled Parameters (B). This is not an inferred count of FP8 storage or scale tensors."
+    },
+    "active_parameters_b": {
+      "value": 6.5,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "note": "Use the current card/documentation nominal active-per-token count, also labeled Active (B). Launch text instead says 6B, or 8B including embeddings/output; the sources do not reconcile these conventions. Do not substitute 119B or infer active count from routed-expert ratio."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "note": "Native sparse MoE text decoder: 36 layers, 128 routed experts with four selected per token, one shared expert, and low-rank attention; multimodal wrapper includes a Pixtral vision encoder. Hybrid in the product description refers to reasoning/instruct modes."
+    },
+    "context_window": {
+      "value": 262144,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s6"
+      ],
+      "note": "The supported 256k model-card deployment explicitly sets 262144 tokens. This resolves the shorthand without assuming decimal k. Native/config positional capacity 1048576 does not establish a supported 1M context. API documentation states only 256k; its exact endpoint ceiling was not independently probed."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s6"
+      ],
+      "note": "Official card explicitly defines text/image inputs and text output; reasoning traces are text, not a separate media modality."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s5",
+        "s6"
+      ],
+      "note": "Per-request reasoning_effort none/high explicitly toggles reasoning behavior."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s6"
+      ],
+      "note": "Official exact-model documentation and card explicitly support function calling."
+    },
+    "description": {
+      "value": "Open-weight multimodal mixture-of-experts model for instruction following, coding and configurable reasoning, with native function calling.",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s5",
+        "s6"
+      ],
+      "note": "Replaces generic production/cost positioning with directly documented capabilities and architecture."
+    }
+  },
+  "patch": {
+    "license": "Apache-2.0",
+    "parameters_b": 119,
+    "active_parameters_b": 6.5,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "context_window": 262144,
+    "description": "Open-weight multimodal mixture-of-experts model for instruction following, coding and configurable reasoning, with native function calling.",
+    "source_url": "https://docs.mistral.ai/models/mistral-small-4-0-26-03",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Mistral Small 4 official model documentation",
+        "url": "https://docs.mistral.ai/models/mistral-small-4-0-26-03",
+        "type": "primary"
+      },
+      {
+        "label": "Mistral-Small-4-119B-2603 model card, pinned revision",
+        "url": "https://huggingface.co/mistralai/Mistral-Small-4-119B-2603/raw/a11f36bebf709121056b1dbcc943d1c6afbe494d/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "Mistral Small 4 native parameters, pinned revision",
+        "url": "https://huggingface.co/mistralai/Mistral-Small-4-119B-2603/raw/a11f36bebf709121056b1dbcc943d1c6afbe494d/params.json",
+        "type": "weights"
+      },
+      {
+        "label": "Mistral Small 4 Transformers configuration, pinned revision",
+        "url": "https://huggingface.co/mistralai/Mistral-Small-4-119B-2603/raw/a11f36bebf709121056b1dbcc943d1c6afbe494d/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Introducing Mistral Small 4",
+        "url": "https://mistral.ai/news/mistral-small-4/",
+        "type": "primary"
+      },
+      {
+        "label": "Official Mistral Small 4 model schema, pinned documentation revision",
+        "url": "https://raw.githubusercontent.com/mistralai/platform-docs-public/cd2192ef7d0e96388a4261dbb6d417869e4bb965/src/schema/models/models/mistral-small-4-0-26-03.ts",
+        "type": "primary"
+      },
+      {
+        "label": "Official model weights table column labels, pinned documentation revision",
+        "url": "https://raw.githubusercontent.com/mistralai/platform-docs-public/cd2192ef7d0e96388a4261dbb6d417869e4bb965/src/app/%5Blocale%5D/(docs)/models/model-cards/%5Bslug%5D/components/weights-table.tsx",
+        "type": "primary"
+      }
+    ],
+    "notes": "119B total and 6.5B active are official nominal counts from the current card and labeled documentation table. The launch announcement instead reports 6B active, or 8B including embedding/output layers; those conventions are not reconciled. Context is the card-supported 262,144-token serving length (256k); the native 1,048,576 positional setting is not a supported-context claim, and the API documentation does not spell out its exact endpoint ceiling."
+  },
+  "summary": "Confirmed exact Small 4 / mistral-small-2603 identity and March 16, 2026 release. Fill Apache 2.0, nominal 119B total / 6.5B active and native MoE architecture; correct supported model context to 262144 and replace generic description. Preserve explicit active-count disagreement with the launch announcement and distinguish supported context from positional capacity."
+}

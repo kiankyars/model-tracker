@@ -13679,16 +13679,16 @@
     "developer": "Mistral",
     "developer_id": "mistral",
     "family": "mistral-small",
-    "description": "Fast Mistral production model for chat, extraction, and cost-sensitive agents",
+    "description": "Open-weight multimodal mixture-of-experts model for instruction following, coding and configurable reasoning, with native function calling.",
     "release_date": "2026-03-16",
     "date_precision": "day",
     "open_weights": true,
-    "license": null,
-    "parameters_b": null,
-    "active_parameters_b": null,
-    "parameters_source": null,
-    "architecture": null,
-    "context_window": 256000,
+    "license": "Apache-2.0",
+    "parameters_b": 119,
+    "active_parameters_b": 6.5,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "context_window": 262144,
     "modalities": {
       "input": [
         "text",
@@ -13700,9 +13700,44 @@
     },
     "reasoning": true,
     "tool_call": true,
-    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/mistral/mistral-small-2603.toml",
-    "source_type": "catalog",
+    "source_url": "https://docs.mistral.ai/models/mistral-small-4-0-26-03",
+    "source_type": "primary",
     "sources": [
+      {
+        "label": "Mistral Small 4 official model documentation",
+        "url": "https://docs.mistral.ai/models/mistral-small-4-0-26-03",
+        "type": "primary"
+      },
+      {
+        "label": "Mistral-Small-4-119B-2603 model card, pinned revision",
+        "url": "https://huggingface.co/mistralai/Mistral-Small-4-119B-2603/raw/a11f36bebf709121056b1dbcc943d1c6afbe494d/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "Mistral Small 4 native parameters, pinned revision",
+        "url": "https://huggingface.co/mistralai/Mistral-Small-4-119B-2603/raw/a11f36bebf709121056b1dbcc943d1c6afbe494d/params.json",
+        "type": "weights"
+      },
+      {
+        "label": "Mistral Small 4 Transformers configuration, pinned revision",
+        "url": "https://huggingface.co/mistralai/Mistral-Small-4-119B-2603/raw/a11f36bebf709121056b1dbcc943d1c6afbe494d/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Introducing Mistral Small 4",
+        "url": "https://mistral.ai/news/mistral-small-4/",
+        "type": "primary"
+      },
+      {
+        "label": "Official Mistral Small 4 model schema, pinned documentation revision",
+        "url": "https://raw.githubusercontent.com/mistralai/platform-docs-public/cd2192ef7d0e96388a4261dbb6d417869e4bb965/src/schema/models/models/mistral-small-4-0-26-03.ts",
+        "type": "primary"
+      },
+      {
+        "label": "Official model weights table column labels, pinned documentation revision",
+        "url": "https://raw.githubusercontent.com/mistralai/platform-docs-public/cd2192ef7d0e96388a4261dbb6d417869e4bb965/src/app/%5Blocale%5D/(docs)/models/model-cards/%5Bslug%5D/components/weights-table.tsx",
+        "type": "primary"
+      },
       {
         "label": "Models.dev record",
         "url": "https://github.com/anomalyco/models.dev/blob/dev/models/mistral/mistral-small-2603.toml",
@@ -13717,7 +13752,11 @@
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
+    "upstream_present": true,
+    "notes": "119B total and 6.5B active are official nominal counts from the current card and labeled documentation table. The launch announcement instead reports 6B active, or 8B including embedding/output layers; those conventions are not reconciled. Context is the card-supported 262,144-token serving length (256k); the native 1,048,576 positional setting is not a supported-context claim, and the API documentation does not spell out its exact endpoint ceiling.",
+    "field_status": {},
+    "audited_at": "2026-10-26T23:33:37.638426Z",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/344.json"
   },
   {
     "id": "nvidia/nemotron-3-content-safety",
