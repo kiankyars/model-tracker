@@ -1,0 +1,274 @@
+{
+  "index": 348,
+  "model_id": "mistral/mixtral-8x7b-instruct-v0.1",
+  "reviewed_at": "2026-10-26T23:37:46.182030Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://mistral.ai/news/mixtral-of-experts/",
+      "title": "Mixtral of experts \u2014 original release announcement",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Dated December 11, 2023; releases Mixtral 8x7B Instruct alongside the base model. Describes sparse decoder-only architecture with two of eight experts per layer, 46.7B total and 12.9B parameters used per token, 32k context, Apache 2.0 open weights, and Instruct training using SFT and DPO."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1/raw/eba92302a2861cdc0098cc54bc9f17cb2c47eb61/README.md",
+      "title": "Mixtral-8x7B-Instruct-v0.1 official model card at eba9230",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Exact checkpoint card names its Mixtral-8x7B-v0.1 base, Apache 2.0 license, released weights, instruction format and text-generation examples. Its reference inference explicitly uses MistralTokenizer.v1()."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1/raw/eba92302a2861cdc0098cc54bc9f17cb2c47eb61/config.json",
+      "title": "Mixtral-8x7B-Instruct-v0.1 configuration at eba9230",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Exact Instruct checkpoint declares MixtralForCausalLM/model_type mixtral, 32 layers, eight local experts with two selected per token, max_position_embeddings 32768, no sliding window, text vocabulary 32000, BF16 weights and untied word embeddings."
+    },
+    {
+      "id": "s4",
+      "url": "https://arxiv.org/html/2401.04088v1",
+      "title": "Mixtral of Experts \u2014 technical report",
+      "publisher": "Mistral AI authors / arXiv",
+      "accessed": true,
+      "evidence": "Describes the Transformer MoE architecture and its Instruct fine-tune; gives 47B total/13B active nominal counts, Table 1 context_len 32768 and explicitly supported dense 32k context, plus open Apache 2.0 release for both base and Instruct."
+    },
+    {
+      "id": "s5",
+      "url": "https://docs.mistral.ai/models/mixtral-8x7b-0-1",
+      "title": "Mixtral 8x7B official model specifications",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Exact Instruct Weights row links Mixtral-8x7B-Instruct-v0.1 and explicitly lists Parameters (B) 47, Active (B) 13, Apache 2.0, and 32k token context. The release date is December 11, 2023. API retirement is separately documented."
+    },
+    {
+      "id": "s6",
+      "url": "https://raw.githubusercontent.com/mistralai/platform-docs-public/cd2192ef7d0e96388a4261dbb6d417869e4bb965/src/schema/models/models/mixtral-8x7b-0-1.ts",
+      "title": "Pinned official Mixtral 8x7B specification source",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "At cd2192e the Instruct Weights entry links this exact checkpoint and records parameters 47, active 13, contextSize 32k and Apache 2.0. Model capabilities explicitly list text input/text output. Empty features do not expressly classify dedicated reasoning."
+    },
+    {
+      "id": "s7",
+      "url": "https://raw.githubusercontent.com/mistralai/platform-docs-public/cd2192ef7d0e96388a4261dbb6d417869e4bb965/src/app/%5Blocale%5D/(docs)/models/model-cards/%5Bslug%5D/components/weights-table.tsx",
+      "title": "Pinned official weights-table renderer",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "The parameters and active source properties are rendered under Parameters (B) and Active (B), establishing billion-parameter units separately from GPU RAM."
+    },
+    {
+      "id": "s8",
+      "url": "https://raw.githubusercontent.com/mistralai/mistral-common/d4364d04c684051a7a246e49bc699b9b1ed46420/src/mistral_common/tokens/tokenizers/instruct.py",
+      "title": "Pinned official InstructTokenizerV1 implementation",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "InstructTokenizerV1 expressly does not support tools, images or audio; encode_tool_message and assistant messages containing tool_calls raise TokenizerException. This establishes lack of native tool protocol for the V1 reference tokenizer, not inability to follow externally wrapped text instructions."
+    },
+    {
+      "id": "s9",
+      "url": "https://raw.githubusercontent.com/mistralai/mistral-common/d4364d04c684051a7a246e49bc699b9b1ed46420/src/mistral_common/tokens/tokenizers/mistral.py",
+      "title": "Pinned official MistralTokenizer V1 factory",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "MistralTokenizer.v1 loads tokenizer.model.v1; the V1 branch constructs InstructTokenizerV1. This connects the exact checkpoint card reference tokenizer to the explicit unsupported-tools implementation."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Mixtral 8x7B Instruct v0.1",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s5"
+      ],
+      "note": "Readable form of the exact released checkpoint identifier; retains Instruct and v0.1."
+    },
+    "developer": {
+      "value": "Mistral",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Mistral AI releases and publishes this checkpoint; preserve the catalog developer label."
+    },
+    "family": {
+      "value": "mixtral",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "note": "Normalize the Mixtral lineage: this Instruct checkpoint identifies Mixtral-8x7B-v0.1 as its base and its configuration uses model_type mixtral. Mistral is the developer and broader brand."
+    },
+    "release_date": {
+      "value": "2023-12-11",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Original dated launch explicitly releases the Instruct model alongside the base model; the later official specification agrees."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5"
+      ],
+      "note": "Developer release and exact official downloadable Instruct weights establish open weights."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s5"
+      ],
+      "note": "Exact Instruct card and weights row specify Apache 2.0; the paper explicitly includes both base and Instruct."
+    },
+    "parameters_b": {
+      "value": 46.7,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "note": "Retain developer launch precision: 46.7 billion total parameters. The exact Instruct configuration matches the published Mixtral architecture, and its official weights row independently reports the consistent whole-billion nominal count 47B. Neither value is 8 multiplied by 7B; no exact tensor-count claim is made."
+    },
+    "active_parameters_b": {
+      "value": 12.9,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "note": "Developer launch explicitly states 12.9B parameters used per token; exact Instruct configuration selects two of eight experts per layer. Its separate official Active (B) entry rounds to 13B. These are nominal developer disclosures, not an expert-name multiplication."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "note": "Sparse decoder-only Transformer mixture of experts; the exact configuration has eight experts per layer with two routed per token."
+    },
+    "context_window": {
+      "value": 32768,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "note": "Supported 32k context is stated for the exact Instruct weights; paper Table 1 specifies 32768 and explicitly describes dense supported context. Exact config agrees. This is not inferred only from maximum positional embeddings."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s6",
+        "s8"
+      ],
+      "note": "Official capabilities explicitly specify text input/output; exact card demonstrates text generation with its V1 tokenizer."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4",
+        "s6"
+      ],
+      "note": "Reviewed first-party sources describe instruction tuning and benchmark reasoning, but do not explicitly classify this exact checkpoint as supporting or lacking a dedicated reasoning mode. Empty feature metadata and absence of a thinking-token protocol do not establish false; clear the unsupported baseline flag."
+    },
+    "tool_call": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s8",
+        "s9"
+      ],
+      "note": "Native tool calling is unsupported in the exact card reference V1 tokenizer: official implementation explicitly rejects tool messages and assistant tool_calls. This does not exclude external prompt templates, constrained decoding or wrappers that emulate function calls."
+    },
+    "description": {
+      "value": "Open sparse mixture-of-experts Mistral instruction model",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4"
+      ],
+      "note": "Concise description is supported by the official open-weight release and instruction fine-tuning account."
+    }
+  },
+  "patch": {
+    "family": "mixtral",
+    "reasoning": null,
+    "parameters_source": "primary_source",
+    "notes": "Developer-disclosed nominal counts are 46.7B total and 12.9B active per token; the exact Instruct weights specification rounds these to 47B and 13B. Native tool calling is unsupported by the official V1 tokenizer; external wrappers are separate. Dedicated reasoning classification remains unverified.",
+    "sources": [
+      {
+        "label": "Official Mixtral release",
+        "url": "https://mistral.ai/news/mixtral-of-experts/",
+        "type": "primary"
+      },
+      {
+        "label": "Exact Instruct checkpoint card",
+        "url": "https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1/raw/eba92302a2861cdc0098cc54bc9f17cb2c47eb61/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "Exact Instruct configuration",
+        "url": "https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1/raw/eba92302a2861cdc0098cc54bc9f17cb2c47eb61/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Official Mixtral technical report",
+        "url": "https://arxiv.org/html/2401.04088v1",
+        "type": "primary"
+      },
+      {
+        "label": "Official Instruct weights specifications",
+        "url": "https://docs.mistral.ai/models/mixtral-8x7b-0-1",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned official model specification",
+        "url": "https://raw.githubusercontent.com/mistralai/platform-docs-public/cd2192ef7d0e96388a4261dbb6d417869e4bb965/src/schema/models/models/mixtral-8x7b-0-1.ts",
+        "type": "primary"
+      },
+      {
+        "label": "Official V1 tool-protocol implementation",
+        "url": "https://raw.githubusercontent.com/mistralai/mistral-common/d4364d04c684051a7a246e49bc699b9b1ed46420/src/mistral_common/tokens/tokenizers/instruct.py",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "Confirmed original 2023-12-11 Instruct release, Apache 2.0 open weights, 46.7B total/12.9B active nominal counts (official Instruct row rounds to 47B/13B), sparse MoE architecture, 32768-token supported context and text modalities. Normalize family to mixtral. Preserve native tool_call=false with explicit official V1 tokenizer evidence. Clear unsupported reasoning=false to null; no exact dedicated reasoning classification was established."
+}
