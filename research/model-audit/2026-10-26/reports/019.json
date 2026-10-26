@@ -1,7 +1,7 @@
 {
   "index": 19,
   "model_id": "alibaba/qwen-vl-plus",
-  "reviewed_at": "2026-10-26T14:08:53.688828Z",
+  "reviewed_at": "2026-10-26T14:26:04.715801Z",
   "sources": [
     {
       "id": "s1",
@@ -74,6 +74,30 @@
       "publisher": "Alibaba Cloud",
       "accessed": true,
       "evidence": "The current thinking-mode documentation lists newer Qwen3-VL and other newer series. It does not give an exact legacy qwen-vl-plus thinking-mode declaration; omission is not treated as sufficient proof of false."
+    },
+    {
+      "id": "s10",
+      "url": "https://www.alibabacloud.com/help/en/model-studio/qwen-vl-plus-2025-08-15",
+      "title": "Attempted Qwen-VL-Plus 2025-08-15 snapshot specification",
+      "publisher": "Alibaba Cloud",
+      "accessed": false,
+      "evidence": "The dated snapshot named by the official alias update notice returns an Alibaba 404 error document, despite HTTP 200. No model specification was accessible. The corresponding Chinese path and QwenCloud model path also failed to provide a snapshot card."
+    },
+    {
+      "id": "s11",
+      "url": "https://docs.qwencloud.com/changelog/model-deprecations/legacy-snapshot-models",
+      "title": "Notice on decommissioning selected historical snapshot models",
+      "publisher": "QwenCloud / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Lists qwen-vl-plus-2025-08-15 among historical snapshots scheduled for decommissioning in Beijing and Singapore on May 13, 2026. Does not provide its context or modality specification, and does not identify the bare alias as decommissioned."
+    },
+    {
+      "id": "s12",
+      "url": "https://www.alibabacloud.com/help/zh/model-studio/qwen-vl-plus",
+      "title": "Official Qwen-VL-Plus specification, August 26 2026",
+      "publisher": "Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Parent read the complete indexed official model card. It maps the alias to 2025-08-15, specifies 131072 context and text/image/video input with text output. This is last documented specification evidence; direct fetch timed out and current API operation was not tested."
     }
   ],
   "fields": {
@@ -158,23 +182,31 @@
       "note": "Exact Plus topology and dense-versus-MoE classification are undisclosed. The open Qwen-VL architecture is not evidence for this hosted variant."
     },
     "context_window": {
-      "value": null,
-      "status": "unverified",
+      "value": 131072,
+      "status": "verified",
       "source_ids": [
-        "s4",
-        "s8"
+        "s12",
+        "s4"
       ],
-      "note": "131072 is consistent with indexed official legacy documentation, but the exact specification URL now redirects. The accessible primary sources inspected do not independently establish this value; retain as unresolved rather than assert a current verified limit."
+      "note": "Last documented exact alias specification in the complete indexed primary card; not a current endpoint availability test."
     },
     "modalities": {
-      "value": null,
-      "status": "unverified",
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
       "source_ids": [
-        "s2",
-        "s4",
-        "s5"
+        "s12",
+        "s4"
       ],
-      "note": "Text/image input and text output are demonstrated in the original announcement. Indexed official documentation of the later stable alias adds video, so the baseline may omit video. The removed live specification prevents verification of the complete current modality set."
+      "note": "Complete indexed primary card confirms all three input modalities for the documented 2025-08-15 alias mapping."
     },
     "reasoning": {
       "value": null,
@@ -209,7 +241,7 @@
     "date_precision": null,
     "tool_call": false,
     "description": "Proprietary Qwen vision-language model for high-resolution image understanding, text recognition, and visual question answering.",
-    "notes": "Qwen-VL-Plus appears in official news by 2023-11-28; 2024-01-25 is a later overview date and the exact first public release remains unresolved. The stable API alias was updated to the 2025-08-15 snapshot in September 2025. Parameter counts and architecture are undisclosed. Legacy specification URLs now redirect; indexed official text suggests video input and 131072 context, requiring further direct verification. Dedicated thinking-mode support also remains unverified.",
+    "notes": "Exact first release remains unresolved; Plus appears in official news by November 28, 2023. The August 2026 official model card documents the 2025-08-15 alias mapping, 131072 context and video input. The card is available through the search index; current endpoint operation was not tested. Dedicated thinking mode, parameter counts and architecture remain undisclosed or unverified.",
     "sources": [
       {
         "label": "Qwen official repository and dated news",
@@ -235,8 +267,25 @@
         "label": "DashScope tools support",
         "url": "https://help.aliyun.com/en/model-studio/qwen-api-via-dashscope",
         "type": "primary"
+      },
+      {
+        "label": "Official specification (last indexed August 2026)",
+        "url": "https://www.alibabacloud.com/help/zh/model-studio/qwen-vl-plus",
+        "type": "primary"
       }
-    ]
+    ],
+    "context_window": 131072,
+    "reasoning": null,
+    "modalities": {
+      "input": [
+        "text",
+        "image",
+        "video"
+      ],
+      "output": [
+        "text"
+      ]
+    }
   },
-  "summary": "Reviewed all 14 fields. Correct tool_call to false and replace the generic description with directly evidenced capabilities. Remove the unsupported exact initial release date: official news already names Plus in November 2023, while January 25, 2024 is an overview. Confirm proprietary/open_weights=false. Leave total parameters, active parameters and architecture undisclosed. Context, complete current modalities and dedicated reasoning mode remain unresolved because exact legacy specifications now redirect; do not confuse 2025 hosted snapshots with the original model release. No shared catalog edits performed."
+  "summary": "Clears unsupported launch date and dedicated reasoning flag, corrects tool support, and adds video input. Parent review established 131072 context from the complete indexed official card. Exact parameter counts and architecture remain undisclosed."
 }

@@ -1,0 +1,217 @@
+{
+  "index": 30,
+  "model_id": "alibaba/qwen3-8b",
+  "reviewed_at": "2026-10-26T14:23:42.565Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/Qwen/Qwen3-8B",
+      "title": "Qwen3-8B model card",
+      "publisher": "Qwen / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Exact post-trained checkpoint: 8.2B total, 6.95B non-embedding; text generation, thinking switch, tool-use example; native 32768 context and validated 131072 with YaRN."
+    },
+    {
+      "id": "s2",
+      "url": "https://qwenlm.github.io/blog/qwen3/",
+      "title": "Qwen3: Think Deeper, Act Faster",
+      "publisher": "Qwen Team",
+      "accessed": true,
+      "evidence": "April 29, 2025 launch explicitly includes Qwen3-8B among six dense open-weight models under Apache 2.0."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/Qwen/Qwen3-8B/raw/main/config.json",
+      "title": "Qwen3-8B configuration",
+      "publisher": "Qwen / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Qwen3ForCausalLM; 36 layers, 4096 hidden width, 32 query / 8 KV heads, untied embeddings, max_position_embeddings 40960 and no configured RoPE scaling."
+    },
+    {
+      "id": "s4",
+      "url": "https://arxiv.org/html/2505.09388v1",
+      "title": "Qwen3 Technical Report",
+      "publisher": "Qwen Team",
+      "accessed": true,
+      "evidence": "Architecture section explicitly identifies Qwen3-8B as dense, using GQA, SwiGLU, RoPE, RMSNorm and QK-Norm. Active-per-token counts are specified for MoE models, not this dense variant."
+    },
+    {
+      "id": "s5",
+      "url": "https://github.com/QwenLM/Qwen3",
+      "title": "Qwen3 official repository",
+      "publisher": "Qwen / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Identifies Qwen3 as developed by the Qwen team at Alibaba Cloud; release history records April 29, 2025."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/Qwen/Qwen3-8B/blob/main/LICENSE",
+      "title": "Qwen3-8B LICENSE",
+      "publisher": "Qwen / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Exact checkpoint repository contains Apache License Version 2.0."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Qwen3 8B",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Display spelling of official Qwen3-8B identifier."
+    },
+    "developer": {
+      "value": "Alibaba",
+      "status": "verified",
+      "source_ids": [
+        "s5"
+      ],
+      "note": "Qwen team, Alibaba Cloud."
+    },
+    "family": {
+      "value": "qwen",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4"
+      ],
+      "note": "Qwen3 belongs to the Qwen model family."
+    },
+    "release_date": {
+      "value": "2025-04-29",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s5"
+      ],
+      "note": "Explicit dated public release, including this size."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Announcement explicitly open-weights Qwen3-8B."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s6"
+      ],
+      "note": "Launch and checkpoint license agree."
+    },
+    "parameters_b": {
+      "value": 8.2,
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Developer-reported rounded total in billions; 8B is branding."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s4"
+      ],
+      "note": "No separate active-per-token count; 6.95B is non-embedding, not active."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "note": "Dense causal Transformer with grouped-query attention."
+    },
+    "context_window": {
+      "value": 32768,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Native limit retained; 131072 requires YaRN. Card explains the 40960 config allocation as 32768 output plus 8192 prompt tokens."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Text tokenizer and causal language generation."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Explicit thinking mode controlled by enable_thinking."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Exact Qwen3-8B tool-calling example through Qwen-Agent."
+    },
+    "description": {
+      "value": "Dense 8.2B Qwen3 model with switchable thinking for chat, reasoning, and tool use",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Retains supported capabilities and corrects total parameter precision."
+    }
+  },
+  "patch": {
+    "parameters_b": 8.2,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "description": "Dense 8.2B Qwen3 model with switchable thinking for chat, reasoning, and tool use",
+    "source_url": "https://huggingface.co/Qwen/Qwen3-8B",
+    "source_type": "primary",
+    "notes": "8.2B is the developer-rounded total; 6.95B non-embedding is not an active count. Active parameters are not separately reported. Native context is 32768 tokens; 131072 requires YaRN. The default 40960 positional allocation is explained in the model card.",
+    "sources": [
+      {
+        "label": "Qwen3-8B model card",
+        "url": "https://huggingface.co/Qwen/Qwen3-8B",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3 release announcement",
+        "url": "https://qwenlm.github.io/blog/qwen3/",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3 Technical Report",
+        "url": "https://arxiv.org/html/2505.09388v1",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3-8B configuration",
+        "url": "https://huggingface.co/Qwen/Qwen3-8B/raw/main/config.json",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "Correct total from nominal 8B to developer-reported 8.2B and fill dense architecture. Retain native context and April 29 launch date. Active count remains null because the developer does not separately define it."
+}

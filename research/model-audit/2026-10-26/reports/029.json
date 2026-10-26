@@ -1,0 +1,160 @@
+{
+  "index": 29,
+  "model_id": "alibaba/qwen3-32b",
+  "reviewed_at": "2026-10-26T14:22:52Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/Qwen/Qwen3-32B",
+      "title": "Qwen3-32B model card",
+      "publisher": "Qwen / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Exact checkpoint card reports 32.8B total and 31.2B non-embedding parameters, text generation, thinking/non-thinking modes, tool calling and local deployment. Native context is 32,768; YaRN is validated to 131,072 tokens."
+    },
+    {
+      "id": "s2",
+      "url": "https://qwenlm.github.io/blog/qwen3/",
+      "title": "Qwen3: Think Deeper, Act Faster",
+      "publisher": "Qwen Team",
+      "accessed": true,
+      "evidence": "April 29, 2025 launch announcement explicitly includes Qwen3-32B among six dense, open-weight models under Apache 2.0; situates Qwen3 within the Qwen family."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/Qwen/Qwen3-32B/blob/main/config.json",
+      "title": "Qwen3-32B configuration",
+      "publisher": "Qwen / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Qwen3ForCausalLM configuration has 64 layers, 64 query heads and eight KV heads, model_type qwen3, no expert routing, max_position_embeddings 40960 and rope_scaling null."
+    },
+    {
+      "id": "s4",
+      "url": "https://github.com/QwenLM/Qwen3",
+      "title": "Official Qwen3 repository",
+      "publisher": "Qwen / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Identifies the developer as Qwen team, Alibaba Cloud; release news explicitly dates the Qwen3 series release 2025.04.29."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/Qwen/Qwen3-32B/blob/main/LICENSE",
+      "title": "Qwen3-32B license",
+      "publisher": "Qwen / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "The exact checkpoint repository contains the Apache License, Version 2.0."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/Qwen/Qwen3-32B/commits/main",
+      "title": "Qwen3-32B commit history",
+      "publisher": "Qwen / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Shows the checkpoint upload on April 28, 2025, before the April 29 announcement. Upload history does not establish when the repository became public."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Qwen3 32B",
+      "status": "verified",
+      "source_ids": ["s1"],
+      "note": "Display normalization of the official Qwen3-32B name."
+    },
+    "developer": {
+      "value": "Alibaba",
+      "status": "verified",
+      "source_ids": ["s4"],
+      "note": "Developed by the Qwen team at Alibaba Cloud."
+    },
+    "family": {
+      "value": "qwen",
+      "status": "verified",
+      "source_ids": ["s2"],
+      "note": "Qwen3 is explicitly part of the Qwen family."
+    },
+    "release_date": {
+      "value": "2025-04-29",
+      "status": "verified",
+      "source_ids": ["s2", "s4", "s6"],
+      "note": "Explicit developer release date. April 28 is an upload date; the baseline's public-release date is not independently established."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": ["s1", "s2"],
+      "note": "Public checkpoint and explicit open-weight release announcement."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": ["s5", "s2"],
+      "note": "Checkpoint license and release announcement agree."
+    },
+    "parameters_b": {
+      "value": 32.8,
+      "status": "verified",
+      "source_ids": ["s1"],
+      "note": "Developer-rounded total in billions; 32B is branding."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": ["s1", "s2"],
+      "note": "No separately defined active count for this dense checkpoint; 31.2B excludes embeddings and is not an active count."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": ["s2", "s3"],
+      "note": "Explicitly dense; causal Transformer with grouped-query attention."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": ["s1", "s3"],
+      "note": "Maximum with YaRN, not native context. The shipped configuration sets 40,960 positions without scaling."
+    },
+    "modalities": {
+      "value": {"input": ["text"], "output": ["text"]},
+      "status": "verified",
+      "source_ids": ["s1", "s3"],
+      "note": "Text causal language model and text-chat examples; no multimodal components."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": ["s1"],
+      "note": "Dedicated thinking mode is documented."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": ["s1"],
+      "note": "Agentic-use example explicitly targets Qwen3-32B."
+    },
+    "description": {
+      "value": "Dense open Qwen model for self-hosted chat, reasoning, and coding",
+      "status": "verified",
+      "source_ids": ["s1", "s2"],
+      "note": "Supported by the deployment examples and documented capabilities."
+    }
+  },
+  "patch": {
+    "release_date": "2025-04-29",
+    "license": "Apache-2.0",
+    "parameters_b": 32.8,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "source_url": "https://huggingface.co/Qwen/Qwen3-32B",
+    "source_type": "primary",
+    "notes": "Developer-rounded total is 32.8B; active parameters are not separately reported. Context is 32,768 natively and 131,072 with YaRN; shipped config allows 40,960 positions without scaling. Release uses the explicit April 29 announcement; April 28 checkpoint uploads do not establish public availability.",
+    "sources": [
+      {"label": "Qwen3-32B model card", "url": "https://huggingface.co/Qwen/Qwen3-32B", "type": "weights"},
+      {"label": "Qwen3 launch announcement", "url": "https://qwenlm.github.io/blog/qwen3/", "type": "announcement"},
+      {"label": "Qwen3-32B configuration", "url": "https://huggingface.co/Qwen/Qwen3-32B/blob/main/config.json", "type": "documentation"},
+      {"label": "Qwen3 release history", "url": "https://github.com/QwenLM/Qwen3", "type": "documentation"},
+      {"label": "Qwen3-32B license", "url": "https://huggingface.co/Qwen/Qwen3-32B/blob/main/LICENSE", "type": "license"},
+      {"label": "Qwen3-32B upload history", "url": "https://huggingface.co/Qwen/Qwen3-32B/commits/main", "type": "documentation"}
+    ]
+  },
+  "summary": "Correct total parameters from 32B branding to 32.8B, fill dense architecture and Apache-2.0 license, and use the explicit April 29 release announcement. Confirm text-only, thinking and tool support. Retain 131,072 maximum with a YaRN qualification; active count remains undisclosed."
+}
