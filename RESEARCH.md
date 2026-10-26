@@ -22,6 +22,6 @@ Record a brief structured report at `research/YYYY-MM-DD.json`: research date an
 
 ## Publish
 
-Run `npm run check` and `git diff --check`. Inspect the diff for unrelated changes and data regressions. Commit the intended files and push to `main`; verify the remote commit and successful GitHub Pages deployment. Read back the live API for the changed records. A failed build or ambiguous source is a reason to preserve the current published data and report the specific issue.
+Run `npm run check` and `git diff --check`. Inspect the diff for unrelated changes and data regressions. Create one commit for each added or corrected model, including later corrections to the same model. Include that model's evidence and generated data in its commit; keep workflow and interface changes in separate commits. Several individual commits may be pushed together to `main`. Verify the remote commit and successful GitHub Pages deployment, then read back the live API for the changed records. A failed build or ambiguous source is a reason to preserve the current published data and report the specific issue.
 
 Keep site copy factual. Preserve the author's wording in `public/about.md`. Do not redesign the site as part of a data update.
