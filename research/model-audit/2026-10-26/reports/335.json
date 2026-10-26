@@ -1,0 +1,191 @@
+{
+  "index": 335,
+  "model_id": "mistral/mistral-large-2512",
+  "reviewed_at": "2026-10-26T23:16:22Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://docs.mistral.ai/models/mistral-large-3-25-12",
+      "title": "Mistral Large 3, v25.12",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Explicitly maps Mistral Large 3 to mistral-large-2512, dates it December 2, 2025, and identifies an Apache-2.0 open-weight multimodal granular MoE with nominal 675B total and 41B active parameters, 256k context and function calling."
+    },
+    {
+      "id": "s2",
+      "url": "https://mistral.ai/news/mistral-3/",
+      "title": "Introducing Mistral 3",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "December 2, 2025 launch announcement releases Large 3 base and instruction-tuned weights under Apache 2.0, states 675B total/41B active, describes sparse MoE and image understanding, and explicitly places this release among non-reasoning models while announcing a future reasoning version."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/mistralai/Mistral-Large-3-675B-Instruct-2512/blob/383ffea2c7d60dfd44ca960e8e691709d4fdb9cd/README.md",
+      "title": "Official Mistral Large 3 675B Instruct 2512 model card",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Names the instruction-tuned FP8 checkpoint and its BF16 alternative. Gives nominal full-model 675B/41B, language component 673B/39B and 2.5B vision encoder. Documents text/image input, multilingual chat, coding, native function calling, text output and Apache 2.0. Says it is not a dedicated reasoning model; serving instructions specify 262144 tokens."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/mistralai/Mistral-Large-3-675B-Instruct-2512/blob/383ffea2c7d60dfd44ca960e8e691709d4fdb9cd/params.json",
+      "title": "Official Large 3 checkpoint architecture configuration",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Configuration has 61 language layers, width 7168, three initial dense layers, 128 routed experts with four selected per token, one shared expert, expert width 4096, Q/KV low-rank dimensions 1536/512, untied embeddings and vocabulary 131072. Vision encoder has 48 layers, width 1664 and patch merging. max_position_embeddings is 294912; the checkpoint uses FP8 compressed tensors with excluded vision and other modules."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/mistralai/Mistral-Large-3-675B-Instruct-2512/blob/383ffea2c7d60dfd44ca960e8e691709d4fdb9cd/SYSTEM_PROMPT.txt",
+      "title": "Official Large 3 Instruct system prompt",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Identifies Mistral AI as developer and describes image reading without image generation or audio/video reading or transcription. This is source evidence about the target model, not instructions for the auditor."
+    },
+    {
+      "id": "s6",
+      "url": "https://docs.mistral.ai/resources/changelogs",
+      "title": "Mistral API changelog, December 2, 2025",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "The December 2 entry in the 2025 section explicitly records the release of Mistral Large 3 with API identifier mistral-large-2512."
+    },
+    {
+      "id": "s7",
+      "url": "https://docs.mistral.ai/resources/known-limitations",
+      "title": "Mistral platform known limitations",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Lists Mistral Large 3 maximum context as 256k tokens and explains that the context budget includes input and output, with over-limit requests rejected."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/mistralai/Mistral-Large-3-675B-Instruct-2512/discussions/6",
+      "title": "Mistral maintainer clarification of Large 3 architecture",
+      "publisher": "Mistral AI maintainer Patrick von Platen",
+      "accessed": true,
+      "evidence": "The December 9, 2025 Mistral organization reply confirms 128 wider experts, fewer selected experts per token, distinct rotary scaling and an integrated vision encoder. It says the architecture was inspired by DeepSeek V3 but the model was not trained on top of its weights."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/mistralai/Mistral-Large-3-675B-Instruct-2512/blob/383ffea2c7d60dfd44ca960e8e691709d4fdb9cd/consolidated.safetensors.index.json",
+      "title": "Official FP8 checkpoint tensor index",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Index covers 272 shards and includes language weights, vision_encoder, patch_merger and vision_language_adapter tensors plus weight_scale tensors. Its total_size is a byte count, not a parameter count. One shard header was inspected through bounded HTTP ranges; no complete tensor census or exact parameter total is claimed."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Mistral Large 3",
+      "status": "verified",
+      "source_ids": ["s1", "s2"],
+      "note": "Official product name explicitly mapped to the December 2025 API identifier."
+    },
+    "developer": {
+      "value": "Mistral",
+      "status": "verified",
+      "source_ids": ["s2", "s5"],
+      "note": "Mistral is the catalog's short display form of Mistral AI."
+    },
+    "family": {
+      "value": "mistral-large",
+      "status": "verified",
+      "source_ids": ["s1", "s2"],
+      "note": "Retains the normalized Mistral Large family grouping of the explicitly named Large 3 release."
+    },
+    "release_date": {
+      "value": "2025-12-02",
+      "status": "verified",
+      "source_ids": ["s1", "s2", "s6"],
+      "note": "Public release date, directly stated by the announcement, model page and API changelog; repository creation or later BF16 upload dates do not replace it."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": ["s1", "s2", "s9"],
+      "note": "Mistral explicitly releases the instruction-tuned weights, and its public repository contains the checkpoint shards and architecture configuration."
+    },
+    "license": {
+      "value": "apache-2.0",
+      "status": "verified",
+      "source_ids": ["s1", "s2", "s3"],
+      "note": "The launch announcement and exact Instruct card explicitly apply Apache 2.0 to this release."
+    },
+    "parameters_b": {
+      "value": 675,
+      "status": "verified",
+      "source_ids": ["s1", "s2", "s3", "s9"],
+      "note": "Developer-published nominal full multimodal count in billions, not an exact tensor-derived count. The card separately reports a rounded 673B language model and 2.5B vision encoder; those rounded components must not be summed into a replacement total. The tensor index also includes merger/adapter weights. Quantization scales and byte totals are not model-parameter totals."
+    },
+    "active_parameters_b": {
+      "value": 41,
+      "status": "verified",
+      "source_ids": ["s1", "s2", "s3", "s4"],
+      "note": "Developer-published nominal full-model active count. The card separately states 39B active for its language component. Preserve both scopes: 41B does not establish that the vision encoder executes for every text-only decode token, and no exact phase-specific census is asserted."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": ["s1", "s4", "s8", "s9"],
+      "note": "Granular Transformer MoE with a vision encoder and merger/adapter. The configuration specifies 61 language layers: three initial dense layers and 58 MoE layers with four of 128 routed experts per token plus one shared expert, width 7168 and expert intermediate width 4096. Vision has 48 layers at width 1664. The maintainer confirms an integrated vision encoder and DeepSeek-inspired architecture, not inherited DeepSeek weights."
+    },
+    "context_window": {
+      "value": 262144,
+      "status": "verified",
+      "source_ids": ["s1", "s3", "s4", "s7"],
+      "note": "Keep the documented supported 256k context: the exact official serving example and its default-length explanation give 262144. The checkpoint's max_position_embeddings=294912 is a distinct configuration ceiling, not evidence that the API advertises that context. Platform documentation includes both input and output in the context budget."
+    },
+    "modalities": {
+      "value": {"input": ["text", "image"], "output": ["text"]},
+      "status": "verified",
+      "source_ids": ["s1", "s3", "s5"],
+      "note": "The exact card demonstrates image/text chat inputs and text responses; the shipped system prompt explicitly excludes image generation and audio/video reading."
+    },
+    "reasoning": {
+      "value": false,
+      "status": "verified",
+      "source_ids": ["s2", "s3"],
+      "note": "The launch classifies this release as non-reasoning and reserves a reasoning variant for later. The exact card also says it is not a dedicated reasoning model. Ordinary reasoning benchmarks and a vision-reasoning example do not establish a native thinking mode."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": ["s1", "s3"],
+      "note": "The model page lists function calling; the exact card describes native function calling and provides an executable tools/tool_choice example."
+    },
+    "description": {
+      "value": "Mistral Large 3 is an Apache-2.0 multimodal mixture-of-experts instruction model for text and image understanding, multilingual chat, coding, and tool use.",
+      "status": "verified",
+      "source_ids": ["s1", "s2", "s3"],
+      "note": "Replaces the time-sensitive largest-model claim and potentially ambiguous reasoning wording with documented architecture, modality and use cases."
+    }
+  },
+  "patch": {
+    "license": "apache-2.0",
+    "parameters_b": 675,
+    "active_parameters_b": 41,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "description": "Mistral Large 3 is an Apache-2.0 multimodal mixture-of-experts instruction model for text and image understanding, multilingual chat, coding, and tool use.",
+    "source_url": "https://docs.mistral.ai/models/mistral-large-3-25-12",
+    "source_type": "primary",
+    "sources": [
+      {"label": "Mistral Large 3 model documentation", "url": "https://docs.mistral.ai/models/mistral-large-3-25-12", "type": "primary"},
+      {"label": "Mistral 3 release announcement", "url": "https://mistral.ai/news/mistral-3/", "type": "primary"},
+      {"label": "Official Large 3 Instruct model card", "url": "https://huggingface.co/mistralai/Mistral-Large-3-675B-Instruct-2512", "type": "weights"},
+      {"label": "Official Large 3 architecture configuration", "url": "https://huggingface.co/mistralai/Mistral-Large-3-675B-Instruct-2512/blob/383ffea2c7d60dfd44ca960e8e691709d4fdb9cd/params.json", "type": "weights"},
+      {"label": "Mistral context limits", "url": "https://docs.mistral.ai/resources/known-limitations", "type": "primary"}
+    ],
+    "notes": "675B total and 41B active are Mistral's nominal full-model disclosures, not exact tensor counts. Its card separately gives a rounded 673B language model with 39B active and a 2.5B vision encoder; rounded components are not an exact additive census, and vision execution is input-dependent. The checkpoint also contains vision merger/adapter weights. Supported context is 262144 tokens, while max_position_embeddings is 294912. This December 2025 Instruct release is explicitly non-reasoning."
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "language_model": 673,
+      "vision_encoder": 2.5
+    }
+  },
+  "summary": "All 14 fields reviewed for mistral-large-2512. Fill Apache-2.0, nominal complete-model 675B total/41B active and MoE architecture; retain release date, text/image-to-text modalities, 262144 context, function calling and reasoning=false. Replace the unsupported current largest-model framing. Explicitly retain separate rounded language-component 673B/39B and vision 2.5B disclosures, with no exact count inferred by addition. The configuration's 294912 positional ceiling is recorded separately from the documented context. Only metadata and one bounded safetensors header were read; no full shards or gated files were downloaded.",
+  "evidence_cache": "/tmp/model-audit-335"
+}
