@@ -1,0 +1,300 @@
+{
+  "index": 323,
+  "model_id": "mistral/ministral-3-3b-instruct-2512",
+  "reviewed_at": "2026-10-26T22:59:16.741911Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://mistral.ai/news/mistral-3/",
+      "title": "Introducing Mistral 3 — release announcement",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "The December 2, 2025 launch releases all three Ministral 3 sizes as dense models, with separate base, instruct and reasoning variants, native image understanding and Apache 2.0 licensing. It links the exact 3B model documentation and official checkpoint collection."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/mistralai/Ministral-3-3B-Instruct-2512/blob/b35d4dfe56c142746f54dbd64f579faab2744308/README.md",
+      "title": "Ministral 3 3B Instruct 2512 — pinned model card",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Identifies this as the FP8 instruction-post-trained checkpoint. Reports nominal 3.4B language and 0.4B vision components, Apache 2.0, native function calling and image understanding. Explicitly gives the default maximum model length as 262144. Family benchmark tables include distinct reasoning/base variants and are not evidence that this Instruct checkpoint reasons natively."
+    },
+    {
+      "id": "s3",
+      "url": "https://docs.mistral.ai/models/ministral-3-3b-25-12",
+      "title": "Ministral 3 3B v25.12 — official model reference and Weights table",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Exact December 2 model reference maps API names ministral-3b-2512 and ministral-3b-latest. Its delivered React payload links the exact Instruct checkpoint in a separate row and explicitly reports Parameters (B)=3 and Active (B)=3; these are nominal size-class figures. The page lists Apache 2.0, 256k context and function calling; official Markdown identifies text/image input and text output."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/mistralai/Ministral-3-3B-Instruct-2512/blob/b35d4dfe56c142746f54dbd64f579faab2744308/config.json",
+      "title": "Ministral 3 3B Instruct — pinned Transformers configuration",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Mistral3ForConditionalGeneration wraps a dense 26-layer ministral3 language decoder with hidden size 3072, FFN size 9216, 32 query/8 KV heads, vocabulary 131072, tied embeddings and max_position_embeddings 262144. The checkpoint includes a 24-layer Pixtral vision tower and multimodal projector. FP8 configuration excludes vision, projector and output head."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/mistralai/Ministral-3-3B-Instruct-2512/blob/b35d4dfe56c142746f54dbd64f579faab2744308/params.json",
+      "title": "Ministral 3 3B Instruct — pinned native configuration",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Independently confirms 26 language layers, hidden size 3072, FFN size 9216, 32 query/8 KV heads, tied embeddings, 262144 positions, FP8 quantization, YaRN factor 16 from 16384 positions, and a 24-layer vision encoder with patch-merge projection."
+    },
+    {
+      "id": "s6",
+      "url": "https://arxiv.org/html/2601.08584v1",
+      "title": "Ministral 3 — technical report",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "The Mistral-authored report explicitly describes dense decoder-only Transformers with GQA, SwiGLU, RMSNorm and YaRN. Table 1 gives the exact 3B dimensions matching the checkpoint and tied embeddings. It distinguishes instruction post-training from reasoning post-training and describes all variants as multimodal; the vision encoder is frozen during subsequent training, not absent from the model."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/mistralai/Ministral-3-3B-Instruct-2512/discussions/17",
+      "title": "Maintainer clarification: Ministral 3 3B Instruct is non-reasoning",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Mistral organization maintainer juliendenize explicitly calls this exact checkpoint a non-reasoning model. The June 30, 2026 merged change replaces unused THINK tokens with reserved slots to stop tooling incorrectly labeling it reasoning-capable. The change affects tokenizer files only."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/api/models/mistralai/Ministral-3-3B-Instruct-2512",
+      "title": "Official checkpoint repository metadata",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Repository is public and ungated at revision b35d4dfe56c142746f54dbd64f579faab2744308. It contains single-file Transformers model.safetensors and native consolidated.safetensors checkpoints, configuration and tokenizer files. Card, both configs and chat template were re-fetched at this pinned revision and matched inspected contents."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/mistralai/Ministral-3-3B-Instruct-2512/resolve/b35d4dfe56c142746f54dbd64f579faab2744308/model.safetensors",
+      "title": "Official complete checkpoint tensor header — bounded byte-range inspection",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Unauthenticated request for bytes 0-7 returned HTTP 206, Content-Range bytes 0-7/4672099184 and header length 108688. A second bounded request fetched only that complete JSON header. Its 458 learned .weight tensors contain 3,849,090,048 logical scalars: language 3,429,006,336, vision 403,305,472 and projector 16,778,240. Excluded 364 scalar activation_scale/weight_scale_inv tensors. All BF16 and unpacked F8_E4M3 shapes match data byte lengths; contiguous offsets cover the file exactly. Tied token embeddings occur once with no separate lm_head. No weight payload was downloaded."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/mistralai/Ministral-3-3B-Instruct-2512/blob/b35d4dfe56c142746f54dbd64f579faab2744308/chat_template.jinja",
+      "title": "Ministral 3 3B Instruct — pinned native chat template",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Default instructions explicitly permit reading images but not generating images or reading/transcribing audio or video. Template supports image chunks and native tool_calls/tool-result serialization. This corroborates text/image input, text output and tool calling; absence of thinking tokens alone is not used to prove non-reasoning."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Ministral 3 3B Instruct 2512",
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Use the exact checkpoint title to distinguish this December instruction variant from Base and Reasoning releases."
+    },
+    "developer": {
+      "value": "Mistral",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Mistral AI is the named developer and official checkpoint publisher; retain the normalized catalog label."
+    },
+    "family": {
+      "value": "ministral",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "The exact model belongs to the Ministral 3 family; retain the existing family key."
+    },
+    "release_date": {
+      "value": "2025-12-02",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Dated public launch and exact version documentation agree. The later January technical report is not the release date."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8",
+        "s9"
+      ],
+      "note": "Developer distributes the checkpoint publicly; repository is ungated and bounded unauthenticated requests successfully retrieved its safetensors header."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Apache 2.0 is explicit in the launch, exact model card metadata/body and Instruct Weights row. Normalize spelling."
+    },
+    "parameters_b": {
+      "value": 3.849090048,
+      "status": "verified",
+      "source_ids": [
+        "s9",
+        "s4",
+        "s5",
+        "s2",
+        "s3"
+      ],
+      "note": "Complete logical learned-weight count in billions from every tensor in the single Transformers safetensors header. Includes the language decoder, frozen learned vision tower and trained projector. Excludes 364 quantization scale scalars; tied embeddings are counted once. The developer nominal 3B size class is less precise than the card’s 3.4B language plus 0.4B vision breakdown and this complete count."
+    },
+    "active_parameters_b": {
+      "value": 3,
+      "status": "verified",
+      "source_ids": [
+        "s3"
+      ],
+      "note": "Mistral separately publishes Active (B)=3 for this exact Instruct row. Retain it only as a nominal size-class disclosure; it is not an exact count of active weights and is not derived from the complete 3.849090048B total. The numerical difference does not imply expert sparsity; the model is dense."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s5",
+        "s6",
+        "s9"
+      ],
+      "note": "Dense language Transformer with GQA and SwiGLU, paired with a Pixtral vision Transformer and projector. Configurations, primary paper and complete weight names agree; no expert routing or MoE claim is inferred."
+    },
+    "context_window": {
+      "value": 262144,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "note": "Both pinned configurations explicitly specify 262144 positions and the exact Instruct card documents that serving default. The separate Reasoning model’s lower context is not transferred."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4",
+        "s10"
+      ],
+      "note": "Native image encoder and textual generation are explicit. The template disclaims image generation and audio/video reading, so no provider-level preprocessing modalities are added."
+    },
+    "reasoning": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s7"
+      ],
+      "note": "Explicit exact-model statement by a Mistral organization maintainer establishes non-reasoning. Sibling reasoning benchmarks in the card and previously unused THINK tokens do not override this."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s10"
+      ],
+      "note": "Exact card and documentation explicitly support native function calling, and the checkpoint template serializes tool calls and results."
+    },
+    "description": {
+      "value": "Compact open vision-language model for edge deployment, instruction following, and tool use",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Existing description is supported by the exact Instruct card and dated release: downloadable vision-language model, edge deployment, instruction tuning and native function calling."
+    }
+  },
+  "patch": {
+    "name": "Ministral 3 3B Instruct 2512",
+    "license": "Apache-2.0",
+    "parameters_b": 3.849090048,
+    "active_parameters_b": 3,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "source_url": "https://mistral.ai/news/mistral-3/",
+    "source_type": "primary",
+    "notes": "Complete checkpoint: 3,849,090,048 learned parameters (3.429006336B language, 0.403305472B vision and 0.01677824B projector), counted from the full safetensors header with tied embeddings counted once and 364 quantization-scale scalars excluded. Mistral labels this size class 3B, while its card describes 3.4B language plus 0.4B vision components. The official Active (B)=3 is retained as a nominal size-class disclosure, not an exact active-weight count; the discrepancy with the complete total does not imply MoE sparsity. This is the FP8 Instruct checkpoint, explicitly non-reasoning, with native text/image input, text output, tools and 262,144-token context.",
+    "sources": [
+      {
+        "label": "Introducing Mistral 3 — release announcement",
+        "url": "https://mistral.ai/news/mistral-3/",
+        "type": "primary"
+      },
+      {
+        "label": "Ministral 3 3B Instruct 2512 — pinned model card",
+        "url": "https://huggingface.co/mistralai/Ministral-3-3B-Instruct-2512/blob/b35d4dfe56c142746f54dbd64f579faab2744308/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "Ministral 3 3B v25.12 — official model reference and Weights table",
+        "url": "https://docs.mistral.ai/models/ministral-3-3b-25-12",
+        "type": "primary"
+      },
+      {
+        "label": "Ministral 3 3B Instruct — pinned Transformers configuration",
+        "url": "https://huggingface.co/mistralai/Ministral-3-3B-Instruct-2512/blob/b35d4dfe56c142746f54dbd64f579faab2744308/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Ministral 3 3B Instruct — pinned native configuration",
+        "url": "https://huggingface.co/mistralai/Ministral-3-3B-Instruct-2512/blob/b35d4dfe56c142746f54dbd64f579faab2744308/params.json",
+        "type": "weights"
+      },
+      {
+        "label": "Ministral 3 — technical report",
+        "url": "https://arxiv.org/html/2601.08584v1",
+        "type": "primary"
+      },
+      {
+        "label": "Maintainer clarification: Ministral 3 3B Instruct is non-reasoning",
+        "url": "https://huggingface.co/mistralai/Ministral-3-3B-Instruct-2512/discussions/17",
+        "type": "primary"
+      },
+      {
+        "label": "Official complete checkpoint tensor header — bounded byte-range inspection",
+        "url": "https://huggingface.co/mistralai/Ministral-3-3B-Instruct-2512/resolve/b35d4dfe56c142746f54dbd64f579faab2744308/model.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Ministral 3 3B Instruct — pinned native chat template",
+        "url": "https://huggingface.co/mistralai/Ministral-3-3B-Instruct-2512/blob/b35d4dfe56c142746f54dbd64f579faab2744308/chat_template.jinja",
+        "type": "weights"
+      }
+    ]
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "language_model": 3.429006336,
+      "vision_encoder": 0.403305472,
+      "projector": 0.01677824
+    }
+  },
+  "summary": "Audited all 14 fields for exact Ministral 3 3B Instruct 2512. Replaces name-derived nominal 3B total with the complete verified 3.849090048B learned-weight count; excludes FP8 scales and accounts for tied embeddings. Adds directly disclosed nominal active 3B with the size-class discrepancy explicit, dense architecture, normalized Apache-2.0 and primary release provenance. Confirms December 2 release, public downloadable weights, 262144 context, native vision/tools and explicitly non-reasoning status. Optional exact component breakdown is offered for parent review; no scope override is needed for a complete count."
+}
