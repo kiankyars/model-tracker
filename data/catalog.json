@@ -3506,20 +3506,21 @@
     "developer": "DeepReinforce",
     "developer_id": "deepreinforce",
     "family": "ornith",
-    "description": "Mixture-of-experts coding-reasoning model for agentic software tasks, tool use, and image understanding",
+    "description": "Mixture-of-experts model with hybrid linear/full attention, trained through self-improvement for agentic coding, reasoning and tool use; accepts text, images and video.",
     "release_date": "2026-08-18",
     "date_precision": "day",
     "open_weights": true,
     "license": "MIT",
-    "parameters_b": 35,
+    "parameters_b": 35.951822704,
     "active_parameters_b": 3,
-    "parameters_source": "model_name",
+    "parameters_source": "primary_source",
     "architecture": "moe",
     "context_window": 262144,
     "modalities": {
       "input": [
         "text",
-        "image"
+        "image",
+        "video"
       ],
       "output": [
         "text"
@@ -3527,9 +3528,59 @@
     },
     "reasoning": true,
     "tool_call": true,
-    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/deepreinforce/ornith-1.5-35b-a3b.toml",
-    "source_type": "catalog",
+    "source_url": "https://huggingface.co/ornith-ai/Ornith-1.5-35B-A3B/resolve/10fbf86fed7ecee4a061f8b499a618f46001cac1/README.md",
+    "source_type": "primary",
     "sources": [
+      {
+        "label": "Ornith-1.5-35B-A3B model card at audited revision",
+        "url": "https://huggingface.co/ornith-ai/Ornith-1.5-35B-A3B/resolve/10fbf86fed7ecee4a061f8b499a618f46001cac1/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Ornith-1.5: From Self-Scaffolding to Self-Improvement",
+        "url": "https://ornith.ai/ornith_1_5.html",
+        "type": "primary"
+      },
+      {
+        "label": "Exact Ornith-1.5-35B-A3B checkpoint configuration",
+        "url": "https://huggingface.co/ornith-ai/Ornith-1.5-35B-A3B/resolve/10fbf86fed7ecee4a061f8b499a618f46001cac1/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Exact checkpoint index and all 16 indexed safetensors headers",
+        "url": "https://huggingface.co/ornith-ai/Ornith-1.5-35B-A3B/resolve/10fbf86fed7ecee4a061f8b499a618f46001cac1/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Exact checkpoint image and video processor configuration",
+        "url": "https://huggingface.co/ornith-ai/Ornith-1.5-35B-A3B/resolve/10fbf86fed7ecee4a061f8b499a618f46001cac1/processor_config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Exact checkpoint chat template",
+        "url": "https://huggingface.co/ornith-ai/Ornith-1.5-35B-A3B/resolve/10fbf86fed7ecee4a061f8b499a618f46001cac1/chat_template.jinja",
+        "type": "weights"
+      },
+      {
+        "label": "Official model repository commit chronology",
+        "url": "https://huggingface.co/api/models/ornith-ai/Ornith-1.5-35B-A3B/commits/main",
+        "type": "primary"
+      },
+      {
+        "label": "First complete weight-upload tree",
+        "url": "https://huggingface.co/api/models/ornith-ai/Ornith-1.5-35B-A3B/tree/a111f308b7a9fc99010afd1d412ae92969f854ad?recursive=true",
+        "type": "weights"
+      },
+      {
+        "label": "Official Ornith organization profile",
+        "url": "https://huggingface.co/ornith-ai",
+        "type": "primary"
+      },
+      {
+        "label": "Transformers implementation for the declared architecture",
+        "url": "https://raw.githubusercontent.com/huggingface/transformers/v5.8.1/src/transformers/models/qwen3_5_moe/modeling_qwen3_5_moe.py",
+        "type": "primary"
+      },
       {
         "label": "Models.dev record",
         "url": "https://github.com/anomalyco/models.dev/blob/dev/models/deepreinforce/ornith-1.5-35b-a3b.toml",
@@ -3544,7 +3595,11 @@
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
+    "upstream_present": true,
+    "notes": "Complete BF16 checkpoint contains 35,951,822,704 learned parameters: 34,660,610,688 language/output-head, 446,571,248 vision and 844,640,768 auxiliary MTP. The ordinary language-plus-vision model excluding MTP has 35,107,181,936 parameters; standard Transformers ignores MTP checkpoint keys. Publisher 35B total and 3B active are nominal; 3B is not an exact all-component activation count. Architecture combines MoE feed-forward blocks with linear/full attention. Native context is 262144; larger windows require YaRN scaling.",
+    "field_status": {},
+    "audited_at": "2026-10-26T18:51:18.105211+00:00",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/165.json"
   },
   {
     "id": "alibaba/qwen3.8-27b",

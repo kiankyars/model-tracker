@@ -1,0 +1,332 @@
+{
+  "index": 165,
+  "model_id": "deepreinforce/ornith-1.5-35b-a3b",
+  "reviewed_at": "2026-10-26T18:51:18.105211+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/ornith-ai/Ornith-1.5-35B-A3B/resolve/10fbf86fed7ecee4a061f8b499a618f46001cac1/README.md",
+      "title": "Ornith-1.5-35B-A3B model card at audited revision",
+      "publisher": "Ornith / DeepReinforce",
+      "accessed": true,
+      "evidence": "Identifies the exact family member; describes approximately 35B total and 3B active per token, MIT licensing, reasoning and function calls, and a native 262144-token context. Larger windows require YaRN scaling."
+    },
+    {
+      "id": "s2",
+      "url": "https://ornith.ai/ornith_1_5.html",
+      "title": "Ornith-1.5: From Self-Scaffolding to Self-Improvement",
+      "publisher": "Ornith",
+      "accessed": true,
+      "evidence": "August 2026 announcement explicitly includes the 35B MoE variant and describes reinforcement learning with generated tasks, scaffolds and solution rollouts. It labels active size as 3B; no exact day is shown."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/ornith-ai/Ornith-1.5-35B-A3B/resolve/10fbf86fed7ecee4a061f8b499a618f46001cac1/config.json",
+      "title": "Exact Ornith-1.5-35B-A3B checkpoint configuration",
+      "publisher": "Ornith / DeepReinforce",
+      "accessed": true,
+      "evidence": "Qwen3_5MoeForConditionalGeneration with 40 language layers, repeating three linear-attention layers and one full-attention layer, 256 experts/top 8, a shared expert, 262144 positions, 27 vision layers and one MTP layer. BF16; untied embeddings; no quantization configuration."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/ornith-ai/Ornith-1.5-35B-A3B/resolve/10fbf86fed7ecee4a061f8b499a618f46001cac1/model.safetensors.index.json",
+      "title": "Exact checkpoint index and all 16 indexed safetensors headers",
+      "publisher": "Ornith / DeepReinforce",
+      "accessed": true,
+      "evidence": "Bounded HTTP206 reads of all 16 JSON headers yield 1811 unique indexed tensors and 35951822704 BF16 learned parameters: 34660610688 language plus output head, 446571248 vision, and 844640768 auxiliary MTP. Shape products match contiguous data offsets and the index total_size of 71903645408 bytes. No quantization scales, packed tensors or persistent rotary buffers appear; no full weight shards were downloaded."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/ornith-ai/Ornith-1.5-35B-A3B/resolve/10fbf86fed7ecee4a061f8b499a618f46001cac1/processor_config.json",
+      "title": "Exact checkpoint image and video processor configuration",
+      "publisher": "Ornith / DeepReinforce",
+      "accessed": true,
+      "evidence": "Qwen3VLProcessor specifies both image and video processing, including sampled video frames and temporal patches."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/ornith-ai/Ornith-1.5-35B-A3B/resolve/10fbf86fed7ecee4a061f8b499a618f46001cac1/chat_template.jinja",
+      "title": "Exact checkpoint chat template",
+      "publisher": "Ornith / DeepReinforce",
+      "accessed": true,
+      "evidence": "Handles text, image/image_url and video content. Formats tools, function calls, responses and reasoning blocks; thinking is enabled by default and can be disabled with enable_thinking=false."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/api/models/ornith-ai/Ornith-1.5-35B-A3B/commits/main",
+      "title": "Official model repository commit chronology",
+      "publisher": "Ornith / DeepReinforce via Hugging Face",
+      "accessed": true,
+      "evidence": "Initial commit is 2026-08-18 06:24:38 UTC; first weight upload a111f308b7a9fc99010afd1d412ae92969f854ad is 2026-08-18 08:34:29 UTC. The audited current revision is an August 23 update, not the first release."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/api/models/ornith-ai/Ornith-1.5-35B-A3B/tree/a111f308b7a9fc99010afd1d412ae92969f854ad?recursive=true",
+      "title": "First complete weight-upload tree",
+      "publisher": "Ornith / DeepReinforce via Hugging Face",
+      "accessed": true,
+      "evidence": "The first August 18 upload contains all 16 indexed weight shards, config, processors and template. The earlier initial tree has only attributes and a license-only README, so repository creation was checked separately from first weights."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/ornith-ai",
+      "title": "Official Ornith organization profile",
+      "publisher": "Ornith / DeepReinforce",
+      "accessed": true,
+      "evidence": "The organization explicitly identifies itself as the DeepReinforce team and links the Ornith website and model repositories."
+    },
+    {
+      "id": "s10",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/v5.8.1/src/transformers/models/qwen3_5_moe/modeling_qwen3_5_moe.py",
+      "title": "Transformers implementation for the declared architecture",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "A_log, dt_bias and packed expert projection arrays are nn.Parameter objects; rotary-frequency buffers are nonpersistent. Standard Transformers excludes auxiliary mtp.* checkpoint keys from its inference module, but these are learned weights present in this complete checkpoint."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/api/models/ornith-ai/Ornith-1.5-35B-A3B",
+      "title": "Publisher model metadata and safetensors tally",
+      "publisher": "Hugging Face / publisher repository",
+      "accessed": true,
+      "evidence": "Current revision matches 10fbf86fed7ecee4a061f8b499a618f46001cac1; public ungated model metadata gives BF16 and total counts of 35951822704, independently agreeing with the bounded header recount."
+    },
+    {
+      "id": "s12",
+      "url": "https://huggingface.co/api/models/ornith-ai/Ornith-1.5-35B-A3B/tree/7e1539336772a625e4931fdbe0ca496412494b80?recursive=true",
+      "title": "Initial repository tree before weight upload",
+      "publisher": "Ornith / DeepReinforce via Hugging Face",
+      "accessed": true,
+      "evidence": "The August 18 06:24:38 UTC initial commit contains only .gitattributes and a 21-byte README declaring license: mit; it contains no checkpoint weights."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Ornith 1.5 35B A3B",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Normalized spacing of the official exact model name; baseline confirmed."
+    },
+    "developer": {
+      "value": "DeepReinforce",
+      "status": "verified",
+      "source_ids": [
+        "s9"
+      ],
+      "note": "The publishing Ornith organization identifies itself as the DeepReinforce team."
+    },
+    "family": {
+      "value": "ornith",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Explicit member of the Ornith-1.5 family; baseline confirmed."
+    },
+    "release_date": {
+      "value": "2026-08-18",
+      "status": "verified",
+      "source_ids": [
+        "s7",
+        "s8",
+        "s12"
+      ],
+      "note": "First complete checkpoint upload occurred August 18 at 08:34:29 UTC. This is evidence from the released weight history, separately checked against the earlier repository-only creation. Current August 23 weight update is not substituted for first release."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s8",
+        "s11"
+      ],
+      "note": "All 16 checkpoint shards are publicly accessible without authentication."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s12"
+      ],
+      "note": "Publisher README metadata declares MIT, including in the initial upload. The current card links a standalone LICENSE path that returns 404; the classification rests on the explicit publisher declaration."
+    },
+    "parameters_b": {
+      "value": 35.951822704,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s10",
+        "s11"
+      ],
+      "note": "Complete learned checkpoint count, not nominal 35B: 35951822704 BF16 parameters, including vision and auxiliary MTP. All header tensor names match the index. A_log and dt_bias are learned parameters; packed expert axes are ordinary BF16 parameter arrays, not quantized storage."
+    },
+    "active_parameters_b": {
+      "value": 3,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Publisher approximation per token, retained as nominal 3B. Exact counting convention and multimodal/MTP activation scope are not disclosed; not calculated from the routed-expert fraction."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "MoE language model with hybrid attention: 30 linear-attention and 10 full-attention layers, 256 routed experts/top 8 plus shared expert, and a vision encoder. MoE is the catalog category; hybrid attention does not make it dense."
+    },
+    "context_window": {
+      "value": 262144,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Native configured and documented context. Approximately 1M requires optional RoPE/YaRN scaling and is not the native default."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s5",
+        "s6"
+      ],
+      "note": "The released vision model, processor and chat template explicitly support both image and video inputs; add video omitted from the baseline."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Model card and template establish thinking support; the template permits disabling it."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Model card provides function-call examples; template encodes tool schemas, calls and responses."
+    },
+    "description": {
+      "value": "Mixture-of-experts model with hybrid linear/full attention, trained through self-improvement for agentic coding, reasoning and tool use; accepts text, images and video.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s5",
+        "s6"
+      ],
+      "note": "Refines the supported baseline description with hybrid attention, self-improvement training and native video input; excludes performance-superiority claims."
+    }
+  },
+  "patch": {
+    "parameters_b": 35.951822704,
+    "parameters_source": "primary_source",
+    "modalities": {
+      "input": [
+        "text",
+        "image",
+        "video"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "description": "Mixture-of-experts model with hybrid linear/full attention, trained through self-improvement for agentic coding, reasoning and tool use; accepts text, images and video.",
+    "notes": "Complete BF16 checkpoint contains 35,951,822,704 learned parameters: 34,660,610,688 language/output-head, 446,571,248 vision and 844,640,768 auxiliary MTP. The ordinary language-plus-vision model excluding MTP has 35,107,181,936 parameters; standard Transformers ignores MTP checkpoint keys. Publisher 35B total and 3B active are nominal; 3B is not an exact all-component activation count. Architecture combines MoE feed-forward blocks with linear/full attention. Native context is 262144; larger windows require YaRN scaling.",
+    "sources": [
+      {
+        "label": "Ornith-1.5-35B-A3B model card at audited revision",
+        "url": "https://huggingface.co/ornith-ai/Ornith-1.5-35B-A3B/resolve/10fbf86fed7ecee4a061f8b499a618f46001cac1/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Ornith-1.5: From Self-Scaffolding to Self-Improvement",
+        "url": "https://ornith.ai/ornith_1_5.html",
+        "type": "primary"
+      },
+      {
+        "label": "Exact Ornith-1.5-35B-A3B checkpoint configuration",
+        "url": "https://huggingface.co/ornith-ai/Ornith-1.5-35B-A3B/resolve/10fbf86fed7ecee4a061f8b499a618f46001cac1/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Exact checkpoint index and all 16 indexed safetensors headers",
+        "url": "https://huggingface.co/ornith-ai/Ornith-1.5-35B-A3B/resolve/10fbf86fed7ecee4a061f8b499a618f46001cac1/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Exact checkpoint image and video processor configuration",
+        "url": "https://huggingface.co/ornith-ai/Ornith-1.5-35B-A3B/resolve/10fbf86fed7ecee4a061f8b499a618f46001cac1/processor_config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Exact checkpoint chat template",
+        "url": "https://huggingface.co/ornith-ai/Ornith-1.5-35B-A3B/resolve/10fbf86fed7ecee4a061f8b499a618f46001cac1/chat_template.jinja",
+        "type": "weights"
+      },
+      {
+        "label": "Official model repository commit chronology",
+        "url": "https://huggingface.co/api/models/ornith-ai/Ornith-1.5-35B-A3B/commits/main",
+        "type": "primary"
+      },
+      {
+        "label": "First complete weight-upload tree",
+        "url": "https://huggingface.co/api/models/ornith-ai/Ornith-1.5-35B-A3B/tree/a111f308b7a9fc99010afd1d412ae92969f854ad?recursive=true",
+        "type": "weights"
+      },
+      {
+        "label": "Official Ornith organization profile",
+        "url": "https://huggingface.co/ornith-ai",
+        "type": "primary"
+      },
+      {
+        "label": "Transformers implementation for the declared architecture",
+        "url": "https://raw.githubusercontent.com/huggingface/transformers/v5.8.1/src/transformers/models/qwen3_5_moe/modeling_qwen3_5_moe.py",
+        "type": "primary"
+      }
+    ],
+    "source_type": "primary",
+    "source_url": "https://huggingface.co/ornith-ai/Ornith-1.5-35B-A3B/resolve/10fbf86fed7ecee4a061f8b499a618f46001cac1/README.md"
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "language": 34.660610688,
+      "vision": 0.446571248,
+      "mtp": 0.844640768
+    }
+  },
+  "verification": {
+    "revision": "10fbf86fed7ecee4a061f8b499a618f46001cac1",
+    "method": "Read 8-byte safetensors prefix and exact bounded JSON header from each indexed shard; require HTTP206, exact unique tensor coverage, BF16 dtype, shape-byte equality, contiguous nonoverlapping offsets, and element total times two equal to total_size. No full weight shards downloaded.",
+    "recount_script": "/tmp/model-audit-165/count_headers.py",
+    "header_cache": "/tmp/model-audit-165",
+    "header_glob": "model-*-of-00016.safetensors.header.json",
+    "count_summary": "/tmp/model-audit-165/count-summary.json"
+  },
+  "summary": "Confirmed identity, DeepReinforce developer, August 18 first weight release, open weights, publisher-declared MIT, hybrid-attention MoE, 262144 context, thinking and tools. Corrected nominal 35B to complete 35.951822704B checkpoint count including auxiliary MTP and vision; retained publisher approximate 3B active and added native video input. Standalone LICENSE link is missing, but README metadata declares MIT. Exact active counting convention remains undisclosed."
+}
