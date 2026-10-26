@@ -1,0 +1,246 @@
+{
+  "index": 154,
+  "model_id": "cohere/command-r7b-arabic-02-2025",
+  "reviewed_at": "2026-10-26T18:26:58.103779Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/CohereLabs/c4ai-command-r7b-arabic-02-2025/blob/main/README.md",
+      "title": "Command R7B Arabic model card",
+      "publisher": "Cohere Labs",
+      "accessed": true,
+      "evidence": "Exact dated variant: developed by Cohere/Cohere Labs; open weights under CC-BY-NC with acceptable-use terms; approximately 8B total, explicitly split into 7B Transformer and 1B embedding parameters; 128,000-token text-only autoregressive Transformer, trained for Arabic/English instruction following, chat and RAG."
+    },
+    {
+      "id": "s2",
+      "url": "https://cohere.com/blog/command-r7b-arabic",
+      "title": "Introducing Command R7B Arabic",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "Official launch page explicitly dated February 27, 2025 and titled Introducing Command R7B Arabic. Page text accessible in this audit includes headline, date and summary; model details are taken from the model card."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/api/models/CohereLabs/c4ai-command-r7b-arabic-02-2025",
+      "title": "Exact checkpoint public repository metadata and chat templates",
+      "publisher": "Cohere Labs / Hugging Face",
+      "accessed": true,
+      "evidence": "Public metadata at revision 2d5440c7cea22410006fb461a1b24c067683da77 names Cohere2ForCausalLM and cohere2. It exposes default, tool_use and rag templates; tool_use serializes function schemas, tool calls, tool_plan and tool results. The raw config.json request returned HTTP 401. Aggregate safetensors metadata was not treated as an independently verified learned-parameter count."
+    },
+    {
+      "id": "s4",
+      "url": "https://github.com/huggingface/transformers/blob/v4.49.0/src/transformers/models/cohere2/modeling_cohere2.py",
+      "title": "Transformers v4.49.0 Cohere2 implementation",
+      "publisher": "Hugging Face Transformers",
+      "accessed": true,
+      "evidence": "Inspected the official raw file. Cohere2ForCausalLM instantiates Cohere2Model; its decoder layers each instantiate Cohere2MLP, whose gate/up/down linear projections are evaluated densely. There is no expert router in that exact named implementation. Local/global attention matches the checkpoint card."
+    },
+    {
+      "id": "s5",
+      "url": "https://arxiv.org/html/2503.14603v1",
+      "title": "Command R7B Arabic: A Small, Enterprise Focused, Multilingual, and Culturally Aware Arabic LLM",
+      "publisher": "Cohere authors / arXiv",
+      "accessed": true,
+      "evidence": "March 18, 2025 first-party technical report identifies Command R7B as the starting checkpoint and describes Arabic SFT/preference tuning, cultural-knowledge and RAG evaluation. Its training experts are merged into a single general model by parameter-wise interpolation, not routed at inference. Its 7B shorthand is qualified by the model card's explicit 8B total breakdown."
+    },
+    {
+      "id": "s6",
+      "url": "https://docs.cohere.com/docs/models",
+      "title": "An Overview of Cohere's Models",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "Cohere explicitly calls command-a-reasoning-08-2025 its first reasoning model, providing a positive chronology-based classification boundary for the earlier February Arabic release. This does not deny ordinary reasoning or tool planning by older Command models."
+    },
+    {
+      "id": "s7",
+      "url": "https://docs.cohere.com/docs/reasoning",
+      "title": "Reasoning Capabilities",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "Defines the native reasoning feature as hybrid enabled/disabled thinking, dedicated thinking content blocks and optional thinking token budgets. This distinguishes the dedicated reasoning-model flag from ordinary problem-solving and tool_plan text."
+    },
+    {
+      "id": "s8",
+      "url": "https://docs.cohere.com/v2/changelog/command-r7b-arabic",
+      "title": "Cohere Releases Arabic-Optimized Command Model!",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "February 27, 2025 announcement explicitly describes Command R7B Arabic as an 8-billion-parameter open-weights model with 128,000 context. Its identifier/code mistakenly reference the December base model, so exact checkpoint identity is established through the Arabic card and API metadata instead."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Command R7B Arabic",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Exact official model name; dated checkpoint identity is c4ai-command-r7b-arabic-02-2025."
+    },
+    "developer": {
+      "value": "Cohere",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Card credits Cohere and Cohere Labs; Cohere is the catalog developer."
+    },
+    "family": {
+      "value": "command-r",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Command R7B specialization, explicitly initialized from Command R7B in the technical report; existing family key is appropriate."
+    },
+    "release_date": {
+      "value": "2025-02-27",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s8"
+      ],
+      "note": "Explicit dated first-party launch announcement; exact checkpoint repository was also created that day. The March report date is later."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Developer calls this an open-weights research release. Download requires acceptance of noncommercial terms; open weights does not mean unrestricted use."
+    },
+    "license": {
+      "value": "CC-BY-NC-4.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Repository metadata names cc-by-nc-4.0; model card additionally requires Cohere Labs acceptable-use terms."
+    },
+    "parameters_b": {
+      "value": 8,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8"
+      ],
+      "note": "Nominal approximate complete total: the exact card explicitly says ~8B, comprising 7B Transformer plus 1B embedding parameters. Do not mistake the R7B name or report shorthand for the complete total. No exact learned count is claimed from aggregate safetensors metadata."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Reviewed card and subsequent technical report do not separately define or quantify per-token active parameters. Dense architecture does not justify copying the total into this field."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "note": "Exact checkpoint config.architectures maps to Cohere2ForCausalLM; the official implementation uses a dense MLP in every decoder layer. The report's expert merging is weight interpolation during training, not inference-time MoE routing."
+    },
+    "context_window": {
+      "value": 128000,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8"
+      ],
+      "note": "Card explicitly gives 128,000 tokens, resolving its abbreviated 128K label."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Exact model card explicitly states input text only and output text only."
+    },
+    "reasoning": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s6",
+        "s7"
+      ],
+      "note": "Interpreted as dedicated native reasoning mode, not general reasoning ability. Cohere explicitly labels the later August 2025 Command A Reasoning its first reasoning model. The exact Arabic checkpoint template instead represents its thinking spans as tool_plan associated with tool calls. This is a chronology-and-protocol inference from positive evidence, not an inference from missing model-card prose."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s3"
+      ],
+      "note": "Exact released checkpoint includes a native tool_use template with function schemas, structured tool calls and tool-result turns; not merely a general prompting claim."
+    },
+    "description": {
+      "value": "Open Command R model optimized for Arabic enterprise chat, RAG, and cultural knowledge",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Supported by the exact card and report. Open denotes open weights with noncommercial restrictions, clarified in license/notes."
+    }
+  },
+  "patch": {
+    "license": "CC-BY-NC-4.0",
+    "parameters_b": 8,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "notes": "Approximately 8B total parameters: 7B Transformer parameters plus 1B embedding parameters, per the developer model card. Active parameters are not separately reported. Open weights require CC-BY-NC-4.0 and Cohere Labs acceptable-use terms. The reasoning flag describes a dedicated reasoning mode; native tool planning remains supported.",
+    "sources": [
+      {
+        "label": "Cohere Labs exact model card",
+        "url": "https://huggingface.co/CohereLabs/c4ai-command-r7b-arabic-02-2025/blob/main/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Exact checkpoint configuration metadata",
+        "url": "https://huggingface.co/api/models/CohereLabs/c4ai-command-r7b-arabic-02-2025",
+        "type": "primary"
+      },
+      {
+        "label": "Cohere2 architecture implementation",
+        "url": "https://github.com/huggingface/transformers/blob/v4.49.0/src/transformers/models/cohere2/modeling_cohere2.py",
+        "type": "primary"
+      },
+      {
+        "label": "Cohere Arabic launch announcement",
+        "url": "https://cohere.com/blog/command-r7b-arabic",
+        "type": "primary"
+      },
+      {
+        "label": "Command R7B Arabic technical report",
+        "url": "https://arxiv.org/html/2503.14603v1",
+        "type": "primary"
+      }
+    ],
+    "source_url": "https://cohere.com/blog/command-r7b-arabic",
+    "source_type": "primary"
+  },
+  "summary": "Fill nominal approximately 8B complete parameters, CC-BY-NC-4.0 license and dense architecture from exact checkpoint primary evidence. Keep active parameters undisclosed; do not derive an exact learned count from aggregate storage metadata. Confirm release date, text-only 128k context, native tool calling and dedicated reasoning=false using the explicitly later first reasoning model plus this checkpoint's tool-plan protocol. Record the launch changelog's erroneous December identifier instead of transferring that identifier."
+}
