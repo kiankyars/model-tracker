@@ -1,0 +1,285 @@
+{
+  "index": 168,
+  "model_id": "deepseek/deepseek-r1",
+  "reviewed_at": "2026-10-26T19:00:16.732769+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-R1",
+      "title": "DeepSeek-R1 original model card",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Identifies original first-generation R1, released weights under MIT, nominal 671B total and 37B active, 128K context, text generation and reasoning; points to DeepSeek-V3 for architecture."
+    },
+    {
+      "id": "s2",
+      "url": "https://api-docs.deepseek.com/updates/",
+      "title": "DeepSeek API change log",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "January 20, 2025 entry introduces R1 as deepseek-reasoner. March 24 concerns V3-0324, not R1. May 28 upgrades the reasoner alias to R1-0528 and introduces JSON/function-calling support. Subsequent entries retarget that alias again."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-R1/blob/56d4cbbb4d29f4355bab4b9a39ccb717a14ad5ad/config.json",
+      "title": "Original R1 checkpoint configuration",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "DeepseekV3ForCausalLM; 61 main layers, one next-token-prediction layer, 256 routed experts with eight selected, one shared expert, FP8 block quantization, text vocabulary and max_position_embeddings 163840."
+    },
+    {
+      "id": "s4",
+      "url": "https://arxiv.org/html/2501.12948v2",
+      "title": "DeepSeek-R1 technical report, revised January 2026",
+      "publisher": "DeepSeek-AI",
+      "accessed": true,
+      "evidence": "Section 6 explicitly says the original DeepSeek-R1 cannot use search/calculator tools. Appendix A identifies the V3-Base MoE foundation; Appendix B describes MTP speculative decoding during RL. This later report still concerns original R1, not the separate 0528 checkpoint."
+    },
+    {
+      "id": "s5",
+      "url": "https://github.com/deepseek-ai/DeepSeek-V3/blob/main/README_WEIGHTS.md",
+      "title": "DeepSeek-V3 architecture weight-file documentation",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Architecture guide linked by the R1 card defines main layers 0\u201360 and MTP layer 61. MTP embedding/output head share main-model parameters; it distinguishes nominal main 671B and unique MTP 11.5B. weight_scale_inv tensors are FP8 dequantization metadata."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-R1/blob/56d4cbbb4d29f4355bab4b9a39ccb717a14ad5ad/model.safetensors.index.json",
+      "title": "R1 checkpoint index and the 163 referenced shard headers",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "All 91,991 indexed tensor names matched bounded HTTP-range reads of all 163 safetensors headers. Excluding scale tensors: main 671,026,419,200 and MTP 13,463,426,304 parameter-shaped slots. Their 684,489,845,504 sum includes separately stored MTP embedding/head entries, so it is not an exact unique learned total."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/api/models/deepseek-ai/DeepSeek-R1",
+      "title": "Original R1 repository metadata",
+      "publisher": "Hugging Face / DeepSeek",
+      "accessed": true,
+      "evidence": "Repository created January 20, 2025; audited revision 56d4cbbb4d29f4355bab4b9a39ccb717a14ad5ad. Its safetensors aggregate 684,489,845,504 agrees with the header sum but does not resolve logical parameter sharing."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-R1-0528",
+      "title": "Separate DeepSeek-R1-0528 model card",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Explicitly presents an upgraded version and separate original-R1 versus R1-0528 evaluation columns. Function-calling results appear only for 0528. This card is used to disambiguate identity, not transfer upgraded capabilities."
+    },
+    {
+      "id": "s9",
+      "url": "https://api-docs.deepseek.com/news/news250120/",
+      "title": "Original R1 January 20 release",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Historical announcement with trailing slash confirms January 20 release, MIT licensing, six distillations and R1 reasoner alias."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "DeepSeek-R1",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8"
+      ],
+      "note": "Exact original checkpoint name; excludes R1-Zero, distillations and R1-0528."
+    },
+    "developer": {
+      "value": "DeepSeek",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4"
+      ],
+      "note": "Published by DeepSeek-AI."
+    },
+    "family": {
+      "value": "deepseek-thinking",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Retained catalog grouping for DeepSeek reasoning models; source describes the R1 reasoning family, not this literal internal taxonomy key."
+    },
+    "release_date": {
+      "value": "2025-01-20",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s7",
+        "s9"
+      ],
+      "note": "Official changelog date, independently consistent with repository creation; not the January 22 paper submission or May 28 upgrade."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Public original checkpoint and all indexed weight shards exist."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Original R1 weights and code are MIT; distilled-model base licenses are separate."
+    },
+    "parameters_b": {
+      "value": 671,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s5",
+        "s6"
+      ],
+      "note": "Verified nominal MAIN-model count, not a complete unique total including MTP. Main headers contain 671.0264192B parameter slots. The full checkpoint sum 684.489845504B duplicates MTP embedding/head entries; sharing prevents calling that an exact learned total. See proposed main scope and checkpoint_audit."
+    },
+    "active_parameters_b": {
+      "value": 37,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Developer-rounded active MAIN-model parameters per token. Does not include a separate MTP speculative-decoding phase. No falsely precise active total is inferred from stored tensors."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4"
+      ],
+      "note": "V3-derived decoder Transformer with MLA, 256 routed experts and eight routed experts selected per token, plus a shared expert."
+    },
+    "context_window": {
+      "value": 128000,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Retains catalog normalization of the advertised 128K context. This is a nominal advertised limit, not an exact 131072 claim. Configuration max_position_embeddings 163840 is a different architectural setting and is not substituted for documented support."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s6"
+      ],
+      "note": "Text causal language model; exact checkpoint has token embeddings and no vision/audio encoder."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4"
+      ],
+      "note": "Dedicated first-generation R1 reasoning model with reasoning-oriented post-training."
+    },
+    "tool_call": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s8"
+      ],
+      "note": "Later first-party report explicitly identifies tool use as unsupported for original R1. May 28 function-calling support belongs to R1-0528; current deepseek-reasoner alias capabilities cannot be back-projected."
+    },
+    "description": {
+      "value": "Original DeepSeek-R1 open-weight reasoning model, post-trained from DeepSeek-V3-Base for mathematics, coding and reasoning.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4"
+      ],
+      "note": "Replaces subjective classic/transparent wording with supported identity and training lineage."
+    }
+  },
+  "patch": {
+    "parameters_source": "primary_source",
+    "tool_call": false,
+    "description": "Original DeepSeek-R1 open-weight reasoning model, post-trained from DeepSeek-V3-Base for mathematics, coding and reasoning.",
+    "notes": "Original January 2025 R1 checkpoint, distinct from R1-0528 and the changing deepseek-reasoner API alias. 671B total and 37B active are nominal MAIN-model figures. The checkpoint also stores an MTP module; 684.489845504B non-scale tensor slots are not a unique learned total because the architecture shares MTP embedding/output-head parameters. Advertised context is 128K; max_position_embeddings is 163840. Native tool calling is unsupported for this original version.",
+    "sources": [
+      {
+        "label": "DeepSeek API release history",
+        "url": "https://api-docs.deepseek.com/updates/",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeek-R1 revised technical report",
+        "url": "https://arxiv.org/html/2501.12948v2",
+        "type": "primary"
+      },
+      {
+        "label": "Original R1 configuration",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-R1/blob/56d4cbbb4d29f4355bab4b9a39ccb717a14ad5ad/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeek architecture weight-sharing guide",
+        "url": "https://github.com/deepseek-ai/DeepSeek-V3/blob/main/README_WEIGHTS.md",
+        "type": "primary"
+      },
+      {
+        "label": "Original R1 checkpoint tensor index",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-R1/blob/56d4cbbb4d29f4355bab4b9a39ccb717a14ad5ad/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Original R1 release announcement",
+        "url": "https://api-docs.deepseek.com/news/news250120/",
+        "type": "primary"
+      }
+    ]
+  },
+  "proposed_fields": {
+    "parameters_scope": "main",
+    "active_parameters_scope": "main",
+    "parameter_components_b": {
+      "main": 671
+    },
+    "active_parameters_by_phase_b": {
+      "main": 37
+    }
+  },
+  "checkpoint_audit": {
+    "revision": "56d4cbbb4d29f4355bab4b9a39ccb717a14ad5ad",
+    "cache_directory": "/tmp/model-audit-168",
+    "header_files": 163,
+    "indexed_tensors": 91991,
+    "main_parameter_slots": 671026419200,
+    "mtp_parameter_slots": 13463426304,
+    "non_scale_parameter_slots": 684489845504,
+    "excluded_scale_elements": 41540496,
+    "duplicated_embedding_and_head_slots": 1853358080,
+    "shared_norm_slots_under_review": 7168,
+    "unique_total_status": "unverified",
+    "note": "No complete weight shards were downloaded. The architecture explicitly shares MTP embedding and output head with the main model. Tensor headers establish storage shapes, not independence or equality of learned weights. Subtracting documented embedding/head duplication yields 682.636487424B; whether shared_head.norm also duplicates model.norm changes this by 7168. Neither candidate is promoted to an exact unique total. The guide nominal11.5B unique MTP figure is not substituted for an exact R1 measurement."
+  },
+  "access_limitations": [
+    "Historical release announcement is accessible at the trailing-slash news250120 URL; the slashless path can fall back to current documentation.",
+    "Exact unique full-model total including MTP remains unresolved; the confirmed nominal main-model scope must accompany 671B."
+  ],
+  "summary": "Audited all 14 fields for original January 2025 R1. Correct tool_call to false and replace unsupported description wording. Confirm MIT/open weights, release, text modality, reasoning and MoE. Retain nominal 671B main / 37B active with proposed explicit main scope. Full header audit finds 684.489845504B non-scale stored parameter slots, but shared MTP embeddings/head prevent equating that with unique learned parameters. Context remains advertised 128K, separately noting 163840 configured positions."
+}
