@@ -1,0 +1,369 @@
+{
+  "index": 246,
+  "model_id": "inclusionai/ling-3.1-flash",
+  "reviewed_at": "2026-10-26T21:08:41.383707Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/inclusionAI/Ling-3.1-flash/blob/e5623f6e4c34e9f2ca40bec867b9210db42ac76c/README.md",
+      "title": "Ling-3.1-flash official model card",
+      "publisher": "inclusionAI",
+      "accessed": true,
+      "evidence": "Exact checkpoint card labels the release MIT and text-generation, describes reasoning and agent tasks, and gives nominal 560B total / 25B active. Its architecture table identifies 63 KDA plus 9 gated MLA layers, four dense layers, and 512 routed experts with eight selected and one shared expert. Advertises 1M context."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/inclusionAI/Ling-3.1-flash/blob/e5623f6e4c34e9f2ca40bec867b9210db42ac76c/config.json",
+      "title": "Ling-3.1-flash checkpoint configuration",
+      "publisher": "inclusionAI",
+      "accessed": true,
+      "evidence": "BailingMoeV3ForCausalLM/bailing_hybrid; 72 main layers, one next-token-prediction layer, first four layers dense, 512 experts and top eight, one shared expert, untied vocabulary embeddings, FP8 E4M3 block quantization. max_position_embeddings=262144, rope_scaling=null, rope_theta=6000000, partial_rotary_factor=0.5."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/inclusionAI/Ling-3.1-flash/blob/e5623f6e4c34e9f2ca40bec867b9210db42ac76c/modeling_bailing_moe_v3.py",
+      "title": "Ling-3.1-flash official modeling implementation",
+      "publisher": "inclusionAI",
+      "accessed": true,
+      "evidence": "Defines hybrid Kimi Delta Attention/MLA decoder, shared and routed MoE blocks, and a separate MTP layer at index 72. MTP reuses the main token embedding/output head rather than storing copies. expert_bias is a registered buffer; A_log and dt_bias are learned Parameters. Rotary inv_freq is nonpersistent."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/inclusionAI/Ling-3.1-flash/blob/e5623f6e4c34e9f2ca40bec867b9210db42ac76c/model.safetensors.index.json",
+      "title": "Ling-3.1-flash checkpoint index and bounded tensor-header audit",
+      "publisher": "inclusionAI",
+      "accessed": true,
+      "evidence": "Read index and only byte ranges containing headers from all 54 indexed safetensors shards at the pinned revision. All 214,025 tensor names matched the index once. Sum of 107,324 learned tensors: 572,120,645,440 parameters. Excluded 106,632 FP8 scale tensors (34,828,576 elements) and 69 routing-bias buffers (35,328 elements). Main model: 563,946,448,704; MTP: 8,174,196,736. Serialized data bytes (573,753,281,152) are not a parameter count. Every data span matches logical shape size times dtype width: one byte per FP8 weight, two per BF16, four per F32; no packed weights were counted as expanded scalars."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/inclusionAI/Ling-3.1-flash/blob/e5623f6e4c34e9f2ca40bec867b9210db42ac76c/chat_template.jinja",
+      "title": "Ling-3.1-flash official chat template",
+      "publisher": "inclusionAI",
+      "accessed": true,
+      "evidence": "Explicit enable_thinking switch defaults to thinking on; formats reasoning traces and text messages, tool schemas, generated tool calls and tool responses."
+    },
+    {
+      "id": "s6",
+      "url": "https://developer.ant-ling.com/en/docs/models/ling/",
+      "title": "Ant Ling model documentation and exact-model comparison table",
+      "publisher": "Ant Ling / Ant Group",
+      "accessed": true,
+      "evidence": "Downloaded directly after web-reader timeout. Separately identifies 3.1 Flash as a Ling model with approximately 560B total and 25B active, up to 1M context, and currently 256K official service context. The exact row distinguishes it from 124B 3.0 Flash and 3.0 Flash VL. Identifies Ant Group development and the Inclusion AI open-source community."
+    },
+    {
+      "id": "s7",
+      "url": "https://developer.ant-ling.com/zh-CN/blogs/ling-3.1-flash",
+      "title": "Ling-3.1-flash: model upgrade for real-world tasks (September 30, 2026)",
+      "publisher": "Ant Ling / Ant Group",
+      "accessed": true,
+      "evidence": "Dated September 30, 2026 launch article offers a two-week public trial through Ling Studio and Ant Digital model service. Distinguishes trial context of 256K from planned 1M service and planned subsequent open-weight release. Describes seven KDA layers per gated MLA layer, 512 routed experts, top eight plus one shared, and nominal 560B/25B."
+    },
+    {
+      "id": "s8",
+      "url": "https://developer.ant-ling.com/zh-CN/blogs/",
+      "title": "Ant Ling official dated publication index",
+      "publisher": "Ant Ling / Ant Group",
+      "accessed": true,
+      "evidence": "Directly downloaded index labels the initial Ling-3.1-flash release September 30, 2026 and a separate open-source announcement October 15, 2026. These dates distinguish public model release from subsequent weight publication."
+    },
+    {
+      "id": "s9",
+      "url": "https://docs.sglang.io/cookbook/autoregressive/InclusionAI/Ling-3.1-flash",
+      "title": "Developer-linked SGLang Ling-3.1-flash deployment cookbook, section 3.4",
+      "publisher": "SGLang",
+      "accessed": true,
+      "evidence": "Official model card links this implementation cookbook. Section 3.4 documents 1,048,576-token serving via YaRN factor 4.0, original_max_position_embeddings 262144, rope_theta 6000000, partial_rotary_factor 0.5 and max_position_embeddings 1048576, with H200/GB300 long-prompt checks. Its separate approximate 17B active statement conflicts with the model publisher and is not adopted."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/api/models/inclusionAI/Ling-3.1-flash",
+      "title": "Hugging Face exact repository metadata",
+      "publisher": "Hugging Face / inclusionAI",
+      "accessed": true,
+      "evidence": "Ungated public repository with 54 weight shards; created October 13, 2026, current revision e5623f6e4c34e9f2ca40bec867b9210db42ac76c. Automated tensor statistic is 572,120,680,768, which includes 35,328 routing-buffer elements but excludes FP8 scales. Repository creation is later than the public API release."
+    },
+    {
+      "id": "s11",
+      "url": "https://developer.ant-ling.com/en/docs/getting-started/changelog/",
+      "title": "Ant Ling official service changelog",
+      "publisher": "Ant Ling / Ant Group",
+      "accessed": true,
+      "evidence": "Direct download succeeded after web-reader timeout. Last displayed model entry is September 4 for 3.0 Flash VL; it has no 3.1 Flash entry and therefore does not establish a September 29 release."
+    },
+    {
+      "id": "s12",
+      "url": "https://publish.twitter.com/oembed?url=https%3A%2F%2Ftwitter.com%2FAntLingAGI%2Fstatus%2F2105335205741596911",
+      "title": "Ant Ling announcement returned by X official oEmbed",
+      "publisher": "Ant Ling / X",
+      "accessed": true,
+      "evidence": "Official X oEmbed returns AntLingAGI launch text and September 30, 2026 date for status 2105335205741596911. The snowflake time decodes to 2026-09-30T16:33:22.942Z, so this announcement cannot explain September 29 as a UTC conversion. It says weights will follow."
+    },
+    {
+      "id": "s13",
+      "url": "https://vercel.com/ai-gateway/models/ling-3.1-flash",
+      "title": "Vercel AI Gateway Ling 3.1 Flash provider page",
+      "publisher": "Vercel",
+      "accessed": true,
+      "evidence": "Exact model route page shows 09/29/2026 in a column explicitly titled Release Date for the Novita provider. This is explicit provider-reported release metadata, distinct from the September 30 availability announcement."
+    },
+    {
+      "id": "s14",
+      "url": "https://ai-gateway.vercel.sh/v1/models",
+      "title": "Vercel AI Gateway public models API",
+      "publisher": "Vercel",
+      "accessed": true,
+      "evidence": "Direct response for inclusionai/ling-3.1-flash has released=1790640000 (2026-09-29T00:00:00Z), separately from its created property. Confirms the date is provider release metadata rather than a date inferred from catalog creation."
+    },
+    {
+      "id": "s15",
+      "url": "https://github.com/anomalyco/models.dev/pull/8384",
+      "title": "Original automated Vercel catalog synchronization",
+      "publisher": "Models.dev",
+      "accessed": true,
+      "evidence": "API-read PR opened September 29, 2026 at 18:33:56Z and merged at 21:38:25Z. Its automatic Vercel sync added both exact 3.1 Flash routes and release_date=2026-09-29 in commit cd81c44b37ad1a0ebe7e34966ade8502b480b2c6. Establishes contemporaneous listing, not successful historical inference."
+    },
+    {
+      "id": "s16",
+      "url": "https://vercel.com/changelog/ling-3-1-flash-is-now-available-on-ai-gateway",
+      "title": "Vercel Ling 3.1 Flash availability announcement",
+      "publisher": "Vercel",
+      "accessed": true,
+      "evidence": "September 30, 2026 article announces the model available through both standard and free routes. This publication date is one day later than Vercel own explicit provider Release Date and released API field."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Ling 3.1 Flash",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Display punctuation normalized from the exact publisher identifier Ling-3.1-flash; not 3.0 Flash, VL, or a later dated 3.1 variant."
+    },
+    "developer": {
+      "value": "InclusionAI",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Preserve catalog developer identity: the official inclusionAI publisher is the Ant Group open-source organization behind Ling."
+    },
+    "family": {
+      "value": "ling",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Publisher explicitly places this model in the Ling series."
+    },
+    "release_date": {
+      "value": "2026-09-29",
+      "status": "verified",
+      "source_ids": [
+        "s13",
+        "s14",
+        "s15",
+        "s7",
+        "s12",
+        "s16"
+      ],
+      "note": "Retain earliest explicit public-provider release date: Vercel labels September 29 as Release Date and its API separately returns released=1790640000. An automated Vercel sync on September 29 corroborates contemporaneous listing, though it does not prove historical successful inference. Ant Ling blog/X and Vercel availability announcements are September 30; X timestamp is September 30 UTC, so the dates are distinct events rather than a timezone conversion. October weight publication is later. The exact first successfully served request remains unverified."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s10"
+      ],
+      "note": "All 54 official checkpoint shards are public and ungated; their bounded headers were fetched successfully."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s10"
+      ],
+      "note": "Exact publisher model-card metadata specifies MIT."
+    },
+    "parameters_b": {
+      "value": 572.12064544,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "note": "Complete learned checkpoint count in decimal billions: 572,120,645,440. Includes 563,946,448,704 main-model parameters and 8,174,196,736 MTP parameters; shared embedding/head counted only once and main input/output embeddings are untied. Counts FP8 tensor shapes as logical weights, retains learned A_log/dt_bias, excludes 34,828,576 quantization-scale elements and 35,328 routing-bias buffer elements. The publisher nominal 560B describes a rounded model scale; it is not the complete checkpoint count. Independent grouped sum: 1,287,655,424 embedding/head/final-norm parameters + 1,310,130,944 across four dense/KDA layers + 488,082,992,192 across 59 MoE/KDA layers + 73,265,670,144 across nine MoE/MLA layers + 8,174,196,736 MTP."
+    },
+    "active_parameters_b": {
+      "value": 25,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6",
+        "s7"
+      ],
+      "note": "Publisher explicitly reports approximately 25B parameters activated per token. Retain this nominal value rather than implying an exact count or adding all MTP parameters. A configuration/header cross-check with full embedding matrices and eight of 512 experts gives 24.894498624B for the main model; exact activity conventions can differ for embedding lookup and speculative decoding."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s7"
+      ],
+      "note": "Hybrid-linear MoE: 72 main layers comprising 63 Kimi Delta Attention layers and nine gated MLA layers (7:1), with four initial dense FFNs and 68 MoE FFNs; each MoE uses eight of 512 routed experts plus one shared expert. One additional MLA/MoE MTP layer is outside the 72-layer backbone. The catalog moe value records expert structure; hybrid attention detail is retained in notes."
+    },
+    "context_window": {
+      "value": 1048576,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s6",
+        "s9"
+      ],
+      "note": "Maximum supported context, including documented extension: 1,048,576 tokens. Shipped config is 262,144 with no rope scaling and current official API documentation says 256K. The developer-linked SGLang cookbook specifies and reports verifying the fourfold YaRN override: rope_type=yarn, factor=4.0, original_max_position_embeddings=262144, rope_theta=6000000, partial_rotary_factor=0.5, max_position_embeddings=1048576. This is an extension, not the default or current official service limit."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s5"
+      ],
+      "note": "Text-generation causal language model with text token embeddings/output head and text chat template; exact checkpoint contains no vision/audio encoder. Do not transfer VL sibling modalities or tool-mediated document/image capabilities."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s5"
+      ],
+      "note": "The exact chat template implements enable_thinking on/off and reasoning_content formatting."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s5"
+      ],
+      "note": "The exact chat template accepts tools and formats assistant tool_calls and tool results."
+    },
+    "description": {
+      "value": "Open-weight hybrid-linear MoE language model for reasoning, tool use, and long-horizon coding and office tasks.",
+      "status": "verified",
+      "source_ids": [
+        "s6",
+        "s7"
+      ],
+      "note": "Replace the generic low-latency/extraction claim with the publisher-supported architecture and intended reasoning, tool, coding and office tasks; no unverified comparative performance claim."
+    }
+  },
+  "patch": {
+    "license": "MIT",
+    "parameters_b": 572.12064544,
+    "active_parameters_b": 25,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "context_window": 1048576,
+    "description": "Open-weight hybrid-linear MoE language model for reasoning, tool use, and long-horizon coding and office tasks.",
+    "source_url": "https://huggingface.co/inclusionAI/Ling-3.1-flash",
+    "source_type": "primary",
+    "notes": "Complete checkpoint count is 572.12064544B learned parameters: 563.946448704B main model plus 8.174196736B MTP, excluding quantization scales and routing buffers. Publisher figures of 560B total and 25B active are nominal; 25B active is retained as published. Hybrid-linear MoE uses 63 KDA + 9 gated MLA backbone layers, four dense FFNs, and top-8 of 512 routed experts plus one shared expert; MTP adds one MLA/MoE layer. Maximum 1,048,576-token context requires the documented fourfold YaRN extension; checkpoint default and currently documented official API limit are 262,144. Retain September 29, 2026 as Vercel explicit provider-reported release date, corroborated by contemporaneous catalog sync; Ant Ling and Vercel published launch announcements September 30. No historical inference request was tested. Weight repository creation and open-source announcement followed in October.",
+    "sources": [
+      {
+        "label": "Ling-3.1-flash official model card",
+        "url": "https://huggingface.co/inclusionAI/Ling-3.1-flash/blob/e5623f6e4c34e9f2ca40bec867b9210db42ac76c/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Ling-3.1-flash checkpoint configuration",
+        "url": "https://huggingface.co/inclusionAI/Ling-3.1-flash/blob/e5623f6e4c34e9f2ca40bec867b9210db42ac76c/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Ling-3.1-flash official modeling implementation",
+        "url": "https://huggingface.co/inclusionAI/Ling-3.1-flash/blob/e5623f6e4c34e9f2ca40bec867b9210db42ac76c/modeling_bailing_moe_v3.py",
+        "type": "primary"
+      },
+      {
+        "label": "Ling-3.1-flash checkpoint index and bounded tensor-header audit",
+        "url": "https://huggingface.co/inclusionAI/Ling-3.1-flash/blob/e5623f6e4c34e9f2ca40bec867b9210db42ac76c/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Ling-3.1-flash official chat template",
+        "url": "https://huggingface.co/inclusionAI/Ling-3.1-flash/blob/e5623f6e4c34e9f2ca40bec867b9210db42ac76c/chat_template.jinja",
+        "type": "primary"
+      },
+      {
+        "label": "Ant Ling model documentation and exact-model comparison table",
+        "url": "https://developer.ant-ling.com/en/docs/models/ling/",
+        "type": "primary"
+      },
+      {
+        "label": "Ling-3.1-flash: model upgrade for real-world tasks (September 30, 2026)",
+        "url": "https://developer.ant-ling.com/zh-CN/blogs/ling-3.1-flash",
+        "type": "primary"
+      },
+      {
+        "label": "Ant Ling official dated publication index",
+        "url": "https://developer.ant-ling.com/zh-CN/blogs/",
+        "type": "primary"
+      },
+      {
+        "label": "Developer-linked SGLang Ling-3.1-flash deployment cookbook, section 3.4",
+        "url": "https://docs.sglang.io/cookbook/autoregressive/InclusionAI/Ling-3.1-flash",
+        "type": "primary"
+      },
+      {
+        "label": "Ant Ling announcement returned by X official oEmbed",
+        "url": "https://publish.twitter.com/oembed?url=https%3A%2F%2Ftwitter.com%2FAntLingAGI%2Fstatus%2F2105335205741596911",
+        "type": "primary"
+      },
+      {
+        "label": "Vercel AI Gateway Ling 3.1 Flash provider page",
+        "url": "https://vercel.com/ai-gateway/models/ling-3.1-flash",
+        "type": "primary"
+      },
+      {
+        "label": "Vercel AI Gateway public models API",
+        "url": "https://ai-gateway.vercel.sh/v1/models",
+        "type": "primary"
+      },
+      {
+        "label": "Original automated Vercel catalog synchronization",
+        "url": "https://github.com/anomalyco/models.dev/pull/8384",
+        "type": "catalog"
+      },
+      {
+        "label": "Vercel Ling 3.1 Flash availability announcement",
+        "url": "https://vercel.com/changelog/ling-3-1-flash-is-now-available-on-ai-gateway",
+        "type": "primary"
+      }
+    ]
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "main_model": 563.946448704,
+      "mtp": 8.174196736
+    }
+  },
+  "summary": "All 14 fields assessed against the exact model. Add MIT, complete learned checkpoint total 572.12064544B, nominal 25B active, and hybrid-linear MoE structure. Raise maximum context to 1,048,576 using the developer-linked verified YaRN recipe while preserving the 262,144 default/service distinction. Replace generic description. Retain September 29 as explicit Vercel provider release metadata, distinguish September 30 publisher/availability announcements and October weight publication, and preserve the historical-serving evidence limitation. Count includes MTP and excludes scales/buffers; no weight payloads were downloaded."
+}
