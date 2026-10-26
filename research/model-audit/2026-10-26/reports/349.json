@@ -1,0 +1,387 @@
+{
+  "index": 349,
+  "model_id": "mistral/pixtral-12b",
+  "reviewed_at": "2026-10-26T23:41:08.504Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/mistralai/Pixtral-12B-2409/blob/a5ca2b7a9421a35ea24411c46e970758b8d3c6a7/README.md",
+      "title": "Pixtral-12B-2409 official instruct model card",
+      "publisher": "Mistral AI",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "The official instruct repository identifies Pixtral-12B-2409, names its distinct Base-2409 parent, provides public weights under Apache 2.0, and describes a nominal 12B multimodal decoder plus a 400M vision encoder, interleaved text/image training, 128k sequence length and text responses. README content was read through the raw endpoint; the repository API supplied the pinned revision."
+    },
+    {
+      "id": "s2",
+      "url": "https://github.com/mistralai/platform-docs-public/blob/cd2192ef7d0e96388a4261dbb6d417869e4bb965/src/schema/models/models/pixtral-12b-24-09.ts",
+      "title": "Pinned official Pixtral 12B v24.09 model schema",
+      "publisher": "Mistral AI",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Exact apiNames entry is pixtral-12b-2409. The Instruct Weights row links the audited Hugging Face repository, independently supplies parameters='12' and active='12', and specifies Apache 2.0 and 128k. Release date is 2024-09-11; inputs are text/image, output text, and function-calling is explicitly listed. It is classified Generalist and Deprecated; published retirement metadata is not a live endpoint test. Read through raw.githubusercontent.com at this revision."
+    },
+    {
+      "id": "s3",
+      "url": "https://github.com/mistralai/platform-docs-public/blob/cd2192ef7d0e96388a4261dbb6d417869e4bb965/src/app/%5Blocale%5D/%28docs%29/model-card/%5Bslug%5D/components/weights-table.tsx",
+      "title": "Pinned official weights table units",
+      "publisher": "Mistral AI",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "The renderer labels ordinary parameter strings Parameters (B) and the separately rendered active field Active (B). Thus both '12' entries in this exact weights row are published billion-unit counts. The renderer can display a separate visionEncoder column, but the Pixtral 12B schema supplies no such field."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/mistralai/Pixtral-12B-2409/resolve/a5ca2b7a9421a35ea24411c46e970758b8d3c6a7/consolidated.safetensors",
+      "title": "Pinned official checkpoint: bounded safetensors header",
+      "publisher": "Mistral AI",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Two HTTP 206 byte ranges read the 8-byte length prefix and 69,520-byte JSON header only. The 585 nonoverlapping contiguous tensors are all BF16 learned weights or biases, totaling 12,682,739,712 elements. Component totals are 12,247,782,400 decoder, 403,489,792 vision encoder and 31,467,520 adapter parameters. No tensor payload, full shard, quantization scales, packed storage or non-parameter buffers were downloaded or counted."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/mistralai/Pixtral-12B-2409/raw/a5ca2b7a9421a35ea24411c46e970758b8d3c6a7/params.json",
+      "title": "Pinned official native Pixtral configuration",
+      "publisher": "Mistral AI",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "The native config explicitly sets max_position_embeddings=131072, 40 decoder layers, dimension 5120, 32 query heads and 8 KV heads, plus a 24-layer vision encoder of dimension 1024. No MoE configuration is present. Access succeeded through urllib although the web reader could not parse this JSON endpoint."
+    },
+    {
+      "id": "s6",
+      "url": "https://arxiv.org/html/2410.07073v2",
+      "title": "Pixtral 12B technical report, version 2",
+      "publisher": "Mistral AI",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Section 2 describes a Transformer with a multimodal decoder based on Mistral Nemo 12B and a separate 400M vision Transformer; Table 1 explicitly gives decoder context_len=131072. The report discusses an instruction-following text/image model and prompt-based chain-of-thought evaluation; these do not establish a dedicated reasoning model."
+    },
+    {
+      "id": "s7",
+      "url": "https://mistral.ai/news/pixtral-12b/",
+      "title": "Announcing Pixtral 12B",
+      "publisher": "Mistral AI",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "The September 17, 2024 announcement describes a 12B multimodal decoder and separate 400M vision encoder, text generation from images and text, and Apache 2.0 licensing. Its date is later than the weights release recorded by the official lifecycle and model schema."
+    },
+    {
+      "id": "s8",
+      "url": "https://legal.mistral.ai/ai-governance/models/pixtral-12b/",
+      "title": "Pixtral 12B official model lifecycle",
+      "publisher": "Mistral AI",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "The lifecycle table explicitly dates both Pixtral 12B Instruct and Base to September 11, 2024. This verifies the original release date rather than substituting the September 17 launch article."
+    },
+    {
+      "id": "s9",
+      "url": "https://mistral.ai/news/magistral/",
+      "title": "Magistral: Mistral's first reasoning model",
+      "publisher": "Mistral AI",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Mistral calls the June 10, 2025 Magistral release its first reasoning model. This is historical context, not an explicit Pixtral-specific non-reasoning declaration, so it is insufficient to verify the audited model's reasoning boolean."
+    },
+    {
+      "id": "s10",
+      "url": "https://github.com/mistralai/mistral-inference/blob/9eaeb91c17450e09021b6065a1d5cc69876507c8/src/mistral_inference/transformer.py",
+      "title": "Official inference implementation: decoder and multimodal modules",
+      "publisher": "Mistral AI",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "The native implementation instantiates separate token embeddings, decoder blocks, final normalization and output projection, plus VisionTransformer and VisionLanguageAdapter modules. Vision modules are invoked for image input, so a complete stored-parameter total is not itself an active count for every execution phase."
+    },
+    {
+      "id": "s11",
+      "url": "https://github.com/mistralai/mistral-inference/blob/9eaeb91c17450e09021b6065a1d5cc69876507c8/src/mistral_inference/transformer_layers.py",
+      "title": "Official inference implementation: dense feedforward and learned normalization",
+      "publisher": "Mistral AI",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "TransformerBlock selects a standard dense FeedForward when moe is None; the feedforward has three linear matrices, and RMSNorm stores its weight as nn.Parameter. The checkpoint's names and shapes match these learned layers rather than routing experts or buffers."
+    },
+    {
+      "id": "s12",
+      "url": "https://github.com/mistralai/mistral-inference/blob/9eaeb91c17450e09021b6065a1d5cc69876507c8/src/mistral_inference/vision_encoder.py",
+      "title": "Official inference implementation: learned vision encoder and adapter",
+      "publisher": "Mistral AI",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "The vision encoder has a learned Conv2d patch projection, RMSNorm and Transformer blocks. VisionLanguageAdapter has two learned linear layers with biases, matching all four adapter tensors in this checkpoint."
+    },
+    {
+      "id": "s13",
+      "url": "https://github.com/mistralai/mistral-inference/blob/9eaeb91c17450e09021b6065a1d5cc69876507c8/src/mistral_inference/args.py",
+      "title": "Official native configuration defaults",
+      "publisher": "Mistral AI",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Transformer arguments default moe and lora to None and model_type to transformer; vision adapter_bias defaults true. These defaults explain the exact native config's dense layers and biased adapter."
+    },
+    {
+      "id": "s14",
+      "url": "https://github.com/anomalyco/models.dev/blob/dev/models/mistral/pixtral-12b.toml",
+      "title": "Original Models.dev catalog record",
+      "publisher": "Models.dev contributors",
+      "type": "catalog",
+      "accessed": true,
+      "evidence": "The baseline source maps pixtral-12b to mistralai/Pixtral-12B-2409 and documents its originating 128000 context claim. Used to establish the catalog-to-checkpoint mapping, not as independent verification of technical specifications."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Pixtral 12B",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Official display name; exact linked variant is the September 2024 instruct checkpoint, not Pixtral Large or the separately linked base weights."
+    },
+    "developer": {
+      "value": "Mistral",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7"
+      ],
+      "note": "Mistral AI publishes the model, its code and its official weights. Preserve the catalog's short developer label."
+    },
+    "family": {
+      "value": "pixtral",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s8"
+      ],
+      "note": "Pixtral is the official family identity; the catalog uses its lowercase normalized key."
+    },
+    "release_date": {
+      "value": "2024-09-11",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s8",
+        "s7"
+      ],
+      "note": "The exact official schema and lifecycle table explicitly establish September 11 for the instruct release. September 17 is the later announcement/API-era article, not the original weights release."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4"
+      ],
+      "note": "Official instruct checkpoint is publicly accessible; bounded header requests succeeded without authentication."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s7"
+      ],
+      "note": "The exact model card and Instruct Weights row explicitly state Apache 2.0."
+    },
+    "parameters_b": {
+      "value": 12.682739712,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s10",
+        "s11",
+        "s12",
+        "s13",
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Complete checkpoint count in decimal billions, derived from shapes of 585 learned BF16 weights/biases in the official pinned safetensors header, with native implementation checks. This includes decoder, vision encoder and adapter. It is not the misleading arithmetic sum of the rounded 12B decoder and 400M vision claims, and does not treat the schema's nominal 12 as an exact whole-model count. Full count needs no parameters_scope."
+    },
+    "active_parameters_b": {
+      "value": 12,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s1",
+        "s10"
+      ],
+      "note": "Separately published nominal Active (B)=12 for the exact Instruct Weights row; not inferred from density or total equality. The row does not define whether this rounded active number covers the decoder alone or a particular multimodal execution phase. Preserve that scope limitation: the card separately describes a nominal 12B decoder, and image encoding is conditional in native inference. No exact full-model active count or active scope is inferred."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s6",
+        "s10",
+        "s11",
+        "s12",
+        "s13"
+      ],
+      "note": "Dense multimodal Transformer: 40-layer decoder, 24-layer vision Transformer and learned adapter. Exact native config has no MoE field, whose default is None; native implementation therefore selects dense feedforward modules. The complete checkpoint has corresponding shared FFN matrices without expert/router tensors."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s6",
+        "s1",
+        "s2"
+      ],
+      "note": "Native max_position_embeddings and technical-report decoder context_len both explicitly equal 131072. The card and API schema abbreviate this as 128k; replace the baseline's decimal expansion of that abbreviation."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s6"
+      ],
+      "note": "Exact official capabilities and native model examples support text/image input and text output. Document QnA is a task capability; it does not establish PDF as a separate native input modality."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s2",
+        "s6",
+        "s9"
+      ],
+      "note": "No explicit Pixtral-12B-2409 statement confirming or denying a dedicated reasoning mode was established. Generalist classification, omission from its feature list, prompted CoT benchmarks, and the later Magistral first-reasoning-model announcement do not directly establish false for this exact model. Clear the unsupported baseline false; this does not deny general visual-reasoning abilities."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Function calling is explicitly listed for the exact pixtral-12b-2409 API identity. This documents model capability, not present endpoint availability."
+    },
+    "description": {
+      "value": "Mistral vision-language model for image understanding and multimodal chat",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s6"
+      ],
+      "note": "The concise baseline description is supported by the official instruct card, multimodal chat examples and text/image capability definition."
+    }
+  },
+  "parameter_audit": {
+    "checkpoint_url": "https://huggingface.co/mistralai/Pixtral-12B-2409/resolve/a5ca2b7a9421a35ea24411c46e970758b8d3c6a7/consolidated.safetensors",
+    "request_method": "GET with Range: bytes=0-7, then Range: bytes=8-69527; each response was HTTP 206. Requests appended ?header_range=0-7 and ?header_range=8-69527 respectively to avoid range-cache collisions. Read only the requested byte count and reject non-206 responses.",
+    "header_length_bytes": 69520,
+    "header_plus_length_prefix_bytes": 69528,
+    "checkpoint_file_bytes": 25365548952,
+    "tensor_payload_bytes_described_not_downloaded": 25365479424,
+    "tensor_count": 585,
+    "tensor_dtype_counts": {
+      "BF16": 585
+    },
+    "counting_rule": "For each JSON header tensor, multiply shape dimensions. Exclude the reserved __metadata__ entry (absent here). Every tensor name ends in .weight or .bias and maps to a learned native module. Group names starting vision_encoder. as vision_encoder, names starting vision_language_adapter. as vision_language_adapter, and all remaining names as multimodal_decoder. Decoder remainder consists only of layers.*, norm.weight, output.weight and tok_embeddings.weight.",
+    "component_counts": {
+      "multimodal_decoder": {
+        "tensors": 363,
+        "parameters": 12247782400
+      },
+      "vision_encoder": {
+        "tensors": 218,
+        "parameters": 403489792
+      },
+      "vision_language_adapter": {
+        "tensors": 4,
+        "parameters": 31467520
+      }
+    },
+    "byte_reconciliation": "All data_offsets are contiguous and nonoverlapping from 0 through 25365479424. Each tensor's byte span equals product(shape)*2 for BF16. Sum=12682739712 parameters; 12682739712*2+69520+8=25365548952 file bytes, matching Content-Range. Separate embedding and output matrices have distinct storage offsets. No FP8 scale tensors, buffers, packed weights or duplicate tensor storage were present.",
+    "payload_downloaded": false
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "multimodal_decoder": 12.2477824,
+      "vision_encoder": 0.403489792,
+      "vision_language_adapter": 0.03146752
+    }
+  },
+  "patch": {
+    "license": "Apache-2.0",
+    "parameters_b": 12.682739712,
+    "active_parameters_b": 12,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "context_window": 131072,
+    "source_url": "https://docs.mistral.ai/models/pixtral-12b-24-09",
+    "source_type": "primary",
+    "notes": "Pixtral-12B-2409 instruct checkpoint. Complete parameter count is 12,682,739,712 from its official BF16 safetensors header: decoder 12,247,782,400, vision encoder 403,489,792 and vision-language adapter 31,467,520. Published 12B decoder and 400M vision labels are nominal, not an exact full-model total. Official documentation separately reports nominal Active (B)=12 but leaves its component/execution-phase scope unspecified; it is not a derived equality with the complete parameter count. Native configuration and technical report specify 131072 context tokens, marketed as 128k. Original release was 2024-09-11; the announcement article followed on 2024-09-17. Document-QnA does not add a native PDF modality. Documented function calling does not imply the deprecated API remains operational. Dedicated reasoning classification was not explicitly verified for this exact model; the unsupported baseline false is cleared.",
+    "sources": [
+      {
+        "label": "Official Pixtral model documentation",
+        "url": "https://docs.mistral.ai/models/pixtral-12b-24-09",
+        "type": "primary"
+      },
+      {
+        "label": "Official instruct model card",
+        "url": "https://huggingface.co/mistralai/Pixtral-12B-2409/blob/a5ca2b7a9421a35ea24411c46e970758b8d3c6a7/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "Official complete checkpoint header",
+        "url": "https://huggingface.co/mistralai/Pixtral-12B-2409/resolve/a5ca2b7a9421a35ea24411c46e970758b8d3c6a7/consolidated.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Official native model configuration",
+        "url": "https://huggingface.co/mistralai/Pixtral-12B-2409/raw/a5ca2b7a9421a35ea24411c46e970758b8d3c6a7/params.json",
+        "type": "weights"
+      },
+      {
+        "label": "Official schema: exact instruct total and active fields",
+        "url": "https://github.com/mistralai/platform-docs-public/blob/cd2192ef7d0e96388a4261dbb6d417869e4bb965/src/schema/models/models/pixtral-12b-24-09.ts",
+        "type": "primary"
+      },
+      {
+        "label": "Official weights-table billion units",
+        "url": "https://github.com/mistralai/platform-docs-public/blob/cd2192ef7d0e96388a4261dbb6d417869e4bb965/src/app/%5Blocale%5D/%28docs%29/model-card/%5Bslug%5D/components/weights-table.tsx",
+        "type": "primary"
+      },
+      {
+        "label": "Pixtral 12B technical report",
+        "url": "https://arxiv.org/html/2410.07073v2",
+        "type": "primary"
+      },
+      {
+        "label": "Official original-release lifecycle",
+        "url": "https://legal.mistral.ai/ai-governance/models/pixtral-12b/",
+        "type": "primary"
+      },
+      {
+        "label": "Official dense Transformer implementation",
+        "url": "https://github.com/mistralai/mistral-inference/blob/9eaeb91c17450e09021b6065a1d5cc69876507c8/src/mistral_inference/transformer_layers.py",
+        "type": "primary"
+      }
+    ],
+    "reasoning": null
+  },
+  "summary": "All 14 factual fields reviewed against the exact September 2024 instruct model. Correct license to Apache-2.0, architecture to dense, complete parameters to 12.682739712B and context to 131072. Record the separately published nominal 12B active count with its undefined scope caveat. Propose the verified full-checkpoint component breakdown for parent review without a total-parameter scope override. Confirm September 11 release, open weights, text/image input, text output and function calling. Dedicated reasoning classification remains unverified and baseline false is explicitly cleared. No full weight payload was fetched."
+}
