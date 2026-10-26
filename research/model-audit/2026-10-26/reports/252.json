@@ -1,0 +1,324 @@
+{
+  "index": 252,
+  "model_id": "meituan/longcat-2.0",
+  "reviewed_at": "2026-10-26T21:16:42.280176+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://tech.meituan.com/2026/06/30/LongCat2.0.html",
+      "title": "LongCat-2.0 formal release announcement, June 30, 2026",
+      "publisher": "Meituan Technical Team",
+      "accessed": true,
+      "evidence": "Announces the final LongCat-2.0 on June 30, distinguishes its earlier preview, and reports 1.6T nominal parameters, average ~48B activated with a 33B–56B dynamic range, native 1M context, ScMoE/zero-compute experts, reasoning and tool use."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/meituan-longcat/LongCat-2.0/blob/834bf5ffe3047aa9f6cc7a64a9bc068b146b8274/README.md",
+      "title": "LongCat-2.0 official model card at audited checkpoint revision",
+      "publisher": "Meituan LongCat",
+      "accessed": true,
+      "evidence": "Identifies the final language model as LongCat-2.0; describes MoE, LongCat Sparse Attention and 135B nominal N-gram embedding parameters, three-step MTP, text chat with thinking on/off and tools, and explicitly licenses the weights under MIT."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/meituan-longcat/LongCat-2.0/blob/834bf5ffe3047aa9f6cc7a64a9bc068b146b8274/config.json",
+      "title": "LongCat-2.0 configuration at 834bf5ffe3047aa9f6cc7a64a9bc068b146b8274",
+      "publisher": "Meituan LongCat",
+      "accessed": true,
+      "evidence": "LongcatCausalLM: 38 layers, hidden size 8192, 768 routed plus 128 zero-compute experts and top-k12, MLA/LSA configuration, three MTP steps with replication, N-gram embedding, max_position_embeddings 262144, and DeepSeek YaRN original 8192/factor 120. No quantization_config is present."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/meituan-longcat/LongCat-2.0/blob/834bf5ffe3047aa9f6cc7a64a9bc068b146b8274/model.safetensors.index.json",
+      "title": "LongCat-2.0 full checkpoint index and bounded shard headers",
+      "publisher": "Meituan LongCat",
+      "accessed": true,
+      "evidence": "All 194 revision-pinned safetensors headers were fetched with HTTP 206 bounded ranges; all 88,780 tensor names exactly match the index. Their BF16/F32 shapes sum to 1,775,560,491,136 storage elements and 3,551,699,340,032 bytes. Main namespace: 1,638,616,807,424; MTP namespace: 136,943,683,712. Both contain N-gram embedding tables/projections. No quantization scales or packed integer tensors occur."
+    },
+    {
+      "id": "s5",
+      "url": "https://github.com/meituan-longcat/SGLang-FluentLLM/blob/55d719f3223f697cbeb4a5f31b7071e1892980d0/python/sglang/srt/models/longcat_flash.py",
+      "title": "Official LongCat inference implementation: main model and router",
+      "publisher": "Meituan LongCat",
+      "accessed": true,
+      "evidence": "Defines shortcut MoE decoder blocks, separate token embedding and LM-head modules, skips the MTP namespace when loading the target model, and declares router e_score_correction_bias as an nn.Parameter. In this checkpoint the latter accounts for 34,048 stored entries; an inference Parameter declaration does not establish backpropagation learning semantics."
+    },
+    {
+      "id": "s6",
+      "url": "https://github.com/meituan-longcat/SGLang-FluentLLM/blob/55d719f3223f697cbeb4a5f31b7071e1892980d0/python/sglang/srt/models/flash_nextn.py",
+      "title": "Official LongCat next-token prediction implementation",
+      "publisher": "Meituan LongCat",
+      "accessed": true,
+      "evidence": "MTP loader maps model.mtp.layers.0 to one next-token prediction module, skips separately saved embedding/head weights, and loads the prediction-specific transformations. This supports separating the single stored MTP block from its three speculative decoding steps."
+    },
+    {
+      "id": "s7",
+      "url": "https://github.com/meituan-longcat/SGLang-FluentLLM/blob/55d719f3223f697cbeb4a5f31b7071e1892980d0/python/sglang/srt/speculative/base_spec_worker.py",
+      "title": "Official speculative worker embedding sharing",
+      "publisher": "Meituan LongCat",
+      "accessed": true,
+      "evidence": "init_drafter_embedding retrieves target embeddings/head and passes the same objects to set_oe_and_head or set_embed_and_head. Thus the serving graph can reuse target token/N-gram embeddings; serialized copies must not automatically be treated as distinct learned parameters. The file does not establish equality or training identity of every exported duplicate."
+    },
+    {
+      "id": "s8",
+      "url": "https://longcat.chat/platform/docs/api/model-params",
+      "title": "LongCat API model parameters",
+      "publisher": "Meituan LongCat",
+      "accessed": true,
+      "evidence": "Exact LongCat-2.0 column specifies 1,048,576 tokens input+output context and 131,072 maximum output tokens. This is the documented hosted service limit, distinct from the downloadable checkpoint default."
+    },
+    {
+      "id": "s9",
+      "url": "https://longcat.chat/platform/docs/ChangeLog.html",
+      "title": "LongCat API platform change log",
+      "publisher": "Meituan LongCat",
+      "accessed": true,
+      "evidence": "Separately dates LongCat-2.0-Preview to April 20, 2026 and final LongCat-2.0 to June 30, 2026; the final release supports native tool calling and multi-step reasoning. The September 25 entry calls image understanding a new LongCat-2.5-Preview capability."
+    },
+    {
+      "id": "s10",
+      "url": "https://www.meituan.com/news/NN260706216009547",
+      "title": "LongCat-2.0 weights and domestic accelerator inference code released",
+      "publisher": "Meituan",
+      "accessed": true,
+      "evidence": "July 6, 2026 announcement says LongCat-2.0 is now open sourced, distinguishing weight availability from the June 30 final model release."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/api/models/meituan-longcat/LongCat-2.0",
+      "title": "Official checkpoint metadata and revision",
+      "publisher": "Hugging Face hosting Meituan LongCat",
+      "accessed": true,
+      "evidence": "Public ungated BF16/F32 checkpoint, created July 5, 2026; audited current revision 834bf5ffe3047aa9f6cc7a64a9bc068b146b8274, modified July8. Safetensors metadata independently matches the header total. Repository creation alone is not the model release date."
+    },
+    {
+      "id": "s12",
+      "url": "https://huggingface.co/meituan-longcat/LongCat-2.0-FP8",
+      "title": "Official LongCat-2.0 FP8 distribution",
+      "publisher": "Meituan LongCat",
+      "accessed": true,
+      "evidence": "Separate public official FP8 distribution confirmed through repository API, revision d5f32b1aaee4682826d927ec25433da84b281fd0. Its quantized storage is not used to derive this BF16 checkpoint count."
+    },
+    {
+      "id": "s13",
+      "url": "https://huggingface.co/meituan-longcat/LongCat-2.0-INT8",
+      "title": "Official LongCat-2.0 INT8 distribution",
+      "publisher": "Meituan LongCat",
+      "accessed": true,
+      "evidence": "Separate public official INT8 distribution confirmed through repository API, revision b2c604b34b3580ee542272bd9dccaa316749be93. It is a released precision variant, not a replacement identity for the final model."
+    },
+    {
+      "id": "s14",
+      "url": "https://longcat.chat/platform/docs/api/chat",
+      "title": "LongCat Chat Completions API",
+      "publisher": "Meituan LongCat",
+      "accessed": true,
+      "evidence": "Lists the exact LongCat-2.0 identifier, plain-text message input and text/reasoning response schema, and thinking enable/disable control."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "LongCat-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Exact final model name; not LongCat-2.0-Preview, LongCat-2.5-Preview or a Flash-family checkpoint."
+    },
+    "developer": {
+      "value": "Meituan",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s10"
+      ],
+      "note": "Released by Meituan and its LongCat team."
+    },
+    "family": {
+      "value": "longcat",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Catalog-normalized family name supported by the developer’s LongCat model series."
+    },
+    "release_date": {
+      "value": "2026-06-30",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s9",
+        "s10",
+        "s11"
+      ],
+      "note": "Final model/API release was June 30. Earlier preview release was April 20; public repository creation July 5 and announced weight release July 6 are distinct events, so the final-model date is retained."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s10",
+        "s11",
+        "s12",
+        "s13"
+      ],
+      "note": "Confirmed accessible ungated official weights. Count audit targets the BF16/F32 checkpoint at revision 834bf5ffe3047aa9f6cc7a64a9bc068b146b8274. Official FP8 and INT8 distributions also exist; no separate base versus instruct checkpoint is inferred."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "The developer expressly releases the model weights under MIT; not merely the inference code."
+    },
+    "parameters_b": {
+      "value": 1600,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s11"
+      ],
+      "note": "Publisher nominal total, not an exact learned-parameter count. Complete header total is 1,775.560491136B stored BF16/F32 elements: main 1,638.616807424B plus MTP 136.943683712B. Each namespace contains 134.978871296B N-gram table elements and 0.067108864B projections; MTP also stores 1.342177280B token embeddings and 0.555526272B prediction-specific elements. The public implementation shares target embeddings/head and uses one MTP block over three steps, but headers cannot establish all exported-copy training identities. Routing correction entries total 0.000034048B and are inference nn.Parameters; they are not silently discarded as learned or nonlearned. No quantization/scales/packed-storage correction applies. Retain explicit nominal 1600B instead of promoting storage totals or a deduplicated serving estimate to a verified learned count."
+    },
+    "active_parameters_b": {
+      "value": 48,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Developer-reported approximate average per-token activation, dynamically 33B–56B with zero-compute experts; not total checkpoint storage and not a constant top-k reconstruction. Auxiliary MTP speculative-step cost is not separately included or quantified by the publisher."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s5",
+        "s6"
+      ],
+      "note": "Autoregressive Transformer/shortcut MoE with MLA-derived LongCat Sparse Attention, N-gram embeddings and MTP. Configuration has 38 shortcut blocks, each with two attention/dense branches, 768 routed plus 128 zero-compute experts, top-k12; decoder tensor names confirm 76 attention sublayers. Three draft steps use one stored MTP block. No multimodal encoder appears in the complete checkpoint index."
+    },
+    "context_window": {
+      "value": 1048576,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s8"
+      ],
+      "note": "Exact documented hosted API input+output limit 1,048,576, output cap 131,072. Checkpoint config sets max_position_embeddings 262,144 with DeepSeek YaRN original 8192/factor 120; these are configuration/default/extension settings, not proof that an arbitrary local server exposes the API maximum. Publisher says native 1M context training. No endpoint request or empirical long-context test was performed."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s9",
+        "s14"
+      ],
+      "note": "Text language-model configuration/checkpoint and API schema support text input/output. The later 2.5-Preview’s new image capability is not transferred to 2.0."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s9",
+        "s14"
+      ],
+      "note": "Explicit multi-step reasoning and thinking control, with reasoning-content fields in the released chat template."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s9"
+      ],
+      "note": "Final release explicitly supports native tool calls; released template handles tool declarations, tool calls and results."
+    },
+    "description": {
+      "value": "Meituan LongCat-2.0 is an open-weight MoE language model with nominal 1.6T total parameters and about 48B activated per token, LongCat Sparse Attention, N-gram embeddings, reasoning and tool calling, and a documented 1,048,576-token API context window.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s8",
+        "s9"
+      ],
+      "note": "Concise technical description replaces the rounded context claim and adds verified nominal architecture/count information without transferring benchmark or successor-model claims."
+    }
+  },
+  "patch": {
+    "license": "MIT",
+    "parameters_b": 1600,
+    "active_parameters_b": 48,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "context_window": 1048576,
+    "description": "Meituan LongCat-2.0 is an open-weight MoE language model with nominal 1.6T total parameters and about 48B activated per token, LongCat Sparse Attention, N-gram embeddings, reasoning and tool calling, and a documented 1,048,576-token API context window.",
+    "source_url": "https://tech.meituan.com/2026/06/30/LongCat2.0.html",
+    "source_type": "primary",
+    "notes": "Nominal 1.6T parameters; average ~48B active per token (dynamic 33B–56B). Audited BF16/F32 checkpoint 834bf5ffe3047aa9f6cc7a64a9bc068b146b8274 stores 1,775.560491136B elements including separately saved MTP/embedding namespaces; this is not asserted as an exact unique learned count. Documented API context 1,048,576 differs from checkpoint max_position_embeddings 262,144. Final model released 2026-06-30; weights announced 2026-07-06.",
+    "sources": [
+      {
+        "label": "Meituan LongCat-2.0 release announcement",
+        "url": "https://tech.meituan.com/2026/06/30/LongCat2.0.html",
+        "type": "primary"
+      },
+      {
+        "label": "Official LongCat-2.0 model card and weight license",
+        "url": "https://huggingface.co/meituan-longcat/LongCat-2.0/blob/834bf5ffe3047aa9f6cc7a64a9bc068b146b8274/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Audited BF16 checkpoint configuration",
+        "url": "https://huggingface.co/meituan-longcat/LongCat-2.0/blob/834bf5ffe3047aa9f6cc7a64a9bc068b146b8274/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Audited full checkpoint index",
+        "url": "https://huggingface.co/meituan-longcat/LongCat-2.0/blob/834bf5ffe3047aa9f6cc7a64a9bc068b146b8274/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "LongCat API context limits",
+        "url": "https://longcat.chat/platform/docs/api/model-params",
+        "type": "primary"
+      },
+      {
+        "label": "Official MTP embedding sharing implementation",
+        "url": "https://github.com/meituan-longcat/SGLang-FluentLLM/blob/55d719f3223f697cbeb4a5f31b7071e1892980d0/python/sglang/srt/speculative/base_spec_worker.py",
+        "type": "primary"
+      },
+      {
+        "label": "Meituan open-weight release announcement",
+        "url": "https://www.meituan.com/news/NN260706216009547",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "All 14 fields assessed against exact final-model primary sources. Add MIT license, nominal 1600B total, approximate 48B average active and MoE architecture; correct API context 1,000,000 to 1,048,576. Preserve June 30 final release while distinguishing April 20 preview, July 5 repository creation and July 6 announced weight release. Complete bounded audit of 194 BF16/F32 shard headers reconciles every indexed tensor and explains why 1,775.560491136B serialized elements, duplicated/shared embeddings, MTP and routing adjustments cannot be presented as an exact unique learned count. Source-specific serving/configuration limits are retained; no model inference or full shard download was performed."
+}
