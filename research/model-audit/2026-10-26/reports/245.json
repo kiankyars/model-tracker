@@ -1,0 +1,319 @@
+{
+  "index": 245,
+  "model_id": "inclusionai/ling-3.0-flash-vl",
+  "reviewed_at": "2026-10-26T21:02:40.480546+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash-VL/blob/c22bf252f15b66d18ca00a15989ac7ed46b7f09e/README.md",
+      "title": "Ling-3.0-flash-VL model card",
+      "publisher": "inclusionAI",
+      "accessed": true,
+      "evidence": "Exact VL card states 124B total and 5.5B active parameters, image/video inputs, text generation, 256K context, a 42-layer 5:1 KDA/Gated-MLA MoE backbone, ViT and two-layer MLP projector. MIT metadata; thinking and tool parsers documented."
+    },
+    {
+      "id": "s2",
+      "url": "https://developer.ant-ling.com/en/docs/models/ling/",
+      "title": "Ling model guide and named comparison table, updated October 19, 2026",
+      "publisher": "Ant Ling",
+      "accessed": true,
+      "evidence": "Later first-party comparison explicitly labels VL 124B/5.5B and 256K, separately from text Flash 124B/5.1B and Ling 3.1 Flash 560B/25B. Calls Ling an Ant Group model series and names Inclusion AI as its open-source community."
+    },
+    {
+      "id": "s3",
+      "url": "https://developer.ant-ling.com/en/docs/getting-started/changelog/",
+      "title": "Ant Ling platform changelog",
+      "publisher": "Ant Ling",
+      "accessed": true,
+      "evidence": "September 4, 2026 v2.0.3 explicitly launched Ling-3.0-flash-VL for online chat and OpenAI/Anthropic-compatible API calls. Full current HTML fetched successfully via HTTPS after web extraction timed out."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash-VL/blob/c22bf252f15b66d18ca00a15989ac7ed46b7f09e/config.json",
+      "title": "Exact BF16 VL checkpoint configuration",
+      "publisher": "inclusionAI",
+      "accessed": true,
+      "evidence": "BailingMoeV3VLForConditionalGeneration; 42 text layers, 512 experts with top-8 routing, first two layers dense, hidden size 2560, max_position_embeddings 131072, tie_word_embeddings false; 27-layer vision tower; no quantization configuration."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash-VL/blob/c22bf252f15b66d18ca00a15989ac7ed46b7f09e/model.safetensors.index.json",
+      "title": "Exact BF16 checkpoint index and 64 referenced shard headers",
+      "publisher": "inclusionAI",
+      "accessed": true,
+      "evidence": "All 64 shard headers fetched with bounded HTTP byte ranges and cross-checked against all 62,563 indexed tensor names. 124,848,460,496 stored elements: 124,848,295,536 BF16 and 164,960 F32. Includes vision/projector and separate embedding/head, no exported MTP layer. Index total_size is inconsistent with actual tensor bytes and was not used as a parameter count."
+    },
+    {
+      "id": "s6",
+      "url": "https://github.com/inclusionAI/vllm-ling-v3/blob/e2e5751a5d01f4755a07c026f1acd8480ca6ceae/vllm/model_executor/models/bailing_moe_v3.py",
+      "title": "inclusionAI BailingMoeV3 implementation",
+      "publisher": "inclusionAI",
+      "accessed": true,
+      "evidence": "VL uses this text backbone. A_log, dt_bias and expert_bias are declared nn.Parameter; expert_bias has default requires_grad=True and is supplied as routing score correction. This inference code alone does not establish gradient-based training provenance of routing correction state."
+    },
+    {
+      "id": "s7",
+      "url": "https://github.com/inclusionAI/vllm-ling-v3/blob/e2e5751a5d01f4755a07c026f1acd8480ca6ceae/vllm/model_executor/models/bailing_moe_v3_vl.py",
+      "title": "inclusionAI exact VL implementation",
+      "publisher": "inclusionAI",
+      "accessed": true,
+      "evidence": "Exact VL class combines BailingMoeV3 language model, visual tower and two-layer projector. Supports image and video processing and maps the indexed linear_proj tensors. Confirms text-backbone implementation linkage."
+    },
+    {
+      "id": "s8",
+      "url": "https://developer.ant-ling.com/en/docs/tutorials/multimodal-understanding",
+      "title": "Multimodal Understanding API tutorial",
+      "publisher": "Ant Ling",
+      "accessed": true,
+      "evidence": "Explicitly assigns text/image/video input to Ling-3.0-flash-VL. Audio inputs are assigned to the distinct Ming-3.0-audio-flash model; examples confirm image_url and video_url routes for VL."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/inclusionAI/AI-Transparency/resolve/main/Ling-3.0-VL_TDS-Summary.pdf",
+      "title": "Ling-3.0-VL public training-content summary, version 1.0",
+      "publisher": "Ant Intelligence (Hang Zhou) Technology Co., Ltd",
+      "accessed": true,
+      "evidence": "September 24 disclosure identifies exact Ling-3.0-flash-VL, gives September 8 Union-market placement, marks text/image/video but not audio training, and says the model outputs text. Region-specific placement is later than September 4 public platform launch."
+    },
+    {
+      "id": "s10",
+      "url": "https://publish.twitter.com/oembed?url=https://twitter.com/AntLingAGI/status/2097359640233439299",
+      "title": "Ant Ling September 8 open-weight announcement, official X embed endpoint",
+      "publisher": "Ant Ling / X",
+      "accessed": true,
+      "evidence": "First-party oEmbed response reproduces AntLingAGI post dated September 8, 2026 announcing open-sourcing exact VL in BF16 and FP8. Direct x.com rendering returned 403; official embed was successfully fetched."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash-VL/commits/main",
+      "title": "Official model repository commit history",
+      "publisher": "inclusionAI / Hugging Face",
+      "accessed": true,
+      "evidence": "Initial repository and weight upload commits are September 4. September 10 entries are README updates, including a context correction. Upload history alone does not prove visibility at upload time; the independent official platform changelog establishes September 4 public model availability."
+    },
+    {
+      "id": "s12",
+      "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash-VL/blob/c22bf252f15b66d18ca00a15989ac7ed46b7f09e/pure_common.pt",
+      "title": "Small checkpoint training-argument metadata",
+      "publisher": "inclusionAI",
+      "accessed": true,
+      "evidence": "26,757-byte metadata archive inspected with zipfile and pickletools without executing pickle. Shows untied embeddings, training mtp_num_layers=1, expert bias enabled and bias update rate 0.0. Exported safetensors contain no MTP layer; metadata is not added to learned parameter totals."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Ling 3.0 Flash VL",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Display normalization of official Ling-3.0-flash-VL; exact VL variant."
+    },
+    "developer": {
+      "value": "InclusionAI",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s9"
+      ],
+      "note": "Official inclusionAI publisher; Ant Group Ling team. Legal provider named separately in training disclosure."
+    },
+    "family": {
+      "value": "ling",
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Official documentation places this exact VL model in the Ling series."
+    },
+    "release_date": {
+      "value": "2026-09-04",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s9",
+        "s10",
+        "s11"
+      ],
+      "note": "Earliest explicit first-party public availability is September 4 platform chat/API launch. September 8 is open-weight announcement and Union placement; September 10 is a later card edit, not initial release."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s10"
+      ],
+      "note": "Public BF16 checkpoint and official open-weight announcement verified."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Exact official repository model-card metadata explicitly declares MIT. No separate license file is listed."
+    },
+    "parameters_b": {
+      "value": 124,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s12"
+      ],
+      "note": "Developer-stated nominal total in billions, confirmed by later named comparison. Complete BF16 header inventory has 124.848460496B elements, including 0.415893744B vision encoder and 0.0183552B projector; untied embedding/head are each 0.40239104B. No MTP weights or quantization metadata are exported. 0.00002048B routing expert_bias elements are inference Parameters but training provenance is not established; excluding these possible correction-state elements yields 124.848440016B. Neither precise number replaces the nominal specification."
+    },
+    "active_parameters_b": {
+      "value": 5.5,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4",
+        "s5"
+      ],
+      "note": "Exact VL nominal active count, not text Flash 5.1B or 3.1 Flash 25B. Config routes top-8 of 512 experts. Header algebra with top-8 experts, one input-embedding row, full output head and vision modules gives about 5.538B, consistent with the nominal value; this is not a measured every-output-token execution count because vision runs during input processing."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4",
+        "s7"
+      ],
+      "note": "Sparse MoE with 42 text layers: 35 KDA and 7 Gated MLA (5:1); first two FFNs dense, then 512 routed experts/top-8 plus a shared expert. 27-layer ViT, two-layer MLP projector and VideoRoPE form the multimodal extension."
+    },
+    "context_window": {
+      "value": 262144,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4"
+      ],
+      "note": "Official supported 256K context; card supplies exact 262144-token launch with YaRN factor 2 over config base 131072. Older 1M card text was corrected September 9\u201310; no 1M transfer from text Flash or 3.1."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s8",
+        "s9",
+        "s4",
+        "s7"
+      ],
+      "note": "Official API explicitly supports text/images/video and training disclosure identifies text output. No audio capability assigned to this VL model; shared generic repository helpers do not establish extra modalities."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Thinking enabled by default and can be disabled with enable_thinking false; official guide calls this hybrid reasoning."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Exact card documents ling3 tool-call parser and automatic tool choice; official guide describes cross-tool GUI and MCP use."
+    },
+    "description": {
+      "value": "Native multimodal hybrid MoE model for image and video understanding, reasoning, and visual agents",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s8"
+      ],
+      "note": "Supported by exact card and first-party API/architecture documentation; no benchmark superiority claim added."
+    }
+  },
+  "patch": {
+    "release_date": "2026-09-04",
+    "date_precision": "day",
+    "parameters_b": 124,
+    "active_parameters_b": 5.5,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "source_url": "https://huggingface.co/inclusionAI/Ling-3.0-flash-VL",
+    "source_type": "primary",
+    "notes": "124B total and 5.5B active are developer nominal specifications. The full BF16 checkpoint contains 124.848460496B tensor elements, including a 0.415893744B vision encoder and 0.0183552B projector; 0.00002048B routing correction elements are not conclusively classified as gradient-learned weights. No MTP weights are exported. Supported 262144 context uses YaRN over a 131072 config base. Public API/chat launch was September 4, 2026; open-weight announcement followed September 8.",
+    "sources": [
+      {
+        "label": "Official model card",
+        "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash-VL",
+        "type": "primary"
+      },
+      {
+        "label": "Official later model comparison",
+        "url": "https://developer.ant-ling.com/en/docs/models/ling/",
+        "type": "primary"
+      },
+      {
+        "label": "Official release changelog",
+        "url": "https://developer.ant-ling.com/en/docs/getting-started/changelog/",
+        "type": "primary"
+      },
+      {
+        "label": "Exact checkpoint configuration",
+        "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash-VL/blob/c22bf252f15b66d18ca00a15989ac7ed46b7f09e/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Exact checkpoint tensor index",
+        "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash-VL/blob/c22bf252f15b66d18ca00a15989ac7ed46b7f09e/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Official multimodal API guide",
+        "url": "https://developer.ant-ling.com/en/docs/tutorials/multimodal-understanding",
+        "type": "primary"
+      }
+    ]
+  },
+  "checkpoint_accounting": {
+    "revision": "c22bf252f15b66d18ca00a15989ac7ed46b7f09e",
+    "shards_read": 64,
+    "method": "Each shard: 8-byte little-endian header length then bounded JSON header range; no weight payload download. Every index name and shard assignment cross-checked. Small pure_common.pt contains only metadata, inspected without unpickling.",
+    "stored_elements": 124848460496,
+    "stored_tensor_bytes": 249697250912,
+    "quantization_metadata_elements": 0,
+    "confirmed_nonparameter_buffers": 0,
+    "ambiguous_routing_correction_elements": 20480,
+    "elements_excluding_ambiguous_routing_correction": 124848440016,
+    "component_elements": {
+      "text_layers_and_final_norm_excluding_routing_correction": 123609408992,
+      "routing_expert_bias": 20480,
+      "input_embeddings": 402391040,
+      "output_head": 402391040,
+      "vision_encoder": 415893744,
+      "vision_projector": 18355200
+    },
+    "mtp_exported_elements": 0,
+    "learned_count_limit": "Inference implementation registers all 110 F32 tensors as Parameters, including routing correction biases; actual gradient-training semantics of expert_bias remain unresolved. Keep published nominal total in catalog."
+  },
+  "summary": "Verified all 14 fields. Correct release from September 10 to explicit September 4 public chat/API launch; add exact-model nominal 124B total, 5.5B active and MoE architecture. Preserve MIT/open weights, 256K context, text/image/video input, text output, reasoning/tool use and description. Full bounded-header reconciliation separates vision/projector, untied weights and absent exported MTP; 20,480 routing correction elements remain semantically ambiguous, so no unsupported precise learned total replaces the nominal count."
+}
