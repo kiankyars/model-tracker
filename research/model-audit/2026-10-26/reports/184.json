@@ -1,0 +1,260 @@
+{
+  "index": 184,
+  "model_id": "eleutherai/gpt-j-6b",
+  "reviewed_at": "2026-10-26T19:22:32.409494Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/EleutherAI/gpt-j-6b",
+      "title": "Official GPT-J 6B model card",
+      "publisher": "EleutherAI",
+      "accessed": true,
+      "evidence": "Names GPT-J 6B, identifies GPT-J as its model class, licenses weights Apache-2.0, and describes autoregressive text training on The Pile. Reports 28 Transformer blocks, width 4096, FFN width 16384, 16 heads, context 2048 and a published count of 6,053,381,344. The 50,400 embedding rows include padding beyond the 50,257-token tokenizer."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/EleutherAI/gpt-j-6b/blob/47e169305d2e8376be1d31e765533382721b2cc1/config.json",
+      "title": "GPT-J released checkpoint configuration",
+      "publisher": "EleutherAI",
+      "accessed": true,
+      "evidence": "GPTJForCausalLM with 28 layers, width 4096, 16 heads, 2048 positions, RoPE dimension 64, vocabulary 50400 and tie_word_embeddings=false. The pinned revision is the current official repository revision returned by its API."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/EleutherAI/gpt-j-6b/blob/47e169305d2e8376be1d31e765533382721b2cc1/pytorch_model.bin",
+      "title": "Official GPT-J checkpoint tensor metadata",
+      "publisher": "EleutherAI",
+      "accessed": true,
+      "evidence": "Read only HTTP bytes 0-149999 of the 24,207,819,307-byte checkpoint; its complete 36,306-byte data.pkl metadata describes 341 tensors. Counting the 285 learned FloatStorage tensors gives 6,050,882,784 elements and 285 distinct storage keys. Excluded 28 Boolean causal masks and 28 scalar masked-bias buffers, totaling 117,440,540 elements. The untied 50400 x 4096 input embedding and output head are separate storages; no quantization scales or packed tensors occur."
+    },
+    {
+      "id": "s4",
+      "url": "https://github.com/huggingface/transformers/blob/v4.18.0/src/transformers/models/gptj/modeling_gptj.py",
+      "title": "GPT-J implementation corresponding to checkpoint configuration",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Defines causal decoder blocks with one LayerNorm, four bias-free attention projections, and two dense MLP projections with biases. Includes learned input embedding, final LayerNorm and untied biased LM head. Explicitly registers attention bias and masked_bias as buffers. Establishes which checkpoint tensors are learned parameters and confirms no expert routing."
+    },
+    {
+      "id": "s5",
+      "url": "https://api.github.com/repos/kingoflolz/mesh-transformer-jax/commits/b0c18e5205ea5ff7f97a7047e964fc04a78ea42b",
+      "title": "Original GPT-J release commit metadata",
+      "publisher": "Ben Wang",
+      "accessed": true,
+      "evidence": "The commit message is gpt-j-6b release, with author and committer timestamp 2021-06-09T02:04:11Z. Its README changes introduce pretrained-weight download links and model details. This is explicit primary evidence of the public weight release date."
+    },
+    {
+      "id": "s6",
+      "url": "https://github.com/kingoflolz/mesh-transformer-jax/blob/b0c18e5205ea5ff7f97a7047e964fc04a78ea42b/README.md",
+      "title": "Original GPT-J release README",
+      "publisher": "Ben Wang and Aran Komatsuzaki",
+      "accessed": true,
+      "evidence": "Publishes GPT-J-6B weights, Apache-2.0 license, autoregressive text-generation purpose and The Pile training. Gives 6,053,381,344 parameters, 28 blocks, width 4096, FFN width 16384 and 2048 context. Credits the authors and EleutherAI assistance."
+    },
+    {
+      "id": "s7",
+      "url": "https://github.com/kingoflolz/mesh-transformer-jax/blob/b0c18e5205ea5ff7f97a7047e964fc04a78ea42b/mesh_transformer/layers.py",
+      "title": "Original sharded GPT-J layer implementation",
+      "publisher": "Ben Wang",
+      "accessed": true,
+      "evidence": "ReplicatedLayerNorm creates per-shard scale and offset but uses the first gathered shard. EmbeddingShard includes a full-width bias per shard; each MLP output has a full-width bias per shard. These explain why original sharded tensor-element accounting exceeds the consolidated checkpoint parameter count."
+    },
+    {
+      "id": "s8",
+      "url": "https://github.com/kingoflolz/mesh-transformer-jax/blob/b0c18e5205ea5ff7f97a7047e964fc04a78ea42b/configs/6B_roto_256.json",
+      "title": "Original GPT-J training configuration",
+      "publisher": "Ben Wang",
+      "accessed": true,
+      "evidence": "Specifies 28 layers, width 4096, 16 heads, vocabulary 50400, layernorm, rotary dimensions 64, sequence length 2048 and eight cores per replica. Combined with the original layer definitions, reproduces the published 6,053,381,344 sharded-element total."
+    },
+    {
+      "id": "s9",
+      "url": "https://public-api.wordpress.com/rest/v1.1/sites/arankomatsuzaki.wordpress.com/posts/slug:gpt-j",
+      "title": "Author release-post publication and modification metadata",
+      "publisher": "Aran Komatsuzaki",
+      "accessed": true,
+      "evidence": "The release article carries a June 4 publication date but a June 9, 2021 03:56:18 UTC modification timestamp. Its current release wording therefore cannot independently establish that weights were public on June 4; the explicit June 9 release commit is retained."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "GPT-J 6B",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Official model-card title."
+    },
+    "developer": {
+      "value": "EleutherAI",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Official EleutherAI model repository; the release credits Ben Wang and Aran Komatsuzaki and EleutherAI assistance."
+    },
+    "family": {
+      "value": "gpt-j",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "The model card explicitly calls GPT-J the model class; configuration identifies gptj."
+    },
+    "release_date": {
+      "value": "2021-06-09",
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s6",
+        "s9"
+      ],
+      "note": "Explicit release commit at 2021-06-09T02:04:11Z introduces the weight downloads. The author blog has a June 4 publication label but was updated June 9, so it does not override the dated weight-release event."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s6"
+      ],
+      "note": "Official weights are publicly downloadable; a small byte-range request succeeded."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Original release explicitly licenses GPT-J-6B weights under Apache License 2.0."
+    },
+    "parameters_b": {
+      "value": 6.050882784,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "note": "Complete official consolidated checkpoint count: 6,050,882,784 learned parameters = 206,438,400 input embeddings + 5,637,947,392 blocks + 8,192 final normalization + 206,488,800 output head. Untied embeddings counted separately; 56 nonlearned buffers excluded. The published 6,053,381,344 original JAX total is 2,498,560 higher: 1,662,976 extra LayerNorm shard elements, 802,816 extra MLP output-bias shard elements and 32,768 embedding-bias shard elements. These representation differences are not additional parameters in the official consolidated checkpoint."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4"
+      ],
+      "note": "Sources do not define or report a per-token active-parameter count for this dense model; no active=total assumption."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s7"
+      ],
+      "note": "Dense causal decoder-only Transformer: 28 blocks with full self-attention and ordinary dense MLPs in parallel, using RoPE. No mixture-of-experts routing."
+    },
+    "context_window": {
+      "value": 2048,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s8"
+      ],
+      "note": "Model-card n_ctx, checkpoint n_positions and training seq all equal 2048 tokens."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4"
+      ],
+      "note": "Causal language model with GPT-2 tokenization, token inputs and generated text outputs; no image/audio modules."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "No separately documented reasoning mode or reasoning post-training in the reviewed primary material; general language-model examples do not establish this capability flag."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "No documented native tool/function-calling interface or training in the reviewed model card or configuration."
+    },
+    "description": {
+      "value": "Autoregressive model trained on The Pile.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Directly supported by the original release and official model card."
+    }
+  },
+  "patch": {
+    "parameters_b": 6.050882784,
+    "parameters_source": "primary_source",
+    "notes": "Complete official Hugging Face checkpoint: 6,050,882,784 learned parameters, including untied input embeddings and output head, excluding causal-mask buffers. The model card publishes 6,053,381,344 for the original eight-shard JAX representation; its 2,498,560 extra elements are replicated normalization and separate per-shard bias terms absent as separate parameters in the consolidated checkpoint. Dense active parameters are not separately defined or reported.",
+    "sources": [
+      {
+        "label": "Official GPT-J model card",
+        "url": "https://huggingface.co/EleutherAI/gpt-j-6b",
+        "type": "weights"
+      },
+      {
+        "label": "Official checkpoint configuration",
+        "url": "https://huggingface.co/EleutherAI/gpt-j-6b/blob/47e169305d2e8376be1d31e765533382721b2cc1/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Official checkpoint tensor metadata",
+        "url": "https://huggingface.co/EleutherAI/gpt-j-6b/blob/47e169305d2e8376be1d31e765533382721b2cc1/pytorch_model.bin",
+        "type": "weights"
+      },
+      {
+        "label": "GPT-J parameter and buffer definitions",
+        "url": "https://github.com/huggingface/transformers/blob/v4.18.0/src/transformers/models/gptj/modeling_gptj.py",
+        "type": "primary"
+      },
+      {
+        "label": "Original sharded layer definitions",
+        "url": "https://github.com/kingoflolz/mesh-transformer-jax/blob/b0c18e5205ea5ff7f97a7047e964fc04a78ea42b/mesh_transformer/layers.py",
+        "type": "primary"
+      },
+      {
+        "label": "Original eight-shard configuration",
+        "url": "https://github.com/kingoflolz/mesh-transformer-jax/blob/b0c18e5205ea5ff7f97a7047e964fc04a78ea42b/configs/6B_roto_256.json",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "Audited all 14 fields. Replace nominal 6B with the complete consolidated checkpoint count of 6.050882784B, excluding 56 nonlearned buffers and preserving untied embeddings. Reconciled the card's larger 6.053381344B against the original eight-shard implementation. Confirm dense architecture, 2048-token context, text modalities, Apache-2.0 open weights and the June 9, 2021 release. Active parameters, dedicated reasoning and native tool calling remain undisclosed."
+}
