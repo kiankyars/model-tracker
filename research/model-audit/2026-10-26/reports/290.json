@@ -1,0 +1,303 @@
+{
+  "index": 290,
+  "model_id": "meta/opt-13b",
+  "reviewed_at": "2026-10-26T22:00:33.224628Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://ai.meta.com/blog/democratizing-access-to-large-scale-language-models-with-opt-175b/",
+      "title": "Democratizing access to large-scale language models with OPT-175B",
+      "publisher": "Meta AI",
+      "accessed": true,
+      "evidence": "Announcement dated May 3, 2022 explicitly says the smaller baselines are fully released and lists 13 billion among them. Identifies Meta AI and research-oriented noncommercial release."
+    },
+    {
+      "id": "s2",
+      "url": "https://arxiv.org/html/2205.01068v4",
+      "title": "OPT: Open Pre-trained Transformer Language Models, technical report",
+      "publisher": "Meta AI authors / arXiv",
+      "accessed": true,
+      "evidence": "Section 2 and Table 1 give the 13B variant 40 decoder Transformer layers, 40 attention heads and width 5120. All variants use ReLU and 2048-token training sequences. Appendix D says the smaller baselines share the noncommercial weight license. The report describes text pretraining and zero/few-shot evaluation, not dedicated reasoning or tool-call features."
+    },
+    {
+      "id": "s3",
+      "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/main/projects/OPT/README.md",
+      "title": "Meta metaseq: OPT pretrained weights",
+      "publisher": "Meta / facebookresearch",
+      "accessed": true,
+      "evidence": "Official release table names OPT-13B, gives nominal 13B parameters and downloadable pretrained weight shards. Directs weight use to MODEL_LICENSE.md; current shard paths are later repackagings, not evidence of initial release date."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/facebook/opt-13b/blob/e515202d1e7750da62d245fbccb2723b9c1790f5/config.json",
+      "title": "facebook/opt-13b configuration at e515202d",
+      "publisher": "Meta / facebook model repository",
+      "accessed": true,
+      "evidence": "Exact checkpoint specifies OPTForCausalLM, 40 layers, hidden and embedding widths 5120, FFN width 20480, 40 heads, vocabulary 50272, 2048 positions, ReLU, float16 and enabled final layer norm. No separate embedding projection is required because embedding and hidden widths match."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/facebook/opt-13b/blob/e515202d1e7750da62d245fbccb2723b9c1790f5/pytorch_model.bin.index.json",
+      "title": "facebook/opt-13b checkpoint tensor index at e515202d",
+      "publisher": "Meta / facebook model repository",
+      "accessed": true,
+      "evidence": "All 644 named entries match the configuration-derived parameter tensors: 16 tensors per layer plus token embeddings, position embeddings and final decoder norm weight/bias. No separate output-head tensor or quantization/buffer entries. Metadata total_size=25,706,946,560 bytes agrees with the derived unique count at two bytes per FP16 element; storage size is only a cross-check."
+    },
+    {
+      "id": "s6",
+      "url": "https://github.com/huggingface/transformers/blob/v4.21.0/src/transformers/models/opt/modeling_opt.py",
+      "title": "Transformers v4.21.0 OPT implementation",
+      "publisher": "Hugging Face / Fairseq authors",
+      "accessed": true,
+      "evidence": "Defines learned positions with an offset of two rows, biased Q/K/V/output attention projections, biased FFN layers, two affine layer norms per block and a final decoder norm under this configuration. The bias-free language-model output head is tied to token embeddings. v4.21 includes the final norm required by the exact checkpoint, unlike older v4.20 code."
+    },
+    {
+      "id": "s7",
+      "url": "https://github.com/facebookresearch/metaseq/blob/main/metaseq/launcher/opt_baselines.py",
+      "title": "Meta OPT baseline training launcher",
+      "publisher": "Meta / facebookresearch",
+      "accessed": true,
+      "evidence": "OPT baseline launch configuration enables shared decoder input/output embeddings, ReLU and the Transformer language-model architecture, with the chosen variant dimensions."
+    },
+    {
+      "id": "s8",
+      "url": "https://github.com/facebookresearch/metaseq/blob/main/metaseq/models/transformer_decoder.py",
+      "title": "Meta metaseq Transformer decoder implementation",
+      "publisher": "Meta / facebookresearch",
+      "accessed": true,
+      "evidence": "Official decoder builds sequential Transformer layers, learned position embeddings and a final affine layer norm. With shared input/output embeddings enabled, the output projection references the same token-embedding weight rather than independent learned weights."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/facebook/opt-13b/blob/e515202d1e7750da62d245fbccb2723b9c1790f5/LICENSE.md",
+      "title": "OPT-175B License Agreement distributed with OPT-13B",
+      "publisher": "Meta Platforms, Inc.",
+      "accessed": true,
+      "evidence": "The exact OPT-13B repository distributes Meta's OPT license. Section 1(a) grants use solely for non-commercial research; Section 2(a) excludes commercial/production purposes. The agreement title does not restrict its applicability to only the 175B variant, as confirmed by Meta's smaller-model documentation."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/facebook/opt-13b/blob/e515202d1e7750da62d245fbccb2723b9c1790f5/README.md",
+      "title": "facebook/opt-13b hosted model card at e515202d",
+      "publisher": "Hugging Face team, hosted in Meta facebook repository",
+      "accessed": true,
+      "evidence": "Explicitly identifies itself as authored by the Hugging Face team, pointing to Meta's report for the original card. Describes OPT as a pretrained-only, self-supervised causal language model for text generation and prompted evaluation. Used to check the exact hosted variant, not as sole Meta-authored release evidence."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/api/models/facebook/opt-13b",
+      "title": "Hugging Face metadata for facebook/opt-13b",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Repository revision e515202d1e7750da62d245fbccb2723b9c1790f5; repository created May 11, 2022. This later hosting date is distinct from Meta's explicit May 3 model release."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "OPT 13B",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4"
+      ],
+      "note": "Display-name spacing corresponds to the official OPT-13B checkpoint; this is the base 13B variant."
+    },
+    "developer": {
+      "value": "Meta",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Developed and released by Meta AI; Meta is the catalog developer label."
+    },
+    "family": {
+      "value": "opt",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "note": "OPT family; configuration model_type is opt."
+    },
+    "release_date": {
+      "value": "2022-05-03",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s11"
+      ],
+      "note": "Meta's dated announcement explicitly fully releases the 13B baseline on this day. The May 2 arXiv submission and May 11 Hugging Face repository creation are not substituted for the weight-release date."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s5",
+        "s9"
+      ],
+      "note": "The exact 13B pretrained weights are downloadable under research restrictions. Open weights does not mean an unrestricted open-source license."
+    },
+    "license": {
+      "value": "OPT non-commercial research license",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s9"
+      ],
+      "note": "Supported descriptive label for the Meta OPT agreement supplied with this checkpoint; do not use the metaseq/Transformers software license for the weights."
+    },
+    "parameters_b": {
+      "value": 12.85347328,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "note": "Complete configuration-derived unique parameter-tensor count: 12,853,473,280 (decimal billions); 13B is the official rounded label. For L=40,d=5120,f=20480,V=50272,P=2048: L*(4*d*d+2*d*f+9*d+f)+V*d+(P+2)*d+2*d. This includes all attention/FFN biases, both affine norms per block, final decoder norm and two positional-offset rows; tied token/output weights count once and equal embedding/hidden widths require no project_in/project_out matrices. All 644 expected parameter names match the index, with no buffer or quantization keys. The FP16 byte total corroborates the result but is not the counting method. No weight shards were downloaded or unpickled."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s6",
+        "s8"
+      ],
+      "note": "No separately defined active-parameter count is reported in the examined primary materials. Dense architecture alone does not justify setting active equal to total, particularly with embedding lookups and positional rows."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s6",
+        "s8"
+      ],
+      "note": "Dense decoder-only Transformer: 40 blocks with ordinary multi-head causal self-attention and ReLU feed-forward layers; no expert/router subsystem in this checkpoint implementation or tensor inventory."
+    },
+    "context_window": {
+      "value": 2048,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s6"
+      ],
+      "note": "Configuration max_position_embeddings and report training sequence length are 2048 tokens. The implementation's two extra positional-table rows are indexing offsets, not an extension to 2050-token context."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s6",
+        "s10"
+      ],
+      "note": "Text token input and vocabulary-logit/text continuation output; exact base checkpoint contains no image, audio or video encoders/heads."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s10"
+      ],
+      "note": "The sources describe a base pretrained causal language model, with no separately documented dedicated reasoning mode or reasoning-training feature. Prompted task performance does not establish such a feature; null does not claim inability to reason."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s6",
+        "s10"
+      ],
+      "note": "The exact checkpoint is documented for text completion; no native tool-call schema, protocol or dedicated tool-use training is specified. External scaffolding or generated text is not evidence of native tool calling."
+    },
+    "description": {
+      "value": "Open Pretrained Transformer research checkpoint.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "The concise baseline description accurately identifies the OPT research checkpoint without unsupported performance claims."
+    }
+  },
+  "patch": {
+    "parameters_b": 12.85347328,
+    "parameters_source": "primary_source",
+    "notes": "OPT-13B is the nominal 13B base checkpoint. Exact configuration and implementation reconcile 12,853,473,280 unique parameter elements, including tied token/output embeddings once, positional offset rows, biases and layer norms; the checkpoint index corroborates the count. Active parameters and dedicated reasoning/tool-call capabilities are not separately documented. Weights are downloadable under the OPT non-commercial research license.",
+    "sources": [
+      {
+        "label": "Meta OPT release announcement",
+        "url": "https://ai.meta.com/blog/democratizing-access-to-large-scale-language-models-with-opt-175b/",
+        "type": "primary"
+      },
+      {
+        "label": "OPT technical report",
+        "url": "https://arxiv.org/html/2205.01068v4",
+        "type": "primary"
+      },
+      {
+        "label": "Official OPT pretrained weights",
+        "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/main/projects/OPT/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "Exact OPT-13B configuration",
+        "url": "https://huggingface.co/facebook/opt-13b/blob/e515202d1e7750da62d245fbccb2723b9c1790f5/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Exact OPT-13B tensor index",
+        "url": "https://huggingface.co/facebook/opt-13b/blob/e515202d1e7750da62d245fbccb2723b9c1790f5/pytorch_model.bin.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "OPT parameter implementation",
+        "url": "https://github.com/huggingface/transformers/blob/v4.21.0/src/transformers/models/opt/modeling_opt.py",
+        "type": "primary"
+      },
+      {
+        "label": "Meta OPT shared-embedding training configuration",
+        "url": "https://github.com/facebookresearch/metaseq/blob/main/metaseq/launcher/opt_baselines.py",
+        "type": "primary"
+      },
+      {
+        "label": "Meta OPT decoder implementation",
+        "url": "https://github.com/facebookresearch/metaseq/blob/main/metaseq/models/transformer_decoder.py",
+        "type": "primary"
+      },
+      {
+        "label": "OPT-13B weight license",
+        "url": "https://huggingface.co/facebook/opt-13b/blob/e515202d1e7750da62d245fbccb2723b9c1790f5/LICENSE.md",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "Correct nominal 13B to the complete configuration-derived 12.85347328B unique parameter count, reconciled with all 644 checkpoint tensor names and FP16 metadata without downloading weights. Confirm Meta OPT base identity, May 3, 2022 release, downloadable research-licensed weights, dense decoder-only architecture, 2048-token context and text-only modality. Retain null active parameters and dedicated reasoning/tool-call features because they are not separately documented."
+}
