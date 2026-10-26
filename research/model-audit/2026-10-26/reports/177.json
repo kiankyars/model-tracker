@@ -1,0 +1,309 @@
+{
+  "index": 177,
+  "model_id": "deepseek/deepseek-v4-flash",
+  "reviewed_at": "2026-10-26T19:11:10.974851+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/blob/60d8d70770c6776ff598c94bb586a859a38244f1/README.md",
+      "title": "DeepSeek-V4-Flash official preview model card",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Identifies the original V4 preview checkpoint, advertises 284B total/13B activated and one-million-token context, publishes mixed FP4/FP8 weights, describes thinking modes and explicitly licenses repository and weights under MIT."
+    },
+    {
+      "id": "s2",
+      "url": "https://api-docs.deepseek.com/news/news260424/",
+      "title": "DeepSeek V4 Preview Release, 2026-04-24",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Dated official launch announces V4-Flash preview, open weights and same-day API availability; reports 284B/13B and 1M context with thinking/non-thinking modes."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/blob/60d8d70770c6776ff598c94bb586a859a38244f1/config.json",
+      "title": "Pinned DeepSeek-V4-Flash configuration",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "DeepseekV4ForCausalLM; 43 main layers, 4096 hidden size, 256 routed experts with top-6 and one shared expert, one MTP layer, FP4 experts, FP8 quantization, untied embeddings and max_position_embeddings 1048576."
+    },
+    {
+      "id": "s4",
+      "url": "https://arxiv.org/html/2606.19348v1",
+      "title": "DeepSeek-V4: Towards Highly Efficient Million-Token Context Intelligence",
+      "publisher": "DeepSeek-AI",
+      "accessed": true,
+      "evidence": "Sections 2 and 4.2 identify Transformer/DeepSeekMoE with CSA/HCA attention and mHC; Flash-specific setup reports nominal 284B/13B. Section 5.2.1 describes FP32 master weights quantized to FP4, so quantization scales are representation metadata rather than additional independent learned weights."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/blob/60d8d70770c6776ff598c94bb586a859a38244f1/inference/model.py",
+      "title": "DeepSeek-V4-Flash official inference implementation",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Linear documents two FP4 values per packed byte and separate quantization scales. Gate uses fixed token-to-expert maps with requires_grad=False, alongside parameterized gate weights/biases. MTP shares main embed/head; its own projections, norms and hyper-connections are separate. Hyper-connection scale parameters are retained."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/blob/60d8d70770c6776ff598c94bb586a859a38244f1/inference/convert.py",
+      "title": "DeepSeek-V4-Flash checkpoint conversion implementation",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "cast_e2m1fn_to_e4m3fn expands each I8 expert storage element into two FP4 values by unpacking low/high nibbles; separate scale tensors reconstruct values. Conversion skips any serialized shared MTP embedding/head copies."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/resolve/60d8d70770c6776ff598c94bb586a859a38244f1/model.safetensors.index.json",
+      "title": "Pinned DeepSeek-V4-Flash tensor index and all indexed safetensors headers",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Read all 46 shards using bounded header-only HTTP ranges: 69187 tensor names match index; 7663144 header bytes, zero weight payload. Raw elements 158069433298 include 141733920768 packed FP4 expert elements, 8858737664 quantization scales and 2327040 fixed I64 routing indices. Expanding packed experts and excluding scales/indices gives 290942289362 parameters: 284332240471 main plus 6610048891 MTP. No duplicate MTP embedding/head tensors appear."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/blob/60d8d70770c6776ff598c94bb586a859a38244f1/encoding/README.md",
+      "title": "DeepSeek-V4 text, reasoning and tool-call encoding",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Documents text-message encoding, parsed text output, thinking/chat modes, retained interleaved reasoning and DSML tool invocations in both modes."
+    },
+    {
+      "id": "s9",
+      "url": "https://api-docs.deepseek.com/updates/",
+      "title": "DeepSeek API change log: V4 Flash updates and retirement",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "July 31 says V4-Flash-0731 retains preview architecture and size with new post-training. September 10 retires V4 Flash and maps deepseek-v4-flash to V4.1 Flash. October 17 upgrades V4.1 Flash to 1017. These service changes do not replace the original checkpoint."
+    },
+    {
+      "id": "s10",
+      "url": "https://raw.githubusercontent.com/anomalyco/models.dev/dev/providers/deepseek/models/deepseek-v4-flash.toml",
+      "title": "Current Models.dev legacy DeepSeek V4 Flash alias record",
+      "publisher": "Models.dev",
+      "accessed": true,
+      "evidence": "Current provider record explicitly marks deprecated alias and base_model deepseek/deepseek-v4.1-flash-1017. Used only to identify the catalog/API identity conflict, not as primary evidence for checkpoint specifications."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/blob/60d8d70770c6776ff598c94bb586a859a38244f1/LICENSE",
+      "title": "DeepSeek-V4-Flash MIT license",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "MIT license text; the exact model card explicitly applies it to the model weights."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "DeepSeek V4 Flash",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s9"
+      ],
+      "note": "Display punctuation normalized from DeepSeek-V4-Flash. This record denotes the original April preview checkpoint linked by the baseline, not the mutable API alias target."
+    },
+    "developer": {
+      "value": "DeepSeek",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s11"
+      ],
+      "note": "Official DeepSeek organization, announcement and license."
+    },
+    "family": {
+      "value": "deepseek-flash",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Retains the catalog family key for the named DeepSeek Flash line; the audited architecture is specifically V4, not V4.1."
+    },
+    "release_date": {
+      "value": "2026-04-24",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s9"
+      ],
+      "note": "Explicit official preview release date. July 31 was a subsequent post-training/API update; September and October concern successor models."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7"
+      ],
+      "note": "Public first-party checkpoint, model card and all indexed tensor headers accessed."
+    },
+    "license": {
+      "value": "MIT License",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s11"
+      ],
+      "note": "Model card explicitly extends MIT to repository and model weights."
+    },
+    "parameters_b": {
+      "value": 290.942289362,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "note": "Complete logical checkpoint count: 284.332240471B main + 6.610048891B MTP. Counts both FP4 values per packed byte; excludes quantization scales and fixed routing indices. Shared MTP embedding/head are not duplicated in these files. Retains learned hyper-connection scales and parameterized routing bias. Nominal advertised 284B describes the main model; no weight values were downloaded."
+    },
+    "active_parameters_b": {
+      "value": 13,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4"
+      ],
+      "note": "Developer-reported nominal main-model parameters activated per token. Not an exact count or a combined main-plus-MTP speculative-decoding count."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "note": "Decoder-only Transformer with DeepSeekMoE, hybrid compressed sparse/heavily compressed attention and manifold-constrained hyper-connections. 43 main blocks plus one MTP block; 256 routed experts/top-6 and one shared expert; first three layers use fixed hash routing."
+    },
+    "context_window": {
+      "value": 1000000,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Retains the explicitly advertised one-million-token window. Configuration allows 1048576 positions; that positional ceiling is recorded separately rather than silently replacing the advertised figure."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s5",
+        "s8",
+        "s9"
+      ],
+      "note": "Original text-token causal language model and text message/output interface. No visual encoder is present in this checkpoint; later Flash Vision Exp and V4.1 vision capabilities must not be transferred here."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s8"
+      ],
+      "note": "Original checkpoint supports non-thinking and explicit thinking modes through prompt encoding."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s8"
+      ],
+      "note": "DSML tool-call schema and tool-result handling are documented, including interleaved thinking."
+    },
+    "description": {
+      "value": "Original DeepSeek V4 Flash preview checkpoint with text input/output, thinking and non-thinking modes, tool calling, and a 1M-token context.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s8",
+        "s9"
+      ],
+      "note": "Replaces subjective fast/economical lane wording with verified capabilities and original-checkpoint identity."
+    }
+  },
+  "patch": {
+    "license": "MIT License",
+    "parameters_b": 290.942289362,
+    "active_parameters_b": 13,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "description": "Original DeepSeek V4 Flash preview checkpoint with text input/output, thinking and non-thinking modes, tool calling, and a 1M-token context.",
+    "source_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/blob/60d8d70770c6776ff598c94bb586a859a38244f1/README.md",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "DeepSeek-V4-Flash original model card",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/blob/60d8d70770c6776ff598c94bb586a859a38244f1/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Official V4 preview release",
+        "url": "https://api-docs.deepseek.com/news/news260424/",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned V4-Flash configuration",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/blob/60d8d70770c6776ff598c94bb586a859a38244f1/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "DeepSeek-V4 technical report",
+        "url": "https://arxiv.org/html/2606.19348v1",
+        "type": "primary"
+      },
+      {
+        "label": "Official inference model and parameter layout",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/blob/60d8d70770c6776ff598c94bb586a859a38244f1/inference/model.py",
+        "type": "primary"
+      },
+      {
+        "label": "Official packed FP4 conversion",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/blob/60d8d70770c6776ff598c94bb586a859a38244f1/inference/convert.py",
+        "type": "primary"
+      },
+      {
+        "label": "Checkpoint index and bounded tensor headers",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/resolve/60d8d70770c6776ff598c94bb586a859a38244f1/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Original reasoning and tool encoding",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/blob/60d8d70770c6776ff598c94bb586a859a38244f1/encoding/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "API alias lifecycle",
+        "url": "https://api-docs.deepseek.com/updates/",
+        "type": "primary"
+      }
+    ],
+    "notes": "Historical April 24, 2026 DeepSeek-V4-Flash preview checkpoint, preserved from the baseline name/date/weight link. Complete logical total is 290.942289362B: 284.332240471B main (advertised 284B) plus 6.610048891B MTP; excludes packed-format scale metadata and fixed routing indices. Nominal 13B active refers to the main model. Advertised context is 1M; config positional ceiling is 1048576. July 31 V4-Flash-0731 preserved core architecture/size but changed post-training. On September 10 the API identifier deepseek-v4-flash was redirected to V4.1 Flash, whose October 17 upgrade is V4.1-Flash-1017. The current Models.dev provider record tracks that legacy alias; its successor specs are not substituted for this checkpoint. Live endpoint behavior was not probed."
+  },
+  "proposed_fields": {
+    "active_parameters_scope": "main",
+    "parameter_components_b": {
+      "main": 284.332240471,
+      "mtp": 6.610048891
+    }
+  },
+  "summary": "Audited all 14 fields for the original V4 Flash preview checkpoint. Confirmed April 24 release, MIT, text-only MoE, reasoning/tools and advertised 1M context. Added complete 290.942289362B parameter count from all 46 bounded tensor headers, with nominal 13B active scoped to the 284.332240471B main model. Explicitly documents the later API alias identity conflict; no V4.1 specifications are mixed into this record."
+}
