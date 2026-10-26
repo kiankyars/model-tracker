@@ -1,0 +1,315 @@
+{
+  "index": 243,
+  "model_id": "inclusionai/ling-3.0-flash-fin",
+  "reviewed_at": "2026-10-26T20:58:07.399140Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash-Fin",
+      "title": "Ling-3.0-flash-Fin model card",
+      "publisher": "InclusionAI / Ant Group",
+      "accessed": true,
+      "evidence": "Exact Fin card identifies financial continued training from Ling-3.0-flash, nominal 124B total and 5.1B activated parameters, MIT licensing, BF16 release, and the same architecture as its parent."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash-Fin/blob/main/config.json",
+      "title": "Ling-3.0-flash-Fin configuration",
+      "publisher": "InclusionAI",
+      "accessed": true,
+      "evidence": "Direct raw file read succeeded: BailingMoeV3ForCausalLM, bailing_hybrid, 42 layers, 512 routed experts, 8 selected per token, 1 shared expert, 2 initial dense layers, KDA settings, max_position_embeddings 262144, one next-token prediction layer, and untied token embeddings."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash-Fin/blob/main/chat_template.jinja",
+      "title": "Ling-3.0-flash-Fin chat template",
+      "publisher": "InclusionAI",
+      "accessed": true,
+      "evidence": "Public template accepts textual messages, defaults thinking to on, preserves reasoning_content, and serializes tools, function calls, arguments and tool responses."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash",
+      "title": "Ling-3.0-flash model architecture overview",
+      "publisher": "InclusionAI",
+      "accessed": true,
+      "evidence": "The parent architecture, explicitly shared by Fin in its own card, is hybrid-linear MoE: 35 Kimi Delta Attention layers plus 7 gated MLA layers, in a 5:1 arrangement. This source is used only for the architecture that Fin explicitly inherits."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/api/models/inclusionAI/Ling-3.0-flash-Fin",
+      "title": "Public Hugging Face repository metadata for Ling-3.0-flash-Fin",
+      "publisher": "Hugging Face / InclusionAI",
+      "accessed": true,
+      "evidence": "Anonymous API returns private=false, gated=false, public weight shards and MIT metadata. Repository created 2026-09-03. Automatic safetensors inventory is 127486405600 elements (BF16 127486240128 and F32 165472), matching the independent header sum; see s11-s13 for buffer exclusions and component reconciliation."
+    },
+    {
+      "id": "s6",
+      "url": "https://x.com/AntLingAGI/status/2093022087069958492",
+      "title": "Official introduction of Ling-3.0-flash-Fin",
+      "publisher": "Ant Ling",
+      "accessed": false,
+      "evidence": "Exact announcement linked by the official model card. X page returned 403; its contents and timestamp were obtained through the official syndication endpoint s7."
+    },
+    {
+      "id": "s7",
+      "url": "https://cdn.syndication.twimg.com/tweet-result?id=2093022087069958492&token=0",
+      "title": "Official X syndication data for the Fin announcement",
+      "publisher": "X / Ant Ling",
+      "accessed": true,
+      "evidence": "Returns the AntLingAGI post introducing Ling-3.0-flash-Fin, identifying it as the finance-enhanced Flash variant and developed with financial institutions and experts. created_at is 2026-08-27T17:05:26.000Z."
+    },
+    {
+      "id": "s8",
+      "url": "https://developer.ant-ling.com/zh-CN/blogs/ling-3.0-flash-fin",
+      "title": "Ling-3.0-flash-Fin: an open model for real financial workflows",
+      "publisher": "Ant Ling / Ant Group",
+      "accessed": true,
+      "evidence": "Dated 2026-08-28, this exact-model announcement confirms 124B/5.1B, inherited Flash architecture, financial continued pretraining and post-training, tool optimization, research and valuation workflows. It advertises immediate OpenRouter access while saying weights will be released the following week."
+    },
+    {
+      "id": "s9",
+      "url": "https://developer.ant-ling.com/zh-CN/blogs/ling-3.0-flash-fin-finfirst",
+      "title": "Ling-3.0-flash-Fin and FinFIRST open release",
+      "publisher": "Ant Ling / Ant Group",
+      "accessed": true,
+      "evidence": "Dated 2026-09-04, announces Fin weights and FinFIRST openly released, describes 124B A5.1B MoE with approximately 256K context, and links the public exact-model Hugging Face and ModelScope repositories."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash-Fin/commits/main",
+      "title": "Ling-3.0-flash-Fin repository history",
+      "publisher": "InclusionAI / Hugging Face",
+      "accessed": true,
+      "evidence": "Repository history shows initial commit and weight uploads on 2026-09-03, separating checkpoint publication from the earlier API announcement."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash-Fin/blob/a5b4afb48f526175991724472c179e5a065604de/modeling_bailing_moe_v3.py",
+      "title": "Exact Fin checkpoint implementation at audited revision",
+      "publisher": "InclusionAI",
+      "accessed": true,
+      "evidence": "BailingMoeV3Gate registers expert_bias as a buffer. KDA A_log and dt_bias are learned Parameters. The constructor builds 42 backbone layers and one auxiliary BailingMoeV3MTPLayer, indexed 42. MTP reuses model.word_embeddings and lm_head. Config tie_word_embeddings=false leaves those two matrices distinct despite the class-level potential-tie key."
+    },
+    {
+      "id": "s12",
+      "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash-Fin/blob/a5b4afb48f526175991724472c179e5a065604de/model.safetensors.index.json",
+      "title": "Exact Fin checkpoint tensor index and bounded shard-header reconciliation",
+      "publisher": "InclusionAI",
+      "accessed": true,
+      "evidence": "Independently fetched all 65 shard headers using bounded HTTP 206 ranges, covering every one of 63783 indexed tensors at unchanged revision a5b4afb48f526175991724472c179e5a065604de. Summed shapes yield 127486405600 elements; subtract 41 expert_bias buffers totaling 20992 to obtain 127486384608 learned parameters. Header bytes match the index total_size 254973142144; no quantization tensors or overlapping storage ranges occur."
+    },
+    {
+      "id": "s13",
+      "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash-Fin/resolve/a5b4afb48f526175991724472c179e5a065604de/model-mtp-00001-of-00001.safetensors",
+      "title": "Exact Fin auxiliary MTP shard header",
+      "publisher": "InclusionAI",
+      "accessed": true,
+      "evidence": "Only the 8-byte length prefix and 193664-byte JSON header were downloaded. Layer 42 contains 3072194048 stored elements, including one 512-element expert_bias buffer, hence 3072193536 learned auxiliary parameters. Remaining learned backbone is 124414191072. No duplicate embedding/head tensors are stored in the auxiliary shard."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Ling 3.0 Flash Fin",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7"
+      ],
+      "note": "Display normalization of the exact official identifier Ling-3.0-flash-Fin."
+    },
+    "developer": {
+      "value": "InclusionAI",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8"
+      ],
+      "note": "Official inclusionAI publisher; model development is attributed to Ant Group with financial institutions and domain experts."
+    },
+    "family": {
+      "value": "ling",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Fin is explicitly part of the Ant Ling family."
+    },
+    "release_date": {
+      "value": "2026-08-27",
+      "status": "verified",
+      "source_ids": [
+        "s7",
+        "s8",
+        "s9",
+        "s10"
+      ],
+      "note": "Earliest verified public introduction is the official August 27 UTC post. August 28 is the Chinese blog date; September 3 weight upload and September 4 open-release article are later milestones."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s9",
+        "s10"
+      ],
+      "note": "Public ungated BF16 checkpoint shards are present, corroborated by the explicit open-release announcement."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s5"
+      ],
+      "note": "Exact official repository declares license: mit; this is the checkpoint license metadata."
+    },
+    "parameters_b": {
+      "value": 127.486384608,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5",
+        "s11",
+        "s12",
+        "s13"
+      ],
+      "note": "Exact complete-checkpoint learned count: 127,486,384,608 = 124,414,191,072 backbone + 3,072,193,536 auxiliary MTP. Excludes 20,992 registered expert_bias buffer elements; retains learned F32 A_log/dt_bias. Untied input/output matrices count once each; MTP reuses them. Official 124B is the nominal backbone scale, not the full checkpoint total."
+    },
+    "active_parameters_b": {
+      "value": 5.1,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8",
+        "s9"
+      ],
+      "note": "Official 5.1B activated figure for Fin, retained as nominal. The source does not define a complete-checkpoint or speculative-decoding phase convention; no active count is inferred from the full learned total or from routing alone."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4",
+        "s9"
+      ],
+      "note": "Hybrid-linear MoE, with KDA and gated MLA in a 5:1 arrangement. Fin explicitly inherits Flash architecture; its own configuration corroborates expert routing. The catalog label moe retains this distinction in notes."
+    },
+    "context_window": {
+      "value": 262144,
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Exact Fin max_position_embeddings is 262144, resolving the nominal 256K context notation."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s5"
+      ],
+      "note": "Text-generation causal language model and textual chat serialization; no vision/audio encoders or multimodal input handling are declared in this exact checkpoint."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s3"
+      ],
+      "note": "Exact template supports thinking control and reasoning_content, enabling thinking by default."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s8"
+      ],
+      "note": "Exact template implements function definitions, tool_call serialization, arguments and tool responses; the official launch documents financial tool use."
+    },
+    "description": {
+      "value": "Finance-enhanced model for financial research, multi-step investment workflows, and long-horizon planning and execution",
+      "status": "verified",
+      "source_ids": [
+        "s8"
+      ],
+      "note": "Supported as intended uses by the exact-model announcement, rather than a claim of guaranteed financial accuracy."
+    }
+  },
+  "patch": {
+    "parameters_b": 127.486384608,
+    "active_parameters_b": 5.1,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "source_url": "https://huggingface.co/inclusionAI/Ling-3.0-flash-Fin",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Official Fin model card",
+        "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash-Fin",
+        "type": "primary"
+      },
+      {
+        "label": "Official Fin configuration",
+        "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash-Fin/blob/main/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Official Fin chat template",
+        "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash-Fin/blob/main/chat_template.jinja",
+        "type": "primary"
+      },
+      {
+        "label": "Official Fin launch announcement",
+        "url": "https://developer.ant-ling.com/zh-CN/blogs/ling-3.0-flash-fin",
+        "type": "primary"
+      },
+      {
+        "label": "Official Fin initial announcement timestamp",
+        "url": "https://cdn.syndication.twimg.com/tweet-result?id=2093022087069958492&token=0",
+        "type": "primary"
+      },
+      {
+        "label": "Official Fin open-weight release",
+        "url": "https://developer.ant-ling.com/zh-CN/blogs/ling-3.0-flash-fin-finfirst",
+        "type": "primary"
+      },
+      {
+        "label": "Fin learned parameters and buffer implementation",
+        "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash-Fin/blob/a5b4afb48f526175991724472c179e5a065604de/modeling_bailing_moe_v3.py",
+        "type": "primary"
+      },
+      {
+        "label": "Fin complete tensor index",
+        "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash-Fin/blob/a5b4afb48f526175991724472c179e5a065604de/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Fin auxiliary MTP checkpoint header",
+        "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash-Fin/resolve/a5b4afb48f526175991724472c179e5a065604de/model-mtp-00001-of-00001.safetensors",
+        "type": "weights"
+      }
+    ],
+    "notes": "The full BF16 checkpoint contains 127,486,384,608 unique learned parameters: 124,414,191,072 backbone plus 3,072,193,536 auxiliary MTP. All 65 shard headers were counted; 20,992 registered routing expert_bias buffer elements were excluded. F32 KDA A_log and dt_bias are learned parameters and remain included. Input embeddings and lm_head are explicitly untied, each counted once; MTP reuses both without extra copies. The official 124B total is a nominal backbone label. The official 5.1B activated figure is retained as nominal, with no inferred MTP/decoding-phase count. Architecture is hybrid-linear MoE with KDA and gated MLA in a 5:1 arrangement. Initial public introduction was August 27, 2026 UTC; checkpoint uploads followed September 3, with the open-weight announcement September 4."
+  },
+  "summary": "All 14 fields verified. Reconciled the exact Fin checkpoint independently: 127.486384608B complete learned parameters, comprising 124.414191072B backbone and 3.072193536B auxiliary MTP; excluded 20,992 routing-buffer elements. Preserved source-defined nominal 5.1B active and documented nominal 124B backbone. Confirmed hybrid-linear MoE, MIT public BF16 weights, and August 27 initial release separately from September weight publication.",
+  "proposed_fields": {
+    "parameter_components_b": {
+      "backbone": 124.414191072,
+      "mtp": 3.072193536
+    }
+  }
+}
