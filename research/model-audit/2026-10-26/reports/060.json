@@ -1,0 +1,237 @@
+{
+  "index": 60,
+  "model_id": "alibaba/qwen3.6-flash",
+  "reviewed_at": "2026-10-26T15:07:22Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://help.aliyun.com/en/model-studio/qwen3-6-flash",
+      "title": "qwen3.6-flash model information",
+      "publisher": "Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Exact API model page identifies Qwen3.6 Flash as a native vision-language model, lists text/image/video input and text output, function calling, thinking-mode limits and a 1,000,000-token context window. It includes the April 16 snapshot."
+    },
+    {
+      "id": "s2",
+      "url": "https://help.aliyun.com/zh/model-studio/newly-released-models",
+      "title": "Model releases and updates",
+      "publisher": "Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Beijing release table explicitly dates qwen3.6-flash and qwen3.6-flash-2026-04-16 to April 16, 2026; international and global tables list April 17. These are release listings, not dates inferred from snapshot names."
+    },
+    {
+      "id": "s3",
+      "url": "https://www.alibabacloud.com/blog/603042",
+      "title": "Alibaba Open-sources Qwen3.6-35B-A3B; Wan2.7 Tops Design Arena",
+      "publisher": "Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Official April 17 announcement explicitly says the open-weight Qwen3.6-35B-A3B can be accessed through Model Studio under identifier qwen3.6-flash. This supplies an exact alias-to-released-model mapping rather than a family-name inference."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/Qwen/Qwen3.6-35B-A3B",
+      "title": "Qwen3.6-35B-A3B official model card",
+      "publisher": "Qwen / Alibaba",
+      "accessed": true,
+      "evidence": "Official weight repository labels the license Apache-2.0. Its Model Overview places nominal 35B total and 3B activated parameters under Language Model, describes a vision encoder and hybrid Gated DeltaNet/gated-attention MoE, and lists 8 routed plus 1 shared activated experts."
+    },
+    {
+      "id": "s5",
+      "url": "https://help.aliyun.com/en/model-studio/model-pricing",
+      "title": "Model inference pricing",
+      "publisher": "Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Current documentation explicitly equates qwen3.6-flash with qwen3.6-flash-2026-04-16 and lists both thinking and non-thinking modes. Documentation establishes the alias mapping, not an independently tested running endpoint."
+    },
+    {
+      "id": "s6",
+      "url": "https://www.alibabacloud.com/blog/qwen3-6-35b-a3b-thinking-open-weights-uncompromised-agentic-coding_603043",
+      "title": "Qwen3.6-35B-A3B: Agentic Coding Power, Now Open to All",
+      "publisher": "Alibaba Cloud",
+      "accessed": true,
+      "evidence": "April 17 release article independently maps Qwen3.6-35B-A3B to qwen3.6-flash and states 35B/3B MoE and released weights. It contains both availability wording and a coming-soon notice, so its publication date alone is not used to establish API launch."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Qwen3.6 Flash",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Readable form of the exact qwen3.6-flash identifier and Qwen3.6 Flash naming on its official page."
+    },
+    "developer": {
+      "value": "Alibaba",
+      "status": "verified",
+      "source_ids": [
+        "s3"
+      ],
+      "note": "Alibaba's announcement attributes the mapped released model to Alibaba."
+    },
+    "family": {
+      "value": "qwen",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Qwen3.6 is a generation within the broader Qwen family."
+    },
+    "release_date": {
+      "value": "2026-04-16",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s6"
+      ],
+      "note": "Earliest explicit provider release is Beijing on April 16; other regions followed April 17. Replaces the catalog's April 27. The April 17 blog's mixed availability/coming-soon wording does not supersede the dated regional changelog."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4"
+      ],
+      "note": "Explicit API-to-checkpoint mapping establishes available weights; hosting alone is not the basis. This describes the mapped model's weights, not access to deployment-specific serving artifacts."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4"
+      ],
+      "note": "License of the explicitly mapped released weights. This is not a claim that the hosted API's service terms are Apache-2.0."
+    },
+    "parameters_b": {
+      "value": 35,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "note": "Nominal billions for the mapped language decoder only; the card nests 35B under Language Model. Requires proposed language_decoder scope. No whole-checkpoint tensor count is transferred to the hosted deployment."
+    },
+    "active_parameters_b": {
+      "value": 3,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "note": "Developer's nominal activated language-decoder count in billions, with matching proposed scope; excludes any implied total for vision or serving-specific components."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4"
+      ],
+      "note": "Mapped model has a vision encoder and a hybrid Gated DeltaNet/gated-attention decoder using sparse MoE. The catalog label records its expert architecture."
+    },
+    "context_window": {
+      "value": 1000000,
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Exact hosted-model page states 1,000,000 tokens. Its API limit is retained independently of the checkpoint's native/extended context values."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Official capability table lists these input and output modalities for the exact API alias."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s5"
+      ],
+      "note": "Exact alias and snapshot are listed with thinking and non-thinking modes."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Exact-model capability table marks function calling supported."
+    },
+    "description": {
+      "value": "Alibaba's Qwen3.6 vision-language model for agentic coding and visual reasoning, available through Model Studio as the hosted counterpart of Qwen3.6-35B-A3B.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Uses the documented task focus and explicit checkpoint mapping without comparative performance claims."
+    }
+  },
+  "patch": {
+    "release_date": "2026-04-16",
+    "date_precision": "day",
+    "open_weights": true,
+    "license": "Apache-2.0",
+    "parameters_b": 35,
+    "active_parameters_b": 3,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "description": "Alibaba's Qwen3.6 vision-language model for agentic coding and visual reasoning, available through Model Studio as the hosted counterpart of Qwen3.6-35B-A3B.",
+    "notes": "Alibaba explicitly maps qwen3.6-flash to the released Qwen3.6-35B-A3B model; current pricing documentation maps the alias to qwen3.6-flash-2026-04-16. The nominal 35B total and 3B active counts refer only to its language decoder, not a measured total for the hosted multimodal deployment. Apache-2.0 describes the released weights; hosted service terms are separate. Beijing release was April 16, 2026, followed by international/global regions April 17. API operation was not tested.",
+    "source_url": "https://help.aliyun.com/en/model-studio/qwen3-6-flash",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Official API model information",
+        "url": "https://help.aliyun.com/en/model-studio/qwen3-6-flash",
+        "type": "primary"
+      },
+      {
+        "label": "Official regional model release dates",
+        "url": "https://help.aliyun.com/zh/model-studio/newly-released-models",
+        "type": "primary"
+      },
+      {
+        "label": "Official API-to-open-model mapping",
+        "url": "https://www.alibabacloud.com/blog/603042",
+        "type": "primary"
+      },
+      {
+        "label": "Official mapped model card",
+        "url": "https://huggingface.co/Qwen/Qwen3.6-35B-A3B",
+        "type": "primary"
+      },
+      {
+        "label": "Official current snapshot mapping",
+        "url": "https://help.aliyun.com/en/model-studio/model-pricing",
+        "type": "primary"
+      }
+    ],
+    "family": "qwen"
+  },
+  "proposed_fields": {
+    "parameters_scope": "language_decoder",
+    "parameter_components_b": {
+      "language_decoder": 35
+    },
+    "active_parameters_scope": "language_decoder"
+  },
+  "summary": "Corrects first release to April 16, 2026 and recognizes the officially mapped open-weight model. Adds nominal language-decoder counts of 35B total/3B active with component scope, Apache-2.0 weight licensing and MoE architecture. Confirms the hosted alias's 1M context, multimodal input, reasoning and function calling. Deployment-specific tensor totals remain unasserted; documentation was checked, not live inference."
+}

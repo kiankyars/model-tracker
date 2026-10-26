@@ -50,7 +50,7 @@ curl -fsSL https://kiankyars.github.io/model-tracker/api/v1/models.json \
 - `developer`, `developer_id`: Model creator, independent of hosting provider.
 - `release_date`: ISO day or month, or `null`. Respect `date_precision`.
 - `open_weights`: `true`, `false`, or `null`. This is not an open-source license classification.
-- `parameters_b`: Reported model parameters in billions, or `null`. Normally total model parameters; `parameters_scope: "backbone"` explicitly excludes separately reported components.
+- `parameters_b`: Reported model parameters in billions, or `null`. Normally total model parameters; `parameters_scope` identifies a reported subset, such as `backbone` or `language_decoder`.
 - `active_parameters_b`: Active parameters in billions when known. `active_parameters_scope` identifies the measured component or inference phase, such as `language_decoder` or `decode`.
 - `parameter_components_b`, `active_parameters_by_phase_b`: Optional named component and phase counts, in billions. Do not add rounded components to infer a complete checkpoint count.
 - `field_status`: Optional explanations for unresolved fields: `undisclosed`, `not_applicable`, or `unverified`. `audit_url` links to the individual research report; `audited_at` dates that review.

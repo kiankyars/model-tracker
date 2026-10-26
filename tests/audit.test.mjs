@@ -36,5 +36,8 @@ test('phase-dependent counts retain their scope in validation, display and both 
   const multimodal = { ...model, active_parameters_b: 3, active_parameters_scope: 'thinker_decoder', active_parameters_by_phase_b: undefined };
   validateModels([multimodal]);
   assert.equal(activeSizeLabel(multimodal), '3B thinker decoder');
+  const hosted = { ...multimodal, parameters_b: 35, parameters_scope: 'language_decoder', parameter_components_b: { language_decoder: 35 }, active_parameters_scope: 'language_decoder' };
+  validateModels([hosted]);
+  assert.equal(modelSizeLabel(hosted), '35B language decoder');
   assert.throws(() => validateModels([{ ...multimodal, active_parameters_b: null }]), /active parameter scope/);
 });
