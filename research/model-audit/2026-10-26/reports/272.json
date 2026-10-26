@@ -1,0 +1,301 @@
+{
+  "index": 272,
+  "model_id": "meta/llama-3.2-1b-instruct",
+  "reviewed_at": "2026-10-26T21:38:19.819Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct",
+      "title": "Llama-3.2-1B-Instruct model card",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Exact Instruct repository: Meta developer; text-only multilingual chat; 1B (1.23B), GQA and shared embeddings; original 128k versus quantized 8k; September 25, 2024 release."
+    },
+    {
+      "id": "s2",
+      "url": "https://ai.meta.com/blog/llama-3-2-connect-2024-vision-edge-mobile-devices/",
+      "title": "Llama 3.2 launch announcement",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "September 25, 2024 launch includes 1B instruction-tuned BF16 weights for edge/mobile use. Structured pruning from Llama 3.1 8B and distillation using 8B/70B logits precede chat alignment."
+    },
+    {
+      "id": "s3",
+      "url": "https://github.com/meta-llama/llama-models/blob/main/models/sku_list.py",
+      "title": "Official Llama model SKU definitions",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Exact meta-llama/Llama-3.2-1B-Instruct SKU uses arch_args_1b: dimension 2048, 16 layers, 32 attention heads and 8 KV heads. INT4 QLoRA/SpinQuant are separately identified variants."
+    },
+    {
+      "id": "s4",
+      "url": "https://github.com/meta-llama/llama-models/blob/main/models/sku_types.py",
+      "title": "Official model types and context limits",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "BF16 is the default checkpoint format. Llama 3.2 max_seq_length returns 131072 except INT4, which returns 8192."
+    },
+    {
+      "id": "s5",
+      "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3/model.py",
+      "title": "Official Llama Transformer implementation",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Causal Transformer blocks execute attention and three dense feedforward projections in every layer; no expert routing. Attention repeats grouped KV heads; the feedforward uses SiLU gating."
+    },
+    {
+      "id": "s6",
+      "url": "https://dev.meta.ai/llama/docs/model-cards-and-prompt-formats/llama3_2",
+      "title": "Llama 3.2 model cards and prompt formats",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Tool Calling (1B/3B) explicitly supports custom function definitions in system/user prompts, excluding built-in Brave Search and Wolfram. Quantized Instruct variants arrived after original BF16 models and have 8k context."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/api/models/meta-llama/Llama-3.2-1B-Instruct",
+      "title": "Exact checkpoint public repository metadata",
+      "publisher": "Hugging Face / Meta",
+      "accessed": true,
+      "evidence": "Public metadata at revision 9213176726f574b556790deb65791e0c5aa438b6 exposes LlamaForCausalLM and the exact JSON function-call chat template, restricted to single calls. BF16 aggregate is 1,235,814,400 storage elements; tensor shapes were not independently inspected."
+    },
+    {
+      "id": "s8",
+      "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/LICENSE",
+      "title": "Llama 3.2 Community License Agreement",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Names the custom Llama 3.2 Community License and September 25, 2024 version release date; distributes trained weights subject to its conditions."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct/resolve/main/config.json",
+      "title": "Exact checkpoint configuration access check",
+      "publisher": "Meta",
+      "accessed": false,
+      "evidence": "Unauthenticated access returned HTTP 401. No gate bypass or weight download was attempted; public SKU metadata supplies the needed architecture/context evidence."
+    },
+    {
+      "id": "s10",
+      "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/MODEL_CARD.md",
+      "title": "Shared Llama 3.2 model card, updated for quantization",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Current shared card includes BF16 and quantized variants and states October 24, 2024. That date conflicts with the exact original checkpoint card and September launch; it is not used as original BF16 release date."
+    },
+    {
+      "id": "s11",
+      "url": "https://github.com/anomalyco/models.dev/blob/dev/models/meta/llama-3.2-1b-instruct.toml",
+      "title": "Models.dev source record",
+      "publisher": "Models.dev",
+      "accessed": true,
+      "evidence": "Baseline catalog asserts tool support, no reasoning support, and 131072 context. These were treated as leads and checked against primary evidence."
+    },
+    {
+      "id": "s12",
+      "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/text_prompt_format.md",
+      "title": "Meta Llama 3.2 reference text prompt formats",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Explicitly describes pythonic function calls for 1B and3B Instruct and supports multiple calls natively. This reference format differs from the exact Hub JSON template, whose code rejects multiple calls in one message."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Llama 3.2 1B Instruct",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Matches the exact instruction-tuned BF16 SKU; neither base nor INT4 variant."
+    },
+    "developer": {
+      "value": "Meta",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Developer explicitly identified."
+    },
+    "family": {
+      "value": "llama",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4"
+      ],
+      "note": "Official SKU belongs to the Llama 3.2 family; llama is the existing catalog family key."
+    },
+    "release_date": {
+      "value": "2024-09-25",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s8",
+        "s10"
+      ],
+      "note": "Original BF16 launch date; the later shared-card October date must not replace it."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s8"
+      ],
+      "note": "Meta released downloadable BF16 weights under its custom license; Hugging Face access is gated."
+    },
+    "license": {
+      "value": "Llama 3.2 Community License",
+      "status": "verified",
+      "source_ids": [
+        "s8"
+      ],
+      "note": "Official license name; a custom commercial license, not an OSI assertion."
+    },
+    "parameters_b": {
+      "value": 1.23,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7",
+        "s9"
+      ],
+      "note": "Publisher-reported approximate total, in billions, for the nominal 1B model with shared embeddings. The public BF16 aggregate alone does not establish exact learned-parameter precision without tensor-shape/buffer reconciliation; it is not substituted for this published figure."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s5"
+      ],
+      "note": "No separately defined active-parameter count is published in the inspected primary specifications; dense structure does not justify copying the total."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s5",
+        "s2"
+      ],
+      "note": "Dense autoregressive Transformer classification follows the reference implementation: 16 layers, 32 query/8 KV heads (GQA), ordinary feedforward projections; shared embeddings are explicit. Structured pruning/distillation describe training, not MoE routing."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s6"
+      ],
+      "note": "Exact BF16 SKU resolves to 131072 tokens. The official INT4 branch is 8192; its limit does not apply here."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Text-only model; generated code is represented as text."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s6",
+        "s7"
+      ],
+      "note": "Reasoning benchmarks and ordinary chain-of-thought prompting do not establish a dedicated reasoning mode. No separate reasoning mode is specified in the inspected card/prompt interface; clear the unsupported false assertion."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s6",
+        "s7",
+        "s12"
+      ],
+      "note": "Meta explicitly documents native custom function calls for1B and3B Instruct. Its reference pythonic format supports multiple calls; the exact Hugging Face JSON template rejects multiple calls in one message. Template restrictions are not treated as a model-wide limitation. Meta excludes built-in Brave/Wolfram tools."
+    },
+    "description": {
+      "value": "Compact instruction-tuned Llama model for multilingual dialogue and on-device assistants",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Consistent with the documented chat, multilingual and mobile/edge use cases."
+    }
+  },
+  "patch": {
+    "parameters_b": 1.23,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "reasoning": null,
+    "source_url": "https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Meta model card",
+        "url": "https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct",
+        "type": "primary"
+      },
+      {
+        "label": "Meta BF16 launch",
+        "url": "https://ai.meta.com/blog/llama-3-2-connect-2024-vision-edge-mobile-devices/",
+        "type": "primary"
+      },
+      {
+        "label": "Meta model SKU configuration",
+        "url": "https://github.com/meta-llama/llama-models/blob/main/models/sku_list.py",
+        "type": "primary"
+      },
+      {
+        "label": "Meta context-limit implementation",
+        "url": "https://github.com/meta-llama/llama-models/blob/main/models/sku_types.py",
+        "type": "primary"
+      },
+      {
+        "label": "Meta dense Transformer implementation",
+        "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3/model.py",
+        "type": "primary"
+      },
+      {
+        "label": "Meta 1B/3B tool-calling documentation",
+        "url": "https://dev.meta.ai/llama/docs/model-cards-and-prompt-formats/llama3_2",
+        "type": "primary"
+      },
+      {
+        "label": "Exact checkpoint public metadata",
+        "url": "https://huggingface.co/api/models/meta-llama/Llama-3.2-1B-Instruct",
+        "type": "weights"
+      },
+      {
+        "label": "Llama 3.2 license",
+        "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "Meta reference pythonic function-call format",
+        "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/text_prompt_format.md",
+        "type": "primary"
+      }
+    ],
+    "notes": "Original BF16 Instruct checkpoint. Meta reports approximately 1.23B parameters with shared embeddings; active parameters are not separately disclosed. Dense Transformer with GQA, produced through structured pruning and distillation. Context is 131,072 tokens; later official INT4 variants use 8,192. Native custom function calling is documented for 1B; dedicated reasoning-mode support is undisclosed. Meta reference pythonic calls can contain multiple functions; the Hub JSON template handles one call per message."
+  },
+  "summary": "Audited all 14 fields individually. Replace name-derived 1B with Meta-reported approximate 1.23B and primary provenance; verify dense GQA architecture and shared embeddings; clear unsupported dedicated-reasoning false to null. Retain September 25 BF16 release, 131072 context and true custom tool calling. Active count remains undisclosed. Configuration access was gated; no weights were downloaded and no exact tensor-count claim was made."
+}
