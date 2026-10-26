@@ -31129,15 +31129,15 @@
     "developer": "Meta",
     "developer_id": "meta",
     "family": "llama",
-    "description": "Small open Llama base model for lightweight text generation and self-hosting",
+    "description": "Pretrained Llama 3.2 text model with a reported 3.21B parameters, shared embeddings and a 131,072-token context.",
     "release_date": "2024-09-25",
     "date_precision": "day",
     "open_weights": true,
     "license": "Llama 3.2 Community License",
-    "parameters_b": 3,
+    "parameters_b": 3.21,
     "active_parameters_b": null,
-    "parameters_source": "model_name",
-    "architecture": null,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
     "context_window": 131072,
     "modalities": {
       "input": [
@@ -31147,26 +31147,69 @@
         "text"
       ]
     },
-    "reasoning": false,
-    "tool_call": false,
-    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/meta/llama-3.2-3b.toml",
-    "source_type": "catalog",
+    "reasoning": null,
+    "tool_call": null,
+    "source_url": "https://huggingface.co/meta-llama/Llama-3.2-3B",
+    "source_type": "primary",
     "sources": [
-      {
-        "label": "Models.dev record",
-        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/meta/llama-3.2-3b.toml",
-        "type": "catalog"
-      },
       {
         "label": "Hugging Face",
         "url": "https://huggingface.co/meta-llama/Llama-3.2-3B",
         "type": "weights"
+      },
+      {
+        "label": "Meta original BF16 release",
+        "url": "https://ai.meta.com/blog/llama-3-2-connect-2024-vision-edge-mobile-devices/",
+        "type": "primary"
+      },
+      {
+        "label": "Meta exact model configuration",
+        "url": "https://github.com/meta-llama/llama-models/blob/0e0b8c519242d5833d8c11bffc1232b77ad7f301/models/sku_list.py",
+        "type": "primary"
+      },
+      {
+        "label": "Meta precision and context limits",
+        "url": "https://github.com/meta-llama/llama-models/blob/0e0b8c519242d5833d8c11bffc1232b77ad7f301/models/sku_types.py",
+        "type": "primary"
+      },
+      {
+        "label": "Meta dense Transformer implementation",
+        "url": "https://github.com/meta-llama/llama-models/blob/0e0b8c519242d5833d8c11bffc1232b77ad7f301/models/llama3/model.py",
+        "type": "primary"
+      },
+      {
+        "label": "Meta Llama 3.2 function-call scope",
+        "url": "https://github.com/meta-llama/llama-models/blob/0e0b8c519242d5833d8c11bffc1232b77ad7f301/models/llama3_2/text_prompt_format.md",
+        "type": "primary"
+      },
+      {
+        "label": "Meta quantized variant documentation",
+        "url": "https://dev.meta.ai/llama/docs/model-cards-and-prompt-formats/llama3_2",
+        "type": "primary"
+      },
+      {
+        "label": "Llama 3.2 Community License",
+        "url": "https://github.com/meta-llama/llama-models/blob/0e0b8c519242d5833d8c11bffc1232b77ad7f301/models/llama3_2/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "Models.dev record",
+        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/meta/llama-3.2-3b.toml",
+        "type": "catalog"
       }
     ],
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
+    "upstream_present": true,
+    "notes": "Original BF16 base checkpoint. Meta reports a rounded 3.21B total with shared embeddings, GQA and dense Transformer blocks. Developed by structured pruning of Llama 3.1 8B and distillation using 8B/70B teachers. Context is 131072; the later quantized Instruct variants use 8192. Dedicated reasoning, native base tool calling and a separately defined active count are not disclosed.",
+    "field_status": {
+      "active_parameters_b": "undisclosed",
+      "reasoning": "undisclosed",
+      "tool_call": "undisclosed"
+    },
+    "audited_at": "2026-10-26T21:38:36.855539Z",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/273.json"
   },
   {
     "id": "meta/llama-3.2-3b-instruct",
