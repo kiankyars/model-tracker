@@ -1,0 +1,267 @@
+{
+  "index": 278,
+  "model_id": "meta/llama-4-scout-17b-instruct",
+  "reviewed_at": "2026-10-26T21:44:13.844592Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct",
+      "title": "Llama-4-Scout-17B-16E-Instruct official model card",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Exact Instruct repository identifies Meta, Llama 4, nominal 109B total/17B activated parameters, 16 experts, text/image inputs and text/code outputs, BF16 weights, April 5 2025 release, and the Llama 4 Community License."
+    },
+    {
+      "id": "s2",
+      "url": "https://ai.meta.com/blog/llama-4-multimodal-intelligence/",
+      "title": "The Llama 4 herd: The beginning of a new era of natively multimodal AI innovation",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Dated April 5 2025 announcement says Scout and Maverick are available to download that day and describes native multimodal early fusion. Scout has 16 experts. The alternating dense/MoE and 128-routed-expert example explicitly describes Maverick, so it is not transferred to Scout."
+    },
+    {
+      "id": "s3",
+      "url": "https://github.com/meta-llama/llama-models/blob/main/models/sku_types.py",
+      "title": "Official model SKU definitions and sequence limits",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "CoreModelId names Llama-4-Scout-17B-16E-Instruct; max_seq_length explicitly returns 10485760 for that identifier, while the pretrained Scout identifier returns 262144."
+    },
+    {
+      "id": "s4",
+      "url": "https://dev.meta.ai/llama/docs/model-cards-and-prompt-formats/llama4",
+      "title": "Llama 4 model cards and prompt formats",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Scout comparison column reports 109B total, 17B active, 16 experts and 10M nominal context. Documentation includes native zero-shot function calling and tool-response formats. It specifies text plus images in and text-only out; it does not define a separate thinking mode."
+    },
+    {
+      "id": "s5",
+      "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama4/moe.py",
+      "title": "Official Llama 4 MoE implementation",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "MoE constructs routed experts plus a distinct shared expert, uses top-k router selection, and adds the shared-expert result to routed results. This is common implementation code, not an independently accessible Scout checkpoint configuration."
+    },
+    {
+      "id": "s6",
+      "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama4/args.py",
+      "title": "Official Llama 4 architecture arguments",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "MoEArgs defaults top_k to 1 and interleave_moe_layer_step to 1. Defaults document the reference implementation but are not proof that a gated checkpoint overrides neither setting."
+    },
+    {
+      "id": "s7",
+      "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama4/model.py",
+      "title": "Official Llama 4 multimodal Transformer implementation",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Defines Transformer blocks, configurable MoE layer intervals, vision embeddings and a vision projection into token embeddings. Load hooks discard rope.freqs and extra-state entries, illustrating why storage metadata alone is not a complete learned-parameter audit."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct/resolve/main/config.json",
+      "title": "Original Scout Instruct checkpoint configuration (gated)",
+      "publisher": "Meta",
+      "accessed": false,
+      "evidence": "Direct unauthenticated request returned HTTP 401 Unauthorized. No gate bypass or weight-shard download was attempted; exact checkpoint shape/tying/buffer reconciliation is unavailable in this audit."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/api/models/meta-llama/Llama-4-Scout-17B-16E-Instruct",
+      "title": "Public metadata for original Scout Instruct checkpoint",
+      "publisher": "Hugging Face hosting Meta checkpoint",
+      "accessed": true,
+      "evidence": "Public API reports gated=manual, Llama4ForConditionalGeneration, the exact repository chat template including function calls, and a BF16 safetensors metadata total of 108641793536. That hosting metadata is not promoted to a verified complete learned-parameter count."
+    },
+    {
+      "id": "s10",
+      "url": "https://dev.meta.ai/llama/docs/deployment/versioning",
+      "title": "Llama versioning, updates and migration",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Current first-party comparison explicitly labels Scout as 109B total/17B active, 16-expert multimodal MoE with nominal 10M context. General reasoning discussions do not identify a dedicated Scout thinking mode."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Llama 4 Scout 17B 16E Instruct",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Uses the complete official variant name; 17B is the nominal active count and 16E identifies the expert variant."
+    },
+    "developer": {
+      "value": "Meta",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "The model card explicitly names Meta as developer."
+    },
+    "family": {
+      "value": "llama",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Llama 4 is within the catalog's Llama family."
+    },
+    "release_date": {
+      "value": "2025-04-05",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Explicit model release date and same-day download announcement agree."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "BF16 weights are released for download under Meta's custom license; access conditions do not make weights closed."
+    },
+    "license": {
+      "value": "Llama 4 Community License",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Named custom community/commercial license, not an OSI open-source classification."
+    },
+    "parameters_b": {
+      "value": 109,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s9",
+        "s10"
+      ],
+      "note": "Retain Meta's nominal total in billions, including active and inactive experts. Do not replace it with 17B or an unreconciled hosting storage-element total; no exact complete checkpoint count is claimed."
+    },
+    "active_parameters_b": {
+      "value": 17,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s10"
+      ],
+      "note": "Meta explicitly reports 17B active per token; this is a nominal published figure, not 109B divided by 16."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "note": "Autoregressive multimodal Transformer with early fusion and 16 experts. Reference code has routed experts plus a shared expert and top-1 routing by default; original config is gated, so exact per-layer overrides are not independently verified. Do not transfer Maverick's alternating-layer example to Scout."
+    },
+    "context_window": {
+      "value": 10485760,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4"
+      ],
+      "note": "Exact native Scout Instruct limit from Meta's SKU code: 10 \u00d7 1,048,576 tokens. The advertised 10M is rounded; the same source separately gives base Scout 262144. Provider deployment limits may be lower."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4"
+      ],
+      "note": "Supported native input/output modalities; code is text output. Video used in training does not by itself establish a separate supported video input API."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s9",
+        "s10"
+      ],
+      "note": "Clears unsupported baseline false. Reviewed exact model card/template and current first-party comparison and deployment documentation; these demonstrate general reasoning tasks but do not explicitly disclose a dedicated thinking/reasoning mode or its absence."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s9"
+      ],
+      "note": "Official function-calling documentation and the exact repository's public chat template support tool definitions, assistant function calls and tool replies."
+    },
+    "description": {
+      "value": "Instruction-tuned multimodal MoE with 109B total and 17B active parameters, text/image input, text output, tool calling, and a 10,485,760-token context.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4"
+      ],
+      "note": "Replaces vague agent/efficiency wording with directly supported variant specifications."
+    }
+  },
+  "patch": {
+    "name": "Llama 4 Scout 17B 16E Instruct",
+    "context_window": 10485760,
+    "reasoning": null,
+    "description": "Instruction-tuned multimodal MoE with 109B total and 17B active parameters, text/image input, text output, tool calling, and a 10,485,760-token context.",
+    "parameters_source": "primary_source",
+    "notes": "Meta reports nominal 109B total and 17B active parameters. The exact Scout Instruct context is 10,485,760 tokens; pretrained Scout is a different 262,144-token variant. The original configuration is gated, so no precise complete tensor count or exact per-layer routing configuration is asserted. A dedicated reasoning mode is not disclosed in the reviewed primary documentation.",
+    "sources": [
+      {
+        "label": "Official Scout Instruct model card",
+        "url": "https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct",
+        "type": "weights"
+      },
+      {
+        "label": "Meta exact model sequence limits",
+        "url": "https://github.com/meta-llama/llama-models/blob/main/models/sku_types.py",
+        "type": "primary"
+      },
+      {
+        "label": "Meta Llama 4 prompt and tool formats",
+        "url": "https://dev.meta.ai/llama/docs/model-cards-and-prompt-formats/llama4",
+        "type": "primary"
+      },
+      {
+        "label": "Meta Llama 4 model comparison",
+        "url": "https://dev.meta.ai/llama/docs/deployment/versioning",
+        "type": "primary"
+      },
+      {
+        "label": "Original checkpoint public metadata",
+        "url": "https://huggingface.co/api/models/meta-llama/Llama-4-Scout-17B-16E-Instruct",
+        "type": "weights"
+      }
+    ]
+  },
+  "summary": "Confirmed nominal 109B total/17B active, 16-expert multimodal MoE, April 5 2025 release, custom Llama 4 license, open weights and native tool calling. Corrected context from decimal 10M to exact 10485760, completed the official name with 16E, and rewrote description. Cleared unsupported reasoning=false to null/undisclosed. Original config is gated; a complete tensor-derived count and exact checkpoint routing overrides remain unverified, while the published nominal sizes and MoE classification are verified."
+}
