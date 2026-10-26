@@ -1,0 +1,249 @@
+{
+  "index": 258,
+  "model_id": "meta/llama-2-13b",
+  "reviewed_at": "2026-10-26T21:23:25.468028Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://ai.meta.com/blog/llama-2/",
+      "title": "Meta and Microsoft Introduce the Next Generation of Llama",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Dated July 18, 2023; announces Llama 2 availability, including pretrained and conversational weights and starting code."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/meta-llama/Llama-2-13b-hf",
+      "title": "Llama-2-13b-hf official model card",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Exact repository identifies the 13B pretrained model converted to Transformers. Names Meta, text-only input/output, autoregressive Transformer, nominal 13B and 4k context, with no GQA for this size. Public card accessed by an unauthenticated HTTP request after the web tool returned 429."
+    },
+    {
+      "id": "s3",
+      "url": "https://arxiv.org/html/2307.09288v2",
+      "title": "Llama 2: Open Foundation and Fine-Tuned Chat Models",
+      "publisher": "Meta authors / arXiv",
+      "accessed": true,
+      "evidence": "Sections 1\u20132 and Table 1 distinguish base from Chat and Llama 1; the 13B row has 4k context and no GQA. Section 2.2 describes RMSNorm, SwiGLU and RoPE. Section 5.1 tool-use experiments concern Llama 2-Chat."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/meta-llama/Llama-2-13b-hf/blob/main/LICENSE.txt",
+      "title": "Llama 2 Community License Agreement in the exact 13B repository",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Public file names the Llama 2 Community License Agreement and July 18, 2023 version release. Grants conditional use and redistribution, incorporates use restrictions, and requires additional permission above its 700-million-user threshold."
+    },
+    {
+      "id": "s5",
+      "url": "https://raw.githubusercontent.com/meta-llama/llama/llama_v2/README.md",
+      "title": "Meta Llama 2 reference repository README, llama_v2 branch",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Lists 13B among released models, specifies support up to 4096 tokens, and explains that pretrained models are continuation models without chat/Q&A tuning. Downloads require license acceptance and approval."
+    },
+    {
+      "id": "s6",
+      "url": "https://raw.githubusercontent.com/meta-llama/llama/llama_v2/llama/model.py",
+      "title": "Meta Llama 2 reference Transformer implementation, llama_v2 branch",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Implements causal Transformer blocks with attention, dense SwiGLU feed-forward matrices, RMSNorm and rotary embeddings, with no expert router. Rotary frequencies and KV caches are computed state rather than learned parameters."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/meta-llama/Llama-2-13b-hf/blob/main/config.json",
+      "title": "Exact original 13B Hugging Face configuration (access restricted)",
+      "publisher": "Meta",
+      "accessed": false,
+      "evidence": "The exact config blob returned HTTP 401; raw config was also inaccessible. No credentials, third-party replacement config, or gate bypass were used."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/api/models/meta-llama/Llama-2-13b-hf",
+      "title": "Public metadata for the official Llama-2-13b-hf repository",
+      "publisher": "Hugging Face / Meta repository",
+      "accessed": true,
+      "evidence": "Public API identifies manual gating and LlamaForCausalLM. Safetensors summary totals 13,015,866,880 stored elements (13,015,864,320 F16; 2,560 F32), without per-tensor names sufficient to establish a complete learned-parameter count."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Llama 2 13B",
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Exact official repository is the 13B pretrained base variant, distinct from Llama 2-Chat and first-generation LLaMA."
+    },
+    "developer": {
+      "value": "Meta",
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Model card explicitly identifies Meta as developer."
+    },
+    "family": {
+      "value": "llama-2",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "Normalized identifier for the explicitly named Llama 2 family."
+    },
+    "release_date": {
+      "value": "2023-07-18",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4"
+      ],
+      "note": "Public release announcement and license version date agree; gated individual weight approval is not a separate model release date."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5"
+      ],
+      "note": "Weights were released with approval and license conditions. True describes weight availability, not unrestricted access or an open-source license classification."
+    },
+    "license": {
+      "value": "Llama 2 Community License",
+      "status": "verified",
+      "source_ids": [
+        "s4"
+      ],
+      "note": "Bespoke commercial license with use and distribution conditions; not Apache/MIT or the original LLaMA research license."
+    },
+    "parameters_b": {
+      "value": 13,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s7",
+        "s8"
+      ],
+      "note": "Nominal 13 billion as explicitly reported. Exact config is gated; API storage totals alone do not distinguish all learned tensors and buffers, so no exact checkpoint count is asserted."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s6"
+      ],
+      "note": "No separately defined active-parameter figure is reported. Dense architecture does not justify copying the nominal total into this field."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s6"
+      ],
+      "note": "Dense causal Transformer with SwiGLU, RMSNorm and RoPE; the exact 13B row excludes GQA, supporting standard multi-head attention. No mixture-of-experts routing appears in the reference implementation."
+    },
+    "context_window": {
+      "value": 4096,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s5"
+      ],
+      "note": "Original trained context is 4k; Meta reference documentation gives the exact 4096-token limit. Runtime cache defaults and later context extensions do not change it."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "The exact card explicitly limits input and output to text; downstream multimodal adaptations are outside this checkpoint."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s5"
+      ],
+      "note": "Reasoning benchmark scores and prompted step-by-step completions do not document a dedicated thinking mode for this pretrained checkpoint."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s3",
+        "s5"
+      ],
+      "note": "Native structured tool calling is not documented for the base checkpoint. The paper's emergent calculator/tool experiment concerns Llama 2-Chat, and wrappers are not checkpoint capabilities."
+    },
+    "description": {
+      "value": "Meta's Llama 2 13B pretrained text-generation model, using a dense autoregressive Transformer with multi-head attention and a 4,096-token context.",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s5",
+        "s6"
+      ],
+      "note": "Clarifies the base variant and its supported architecture and original context without transferring Chat fine-tuning claims."
+    }
+  },
+  "patch": {
+    "parameters_source": "primary_source",
+    "description": "Meta's Llama 2 13B pretrained text-generation model, using a dense autoregressive Transformer with multi-head attention and a 4,096-token context.",
+    "notes": "13B is Meta's nominal size, not a tensor-exact learned-parameter count. Active parameters are not separately reported. The original 13B base model uses multi-head attention and a 4096-token context; Llama 2-Chat tool-use experiments and later context extensions are separate. Released weights require approval and the bespoke Llama 2 Community License. Dedicated thinking and native tool-calling capabilities are not documented.",
+    "sources": [
+      {
+        "label": "Original Llama 2 release announcement",
+        "url": "https://ai.meta.com/blog/llama-2/",
+        "type": "primary"
+      },
+      {
+        "label": "Official 13B pretrained model card",
+        "url": "https://huggingface.co/meta-llama/Llama-2-13b-hf",
+        "type": "weights"
+      },
+      {
+        "label": "Llama 2 technical paper",
+        "url": "https://arxiv.org/html/2307.09288v2",
+        "type": "primary"
+      },
+      {
+        "label": "Exact model license",
+        "url": "https://huggingface.co/meta-llama/Llama-2-13b-hf/blob/main/LICENSE.txt",
+        "type": "primary"
+      },
+      {
+        "label": "Llama 2 reference documentation",
+        "url": "https://raw.githubusercontent.com/meta-llama/llama/llama_v2/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Llama 2 reference architecture",
+        "url": "https://raw.githubusercontent.com/meta-llama/llama/llama_v2/llama/model.py",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "Confirmed the original Llama 2 13B base record: July 18, 2023, released gated weights, custom Llama 2 license, nominal 13B, dense Transformer with MHA, 4096-token trained context, and text-only I/O. Clarified description and interpretation notes. Active count and dedicated reasoning/tool-call flags remain undisclosed. Exact HF config access was restricted; public storage metadata was not promoted to a complete learned count."
+}
