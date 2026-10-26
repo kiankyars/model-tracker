@@ -21959,11 +21959,11 @@
     "date_precision": "day",
     "open_weights": true,
     "license": "MIT",
-    "parameters_b": null,
-    "active_parameters_b": null,
-    "parameters_source": null,
-    "architecture": null,
-    "context_window": 163840,
+    "parameters_b": 671,
+    "active_parameters_b": 37,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "context_window": 128000,
     "modalities": {
       "input": [
         "text"
@@ -21974,9 +21974,34 @@
     },
     "reasoning": true,
     "tool_call": true,
-    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/deepseek/deepseek-r1-0528.toml",
-    "source_type": "catalog",
+    "source_url": "https://deepseek.com/news/r1-0528/",
+    "source_type": "primary",
     "sources": [
+      {
+        "label": "DeepSeek May 28 release announcement",
+        "url": "https://deepseek.com/news/r1-0528/",
+        "type": "primary"
+      },
+      {
+        "label": "Exact R1-0528 model card",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-R1-0528/blob/4236a6af538feda4548eca9ab308586007567f52/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Exact checkpoint configuration",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-R1-0528/blob/4236a6af538feda4548eca9ab308586007567f52/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeek V3 base architecture and nominal counts",
+        "url": "https://github.com/deepseek-ai/DeepSeek-V3",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeek weight structure and shared MTP documentation",
+        "url": "https://github.com/deepseek-ai/DeepSeek-V3/blob/main/README_WEIGHTS.md",
+        "type": "primary"
+      },
       {
         "label": "Models.dev record",
         "url": "https://github.com/anomalyco/models.dev/blob/dev/models/deepseek/deepseek-r1-0528.toml",
@@ -21991,7 +22016,19 @@
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
+    "upstream_present": true,
+    "notes": "671B and 37B active are nominal main-model counts. The release announcement reports 685B including 14B MTP; the weight guide documents shared MTP embedding/output weights, so that figure is not a unique learned total. FP8 scales are excluded from learned parameters. Advertised open-checkpoint context is 128K; configured positions are 163840 and launch API/app context was 64K. Function calling is supported outside thinking. Current API aliases do not establish this dated checkpoint’s capabilities.",
+    "parameters_scope": "main",
+    "parameter_components_b": {
+      "main": 671
+    },
+    "active_parameters_scope": "main",
+    "active_parameters_by_phase_b": {
+      "main": 37
+    },
+    "field_status": {},
+    "audited_at": "2026-10-26T19:01:13.071532+00:00",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/169.json"
   },
   {
     "id": "anthropic/claude-opus-4-20250514",
