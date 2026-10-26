@@ -1,0 +1,361 @@
+{
+  "index": 118,
+  "model_id": "arcee-ai/trinity-large-preview",
+  "reviewed_at": "2026-10-26T17:21:26.569139+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/arcee-ai/Trinity-Large-Preview",
+      "title": "Trinity-Large-Preview model card",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "Exact model card identifies a lightly instruction-tuned Trinity model, nominally 398B total and approximately 13B active parameters, with published weights and text-generation examples."
+    },
+    {
+      "id": "s2",
+      "url": "https://www.arcee.ai/blog/trinity-large",
+      "title": "Trinity Large release announcement",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "Dated January 27, 2026; announces Preview, Base and TrueBase. Explicitly calls Preview a non-reasoning instruct model. Advertises native 512K context and distinguishes the launch API at 128K."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/arcee-ai/Trinity-Large-Preview/raw/main/config.json",
+      "title": "Trinity-Large-Preview configuration",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "AfmoeForCausalLM configuration: 60 layers, 6 initial dense layers, hidden size 3072, 256 routed experts, 4 routed experts per token, one shared expert, untied embeddings, vocabulary 200192, and max_position_embeddings 262144."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/arcee-ai/Trinity-Large-Preview/raw/main/LICENSE",
+      "title": "Trinity-Large-Preview OpenMDW-1.1 license",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "OpenMDW version 1.1 grants rights to Model Materials, explicitly including model architecture and parameters."
+    },
+    {
+      "id": "s5",
+      "url": "https://raw.githubusercontent.com/arcee-ai/trinity-large-tech-report/main/Arcee%20Trinity%20Large.pdf",
+      "title": "Arcee Trinity Large Technical Report",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "Complete 29-page PDF downloaded and extracted with pdftotext. Section 2 describes decoder-only MoE Transformers; Table 2 and section 3.4.1 specify 4 routed plus 1 always-active shared expert. Sections 3.4.2 and 3.5 state 256K training and 512K inference/evaluation. Section 4 identifies Preview as its lightly post-trained release."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/arcee-ai/Trinity-Large-Preview/raw/main/chat_template.jinja",
+      "title": "Trinity-Large-Preview chat and tool template",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "Exact checkpoint template serializes function names and arguments into tool_call blocks and accepts tool_response messages. Its assistant generation prompt has no dedicated thinking channel."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/arcee-ai/Trinity-Large-Preview/raw/d8e126719c8bf2b3ac5a3551bd1f07fcee767a90/model.safetensors.index.json",
+      "title": "Trinity-Large-Preview pinned checkpoint index",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "Index maps 42,423 tensors to 31 Safetensors shards. Every referenced shard header was independently range-read at revision d8e126719c8bf2b3ac5a3551bd1f07fcee767a90; all tensor names exactly match the index. All tensors are BF16 and their shape products sum to 398,635,286,016. Byte totals were used only as a consistency check."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/arcee-ai/Trinity-Large-Preview/tree/d8e126719c8bf2b3ac5a3551bd1f07fcee767a90",
+      "title": "Trinity-Large-Preview pinned checkpoint inventory",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "Inspected 31 original BF16 checkpoint shards, including both embedding/head tensors, all attention and dense weights, routed/shared experts, routers, normalization, and 54 frozen expert_bias tensors. Summed tensor shapes establish the complete checkpoint count; no vision encoder or other modality component is present."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/arcee-ai/Trinity-Large-Preview/commits/main",
+      "title": "Trinity-Large-Preview release history",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "History records original checkpoint publication on January 27, 2026 and adoption of OpenMDW-1.1 on May 28, 2026. Later README/tokenizer/license edits are distinguished from the model release."
+    },
+    {
+      "id": "s10",
+      "url": "https://www.arcee.ai/blog/trinity-large-thinking",
+      "title": "Trinity-Large-Thinking release comparison",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "April 1, 2026 announcement explicitly contrasts the earlier Preview instruct model with the newly released Thinking checkpoint. Thinking behavior is not transferred to Preview."
+    },
+    {
+      "id": "s11",
+      "url": "https://www.arcee.ai/open-source-catalog",
+      "title": "Arcee open-model catalog and exact Preview comparison",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "Later first-party catalog states that Thinking shares Preview architecture and explicitly identifies Preview as an instruct checkpoint without reasoning_content. Used only to connect the published Afmoe implementation and clarify the variant distinction."
+    },
+    {
+      "id": "s12",
+      "url": "https://huggingface.co/arcee-ai/Trinity-Large-Thinking/raw/44bc97dcbb24d4c0e43a97d6abd7b0ff25f0621a/modeling_afmoe.py",
+      "title": "Arcee Afmoe implementation for the explicitly shared architecture",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "Fetched the complete developer implementation directly after browser retrieval failed. Line 262 defines expert_bias as nn.Parameter(..., requires_grad=False), and the forward path uses it in routing. Used to classify the 13,824 expert_bias values in Preview, not to transfer weights or post-training capabilities."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Trinity Large Preview",
+      "status": "verified",
+      "note": "Display normalization of the exact official checkpoint name.",
+      "source_ids": [
+        "s1",
+        "s2"
+      ]
+    },
+    "developer": {
+      "value": "Arcee AI",
+      "status": "verified",
+      "note": "Developer identified by the official announcement and model repository.",
+      "source_ids": [
+        "s1",
+        "s2"
+      ]
+    },
+    "family": {
+      "value": "trinity",
+      "status": "verified",
+      "note": "Catalog normalization of the developer-named Trinity family.",
+      "source_ids": [
+        "s1",
+        "s5"
+      ]
+    },
+    "release_date": {
+      "value": "2026-01-27",
+      "status": "verified",
+      "note": "Explicit public launch date from the release announcement, corroborated by checkpoint history; not the later license change or technical-report date.",
+      "source_ids": [
+        "s2",
+        "s9"
+      ]
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "note": "All 31 original checkpoint shards are publicly available under an explicit model license.",
+      "source_ids": [
+        "s4",
+        "s8"
+      ]
+    },
+    "license": {
+      "value": "OpenMDW-1.1",
+      "status": "verified",
+      "note": "Current exact-checkpoint license, adopted May 28, 2026. Do not substitute the Thinking launch license.",
+      "source_ids": [
+        "s4",
+        "s9"
+      ]
+    },
+    "parameters_b": {
+      "value": 398.635286016,
+      "status": "verified",
+      "note": "Complete checkpoint scalar parameter count from all 31 shard headers, including both untied embedding/head matrices and 13,824 frozen expert-routing bias parameters. This is a shape count, not a byte-size conversion; 398B and 400B are developer nominal labels.",
+      "source_ids": [
+        "s7",
+        "s8",
+        "s12"
+      ]
+    },
+    "active_parameters_b": {
+      "value": 13,
+      "status": "verified",
+      "note": "Developer-reported approximate per-token count. Config and report verify 4 routed experts plus 1 always-active shared expert in each of 54 MoE layers, alongside 6 dense layers and attention. The 13B scalar is rounded and its embedding-accounting convention is unspecified; it is not inferred by dividing total parameters by expert count.",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s5"
+      ]
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "note": "Decoder-only sparse MoE Transformer with gated attention and a 3:1 local/global attention pattern. Routing is 4-of-256 plus a separate shared expert.",
+      "source_ids": [
+        "s3",
+        "s5"
+      ]
+    },
+    "context_window": {
+      "value": 512000,
+      "status": "verified",
+      "note": "Decimal normalization of the developer-advertised 512K extended inference capacity, not a literal source claim of exactly 512000 tokens or a verified exact boundary. The configuration specifies 262144 positions; the technical report distinguishes 256K training from 512K inference.",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s5"
+      ]
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "note": "Text-token input and language-model logits/output are supported by the exact config, template, and complete checkpoint component inventory. Voice-assistant use in promotional prose does not establish native audio input or output.",
+      "source_ids": [
+        "s3",
+        "s6",
+        "s8"
+      ]
+    },
+    "reasoning": {
+      "value": false,
+      "status": "verified",
+      "note": "Launch announcement explicitly identifies Preview as non-reasoning; the later Thinking release confirms this distinction. General problem solving and training traces do not establish a dedicated reasoning mode.",
+      "source_ids": [
+        "s2",
+        "s10",
+        "s11"
+      ]
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "note": "Exact checkpoint template provides structured function-call name/arguments and tool-response serialization; the card supplies a Hermes tool-parser serving command.",
+      "source_ids": [
+        "s6",
+        "s1"
+      ]
+    },
+    "description": {
+      "value": "Open-weight Trinity instruct model with sparse MoE routing, text generation, and tool calling.",
+      "status": "verified",
+      "note": "Neutral description based on the exact architecture and tool template, without comparative performance claims.",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s6"
+      ]
+    }
+  },
+  "patch": {
+    "name": "Trinity Large Preview",
+    "developer": "Arcee AI",
+    "family": "trinity",
+    "release_date": "2026-01-27",
+    "open_weights": true,
+    "license": "OpenMDW-1.1",
+    "parameters_b": 398.635286016,
+    "active_parameters_b": 13,
+    "architecture": "moe",
+    "context_window": 512000,
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "reasoning": false,
+    "tool_call": true,
+    "description": "Open-weight Trinity instruct model with sparse MoE routing, text generation, and tool calling.",
+    "parameters_source": "primary_source",
+    "date_precision": "day",
+    "source_url": "https://www.arcee.ai/blog/trinity-large",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Trinity-Large-Preview model card",
+        "url": "https://huggingface.co/arcee-ai/Trinity-Large-Preview",
+        "type": "primary"
+      },
+      {
+        "label": "Trinity Large release announcement",
+        "url": "https://www.arcee.ai/blog/trinity-large",
+        "type": "primary"
+      },
+      {
+        "label": "Trinity-Large-Preview configuration",
+        "url": "https://huggingface.co/arcee-ai/Trinity-Large-Preview/raw/main/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Trinity-Large-Preview OpenMDW-1.1 license",
+        "url": "https://huggingface.co/arcee-ai/Trinity-Large-Preview/raw/main/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "Arcee Trinity Large Technical Report",
+        "url": "https://raw.githubusercontent.com/arcee-ai/trinity-large-tech-report/main/Arcee%20Trinity%20Large.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Trinity-Large-Preview chat and tool template",
+        "url": "https://huggingface.co/arcee-ai/Trinity-Large-Preview/raw/main/chat_template.jinja",
+        "type": "primary"
+      },
+      {
+        "label": "Trinity-Large-Preview pinned checkpoint index",
+        "url": "https://huggingface.co/arcee-ai/Trinity-Large-Preview/raw/d8e126719c8bf2b3ac5a3551bd1f07fcee767a90/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Trinity-Large-Preview pinned checkpoint inventory",
+        "url": "https://huggingface.co/arcee-ai/Trinity-Large-Preview/tree/d8e126719c8bf2b3ac5a3551bd1f07fcee767a90",
+        "type": "primary"
+      },
+      {
+        "label": "Trinity-Large-Preview release history",
+        "url": "https://huggingface.co/arcee-ai/Trinity-Large-Preview/commits/main",
+        "type": "primary"
+      },
+      {
+        "label": "Trinity-Large-Thinking release comparison",
+        "url": "https://www.arcee.ai/blog/trinity-large-thinking",
+        "type": "primary"
+      },
+      {
+        "label": "Arcee open-model catalog and exact Preview comparison",
+        "url": "https://www.arcee.ai/open-source-catalog",
+        "type": "primary"
+      },
+      {
+        "label": "Arcee Afmoe implementation for the explicitly shared architecture",
+        "url": "https://huggingface.co/arcee-ai/Trinity-Large-Thinking/raw/44bc97dcbb24d4c0e43a97d6abd7b0ff25f0621a/modeling_afmoe.py",
+        "type": "primary"
+      }
+    ],
+    "notes": "Complete checkpoint count is 398.635286016B, including frozen router biases; developer labels 398B/400B are nominal. Active 13B is an approximate developer per-token count with 4 routed plus 1 shared expert. Context 512000 is decimal normalization of the advertised 512K extended inference capacity, not a source-verified exact boundary; the released config specifies 262144 positions. Preview is non-reasoning. OpenMDW-1.1 is the current license adopted May 28, 2026."
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "routed_experts": 391.378894848,
+      "shared_experts": 1.528823808,
+      "dense_mlp": 0.679477248,
+      "attention": 3.77488896,
+      "routers": 0.042467328,
+      "input_embeddings": 0.614989824,
+      "output_head": 0.614989824,
+      "normalization": 0.000740352,
+      "frozen_routing_bias": 1.3824e-05
+    }
+  },
+  "parameter_audit": {
+    "checkpoint_revision": "d8e126719c8bf2b3ac5a3551bd1f07fcee767a90",
+    "shards_read": 31,
+    "tensors_read": 42423,
+    "all_tensor_dtypes": [
+      "BF16"
+    ],
+    "complete_checkpoint_parameters": 398635286016,
+    "frozen_routing_bias_parameters": 13824,
+    "parameters_excluding_frozen_biases": 398635272192,
+    "method": "Sum product(shape) for every tensor in all 31 referenced Safetensors headers. Verify unique names equal the full index, with no missing or duplicate tensors. Independently reconcile component totals and BF16 byte offsets.",
+    "active_cross_check": "Replacing 256 routed experts with 4 in every 54 MoE layers gives 13.3716864B when both whole embedding/head matrices and frozen biases are included. Input-row-only lookup accounting yields 12.756699648B. These are accounting cross-checks, not alternate developer-disclosed active counts; retain approximate 13B."
+  },
+  "summary": "Assessed all 14 fields as verified, with explicit scope and precision notes. Added complete checkpoint count 398.635286016B, approximate 13B active, and MoE architecture. Confirmed launch date, current license, non-reasoning behavior and tools. Context is recorded as nominal 512K extended inference capacity using decimal normalization, separately from the 262144 configured positions."
+}

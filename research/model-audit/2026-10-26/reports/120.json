@@ -1,0 +1,355 @@
+{
+  "index": 120,
+  "model_id": "arcee-ai/trinity-mini",
+  "reviewed_at": "2026-10-26T17:26:02.039376+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/arcee-ai/Trinity-Mini",
+      "title": "Trinity-Mini model card",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "Exact model card identifies Trinity Mini as a 26B MoE with approximately 3B active, 128 routed experts, eight selected per token and one shared expert. It provides public weights and explicit reasoning/tool parser flags."
+    },
+    {
+      "id": "s2",
+      "url": "https://www.arcee.ai/blog/the-trinity-manifesto",
+      "title": "The Trinity Manifesto: Introducing Trinity Mini",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "December 1, 2025 public announcement says Mini is available now and calls it a fully post-trained reasoning model. Describes two initial dense layers, eight routed experts plus one shared expert, and 128k context. Launch Apache-2.0 wording is superseded by the later license migration."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/arcee-ai/Trinity-Mini/raw/cdb81e8130815fec299cccc8f8700004b8366e1e/config.json",
+      "title": "Trinity-Mini pinned configuration",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "Exact configuration at revision cdb81e8130815fec299cccc8f8700004b8366e1e: AfmoeForCausalLM, BF16, 32 layers, two dense layers, hidden size 2048, 128 routed experts, eight selected, one shared expert, expert intermediate size 1024, untied embeddings, 200192 vocabulary and max_position_embeddings=131072."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/arcee-ai/Trinity-Mini/raw/cdb81e8130815fec299cccc8f8700004b8366e1e/LICENSE",
+      "title": "Trinity-Mini OpenMDW-1.1 license",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "Current checkpoint license covers model architecture, parameters and related materials. Independently fetched pinned copy matches current main."
+    },
+    {
+      "id": "s5",
+      "url": "https://arxiv.org/pdf/2602.17004v1",
+      "title": "Arcee Trinity Large Technical Report",
+      "publisher": "Arcee AI and collaborators",
+      "accessed": true,
+      "evidence": "Complete PDF downloaded and converted with pdftotext. Mini-specific Table 2 and section 3.4.1 confirm all architecture dimensions and eight routed plus one shared expert. Section 2.3 describes Mini routing biases learned by decoupled non-gradient updates; sections 3.4.2 and 3.5 specify Mini training and inference at 128k."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/arcee-ai/Trinity-Mini/raw/cdb81e8130815fec299cccc8f8700004b8366e1e/modeling_afmoe.py",
+      "title": "Trinity-Mini pinned implementation",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "Exact developer code constructs separate input embeddings/output head, attention gates and Q/K norms, two dense layers and 30 MoE layers. Expert selection is top-eight, with a separately evaluated shared expert. expert_bias is nn.Parameter with requires_grad=False; deterministic RoPE frequencies are nonpersistent buffers."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/arcee-ai/Trinity-Mini/raw/cdb81e8130815fec299cccc8f8700004b8366e1e/model.safetensors.index.json",
+      "title": "Trinity-Mini pinned checkpoint index",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "Index maps 12031 tensor keys across 11 shards. Every key and shard mapping matched the independently downloaded shard headers. Its total_size=52247948800 is bytes, used only for consistency checking."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/arcee-ai/Trinity-Mini/tree/cdb81e8130815fec299cccc8f8700004b8366e1e",
+      "title": "Trinity-Mini complete pinned safetensors headers",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "Independently range-read the header length and JSON header of all 11 original checkpoint shards at the pinned revision. All 12031 tensors are BF16; shape products sum to 26123974400 scalars. Complete inventory includes embeddings, output head, all attention/norms, dense/routed/shared experts, routers, and 3840 expert-bias values. No quantization metadata tensors or other modality components occur."
+    },
+    {
+      "id": "s9",
+      "url": "https://www.arcee.ai/blog/trinity-is-moving-to-openmdw-1-1",
+      "title": "Trinity is moving to OpenMDW-1.1",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "May 29, 2026 announcement explicitly includes Mini and changes all earlier Trinity releases to OpenMDW-1.1."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/api/models/arcee-ai/Trinity-Mini/commits/main",
+      "title": "Trinity-Mini release history",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "History records the original December 1, 2025 checkpoint publication and May 28, 2026 license-adoption commit cdb81e8130815fec299cccc8f8700004b8366e1e. README and license updates are distinguished from release."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/arcee-ai/Trinity-Mini/raw/cdb81e8130815fec299cccc8f8700004b8366e1e/chat_template.jinja",
+      "title": "Trinity-Mini pinned thinking and tool template",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "Generation prompt explicitly starts an assistant think block; prior thinking text is stripped at its closing marker. The same template serializes tool definitions, structured function-call name/arguments and tool results."
+    },
+    {
+      "id": "s12",
+      "url": "https://www.arcee.ai/blog/teaching-an-open-model-to-do-science",
+      "title": "Teaching an Open Model to Do Science",
+      "publisher": "Arcee AI, Loka and AWS",
+      "accessed": true,
+      "evidence": "July 30, 2026 developer-hosted collaboration explicitly names original arcee-ai/Trinity-Mini as the starting checkpoint and repeats 26B total, 3B active, eight routed plus one shared expert and native 128k context. Subsequent LoRA experiment capabilities are not transferred to the original model."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Trinity Mini",
+      "status": "verified",
+      "note": "Official checkpoint display name.",
+      "source_ids": [
+        "s1",
+        "s2"
+      ]
+    },
+    "developer": {
+      "value": "Arcee AI",
+      "status": "verified",
+      "note": "Developer named by the official release and repository.",
+      "source_ids": [
+        "s1",
+        "s2"
+      ]
+    },
+    "family": {
+      "value": "trinity",
+      "status": "verified",
+      "note": "Catalog normalization of the developer-named Trinity family.",
+      "source_ids": [
+        "s1",
+        "s2"
+      ]
+    },
+    "release_date": {
+      "value": "2025-12-01",
+      "status": "verified",
+      "note": "Dated public announcement explicitly makes Mini available; repository publication corroborates the day. Later README/license modification dates are not release dates.",
+      "source_ids": [
+        "s2",
+        "s10"
+      ]
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "note": "Complete original checkpoint is publicly available with an explicit model license.",
+      "source_ids": [
+        "s4",
+        "s7",
+        "s8"
+      ]
+    },
+    "license": {
+      "value": "OpenMDW-1.1",
+      "status": "verified",
+      "note": "Current exact-checkpoint license. Explicit May migration supersedes the original Apache-2.0 release wording.",
+      "source_ids": [
+        "s4",
+        "s9",
+        "s10"
+      ]
+    },
+    "parameters_b": {
+      "value": 26.1239744,
+      "status": "verified",
+      "note": "Complete checkpoint scalar count from every tensor shape, including both untied embedding/head matrices and 3840 frozen expert-balancing parameters. Biases are learned through decoupled updates, so requires_grad=False does not make them disposable metadata. No quantization buffers occur. Developer 26B is nominal; this is not a byte-size conversion.",
+      "source_ids": [
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ]
+    },
+    "active_parameters_b": {
+      "value": 3,
+      "status": "verified",
+      "note": "Developer approximate per-token figure retained. Independent module accounting gives 1.96478336B non-routed components plus 30*8*(3*2048*1024)/1e9 routed parameters = 3.4747328B when full embedding/head matrices are counted. Counting only the selected input-embedding row gives 3.064741632B. The shared experts are included in the non-routed subtotal. The developer does not specify its embedding convention; 3B is not an exact active total or total times routing fraction.",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s5",
+        "s6",
+        "s8",
+        "s12"
+      ]
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "note": "Decoder-only sparse MoE Transformer: 30 MoE layers after two dense layers, eight of 128 routed experts plus one always-active shared expert, and gated grouped-query attention with interleaved local/global layers.",
+      "source_ids": [
+        "s3",
+        "s5",
+        "s6"
+      ]
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "note": "Literal max_position_embeddings in the exact configuration, consistent with the Mini-specific report training/inference at 128k. Large-model context extensions are not transferred to Mini.",
+      "source_ids": [
+        "s3",
+        "s5",
+        "s12"
+      ]
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "note": "Exact causal-language-model implementation and text-token template support text input/output; the complete checkpoint contains no vision or audio components.",
+      "source_ids": [
+        "s3",
+        "s6",
+        "s8",
+        "s11"
+      ]
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "note": "Dedicated thinking behavior is verified by the think-prefixed generation template and supported reasoning parser, beyond generic chain-of-thought prompting.",
+      "source_ids": [
+        "s1",
+        "s11"
+      ]
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "note": "Exact template supports structured function definitions, calls and results; model card supplies the tool-call parser configuration.",
+      "source_ids": [
+        "s1",
+        "s11"
+      ]
+    },
+    "description": {
+      "value": "Open-weight Trinity MoE language model with dedicated thinking and structured tool calling.",
+      "status": "verified",
+      "note": "Neutral description of verified architecture and capabilities.",
+      "source_ids": [
+        "s3",
+        "s6",
+        "s11"
+      ]
+    }
+  },
+  "patch": {
+    "name": "Trinity Mini",
+    "developer": "Arcee AI",
+    "family": "trinity",
+    "release_date": "2025-12-01",
+    "open_weights": true,
+    "license": "OpenMDW-1.1",
+    "parameters_b": 26.1239744,
+    "active_parameters_b": 3,
+    "architecture": "moe",
+    "context_window": 131072,
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "reasoning": true,
+    "tool_call": true,
+    "description": "Open-weight Trinity MoE language model with dedicated thinking and structured tool calling.",
+    "parameters_source": "primary_source",
+    "date_precision": "day",
+    "source_url": "https://www.arcee.ai/blog/the-trinity-manifesto",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Trinity-Mini model card",
+        "url": "https://huggingface.co/arcee-ai/Trinity-Mini",
+        "type": "primary"
+      },
+      {
+        "label": "The Trinity Manifesto: Introducing Trinity Mini",
+        "url": "https://www.arcee.ai/blog/the-trinity-manifesto",
+        "type": "primary"
+      },
+      {
+        "label": "Trinity-Mini pinned configuration",
+        "url": "https://huggingface.co/arcee-ai/Trinity-Mini/raw/cdb81e8130815fec299cccc8f8700004b8366e1e/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Trinity-Mini OpenMDW-1.1 license",
+        "url": "https://huggingface.co/arcee-ai/Trinity-Mini/raw/cdb81e8130815fec299cccc8f8700004b8366e1e/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "Arcee Trinity Large Technical Report",
+        "url": "https://arxiv.org/pdf/2602.17004v1",
+        "type": "primary"
+      },
+      {
+        "label": "Trinity-Mini pinned implementation",
+        "url": "https://huggingface.co/arcee-ai/Trinity-Mini/raw/cdb81e8130815fec299cccc8f8700004b8366e1e/modeling_afmoe.py",
+        "type": "primary"
+      },
+      {
+        "label": "Trinity-Mini pinned checkpoint index",
+        "url": "https://huggingface.co/arcee-ai/Trinity-Mini/raw/cdb81e8130815fec299cccc8f8700004b8366e1e/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Trinity-Mini complete pinned safetensors headers",
+        "url": "https://huggingface.co/arcee-ai/Trinity-Mini/tree/cdb81e8130815fec299cccc8f8700004b8366e1e",
+        "type": "primary"
+      },
+      {
+        "label": "Trinity is moving to OpenMDW-1.1",
+        "url": "https://www.arcee.ai/blog/trinity-is-moving-to-openmdw-1-1",
+        "type": "primary"
+      },
+      {
+        "label": "Trinity-Mini release history",
+        "url": "https://huggingface.co/api/models/arcee-ai/Trinity-Mini/commits/main",
+        "type": "primary"
+      },
+      {
+        "label": "Trinity-Mini pinned thinking and tool template",
+        "url": "https://huggingface.co/arcee-ai/Trinity-Mini/raw/cdb81e8130815fec299cccc8f8700004b8366e1e/chat_template.jinja",
+        "type": "primary"
+      },
+      {
+        "label": "Teaching an Open Model to Do Science",
+        "url": "https://www.arcee.ai/blog/teaching-an-open-model-to-do-science",
+        "type": "primary"
+      }
+    ],
+    "notes": "Complete checkpoint contains 26.1239744B parameters, including 3840 learned non-gradient routing biases. Approximately 3B active is the developer nominal per-token count, with eight routed experts plus one shared expert in each of 30 MoE layers; embedding-accounting conventions differ. Exact configuration context is 131072. OpenMDW-1.1 replaced launch Apache-2.0 licensing in May 2026."
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "output_head": 0.409993216,
+      "input_embeddings": 0.409993216,
+      "other_norms": 0.000264192,
+      "dense_mlp": 0.075497472,
+      "attention_including_qk_norms": 0.872423424,
+      "expert_balancing_bias": 3.84e-06,
+      "routed_experts": 24.15919104,
+      "router_weights": 0.00786432,
+      "shared_experts": 0.18874368
+    }
+  },
+  "summary": "Verified all 14 fields. Replaced missing parameter/architecture values with a complete checkpoint shape count, documented approximate active-count conventions, confirmed the dedicated thinking/tool template and exact context setting, and reconciled release date and current license against history. Replaced promotional description with neutral capabilities."
+}

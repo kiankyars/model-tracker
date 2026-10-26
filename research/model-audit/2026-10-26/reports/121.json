@@ -1,0 +1,359 @@
+{
+  "index": 121,
+  "model_id": "arcee-ai/trinity-nano-preview",
+  "reviewed_at": "2026-10-26T17:26:41.880134+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/arcee-ai/Trinity-Nano-Preview",
+      "title": "Trinity-Nano-Preview model card",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "Exact checkpoint is a chat-tuned experimental Trinity model, nominally 6B total and 1B active, with an additional approximate 800M non-embedding active claim. Public self-hosting instructions include structured tool-call parsing."
+    },
+    {
+      "id": "s2",
+      "url": "https://www.arcee.ai/blog/the-trinity-manifesto",
+      "title": "The Trinity Manifesto: Introducing Trinity Mini",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "Dated December 1, 2025; states Nano and Mini are available now. Explicitly identifies Nano Preview as an experimental non-thinking chat model, separate from Mini reasoning. Describes 56 layers and 128 routed experts with eight selected, plus one shared expert and two initial dense layers."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/arcee-ai/Trinity-Nano-Preview/raw/b576b32b8bba7f5218312c9509e494537f8d282d/config.json",
+      "title": "Trinity-Nano-Preview pinned configuration",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "Revision b576b32b8bba7f5218312c9509e494537f8d282d specifies AfmoeForCausalLM, BF16, 56 layers, two initial dense layers, hidden size 1024, dense intermediate size 3072, expert intermediate size 256, 128 routed experts, eight selected per token, one shared expert, vocabulary 200192, untied embeddings, and max_position_embeddings=131072."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/arcee-ai/Trinity-Nano-Preview/raw/b576b32b8bba7f5218312c9509e494537f8d282d/LICENSE",
+      "title": "Trinity-Nano-Preview OpenMDW-1.1 license",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "Current exact-checkpoint license is OpenMDW-1.1 and covers the model architecture, parameters and accompanying materials."
+    },
+    {
+      "id": "s5",
+      "url": "https://arxiv.org/pdf/2602.17004v1",
+      "title": "Arcee Trinity Large Technical Report",
+      "publisher": "Arcee AI and collaborators",
+      "accessed": true,
+      "evidence": "Full PDF downloaded and converted with pdftotext. Section 3.4.1 and Table 2 explicitly specify Nano dimensions/routing. Section 2.3 describes Nano/Mini expert-bias learning through sign-based auxiliary-loss-free updates and re-centering, distinct from the SMEBU method used for Large. Section 3.5 documents Nano context extension and evaluation at 128K."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/arcee-ai/Trinity-Nano-Preview/raw/b576b32b8bba7f5218312c9509e494537f8d282d/modeling_afmoe.py",
+      "title": "Trinity-Nano-Preview pinned model implementation",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "Exact implementation constructs separate embedding and output head, two dense MLPs, 54 MoE layers, and attention/norm modules. Each MoE selects eight routed experts and evaluates the shared expert. expert_bias is an F32 nn.Parameter with requires_grad=False and affects routing; generated rotary-frequency buffers are nonpersistent."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/arcee-ai/Trinity-Nano-Preview/raw/b576b32b8bba7f5218312c9509e494537f8d282d/model.safetensors.index.json",
+      "title": "Trinity-Nano-Preview pinned checkpoint index",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "Index maps 21631 tensor keys across three shards. All keys matched independently read shard headers exactly. Metadata bytes were not used as parameter counts."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/arcee-ai/Trinity-Nano-Preview/tree/b576b32b8bba7f5218312c9509e494537f8d282d",
+      "title": "Trinity-Nano-Preview complete pinned checkpoint headers",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "HTTP range-read the binary header length and JSON header from each of model-00001-of-00003.safetensors through model-00003-of-00003.safetensors at this revision. Shape products sum to 6119996416 BF16 plus 6912 F32 expert-bias scalars, totaling 6120003328. All embedding/head, attention, dense/shared/routed experts, routers and normalization components are included. No quantization packing/scales or other modality components occur."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/api/models/arcee-ai/Trinity-Nano-Preview/commits/main",
+      "title": "Trinity-Nano-Preview repository history",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "History begins with a December 1, 2025 super-squash and README update, corroborating the dated announcement without treating a repository timestamp as independent proof of public launch. May 28, 2026 commit b576b32b8bba7f5218312c9509e494537f8d282d adopts OpenMDW-1.1."
+    },
+    {
+      "id": "s10",
+      "url": "https://www.arcee.ai/blog/trinity-is-moving-to-openmdw-1-1",
+      "title": "Trinity is moving to OpenMDW-1.1",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "May 29, 2026 announcement explicitly moves all previously released Trinity models, including Nano, to OpenMDW-1.1."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/arcee-ai/Trinity-Nano-Preview/raw/b576b32b8bba7f5218312c9509e494537f8d282d/chat_template.jinja",
+      "title": "Trinity-Nano-Preview pinned chat template",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "Serializes supplied tool schemas, assistant function calls and tool responses. The assistant generation prompt has no thinking block or separate reasoning field."
+    },
+    {
+      "id": "s12",
+      "url": "https://huggingface.co/arcee-ai/Trinity-Nano-Preview/raw/889c8c480f558d1410179f6c9880b148172a900d/README.md",
+      "title": "Trinity-Nano-Preview launch-era model card",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "The December 1, 2025 archived card declares Apache-2.0 in both metadata and License section; current OpenMDW wording is a later migration."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Trinity Nano Preview",
+      "status": "verified",
+      "note": "Display normalization of the official exact checkpoint name.",
+      "source_ids": [
+        "s1",
+        "s2"
+      ]
+    },
+    "developer": {
+      "value": "Arcee AI",
+      "status": "verified",
+      "note": "Official repository and release announcement identify the developer.",
+      "source_ids": [
+        "s1",
+        "s2"
+      ]
+    },
+    "family": {
+      "value": "trinity",
+      "status": "verified",
+      "note": "Catalog normalization of the officially named Trinity family.",
+      "source_ids": [
+        "s1",
+        "s2"
+      ]
+    },
+    "release_date": {
+      "value": "2025-12-01",
+      "status": "verified",
+      "note": "Explicit dated public announcement says Nano is available now. The repository super-squash on the same date is corroborative; the later license commit is not the model release.",
+      "source_ids": [
+        "s2",
+        "s9"
+      ]
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "note": "Complete public checkpoint and self-hosting instructions are available under an explicit model-materials license.",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s7",
+        "s8"
+      ]
+    },
+    "license": {
+      "value": "OpenMDW-1.1",
+      "status": "verified",
+      "note": "Current exact-checkpoint license. Launch-era Apache-2.0 was replaced in the May 28 repository update, announced May 29, 2026.",
+      "source_ids": [
+        "s4",
+        "s9",
+        "s10",
+        "s12"
+      ]
+    },
+    "parameters_b": {
+      "value": 6.120003328,
+      "status": "verified",
+      "note": "Complete learned parameter count from all three tensor headers: 6119996416 BF16 plus 6912 F32 expert-balancing parameters. Includes both untied embedding matrices and all dense, shared, routed, attention and routing components. Expert biases remain learned parameters despite requires_grad=False: Nano updates them outside backpropagation. No conversion from shard bytes and no quantization buffers counted. Developer 6B is nominal.",
+      "source_ids": [
+        "s3",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ]
+    },
+    "active_parameters_b": {
+      "value": 1,
+      "status": "verified",
+      "note": "Developer approximate per-token figure retained. Independent module accounting is 0.684185344B always-present components (including both embedding/head matrices, all shared experts, dense layers, attention, routers and norms) + 54*8*(3*1024*256)/1e9 routed expert weights = 1.023923968B. Counting only the selected input-embedding row yields 0.818928384B. Excluding the input embedding matrix while retaining the output head yields 0.81892736B, numerically consistent with the approximate 800M wording; the developer does not define that convention explicitly. The 1B scalar is nominal, not an exact count.",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s6",
+        "s8"
+      ]
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "note": "Decoder-only sparse MoE Transformer. Exact artifacts verify eight-of-128 routed experts plus one always-active shared expert in 54 MoE layers, preceded by two dense layers; attention is gated grouped-query with a 3:1 local/global pattern.",
+      "source_ids": [
+        "s3",
+        "s5",
+        "s6"
+      ]
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "note": "Exact released max_position_embeddings value resolves the model card nominal 128k inference context. Training at a longer sequence length is not substituted for the released inference capacity.",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s5"
+      ]
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "note": "Exact causal-language-model implementation, text chat template and complete checkpoint inventory support text input/output; no other modality component is present.",
+      "source_ids": [
+        "s3",
+        "s6",
+        "s8",
+        "s11"
+      ]
+    },
+    "reasoning": {
+      "value": false,
+      "status": "verified",
+      "note": "The launch announcement explicitly says Nano Preview is not a thinking model, and the exact chat template has no dedicated reasoning channel. A generic --reasoning-parser deepseek_r1 flag in the card is not evidence of reasoning post-training or a dedicated mode.",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s11"
+      ]
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "note": "Exact checkpoint template supports structured tool definitions, assistant function calls and tool results; the card supplies Hermes tool-call parser and automatic-tool-choice settings.",
+      "source_ids": [
+        "s1",
+        "s11"
+      ]
+    },
+    "description": {
+      "value": "Experimental open-weight Trinity MoE chat model with structured tool calling.",
+      "status": "verified",
+      "note": "Neutral description of verified checkpoint characteristics.",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s6",
+        "s11"
+      ]
+    }
+  },
+  "patch": {
+    "name": "Trinity Nano Preview",
+    "developer": "Arcee AI",
+    "family": "trinity",
+    "release_date": "2025-12-01",
+    "open_weights": true,
+    "license": "OpenMDW-1.1",
+    "parameters_b": 6.120003328,
+    "active_parameters_b": 1,
+    "architecture": "moe",
+    "context_window": 131072,
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "reasoning": false,
+    "tool_call": true,
+    "description": "Experimental open-weight Trinity MoE chat model with structured tool calling.",
+    "parameters_source": "primary_source",
+    "date_precision": "day",
+    "source_url": "https://www.arcee.ai/blog/the-trinity-manifesto",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Trinity-Nano-Preview model card",
+        "url": "https://huggingface.co/arcee-ai/Trinity-Nano-Preview",
+        "type": "primary"
+      },
+      {
+        "label": "The Trinity Manifesto: Introducing Trinity Mini",
+        "url": "https://www.arcee.ai/blog/the-trinity-manifesto",
+        "type": "primary"
+      },
+      {
+        "label": "Trinity-Nano-Preview pinned configuration",
+        "url": "https://huggingface.co/arcee-ai/Trinity-Nano-Preview/raw/b576b32b8bba7f5218312c9509e494537f8d282d/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Trinity-Nano-Preview OpenMDW-1.1 license",
+        "url": "https://huggingface.co/arcee-ai/Trinity-Nano-Preview/raw/b576b32b8bba7f5218312c9509e494537f8d282d/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "Arcee Trinity Large Technical Report",
+        "url": "https://arxiv.org/pdf/2602.17004v1",
+        "type": "primary"
+      },
+      {
+        "label": "Trinity-Nano-Preview pinned model implementation",
+        "url": "https://huggingface.co/arcee-ai/Trinity-Nano-Preview/raw/b576b32b8bba7f5218312c9509e494537f8d282d/modeling_afmoe.py",
+        "type": "primary"
+      },
+      {
+        "label": "Trinity-Nano-Preview pinned checkpoint index",
+        "url": "https://huggingface.co/arcee-ai/Trinity-Nano-Preview/raw/b576b32b8bba7f5218312c9509e494537f8d282d/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Trinity-Nano-Preview complete pinned checkpoint headers",
+        "url": "https://huggingface.co/arcee-ai/Trinity-Nano-Preview/tree/b576b32b8bba7f5218312c9509e494537f8d282d",
+        "type": "primary"
+      },
+      {
+        "label": "Trinity-Nano-Preview repository history",
+        "url": "https://huggingface.co/api/models/arcee-ai/Trinity-Nano-Preview/commits/main",
+        "type": "primary"
+      },
+      {
+        "label": "Trinity is moving to OpenMDW-1.1",
+        "url": "https://www.arcee.ai/blog/trinity-is-moving-to-openmdw-1-1",
+        "type": "primary"
+      },
+      {
+        "label": "Trinity-Nano-Preview pinned chat template",
+        "url": "https://huggingface.co/arcee-ai/Trinity-Nano-Preview/raw/b576b32b8bba7f5218312c9509e494537f8d282d/chat_template.jinja",
+        "type": "primary"
+      },
+      {
+        "label": "Trinity-Nano-Preview launch-era model card",
+        "url": "https://huggingface.co/arcee-ai/Trinity-Nano-Preview/raw/889c8c480f558d1410179f6c9880b148172a900d/README.md",
+        "type": "primary"
+      }
+    ],
+    "notes": "Full checkpoint contains 6.120003328B learned parameters, including 6912 expert-balancing biases updated outside backpropagation. Approximately 1B active is the developer nominal per-token figure; exact full-module accounting is 1.023923968B, with eight routed experts plus the shared/dense/attention components. Configured context is 131072 tokens. Nano Preview is explicitly non-thinking despite a generic reasoning-parser flag in its card. Current OpenMDW-1.1 superseded launch Apache-2.0 in May 2026."
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "expert_balancing_bias": 6.912e-06,
+      "input_embeddings": 0.204996608,
+      "other_norms": 0.0002304,
+      "dense_mlp": 0.018874368,
+      "attention_including_qk_norms": 0.205535232,
+      "routed_experts": 5.435817984,
+      "router_weights": 0.007077888,
+      "shared_experts": 0.042467328,
+      "output_head": 0.204996608
+    }
+  },
+  "summary": "Verified all 14 fields from exact checkpoint artifacts and primary release sources. Added the complete tensor-shape parameter count, independently checked eight-expert routing with shared and dense components, retained the nominal 1B active claim with its accounting limits, confirmed non-thinking status and structured tool calling, and reconciled the license migration."
+}

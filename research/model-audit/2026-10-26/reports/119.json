@@ -1,0 +1,390 @@
+{
+  "index": 119,
+  "model_id": "arcee-ai/trinity-large-thinking",
+  "reviewed_at": "2026-10-26T17:21:35.053129Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/arcee-ai/Trinity-Large-Thinking",
+      "title": "Trinity-Large-Thinking model card",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "Exact Thinking release, distinct from Preview and Base. Gives nominal approximately 398B total and 13B active, sparse MoE, dedicated thinking output, tool-calling deployment, text generation and advertised 512k extended context."
+    },
+    {
+      "id": "s2",
+      "url": "https://www.arcee.ai/blog/trinity-large-thinking",
+      "title": "Trinity-Large-Thinking: Scaling an Open Source Frontier Agent",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "Dated April 1, 2026; explicitly announces the public API and weights release of Thinking, following January Preview. Original Apache-2.0 wording is superseded by the later license change."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/arcee-ai/Trinity-Large-Thinking/raw/dc6a99b6b74202880e31491a445a94884c97890c/config.json",
+      "title": "Trinity-Large-Thinking pinned configuration",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "Pinned revision dc6a99b6b74202880e31491a445a94884c97890c. Specifies BF16, 60 layers including six initial dense layers, hidden size 3072, intermediate size 12288, 256 routed experts, four selected per token, one shared expert, expert width 3072, untied 200192-token embeddings, and max_position_embeddings=262144."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/arcee-ai/Trinity-Large-Thinking/raw/dc6a99b6b74202880e31491a445a94884c97890c/LICENSE",
+      "title": "Trinity-Large-Thinking OpenMDW-1.1 license",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "Current repository license is OpenMDW-1.1 and explicitly covers architecture, parameters and the accompanying model materials."
+    },
+    {
+      "id": "s5",
+      "url": "https://arxiv.org/pdf/2602.17004v1",
+      "title": "Arcee Trinity Large Technical Report",
+      "publisher": "Arcee AI and collaborators",
+      "accessed": true,
+      "evidence": "Full PDF downloaded and converted with pdftotext; HTML also inspected. Sections 2.3 and 3.4.1 explain four routed plus one shared expert in each MoE layer, and non-gradient SMEBU updates of expert-balancing biases. Sections 3.4.2 and 3.5 distinguish training at 256k from inference/evaluation at 512k. Report predates Thinking and evaluates Base/Preview; used only for the architecture explicitly inherited by Thinking. No literal 524288 or 524,288 appears in the extracted PDF."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/arcee-ai/Trinity-Large-Thinking/raw/dc6a99b6b74202880e31491a445a94884c97890c/modeling_afmoe.py",
+      "title": "Trinity-Large-Thinking pinned model implementation",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "Exact code constructs separate input embedding/output head, six dense MLP layers, 54 MoE layers, attention gates, Q/K norms and four other norms per layer. Each MoE selects four of 256 routed experts and always evaluates one shared expert. expert_bias is an F32 nn.Parameter with requires_grad=False, used for expert selection; the report describes its non-gradient training updates."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/arcee-ai/Trinity-Large-Thinking/raw/dc6a99b6b74202880e31491a445a94884c97890c/model.safetensors.index.json",
+      "title": "Trinity-Large-Thinking pinned checkpoint index",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "Index maps 42,423 tensor keys across 31 shards. Every index key matched the independently fetched shard headers. The metadata total_size=797270599680 is bytes and was not treated as a parameter count."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/arcee-ai/Trinity-Large-Thinking/tree/dc6a99b6b74202880e31491a445a94884c97890c",
+      "title": "Trinity-Large-Thinking complete pinned safetensors headers",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "Read binary header lengths and JSON headers via HTTP byte ranges from all 31 model-00001-of-00031.safetensors through model-00031-of-00031.safetensors files at this revision. Sum of tensor shape products is 398635272192 BF16 plus 13824 F32 expert-bias entries, totaling 398635286016. No quantization tensors or other extra components occur. Both embedding matrices, all experts, shared/dense modules, routers, attention and norms are included."
+    },
+    {
+      "id": "s9",
+      "url": "https://www.arcee.ai/blog/trinity-is-moving-to-openmdw-1-1",
+      "title": "Trinity is moving to OpenMDW-1.1",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "May 29, 2026 announcement explicitly changes all prior Trinity releases, including Thinking, to OpenMDW-1.1."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/api/models/arcee-ai/Trinity-Large-Thinking/commits/main",
+      "title": "Trinity-Large-Thinking repository history",
+      "publisher": "Arcee AI / Hugging Face",
+      "accessed": true,
+      "evidence": "Read API after browser history retrieval failed. April 1 repository history corroborates launch; May 28 commit dc6a99b6b74202880e31491a445a94884c97890c adopts OpenMDW-1.1. Later metadata modification is not substituted for public release date."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/arcee-ai/Trinity-Large-Thinking/raw/dc6a99b6b74202880e31491a445a94884c97890c/chat_template.jinja",
+      "title": "Trinity-Large-Thinking pinned chat template",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "Template has structured tool definitions/calls/results and separate assistant reasoning_content/reasoning handling; generation starts with a think marker. Downloaded directly after browser retrieval failed."
+    },
+    {
+      "id": "s12",
+      "url": "https://docs.arcee.ai/arcee-language-models/trinity-family/trinity-large-thinking.md",
+      "title": "Trinity-Large-Thinking developer documentation",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "Exact-model documentation repeats 398B/13B, the 512k extension and reasoning-preservation requirement. Its Apache license row is stale relative to the explicit May license migration and current repository license. No exact 524288-token limit is supplied."
+    },
+    {
+      "id": "s13",
+      "url": "https://docs.arcee.ai/quick-deploys/inference-engines/vllm",
+      "title": "Arcee vLLM deployment guide",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "Defers model-specific context limits to model cards. The example max-model-len guidance applies to Trinity Mini; its separate Thinking note addresses reasoning preservation and does not supply an exact context integer."
+    },
+    {
+      "id": "s14",
+      "url": "https://www.arcee.ai/blog/genesis-science-1",
+      "title": "Genesis-Science-1",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "Later July 22, 2026 primary announcement refers to the earlier Thinking release but provides no revised Thinking architecture/parameter count; the trillion-parameter-class claim concerns the distinct future GS1 model."
+    },
+    {
+      "id": "s15",
+      "url": "https://api.arcee.ai/api/v1/models",
+      "title": "Arcee public model metadata endpoint",
+      "publisher": "Arcee AI",
+      "accessed": false,
+      "evidence": "Unauthenticated read returned HTTP 403; no limits or capabilities were inferred from this inaccessible endpoint."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Trinity Large Thinking",
+      "status": "verified",
+      "note": "Display normalization of the exact official Thinking checkpoint name.",
+      "source_ids": [
+        "s1",
+        "s2"
+      ]
+    },
+    "developer": {
+      "value": "Arcee AI",
+      "status": "verified",
+      "note": "Official release identifies Arcee AI as developer.",
+      "source_ids": [
+        "s2"
+      ]
+    },
+    "family": {
+      "value": "trinity",
+      "status": "verified",
+      "note": "Catalog normalization of the officially named Trinity family.",
+      "source_ids": [
+        "s1",
+        "s2"
+      ]
+    },
+    "release_date": {
+      "value": "2026-04-01",
+      "status": "verified",
+      "note": "Explicit public launch, independently corroborated by repository history; distinct from Preview and later license changes.",
+      "source_ids": [
+        "s2",
+        "s10"
+      ]
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "note": "Public full checkpoint and self-hosting instructions are available.",
+      "source_ids": [
+        "s1",
+        "s7",
+        "s8"
+      ]
+    },
+    "license": {
+      "value": "OpenMDW-1.1",
+      "status": "verified",
+      "note": "Current weights license; May 29 migration explicitly supersedes the April announcement and stale documentation Apache-2.0 wording.",
+      "source_ids": [
+        "s4",
+        "s9",
+        "s10"
+      ]
+    },
+    "parameters_b": {
+      "value": 398.635286016,
+      "status": "verified",
+      "note": "Complete checkpoint count, independently derived from every tensor shape, not shard bytes or the rounded HF panel. Includes 398635272192 BF16 weights and 13824 F32 expert-balancing parameters learned through non-gradient updates. Developer approximately 398B (card) and 400B (older report) are nominal descriptions.",
+      "source_ids": [
+        "s3",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ]
+    },
+    "active_parameters_b": {
+      "value": 13,
+      "status": "verified",
+      "note": "Developer approximate per-token count retained. Independent conventional module accounting: 7.256391168B always-present components + 54*4*(3*3072*3072)/1e9 routed expert parameters = 13.3716864B. The shared experts are already included in the always-present subtotal. Counting only the selected input-embedding row instead of its full matrix yields 12.756699648B; both support the rounded 13B claim. No claim of an exact 13-billion active total.",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s5",
+        "s6",
+        "s8"
+      ]
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "note": "Decoder-only sparse MoE Transformer with grouped-query, gated, interleaved local/global attention. The exact configuration and implementation verify this independently of the earlier report.",
+      "source_ids": [
+        "s3",
+        "s5",
+        "s6"
+      ]
+    },
+    "context_window": {
+      "value": 512000,
+      "status": "verified",
+      "note": "Decimal normalization of the exact Thinking model card and developer documentation advertised 512k extended context, retained as a nominal capacity rather than a verified exact token boundary. Neither source literally specifies 512000 or 524288. The checkpoint separately sets max_position_embeddings=262144, consistent with the earlier report distinction between 256k training/default and 512k extrapolated inference. No exact Thinking max-model-len command or accessible primary API limit resolved a precise boundary.",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s5",
+        "s12",
+        "s13",
+        "s15"
+      ]
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "note": "Exact causal language model and text-token chat template support text input and text generation; no other modality component is present.",
+      "source_ids": [
+        "s3",
+        "s6",
+        "s11"
+      ]
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "note": "Dedicated thinking variant: generation template opens a think block and preserves a separate reasoning field across turns; this is more specific than generic chain-of-thought prompting.",
+      "source_ids": [
+        "s1",
+        "s11"
+      ]
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "note": "Exact release includes structured tool definitions, function calls and tool results in the template, plus supported inference parser flags.",
+      "source_ids": [
+        "s1",
+        "s11"
+      ]
+    },
+    "description": {
+      "value": "Open-weight Trinity MoE language model with dedicated thinking and structured tool calling.",
+      "status": "verified",
+      "note": "Neutral description using verified release features.",
+      "source_ids": [
+        "s1",
+        "s6",
+        "s11"
+      ]
+    }
+  },
+  "patch": {
+    "name": "Trinity Large Thinking",
+    "developer": "Arcee AI",
+    "family": "trinity",
+    "release_date": "2026-04-01",
+    "open_weights": true,
+    "license": "OpenMDW-1.1",
+    "parameters_b": 398.635286016,
+    "active_parameters_b": 13,
+    "architecture": "moe",
+    "context_window": 512000,
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "reasoning": true,
+    "tool_call": true,
+    "description": "Open-weight Trinity MoE language model with dedicated thinking and structured tool calling.",
+    "parameters_source": "primary_source",
+    "date_precision": "day",
+    "source_url": "https://www.arcee.ai/blog/trinity-large-thinking",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Trinity-Large-Thinking model card",
+        "url": "https://huggingface.co/arcee-ai/Trinity-Large-Thinking",
+        "type": "primary"
+      },
+      {
+        "label": "Trinity-Large-Thinking: Scaling an Open Source Frontier Agent",
+        "url": "https://www.arcee.ai/blog/trinity-large-thinking",
+        "type": "primary"
+      },
+      {
+        "label": "Trinity-Large-Thinking pinned configuration",
+        "url": "https://huggingface.co/arcee-ai/Trinity-Large-Thinking/raw/dc6a99b6b74202880e31491a445a94884c97890c/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Trinity-Large-Thinking OpenMDW-1.1 license",
+        "url": "https://huggingface.co/arcee-ai/Trinity-Large-Thinking/raw/dc6a99b6b74202880e31491a445a94884c97890c/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "Arcee Trinity Large Technical Report",
+        "url": "https://arxiv.org/pdf/2602.17004v1",
+        "type": "primary"
+      },
+      {
+        "label": "Trinity-Large-Thinking pinned model implementation",
+        "url": "https://huggingface.co/arcee-ai/Trinity-Large-Thinking/raw/dc6a99b6b74202880e31491a445a94884c97890c/modeling_afmoe.py",
+        "type": "primary"
+      },
+      {
+        "label": "Trinity-Large-Thinking pinned checkpoint index",
+        "url": "https://huggingface.co/arcee-ai/Trinity-Large-Thinking/raw/dc6a99b6b74202880e31491a445a94884c97890c/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Trinity-Large-Thinking complete pinned safetensors headers",
+        "url": "https://huggingface.co/arcee-ai/Trinity-Large-Thinking/tree/dc6a99b6b74202880e31491a445a94884c97890c",
+        "type": "primary"
+      },
+      {
+        "label": "Trinity is moving to OpenMDW-1.1",
+        "url": "https://www.arcee.ai/blog/trinity-is-moving-to-openmdw-1-1",
+        "type": "primary"
+      },
+      {
+        "label": "Trinity-Large-Thinking repository history",
+        "url": "https://huggingface.co/api/models/arcee-ai/Trinity-Large-Thinking/commits/main",
+        "type": "primary"
+      },
+      {
+        "label": "Trinity-Large-Thinking pinned chat template",
+        "url": "https://huggingface.co/arcee-ai/Trinity-Large-Thinking/raw/dc6a99b6b74202880e31491a445a94884c97890c/chat_template.jinja",
+        "type": "primary"
+      },
+      {
+        "label": "Trinity-Large-Thinking developer documentation",
+        "url": "https://docs.arcee.ai/arcee-language-models/trinity-family/trinity-large-thinking.md",
+        "type": "primary"
+      },
+      {
+        "label": "Arcee vLLM deployment guide",
+        "url": "https://docs.arcee.ai/quick-deploys/inference-engines/vllm",
+        "type": "primary"
+      },
+      {
+        "label": "Genesis-Science-1",
+        "url": "https://www.arcee.ai/blog/genesis-science-1",
+        "type": "primary"
+      }
+    ],
+    "notes": "Full checkpoint contains 398.635286016B parameters; approximately 398B/400B are developer nominal descriptions. Approximately 13B active is the developer per-token figure, consistent with four routed experts plus shared and dense components. OpenMDW-1.1 superseded launch Apache-2.0 wording in May 2026. Context 512000 is decimal normalization of the exact Thinking card/docs advertised 512k extension, not a literal primary-source integer or verified exact boundary; released configuration separately sets 262144."
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "routed_experts": 391.378894848,
+      "shared_experts": 1.528823808,
+      "attention_including_qk_norms": 3.77488896,
+      "dense_mlp": 0.679477248,
+      "router_weights": 0.042467328,
+      "input_embeddings": 0.614989824,
+      "output_head": 0.614989824,
+      "other_norms": 0.000740352,
+      "expert_balancing_bias": 1.3824e-05
+    }
+  },
+  "summary": "Verified all 14 fields, with explicit precision qualifications. Added complete checkpoint parameter count and independently checked active-expert accounting, distinguished Thinking from Base/Preview, reconciled the later license migration, and replaced the promotional description. Records advertised 512k context as nominal decimal 512000, while preserving the separate configured 262144 setting and unresolved exact extended boundary."
+}
