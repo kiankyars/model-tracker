@@ -1,0 +1,307 @@
+{
+  "index": 307,
+  "model_id": "minimax/MiniMax-M3",
+  "reviewed_at": "2026-10-26T22:39:02.061459Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M3/blob/d95e30cb912fe3021bb9c2ba66a8ce60b6c937a9/README.md",
+      "title": "MiniMax-M3 official model card",
+      "publisher": "MiniMax",
+      "accessed": true,
+      "evidence": "Exact M3 card publishes approximately 428B total and 23B activated parameters, native text/image/video processing, MSA, coding/agent capabilities, and configurable reasoning."
+    },
+    {
+      "id": "s2",
+      "url": "https://www.minimax.io/blog/minimax-m3",
+      "title": "MiniMax M3 launch announcement, June 1, 2026",
+      "publisher": "MiniMax",
+      "accessed": true,
+      "evidence": "Explicitly announces the public release on June 1, 2026 with immediate API access, native image/video understanding, million-token context, MSA, and coding/agent tasks."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M3/blob/d95e30cb912fe3021bb9c2ba66a8ce60b6c937a9/config.json",
+      "title": "MiniMax-M3 official checkpoint configuration",
+      "publisher": "MiniMax",
+      "accessed": true,
+      "evidence": "MiniMaxM3SparseForConditionalGeneration: 60 text layers, hidden size 6144, 3 initial dense/full-attention layers then 57 MoE/MSA layers, 128 routed experts/top-4 plus one shared expert, 1048576 positions. Separate 32-layer vision encoder and projection configuration; MTP fields exist."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M3/blob/d95e30cb912fe3021bb9c2ba66a8ce60b6c937a9/LICENSE",
+      "title": "MiniMax Community License for M3 weights",
+      "publisher": "MiniMax",
+      "accessed": true,
+      "evidence": "Names the MiniMax Community License. Commercial use requires attribution and notice; over US$20 million annual product/service revenue requires prior authorization. Includes prohibited-use conditions; this is not MIT or Apache-2.0."
+    },
+    {
+      "id": "s5",
+      "url": "https://platform.minimax.io/docs/api-reference/text-openai-api",
+      "title": "MiniMax OpenAI-compatible API reference",
+      "publisher": "MiniMax",
+      "accessed": true,
+      "evidence": "The exact MiniMax-M3 row supports optional thinking; the shared M3/M3.1 parameter table includes function tools. Notes explicitly support image/video inputs for M3, with no audio input; response content is text."
+    },
+    {
+      "id": "s6",
+      "url": "https://platform.minimax.io/docs/guides/text-generation",
+      "title": "MiniMax model invocation and supported models",
+      "publisher": "MiniMax",
+      "accessed": true,
+      "evidence": "Current supported-model table gives MiniMax-M3 a 1,000,000-token API context and says it remains available. This documents the interface; no endpoint was invoked."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M3/blob/d95e30cb912fe3021bb9c2ba66a8ce60b6c937a9/model.safetensors.index.json",
+      "title": "MiniMax-M3 checkpoint index and all 59 indexed safetensors headers",
+      "publisher": "MiniMax",
+      "accessed": true,
+      "evidence": "All 23,416 indexed tensor names matched headers retrieved using bounded HTTP 206 ranges at this revision. Total stored elements: 427,040,140,160 (BF16/F32); language state 426,174,572,928; vision 631,185,920; multimodal projector 45,625,344; patch merge 188,755,968. No FP8 scales, packed tensors, or MTP tensors. The index total_size disagrees with actual headers and was not converted to parameters."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/api/models/MiniMaxAI/MiniMax-M3",
+      "title": "Hugging Face MiniMax-M3 repository metadata",
+      "publisher": "Hugging Face / MiniMax",
+      "accessed": true,
+      "evidence": "Current revision d95e30cb912fe3021bb9c2ba66a8ce60b6c937a9. Hosted safetensors metadata reports 427,040,140,160 elements, matching the independently read headers. The repository is public and contains 59 weight shards."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M3/commit/3a41b311ffa5719cef48fed3974ccf2cc03733ea",
+      "title": "MiniMax-M3 initial Hugging Face weight commit",
+      "publisher": "MiniMax",
+      "accessed": true,
+      "evidence": "June 12, 2026 initial commit contains the weights, config and license. This later weight upload does not replace the June 1 public/API release date."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M3.1-Flash/blob/main/README.md",
+      "title": "Later M3.1-Flash card: explicit comparison with M3",
+      "publisher": "MiniMax",
+      "accessed": true,
+      "evidence": "Says M3.1 retains M3 core MoE architecture, replacing M3 first three full-attention layers with sparse attention and replacing the earlier EAGLE-like MTP approach with DSpark. Its own parameter specification is not transferred to M3."
+    },
+    {
+      "id": "s11",
+      "url": "https://arxiv.org/html/2606.13392v1",
+      "title": "MiniMax Sparse Attention technical report",
+      "publisher": "MiniMax researchers",
+      "accessed": true,
+      "evidence": "Explains GQA-based block-sparse attention with learned index branches and explicitly links the production M3. Its 109B experimental model is distinct and is not used as an M3 parameter count."
+    },
+    {
+      "id": "s12",
+      "url": "https://github.com/huggingface/transformers/blob/a672eb5f474b8b30173e9f96eab66adf292da635/src/transformers/models/minimax_m3_vl/modeling_minimax_m3_vl.py",
+      "title": "MiniMax/Hugging Face M3 reference implementation",
+      "publisher": "MiniMax AI Team / Hugging Face Team",
+      "accessed": true,
+      "evidence": "Defines Transformer attention/MLPs, expert routing, vision encoder and projectors. Router correction biases are registered as buffers; the checkpoint has 57 x 128 = 7,296 such elements. A raw tensor-element sum is therefore not silently asserted as an exact learned-parameter total."
+    },
+    {
+      "id": "s13",
+      "url": "https://github.com/anomalyco/models.dev/blob/dev/models/minimax/MiniMax-M3.toml",
+      "title": "Frozen baseline Models.dev source pointer",
+      "publisher": "Models.dev",
+      "accessed": false,
+      "evidence": "Catalog discovery pointer retained for provenance; not used to verify factual fields."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "MiniMax-M3",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Exact official repository and API model name."
+    },
+    "developer": {
+      "value": "MiniMax",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Official MiniMax release and MiniMaxAI repository."
+    },
+    "family": {
+      "value": "minimax",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Retains the catalog broad MiniMax family key; the exact model is the M3 generation."
+    },
+    "release_date": {
+      "value": "2026-06-01",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s9"
+      ],
+      "note": "Earliest explicit public release/API date. Initial public weight commit is June 12; repository creation metadata is not a release event."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7",
+        "s8"
+      ],
+      "note": "Official public weights were directly accessible through all indexed shard headers."
+    },
+    "license": {
+      "value": "MiniMax Community License",
+      "status": "verified",
+      "source_ids": [
+        "s4"
+      ],
+      "note": "Custom license with commercial attribution/notice and large-revenue authorization conditions; not an unrestricted permissive license."
+    },
+    "parameters_b": {
+      "value": 428,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s7",
+        "s8",
+        "s12"
+      ],
+      "note": "Developer nominal total for M3, not an exact checkpoint count. Complete released multimodal state is 427.040140160B stored elements, including 0.865567232B vision/projectors and 7,296 routing-bias buffer elements. The BF16 checkpoint has no MTP tensors despite config fields; no missing MTP count is invented."
+    },
+    "active_parameters_b": {
+      "value": 23,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Developer nominal activated count. Its embedding/vision/MTP accounting convention is not separately defined; do not interpret it as an exact complete multimodal per-token count or replace it with the 22B reported by NVIDIA."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s10",
+        "s11",
+        "s12"
+      ],
+      "note": "Multimodal Transformer: 60-layer text decoder with 3 dense/full-attention layers and 57 MoE/MSA layers, 128 routed experts/top-4 plus one shared expert, and a 32-layer vision encoder. MSA is sparse softmax attention, not the M1 Lightning Attention architecture."
+    },
+    "context_window": {
+      "value": 1048576,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s6"
+      ],
+      "note": "Verified checkpoint max_position_embeddings. The current first-party API table separately documents 1,000,000 tokens. Preserve checkpoint capacity without claiming the API accepts 1,048,576."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Exact M3 API supports text, images and video and returns generated text; audio is explicitly unsupported."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Official M3 card and exact API row support reasoning that can be enabled/adaptive or disabled."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s5"
+      ],
+      "note": "M3 is explicitly included in the API parameter table supporting function tool definitions."
+    },
+    "description": {
+      "value": "Native multimodal MoE model using MiniMax Sparse Attention for long-context coding, reasoning, and tool use.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s5"
+      ],
+      "note": "Describes supported architecture and documented capabilities without benchmark-superiority claims."
+    }
+  },
+  "patch": {
+    "license": "MiniMax Community License",
+    "parameters_b": 428,
+    "active_parameters_b": 23,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "description": "Native multimodal MoE model using MiniMax Sparse Attention for long-context coding, reasoning, and tool use.",
+    "source_url": "https://www.minimax.io/blog/minimax-m3",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "MiniMax M3 release announcement",
+        "url": "https://www.minimax.io/blog/minimax-m3",
+        "type": "primary"
+      },
+      {
+        "label": "MiniMax M3 official model card",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M3/blob/d95e30cb912fe3021bb9c2ba66a8ce60b6c937a9/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax M3 checkpoint configuration",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M3/blob/d95e30cb912fe3021bb9c2ba66a8ce60b6c937a9/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax M3 license",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M3/blob/d95e30cb912fe3021bb9c2ba66a8ce60b6c937a9/LICENSE",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax M3 checkpoint tensor index",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M3/blob/d95e30cb912fe3021bb9c2ba66a8ce60b6c937a9/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax API model invocation",
+        "url": "https://platform.minimax.io/docs/guides/text-generation",
+        "type": "primary"
+      },
+      {
+        "label": "MiniMax OpenAI-compatible API reference",
+        "url": "https://platform.minimax.io/docs/api-reference/text-openai-api",
+        "type": "primary"
+      },
+      {
+        "label": "Models.dev record",
+        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/minimax/MiniMax-M3.toml",
+        "type": "catalog"
+      }
+    ],
+    "notes": "428B total and 23B active are MiniMax nominal figures; active-count component accounting is not specified. All 59 BF16 shard headers total 427.040140160B stored elements, including vision/projectors and 7,296 routing-bias buffers; no MTP tensors are released in this checkpoint despite MTP config fields. Checkpoint capacity is 1,048,576 positions; the current API documents 1,000,000 tokens. Public release was June 1, 2026; the initial weight commit was June 12. Weights use the custom MiniMax Community License."
+  },
+  "summary": "Verified all 14 fields. Adds custom license, nominal 428B/23B parameters and MoE architecture; confirms June 1 release and multimodal/tool/reasoning support. Full bounded-header audit separates checkpoint state from nominal counts, confirms vision/projector coverage and absence of MTP tensors, and records API versus checkpoint context limits."
+}
