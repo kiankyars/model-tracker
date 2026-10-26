@@ -1,0 +1,240 @@
+{
+  "index": 263,
+  "model_id": "meta/llama-2-7b-chat",
+  "reviewed_at": "2026-10-26T21:28:27.726695Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/meta-llama/Llama-2-7b-chat-hf",
+      "title": "Llama-2-7b-chat-hf official model card and license",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Identifies this exact repository as the dialogue-tuned 7B model; gives Meta authorship, text input/output, SFT/RLHF, 4k context, and the Llama 2 Community License."
+    },
+    {
+      "id": "s2",
+      "url": "https://ai.meta.com/blog/llama-2/",
+      "title": "Meta and Microsoft Introduce the Next Generation of Llama",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Dated July 18, 2023; announces availability of pretrained and conversationally fine-tuned Llama 2 weights and code that day."
+    },
+    {
+      "id": "s3",
+      "url": "https://arxiv.org/html/2307.09288v2",
+      "title": "Llama 2: Open Foundation and Fine-Tuned Chat Models",
+      "publisher": "Meta research authors / arXiv",
+      "accessed": true,
+      "evidence": "Table 1 gives 7B, 4k, and no GQA for the 7B architecture. Appendix A.2.1 specifies 4096 tokens. Section 5.1 discusses emergent prompted tool use without explicit tool training; this is not a 7B-specific native function-calling specification."
+    },
+    {
+      "id": "s4",
+      "url": "https://github.com/meta-llama/llama/blob/llama_v2/MODEL_CARD.md",
+      "title": "Llama 2 original model card, llama_v2 branch",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Lists released 7B pretrained and fine-tuned variants, nominal parameter classes, text modalities, custom commercial licensing, and the GQA distinction for 70B."
+    },
+    {
+      "id": "s5",
+      "url": "https://raw.githubusercontent.com/meta-llama/llama/llama_v2/llama/model.py",
+      "title": "Llama 2 original Transformer implementation",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Implements causal attention, dense SwiGLU feed-forward layers, RMSNorm and rotary positions. No expert router; when n_kv_heads is absent it equals n_heads, implementing MHA."
+    },
+    {
+      "id": "s6",
+      "url": "https://raw.githubusercontent.com/meta-llama/llama/llama_v2/llama/generation.py",
+      "title": "Llama 2 original generation implementation",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "The released interface accepts system/user/assistant text and produces assistant text. It exposes no dedicated reasoning channel, reasoning-budget control, tools argument, or tool-message protocol."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/api/models/meta-llama/Llama-2-7b-chat-hf",
+      "title": "Public metadata for Meta Llama-2-7b-chat-hf",
+      "publisher": "Hugging Face metadata for Meta repository",
+      "accessed": true,
+      "evidence": "Unauthenticated public metadata reports manual gating, LlamaForCausalLM, and 6,738,417,664 F16 safetensors elements. This aggregate does not distinguish learned parameters from persistent buffers."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/meta-llama/Llama-2-7b-chat-hf/blob/main/config.json",
+      "title": "Exact variant configuration access attempt",
+      "publisher": "Meta / Hugging Face",
+      "accessed": false,
+      "evidence": "The browser could not access this gated file. No authentication bypass or weight download was attempted."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Llama 2 7B Chat",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Readable name for the exact 7B dialogue-tuned repository."
+    },
+    "developer": {
+      "value": "Meta",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Developer attribution is explicit."
+    },
+    "family": {
+      "value": "llama-2",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4"
+      ],
+      "note": "Llama 2 family, Chat fine-tune."
+    },
+    "release_date": {
+      "value": "2023-07-18",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4"
+      ],
+      "note": "Original public release of the family including the 7B Chat variant; not a later hosting date."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s1"
+      ],
+      "note": "Weights were released under a custom license; current access requires accepting Meta conditions."
+    },
+    "license": {
+      "value": "Llama 2 Community License",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4"
+      ],
+      "note": "Custom license, not an Apache or MIT license."
+    },
+    "parameters_b": {
+      "value": 7,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s7",
+        "s8"
+      ],
+      "note": "Nominal 7B class. Public metadata reports 6,738,417,664 F16 storage elements, not a verified learned-weight count; gated tensor/config inspection was not performed."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s3",
+        "s5"
+      ],
+      "note": "Sources do not separately define a per-token active parameter count; dense architecture alone is not used to copy the nominal total."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s5"
+      ],
+      "note": "Dense autoregressive Transformer with SwiGLU and ordinary MHA. The 7B row excludes GQA; the larger-model GQA specification must not be transferred."
+    },
+    "context_window": {
+      "value": 4096,
+      "status": "verified",
+      "source_ids": [
+        "s3"
+      ],
+      "note": "Trained context: 4096 tokens, explicit in Appendix A.2.1 and consistent with Chat SFT sequence length."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Text-only input and output are explicit."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s3",
+        "s6"
+      ],
+      "note": "No dedicated reasoning mode or channel is specified. Reasoning tasks and prompted explanations do not establish this capability flag."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s3",
+        "s6"
+      ],
+      "note": "Family-level prompted tool-use experiments do not verify native structured tool calling for the exact 7B variant; original interface has no tool protocol."
+    },
+    "description": {
+      "value": "Llama 2 chat-tuned checkpoint.",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Accurate: dialogue tuning used SFT and RLHF."
+    }
+  },
+  "patch": {
+    "parameters_source": "primary_source",
+    "notes": "7B is Meta's nominal parameter class, not an exact learned-weight count. The 7B model is a dense MHA Transformer with a trained 4096-token context. Active parameters are not separately specified. Reasoning/tool-call flags remain unknown: prompted reasoning and family-level emergent tool-use experiments do not establish dedicated native interfaces for this variant. The public repository metadata's 6,738,417,664 F16 tensor elements were not treated as learned parameters; gated configuration and tensors were not accessed.",
+    "sources": [
+      {
+        "label": "Original release source",
+        "url": "https://ai.meta.com/blog/llama-2/",
+        "type": "primary"
+      },
+      {
+        "label": "Official model card and license",
+        "url": "https://huggingface.co/meta-llama/Llama-2-7b-chat-hf",
+        "type": "weights"
+      },
+      {
+        "label": "Llama 2 technical report",
+        "url": "https://arxiv.org/html/2307.09288v2",
+        "type": "primary"
+      },
+      {
+        "label": "Original model implementation",
+        "url": "https://raw.githubusercontent.com/meta-llama/llama/llama_v2/llama/model.py",
+        "type": "primary"
+      },
+      {
+        "label": "Original generation interface",
+        "url": "https://raw.githubusercontent.com/meta-llama/llama/llama_v2/llama/generation.py",
+        "type": "primary"
+      },
+      {
+        "label": "Public repository metadata",
+        "url": "https://huggingface.co/api/models/meta-llama/Llama-2-7b-chat-hf",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "Baseline factual values are supported. Added qualifications for nominal size, gated exact-count evidence, MHA architecture, and unsupported native capability flags; preserved null active/reasoning/tool-call fields."
+}
