@@ -1,0 +1,352 @@
+{
+  "index": 226,
+  "model_id": "google/gemma-4-E4B-it",
+  "reviewed_at": "2026-10-26T20:32:21.207775+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/google/gemma-4-E4B-it/blob/ee0ef6023621cff504d758262d4e04895a5af4a2/README.md",
+      "title": "Exact Gemma 4 E4B IT model card",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Official instruction-tuned E4B checkpoint under Apache-2.0. The E4B column reports dense architecture, 42 layers, 128K context, 4.5B effective and 8B with embeddings. Text, image, audio and video input produce text output; configurable thinking and native function calling are documented."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/google/gemma-4-E4B-it/resolve/ee0ef6023621cff504d758262d4e04895a5af4a2/config.json",
+      "title": "Exact Gemma 4 E4B IT configuration",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Gemma4ForConditionalGeneration: dense text decoder with 42 layers, hidden size 2560, 256-wide per-layer embeddings, 262144 vocabulary and 131072 positions. Eighteen layers share KV caches. Includes 16-layer vision and 12-layer audio encoders; ties token embedding and output weights."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/google/gemma-4-E4B-it/resolve/ee0ef6023621cff504d758262d4e04895a5af4a2/model.safetensors",
+      "title": "Exact E4B BF16 checkpoint header",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Read only HTTP 206 ranges 0-7 and 8-281047: 281040-byte JSON header, 2130 BF16 tensors, 7996157418 stored elements. Shapes match byte spans; payload bytes equal 15992314836. Includes text 7518069034, vision 167365056, audio 304825088, vision projection 1966080 and audio projection 3932160. No separate lm_head, assistant or packed quantized tensors."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/api/models/google/gemma-4-E4B-it",
+      "title": "Exact E4B repository metadata",
+      "publisher": "Google / Hugging Face",
+      "accessed": true,
+      "evidence": "Revision ee0ef6023621cff504d758262d4e04895a5af4a2 publishes one monolithic safetensors file; no shard index. API BF16 aggregate 7996156490 equals header total minus 928 clipping thresholds, retaining 42 layer scalars. It is not the count of parameters instantiated by the current Transformers implementation."
+    },
+    {
+      "id": "s5",
+      "url": "https://github.com/huggingface/transformers/blob/a672eb5f474b8b30173e9f96eab66adf292da635/src/transformers/models/gemma4/modeling_gemma4.py",
+      "title": "Gemma 4 Transformers implementation",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "ClippableLinear stores four input/output bounds as buffers; layer_scalar is a buffer. Audio per_dim_scale, vision positional table, embeddings and normalization weights are parameters. Ties output/token weights. For E4B shared layers 24-41, attention omits K/V projections and K norms; loader explicitly ignores their serialized tensors. The 54 redundant tensors contain 55055616 elements."
+    },
+    {
+      "id": "s6",
+      "url": "https://github.com/huggingface/transformers/blob/a672eb5f474b8b30173e9f96eab66adf292da635/src/transformers/models/gemma4/convert_gemma4_weights.py",
+      "title": "Gemma 4 checkpoint conversion",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Exact E4B conversion config agrees with the checkpoint. Maps PLE tables by reshape, maps skip_scale to layer_scalar and aliases lm_head to token embeddings. BF16 conversion does not add vocabulary padding. Separate assistant variants and packed quantized paths are distinct from this main BF16 checkpoint."
+    },
+    {
+      "id": "s7",
+      "url": "https://github.com/google-deepmind/gemma/blob/9e1f74131ba9d45e5fe6ae7bb3941d9f2abb39c3/gemma/gm/nn/gemma4/_modules.py",
+      "title": "Google Gemma 4 block and attention implementation",
+      "publisher": "Google DeepMind",
+      "accessed": true,
+      "evidence": "Google creates skip_scale with self.param, whereas Transformers registers it as a buffer; original scalar optimization history is not established. Attention explicitly notes retained checkpoint K/V tensors in shared layers: it currently computes those projections before replacing them with shared KV. A TODO proposes removal only after checkpoints omit them."
+    },
+    {
+      "id": "s8",
+      "url": "https://github.com/google-deepmind/gemma/blob/9e1f74131ba9d45e5fe6ae7bb3941d9f2abb39c3/gemma/gm/nn/gemma4/_gemma4.py",
+      "title": "Google exact Gemma 4 E4B configuration",
+      "publisher": "Google DeepMind",
+      "accessed": true,
+      "evidence": "Gemma4_E4B specifies width 2560, 42 layers, 256-wide PLE, 18/42 KV-sharing fraction, 5 local attention layers per global layer, vision encoder with clipped linears and Conformer audio encoder. Global keys and values remain separate in E4B."
+    },
+    {
+      "id": "s9",
+      "url": "https://arxiv.org/html/2607.02770v1",
+      "title": "Gemma 4 Technical Report",
+      "publisher": "Google DeepMind",
+      "accessed": true,
+      "evidence": "The July 2026 report identifies E4B as a dense decoder-only Transformer with PLE, nominal 4.5B effective and 8B total. Its rounded component table separates token embedding, PLE, einsums, vision, audio and optional drafter. It confirms 18/42 KV sharing. Effective size is not a separately defined active-parameter count; scalar scales stabilize fp16 inference."
+    },
+    {
+      "id": "s10",
+      "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/",
+      "title": "Gemma 4 launch announcement",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "April 2, 2026 announcement explicitly releases E4B and other initial Gemma 4 sizes that day. Its gg-hf-gg/gemma-4-E4B-it link redirects to the exact google/gemma-4-E4B-it repository, verified during this audit. It announces Apache 2.0, multimodal inputs and reasoning/tool support. The phrase effective parameter footprint does not define exact per-token active parameters."
+    },
+    {
+      "id": "s11",
+      "url": "https://ai.google.dev/gemma/docs/releases",
+      "title": "Gemma release chronology",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Current chronology lists March 31, 2026 for E4B and initial Gemma 4 sizes, conflicting with contemporaneous April 2 launch evidence. It separately dates MTP to April 16. The chronology is not treated as sufficient evidence to backdate the exact public IT release."
+    },
+    {
+      "id": "s12",
+      "url": "https://huggingface.co/api/models/google/gemma-4-E4B-it/commits/main",
+      "title": "Exact E4B IT repository history",
+      "publisher": "Google / Hugging Face",
+      "accessed": true,
+      "evidence": "Earliest returned commit 292a7e278a400932df35f9fd4b1501edd04133a5 is dated 2026-04-02T10:53:06Z and titled Preparing for release!, corroborating the exact variant in the April 2 launch. Upload timestamps alone do not establish public availability."
+    },
+    {
+      "id": "s13",
+      "url": "https://ai.google.dev/gemma/docs/mtp/mtp",
+      "title": "Gemma 4 multi-token prediction documentation",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Lists google/gemma-4-E4B-it as a target and obtains the distinct assistant checkpoint by appending -assistant. Requires loading two models. The separately published MTP drafter is excluded from the main checkpoint count."
+    },
+    {
+      "id": "s14",
+      "url": "https://ai.google.dev/gemma/docs/core.md",
+      "title": "Gemma 4 model overview and memory planning",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Explains that E4B effective size reflects PLE tables used for lookups and differs from static weight memory. Separately defines per-token expert activation for the MoE model. The E4B effective label cannot be silently substituted for a reported active count."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Gemma 4 E4B IT",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Exact instruction-tuned E4B variant; E4B is an effective-size label, not a 4B complete checkpoint."
+    },
+    "developer": {
+      "value": "Google",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s10"
+      ],
+      "note": "Google DeepMind is the author; retain normalized Google developer grouping."
+    },
+    "family": {
+      "value": "gemma",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s9"
+      ],
+      "note": "Gemma family, fourth generation."
+    },
+    "release_date": {
+      "value": "2026-04-02",
+      "status": "verified",
+      "source_ids": [
+        "s10",
+        "s11",
+        "s12"
+      ],
+      "note": "Retain April 2 from the contemporaneous release announcement linking the exact IT repository; its root release-preparation commit corroborates the day. Current chronology instead says March 31; no contemporaneous evidence of earlier public access was verified."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4"
+      ],
+      "note": "Official full BF16 checkpoint is publicly accessible; inspected header only, without downloading tensor payloads."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s10"
+      ],
+      "note": "Exact model card declares apache-2.0 and the launch confirms Apache 2.0."
+    },
+    "parameters_b": {
+      "value": 7.9411,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9",
+        "s13"
+      ],
+      "note": "Rounded complete usable-model total under the pinned Transformers implementation, including all PLE, audio/vision encoders and both projections. Starting with 7,996,157,418 BF16 stored elements, remove 928 clipping-threshold buffers, 42 layer-scalar buffers and 55,055,616 redundant K/V projection and K-norm elements in shared layers 24\u201341: 7,941,100,832 instantiated parameter elements, published as 7.9411B. Runtime buffer classification does not establish original scalar training history; no exact learned count is asserted. The 54 redundant tensors are explicitly omitted and ignored on load by Transformers; Google JAX retains their computation but replaces the results with shared KV, with a TODO to remove them from checkpoints. This is a full model count, not a text-only component. The tied 671,088,640-element token/output matrix is counted once; PLE contributes 2,818,572,288 elements. Complete stored checkpoint after buffer exclusion is about 7.9962B; Google nominal total is 8B. No packed quantized weights or vocabulary padding; separate MTP assistant excluded."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5",
+        "s9",
+        "s14"
+      ],
+      "note": "No separately defined per-token active count is reported for exact E4B. The nominal 4.5B effective figure concerns PLE lookup/memory efficiency and is not copied into this field. Text decoding, multimodal prefill and runtime elimination of redundant KV tensors have different parameter participation. Dense total is not assumed active."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s8",
+        "s9"
+      ],
+      "note": "Dense decoder-only text Transformer, 42 layers, PLE, 5:1 local/global attention and 18 shared-KV layers, plus vision Transformer and Conformer audio encoder; no routed experts."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Exact text max_position_embeddings; 128K shorthand in the model card."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "audio",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s9"
+      ],
+      "note": "Add documented video input through image frames; audio encoder is present. Output is text, not audio or images."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s9"
+      ],
+      "note": "Configurable thinking mode is explicitly documented for E4B IT."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s10"
+      ],
+      "note": "Native function calling is a source-reported capability; no inference test or serving-provider compatibility claim."
+    },
+    "description": {
+      "value": "Instruction-tuned dense Gemma 4 model with per-layer embeddings, text, image, audio and video input, text output, configurable thinking and function calling.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s9"
+      ],
+      "note": "Plain description of verified structure and capabilities."
+    }
+  },
+  "patch": {
+    "license": "Apache-2.0",
+    "parameters_b": 7.9411,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "modalities": {
+      "input": [
+        "text",
+        "image",
+        "audio",
+        "video"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "description": "Instruction-tuned dense Gemma 4 model with per-layer embeddings, text, image, audio and video input, text output, configurable thinking and function calling.",
+    "source_url": "https://huggingface.co/google/gemma-4-E4B-it",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Exact Gemma 4 E4B IT model card",
+        "url": "https://huggingface.co/google/gemma-4-E4B-it/blob/ee0ef6023621cff504d758262d4e04895a5af4a2/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Exact Gemma 4 E4B IT configuration",
+        "url": "https://huggingface.co/google/gemma-4-E4B-it/resolve/ee0ef6023621cff504d758262d4e04895a5af4a2/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Exact E4B BF16 checkpoint header",
+        "url": "https://huggingface.co/google/gemma-4-E4B-it/resolve/ee0ef6023621cff504d758262d4e04895a5af4a2/model.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Gemma 4 Transformers implementation",
+        "url": "https://github.com/huggingface/transformers/blob/a672eb5f474b8b30173e9f96eab66adf292da635/src/transformers/models/gemma4/modeling_gemma4.py",
+        "type": "primary"
+      },
+      {
+        "label": "Gemma 4 checkpoint conversion",
+        "url": "https://github.com/huggingface/transformers/blob/a672eb5f474b8b30173e9f96eab66adf292da635/src/transformers/models/gemma4/convert_gemma4_weights.py",
+        "type": "primary"
+      },
+      {
+        "label": "Google Gemma 4 block and attention implementation",
+        "url": "https://github.com/google-deepmind/gemma/blob/9e1f74131ba9d45e5fe6ae7bb3941d9f2abb39c3/gemma/gm/nn/gemma4/_modules.py",
+        "type": "primary"
+      },
+      {
+        "label": "Gemma 4 Technical Report",
+        "url": "https://arxiv.org/html/2607.02770v1",
+        "type": "primary"
+      },
+      {
+        "label": "Gemma 4 launch announcement",
+        "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/",
+        "type": "primary"
+      },
+      {
+        "label": "Gemma release chronology",
+        "url": "https://ai.google.dev/gemma/docs/releases",
+        "type": "primary"
+      },
+      {
+        "label": "Gemma 4 multi-token prediction documentation",
+        "url": "https://ai.google.dev/gemma/docs/mtp/mtp",
+        "type": "primary"
+      },
+      {
+        "label": "Gemma 4 model overview and memory planning",
+        "url": "https://ai.google.dev/gemma/docs/core.md",
+        "type": "primary"
+      }
+    ],
+    "notes": "Approximately 7.9411B parameters in the complete usable model under the pinned Transformers implementation, including all per-layer embeddings and audio/vision components; tied input/output embedding counted once. The stored checkpoint contains approximately 7.9962B weight elements before removing 55.06M redundant shared-layer KV weights; Google reports a nominal 8B total. The 4.5B effective-size label is not a separately reported active count. Separate MTP assistant excluded. Video is processed as image frames. April 2 public launch retained; current release chronology instead lists March 31."
+  },
+  "summary": "Fill complete usable-model total (~7.9411B), dense architecture and Apache-2.0; add video and replace generic description. The published total follows the pinned Transformers model after excluding buffers and 55.06M redundant shared-layer KV weights, while retaining all PLE and multimodal components. Preserve ~7.9962B stored checkpoint and Google nominal 8B as distinct evidence; 4.5B effective is not an independently defined active count. All 14 fields checked; April 2 retained with conflicting March 31 chronology documented."
+}
