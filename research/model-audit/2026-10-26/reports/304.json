@@ -1,7 +1,7 @@
 {
   "index": 304,
   "model_id": "minimax/MiniMax-M2.5-highspeed",
-  "reviewed_at": "2026-10-26T22:32:16.612315Z",
+  "reviewed_at": "2026-10-26T22:39:55.717905Z",
   "sources": [
     {
       "id": "s1",
@@ -135,7 +135,16 @@
       "title": "MiniMax retired model list",
       "publisher": "MiniMax",
       "accessed": true,
-      "evidence": "Explicitly lists MiniMax-M2.5 and MiniMax-M2.5-highspeed as retired. Historical product pages and surviving API instructions do not establish current endpoint operation."
+      "evidence": "FAQ table labels M2.5/highspeed retired. The notice separately says new-user access ends October 19 and final pay-as-you-go retirement is November 18, 2026; M Plan/Token Plan requests have been rerouted since October 19. These conflicting lifecycle presentations do not prove current endpoint operation."
+    },
+    {
+      "id": "s16",
+      "url": "https://vercel.com/ai-gateway/models/minimax-m2.5-highspeed",
+      "title": "Vercel AI Gateway MiniMax M2.5 highspeed provider metadata",
+      "publisher": "Vercel",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Exact primaryModel minimax-m2.5-highspeed with provider minimax has contextSize 204800 in embedded page data; rendered provider row rounds it to 205K. This establishes the advertised Vercel-to-MiniMax route limit, not independent native endpoint operation."
     }
   ],
   "fields": {
@@ -237,15 +246,14 @@
       "note": "Decoder-only Transformer with full grouped-query attention and routed MoE; 62 layers, 256 experts, eight selected per token. Lightning is a serving name and does not establish Lightning Attention."
     },
     "context_window": {
-      "value": null,
-      "status": "unverified",
+      "value": 204800,
+      "status": "verified",
       "source_ids": [
+        "s16",
         "s5",
-        "s9",
-        "s10",
-        "s14"
+        "s9"
       ],
-      "note": "Could not recover the highspeed-specific 204800-token API limit in current primary tables. The shared checkpoint config supports 196608 native positions, which is not proof of the hosted endpoint limit. Clear the unsupported API scalar rather than transfer M3 limits."
+      "note": "Exact Vercel gateway metadata advertises 204800 for the MiniMax-backed highspeed route. Shared checkpoint native max_position_embeddings is 196608. Current native API tables removed this model, so this is a provider-specific hosted limit, not a fresh native-endpoint verification."
     },
     "modalities": {
       "value": {
@@ -303,11 +311,11 @@
     "parameters_b": 230,
     "parameters_source": "primary_source",
     "architecture": "moe",
-    "context_window": null,
+    "context_window": 204800,
     "description": "Faster serving version of MiniMax M2.5 for text reasoning, coding and tool-using agents, using the same underlying model parameters.",
     "source_url": "https://www.minimax.io/news/minimax-m25",
     "source_type": "primary",
-    "notes": "Highspeed/Lightning is the faster serving mode of M2.5 with unchanged parameters. 230B is the developer nominal count. Shared checkpoint has 228.689764864B non-scale elements including 15872 routing-bias values whose original training status remains unresolved. Active count is unverified; scoped derivations differ with embedding conventions. The former API context limit is unverified; shared checkpoint max_position_embeddings is 196608. Official model list marks M2.5/highspeed retired. Shared downloadable weights use the MiniMax Model License; card metadata labels it modified-mit.",
+    "notes": "Highspeed/Lightning is the faster serving mode of M2.5 with unchanged parameters. 230B is the developer nominal count. Shared checkpoint has 228.689764864B non-scale elements including 15872 routing-bias values whose original training status remains unresolved. Active count is unverified; scoped derivations differ with embedding conventions. Vercel gateway metadata advertises a 204800-token MiniMax-backed highspeed route; shared checkpoint max_position_embeddings is 196608. Native API tables removed the model. The FAQ labels it retired but also gives November 18 final pay-as-you-go retirement and October 19 access restrictions/plan rerouting. Shared downloadable weights use the MiniMax Model License; card metadata labels it modified-mit.",
     "sources": [
       {
         "label": "MiniMax M2.5: Built for Real-World Productivity",
@@ -373,8 +381,13 @@
         "label": "MiniMax retired model list",
         "url": "https://platform.minimax.io/docs/faq/models",
         "type": "primary"
+      },
+      {
+        "label": "Vercel AI Gateway MiniMax M2.5 highspeed provider metadata",
+        "url": "https://vercel.com/ai-gateway/models/minimax-m2.5-highspeed",
+        "type": "primary"
       }
     ]
   },
-  "summary": "Verified the shared-weight highspeed/Lightning relationship, nominal 230B, MoE, custom MiniMax Model License, native reasoning/tools and February 12 launch. Exact activated count and former hosted context remain unverified. Checkpoint storage and reference-registered parameter subtotals are qualified because routing-bias training status is unresolved."
+  "summary": "Verified the shared-weight highspeed/Lightning relationship, nominal 230B, MoE, custom MiniMax Model License, native reasoning/tools and February 12 launch. Exact activated count remains unverified. Provider-specific Vercel metadata verifies 204800 hosted context, separately from the 196608 checkpoint limit. Checkpoint storage and reference-registered parameter subtotals are qualified because routing-bias training status is unresolved."
 }
