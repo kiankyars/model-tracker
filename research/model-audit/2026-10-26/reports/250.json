@@ -1,0 +1,289 @@
+{
+  "index": 250,
+  "model_id": "liquid/lfm2-24b-a2b",
+  "reviewed_at": "2026-10-26T21:11:29.345158Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://www.liquid.ai/blog/lfm2-24b-a2b",
+      "title": "LFM2-24B-A2B: Scaling Up the LFM2 Architecture",
+      "publisher": "Liquid AI",
+      "accessed": true,
+      "evidence": "February 24, 2026 public release of the open-weight LFM2 instruct checkpoint. Reports nominal 24B total and 2.3B active, hybrid gated short convolutions/GQA, 40 layers, 64 experts with top-4 routing, and no reasoning traces."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/LiquidAI/LFM2-24B-A2B",
+      "title": "LFM2-24B-A2B model card",
+      "publisher": "Liquid AI",
+      "accessed": true,
+      "evidence": "Exact-model comparison column gives 24B total, 2.3B active, 30 convolution plus 10 attention layers, 32,768 context and LFM Open License v1.0. Text generation instruct model; includes native function-calling instructions."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/LiquidAI/LFM2-24B-A2B/blob/a3bbacd91a678b97712f0e323e52f8c24ba29542/config.json",
+      "title": "LFM2-24B-A2B released checkpoint configuration",
+      "publisher": "Liquid AI",
+      "accessed": true,
+      "evidence": "Lfm2MoeForCausalLM, BF16, 40 layers, hidden size 2048, 64 experts with 4 selected, 2 dense layers, expert intermediate size 1536, vocabulary 65,536. max_position_embeddings is 128000 with default RoPE, in conflict with the documented 32K window."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/LiquidAI/LFM2-24B-A2B/blob/a3bbacd91a678b97712f0e323e52f8c24ba29542/LICENSE",
+      "title": "LFM Open License v1.0",
+      "publisher": "Liquid AI",
+      "accessed": true,
+      "evidence": "Repository license names Liquid AI, Inc. as licensor. Provides weight-use and redistribution rights subject to conditions, including commercial-revenue restrictions; it is a custom license."
+    },
+    {
+      "id": "s5",
+      "url": "https://www.liquid.ai/blog/lfm2-5-24b-a2b",
+      "title": "LFM2.5-24B-A2B: Built for Fast On-Device Agents",
+      "publisher": "Liquid AI",
+      "accessed": true,
+      "evidence": "October 13 successor announcement explicitly contrasts the original LFM2-24B-A2B with LFM2.5: predecessor context 32,768, successor 131,072; successor is reasoning-only unlike predecessor, retains hybrid 40-layer/64-expert/top-4 architecture and expands vocabulary."
+    },
+    {
+      "id": "s6",
+      "url": "https://docs.liquid.ai/lfm/models/lfm2-24b-a2b",
+      "title": "LFM2-24B-A2B documentation",
+      "publisher": "Liquid AI",
+      "accessed": true,
+      "evidence": "Retained exact-model documentation gives 32K context, MoE architecture and native function calling; now labels the model deprecated in favor of LFM2.5-24B-A2B."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/LiquidAI/LFM2-24B-A2B/resolve/a3bbacd91a678b97712f0e323e52f8c24ba29542/model.safetensors",
+      "title": "LFM2-24B-A2B BF16 safetensors header",
+      "publisher": "Liquid AI",
+      "accessed": true,
+      "evidence": "Read only bytes 0-7 and 8-978039 via bounded HTTP Range requests. Header has 7,610 tensors: 23,843,659,008 BF16 weight elements plus 2,432 F32 routing-bias buffer elements. Embedding appears once, no separate lm_head, quantization scales or auxiliary heads."
+    },
+    {
+      "id": "s8",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/v5.0.0rc1/src/transformers/models/lfm2_moe/modeling_lfm2_moe.py",
+      "title": "LFM2 MoE Transformers implementation at v5.0.0rc1",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Version matches the checkpoint configuration. Registers expert_bias as a buffer, declares lm_head tied to model.embed_tokens, and implements convolution/attention blocks with sparse experts and learned router weights."
+    },
+    {
+      "id": "s9",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/v5.0.0rc1/src/transformers/models/lfm2_moe/configuration_lfm2_moe.py",
+      "title": "LFM2 MoE configuration implementation at v5.0.0rc1",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Defaults tie_word_embeddings to true; constructor forwards that setting. max_position_embeddings defaults to 128000 as a possible implementation sequence length, which does not establish the exact checkpoint training window."
+    },
+    {
+      "id": "s10",
+      "url": "https://arxiv.org/abs/2511.23404",
+      "title": "LFM2 Technical Report",
+      "publisher": "Liquid AI researchers / arXiv",
+      "accessed": true,
+      "evidence": "November 28, 2025 report describes LFM2 hybrid convolution/GQA architecture but only the earlier 350M-8.3B models. It predates this 24B release, so its sibling counts are not transferred."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "LFM2-24B-A2B",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Canonical developer model name; this is the original LFM2 instruct release, not LFM2.5, Base or a quantized derivative."
+    },
+    "developer": {
+      "value": "Liquid AI",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4"
+      ],
+      "note": "Developer and repository licensor agree."
+    },
+    "family": {
+      "value": "lfm2",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "LFM2 is the developer-stated family; liquid is the broader vendor label."
+    },
+    "release_date": {
+      "value": "2026-02-24",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Dated first-party announcement explicitly makes the checkpoint publicly available that day; subsequent repository/template updates are not new releases."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7"
+      ],
+      "note": "Publicly downloadable original checkpoint; custom-license restrictions do not negate weight availability."
+    },
+    "license": {
+      "value": "LFM Open License v1.0",
+      "status": "verified",
+      "source_ids": [
+        "s4"
+      ],
+      "note": "Custom LFM license with commercial-revenue conditions; not an unrestricted open-source license."
+    },
+    "parameters_b": {
+      "value": 23.843659008,
+      "status": "verified",
+      "source_ids": [
+        "s7",
+        "s8",
+        "s9",
+        "s2"
+      ],
+      "note": "Complete unique learned count: 23,843,661,440 stored elements minus 2,432 expert-bias buffer elements = 23,843,659,008. Count tied input/output weights once. Header contains BF16 learned weights, no quantization scales or auxiliary heads. Developer rounds this to 24B."
+    },
+    "active_parameters_b": {
+      "value": 2.3,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s7"
+      ],
+      "note": "Use the developer detailed nominal 2.3B per forward pass, rather than rounded A2B shorthand. Header cross-check: 0.892427520B nonexpert weights + 22.951231488B expert weights \u00d7 4/64 = 2.326879488B, counting the shared embedding/head once. This corroborates the published rounded figure, not a new separately specified active-count convention."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s8"
+      ],
+      "note": "Sparse MoE within a hybrid backbone: 30 gated short-convolution and 10 GQA layers; first two feed-forward layers dense, then 64 routed experts selecting four. The moe catalog classification is retained, with hybrid detail recorded explicitly."
+    },
+    "context_window": {
+      "value": 32768,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s5",
+        "s6",
+        "s9"
+      ],
+      "note": "Retain the exact-model documented 32,768 tokens. Config max_position_embeddings=128000 is not proof of trained/validated context extension. The later first-party successor announcement explicitly extends predecessor 32,768 to 131,072 only for LFM2.5."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "Text-generation checkpoint with token embedding and causal language-model head; no vision/audio components. Other LFM2 multimodal variants are separate."
+    },
+    "reasoning": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5"
+      ],
+      "note": "Developer explicitly describes this instruct checkpoint as lacking reasoning traces; LFM2.5 successor adds reasoning-only behavior. Ordinary problem-solving ability is not a dedicated thinking mode."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s6"
+      ],
+      "note": "Exact-model card provides tool declarations, native call tokens, execution-result turns and final responses; retained docs explicitly confirm native function calling."
+    },
+    "description": {
+      "value": "Open-weight LFM2 instruct language model with hybrid gated convolutions and grouped-query attention, sparse MoE routing, a 32,768-token context window and native function calling.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Replaces generic efficiency marketing with supported architecture, context and capability details; preserves open-weight instruct identity."
+    }
+  },
+  "patch": {
+    "name": "LFM2-24B-A2B",
+    "family": "lfm2",
+    "parameters_b": 23.843659008,
+    "active_parameters_b": 2.3,
+    "parameters_source": "primary_source",
+    "description": "Open-weight LFM2 instruct language model with hybrid gated convolutions and grouped-query attention, sparse MoE routing, a 32,768-token context window and native function calling.",
+    "source_url": "https://www.liquid.ai/blog/lfm2-24b-a2b",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "LFM2-24B-A2B: Scaling Up the LFM2 Architecture",
+        "url": "https://www.liquid.ai/blog/lfm2-24b-a2b",
+        "type": "primary"
+      },
+      {
+        "label": "LFM2-24B-A2B model card",
+        "url": "https://huggingface.co/LiquidAI/LFM2-24B-A2B",
+        "type": "primary"
+      },
+      {
+        "label": "LFM2-24B-A2B released checkpoint configuration",
+        "url": "https://huggingface.co/LiquidAI/LFM2-24B-A2B/blob/a3bbacd91a678b97712f0e323e52f8c24ba29542/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "LFM Open License v1.0",
+        "url": "https://huggingface.co/LiquidAI/LFM2-24B-A2B/blob/a3bbacd91a678b97712f0e323e52f8c24ba29542/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "LFM2.5-24B-A2B: Built for Fast On-Device Agents",
+        "url": "https://www.liquid.ai/blog/lfm2-5-24b-a2b",
+        "type": "primary"
+      },
+      {
+        "label": "LFM2-24B-A2B documentation",
+        "url": "https://docs.liquid.ai/lfm/models/lfm2-24b-a2b",
+        "type": "primary"
+      },
+      {
+        "label": "LFM2-24B-A2B BF16 safetensors header",
+        "url": "https://huggingface.co/LiquidAI/LFM2-24B-A2B/resolve/a3bbacd91a678b97712f0e323e52f8c24ba29542/model.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "LFM2 MoE Transformers implementation at v5.0.0rc1",
+        "url": "https://raw.githubusercontent.com/huggingface/transformers/v5.0.0rc1/src/transformers/models/lfm2_moe/modeling_lfm2_moe.py",
+        "type": "primary"
+      },
+      {
+        "label": "LFM2 MoE configuration implementation at v5.0.0rc1",
+        "url": "https://raw.githubusercontent.com/huggingface/transformers/v5.0.0rc1/src/transformers/models/lfm2_moe/configuration_lfm2_moe.py",
+        "type": "primary"
+      }
+    ],
+    "notes": "Original February 24, 2026 LFM2 instruct checkpoint; now deprecated in favor of LFM2.5. 24B is nominal: complete learned count is 23.843659008B, excluding 2,432 routing-bias buffer elements and counting tied embeddings once. Developer reports 2.3B active per token. Hybrid short-convolution/GQA backbone with sparse MoE routing. Documented context is 32,768 despite config max_position_embeddings=128000; the 131,072 context and reasoning-only behavior belong to the later LFM2.5 successor. Custom LFM Open License v1.0 has commercial-use conditions."
+  },
+  "summary": "Verified all 14 fields from the exact release, model card, configuration, bounded weight header and implementation. Correct active parameters 2 \u2192 2.3B and nominal total 24 \u2192 exact unique learned 23.843659008B; normalize name/family and clarify hybrid MoE description. Preserve February 24 release, 32,768 context, custom license, text-only modalities, tool calling and non-thinking instruct behavior. Recorded the config/context discrepancy and excluded later LFM2.5 specifications. No full weights downloaded."
+}
