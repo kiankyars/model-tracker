@@ -1,6 +1,6 @@
 # Model audit
 
-Scope: the 563 models in `baseline.json`. Each model requires its own agent and report, including models whose specifications remain undisclosed. New catalog changes do not alter this frozen assignment list.
+Scope: the 563 models in `data/catalog.json` at the Git revision recorded in `manifest.json`. Each model requires its own agent and report, including models whose specifications remain undisclosed. New catalog changes do not alter this frozen assignment list. Read an original record with `node scripts/model-audit.mjs --record N`.
 
 `manifest.json` records each actual agent assignment and parent review. `reports/NNN.json` holds that model's evidence and proposed corrections. The report number matches the manifest index.
 

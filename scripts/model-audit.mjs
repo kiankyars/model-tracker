@@ -2,12 +2,14 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { isDeepStrictEqual } from 'node:util';
+import { execFileSync } from 'node:child_process';
 
 export const auditFields = ['name', 'developer', 'family', 'release_date', 'open_weights', 'license', 'parameters_b', 'active_parameters_b', 'architecture', 'context_window', 'modalities', 'reasoning', 'tool_call', 'description'];
 const statuses = new Set(['verified', 'undisclosed', 'unverified', 'not_applicable']);
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const auditDirectory = path.join(root, 'research/model-audit/2026-10-26');
 const read = async name => JSON.parse(await fs.readFile(name, 'utf8'));
+const readBaseline = manifest => JSON.parse(execFileSync('git', ['show', `${manifest.baseline_ref}:data/catalog.json`], { cwd: root, encoding: 'utf8', maxBuffer: 4 * 1024 * 1024 }));
 
 export function validateReport(report, entry) {
   const fail = message => { throw new Error(`${entry.id}: ${message}`); };
@@ -41,7 +43,7 @@ export function validateReport(report, entry) {
 
 export async function auditStatus(directory = auditDirectory) {
   const manifest = await read(path.join(directory, 'manifest.json'));
-  const baseline = await read(path.join(directory, 'baseline.json'));
+  const baseline = readBaseline(manifest);
   if (manifest.models.length !== manifest.model_count || baseline.length !== manifest.model_count) throw new Error('Frozen audit scope changed');
   if (new Set(manifest.models.map(entry => entry.id)).size !== manifest.model_count || new Set(manifest.models.map(entry => entry.task_name)).size !== manifest.model_count) throw new Error('Assignments must be distinct');
   const baselineIds = new Set(baseline.map(model => model.id));
@@ -82,7 +84,6 @@ export async function applyAcceptedReports(directory = auditDirectory) {
     }
     if (Object.hasOwn(patch, 'release_date')) patch.date_precision = patch.release_date ? (patch.release_date.length === 7 ? 'month' : 'day') : null;
     patch.sources = [...new Map([...(report.patch.sources || []), ...(old.sources || [])].map(source => [source.url, source])).values()];
-    delete patch.field_evidence;
     patch.field_status = Object.fromEntries(Object.entries(report.fields).filter(([, assessment]) => assessment.status !== 'verified').map(([field, assessment]) => [field, assessment.status]));
     patch.audited_at = report.reviewed_at;
     patch.audit_url = `https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/${String(entry.index).padStart(3, '0')}.json`;
@@ -100,8 +101,16 @@ export async function applyAcceptedReports(directory = auditDirectory) {
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  if (process.argv.includes('--apply')) console.log(`Applied ${await applyAcceptedReports()} accepted individual model reports.`);
-  const status = await auditStatus();
-  console.log(JSON.stringify({ ...status, pending: status.pending.slice(0, 12) }, null, 2));
-  if (status.errors.length || process.argv.includes('--complete') && (status.scope !== status.spawned || status.scope !== status.reports || status.scope !== status.accepted)) process.exitCode = 1;
+  if (process.argv.includes('--record')) {
+    const index = Number(process.argv[process.argv.indexOf('--record') + 1]);
+    const manifest = await read(path.join(auditDirectory, 'manifest.json'));
+    const entry = manifest.models.find(model => model.index === index);
+    if (!entry) throw new Error('Specify a model index from the manifest');
+    console.log(JSON.stringify(readBaseline(manifest).find(model => model.id === entry.id), null, 2));
+  } else {
+    if (process.argv.includes('--apply')) console.log(`Applied ${await applyAcceptedReports()} accepted individual model reports.`);
+    const status = await auditStatus();
+    console.log(JSON.stringify({ ...status, pending: status.pending.slice(0, 12) }, null, 2));
+    if (status.errors.length || process.argv.includes('--complete') && (status.scope !== status.spawned || status.scope !== status.reports || status.scope !== status.accepted)) process.exitCode = 1;
+  }
 }
