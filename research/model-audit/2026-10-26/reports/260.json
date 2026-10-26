@@ -1,0 +1,244 @@
+{
+  "index": 260,
+  "model_id": "meta/llama-2-70b",
+  "reviewed_at": "2026-10-26T21:24:15Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://ai.meta.com/blog/llama-2/",
+      "title": "Meta and Microsoft Introduce the Next Generation of Llama",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Dated July 18, 2023; announces immediate availability of Llama 2 pretrained and conversational model weights and starting code."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/meta-llama/Llama-2-70b-hf",
+      "title": "Llama-2-70b-hf official model card",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Explicitly identifies this repository as the 70B pretrained model converted to Transformers. Lists Meta as developer, text input/output, nominal 70B, 4k context and GQA; distinguishes Chat variants. Weights require license acceptance."
+    },
+    {
+      "id": "s3",
+      "url": "https://raw.githubusercontent.com/meta-llama/llama/llama_v2/MODEL_CARD.md",
+      "title": "Original Llama 2 model card, llama_v2 branch",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Documents the Llama 2 family, pretrained and tuned variants, text-only modalities, custom license, and the 70B row with 4k context and GQA. Does not separately define active parameter counts."
+    },
+    {
+      "id": "s4",
+      "url": "https://arxiv.org/html/2307.09288v2",
+      "title": "Llama 2: Open Foundation and Fine-Tuned Chat Models",
+      "publisher": "Meta research authors",
+      "accessed": true,
+      "evidence": "Section 2.2 describes standard Transformer, RMSNorm, SwiGLU and RoPE. Appendix A.2.1 specifies 4096-token context and GQA for 70B. Section 5.1 tool-emergence examples concern Llama 2-Chat, not the base checkpoint."
+    },
+    {
+      "id": "s5",
+      "url": "https://raw.githubusercontent.com/meta-llama/llama/llama_v2/llama/model.py",
+      "title": "Llama 2 reference Transformer implementation",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "TransformerBlock uses attention plus a single three-projection SwiGLU feed-forward network; every block runs in the forward path, without an expert router. Token embeddings and output projection are separate modules; RoPE and KV caches are computed tensors. No checkpoint count was derived."
+    },
+    {
+      "id": "s6",
+      "url": "https://raw.githubusercontent.com/meta-llama/llama/llama_v2/LICENSE",
+      "title": "Llama 2 Community License Agreement",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Names the custom Llama 2 Community License and explicitly states the version release date July 18, 2023; grants conditional use and redistribution rights for model materials including weights."
+    },
+    {
+      "id": "s7",
+      "url": "https://raw.githubusercontent.com/meta-llama/llama/llama_v2/README.md",
+      "title": "Llama 2 original release and inference README",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Documents released weights, license-gated downloads, 70B inference, maximum 4096-token sequences, and that pretrained models are text-completion models not fine-tuned for chat or Q&A."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/meta-llama/Llama-2-70b-hf/resolve/main/config.json",
+      "title": "Exact Llama-2-70b-hf configuration (access restricted)",
+      "publisher": "Meta",
+      "accessed": false,
+      "evidence": "Unauthenticated direct request returned HTTP 401 requiring approved access. No gated content or weight tensors were downloaded; exact config and checkpoint count are not claimed."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Llama 2 70B",
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Exact 70B pretrained variant; excludes Chat, Llama 1 65B and later Llama generations."
+    },
+    "developer": {
+      "value": "Meta",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "Official model cards identify Meta as the developer."
+    },
+    "family": {
+      "value": "llama-2",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "Normalized family identifier for the explicitly named Llama 2 family."
+    },
+    "release_date": {
+      "value": "2023-07-18",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Public release date is explicit in both the announcement and version license; not inferred from repository creation."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7"
+      ],
+      "note": "Meta released pretrained weights under license and access conditions; open weights does not mean an unrestricted license."
+    },
+    "license": {
+      "value": "Llama 2 Community License",
+      "status": "verified",
+      "source_ids": [
+        "s6"
+      ],
+      "note": "Custom license with conditional redistribution and commercial terms; not an Apache/MIT classification."
+    },
+    "parameters_b": {
+      "value": 70,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "Explicit nominal total in billions for the exact pretrained 70B model. Not a precise tensor count; gated config access is unnecessary to verify the published nominal size."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s3",
+        "s5"
+      ],
+      "note": "No separately defined active count is supplied. Dense block execution does not establish a unique per-token learned-parameter count, especially for embedding lookup; do not copy total into active."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5"
+      ],
+      "note": "Dense autoregressive Transformer is supported by the standard attention/SwiGLU implementation without routed experts; the paper specifically assigns GQA to 70B."
+    },
+    "context_window": {
+      "value": 4096,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s7"
+      ],
+      "note": "Original supported sequence length is explicitly 4096 tokens. Later extensions and code cache allocation defaults do not change the released context specification."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s3"
+      ],
+      "note": "Original model card explicitly specifies text-only input and output."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s2",
+        "s7"
+      ],
+      "note": "No dedicated reasoning mode is documented for this pretrained checkpoint. General reasoning benchmarks or prompted text completions do not establish such a feature."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s4",
+        "s7"
+      ],
+      "note": "No native tool-call interface is documented for this base checkpoint. The paper discusses prompted tool emergence in Chat, so that finding is not transferred here."
+    },
+    "description": {
+      "value": "Llama 2 pretrained checkpoint.",
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "The existing concise description correctly identifies the base pretrained release."
+    }
+  },
+  "patch": {
+    "parameters_source": "primary_source",
+    "notes": "70B is Meta's nominal total, not an independently counted checkpoint total. Active parameters and dedicated reasoning/native tool-call support are not separately documented. This is the original pretrained base model with GQA and a 4,096-token context, distributed under the custom Llama 2 Community License. The exact Hugging Face config required authorized access (HTTP 401).",
+    "sources": [
+      {
+        "label": "Original release announcement",
+        "url": "https://ai.meta.com/blog/llama-2/",
+        "type": "primary"
+      },
+      {
+        "label": "Official 70B pretrained model card",
+        "url": "https://huggingface.co/meta-llama/Llama-2-70b-hf",
+        "type": "weights"
+      },
+      {
+        "label": "Original model card",
+        "url": "https://raw.githubusercontent.com/meta-llama/llama/llama_v2/MODEL_CARD.md",
+        "type": "primary"
+      },
+      {
+        "label": "Llama 2 technical paper",
+        "url": "https://arxiv.org/html/2307.09288v2",
+        "type": "primary"
+      },
+      {
+        "label": "Original model implementation",
+        "url": "https://raw.githubusercontent.com/meta-llama/llama/llama_v2/llama/model.py",
+        "type": "primary"
+      },
+      {
+        "label": "Llama 2 Community License",
+        "url": "https://raw.githubusercontent.com/meta-llama/llama/llama_v2/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "Original inference README",
+        "url": "https://raw.githubusercontent.com/meta-llama/llama/llama_v2/README.md",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "Confirmed all existing factual values for the exact Llama 2 70B base checkpoint. Added primary provenance and explicit nominal-count/access caveats. Total remains nominal 70B; active count, dedicated reasoning and native tools remain null. Exact gated config was unavailable, with no access bypass or weight download."
+}
