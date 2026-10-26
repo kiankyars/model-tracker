@@ -13654,19 +13654,19 @@
   {
     "id": "deepseek/deepseek-ocr-2",
     "slug": "deepseek--deepseek-ocr-2",
-    "name": "DeepSeek OCR 2",
+    "name": "DeepSeek-OCR 2",
     "developer": "DeepSeek",
     "developer_id": "deepseek",
-    "family": null,
-    "description": "High-accuracy OCR model for extracting text from documents, screenshots, receipts, and natural scenes",
+    "family": "deepseek-ocr",
+    "description": "Open-weight OCR vision-language model that combines DeepEncoder V2 with a mixture-of-experts language decoder for text extraction and grounded document-to-Markdown conversion.",
     "release_date": "2026-01-27",
     "date_precision": "day",
     "open_weights": true,
-    "license": null,
-    "parameters_b": null,
+    "license": "Apache-2.0",
+    "parameters_b": 3.38911936,
     "active_parameters_b": null,
-    "parameters_source": null,
-    "architecture": null,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
     "context_window": 8192,
     "modalities": {
       "input": [
@@ -13677,11 +13677,71 @@
         "text"
       ]
     },
-    "reasoning": false,
-    "tool_call": false,
-    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/deepseek/deepseek-ocr-2.toml",
-    "source_type": "catalog",
+    "reasoning": null,
+    "tool_call": null,
+    "source_url": "https://huggingface.co/deepseek-ai/DeepSeek-OCR-2",
+    "source_type": "primary",
     "sources": [
+      {
+        "label": "Official DeepSeek-OCR release history",
+        "url": "https://github.com/deepseek-ai/DeepSeek-OCR#release",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeek-OCR 2: Visual Causal Flow",
+        "url": "https://arxiv.org/html/2601.20552v1",
+        "type": "primary"
+      },
+      {
+        "label": "Official DeepSeek-OCR-2 model card",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-OCR-2",
+        "type": "primary"
+      },
+      {
+        "label": "Official checkpoint configuration",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-OCR-2/blob/aaa02f3811945a91062062994c5c4a3f4c0af2b0/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Official weight repository Apache 2.0 license",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-OCR-2/blob/aaa02f3811945a91062062994c5c4a3f4c0af2b0/LICENSE.txt",
+        "type": "primary"
+      },
+      {
+        "label": "Official checkpoint safetensors header",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-OCR-2/resolve/aaa02f3811945a91062062994c5c4a3f4c0af2b0/model-00001-of-000001.safetensors",
+        "type": "primary"
+      },
+      {
+        "label": "Official DeepEncoder V2 implementation",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-OCR-2/blob/aaa02f3811945a91062062994c5c4a3f4c0af2b0/deepencoderv2.py",
+        "type": "primary"
+      },
+      {
+        "label": "Official OCR2 multimodal implementation",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-OCR-2/blob/aaa02f3811945a91062062994c5c4a3f4c0af2b0/modeling_deepseekocr2.py",
+        "type": "primary"
+      },
+      {
+        "label": "Official OCR2 language decoder implementation",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-OCR-2/blob/aaa02f3811945a91062062994c5c4a3f4c0af2b0/modeling_deepseekv2.py",
+        "type": "primary"
+      },
+      {
+        "label": "Official OCR2 tokenizer configuration",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-OCR-2/blob/aaa02f3811945a91062062994c5c4a3f4c0af2b0/tokenizer_config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Official repository metadata and checkpoint summary",
+        "url": "https://huggingface.co/api/models/deepseek-ai/DeepSeek-OCR-2",
+        "type": "primary"
+      },
+      {
+        "label": "Official checkpoint index",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-OCR-2/blob/aaa02f3811945a91062062994c5c4a3f4c0af2b0/model.safetensors.index.json",
+        "type": "primary"
+      },
       {
         "label": "Models.dev record",
         "url": "https://github.com/anomalyco/models.dev/blob/dev/models/deepseek/deepseek-ocr-2.toml",
@@ -13691,7 +13751,25 @@
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
+    "upstream_present": true,
+    "notes": "Complete released checkpoint: 3.38911936B learned parameters, including vision encoder, projector and language decoder. The paper reports approximately 0.5B active parameters for the language decoder only; whole-model activation varies by processing phase. Configured decoder context is 8192; the 256–1120 tokens per image are a separate visual budget. Native thinking mode and tool calling are not established by the developer materials.",
+    "parameter_components_b": {
+      "language_decoder": 2.93473408,
+      "vision_tokenizer": 0.094979328,
+      "vision_causal_encoder": 0.358256512,
+      "projector": 0.00114816,
+      "view_separator": 0.00000128
+    },
+    "active_parameters_by_phase_b": {
+      "decoder": 0.5
+    },
+    "field_status": {
+      "active_parameters_b": "undisclosed",
+      "reasoning": "undisclosed",
+      "tool_call": "undisclosed"
+    },
+    "audited_at": "2026-10-26T18:56:08.024296+00:00",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/167.json"
   },
   {
     "id": "moonshotai/kimi-k2.5",
