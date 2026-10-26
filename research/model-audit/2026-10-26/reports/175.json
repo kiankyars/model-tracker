@@ -1,0 +1,251 @@
+{
+  "index": 175,
+  "model_id": "deepseek/deepseek-v3.1",
+  "reviewed_at": "2026-10-26T19:06:19.219835+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V3.1/blob/c0781d039fb7a1ba2abc4add0bdc293e92d2b8db/README.md",
+      "title": "DeepSeek-V3.1 official model card",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Names exact V3.1, its V3.1-Base lineage and unchanged V3 model structure; advertises 671B main-model parameters, 37B activated, 128K context, text chat, thinking/non-thinking modes, non-thinking tool calls plus a special thinking-mode search-tool format, public weights and MIT licensing."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V3.1/blob/c0781d039fb7a1ba2abc4add0bdc293e92d2b8db/config.json",
+      "title": "DeepSeek-V3.1 checkpoint configuration",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "DeepseekV3ForCausalLM with 61 main layers, one next-token-prediction layer, first 3 dense layers, 256 routed and 1 shared expert, 8 selected experts/token, MLA dimensions, untied main embeddings, FP8 E4M3 with 128x128 blocks/UE8M0 scales; max_position_embeddings=163840."
+    },
+    {
+      "id": "s3",
+      "url": "https://api-docs.deepseek.com/updates/#date-2025-08-21",
+      "title": "DeepSeek API change log: 2025-08-21 DeepSeek-V3.1",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Dated entry explicitly announces V3.1 on 2025-08-21, with thinking/non-thinking modes and enhanced tool/agent use. Later entries show these API aliases have subsequently moved to other models; this audit concerns the V3.1 checkpoint."
+    },
+    {
+      "id": "s4",
+      "url": "https://github.com/deepseek-ai/DeepSeek-V3/blob/main/README_WEIGHTS.md",
+      "title": "DeepSeek-V3 weight structure and FP8 documentation",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "V3.1 card explicitly states the same model structure. This first-party weight documentation separates 671B main weights from MTP; MTP shares the main embedding and output-head matrices. weight_scale_inv tensors are FP8 dequantization scales, not additional model parameters. Its rounded MTP/active figures are not substituted for the V3.1 header count."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V3.1/resolve/c0781d039fb7a1ba2abc4add0bdc293e92d2b8db/model.safetensors.index.json",
+      "title": "DeepSeek-V3.1 pinned tensor index and all indexed safetensors headers",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Read only 8-byte header lengths and bounded JSON header ranges for all 163 indexed shards: 91,991 tensors, 11,888,393 header bytes including prefixes, zero weight payload. Index/header names matched completely. Main: 671,067,257,432 stored elements less 40,838,232 scales = 671,026,419,200 parameter entries. MTP: 13,464,128,568 stored elements less 702,264 scales = 13,463,426,304 parameter entries. Two documented shared matrices, each 129280x7168, contribute 1,853,358,080 copied entries. Excluding these gives 11,610,068,224 MTP entries, but whether its additional 7168-element shared_head.norm is tied to main.norm was not resolved. Conditional full unique totals are 682,636,480,256 to 682,636,487,424; neither is adopted as verified. The guide's nominal 11.5B unique MTP differs from this approximately 11.610B derivation."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V3.1/blob/c0781d039fb7a1ba2abc4add0bdc293e92d2b8db/modeling_deepseek.py",
+      "title": "DeepSeek-V3.1 official model implementation",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Defines Transformer decoder layers and causal language model; routing e_score_correction_bias is nn.Parameter. The 59 such 256-element tensors are retained in the count; only weight_scale_inv tensors are excluded as quantization metadata."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V3.1/blob/c0781d039fb7a1ba2abc4add0bdc293e92d2b8db/LICENSE",
+      "title": "DeepSeek-V3.1 MIT License",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Repository license is MIT; exact V3.1 model card explicitly applies it to model weights as well."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "DeepSeek-V3.1",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Exact released checkpoint name, distinct from V3.1-Base and V3.1-Terminus."
+    },
+    "developer": {
+      "value": "DeepSeek",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7"
+      ],
+      "note": "Official DeepSeek organization and copyright."
+    },
+    "family": {
+      "value": "deepseek",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Catalog family key is consistent with the explicitly documented DeepSeek-V3 lineage."
+    },
+    "release_date": {
+      "value": "2025-08-21",
+      "status": "verified",
+      "source_ids": [
+        "s3"
+      ],
+      "note": "Explicit dated first-party release entry; day precision confirmed."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Public official checkpoint and complete indexed safetensors headers accessed."
+    },
+    "license": {
+      "value": "MIT License",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7"
+      ],
+      "note": "MIT applies explicitly to repository and model weights."
+    },
+    "parameters_b": {
+      "value": 671,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "note": "Nominal main-model count, explicitly scoped to main in proposed_fields. The exact V3.1 card advertises 671B; headers give 671.026419200B main parameter entries after removing FP8 scales. Complete unique main-plus-MTP total remains unverified: serialized MTP includes shared embedding/head copies, and whether shared_head.norm ties main.norm is unresolved. Conditional totals differ by 7168 parameters (682.636480256B to 682.636487424B); the guide's nominal 11.5B unique MTP also differs from the approximately 11.610B header derivation. Do not use the HF 684.531386B storage-element total as model parameters."
+    },
+    "active_parameters_b": {
+      "value": 37,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Exact V3.1 card reports nominal 37B activated per token for the main model; this is not an exact count or a combined main-plus-MTP speculative-decoding count."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s6"
+      ],
+      "note": "Decoder-only Transformer with MLA and DeepSeekMoE: 61 main layers, first 3 dense, then 256 routed experts/top-8 plus a shared expert; one additional MTP module."
+    },
+    "context_window": {
+      "value": 128000,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Advertised128K context represented as nominal128000 consistently with the other V3 and R1 releases. Configured163840 positions are a separate ceiling, not a replacement for documented support."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s6"
+      ],
+      "note": "Official text-token chat templates and causal-LM implementation; no vision/audio encoder or corresponding modality interface in this checkpoint."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "One checkpoint supports thinking and non-thinking modes through its chat template."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "General tool calling is documented for non-thinking mode; a separate format supports search tools in thinking mode."
+    },
+    "description": {
+      "value": "Hybrid-reasoning DeepSeek model with thinking and non-thinking modes",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Baseline description is directly supported and introduces no unsupported performance claim."
+    }
+  },
+  "patch": {
+    "parameters_b": 671,
+    "active_parameters_b": 37,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "source_url": "https://huggingface.co/deepseek-ai/DeepSeek-V3.1",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Official DeepSeek-V3.1 model card",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V3.1/blob/c0781d039fb7a1ba2abc4add0bdc293e92d2b8db/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeek-V3.1 checkpoint configuration",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V3.1/blob/c0781d039fb7a1ba2abc4add0bdc293e92d2b8db/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "DeepSeek-V3.1 release change log",
+        "url": "https://api-docs.deepseek.com/updates/#date-2025-08-21",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeek weight structure and sharing",
+        "url": "https://github.com/deepseek-ai/DeepSeek-V3/blob/main/README_WEIGHTS.md",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeek-V3.1 tensor index and bounded headers",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V3.1/resolve/c0781d039fb7a1ba2abc4add0bdc293e92d2b8db/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "DeepSeek-V3.1 official model code",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V3.1/blob/c0781d039fb7a1ba2abc4add0bdc293e92d2b8db/modeling_deepseek.py",
+        "type": "primary"
+      }
+    ],
+    "notes": "671B is the nominal main-model count, excluding the MTP component; exact main tensor shapes yield 671.026419200B after removing FP8 scales. Complete unique checkpoint total is unverified: MTP duplicates the documented shared embedding/head matrices, and shared_head.norm versus main.norm tying is unresolved. Conditional totals are 682.636480256B to 682.636487424B, while the inherited weight guide reports a different nominal 11.5B unique MTP. Nominal 37B active describes the main model. Advertised context is 128K; configuration has a 163840-position ceiling. General tool calls use non-thinking mode; thinking mode has a separate search-tool format. Historical V3.1 checkpoint, not the current deepseek-chat/reasoner alias target.",
+    "context_window": 128000
+  },
+  "proposed_fields": {
+    "parameters_scope": "main",
+    "active_parameters_scope": "main",
+    "parameter_components_b": {
+      "main": 671
+    }
+  },
+  "summary": "Added verified nominal 671B main-model parameters, nominal 37B main active parameters and MoE architecture. All 163 bounded tensor headers were inspected; complete unique total remains unverified because MTP normalization sharing is ambiguous and the nominal MTP guide differs from header-derived entries. Accept parameters_scope=main_model with the count. Release 2025-08-21, MIT, public weights, hybrid reasoning, tools and advertised 128K context confirmed; configuration permits 163840 positions."
+}
