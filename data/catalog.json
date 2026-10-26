@@ -13169,15 +13169,15 @@
     "developer": "MiniMax",
     "developer_id": "minimax",
     "family": "minimax",
-    "description": "Low-latency M2.7 variant for interactive coding plans and agent loops",
+    "description": "Higher-throughput API version of MiniMax M2.7 for text reasoning, coding and tool-using agents, advertised by MiniMax as producing identical results.",
     "release_date": "2026-03-18",
     "date_precision": "day",
     "open_weights": true,
-    "license": null,
-    "parameters_b": null,
-    "active_parameters_b": null,
-    "parameters_source": null,
-    "architecture": null,
+    "license": "MiniMax M2.7 Non-Commercial License",
+    "parameters_b": 230,
+    "active_parameters_b": 10,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
     "context_window": 204800,
     "modalities": {
       "input": [
@@ -13189,9 +13189,79 @@
     },
     "reasoning": true,
     "tool_call": true,
-    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/minimax/MiniMax-M2.7-highspeed.toml",
-    "source_type": "catalog",
+    "source_url": "https://platform.minimax.io/docs/release-notes/models",
+    "source_type": "primary",
     "sources": [
+      {
+        "label": "MiniMax API model release notes",
+        "url": "https://platform.minimax.io/docs/release-notes/models",
+        "type": "primary"
+      },
+      {
+        "label": "MiniMax M2.7 product page",
+        "url": "https://www.minimax.io/models/text/m27",
+        "type": "primary"
+      },
+      {
+        "label": "MiniMax-M2.7 official model card",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.7/blob/0a6536713b0b03f3be97494e5cf8d22f668a3164/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax-M2.7 Non-Commercial License",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.7/blob/0a6536713b0b03f3be97494e5cf8d22f668a3164/LICENSE",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax-M2.7 checkpoint configuration",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.7/blob/0a6536713b0b03f3be97494e5cf8d22f668a3164/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax-M2.7 reference model implementation",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.7/blob/0a6536713b0b03f3be97494e5cf8d22f668a3164/modeling_minimax_m2.py",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax-M2.7 published checkpoint index and shard headers",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.7/blob/0a6536713b0b03f3be97494e5cf8d22f668a3164/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "The MiniMax-M2 Series: Mini Activations Unleashing Max Real-World Intelligence",
+        "url": "https://arxiv.org/html/2605.26494v1",
+        "type": "primary"
+      },
+      {
+        "label": "MiniMax M2.7 Advances Scalable Agentic Workflows on NVIDIA Platforms for Complex AI Applications",
+        "url": "https://developer.nvidia.com/blog/minimax-m2-7-advances-scalable-agentic-workflows-on-nvidia-platforms-for-complex-ai-applications/",
+        "type": "primary"
+      },
+      {
+        "label": "MiniMax OpenAI-compatible SDK documentation",
+        "url": "https://platform.minimax.io/docs/api-reference/text-openai-api",
+        "type": "primary"
+      },
+      {
+        "label": "MiniMax Anthropic-compatible SDK documentation",
+        "url": "https://platform.minimax.io/docs/api-reference/text-anthropic-api",
+        "type": "primary"
+      },
+      {
+        "label": "MiniMax M2.7 High Speed on Vercel AI Gateway",
+        "url": "https://vercel.com/ai-gateway/models/minimax-m2.7-highspeed",
+        "type": "primary"
+      },
+      {
+        "label": "MiniMax model list and M2.5/M2.7 retirement notice",
+        "url": "https://platform.minimax.io/docs/faq/models",
+        "type": "primary"
+      },
+      {
+        "label": "MiniMax-M2.7 Hugging Face checkpoint metadata",
+        "url": "https://huggingface.co/api/models/MiniMaxAI/MiniMax-M2.7",
+        "type": "weights"
+      },
       {
         "label": "Models.dev record",
         "url": "https://github.com/anomalyco/models.dev/blob/dev/models/minimax/MiniMax-M2.7-highspeed.toml",
@@ -13206,7 +13276,11 @@
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
+    "upstream_present": true,
+    "notes": "Highspeed is documented as the faster M2.7 API version with identical results. 230B total is NVIDIA’s nominal M2.7 deployment specification; approximately 10B active is explicitly disclosed for M2.7 by MiniMax’s later technical report. Public M2.7 weights are approximately 228.69B, excluding 13,880,064 FP8 inverse scales; 15,872 routing-bias values are stored but their original M2.7 training status is unresolved. Neither checkpoint storage nor the M2-only 229.9B/9.8B counts establish an exact hosted highspeed census. The shared weights use a non-commercial license. Context 204800 is verified for Vercel’s MiniMax highspeed route. MiniMax’s notice routes subscription calls to M3.1 Flash from October 19, 2026 and schedules existing pay-as-you-go retirement for November 18, although its retired-model table already labels highspeed retired; endpoint operation was not tested.",
+    "field_status": {},
+    "audited_at": "2026-10-26T22:37:16.353893Z",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/306.json"
   },
   {
     "id": "xiaomi/mimo-v2-omni",
