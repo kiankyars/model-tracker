@@ -1,0 +1,244 @@
+{
+  "index": 9,
+  "model_id": "aion-labs/aion-rp-llama-3.1-8b",
+  "reviewed_at": "2026-10-26T13:53:50.320094+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://api.aionlabs.ai/v1/models",
+      "title": "Aion Labs models API: aion-labs/aion-rp-llama-3.1-8b",
+      "publisher": "Aion Labs",
+      "accessed": true,
+      "evidence": "Exact API identifier has date 2024-11-30, name AionLabs: Aion-RP 1.0 (8B), context_length 32768, text-to-text modality, reasoning false, tool_calls false, and reasoning_effort.supported false. Described as a Llama 3.1 8B variant for roleplaying and storytelling. Read through web browser tool; a separate Python HTTP request returned 403."
+    },
+    {
+      "id": "s2",
+      "url": "https://www.aionlabs.ai/docs/models/",
+      "title": "Models \u2014 Aion Labs Docs",
+      "publisher": "Aion Labs",
+      "accessed": true,
+      "evidence": "Developer documentation independently displays the exact model ID, roleplaying purpose, 32K served context and explicit Released: 2024-11-30."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/aion-labs/Aion-RP-Llama-3.1-8B/raw/8ae617bc85c5d6698c3323863c42098d1998f7bb/README.md",
+      "title": "Aion-RP-Llama-3.1-8B model card at 8ae617bc",
+      "publisher": "Aion Labs",
+      "accessed": true,
+      "evidence": "Developer-owned card names meta-llama/Llama-3.1-8B as base model, declares apache-2.0 metadata, describes roleplaying and creative-writing training, claims full 131K context and documents a custom text conversation format. Immutable raw source successfully fetched."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/aion-labs/Aion-RP-Llama-3.1-8B/raw/8ae617bc85c5d6698c3323863c42098d1998f7bb/config.json",
+      "title": "Aion-RP-Llama-3.1-8B configuration at 8ae617bc",
+      "publisher": "Aion Labs",
+      "accessed": true,
+      "evidence": "Exact fine-tune configuration specifies LlamaForCausalLM, 32 layers, hidden size 4096, intermediate size 14336, 32 attention heads, eight KV heads, untied embeddings, vocabulary 128256 and max_position_embeddings 131072. Standard dense Llama components, not an expert-routing configuration."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/aion-labs/Aion-RP-Llama-3.1-8B/raw/8ae617bc85c5d6698c3323863c42098d1998f7bb/model.safetensors.index.json",
+      "title": "Aion-RP-Llama-3.1-8B weight index at 8ae617bc",
+      "publisher": "Aion Labs",
+      "accessed": true,
+      "evidence": "Public index lists seven weight shards and 291 tensors comprising embeddings, language-model head, normalization and dense attention/MLP projections. Total F32 tensor size 32,121,044,992 bytes corresponds to 8,030,261,248 parameters and matches the count derived from its config."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/api/models/aion-labs/Aion-RP-Llama-3.1-8B",
+      "title": "Hugging Face repository metadata for the exact Aion fine-tune",
+      "publisher": "Hugging Face; model repository owned by Aion Labs",
+      "accessed": true,
+      "evidence": "Reports current revision 8ae617bc85c5d6698c3323863c42098d1998f7bb, 8,030,261,248 F32 safetensors parameters, creation 2024-11-09 and last modification 2024-11-30. Creation time is not treated as a confirmed public release date."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/meta-llama/Llama-3.1-8B/blob/main/LICENSE",
+      "title": "Llama 3.1 Community License Agreement",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "The explicitly identified base model uses the Llama 3.1 Community License, whose redistribution provisions cover derivatives. This leaves an unresolved qualification to the fine-tune card declaring only Apache-2.0; no separate license document appears in the fine-tune repository."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Aion-RP 1.0 (8B)",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Matches official display name after omitting the provider prefix."
+    },
+    "developer": {
+      "value": "Aion Labs",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "The publisher of this fine-tune is Aion Labs; Meta developed the stated base model."
+    },
+    "family": {
+      "value": "llama",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4"
+      ],
+      "note": "Fine-tune card explicitly identifies the Llama 3.1 8B base, and its own config retains LlamaForCausalLM."
+    },
+    "release_date": {
+      "value": "2024-11-30",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s6"
+      ],
+      "note": "Explicit developer-reported release date supersedes baseline 2025-02-04. Repository creation is earlier (2024-11-09), so this is not a claim that no weights existed before November 30."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s6"
+      ],
+      "note": "Exact fine-tune publishes seven safetensors weight shards. This confirms availability, not a permissive-license conclusion."
+    },
+    "license": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s3",
+        "s7"
+      ],
+      "note": "Fine-tune card declares Apache-2.0, but the expressly identified base carries the Llama 3.1 Community License with derivative redistribution provisions. Retain null pending clarification rather than presenting Apache-2.0 as the complete governing license."
+    },
+    "parameters_b": {
+      "value": 8,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "note": "8B is the nominal size. Exact published F32 tensor count is 8,030,261,248 (8.030261248 billion), independently consistent with its config dimensions and weight-index byte total. Verification uses the fine-tune artifacts, not just its name or base-model size."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "note": "No separate per-token active-parameter count is defined for this dense fine-tune. Do not copy the total parameter count into this field."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5"
+      ],
+      "note": "Exact fine-tune artifacts implement a dense decoder-only Llama causal transformer with grouped-query attention and dense MLP projections; no MoE routing or expert tensor groups are present."
+    },
+    "context_window": {
+      "value": 32768,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "note": "Retain the exact API endpoint limit of 32768. Separately, downloadable weights declare and configure 131072 positions. The deployment limit is not the weight architecture limit."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Exact Aion endpoint explicitly reports text-to-text; the fine-tune card supplies a text conversation template."
+    },
+    "reasoning": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Exact endpoint reports reasoning false and reasoning-effort support false. This concerns dedicated reasoning support, not an assertion that the model cannot solve reasoning tasks."
+    },
+    "tool_call": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Exact endpoint reports tool_calls false; no tool support is inherited merely because other Llama variants provide it."
+    },
+    "description": {
+      "value": "Llama 3.1 8B fine-tune for roleplaying and creative writing.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Replace generic instruction-model, multilingual, reasoning and coding claims with the purpose documented for this exact fine-tune."
+    }
+  },
+  "patch": {
+    "description": "Llama 3.1 8B fine-tune for roleplaying and creative writing.",
+    "release_date": "2024-11-30",
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "source_url": "https://www.aionlabs.ai/docs/models/",
+    "source_type": "primary",
+    "notes": "8B is nominal; published weights contain 8,030,261,248 parameters. Active parameters are not separately reported. API context is 32,768 tokens; the downloadable fine-tune config supports 131,072 positions. Developer reports release on 2024-11-30, while the repository was created on 2024-11-09. Fine-tune metadata declares Apache-2.0, but its Llama 3.1 base has a separate community license; the complete licensing position is unresolved.",
+    "sources": [
+      {
+        "label": "Aion Labs model documentation",
+        "url": "https://www.aionlabs.ai/docs/models/",
+        "type": "docs"
+      },
+      {
+        "label": "Aion Labs models API",
+        "url": "https://api.aionlabs.ai/v1/models",
+        "type": "docs"
+      },
+      {
+        "label": "Fine-tune model card (pinned revision)",
+        "url": "https://huggingface.co/aion-labs/Aion-RP-Llama-3.1-8B/raw/8ae617bc85c5d6698c3323863c42098d1998f7bb/README.md",
+        "type": "model_card"
+      },
+      {
+        "label": "Fine-tune configuration (pinned revision)",
+        "url": "https://huggingface.co/aion-labs/Aion-RP-Llama-3.1-8B/raw/8ae617bc85c5d6698c3323863c42098d1998f7bb/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Fine-tune weight index (pinned revision)",
+        "url": "https://huggingface.co/aion-labs/Aion-RP-Llama-3.1-8B/raw/8ae617bc85c5d6698c3323863c42098d1998f7bb/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Base-model Llama 3.1 license",
+        "url": "https://huggingface.co/meta-llama/Llama-3.1-8B/blob/main/LICENSE",
+        "type": "license"
+      }
+    ]
+  },
+  "summary": "Confirmed exact fine-tune and API capabilities from primary sources. Correct release date to the developer-reported 2024-11-30, replace unsupported generic description, establish dense architecture and primary-source provenance for nominal 8B parameters. Preserve 32768 API context while documenting 131072 for downloadable weights. Leave active count null; licensing remains unresolved because the fine-tune Apache-2.0 declaration does not explain the upstream Llama terms."
+}

@@ -1,0 +1,229 @@
+{
+  "index": 11,
+  "model_id": "aleph-alpha/kolibri-1",
+  "reviewed_at": "2026-10-26T13:56:43.764936Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/Aleph-Alpha/Kolibri-1/blob/5bb7075ba22db733e3834b1c71d2245537cc14ed/README.md",
+      "title": "Kolibri 1 official model card, pinned revision",
+      "publisher": "Aleph Alpha",
+      "accessed": true,
+      "evidence": "Exact Kolibri-1 FP8 release card; identifies name, developer, exact counts, text modalities, release date, license and capabilities. Pinned README retrieved successfully."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/Aleph-Alpha/Kolibri-1/raw/5bb7075ba22db733e3834b1c71d2245537cc14ed/config.json",
+      "title": "Kolibri-1 configuration, pinned revision",
+      "publisher": "Aleph Alpha",
+      "accessed": true,
+      "evidence": "Kolibri1ForCausalLM; 50 layers, 384 experts, six selected per token, shared expert, 4:1 sliding/full attention; max_position_embeddings 262144; FP8 quantization."
+    },
+    {
+      "id": "s3",
+      "url": "https://aleph-alpha.com/en/blog/kolibri-has-landed-a-sovereign-open-weight-model/",
+      "title": "Kolibri Has Landed: A Sovereign Open-Weight Model",
+      "publisher": "Aleph Alpha",
+      "accessed": true,
+      "evidence": "Dated 3 October 2026; announces release and downloadable Apache-2.0 weights. Names Kolibri and earlier Kolibri Origin; describes a German-English MoE transformer."
+    },
+    {
+      "id": "s4",
+      "url": "https://aleph-alpha.com/downloads/tech-report.pdf",
+      "title": "Kolibri: A Sovereign European Model on the Pareto Frontier",
+      "publisher": "Aleph Alpha",
+      "accessed": true,
+      "evidence": "Abstract and Table 2 identify 78.1B total and 3.46B active. Table 2 explicitly excludes embeddings from active counts and lists six routed plus one shared expert per token."
+    },
+    {
+      "id": "s5",
+      "url": "https://aleph-alpha.com/en/news/kolibri-sovereign-ai-made-in-germany/",
+      "title": "Aleph Alpha releases Kolibri",
+      "publisher": "Aleph Alpha",
+      "accessed": true,
+      "evidence": "5 October announcement explicitly says available since 3 October; confirms RAG, native tool use, adjustable reasoning and bilingual support."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/api/models/Aleph-Alpha/Kolibri-1",
+      "title": "Hugging Face repository metadata",
+      "publisher": "Hugging Face / Aleph Alpha",
+      "accessed": true,
+      "evidence": "Current revision 5bb7075ba22db733e3834b1c71d2245537cc14ed. Safetensors metadata totals 78,103,074,560 parameters. Repository creation on October 2 is not the October 3 public release date."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Kolibri 1",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Exact card name."
+    },
+    "developer": {
+      "value": "Aleph Alpha",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Brand retained; legal developer is Aleph Alpha Research GmbH, provider Aleph Alpha GmbH."
+    },
+    "family": {
+      "value": "kolibri",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4"
+      ],
+      "note": "Normalized Kolibri lineage name; report relates it to Kolibri Origin."
+    },
+    "release_date": {
+      "value": "2026-10-03",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s5"
+      ],
+      "note": "Explicit public-release date; October 5 is the later news publication."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s3"
+      ],
+      "note": "Official announcement provides downloadable full weights."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Card scopes grant to repository weights and configuration files."
+    },
+    "parameters_b": {
+      "value": 78.10307456,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "78,103,074,560 parameters divided by 1e9; exact published count, not nominal 78B."
+    },
+    "active_parameters_b": {
+      "value": 3.45757312,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4"
+      ],
+      "note": "3,457,573,120 per token divided by 1e9. Technical report excludes embeddings; rounded to 3.46B."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4"
+      ],
+      "note": "Transformer with six of 384 routed experts and one shared expert per layer; 50 layers with hybrid sliding/full GQA attention."
+    },
+    "context_window": {
+      "value": 1048576,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Maximum validated extrapolated context. Native and default configuration: 262,144 tokens; larger serving requires overrides."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Intended-use section explicitly specifies text input and output."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s5"
+      ],
+      "note": "Adjustable reasoning controls are documented."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s5"
+      ],
+      "note": "Native tool calling explicitly documented."
+    },
+    "description": {
+      "value": "Aleph Alpha's German and English mixture-of-experts reasoning model (78B total, 3.46B active) for chat, RAG and agents",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s5"
+      ],
+      "note": "Supported; parameter shorthand is rounded, and intended RAG/assistant/agent use is documented."
+    }
+  },
+  "patch": {
+    "family": "kolibri",
+    "parameters_b": 78.10307456,
+    "active_parameters_b": 3.45757312,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "source_url": "https://huggingface.co/Aleph-Alpha/Kolibri-1/blob/5bb7075ba22db733e3834b1c71d2245537cc14ed/README.md",
+    "source_type": "primary",
+    "notes": "Active parameter count excludes embeddings. Context is 262,144 tokens natively and 1,048,576 by validated extrapolation; serving beyond 262,144 requires configuration overrides. This repository is the FP8 Kolibri-1 release. Apache-2.0 applies to the published weights and configuration files.",
+    "sources": [
+      {
+        "label": "Models.dev record",
+        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/aleph-alpha/kolibri-1.toml",
+        "type": "catalog"
+      },
+      {
+        "label": "Hugging Face",
+        "url": "https://huggingface.co/Aleph-Alpha/Kolibri-1",
+        "type": "weights"
+      },
+      {
+        "label": "Official model card (pinned revision)",
+        "url": "https://huggingface.co/Aleph-Alpha/Kolibri-1/blob/5bb7075ba22db733e3834b1c71d2245537cc14ed/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Official model configuration (pinned revision)",
+        "url": "https://huggingface.co/Aleph-Alpha/Kolibri-1/raw/5bb7075ba22db733e3834b1c71d2245537cc14ed/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Official technical report",
+        "url": "https://aleph-alpha.com/downloads/tech-report.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Official release announcement",
+        "url": "https://aleph-alpha.com/en/blog/kolibri-has-landed-a-sovereign-open-weight-model/",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "Fill missing total/active counts from exact developer disclosure, MoE architecture and Kolibri family. All existing factual values are supported. Retain 1,048,576 as the maximum context with native/default-context qualification. The announcement rounds active parameters to 3B; the card/report provide greater precision, not a conflicting model size."
+}

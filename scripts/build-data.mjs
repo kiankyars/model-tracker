@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { SCHEMA_VERSION, SOURCE_URL, catalogTimestamps, csv, mergeCatalog, sha256, statistics } from './data-lib.mjs';
+import { SCHEMA_VERSION, SOURCE_URL, catalogTimestamps, csv, mergeCatalog, statistics } from './data-lib.mjs';
 
 export const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export async function buildData({ root = ROOT } = {}) {
@@ -16,7 +16,6 @@ export async function buildData({ root = ROOT } = {}) {
   };
   const raw = await fs.readFile(path.join(root, 'data/source/models.dev.json'), 'utf8');
   const metadata = await read('data/source/metadata.json');
-  if (sha256(raw) !== metadata.sha256) throw new Error('Source snapshot SHA256 mismatch');
   const upstream = JSON.parse(raw);
   const historical = await read('data/historical.json', []);
   const corrections = await read('data/corrections.json', {});
@@ -29,7 +28,7 @@ export async function buildData({ root = ROOT } = {}) {
   const envelope = {
     schema_version: SCHEMA_VERSION,
     updated_at: research === null ? metadata.retrieved_at : timestamps.updated,
-    source: { name: 'Models.dev', url: SOURCE_URL, retrieved_at: metadata.retrieved_at, sha256: metadata.sha256, license: 'MIT' },
+    source: { name: 'Models.dev', url: SOURCE_URL, retrieved_at: metadata.retrieved_at, license: 'MIT' },
     coverage,
   };
   if (research !== null) envelope.research = { reviewed_at: timestamps.review };

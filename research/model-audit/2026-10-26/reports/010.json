@@ -1,0 +1,270 @@
+{
+  "index": 10,
+  "model_id": "aisingapore/gemma-sea-lion-v4-27b-it",
+  "reviewed_at": "2026-10-26T13:56:47.851663Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/aisingapore/Gemma-SEA-LION-v4-27B-IT",
+      "title": "Exact Gemma-SEA-LION-v4-27B-IT model card",
+      "publisher": "AI Singapore",
+      "accessed": true,
+      "evidence": "Exact variant is an AI Singapore instruction fine-tune of Gemma-SEA-LION-v4-27B using Gemma 3 architecture; Gemma license; text/image input; text output; function calling. Training affected the text back-end. No dedicated thinking mode is documented."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/aisingapore/Gemma-SEA-LION-v4-27B-IT/raw/c41c291558bdd8cbc37d77868cec0bc5b6921476/config.json",
+      "title": "Exact released checkpoint configuration",
+      "publisher": "AI Singapore",
+      "accessed": true,
+      "evidence": "Fetched directly after browser extraction failed. Gemma3ForConditionalGeneration; gemma3_text with 62 layers, width 5376 and intermediate size 21504; SigLIP vision encoder; BF16. No expert routing configuration. max_position_embeddings is omitted and uses the library default."
+    },
+    {
+      "id": "s3",
+      "url": "https://sea-lion.ai/blog/sea-lion-v4-multimodal/",
+      "title": "SEA-LION v4: Our First Multimodal Release, Open, Powerful & Small",
+      "publisher": "AI Singapore",
+      "accessed": true,
+      "evidence": "Announcement dated August 25, 2025 explicitly names and links Gemma-SEA-LION-v4-27B-IT, labels it 27 billion parameters, gives 128K context, and states function-calling support and immediate weight availability."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/api/models/aisingapore/Gemma-SEA-LION-v4-27B-IT",
+      "title": "Exact checkpoint repository and tensor metadata",
+      "publisher": "Hugging Face / AI Singapore repository",
+      "accessed": true,
+      "evidence": "At revision c41c291558bdd8cbc37d77868cec0bc5b6921476, safetensors metadata reports 27,432,406,640 BF16 parameters. Repository creation is August 11, 2025, which is not the public release date."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/aisingapore/Gemma-SEA-LION-v4-27B-IT/raw/c41c291558bdd8cbc37d77868cec0bc5b6921476/model.safetensors.index.json",
+      "title": "Published checkpoint tensor index",
+      "publisher": "AI Singapore",
+      "accessed": true,
+      "evidence": "Index records 1,247 tensors and total_size 54,864,813,280 bytes, consistent with 27,432,406,640 BF16 parameters including the vision component."
+    },
+    {
+      "id": "s6",
+      "url": "https://goo.gle/Gemma3Report",
+      "title": "Gemma 3 Technical Report",
+      "publisher": "Google DeepMind",
+      "accessed": true,
+      "evidence": "The inherited Gemma 3 27B IT backbone is explicitly classified Dense in Table 5; section 2 describes a decoder-only Transformer with local/global attention and a SigLIP vision encoder."
+    },
+    {
+      "id": "s7",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.50.0/src/transformers/models/gemma3/configuration_gemma3.py",
+      "title": "Transformers 4.50.0 Gemma 3 configuration implementation",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Gemma3TextConfig defaults max_position_embeddings to 131072; Gemma3Config constructs that class from the text_config dictionary. This establishes the exact default used by the checkpoint configuration, whose producer identifies 4.50.0.dev0."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/aisingapore/Gemma-SEA-LION-v4-27B-IT/raw/c41c291558bdd8cbc37d77868cec0bc5b6921476/tokenizer_config.json",
+      "title": "Exact checkpoint tokenizer and conversation template",
+      "publisher": "AI Singapore",
+      "accessed": true,
+      "evidence": "Template accepts alternating user/assistant turns with text/image content. It defines no distinct reasoning-output channel or thinking control; absence is insufficient to prove no reasoning capability."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Gemma-SEA-LION-v4-27B-IT",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Exact published variant name."
+    },
+    "developer": {
+      "value": "AI Singapore",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Card attributes development to AI Products Pillar, AI Singapore."
+    },
+    "family": {
+      "value": "gemma",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Exact variant retains the Gemma 3 architecture."
+    },
+    "release_date": {
+      "value": "2025-08-25",
+      "status": "verified",
+      "source_ids": [
+        "s3"
+      ],
+      "note": "Dated original developer announcement explicitly offers this IT model. September 23 in the baseline is contradicted; repository creation is not substituted for release."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s5"
+      ],
+      "note": "Released downloadable checkpoint; license is Gemma Terms of Use."
+    },
+    "license": {
+      "value": "gemma",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Exact model-card license identifier is gemma."
+    },
+    "parameters_b": {
+      "value": 27.43240664,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "note": "Total published tensor count is 27,432,406,640, divided by 1e9. Includes vision parameters. Developer marketing label 27B is nominal; baseline 27 is not an exact whole-model tensor count."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "not_applicable",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s6"
+      ],
+      "note": "Dense multimodal model; no separate active-per-token count is reported. Do not equate all stored text/vision weights with parameters active on every token."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s6"
+      ],
+      "note": "Exact fine-tune uses Gemma3ForConditionalGeneration with dense Gemma 3 text decoder and SigLIP vision encoder. This conclusion is tied to its own configuration and documented lineage."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s7"
+      ],
+      "note": "Developer states 128K. Exact configuration omits max_position_embeddings, so the declared Gemma3TextConfig implementation supplies 131072. Baseline 128000 is the decimal shorthand rather than the configured token limit."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Exact IT model retains vision input despite SEA training being text-only; it is distinct from the later v4-27B-VL fine-tune."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s1",
+        "s8"
+      ],
+      "note": "The model is trained/evaluated on reasoning and mathematics, but no dedicated thinking mode or separate reasoning channel is established. Neither false nor true as a reasoning-model capability flag is verified."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Exact IT card and launch announcement explicitly claim function calling. This is the model capability; individual hosted endpoints may impose restrictions."
+    },
+    "description": {
+      "value": "Gemma 3 27B tuned by AI Singapore for Southeast Asian languages and instruction following",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Concise baseline description accurately characterizes the exact fine-tune."
+    }
+  },
+  "patch": {
+    "release_date": "2025-08-25",
+    "license": "gemma",
+    "parameters_b": 27.43240664,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "context_window": 131072,
+    "reasoning": null,
+    "tool_call": true,
+    "source_url": "https://sea-lion.ai/blog/sea-lion-v4-multimodal/",
+    "source_type": "primary",
+    "notes": "27B is the developer's nominal size; published BF16 tensor metadata totals 27.43240664B including vision. Dense architecture has no separately reported active-per-token count. 128K resolves to 131072 positions in the Gemma 3 configuration. Dedicated reasoning-mode support is unverified; ordinary reasoning tasks do not establish a thinking-model flag.",
+    "sources": [
+      {
+        "label": "Models.dev record",
+        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/aisingapore/gemma-sea-lion-v4-27b-it.toml",
+        "type": "catalog"
+      },
+      {
+        "label": "Hugging Face",
+        "url": "https://huggingface.co/aisingapore/Gemma-SEA-LION-v4-27B-IT",
+        "type": "weights"
+      },
+      {
+        "label": "Exact released checkpoint configuration",
+        "url": "https://huggingface.co/aisingapore/Gemma-SEA-LION-v4-27B-IT/raw/c41c291558bdd8cbc37d77868cec0bc5b6921476/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "SEA-LION v4: Our First Multimodal Release, Open, Powerful & Small",
+        "url": "https://sea-lion.ai/blog/sea-lion-v4-multimodal/",
+        "type": "primary"
+      },
+      {
+        "label": "Exact checkpoint repository and tensor metadata",
+        "url": "https://huggingface.co/api/models/aisingapore/Gemma-SEA-LION-v4-27B-IT",
+        "type": "repository_metadata"
+      },
+      {
+        "label": "Published checkpoint tensor index",
+        "url": "https://huggingface.co/aisingapore/Gemma-SEA-LION-v4-27B-IT/raw/c41c291558bdd8cbc37d77868cec0bc5b6921476/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Gemma 3 Technical Report",
+        "url": "https://goo.gle/Gemma3Report",
+        "type": "primary"
+      },
+      {
+        "label": "Transformers 4.50.0 Gemma 3 configuration implementation",
+        "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.50.0/src/transformers/models/gemma3/configuration_gemma3.py",
+        "type": "primary"
+      },
+      {
+        "label": "Exact checkpoint tokenizer and conversation template",
+        "url": "https://huggingface.co/aisingapore/Gemma-SEA-LION-v4-27B-IT/raw/c41c291558bdd8cbc37d77868cec0bc5b6921476/tokenizer_config.json",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "Confirmed exact IT fine-tune lineage and multimodal weights. Correct release to 2025-08-25, Gemma license, dense architecture, function calling, and configured 131072 context. Record exact 27.43240664B total tensor count while retaining nominal 27B interpretation in notes. Active count remains null; dedicated reasoning flag remains unverified rather than asserted false."
+}

@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { ROOT, buildData } from './build-data.mjs';
-import { SOURCE_URL, eligibleModel, normalize, sha256 } from './data-lib.mjs';
+import { SOURCE_URL, eligibleModel, normalize } from './data-lib.mjs';
 
 const response = await fetch(SOURCE_URL, { signal: AbortSignal.timeout(60_000), headers: { 'User-Agent': 'ModelTracker/1.0 (+https://github.com/kiankyars/model-tracker)' } });
 if (!response.ok) throw new Error(`Source returned HTTP ${response.status}`);
@@ -21,5 +21,5 @@ for (const [id, model] of Object.entries(upstream)) {
 const raw = `${JSON.stringify(Object.fromEntries(Object.entries(upstream).sort(([a], [b]) => a.localeCompare(b))), null, 2)}\n`;
 await fs.mkdir(path.join(ROOT, 'data/source'), { recursive: true });
 await fs.writeFile(path.join(ROOT, 'data/source/models.dev.json'), raw);
-await fs.writeFile(path.join(ROOT, 'data/source/metadata.json'), `${JSON.stringify({ url: SOURCE_URL, retrieved_at: retrievedAt, sha256: sha256(raw), records: Object.keys(upstream).length }, null, 2)}\n`);
+await fs.writeFile(path.join(ROOT, 'data/source/metadata.json'), `${JSON.stringify({ retrieved_at: retrievedAt }, null, 2)}\n`);
 await buildData();

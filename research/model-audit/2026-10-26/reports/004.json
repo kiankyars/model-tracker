@@ -1,0 +1,187 @@
+{
+  "index": 4,
+  "model_id": "ai21/jamba-large",
+  "reviewed_at": "2026-10-26T13:48:17Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://docs.ai21.com/docs/jamba-foundation-models",
+      "title": "Jamba foundation models and API versioning",
+      "publisher": "AI21 Labs",
+      "accessed": true,
+      "evidence": "Current API alias jamba-large points to jamba-large-1.7-2025-07. The Large row reports 398B parameters, 94B active, version 1.7 and 256K tokens. The page identifies AI21 Labs, the Jamba family, and text input/output. Jamba Large 1.5 and 1.6 are separately listed as deprecated snapshots."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/ai21labs/AI21-Jamba-Large-1.7",
+      "title": "AI21-Jamba-Large-1.7 model card",
+      "publisher": "AI21 Labs",
+      "accessed": true,
+      "evidence": "The exact 1.7 card describes a hybrid SSM-Transformer model with 94B active/398B total parameters, a 256K context and grounding/instruction-following improvements. It assigns the Jamba Open Model License and provides deployment instructions including MoE quantization. Weights are gated by acceptance of conditions."
+    },
+    {
+      "id": "s3",
+      "url": "https://docs.ai21.com/changelog",
+      "title": "AI21 changelog: Introducing Jamba 1.7",
+      "publisher": "AI21 Labs",
+      "accessed": true,
+      "evidence": "The July 3, 2025 entry explicitly states the Jamba 1.7 release date and links the Jamba Large 1.7 model card."
+    },
+    {
+      "id": "s4",
+      "url": "https://www.ai21.com/jamba-open-model-license/",
+      "title": "Jamba Open Model License Agreement",
+      "publisher": "AI21 Labs",
+      "accessed": true,
+      "evidence": "The license linked by the exact 1.7 model card permits specified uses subject to conditions, including a commercial-use restriction above USD 50 million annual revenue. It is a custom license, not Apache-2.0 or an unrestricted open-source license."
+    },
+    {
+      "id": "s5",
+      "url": "https://docs.ai21.com/docs/function-calling",
+      "title": "Function Calling",
+      "publisher": "AI21 Labs",
+      "accessed": true,
+      "evidence": "AI21 explicitly states that function calling is available for all Jamba models through the Chat Completions API."
+    },
+    {
+      "id": "s6",
+      "url": "https://docs.ai21.com/reference/jamba-1-6-api-ref",
+      "title": "Jamba Chat request API reference",
+      "publisher": "AI21 Labs",
+      "accessed": true,
+      "evidence": "Despite the historical URL, the current page documents the jamba-large alias and instruction-following chat API, including function tools. Its documented request schema has no reasoning/thinking option; absence does not prove the catalog's broader reasoning boolean false."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/api/models/ai21labs/AI21-Jamba-Large-1.7",
+      "title": "Public metadata for AI21-Jamba-Large-1.7",
+      "publisher": "Hugging Face / AI21 Labs repository",
+      "accessed": true,
+      "evidence": "Unauthenticated metadata at revision f95d1c3c9ac9028a9306e717047b5515e73c1dd1 reports JambaForCausalLM, model_type jamba, 16 experts, 2 experts per token, and 398555145696 BF16 safetensors parameters. The tokenizer template contains function-call handling. This corroborates the MoE component and explains the UI's rounded 399B count."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/ai21labs/AI21-Jamba-Large-1.7/raw/main/config.json",
+      "title": "Exact checkpoint configuration file",
+      "publisher": "AI21 Labs",
+      "accessed": false,
+      "evidence": "The unauthenticated configuration-file request returned HTTP 401. No exact max_position_embeddings value was verified from this gated file. Public model card and repository metadata remained accessible."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Jamba Large",
+      "status": "verified",
+      "source_ids": ["s1"],
+      "note": "Official display name for the rolling alias; its reviewed target is version 1.7."
+    },
+    "developer": {
+      "value": "AI21 Labs",
+      "status": "verified",
+      "source_ids": ["s1"],
+      "note": "The official documentation identifies the developing organization."
+    },
+    "family": {
+      "value": "jamba",
+      "status": "verified",
+      "source_ids": ["s1"],
+      "note": "Normalized name of the official Jamba family."
+    },
+    "release_date": {
+      "value": "2025-07-03",
+      "status": "verified",
+      "source_ids": ["s3"],
+      "note": "Explicit public release date for the 1.7 snapshot currently served by the alias, not the original Jamba-family launch."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": ["s2"],
+      "note": "Downloadable weights exist with an acceptance gate and custom license conditions."
+    },
+    "license": {
+      "value": "Jamba Open Model License",
+      "status": "verified",
+      "source_ids": ["s2", "s4"],
+      "note": "The exact model card explicitly assigns this custom license."
+    },
+    "parameters_b": {
+      "value": 398,
+      "status": "verified",
+      "source_ids": ["s1", "s2", "s7"],
+      "note": "Official nominal total in billions. Public tensor metadata reports 398,555,145,696 stored parameters; do not mistake its rounded 399B display for a different model."
+    },
+    "active_parameters_b": {
+      "value": 94,
+      "status": "verified",
+      "source_ids": ["s1", "s2"],
+      "note": "Official nominal active count in billions, explicitly distinct from total parameters. Not inferred from the expert routing ratio."
+    },
+    "architecture": {
+      "value": "hybrid-ssm-transformer-moe",
+      "status": "verified",
+      "source_ids": ["s2", "s7"],
+      "note": "Hybrid Mamba state-space/Transformer architecture with mixture-of-experts; exact-checkpoint public metadata identifies 16 experts and two selected per token."
+    },
+    "context_window": {
+      "value": 256000,
+      "status": "verified",
+      "source_ids": ["s1", "s2", "s8"],
+      "note": "Retains the catalog's decimal normalization of the advertised 256K context. This is a nominal label, not proof of an exact 256,000-token implementation limit; the gated configuration was unavailable."
+    },
+    "modalities": {
+      "value": {"input": ["text"], "output": ["text"]},
+      "status": "verified",
+      "source_ids": ["s1"],
+      "note": "Official documentation explicitly identifies text input and output."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": ["s2", "s6"],
+      "note": "No dedicated reasoning mode is documented, but neither source explicitly establishes a negative capability claim. The baseline false is therefore not independently verified. This is not Jamba Reasoning 3B."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": ["s5", "s6", "s7"],
+      "note": "Official API documentation and exact checkpoint template establish function-tool support."
+    },
+    "description": {
+      "value": "AI21's Jamba Large 1.7, a text-only hybrid Mamba-Transformer mixture-of-experts model for long-context instruction following and grounded generation",
+      "status": "verified",
+      "source_ids": ["s1", "s2", "s7"],
+      "note": "Makes the reviewed alias target explicit and describes supported architecture and uses without benchmark superlatives."
+    }
+  },
+  "patch": {
+    "license": "Jamba Open Model License",
+    "parameters_b": 398,
+    "active_parameters_b": 94,
+    "parameters_source": "primary_source",
+    "architecture": "hybrid-ssm-transformer-moe",
+    "reasoning": null,
+    "description": "AI21's Jamba Large 1.7, a text-only hybrid Mamba-Transformer mixture-of-experts model for long-context instruction following and grounded generation",
+    "notes": "Reviewed alias target: jamba-large-1.7-2025-07. Counts are AI21's nominal 398B total / 94B active; public tensor metadata counts 398,555,145,696 parameters. Context 256000 normalizes the advertised 256K, not an independently verified exact implementation limit. Weights require acceptance of custom license conditions. Dedicated reasoning-mode status remains unverified.",
+    "sources": [
+      {"label": "AI21 model details and alias mapping", "url": "https://docs.ai21.com/docs/jamba-foundation-models", "type": "primary"},
+      {"label": "AI21 Jamba Large 1.7 model card", "url": "https://huggingface.co/ai21labs/AI21-Jamba-Large-1.7", "type": "weights"},
+      {"label": "AI21 release changelog", "url": "https://docs.ai21.com/changelog", "type": "primary"},
+      {"label": "Jamba Open Model License", "url": "https://www.ai21.com/jamba-open-model-license/", "type": "primary"},
+      {"label": "AI21 function calling", "url": "https://docs.ai21.com/docs/function-calling", "type": "primary"},
+      {"label": "AI21 chat API", "url": "https://docs.ai21.com/reference/jamba-1-6-api-ref", "type": "primary"},
+      {"label": "Exact checkpoint public metadata", "url": "https://huggingface.co/api/models/ai21labs/AI21-Jamba-Large-1.7", "type": "weights"}
+    ]
+  },
+  "proposed_fields": {
+    "parameter_scope": {
+      "snapshot": "jamba-large-1.7-2025-07",
+      "total": {"billions": 398, "precision": "developer_nominal"},
+      "active": {"billions": 94, "precision": "developer_nominal"},
+      "stored_tensor_count": 398555145696,
+      "stored_tensor_count_revision": "f95d1c3c9ac9028a9306e717047b5515e73c1dd1",
+      "source_ids": ["s1", "s2", "s7"]
+    }
+  },
+  "summary": "Confirmed that the alias currently identifies Jamba Large 1.7, with the baseline release date supported by AI21's explicit announcement. Fill the missing custom license, nominal 398B total/94B active counts, and hybrid SSM-Transformer MoE architecture. Preserve text-only modalities, tool support and nominal 256K context. Reasoning remains unverified; exact context configuration was gated. No Jamba 1.5 parameter inference was needed."
+}

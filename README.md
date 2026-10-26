@@ -43,7 +43,7 @@ Enable **Settings → Pages → Source → GitHub Actions**. The `Publish tracke
 
 A Codex automation in the project chat researches releases weekly on Monday at 09:00 Europe/Helsinki. It follows [RESEARCH.md](RESEARCH.md), searches developer announcements and model cards, adds verified records and corrections, and pushes after validation. The desktop app and computer need to be running. The automation is configured in Codex, outside this repository.
 
-`npm run refresh` remains an optional manual import from Models.dev. It supplements independent research. The SHA-256 in `data/source/metadata.json` covers the exact saved bytes of `data/source/models.dev.json` (formatted JSON with sorted top-level IDs). Builds check that these files match. This checksum detects snapshot changes; it does not verify the accuracy of the source's claims.
+`npm run refresh` remains an optional manual import from Models.dev. It supplements independent research. Source snapshots, additions, and corrections are tracked in Git.
 
 The API consists of versioned static JSON resources, including complete and partitioned catalogs. It does not execute server-side query parameters. Browser filtering runs locally. See the [API reference](public/api.md) for examples and limitations.
 

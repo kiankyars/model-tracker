@@ -1,5 +1,3 @@
-import { createHash } from 'node:crypto';
-
 export const SOURCE_URL = 'https://models.dev/models.json';
 export const SCHEMA_VERSION = '1.0';
 const LABS = {
@@ -25,10 +23,6 @@ const LABS = {
   'anthracite-org': 'Anthracite', 'aleph-alpha': 'Aleph Alpha', abacusai: 'Abacus.AI',
   mixedbread: 'Mixedbread', bigscience: 'BigScience', eleutherai: 'EleutherAI',
 };
-
-export function sha256(text) {
-  return createHash('sha256').update(text).digest('hex');
-}
 
 export function validDate(value) {
   if (typeof value !== 'string' || !/^\d{4}-\d{2}(-\d{2})?$/.test(value)) return false;
@@ -204,6 +198,15 @@ export function validateModels(models, asOf = '9999-12-31') {
       if (model[key] !== null && (!Number.isFinite(model[key]) || model[key] <= 0)) throw new Error(`Invalid ${key}: ${model.id}`);
     }
     if (model.active_parameters_b && model.parameters_b && model.active_parameters_b > model.parameters_b) throw new Error(`Active size exceeds total: ${model.id}`);
+    for (const key of ['parameter_components_b', 'active_parameters_by_phase_b']) {
+      if (model[key] === undefined) continue;
+      if (!model[key] || Array.isArray(model[key]) || typeof model[key] !== 'object' || !Object.keys(model[key]).length) throw new Error(`Invalid ${key}: ${model.id}`);
+      for (const [label, value] of Object.entries(model[key])) {
+        if (!/^[a-z][a-z0-9_]*$/.test(label) || !Number.isFinite(value) || value <= 0) throw new Error(`Invalid ${key}.${label}: ${model.id}`);
+      }
+    }
+    if (model.parameters_scope && model.parameter_components_b?.[model.parameters_scope] !== model.parameters_b) throw new Error(`Parameter scope disagrees with component count: ${model.id}`);
+    if (model.active_parameters_scope && model.active_parameters_by_phase_b?.[model.active_parameters_scope] !== model.active_parameters_b) throw new Error(`Active parameter scope disagrees with phase count: ${model.id}`);
     if (![true, false, null].includes(model.open_weights)) throw new Error(`Invalid openness: ${model.id}`);
     if (!Array.isArray(model.modalities?.input) || !Array.isArray(model.modalities?.output) || !model.modalities.output.includes('text')) throw new Error(`Not a language model: ${model.id}`);
     for (const url of [model.source_url, ...model.sources.map(source => source.url)]) {
@@ -243,9 +246,9 @@ export function statistics(models) {
 }
 
 export function csv(models) {
-  const columns = ['id', 'name', 'developer', 'family', 'release_date', 'date_precision', 'open_weights', 'license', 'parameters_b', 'active_parameters_b', 'parameters_source', 'architecture', 'context_window', 'reasoning', 'tool_call', 'source_url'];
+  const columns = ['id', 'name', 'developer', 'family', 'release_date', 'date_precision', 'open_weights', 'license', 'parameters_b', 'active_parameters_b', 'parameters_source', 'parameters_scope', 'active_parameters_scope', 'parameter_components_b', 'active_parameters_by_phase_b', 'architecture', 'context_window', 'reasoning', 'tool_call', 'source_url'];
   const cell = value => {
-    let text = value == null ? '' : String(value);
+    let text = value == null ? '' : typeof value === 'object' ? JSON.stringify(value) : String(value);
     if (/^[-=+@\t\r]/.test(text)) text = `'${text}`;
     return `"${text.replaceAll('"', '""')}"`;
   };

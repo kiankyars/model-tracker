@@ -1,0 +1,271 @@
+{
+  "index": 2,
+  "model_id": "deepseek/deepseek-v4.1-flash-1017",
+  "reviewed_at": "2026-10-26T13:46:34.227057Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "title": "DeepSeek-V4.1-Flash-1017 model card",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Exact revision is a minor V4.1 Flash update. Card documents text and image prompts, thinking and tool calls, local inference, 1M context, and MIT weights; its linked technical report is the launch architecture report. The Hugging Face generated metadata separately displays 763B tensors."
+    },
+    {
+      "id": "s2",
+      "url": "https://api-docs.deepseek.com/updates/",
+      "title": "DeepSeek API Change Log, 2026-10-17",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "October 17, 2026 entry explicitly announces upgrading to DeepSeek-V4.1-Flash-1017 and reports improved coding, reasoning, agent and visual benchmark results."
+    },
+    {
+      "id": "s3",
+      "url": "https://api-docs.deepseek.com/quick_start/pricing/",
+      "title": "Models & Pricing",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Current deepseek-flash API version is explicitly DeepSeek-V4.1-Flash-1017, with thinking and non-thinking modes, 1M context, tool calls and vision."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017/blob/main/config.json",
+      "title": "DeepSeek-V4.1-Flash-1017 config.json",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Exact revision uses DeepseekV41ForCausalLM, 40 text layers, 384 routed experts with six selected per token and one shared expert, Engram tables, a vision stack, and 1,048,576 max positions."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/resolve/main/DeepSeek_V41_Tech_Report.pdf",
+      "title": "DeepSeek-V4.1-Flash: Pushing the Limits of KV Cache Compression",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "The report linked by the 1017 card states 552B backbone plus 196B Engram parameters (section 2.1, page 7), with 8B active in prefill and 16B in decode. It describes MoE causal encoder-decoder architecture. Web PDF retrieval failed, but direct HTTPS download and pdftotext succeeded."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/resolve/main/config.json",
+      "title": "DeepSeek-V4.1-Flash launch config.json",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Fetched independently and compared byte-for-byte against the exact 1017 configuration: identical contents. This supports applying the linked architecture report to the weight refresh."
+    },
+    {
+      "id": "s7",
+      "url": "https://api-docs.deepseek.com/news/news260910/",
+      "title": "DeepSeek-V4.1-Flash: Smarter, Faster, More Efficient",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Launch announcement expressly identifies a nominal 552B MoE causal encoder-decoder, 8B active for input and 16B for output. It is architecture evidence, not the release-date source for 1017."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017/blob/main/LICENSE",
+      "title": "DeepSeek-V4.1-Flash-1017 LICENSE",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Exact revision repository publishes its MIT license."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "DeepSeek V4.1 Flash 1017",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Display name normalizes the official hyphenated name; exact 1017 revision confirmed."
+    },
+    "developer": {
+      "value": "DeepSeek",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Official developer repository and announcement."
+    },
+    "family": {
+      "value": "deepseek-flash",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Catalog family slug; exact card identifies this as a minor update of DeepSeek V4.1 Flash."
+    },
+    "release_date": {
+      "value": "2026-10-17",
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Explicit dated changelog entry for this revision, not inferred from its suffix."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8"
+      ],
+      "note": "Exact revision has published model weights and local inference instructions."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8"
+      ],
+      "note": "Applies explicitly to repository and model weights."
+    },
+    "parameters_b": {
+      "value": 552,
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s7",
+        "s4",
+        "s6"
+      ],
+      "note": "Nominal backbone count, not the complete checkpoint total. Primary report separately lists 196B Engram; their nominal sum is 748B. Hugging Face tensor metadata shows 763B, a distinct checkpoint accounting scope. Preserve this qualification in the UI."
+    },
+    "active_parameters_b": {
+      "value": 16,
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s7",
+        "s4",
+        "s6"
+      ],
+      "note": "Nominal active parameters per output token during decode. Prefill/input uses 8B; a single scalar loses this phase distinction. Exact 1017 card links this architecture report and its config matches the launch config byte-for-byte."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "note": "MoE causal encoder-decoder with a vision encoder and Engram memory; not a conventional dense decoder-only model."
+    },
+    "context_window": {
+      "value": 1000000,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4"
+      ],
+      "note": "Retain API/card advertised 1M context. Open-weight config separately specifies max_position_embeddings=1048576; do not silently substitute implementation capacity for the advertised API value."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4"
+      ],
+      "note": "Exact card and current model-version API table confirm image/text input and text generation."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Thinking mode explicitly supported by exact revision."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Tool call support explicitly documented for exact revision."
+    },
+    "description": {
+      "value": "October 17 update of DeepSeek V4.1 Flash with improved reasoning, coding, agentic tasks, and visual understanding",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Consistent with developer-reported gains for the October 17 update; benchmark improvements are reported by DeepSeek, not independently reproduced here."
+    }
+  },
+  "patch": {
+    "parameters_b": 552,
+    "active_parameters_b": 16,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "notes": "552B is the nominal backbone count; the technical report separately lists 196B Engram parameters (748B nominal combined), while Hugging Face tensor metadata displays 763B for the checkpoint. Active parameters are phase-dependent: 8B per input token during prefill and 16B per output token during decode. The 1017 card links the launch report; its config is byte-identical to the launch config. Context is advertised as 1M; the weights configure 1,048,576 positions.",
+    "sources": [
+      {
+        "label": "Models.dev record",
+        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/deepseek/deepseek-v4.1-flash-1017.toml",
+        "type": "catalog"
+      },
+      {
+        "label": "Hugging Face",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017",
+        "type": "weights"
+      },
+      {
+        "label": "DeepSeek October 17 changelog",
+        "url": "https://api-docs.deepseek.com/updates/",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeek V4.1 technical report",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/resolve/main/DeepSeek_V41_Tech_Report.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Exact 1017 configuration",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017/blob/main/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeek model-version API documentation",
+        "url": "https://api-docs.deepseek.com/quick_start/pricing/",
+        "type": "primary"
+      }
+    ]
+  },
+  "proposed_fields": {
+    "parameter_components": {
+      "backbone_b": 552,
+      "engram_b": 196,
+      "nominal_backbone_plus_engram_b": 748,
+      "hugging_face_reported_checkpoint_tensors_b": 763,
+      "note": "These scopes differ. The 763B HF-generated tensor count is not a primary developer definition of total model parameters; auxiliary/checkpoint accounting has not been reconciled."
+    },
+    "active_parameters_by_phase_b": {
+      "prefill": 8,
+      "decode": 16
+    },
+    "parameters_scope": "backbone",
+    "active_parameters_scope": "decode",
+    "parameter_components_b": {
+      "backbone": 552,
+      "engram": 196
+    }
+  },
+  "summary": "Individually verified exact 1017 identity and October 17 release. Confirmed MIT open weights, 1M advertised context, text/image inputs, thinking and tool calls. Add MoE architecture and source-qualified nominal backbone/active counts. Main limitation is accounting scope: 552B backbone plus 196B Engram versus HF checkpoint tensor count 763B; expose phase-aware 8B/16B active counts and do not display 552B as an unqualified complete total."
+}

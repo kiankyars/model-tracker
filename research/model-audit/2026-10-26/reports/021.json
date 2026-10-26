@@ -1,0 +1,227 @@
+{
+  "index": 21,
+  "model_id": "alibaba/qwen2.5-7b-instruct",
+  "reviewed_at": "2026-10-26T14:08:57.313895Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/Qwen/Qwen2.5-7B-Instruct",
+      "title": "Qwen2.5-7B-Instruct model card",
+      "publisher": "Qwen / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Exact instruction checkpoint: 7.61B total, 6.53B non-embedding, Apache 2.0, text generation, and maximum context 131,072 with YaRN beyond 32,768."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/Qwen/Qwen2.5-7B-Instruct/blob/main/config.json",
+      "title": "Qwen2.5-7B-Instruct configuration",
+      "publisher": "Qwen / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Qwen2ForCausalLM; 28 layers; hidden size 3584; 28 query and 4 KV heads; untied embeddings; max_position_embeddings 32768. No expert routing configuration."
+    },
+    {
+      "id": "s3",
+      "url": "https://qwenlm.github.io/blog/qwen2.5/",
+      "title": "Qwen2.5: A Party of Foundation Models!",
+      "publisher": "Qwen Team",
+      "accessed": true,
+      "evidence": "September 19, 2024 release announcement includes the 7B model and describes all released open-weight models as dense decoder-only language models."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/Qwen/Qwen2.5-7B-Instruct/blob/main/tokenizer_config.json",
+      "title": "Qwen2.5-7B-Instruct tokenizer configuration",
+      "publisher": "Qwen / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Exact checkpoint template accepts tools, formats function calls and tool responses, and opens a direct assistant reply without a thinking-mode branch."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/Qwen",
+      "title": "Qwen official organization card",
+      "publisher": "Qwen / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Identifies the Qwen model family as built by Alibaba Cloud."
+    },
+    {
+      "id": "s6",
+      "url": "https://qwenlm.github.io/blog/qwen2.5-llm/",
+      "title": "Qwen2.5-LLM: Extending the boundary of LLMs",
+      "publisher": "Qwen Team",
+      "accessed": true,
+      "evidence": "Dated September 19, 2024; separately discusses Qwen2.5-7B-Instruct, lists 7.61B total and 6.53B non-embedding for the 7B architecture, and describes structured JSON output and instruction following."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Qwen2.5 7B Instruct",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Display spelling represents the exact Qwen2.5-7B-Instruct checkpoint."
+    },
+    "developer": {
+      "value": "Alibaba",
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s4"
+      ],
+      "note": "Released by the Qwen team at Alibaba Cloud; baseline organization naming is acceptable."
+    },
+    "family": {
+      "value": "qwen",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Qwen2.5 belongs to the Qwen model family."
+    },
+    "release_date": {
+      "value": "2024-09-19",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s6"
+      ],
+      "note": "Official dated release announcement and detailed release post include this instruction model."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Developer publishes downloadable checkpoint weights."
+    },
+    "license": {
+      "value": "Apache 2.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Exact card and 7B release table agree."
+    },
+    "parameters_b": {
+      "value": 7.61,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Developer-reported total in billions, rounded to two decimals; 7B is the size label."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "not_applicable",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Dense model; no separately defined active-per-token count. The 6.53B non-embedding figure is not an active count."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "Dense decoder-only Transformer, consistent with the exact Qwen2ForCausalLM configuration."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Supported maximum; the shipped configuration defaults to 32,768. Longer input requires the documented YaRN scaling configuration."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Text causal language model. This configuration contains no vision or audio model."
+    },
+    "reasoning": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s4"
+      ],
+      "note": "Scoped to a dedicated thinking/reasoning mode: released template has none. This does not mean the model lacks ordinary reasoning capabilities."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s4"
+      ],
+      "note": "Exact chat template explicitly handles tool definitions, assistant function calls and tool responses."
+    },
+    "description": {
+      "value": "Open-weight 7.61B-parameter dense Qwen2.5 instruction model for text chat, structured output, and tool use",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4",
+        "s6"
+      ],
+      "note": "Replaces subjective size wording with the documented count and architecture; capability claims are supported."
+    }
+  },
+  "patch": {
+    "parameters_b": 7.61,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "description": "Open-weight 7.61B-parameter dense Qwen2.5 instruction model for text chat, structured output, and tool use",
+    "notes": "7.61B is the developer-reported rounded total; 6.53B is non-embedding, not active parameters. Active count is not separately defined for this dense model. Maximum context is 131,072 with YaRN; the shipped configuration defaults to 32,768. Reasoning=false refers to absence of a dedicated thinking mode, not absence of general reasoning ability.",
+    "source_url": "https://qwenlm.github.io/blog/qwen2.5-llm/",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Qwen2.5-7B-Instruct model card",
+        "url": "https://huggingface.co/Qwen/Qwen2.5-7B-Instruct",
+        "type": "weights"
+      },
+      {
+        "label": "Qwen2.5-7B-Instruct configuration",
+        "url": "https://huggingface.co/Qwen/Qwen2.5-7B-Instruct/blob/main/config.json",
+        "type": "config"
+      },
+      {
+        "label": "Qwen2.5 release announcement",
+        "url": "https://qwenlm.github.io/blog/qwen2.5/",
+        "type": "announcement"
+      },
+      {
+        "label": "Qwen2.5-7B-Instruct tool-call template",
+        "url": "https://huggingface.co/Qwen/Qwen2.5-7B-Instruct/blob/main/tokenizer_config.json",
+        "type": "config"
+      },
+      {
+        "label": "Qwen2.5 detailed release post",
+        "url": "https://qwenlm.github.io/blog/qwen2.5-llm/",
+        "type": "announcement"
+      }
+    ]
+  },
+  "summary": "Correct total parameters from 7B to the documented 7.61B and architecture from null to dense. Retain null active count. Confirm release date, license, text modalities and tool-call interface. Retain 131,072 maximum context with the necessary YaRN qualification. Reasoning=false is scoped to dedicated thinking-mode support."
+}

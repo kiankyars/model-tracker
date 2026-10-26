@@ -1,0 +1,262 @@
+{
+  "index": 20,
+  "model_id": "alibaba/qwen2-5-vl-72b-instruct",
+  "reviewed_at": "2026-10-26T14:09:40.499754Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/Qwen/Qwen2.5-VL-72B-Instruct",
+      "title": "Qwen2.5-VL-72B-Instruct model card",
+      "publisher": "Qwen / Alibaba",
+      "accessed": true,
+      "evidence": "Identifies the instruction-tuned nominal 72B Qwen model; documents text, image and video inputs, text generation, visual reasoning, document understanding and tool-directed visual agents."
+    },
+    {
+      "id": "s2",
+      "url": "https://qwenlm.github.io/blog/qwen2.5-vl/",
+      "title": "Qwen2.5-VL release announcement",
+      "publisher": "Qwen Team",
+      "accessed": true,
+      "evidence": "January 26, 2025 announcement explicitly releases Qwen2.5-VL and names Qwen2.5-VL-72B-Instruct. The subsequent Hugging Face repository creation date is January 27, not the announcement date."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/Qwen/Qwen2.5-VL-72B-Instruct/blob/89c86200743eec961a297729e7990e8f2ddbc4c5/config.json",
+      "title": "Exact checkpoint model configuration",
+      "publisher": "Qwen / Alibaba",
+      "accessed": true,
+      "evidence": "Qwen2_5_VLForConditionalGeneration: dense 80-layer language decoder, 8192 hidden dimension, 64 attention heads/8 KV heads, and 32-layer vision transformer. max_position_embeddings is 128000."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/Qwen/Qwen2.5-VL-72B-Instruct/blob/89c86200743eec961a297729e7990e8f2ddbc4c5/LICENSE",
+      "title": "Qwen License Agreement",
+      "publisher": "Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Custom Qwen license, including commercial permission condition above 100 million monthly active users. Its September 2024 license date is not this model release date."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/Qwen/Qwen2.5-VL-72B-Instruct/blob/89c86200743eec961a297729e7990e8f2ddbc4c5/model.safetensors.index.json",
+      "title": "Checkpoint index and referenced Safetensors headers",
+      "publisher": "Qwen / Alibaba",
+      "accessed": true,
+      "evidence": "Independently read only the first 65536 bytes of each of the 38 referenced shards. All 1353 tensor shapes total 73410777344 BF16 parameters: 72706203648 language-model parameters and 704573696 visual-encoder/merger parameters. This agrees with index total_size 146821554688 bytes divided by two."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/Qwen/Qwen2.5-VL-72B-Instruct/blob/89c86200743eec961a297729e7990e8f2ddbc4c5/tokenizer_config.json",
+      "title": "Exact checkpoint tokenizer configuration",
+      "publisher": "Qwen / Alibaba",
+      "accessed": true,
+      "evidence": "model_max_length is 131072, conflicting with model config 128000. Template handles image/video/text and has no separate thinking-mode switch; tool-call tokens are present."
+    },
+    {
+      "id": "s7",
+      "url": "https://arxiv.org/html/2502.13923v1",
+      "title": "Qwen2.5-VL Technical Report",
+      "publisher": "Qwen Team, Alibaba Group",
+      "accessed": true,
+      "evidence": "Section 2.1 and Table 1 describe the 72B variant as Qwen2.5 language decoder, vision transformer and MLP merger; no expert routing. General reasoning and tool-use abilities are described, without defining a separate reasoning-mode capability."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Qwen2.5-VL 72B Instruct",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Display spelling represents the exact official Qwen2.5-VL-72B-Instruct identifier."
+    },
+    "developer": {
+      "value": "Alibaba",
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s7"
+      ],
+      "note": "Qwen Team, Alibaba Group/Alibaba Cloud."
+    },
+    "family": {
+      "value": "qwen",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Qwen2.5-VL belongs to the Qwen family."
+    },
+    "release_date": {
+      "value": "2025-01-26",
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Official announcement explicitly names this variant; distinguish repository creation the next day."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Developer checkpoint is publicly accessible."
+    },
+    "license": {
+      "value": "qwen",
+      "status": "verified",
+      "source_ids": [
+        "s4"
+      ],
+      "note": "Custom Qwen License Agreement; not Apache-2.0."
+    },
+    "parameters_b": {
+      "value": 73.410777344,
+      "status": "verified",
+      "source_ids": [
+        "s5"
+      ],
+      "note": "Exact full checkpoint tensor count in decimal billions, including visual encoder and merger. 72B is the nominal variant label, not the exact multimodal total."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s3",
+        "s7"
+      ],
+      "note": "No separately defined active-parameter count. Do not equate total with active: visual processing and language decoding use different components."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s5",
+        "s7"
+      ],
+      "note": "Dense decoder plus ViT and MLP merger, corroborated by tensor inventory; no MoE expert/router tensors."
+    },
+    "context_window": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s3",
+        "s6"
+      ],
+      "note": "Primary files disagree: model max_position_embeddings=128000, tokenizer model_max_length=131072. No single exact effective context limit is established; preserve both values as an unresolved conflict."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Official examples explicitly support video as well as image and text."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s1",
+        "s6",
+        "s7"
+      ],
+      "note": "General visual reasoning is documented, but that does not establish a dedicated thinking/reasoning mode. Neither a definitive true nor false mode flag was verified."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s6"
+      ],
+      "note": "Developer explicitly describes dynamic tool use; exact tokenizer includes tool-call tokens. Serving integration may require its own tool prompt/template."
+    },
+    "description": {
+      "value": "Qwen vision-language model for visual reasoning, documents, and agent tasks",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7"
+      ],
+      "note": "Supported capability summary, without an unsupported superiority claim."
+    }
+  },
+  "patch": {
+    "license": "qwen",
+    "parameters_b": 73.410777344,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "context_window": null,
+    "reasoning": null,
+    "modalities": {
+      "input": [
+        "text",
+        "image",
+        "video"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "notes": "72B is the nominal model label; the full published BF16 checkpoint contains 73.410777344B parameters, including 0.704573696B in the visual encoder and merger. Active parameters are not separately defined. Context remains unresolved: model configuration specifies 128000 while the tokenizer specifies 131072. General visual reasoning is documented, but a dedicated reasoning-mode boolean is unverified.",
+    "sources": [
+      {
+        "label": "Qwen2.5-VL-72B-Instruct model card",
+        "url": "https://huggingface.co/Qwen/Qwen2.5-VL-72B-Instruct",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen2.5-VL release announcement",
+        "url": "https://qwenlm.github.io/blog/qwen2.5-vl/",
+        "type": "primary"
+      },
+      {
+        "label": "Exact checkpoint model configuration",
+        "url": "https://huggingface.co/Qwen/Qwen2.5-VL-72B-Instruct/blob/89c86200743eec961a297729e7990e8f2ddbc4c5/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen License Agreement",
+        "url": "https://huggingface.co/Qwen/Qwen2.5-VL-72B-Instruct/blob/89c86200743eec961a297729e7990e8f2ddbc4c5/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "Checkpoint index and referenced Safetensors headers",
+        "url": "https://huggingface.co/Qwen/Qwen2.5-VL-72B-Instruct/blob/89c86200743eec961a297729e7990e8f2ddbc4c5/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Exact checkpoint tokenizer configuration",
+        "url": "https://huggingface.co/Qwen/Qwen2.5-VL-72B-Instruct/blob/89c86200743eec961a297729e7990e8f2ddbc4c5/tokenizer_config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen2.5-VL Technical Report",
+        "url": "https://arxiv.org/html/2502.13923v1",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "Verified exact full-checkpoint size 73.410777344B versus nominal 72B; added dense architecture, custom Qwen license and video input. Release date and description confirmed. Active size remains undisclosed; exact context and reasoning-mode flag remain unresolved.",
+  "proposed_fields": {
+    "parameter_components_b": {
+      "total": 73.410777344,
+      "language_model": 72.706203648,
+      "vision_encoder_and_merger": 0.704573696
+    }
+  }
+}

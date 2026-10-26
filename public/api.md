@@ -50,8 +50,10 @@ curl -fsSL https://kiankyars.github.io/model-tracker/api/v1/models.json \
 - `developer`, `developer_id`: Model creator, independent of hosting provider.
 - `release_date`: ISO day or month, or `null`. Respect `date_precision`.
 - `open_weights`: `true`, `false`, or `null`. This is not an open-source license classification.
-- `parameters_b`: Total parameters in billions, or `null`.
-- `active_parameters_b`: Active parameters in billions for a mixture-of-experts model when known.
+- `parameters_b`: Reported model parameters in billions, or `null`. Normally total model parameters; `parameters_scope: "backbone"` explicitly excludes separately reported components.
+- `active_parameters_b`: Active parameters in billions when known. For phase-dependent models, `active_parameters_scope` identifies the phase represented by this scalar.
+- `parameter_components_b`, `active_parameters_by_phase_b`: Optional named component and phase counts, in billions. Do not add rounded components to infer a complete checkpoint count.
+- `field_status`: Optional explanations for unresolved fields: `undisclosed`, `not_applicable`, or `unverified`. `audit_url` links to the individual research report; `audited_at` dates that review.
 - `parameters_source`: Where the size came from. Name-derived sizes are not independently measured.
 - `context_window`: Maximum context tokens in the model catalog, or `null`.
 - `modalities`: Input and output modality arrays.
@@ -63,9 +65,9 @@ Models can have overlapping types: a model may be both multimodal and reasoning-
 
 ## Versioning and refreshes
 
-The `/v1/` contract supports additive fields. Clients should ignore unfamiliar fields and tolerate nulls. Breaking changes require a new API path. Data corrections can change historical aggregates; record the catalog's `updated_at` and source snapshot hash when reproducibility matters, or pin a source commit in the repository.
+The `/v1/` contract supports additive fields. Clients should ignore unfamiliar fields and tolerate nulls. Data corrections can change historical aggregates; pin a repository commit when you need a reproducible dataset.
 
-Releases are researched weekly. GitHub Pages publishes changes after validation. `updated_at` is the later of source retrieval and completed research. `source.retrieved_at` dates the Models.dev snapshot; optional `research.reviewed_at` dates the latest research review. The snapshot checksum covers the saved upstream JSON; research additions and corrections are tracked in Git. Pin a repository commit when you need the exact complete dataset.
+Releases are researched weekly. GitHub Pages publishes changes after validation. `updated_at` is the later of source retrieval and completed research. `source.retrieved_at` dates the Models.dev snapshot; optional `research.reviewed_at` dates the latest research review.
 
 Cache downloads and use conditional requests with `ETag` or `Last-Modified` when provided. GitHub Pages caching and hosting limits apply.
 

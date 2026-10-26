@@ -1,5 +1,6 @@
 import { defaults, filterModels, sortModels, isMultimodal, toCSV } from './lib/model-data.js';
 import { renderChart } from './lib/chart-view.js';
+import { billions, missingLabel, modelSizeLabel, activeSizeLabel } from './lib/parameter-labels.js';
 
 const $ = id => document.getElementById(id);
 const number = new Intl.NumberFormat('en');
@@ -187,9 +188,12 @@ function detailRow(model, id) {
   const list = element('dl', 'detail-grid');
   addDetail(list, 'Model ID', model.id);
   addDetail(list, 'Family', model.family || 'Not specified');
-  addDetail(list, 'Total parameters', model.parameters_b == null ? 'Unknown' : parameterLabel(model.parameters_b));
-  addDetail(list, 'Active parameters', model.active_parameters_b == null ? 'Unknown' : parameterLabel(model.active_parameters_b));
-  addDetail(list, 'Architecture', model.architecture === 'moe' ? 'Mixture of experts' : model.architecture === 'dense' ? 'Dense' : model.architecture || 'Not specified');
+  addDetail(list, model.parameters_scope === 'backbone' ? 'Backbone parameters' : 'Total parameters', model.parameters_b == null ? missingLabel(model, 'parameters_b') : parameterLabel(model.parameters_b));
+  addDetail(list, 'Active parameters', activeSizeLabel(model));
+  addDetail(list, 'Architecture', { moe: 'Mixture of experts', dense: 'Dense', 'hybrid-ssm-transformer-moe': 'Hybrid Mamba–Transformer (MoE)' }[model.architecture] || model.architecture || missingLabel(model, 'architecture'));
+  for (const [component, size] of Object.entries(model.parameter_components_b || {})) {
+    if (component !== model.parameters_scope) addDetail(list, `${component.charAt(0).toUpperCase() + component.slice(1)} parameters`, billions(size));
+  }
   addDetail(list, 'Context window', model.context_window ? `${compactNumber(model.context_window)} tokens` : 'Unknown');
   addDetail(list, 'License', typeof model.license === 'string' ? model.license : model.license?.name || 'Not specified');
   addDetail(list, 'Release date precision', model.date_precision === 'month' ? 'Month only' : model.release_date ? 'Day' : 'Unknown');
@@ -240,7 +244,7 @@ function renderRows() {
     const type = element('td');
     type.append(element('span', 'model-type', isMultimodal(model) ? 'Multimodal' : 'Text'));
     if (model.reasoning) type.append(element('span', 'reasoning-label', 'Reasoning'));
-    const size = element('td', `numeric parameter-count${model.parameters_b == null ? ' unknown-value' : ''}`, parameterLabel(model.parameters_b));
+    const size = element('td', `numeric parameter-count${model.parameters_b == null ? ' unknown-value' : ''}`, modelSizeLabel(model));
     if (model.parameters_b == null) size.title = 'Parameter count not recorded in this catalog';
     else if (model.parameters_source === 'model_name') size.title = 'Nominal parameter count from the model name';
     const weights = element('td');

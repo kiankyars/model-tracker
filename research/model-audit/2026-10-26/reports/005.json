@@ -1,0 +1,253 @@
+{
+  "index": 5,
+  "model_id": "ai21/jamba-mini",
+  "reviewed_at": "2026-10-26T13:49:46.567737Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/ai21labs/AI21-Jamba2-Mini",
+      "title": "AI21-Jamba2-Mini model card",
+      "publisher": "AI21 Labs",
+      "accessed": true,
+      "evidence": "Exact official checkpoint: open weights, Apache-2.0, 52B total and 12B active parameters; SSM-Transformer architecture; tool-enabled serving example."
+    },
+    {
+      "id": "s2",
+      "url": "https://docs.ai21.com/docs/jamba-foundation-models",
+      "title": "Jamba model details and API versioning",
+      "publisher": "AI21 Labs",
+      "accessed": true,
+      "evidence": "Explicitly maps jamba-mini to jamba-mini-2-2026-01. Lists Jamba Mini version 2, 52B/12B active, 256K, AI21 Labs, and text input/output."
+    },
+    {
+      "id": "s3",
+      "url": "https://www.ai21.com/blog/introducing-jamba2/",
+      "title": "Introducing Jamba2: The open source model family for enterprise reliability and efficiency",
+      "publisher": "AI21 Labs",
+      "accessed": true,
+      "evidence": "Dated January 8, 2026 launch. Identifies Mini as MoE, 52B total/12B active, Apache-2.0; positions it for workflows without reasoning-model thinking-token overhead."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/ai21labs/AI21-Jamba2-Mini/blob/main/config.json",
+      "title": "AI21-Jamba2-Mini config.json",
+      "publisher": "AI21 Labs",
+      "accessed": true,
+      "evidence": "JambaForCausalLM; 32 layers; attention period 8, offset 4; expert period 2; 16 experts, 2 selected per token; Mamba settings; max_position_embeddings 262144."
+    },
+    {
+      "id": "s5",
+      "url": "https://docs.ai21.com/docs/function-calling",
+      "title": "Function Calling",
+      "publisher": "AI21 Labs",
+      "accessed": true,
+      "evidence": "Documents function calling for all Jamba models via Chat Completions API."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/ai21labs/AI21-Jamba2-Mini/blob/main/LICENSE",
+      "title": "Attempted checkpoint LICENSE file",
+      "publisher": "AI21 Labs",
+      "accessed": false,
+      "evidence": "Web tool could not access this path; license is independently explicit in the model card and launch announcement."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Jamba Mini",
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Official API table uses this name; its current model is Jamba2 Mini."
+    },
+    "developer": {
+      "value": "AI21 Labs",
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Explicit developer attribution."
+    },
+    "family": {
+      "value": "jamba",
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Official family membership; lowercase is catalog normalization."
+    },
+    "release_date": {
+      "value": "2026-01-08",
+      "status": "verified",
+      "source_ids": [
+        "s3"
+      ],
+      "note": "Launch date of Jamba2 Mini, which the current alias identifies; not the original Jamba Mini release."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Developer checkpoint and downloadable weights are public."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Applies to Jamba2 Mini; do not inherit the older Jamba Open Model License."
+    },
+    "parameters_b": {
+      "value": 52,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Developer-reported nominal total, in billions; not an exact tensor inventory."
+    },
+    "active_parameters_b": {
+      "value": 12,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Developer-reported nominal active count, in billions, for this MoE variant; not inferred from total."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4"
+      ],
+      "note": "MoE is the routing classification. Backbone is hybrid Mamba SSM/Transformer; 32 layers, four attention layers, 16-expert top-2 routing on alternating layers."
+    },
+    "context_window": {
+      "value": 256000,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4"
+      ],
+      "note": "Retained only as decimal normalization of API documentation stating 256K. Exact checkpoint configuration is 262144; the API page does not establish whether its enforced limit is 256000 or 262144."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Explicit text input/output model details."
+    },
+    "reasoning": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s3"
+      ],
+      "note": "Means no dedicated extended-thinking model mode: launch positions Jamba2 without thinking-token overhead. It does not mean inability to perform reasoning tasks."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Documented for Jamba API models and corroborated by the exact checkpoint serving example."
+    },
+    "description": {
+      "value": "AI21 Jamba2 Mini, a text-generation model with hybrid Mamba-Transformer layers and mixture-of-experts routing, released for enterprise question answering and instruction following.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4"
+      ],
+      "note": "Replaces broad lightweight/wide-range wording with supported variant, architecture, and intended tasks."
+    }
+  },
+  "patch": {
+    "license": "Apache-2.0",
+    "parameters_b": 52,
+    "active_parameters_b": 12,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "description": "AI21 Jamba2 Mini, a text-generation model with hybrid Mamba-Transformer layers and mixture-of-experts routing, released for enterprise question answering and instruction following.",
+    "notes": "Current documented jamba-mini alias maps to jamba-mini-2-2026-01 (Jamba2 Mini). Parameter counts are nominal developer figures: 52B total, 12B active. The MoE routing sits within a hybrid Mamba-Transformer backbone. API context is published as 256K; the downloadable checkpoint config specifies 262144, while 256000 is only the catalog decimal normalization. API callability was not tested.",
+    "sources": [
+      {
+        "label": "Models.dev record",
+        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/ai21/jamba-mini.toml",
+        "type": "catalog"
+      },
+      {
+        "label": "Official Jamba2 Mini model card",
+        "url": "https://huggingface.co/ai21labs/AI21-Jamba2-Mini",
+        "type": "weights"
+      },
+      {
+        "label": "Official Jamba model details and alias mapping",
+        "url": "https://docs.ai21.com/docs/jamba-foundation-models",
+        "type": "primary"
+      },
+      {
+        "label": "Official Jamba2 launch",
+        "url": "https://www.ai21.com/blog/introducing-jamba2/",
+        "type": "primary"
+      },
+      {
+        "label": "Official Jamba2 Mini configuration",
+        "url": "https://huggingface.co/ai21labs/AI21-Jamba2-Mini/blob/main/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Official function calling documentation",
+        "url": "https://docs.ai21.com/docs/function-calling",
+        "type": "primary"
+      }
+    ]
+  },
+  "proposed_fields": {
+    "architecture_backbone": {
+      "value": "hybrid_mamba_transformer",
+      "source_ids": [
+        "s3",
+        "s4"
+      ],
+      "note": "Separate backbone from MoE routing so architecture=moe does not hide SSM/attention hybridity."
+    },
+    "parameter_count_precision": {
+      "value": "nominal",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "52B total and 12B active are published rounded counts."
+    },
+    "context_window_scope": {
+      "value": "api_published_256K",
+      "source_ids": [
+        "s2",
+        "s4"
+      ],
+      "note": "Retained scalar uses decimal normalization; add checkpoint_context_window=262144 if distinguishing deployment limits."
+    }
+  },
+  "summary": "Verified exact current API mapping to Jamba2 Mini and all fourteen fields with the context precision caveat. Fill Apache-2.0, 52B total/12B active, and MoE routing; explicitly retain hybrid Mamba-Transformer backbone. January 8, 2026 is supported by launch evidence. Hosted 256K versus checkpoint 262144 requires scope-aware display; no API inference request was made."
+}

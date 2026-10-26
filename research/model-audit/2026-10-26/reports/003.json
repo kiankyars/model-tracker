@@ -1,0 +1,254 @@
+{
+  "index": 3,
+  "model_id": "abacusai/dracarys-llama-3.1-70b-instruct",
+  "reviewed_at": "2026-10-26T13:46:18.752917Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/abacusai/Dracarys-Llama-3.1-70B-Instruct/blob/7e3f4e0d296fd08a944bfad5dcb1ed675c4b38d2/README.md",
+      "title": "Dracarys-Llama-3.1-70B-Instruct model card",
+      "publisher": "Abacus.AI",
+      "accessed": true,
+      "evidence": "Current official card names Abacus.AI as developer, identifies this exact model as a coding-oriented fine-tune of Meta-Llama-3.1-70B-Instruct, and declares license llama3 with a Llama 3 license link. Its example erroneously names Dracarys-72B-Instruct; the title and explicit base-model statement identify the audited variant."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/abacusai/Dracarys-Llama-3.1-70B-Instruct/raw/main/config.json",
+      "title": "Dracarys checkpoint configuration",
+      "publisher": "Abacus.AI",
+      "accessed": true,
+      "evidence": "LlamaForCausalLM, model_type llama, 80 layers, hidden_size 8192, intermediate_size 28672, 64 attention heads, 8 KV heads, vocab_size 128256, untied embeddings, BF16, and max_position_embeddings 131072. Standard dense Llama configuration has no expert-routing configuration."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/abacusai/Dracarys-Llama-3.1-70B-Instruct/raw/main/model.safetensors.index.json",
+      "title": "Dracarys safetensors checkpoint index",
+      "publisher": "Abacus.AI",
+      "accessed": true,
+      "evidence": "Official checkpoint index contains 723 tensors and total_size 141107412992 bytes, with attention and dense gate/up/down projection tensors for 80 layers; no expert tensors. With the BF16 configuration, this is consistent with 70553706496 scalar parameters."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/api/models/abacusai/Dracarys-Llama-3.1-70B-Instruct",
+      "title": "Hugging Face metadata for the Abacus checkpoint",
+      "publisher": "Hugging Face / Abacus.AI repository",
+      "accessed": true,
+      "evidence": "Current revision is 7e3f4e0d296fd08a944bfad5dcb1ed675c4b38d2; public and ungated. Safetensors metadata reports exactly 70553706496 BF16 parameters. Repository creation timestamp is 2024-08-14T22:27:50Z; creation does not prove initial public visibility."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/abacusai/Dracarys-Llama-3.1-70B-Instruct/commits/main",
+      "title": "Official Dracarys repository commit history",
+      "publisher": "Abacus.AI / Hugging Face",
+      "accessed": true,
+      "evidence": "Initial commit and tokenizer upload occurred August 14, 2024; Upload LlamaForCausalLM commit 1d6107e73d2b7d23f419dd27b7cc678e4359cebf occurred at 22:45:28Z that day. This is explicit checkpoint-upload evidence, not an explicit public-launch announcement."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/meta-llama/Llama-3.1-70B-Instruct",
+      "title": "Meta Llama 3.1 70B Instruct base-model card",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "The explicitly identified base is a nominal 70B autoregressive Transformer with text input/output, 128k context, grouped-query attention, and Llama 3.1 Community License. It has tool-use documentation; that alone does not establish retained support in this downstream fine-tune."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/abacusai/Dracarys-Llama-3.1-70B-Instruct/raw/main/tokenizer_config.json",
+      "title": "Dracarys tokenizer configuration",
+      "publisher": "Abacus.AI",
+      "accessed": true,
+      "evidence": "Simple role/content chat template; no dedicated tools or reasoning switch. model_max_length is 2048, conflicting with the model configuration maximum of 131072. Tokenizer default does not by itself redefine architecture capacity."
+    },
+    {
+      "id": "s8",
+      "url": "https://build.nvidia.com/abacusai/dracarys-llama-3_1-70b-instruct/modelcard",
+      "title": "NVIDIA model-card route for Dracarys",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "The route resolved but the retrieved page contained only navigation and footer; it provided no usable technical or capability evidence."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Dracarys Llama 3.1 70B Instruct",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Display-name punctuation is normalized from the exact official repository title."
+    },
+    "developer": {
+      "value": "Abacus.AI",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Developer of this fine-tune; Meta developed its base."
+    },
+    "family": {
+      "value": "llama",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Llama architecture lineage. Dracarys is the downstream fine-tune series."
+    },
+    "release_date": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s4",
+        "s5"
+      ],
+      "note": "Baseline 2024-08-14 matches checkpoint creation/upload. No explicit initial public-release date was established, so do not treat commit date as conclusive launch evidence."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4"
+      ],
+      "note": "Public, ungated checkpoint shards and index are available in the developer repository."
+    },
+    "license": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Conflict: downstream card declares Llama 3 Community License, while its explicitly identified Llama 3.1 base declares Llama 3.1 Community License. No separate reconciled license file was established; do not silently resolve the version discrepancy."
+    },
+    "parameters_b": {
+      "value": 70,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s6"
+      ],
+      "note": "70B is the nominal base size, confirmed against this fine-tune configuration and published tensors. Exact tensor count is 70,553,706,496 (70.553706496B); retaining nominal 70 avoids false precision in the catalog."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "not_applicable",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "Dense checkpoint, with no separately reported active-per-token count. Do not copy the total into this field."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "Dense decoder-only Llama Transformer with grouped-query attention, confirmed in the exact fine-tune configuration and tensor index."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s7"
+      ],
+      "note": "Exact model max_position_embeddings is 131072. Tokenizer model_max_length is only 2048; this is a configuration inconsistency. No independent fine-tune long-context evaluation or provider-serving limit was verified."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s6",
+        "s7"
+      ],
+      "note": "Text tokenizer and Llama causal-LM configuration; the explicit base is text-only."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s1",
+        "s7"
+      ],
+      "note": "No explicit dedicated reasoning-mode declaration. Benchmark reasoning performance does not prove a reasoning-mode flag, and lack of such a declaration does not prove false."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s1",
+        "s6",
+        "s7"
+      ],
+      "note": "No explicit support or non-support declaration for this exact fine-tune. Base-model tool support cannot automatically be inherited; the shipped chat template does not establish it."
+    },
+    "description": {
+      "value": "Abacus.AI coding fine-tune of Llama 3.1 70B Instruct",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Accurately states the documented training lineage and purpose without repeating unsupported benchmark superiority claims."
+    }
+  },
+  "patch": {
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "release_date": null,
+    "license": null,
+    "reasoning": null,
+    "tool_call": null,
+    "notes": "70B is nominal; the published BF16 checkpoint contains 70,553,706,496 parameters. Dense model; active parameters are not separately reported. August 14, 2024 is the first checkpoint-upload date, not a verified public-launch date. License conflict: Abacus card declares Llama 3, while its named Llama 3.1 base declares Llama 3.1. Model config allows 131072 positions, but tokenizer model_max_length is 2048. Fine-tune-specific reasoning-mode and tool-call support remain unverified.",
+    "sources": [
+      {
+        "label": "Abacus model card",
+        "url": "https://huggingface.co/abacusai/Dracarys-Llama-3.1-70B-Instruct/blob/7e3f4e0d296fd08a944bfad5dcb1ed675c4b38d2/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Abacus checkpoint configuration",
+        "url": "https://huggingface.co/abacusai/Dracarys-Llama-3.1-70B-Instruct/raw/main/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Abacus checkpoint tensor index",
+        "url": "https://huggingface.co/abacusai/Dracarys-Llama-3.1-70B-Instruct/raw/main/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Hugging Face checkpoint metadata",
+        "url": "https://huggingface.co/api/models/abacusai/Dracarys-Llama-3.1-70B-Instruct",
+        "type": "weights"
+      },
+      {
+        "label": "Abacus checkpoint upload history",
+        "url": "https://huggingface.co/abacusai/Dracarys-Llama-3.1-70B-Instruct/commits/main",
+        "type": "primary"
+      },
+      {
+        "label": "Meta base model card",
+        "url": "https://huggingface.co/meta-llama/Llama-3.1-70B-Instruct",
+        "type": "primary"
+      },
+      {
+        "label": "Abacus tokenizer configuration",
+        "url": "https://huggingface.co/abacusai/Dracarys-Llama-3.1-70B-Instruct/raw/main/tokenizer_config.json",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "Confirmed exact fine-tune identity, nominal 70B size (70.553706496B exact checkpoint count), dense architecture, open weights, text-only I/O, and 131072 configured positions. Upgrade parameter provenance to primary_source. Flag unresolved license-version and tokenizer-length inconsistencies. The existing date matches first upload but is not a verified public launch; reasoning and tool-call negatives are unsupported. Proposed nulls preserve those uncertainties for parent review."
+}

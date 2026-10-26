@@ -4,7 +4,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { tmpdir } from 'node:os';
 import { ROOT, buildData } from '../scripts/build-data.mjs';
-import { catalogTimestamps, csv, eligibleModel, isFuture, mergeCatalog, namedParameters, normalize, sha256, slugFor, statistics, validDate, validateModels } from '../scripts/data-lib.mjs';
+import { catalogTimestamps, csv, eligibleModel, isFuture, mergeCatalog, namedParameters, normalize, slugFor, statistics, validDate, validateModels } from '../scripts/data-lib.mjs';
 
 const at = '2026-10-26T12:00:00.000Z';
 const upstream = (name = 'Test 7B') => ({ name, release_date: '2025-03-01', open_weights: true, reasoning: false, tool_call: false, modalities: { input: ['text'], output: ['text'] }, limit: { context: 8192 } });
@@ -134,12 +134,12 @@ test('research timestamps are validated and cannot replace newer source retrieva
   assert.equal(result.models.length, 0);
 });
 
-test('research-only builds update publication metadata while retaining the upstream timestamp and hash', async () => {
+test('research-only builds update publication metadata while retaining the upstream timestamp', async () => {
   const root = await fs.mkdtemp(path.join(tmpdir(), 'model-tracker-research-'));
   try {
     await fs.mkdir(path.join(root, 'data/source'), { recursive: true });
     const raw = JSON.stringify({ 'lab/existing': upstream(), 'lab/announced': { ...upstream(), release_date: '2026-10-30' } });
-    const metadata = { retrieved_at: at, sha256: sha256(raw) };
+    const metadata = { retrieved_at: at };
     await fs.writeFile(path.join(root, 'data/source/models.dev.json'), raw);
     await fs.writeFile(path.join(root, 'data/source/metadata.json'), JSON.stringify(metadata));
     const original = await buildData({ root });
@@ -153,7 +153,6 @@ test('research-only builds update publication metadata while retaining the upstr
     assert.equal(result.envelope.updated_at, reviewedAt);
     assert.equal(result.envelope.research.reviewed_at, reviewedAt);
     assert.equal(result.envelope.source.retrieved_at, at);
-    assert.equal(result.envelope.source.sha256, metadata.sha256);
     assert.deepEqual(result.models.map(model => model.id), ['lab/researched', 'lab/existing']);
     const single = JSON.parse(await fs.readFile(path.join(root, 'public/api/v1/models/lab--researched.json'), 'utf8'));
     assert.equal(single.updated_at, reviewedAt);
@@ -182,11 +181,8 @@ test('statistics reconcile and CSV escapes hostile spreadsheet prefixes', () => 
   assert.match(csv([{ ...records[0], name: '=1+1' }]), /"'=1\+1"/);
 });
 
-test('published API reconciles against snapshot and every index route exists', async () => {
+test('published API counts reconcile and every index route exists', async () => {
   const read = async name => JSON.parse(await fs.readFile(path.join(ROOT, name), 'utf8'));
-  const raw = await fs.readFile(path.join(ROOT, 'data/source/models.dev.json'), 'utf8');
-  const metadata = await read('data/source/metadata.json');
-  assert.equal(sha256(raw), metadata.sha256);
   const full = await read('public/api/v1/models.json');
   const stats = await read('public/api/v1/stats.json');
   const index = await read('public/api/v1/index.json');

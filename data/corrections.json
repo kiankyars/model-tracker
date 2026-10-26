@@ -213,6 +213,450 @@
           "type": "weights"
         }
       ]
+    },
+    "deepseek/deepseek-v4.1-flash": {
+      "parameters_b": 552,
+      "active_parameters_b": 16,
+      "parameters_source": "primary_source",
+      "architecture": "moe",
+      "context_window": 1048576,
+      "notes": "552B is the nominal backbone count; an additional 196B Engram memory is separately reported. A complete checkpoint total is not established here. Active parameters are 8B for prefill and 16B for decode; the scalar records decode. Original September 10 checkpoint; the live deepseek-flash API was upgraded to V4.1-Flash-1017 on October 17.",
+      "source_url": "https://www.deepseek.com/en/news/deepseek-v4-1-flash/",
+      "source_type": "primary",
+      "sources": [
+        {
+          "label": "DeepSeek V4.1 Flash release",
+          "url": "https://www.deepseek.com/en/news/deepseek-v4-1-flash/",
+          "type": "announcement"
+        },
+        {
+          "label": "DeepSeek V4.1 Flash model card",
+          "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash",
+          "type": "weights"
+        },
+        {
+          "label": "DeepSeek V4.1 Flash technical report",
+          "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/resolve/main/DeepSeek_V41_Tech_Report.pdf",
+          "type": "technical_report"
+        },
+        {
+          "label": "DeepSeek V4.1 Flash configuration",
+          "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/raw/main/config.json",
+          "type": "config"
+        },
+        {
+          "label": "DeepSeek API change log",
+          "url": "https://api-docs.deepseek.com/updates/",
+          "type": "documentation"
+        }
+      ],
+      "parameters_scope": "backbone",
+      "active_parameters_scope": "decode",
+      "parameter_components_b": {
+        "backbone": 552,
+        "engram": 196
+      },
+      "active_parameters_by_phase_b": {
+        "prefill": 8,
+        "decode": 16
+      },
+      "field_status": {},
+      "audited_at": "2026-10-26T13:45:18Z",
+      "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/001.json"
+    },
+    "deepseek/deepseek-v4.1-flash-1017": {
+      "parameters_b": 552,
+      "active_parameters_b": 16,
+      "parameters_source": "primary_source",
+      "architecture": "moe",
+      "notes": "552B is the nominal backbone count; the technical report separately lists 196B Engram parameters (748B nominal combined), while Hugging Face tensor metadata displays 763B for the checkpoint. Active parameters are phase-dependent: 8B per input token during prefill and 16B per output token during decode. The 1017 card links the launch report; its config is byte-identical to the launch config. Context is advertised as 1M; the weights configure 1,048,576 positions.",
+      "sources": [
+        {
+          "label": "Models.dev record",
+          "url": "https://github.com/anomalyco/models.dev/blob/dev/models/deepseek/deepseek-v4.1-flash-1017.toml",
+          "type": "catalog"
+        },
+        {
+          "label": "Hugging Face",
+          "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017",
+          "type": "weights"
+        },
+        {
+          "label": "DeepSeek October 17 changelog",
+          "url": "https://api-docs.deepseek.com/updates/",
+          "type": "primary"
+        },
+        {
+          "label": "DeepSeek V4.1 technical report",
+          "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/resolve/main/DeepSeek_V41_Tech_Report.pdf",
+          "type": "primary"
+        },
+        {
+          "label": "Exact 1017 configuration",
+          "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017/blob/main/config.json",
+          "type": "primary"
+        },
+        {
+          "label": "DeepSeek model-version API documentation",
+          "url": "https://api-docs.deepseek.com/quick_start/pricing/",
+          "type": "primary"
+        }
+      ],
+      "parameters_scope": "backbone",
+      "active_parameters_scope": "decode",
+      "parameter_components_b": {
+        "backbone": 552,
+        "engram": 196
+      },
+      "active_parameters_by_phase_b": {
+        "prefill": 8,
+        "decode": 16
+      },
+      "field_status": {},
+      "audited_at": "2026-10-26T13:46:34.227057Z",
+      "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/002.json"
+    },
+    "abacusai/dracarys-llama-3.1-70b-instruct": {
+      "parameters_source": "primary_source",
+      "architecture": "dense",
+      "release_date": null,
+      "license": null,
+      "reasoning": null,
+      "tool_call": null,
+      "notes": "70B is nominal; the published BF16 checkpoint contains 70,553,706,496 parameters. Dense model; active parameters are not separately reported. August 14, 2024 is the first checkpoint-upload date, not a verified public-launch date. License conflict: Abacus card declares Llama 3, while its named Llama 3.1 base declares Llama 3.1. Model config allows 131072 positions, but tokenizer model_max_length is 2048. Fine-tune-specific reasoning-mode and tool-call support remain unverified.",
+      "sources": [
+        {
+          "label": "Abacus model card",
+          "url": "https://huggingface.co/abacusai/Dracarys-Llama-3.1-70B-Instruct/blob/7e3f4e0d296fd08a944bfad5dcb1ed675c4b38d2/README.md",
+          "type": "primary"
+        },
+        {
+          "label": "Abacus checkpoint configuration",
+          "url": "https://huggingface.co/abacusai/Dracarys-Llama-3.1-70B-Instruct/raw/main/config.json",
+          "type": "primary"
+        },
+        {
+          "label": "Abacus checkpoint tensor index",
+          "url": "https://huggingface.co/abacusai/Dracarys-Llama-3.1-70B-Instruct/raw/main/model.safetensors.index.json",
+          "type": "weights"
+        },
+        {
+          "label": "Hugging Face checkpoint metadata",
+          "url": "https://huggingface.co/api/models/abacusai/Dracarys-Llama-3.1-70B-Instruct",
+          "type": "weights"
+        },
+        {
+          "label": "Abacus checkpoint upload history",
+          "url": "https://huggingface.co/abacusai/Dracarys-Llama-3.1-70B-Instruct/commits/main",
+          "type": "primary"
+        },
+        {
+          "label": "Meta base model card",
+          "url": "https://huggingface.co/meta-llama/Llama-3.1-70B-Instruct",
+          "type": "primary"
+        },
+        {
+          "label": "Abacus tokenizer configuration",
+          "url": "https://huggingface.co/abacusai/Dracarys-Llama-3.1-70B-Instruct/raw/main/tokenizer_config.json",
+          "type": "primary"
+        }
+      ],
+      "date_precision": null,
+      "field_status": {
+        "release_date": "unverified",
+        "license": "unverified",
+        "active_parameters_b": "not_applicable",
+        "reasoning": "unverified",
+        "tool_call": "unverified"
+      },
+      "audited_at": "2026-10-26T13:46:18.752917Z",
+      "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/003.json"
+    },
+    "ai21/jamba-large": {
+      "license": "Jamba Open Model License",
+      "parameters_b": 398,
+      "active_parameters_b": 94,
+      "parameters_source": "primary_source",
+      "architecture": "hybrid-ssm-transformer-moe",
+      "reasoning": null,
+      "description": "AI21's Jamba Large 1.7, a text-only hybrid Mamba-Transformer mixture-of-experts model for long-context instruction following and grounded generation",
+      "notes": "Reviewed alias target: jamba-large-1.7-2025-07. Counts are AI21's nominal 398B total / 94B active; public tensor metadata counts 398,555,145,696 parameters. Context 256000 normalizes the advertised 256K, not an independently verified exact implementation limit. Weights require acceptance of custom license conditions. Dedicated reasoning-mode status remains unverified.",
+      "sources": [
+        {
+          "label": "AI21 model details and alias mapping",
+          "url": "https://docs.ai21.com/docs/jamba-foundation-models",
+          "type": "primary"
+        },
+        {
+          "label": "AI21 Jamba Large 1.7 model card",
+          "url": "https://huggingface.co/ai21labs/AI21-Jamba-Large-1.7",
+          "type": "weights"
+        },
+        {
+          "label": "AI21 release changelog",
+          "url": "https://docs.ai21.com/changelog",
+          "type": "primary"
+        },
+        {
+          "label": "Jamba Open Model License",
+          "url": "https://www.ai21.com/jamba-open-model-license/",
+          "type": "primary"
+        },
+        {
+          "label": "AI21 function calling",
+          "url": "https://docs.ai21.com/docs/function-calling",
+          "type": "primary"
+        },
+        {
+          "label": "AI21 chat API",
+          "url": "https://docs.ai21.com/reference/jamba-1-6-api-ref",
+          "type": "primary"
+        },
+        {
+          "label": "Exact checkpoint public metadata",
+          "url": "https://huggingface.co/api/models/ai21labs/AI21-Jamba-Large-1.7",
+          "type": "weights"
+        }
+      ],
+      "field_status": {
+        "reasoning": "unverified"
+      },
+      "audited_at": "2026-10-26T13:48:17Z",
+      "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/004.json"
+    },
+    "ai21/jamba-mini": {
+      "license": "Apache-2.0",
+      "parameters_b": 52,
+      "active_parameters_b": 12,
+      "parameters_source": "primary_source",
+      "architecture": "moe",
+      "description": "AI21 Jamba2 Mini, a text-generation model with hybrid Mamba-Transformer layers and mixture-of-experts routing, released for enterprise question answering and instruction following.",
+      "notes": "Current documented jamba-mini alias maps to jamba-mini-2-2026-01 (Jamba2 Mini). Parameter counts are nominal developer figures: 52B total, 12B active. The MoE routing sits within a hybrid Mamba-Transformer backbone. API context is published as 256K; the downloadable checkpoint config specifies 262144, while 256000 is only the catalog decimal normalization. API callability was not tested.",
+      "sources": [
+        {
+          "label": "Models.dev record",
+          "url": "https://github.com/anomalyco/models.dev/blob/dev/models/ai21/jamba-mini.toml",
+          "type": "catalog"
+        },
+        {
+          "label": "Official Jamba2 Mini model card",
+          "url": "https://huggingface.co/ai21labs/AI21-Jamba2-Mini",
+          "type": "weights"
+        },
+        {
+          "label": "Official Jamba model details and alias mapping",
+          "url": "https://docs.ai21.com/docs/jamba-foundation-models",
+          "type": "primary"
+        },
+        {
+          "label": "Official Jamba2 launch",
+          "url": "https://www.ai21.com/blog/introducing-jamba2/",
+          "type": "primary"
+        },
+        {
+          "label": "Official Jamba2 Mini configuration",
+          "url": "https://huggingface.co/ai21labs/AI21-Jamba2-Mini/blob/main/config.json",
+          "type": "primary"
+        },
+        {
+          "label": "Official function calling documentation",
+          "url": "https://docs.ai21.com/docs/function-calling",
+          "type": "primary"
+        }
+      ],
+      "field_status": {},
+      "audited_at": "2026-10-26T13:49:46.567737Z",
+      "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/005.json"
+    },
+    "aion-labs/aion-2.0": {
+      "family": "deepseek",
+      "description": "Aion Labs variant of DeepSeek V3.2 optimized for roleplay and storytelling, with reasoning and tool calling.",
+      "source_url": "https://www.aionlabs.ai/docs/models/",
+      "source_type": "primary",
+      "notes": "Aion Labs identifies Aion 2.0 as a DeepSeek V3.2 variant, but does not disclose this variant's total parameters, active parameters or detailed architecture. Do not infer these from the base model. The developer gives 2025-12-21 as release date; OpenRouter displays 2026-02-23.",
+      "sources": [
+        {
+          "label": "Aion Labs model documentation",
+          "url": "https://www.aionlabs.ai/docs/models/",
+          "type": "primary"
+        },
+        {
+          "label": "Aion Labs models API",
+          "url": "https://api.aionlabs.ai/v1/models",
+          "type": "primary"
+        },
+        {
+          "label": "Aion Labs API reference",
+          "url": "https://www.aionlabs.ai/docs/api-reference/",
+          "type": "primary"
+        },
+        {
+          "label": "Aion Labs official model organization",
+          "url": "https://huggingface.co/aion-labs",
+          "type": "primary"
+        },
+        {
+          "label": "Aion Labs API service terms",
+          "url": "https://www.aionlabs.ai/terms/",
+          "type": "primary"
+        },
+        {
+          "label": "OpenRouter listing (different provider date)",
+          "url": "https://openrouter.ai/aion-labs/aion-2.0",
+          "type": "catalog"
+        },
+        {
+          "label": "Models.dev record",
+          "url": "https://github.com/anomalyco/models.dev/blob/dev/models/aion-labs/aion-2.0.toml",
+          "type": "catalog"
+        }
+      ],
+      "field_status": {
+        "license": "undisclosed",
+        "parameters_b": "undisclosed",
+        "active_parameters_b": "undisclosed",
+        "architecture": "undisclosed"
+      },
+      "audited_at": "2026-10-26T13:50:20.277760Z",
+      "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/006.json"
+    },
+    "aion-labs/aion-3.0": {
+      "name": "Aion 3.0",
+      "family": "glm",
+      "architecture": "multi-model",
+      "open_weights": null,
+      "description": "GLM-based multi-model system for narrative generation, with collaborative response generation, reasoning, and tool calling.",
+      "source_url": "https://www.aionlabs.ai/docs/models/",
+      "source_type": "primary",
+      "sources": [
+        {
+          "label": "Aion Labs model documentation",
+          "url": "https://www.aionlabs.ai/docs/models/",
+          "type": "primary"
+        },
+        {
+          "label": "Aion Labs live model metadata",
+          "url": "https://api.aionlabs.ai/v1/models",
+          "type": "primary"
+        },
+        {
+          "label": "Aion Labs API reference",
+          "url": "https://api.aionlabs.ai/docs/api-reference/",
+          "type": "primary"
+        },
+        {
+          "label": "Aion Labs service terms",
+          "url": "https://www.aionlabs.ai/terms/",
+          "type": "primary"
+        },
+        {
+          "label": "Aion Labs published weights listing",
+          "url": "https://huggingface.co/aion-labs/models",
+          "type": "primary"
+        },
+        {
+          "label": "OpenRouter platform date discrepancy",
+          "url": "https://openrouter.ai/aion-labs/aion-3.0",
+          "type": "catalog"
+        }
+      ],
+      "notes": "Developer describes a GLM-family collaborative multi-model system, without identifying component versions, total/active parameter counts, or dense/MoE composition. No Aion 3.0 weight release or weight license was verified. Developer release date is 2026-05-05; OpenRouter instead labels 2026-07-07 as release.",
+      "field_status": {
+        "open_weights": "unverified",
+        "license": "undisclosed",
+        "parameters_b": "undisclosed",
+        "active_parameters_b": "undisclosed"
+      },
+      "audited_at": "2026-10-26T13:53:37.861287Z",
+      "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/007.json"
+    },
+    "aion-labs/aion-3.0-mini": {
+      "family": "deepseek",
+      "description": "DeepSeek-based collaborative multi-model system for narrative generation and storytelling",
+      "notes": "Aion Labs describes a collaborative system using multiple DeepSeek-family models, without identifying component checkpoints or disclosing total/active parameter counts or neural architecture. Its official release date is 2026-05-14; OpenRouter lists 2026-07-07.",
+      "sources": [
+        {
+          "label": "Models.dev record",
+          "url": "https://github.com/anomalyco/models.dev/blob/dev/models/aion-labs/aion-3.0-mini.toml",
+          "type": "catalog"
+        },
+        {
+          "label": "Aion Labs model documentation",
+          "url": "https://www.aionlabs.ai/docs/models/",
+          "type": "primary"
+        },
+        {
+          "label": "Aion Labs public models API",
+          "url": "https://api.aionlabs.ai/v1/models",
+          "type": "primary"
+        },
+        {
+          "label": "Aion Labs API reference",
+          "url": "https://www.aionlabs.ai/docs/api-reference/",
+          "type": "primary"
+        },
+        {
+          "label": "Aion Labs service terms",
+          "url": "https://www.aionlabs.ai/terms/",
+          "type": "primary"
+        }
+      ],
+      "field_status": {
+        "license": "undisclosed",
+        "parameters_b": "undisclosed",
+        "active_parameters_b": "undisclosed",
+        "architecture": "undisclosed"
+      },
+      "audited_at": "2026-10-26T13:53:13.665420Z",
+      "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/008.json"
+    },
+    "aion-labs/aion-rp-llama-3.1-8b": {
+      "description": "Llama 3.1 8B fine-tune for roleplaying and creative writing.",
+      "release_date": "2024-11-30",
+      "parameters_source": "primary_source",
+      "architecture": "dense",
+      "source_url": "https://www.aionlabs.ai/docs/models/",
+      "source_type": "primary",
+      "notes": "8B is nominal; published weights contain 8,030,261,248 parameters. Active parameters are not separately reported. API context is 32,768 tokens; the downloadable fine-tune config supports 131,072 positions. Developer reports release on 2024-11-30, while the repository was created on 2024-11-09. Fine-tune metadata declares Apache-2.0, but its Llama 3.1 base has a separate community license; the complete licensing position is unresolved.",
+      "sources": [
+        {
+          "label": "Aion Labs model documentation",
+          "url": "https://www.aionlabs.ai/docs/models/",
+          "type": "docs"
+        },
+        {
+          "label": "Aion Labs models API",
+          "url": "https://api.aionlabs.ai/v1/models",
+          "type": "docs"
+        },
+        {
+          "label": "Fine-tune model card (pinned revision)",
+          "url": "https://huggingface.co/aion-labs/Aion-RP-Llama-3.1-8B/raw/8ae617bc85c5d6698c3323863c42098d1998f7bb/README.md",
+          "type": "model_card"
+        },
+        {
+          "label": "Fine-tune configuration (pinned revision)",
+          "url": "https://huggingface.co/aion-labs/Aion-RP-Llama-3.1-8B/raw/8ae617bc85c5d6698c3323863c42098d1998f7bb/config.json",
+          "type": "weights"
+        },
+        {
+          "label": "Fine-tune weight index (pinned revision)",
+          "url": "https://huggingface.co/aion-labs/Aion-RP-Llama-3.1-8B/raw/8ae617bc85c5d6698c3323863c42098d1998f7bb/model.safetensors.index.json",
+          "type": "weights"
+        },
+        {
+          "label": "Base-model Llama 3.1 license",
+          "url": "https://huggingface.co/meta-llama/Llama-3.1-8B/blob/main/LICENSE",
+          "type": "license"
+        }
+      ],
+      "date_precision": "day",
+      "field_status": {
+        "license": "unverified",
+        "active_parameters_b": "undisclosed"
+      },
+      "audited_at": "2026-10-26T13:53:50.320094+00:00",
+      "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/009.json"
     }
   },
   "aliases": {

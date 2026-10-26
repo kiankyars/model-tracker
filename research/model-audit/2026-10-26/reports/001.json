@@ -1,0 +1,175 @@
+{
+  "index": 1,
+  "model_id": "deepseek/deepseek-v4.1-flash",
+  "reviewed_at": "2026-10-26T13:45:18Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash",
+      "title": "DeepSeek-V4.1-Flash model card",
+      "publisher": "DeepSeek-AI",
+      "accessed": true,
+      "evidence": "The exact original checkpoint card specifies image/text input, autoregressive text output, reasoning effort, tool-call encoding, and MIT-licensed weights. Its separate Hugging Face-generated Safetensors panel displays 763B parameters without an accounting definition; that panel is not a developer claim of backbone size."
+    },
+    {
+      "id": "s2",
+      "url": "https://www.deepseek.com/en/news/deepseek-v4-1-flash/",
+      "title": "Introducing DeepSeek-V4.1-Flash: smarter, faster, more efficient",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Dated September 10, 2026. Announces V4.1-Flash with native vision, a 552B MoE, causal encoder-decoder architecture, 8B active input parameters and 16B active output parameters; links the exact checkpoint and report."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/raw/main/config.json",
+      "title": "DeepSeek-V4.1-Flash released configuration",
+      "publisher": "DeepSeek-AI",
+      "accessed": true,
+      "evidence": "Exact checkpoint configuration specifies max_position_embeddings=1048576, 40 text layers, 384 routed experts, one shared expert, six routed experts per token, and a separate vision configuration."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/raw/main/LICENSE",
+      "title": "DeepSeek-V4.1-Flash MIT License",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Repository license is MIT; the model card explicitly applies it to the model weights."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/resolve/main/DeepSeek_V41_Tech_Report.pdf",
+      "title": "DeepSeek-V4.1-Flash: Pushing the Limits of KV Cache Compression",
+      "publisher": "DeepSeek-AI",
+      "accessed": true,
+      "evidence": "Read via curl and pdftotext after browser PDF retrieval failed. Section 2.1 (p. 7) separates 552B backbone and 196B Engram parameters. Section 2.4.2 (p. 13) explains Engram; section 2.4.3 (pp. 13-14) adds separately trained DSpark. Section 4.2.1 (pp. 21-22) gives the configuration and phase counts. No unified checkpoint parameter total was located in these sections."
+    },
+    {
+      "id": "s6",
+      "url": "https://api-docs.deepseek.com/updates/",
+      "title": "DeepSeek API change log",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "September 10 entry records original V4.1-Flash release; October 17 entry explicitly upgrades the service to V4.1-Flash-1017. Current deepseek-flash serving identity must not be mistaken for this original checkpoint."
+    },
+    {
+      "id": "s7",
+      "url": "https://github.com/anomalyco/models.dev/blob/dev/models/deepseek/deepseek-v4.1-flash.toml",
+      "title": "Models.dev DeepSeek V4.1 Flash record",
+      "publisher": "Anomaly / Models.dev",
+      "accessed": true,
+      "evidence": "Baseline catalog source followed as a discovery lead; technical verification uses developer sources above."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "DeepSeek V4.1 Flash",
+      "status": "verified",
+      "source_ids": ["s2"],
+      "note": "Display normalization of the official DeepSeek-V4.1-Flash name."
+    },
+    "developer": {
+      "value": "DeepSeek",
+      "status": "verified",
+      "source_ids": ["s2", "s4"],
+      "note": "Official announcement and repository attribution agree."
+    },
+    "family": {
+      "value": "deepseek-flash",
+      "status": "verified",
+      "source_ids": ["s2"],
+      "note": "Catalog-normalized family grouping corresponding to the officially named Flash model; not an official exact family identifier."
+    },
+    "release_date": {
+      "value": "2026-09-10",
+      "status": "verified",
+      "source_ids": ["s2", "s6"],
+      "note": "Explicit public-release date; this audit does not substitute the October 17 update."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": ["s1", "s4"],
+      "note": "Official checkpoint and local inference instructions are public; the card expressly licenses its weights."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": ["s4", "s1"],
+      "note": "MIT applies to repository and model weights."
+    },
+    "parameters_b": {
+      "value": 552,
+      "status": "verified",
+      "source_ids": ["s5", "s2"],
+      "note": "Nominal backbone billions, not the complete checkpoint total. Engram is separately reported as 196B. Do not silently label 552B as all model parameters."
+    },
+    "active_parameters_b": {
+      "value": 16,
+      "status": "verified",
+      "source_ids": ["s2", "s5"],
+      "note": "Nominal decode/output count only. Prefill/input uses 8B; a single scalar requires this phase qualifier."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": ["s5", "s3"],
+      "note": "Multimodal Transformer with a 20-layer causal encoder and 20-layer decoder, CSA2 sparse attention, Engram memory, and DSpark drafting."
+    },
+    "context_window": {
+      "value": 1048576,
+      "status": "verified",
+      "source_ids": ["s3", "s1"],
+      "note": "Exact released configuration resolves the model card's rounded one-million-token wording."
+    },
+    "modalities": {
+      "value": {"input": ["text", "image"], "output": ["text"]},
+      "status": "verified",
+      "source_ids": ["s1"],
+      "note": "Card explicitly describes these inputs and autoregressive text generation."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": ["s1"],
+      "note": "Exact checkpoint supports thinking mode and numeric reasoning effort."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": ["s1"],
+      "note": "Exact release includes reference prompt encoding and tests for tool calling."
+    },
+    "description": {
+      "value": "DeepSeek V4.1 Flash model for reasoning and agentic coding",
+      "status": "verified",
+      "source_ids": ["s1"],
+      "note": "Supported by reasoning configuration and code-agent evaluations; no unsupported comparative performance claim."
+    }
+  },
+  "patch": {
+    "parameters_b": 552,
+    "active_parameters_b": 16,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "context_window": 1048576,
+    "notes": "552B is the nominal backbone count; an additional 196B Engram memory is separately reported. A complete checkpoint total is not established here. Active parameters are 8B for prefill and 16B for decode; the scalar records decode. Original September 10 checkpoint; the live deepseek-flash API was upgraded to V4.1-Flash-1017 on October 17.",
+    "source_url": "https://www.deepseek.com/en/news/deepseek-v4-1-flash/",
+    "source_type": "primary",
+    "sources": [
+      {"label": "DeepSeek V4.1 Flash release", "url": "https://www.deepseek.com/en/news/deepseek-v4-1-flash/", "type": "announcement"},
+      {"label": "DeepSeek V4.1 Flash model card", "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash", "type": "weights"},
+      {"label": "DeepSeek V4.1 Flash technical report", "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/resolve/main/DeepSeek_V41_Tech_Report.pdf", "type": "technical_report"},
+      {"label": "DeepSeek V4.1 Flash configuration", "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash/raw/main/config.json", "type": "config"},
+      {"label": "DeepSeek API change log", "url": "https://api-docs.deepseek.com/updates/", "type": "documentation"}
+    ]
+  },
+  "proposed_fields": {
+    "parameters_scope": "backbone",
+    "active_parameters_scope": "decode",
+    "parameter_components_b": {"backbone": 552, "engram": 196},
+    "active_parameters_by_phase_b": {"prefill": 8, "decode": 16},
+    "complete_checkpoint_parameters_b": null,
+    "checkpoint_count_note": "Hugging Face's autogenerated panel displays 763B. Neither that panel nor the inspected developer report sections define a reconciled all-tensor count. This audit does not adopt 763B as a developer-verified total or infer a complete total by adding rounded components."
+  },
+  "summary": "Verified the exact original release and all baseline capability claims. Added qualified backbone and decode parameter counts, MoE architecture, both active phases, and exact configured context length. Complete checkpoint parameter accounting remains unresolved."
+}
