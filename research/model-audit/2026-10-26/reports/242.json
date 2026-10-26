@@ -1,0 +1,323 @@
+{
+  "index": 242,
+  "model_id": "inclusionai/ling-3.0-flash",
+  "reviewed_at": "2026-10-26T21:00:39.829497Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash/blob/fcc60a52b34c69c6271d0ac8a8cb0815020b6a43/README.md",
+      "title": "Ling-3.0-flash official model card",
+      "publisher": "InclusionAI",
+      "accessed": true,
+      "evidence": "Exact text model: MIT, nominal 124B total/5.1B active, 35 KDA plus 7 gated MLA layers, two dense FFN layers, 512 routed experts with 8 selected and one shared expert. Documents thinking, tools, and 256K serving."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash/blob/fcc60a52b34c69c6271d0ac8a8cb0815020b6a43/config.json",
+      "title": "Ling-3.0-flash checkpoint configuration",
+      "publisher": "InclusionAI",
+      "accessed": true,
+      "evidence": "BailingMoeV3ForCausalLM; 42 backbone layers; one next-token-prediction layer; 512 routed experts, top-8, one shared; max_position_embeddings=262144; tie_word_embeddings=false; BF16 checkpoint."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash/blob/fcc60a52b34c69c6271d0ac8a8cb0815020b6a43/modeling_bailing_moe_v3.py",
+      "title": "Ling-3.0-flash official model implementation",
+      "publisher": "InclusionAI",
+      "accessed": true,
+      "evidence": "Defines 42 hybrid KDA/MLA backbone layers plus MTP at layer 42; sigmoid group-limited top-8 routing (4 selected groups of 8), one shared expert, expert_bias registered as a buffer. Input embedding and output head are separate; MTP reuses them. KDA A_log and dt_bias are learned parameters."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash/blob/fcc60a52b34c69c6271d0ac8a8cb0815020b6a43/model.safetensors.index.json",
+      "title": "Ling-3.0-flash complete checkpoint weight index",
+      "publisher": "InclusionAI",
+      "accessed": true,
+      "evidence": "Indexes 63,783 named tensors across 24 shards. All indexed names matched the bounded shard headers; includes auxiliary MTP layer 42."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash/tree/fcc60a52b34c69c6271d0ac8a8cb0815020b6a43",
+      "title": "Ling-3.0-flash BF16 checkpoint tensor headers, all 24 shards",
+      "publisher": "InclusionAI",
+      "accessed": true,
+      "evidence": "Read only bytes 0-7 and each JSON header from model-00001-of-00024.safetensors through model-00024-of-00024.safetensors, with HTTP 206 and Content-Range checks. Shapes sum to 127,486,405,600 elements. Removing 41 expert_bias buffers of 512 elements yields 127,486,384,608 learned parameters; no quantization metadata. Backbone: 124,414,191,072; MTP: 3,072,193,536. No duplicated names or tied embedding/head alias is counted."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash/blob/fcc60a52b34c69c6271d0ac8a8cb0815020b6a43/chat_template.jinja",
+      "title": "Ling-3.0-flash official chat template",
+      "publisher": "InclusionAI",
+      "accessed": true,
+      "evidence": "Text conversation template supports enable_thinking, tool definitions, assistant tool_calls and tool responses."
+    },
+    {
+      "id": "s7",
+      "url": "https://developer.ant-ling.com/en/docs/getting-started/changelog/",
+      "title": "Ant Ling platform release changelog",
+      "publisher": "Ant Ling / Ant Group",
+      "accessed": true,
+      "evidence": "Official changelog directly fetched successfully (HTTP 200) at the exact /en/docs/getting-started/changelog/ URL. Under July 23, 2026 and v2.0.0 it states: \"Launched the all-new cost-effective Ling-3.0-flash model.\" The surrounding entry documents chat/API availability and thinking toggles. This is the initial public release, preceding the weight upload."
+    },
+    {
+      "id": "s8",
+      "url": "https://developer.ant-ling.com/en/docs/models/ling",
+      "title": "Official Ling model family and comparison table",
+      "publisher": "Ant Ling / Ant Group",
+      "accessed": true,
+      "evidence": "Identifies Ling as Ant Group's MoE model series. Exact Ling-3.0-flash row gives 124B/5.1B and 256K; its detailed section explicitly advertises native 256K context extendable up to 1M. VL, tiny and 3.1 are separate entries. No precise 1M token integer or extension recipe is specified here."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash-base/blob/main/README.md",
+      "title": "Official Ling-3.0 training-checkpoint documentation",
+      "publisher": "InclusionAI",
+      "accessed": true,
+      "evidence": "Links the post-trained Ling-3.0-flash separately from base training stages and labels the 5.1B figure Non-emb. This related base-card label does not explicitly define whether input embedding, output head or MTP is excluded. No exact-model counting convention is transferred from it."
+    },
+    {
+      "id": "s10",
+      "url": "https://developer.ant-ling.com/en/blogs/ling-3.0-flash-release/",
+      "title": "Ling-3.0-flash: More Useful Work per Token",
+      "publisher": "Ant Ling / Ant Group",
+      "accessed": true,
+      "evidence": "Official July 24, 2026 release article advertises native 256K context extendable to 1M for exact Ling-3.0-flash; it does not publish a precise extended token cap, scaling recipe or long-context evaluation at 1M."
+    },
+    {
+      "id": "s11",
+      "url": "https://docs.sglang.io/cookbook/autoregressive/InclusionAI/Ling-3.0-flash",
+      "title": "SGLang exact-model Ling-3.0-flash deployment cookbook",
+      "publisher": "SGLang",
+      "accessed": true,
+      "evidence": "Deployment cookbook linked by the model publisher states native context is 256K and reads max_position_embeddings from the checkpoint. The current page provides no 1M extension recipe or evaluation; examined its complete Markdown version as well."
+    },
+    {
+      "id": "s12",
+      "url": "https://recipes.vllm.ai/inclusionAI/Ling-3.0-flash",
+      "title": "vLLM exact-model Ling-3.0-flash deployment recipe",
+      "publisher": "vLLM",
+      "accessed": true,
+      "evidence": "Exact-model prerequisites specify 262144 context, and an MI300X BF16 run documents serving that full context. No 1M recipe or test is reported in this model's page."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Ling 3.0 Flash",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Display spelling of the exact Ling-3.0-flash model, without Fin, Sante, VL, Preview or Plus suffixes."
+    },
+    "developer": {
+      "value": "InclusionAI",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8"
+      ],
+      "note": "Published by the official inclusionAI organization; Ant Ling documentation identifies Ant Group as the developer organization."
+    },
+    "family": {
+      "value": "ling",
+      "status": "verified",
+      "source_ids": [
+        "s8"
+      ],
+      "note": "Normalized name for the officially documented Ling family."
+    },
+    "release_date": {
+      "value": "2026-07-23",
+      "status": "verified",
+      "source_ids": [
+        "s7"
+      ],
+      "note": "Explicit initial public chat/API launch. The later checkpoint upload is not the first release."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5"
+      ],
+      "note": "Official checkpoint is publicly accessible; all 24 shard headers were read without authentication."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Exact model card license metadata declares MIT."
+    },
+    "parameters_b": {
+      "value": 127.486384608,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "note": "Complete unquantized checkpoint count in decimal billions, including the auxiliary MTP layer. 127,486,405,600 stored elements minus 20,992 non-parameter routing-buffer elements. Input and output embeddings are untied; MTP reuses them without duplicate tensors. The advertised 124B refers to the 124.414191072B backbone, excluding the 3.072193536B MTP component."
+    },
+    "active_parameters_b": {
+      "value": 5.1,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s5",
+        "s8",
+        "s9"
+      ],
+      "note": "5.1B is the exact model's published nominal activation figure; the developer does not fully define its accounting scope. A related base card says Non-emb without defining exclusions. Independently, top-8 accounting on the audited backbone gives 5.505672672B when both full embedding/head matrices are included, or 5.103281632B when the input embedding alone is removed. The latter rounds to 5.1B but is arithmetic inference, not proof of the developer's convention; no input-only exclusion or MTP scope is asserted."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "Hybrid-linear causal language model: 35 KDA and 7 gated MLA layers in a 5:1 pattern, first two dense FFNs, then 40 MoE FFNs; each has 512 routed experts, top-8 selection plus one shared expert. One additional MLA/MoE MTP layer is in the checkpoint. Routing applies sigmoid scores, selects four of eight groups, then eight experts."
+    },
+    "context_window": {
+      "value": 1000000,
+      "status": "verified",
+      "source_ids": [
+        "s8",
+        "s10",
+        "s1",
+        "s2",
+        "s11",
+        "s12"
+      ],
+      "note": "Catalog maximum represented as the developer's advertised 1M extension, using nominal decimal notation (1000000), not an inferred exact 1048576-token cap. Native/configured and documented deployment context is 262144; model-card evaluations use 256K. Neither the examined developer pages nor the linked SGLang/vLLM recipes supplies an exact-model 1M scaling recipe or evaluation. Thus 1M is an advertised extension capability, not a verified endpoint limit or empirical validation."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s6",
+        "s8"
+      ],
+      "note": "Exact causal text checkpoint and template; the visually capable Ling-3.0-flash-VL is a separate model."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s6",
+        "s7"
+      ],
+      "note": "Supports selectable thinking mode; enabled by default in the published template."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s6"
+      ],
+      "note": "Published template formats supplied tools, assistant function calls and tool responses."
+    },
+    "description": {
+      "value": "Text-only hybrid-linear MoE model with a 42-layer KDA/MLA backbone, top-8 routing among 512 experts plus one shared expert, optional thinking, and tool use.",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s6"
+      ],
+      "note": "Replaces ambiguous nominal-total wording with concrete architecture and supported capabilities; no unverified efficiency or benchmark claim."
+    }
+  },
+  "patch": {
+    "parameters_b": 127.486384608,
+    "active_parameters_b": 5.1,
+    "architecture": "moe",
+    "parameters_source": "primary_source",
+    "description": "Text-only hybrid-linear MoE model with a 42-layer KDA/MLA backbone, top-8 routing among 512 experts plus one shared expert, optional thinking, and tool use.",
+    "notes": "Complete checkpoint: 127.486384608B learned parameters = 124.414191072B backbone + 3.072193536B auxiliary MTP; excludes 20,992 routing-buffer elements. Official 124B is a nominal backbone count. Official 5.1B active is nominal; its exact accounting scope is not defined. Excluding only the input embedding produces a matching rounded figure but is an inference. Context: advertised extension up to 1M (nominal), versus 262144 native/configured and documented in deployment recipes; an exact 1M cap, extension recipe and evaluation were not established. MIT weights followed the July 23, 2026 chat/API launch.",
+    "sources": [
+      {
+        "label": "Ling-3.0-flash official model card",
+        "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash/blob/fcc60a52b34c69c6271d0ac8a8cb0815020b6a43/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Ling-3.0-flash checkpoint configuration",
+        "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash/blob/fcc60a52b34c69c6271d0ac8a8cb0815020b6a43/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Ling-3.0-flash official model implementation",
+        "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash/blob/fcc60a52b34c69c6271d0ac8a8cb0815020b6a43/modeling_bailing_moe_v3.py",
+        "type": "primary"
+      },
+      {
+        "label": "Ling-3.0-flash complete checkpoint weight index",
+        "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash/blob/fcc60a52b34c69c6271d0ac8a8cb0815020b6a43/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Ling-3.0-flash BF16 checkpoint tensor headers, all 24 shards",
+        "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash/tree/fcc60a52b34c69c6271d0ac8a8cb0815020b6a43",
+        "type": "primary"
+      },
+      {
+        "label": "Ling-3.0-flash official chat template",
+        "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash/blob/fcc60a52b34c69c6271d0ac8a8cb0815020b6a43/chat_template.jinja",
+        "type": "primary"
+      },
+      {
+        "label": "Ant Ling platform release changelog",
+        "url": "https://developer.ant-ling.com/en/docs/getting-started/changelog/",
+        "type": "primary"
+      },
+      {
+        "label": "Official Ling model family and comparison table",
+        "url": "https://developer.ant-ling.com/en/docs/models/ling",
+        "type": "primary"
+      },
+      {
+        "label": "Official Ling-3.0 training-checkpoint documentation",
+        "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash-base/blob/main/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Ling-3.0-flash: More Useful Work per Token",
+        "url": "https://developer.ant-ling.com/en/blogs/ling-3.0-flash-release/",
+        "type": "primary"
+      },
+      {
+        "label": "SGLang exact-model Ling-3.0-flash deployment cookbook",
+        "url": "https://docs.sglang.io/cookbook/autoregressive/InclusionAI/Ling-3.0-flash",
+        "type": "primary"
+      },
+      {
+        "label": "vLLM exact-model Ling-3.0-flash deployment recipe",
+        "url": "https://recipes.vllm.ai/inclusionAI/Ling-3.0-flash",
+        "type": "primary"
+      }
+    ],
+    "context_window": 1000000
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "backbone": 124.414191072,
+      "mtp": 3.072193536
+    }
+  },
+  "summary": "All 14 published factual fields assessed. Complete learned checkpoint count is 127.486384608B, including MTP and excluding routing buffers; official 5.1B active remains nominal with undefined scope. Exact input-only embedding exclusion is labeled as inference and no active scope is proposed. Set context to the nominal advertised 1M extension while retaining 262144 native/configured and recipe context in notes; no exact 1M recipe/evaluation was established. Directly fetched official changelog confirms July 23, 2026. MIT, public weights, text-only I/O, thinking and tool use are supported."
+}
