@@ -1,0 +1,321 @@
+{
+  "index": 303,
+  "model_id": "minimax/MiniMax-M2.5",
+  "reviewed_at": "2026-10-26T22:29:15.149084Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://www.minimax.io/news/minimax-m25",
+      "title": "MiniMax M2.5: Built for Real-World Productivity",
+      "publisher": "MiniMax",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Dated 2026.2.12 and announces MiniMax-M2.5; describes reasoning, coding, search, tool calling and office workflows. Places M2.5 in the M2 series."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.5",
+      "title": "MiniMax-M2.5 official model card and released weights",
+      "publisher": "MiniMax",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "MiniMax publishes the exact model weights, text-generation model card, Transformers deployment and tool-calling guide. Model card license label is modified-mit."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.5/blob/2515a3ea0afec1dd22d0c7794b3a91557804d195/config.json",
+      "title": "MiniMax-M2.5 released configuration",
+      "publisher": "MiniMax",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Exact config specifies MiniMaxM2ForCausalLM, 62 layers, hidden size 3072, 256 experts, top-8 routing, 48 attention query heads, 8 KV heads, head dimension 128, untied embeddings, vocabulary 200064 and max_position_embeddings 196608. FP8 quantization uses 128x128 blocks."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.5/blob/2515a3ea0afec1dd22d0c7794b3a91557804d195/modeling_minimax_m2.py",
+      "title": "MiniMax-M2.5 reference implementation",
+      "publisher": "MiniMax",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Causal decoder implements full softmax attention with grouped KV heads, RoPE, QK normalization, and sparse expert MLPs. The router correction bias is registered as a buffer; this alone does not establish its training status. Text token embedding and language-model output head establish text input/output."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.5/blob/2515a3ea0afec1dd22d0c7794b3a91557804d195/LICENSE-MODEL",
+      "title": "MiniMax Model License for MiniMax-M2.5",
+      "publisher": "MiniMax",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "The distributed license is titled MINIMAX MODEL LICENSE and permits use, redistribution and modification subject to notice, use-policy and other terms; it is not the unmodified MIT license. Its version date is 2026-02-13, later than the February 12 announcement."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.5/discussions/15",
+      "title": "MiniMax staff statement on M2-series size",
+      "publisher": "MiniMax",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "On February 15, ryanlee-dev, visibly identified as a MiniMax organization member, states that all M2-series models have 230B parameters in the exact M2.5 repository. Supports a nominal total; the user-authored title mentions 10B active but the staff reply does not confirm that count."
+    },
+    {
+      "id": "s7",
+      "url": "https://github.com/MiniMax-AI/MiniMax-M2.5/blob/main/docs/vllm_deploy_guide.md",
+      "title": "MiniMax M2.5 vLLM deployment guide",
+      "publisher": "MiniMax",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Explicitly applies to M2.5 and states maximum per-sequence context remains 196K; distinguishes aggregate KV-cache capacity from per-sequence context. Config supplies the exact 196608 value."
+    },
+    {
+      "id": "s8",
+      "url": "https://github.com/MiniMax-AI/MiniMax-M2.5/blob/main/docs/tool_calling_guide.md",
+      "title": "MiniMax-M2.5 Tool Calling Guide",
+      "publisher": "MiniMax",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Explicitly documents M2.5 tool support and structured XML tool-call output, with tool definitions converted to text."
+    },
+    {
+      "id": "s9",
+      "url": "https://arxiv.org/html/2605.26494v2",
+      "title": "The MiniMax-M2 Series: Mini Activations Unleashing Max Real-World Intelligence",
+      "publisher": "MiniMax",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Later first-party report includes exact M2.5 benchmark and thinking-mode results. Its 229.9B total and 9.8B activated statement names flagship M2, not a separate M2.5 count. It describes expert-routing biases as learnable and optimized jointly, so buffer registration is not sufficient to exclude analogous M2.5 biases from learned counts."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.5/blob/2515a3ea0afec1dd22d0c7794b3a91557804d195/model.safetensors.index.json",
+      "title": "MiniMax-M2.5 checkpoint index and bounded Safetensors headers",
+      "publisher": "MiniMax",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "All 125 published shard JSON headers at revision 2515a3ea0afec1dd22d0c7794b3a91557804d195 were read through bounded HTTP ranges and matched all 96103 indexed tensors. There are 228689748992 .weight elements, 15872 routing-bias elements, 13880064 FP8 inverse-scale elements and no other tensor classes. No MTP tensors appear in the release despite MTP config flags. Raw 228703644928 storage elements are not a learned-parameter count."
+    },
+    {
+      "id": "s11",
+      "url": "https://platform.minimax.io/docs/api-reference/text-openai-api",
+      "title": "MiniMax native OpenAI-compatible API documentation",
+      "publisher": "MiniMax",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Current supported-model table only lists M3-series models; it no longer independently establishes M2.5 context. The same page still explicitly lists M2.5 in instructions to preserve think content and says M2.x thinking cannot be disabled. Historical 204800-token M2.5 API context was not recovered as a complete primary table during this audit."
+    },
+    {
+      "id": "s12",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.5/discussions/2",
+      "title": "MiniMax staff clarification about M2.5-Lightning",
+      "publisher": "MiniMax",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "MiniMax organization member ryanlee-dev explains that Lightning uses more inference resources and the model parameters remain exactly the same. This clarifies serving variants but does not independently state an activated-parameter count."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "MiniMax-M2.5",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Exact name used in the original announcement and official checkpoint."
+    },
+    "developer": {
+      "value": "MiniMax",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "MiniMax announces and distributes this model."
+    },
+    "family": {
+      "value": "minimax",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Retains the catalog broad MiniMax family identifier; the developer identifies the exact model as part of its M2 series."
+    },
+    "release_date": {
+      "value": "2026-02-12",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5"
+      ],
+      "note": "Earliest explicit public release is the dated February 12 announcement, corroborated by the official repository creation on February 12. The license version date February 13 does not move that public release date."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s10"
+      ],
+      "note": "Official FP8 weights are publicly distributed in 125 Safetensors shards."
+    },
+    "license": {
+      "value": "MiniMax Model License",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s5"
+      ],
+      "note": "Actual distributed license title. Model-card metadata still labels it modified-mit, but the distributed agreement contains its own notice and prohibited-use terms; this is not plain MIT. Hosted API terms are separate."
+    },
+    "parameters_b": {
+      "value": 230,
+      "status": "verified",
+      "source_ids": [
+        "s6",
+        "s3",
+        "s4",
+        "s9",
+        "s10"
+      ],
+      "note": "Developer nominal total in billions. The complete header census separates weights, routing biases and quantization scales, but no exact learned-total replacement is asserted because the training-status and scope reconciliation is not exact-model explicit. The M2 report 229.9B is not transferred."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4",
+        "s9",
+        "s12"
+      ],
+      "note": "Unverified for exact M2.5: inspected announcement, later report, config, implementation and staff replies do not provide an unambiguous exact-variant activated count. Top-8/256 routing is verified. A config-derived non-embedding path is approximately 9.801B, while including full embedding/output matrices gives approximately 11.031B, so neither is silently substituted for the widely repeated 10B claim."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4"
+      ],
+      "note": "Decoder-only Transformer MoE: 62 layers, 256 routed experts with 8 selected per token, full grouped-query softmax attention (48 Q heads, 8 KV heads), RoPE and QK normalization. Exact code does not implement Lightning Attention."
+    },
+    "context_window": {
+      "value": 196608,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s7",
+        "s11"
+      ],
+      "note": "Released checkpoint limit from exact configuration, corroborated by developer deployment guide. Replaces baseline 204800 because a complete historical native-API table for that number was not recovered. This is a checkpoint specification, not a claim about current or historical hosted endpoint limits."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s8"
+      ],
+      "note": "Text-generation checkpoint consumes token IDs and emits vocabulary logits; reference code has no visual/audio encoder. Office workflows use external tools and do not establish native document, image or audio modalities."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s9",
+        "s11"
+      ],
+      "note": "Release explicitly describes efficient reasoning; later report evaluates exact M2.5 with thinking enabled and API docs retain its think-content requirements."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8"
+      ],
+      "note": "Developer provides exact-model tool-calling support and XML output protocol."
+    },
+    "description": {
+      "value": "Open-weight MiniMax M2-series language model trained with reinforcement learning for coding, tool use, search, and office workflows.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s8"
+      ],
+      "note": "Replaces time-dependent prior-model wording with a factual scope summary grounded in release and deployment material."
+    }
+  },
+  "patch": {
+    "license": "MiniMax Model License",
+    "parameters_b": 230,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "context_window": 196608,
+    "description": "Open-weight MiniMax M2-series language model trained with reinforcement learning for coding, tool use, search, and office workflows.",
+    "source_url": "https://www.minimax.io/news/minimax-m25",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "MiniMax M2.5: Built for Real-World Productivity",
+        "url": "https://www.minimax.io/news/minimax-m25",
+        "type": "primary"
+      },
+      {
+        "label": "MiniMax-M2.5 released configuration",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.5/blob/2515a3ea0afec1dd22d0c7794b3a91557804d195/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax-M2.5 reference implementation",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.5/blob/2515a3ea0afec1dd22d0c7794b3a91557804d195/modeling_minimax_m2.py",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax Model License for MiniMax-M2.5",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.5/blob/2515a3ea0afec1dd22d0c7794b3a91557804d195/LICENSE-MODEL",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax staff statement on M2-series size",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.5/discussions/15",
+        "type": "primary"
+      },
+      {
+        "label": "MiniMax M2.5 vLLM deployment guide",
+        "url": "https://github.com/MiniMax-AI/MiniMax-M2.5/blob/main/docs/vllm_deploy_guide.md",
+        "type": "primary"
+      },
+      {
+        "label": "MiniMax-M2.5 Tool Calling Guide",
+        "url": "https://github.com/MiniMax-AI/MiniMax-M2.5/blob/main/docs/tool_calling_guide.md",
+        "type": "primary"
+      },
+      {
+        "label": "The MiniMax-M2 Series: Mini Activations Unleashing Max Real-World Intelligence",
+        "url": "https://arxiv.org/html/2605.26494v2",
+        "type": "primary"
+      },
+      {
+        "label": "MiniMax-M2.5 checkpoint index and bounded Safetensors headers",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.5/blob/2515a3ea0afec1dd22d0c7794b3a91557804d195/model.safetensors.index.json",
+        "type": "weights"
+      }
+    ],
+    "notes": "230B is a developer nominal total. Exact M2.5 activated parameters remain unverified; the M2 report count is not transferred. Context 196608 is the released checkpoint limit; historical 204800-token native API context was not independently recovered. Current license is the custom MiniMax Model License, despite the model card metadata label modified-mit."
+  },
+  "summary": "All 14 fields individually audited. Adds developer nominal 230B total, custom MiniMax Model License and verified Transformer MoE architecture, changes context to the documented 196608-token checkpoint limit, and rewrites the description. Release remains February 12, 2026; open weights, text-only I/O, reasoning and tool use are verified. Exact M2.5 activated count remains unresolved. Complete bounded-header census distinguishes quantization metadata and routing biases without presenting a storage total as a learned count. Historical native-API context versus checkpoint context remains a documented limitation."
+}
