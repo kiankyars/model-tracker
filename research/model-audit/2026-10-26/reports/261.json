@@ -1,0 +1,253 @@
+{
+  "index": 261,
+  "model_id": "meta/llama-2-70b-chat",
+  "reviewed_at": "2026-10-26T21:25:41.822327Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://ai.meta.com/blog/llama-2/",
+      "title": "Meta and Microsoft Introduce the Next Generation of Llama",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "July 18, 2023 announcement releases both pretrained and conversational fine-tuned weights and starting code."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/meta-llama/Llama-2-70b-chat-hf",
+      "title": "Llama-2-70b-chat-hf official model card",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Identifies this exact repository as the 70B dialogue-tuned model. Lists Meta, text input/output, SFT and RLHF, and the 70B row with 4k context and GQA."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/meta-llama/Llama-2-70b-chat-hf/blob/main/LICENSE.txt",
+      "title": "Llama 2 Community License Agreement",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Exact checkpoint license names the custom agreement and July 18, 2023 version release. Grants weight use and redistribution subject to its conditions, including acceptable-use and additional commercial terms."
+    },
+    {
+      "id": "s4",
+      "url": "https://raw.githubusercontent.com/meta-llama/llama/llama_v2/llama/model.py",
+      "title": "Original Llama 2 reference Transformer implementation",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Transformer applies each attention and SwiGLU feed-forward block without expert routing; includes RMSNorm and rotary positions. KV-head repetition implements GQA; embeddings and output weights are separate modules."
+    },
+    {
+      "id": "s5",
+      "url": "https://raw.githubusercontent.com/meta-llama/llama/llama_v2/llama/generation.py",
+      "title": "Original Llama 2 text and chat generation implementation",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Chat accepts system/user/assistant roles and produces assistant content with optional token log-probabilities. No native tools schema, tool role, function-call result, separate thinking channel, or reasoning-mode parameter is exposed."
+    },
+    {
+      "id": "s6",
+      "url": "https://arxiv.org/html/2307.09288v2",
+      "title": "Llama 2: Open Foundation and Fine-Tuned Chat Models",
+      "publisher": "Meta authors / arXiv",
+      "accessed": true,
+      "evidence": "Sections 2-3 describe Transformer pretraining and Chat SFT/RLHF. Appendix A.2.1 specifies 4096-token context and GQA for 70B. Section 5.1 reports emergent prompted tool use without explicit tool training; this is not a native function-calling interface."
+    },
+    {
+      "id": "s7",
+      "url": "https://raw.githubusercontent.com/meta-llama/llama/llama_v2/README.md",
+      "title": "Original Llama 2 release and inference README",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Release includes pretrained and fine-tuned weights, explains license-conditioned downloads, and explicitly supports up to 4096 tokens for all released models."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/meta-llama/Llama-2-70b-chat-hf/resolve/main/config.json",
+      "title": "Exact original 70B Chat Transformers configuration (access restricted)",
+      "publisher": "Meta",
+      "accessed": false,
+      "evidence": "Unauthenticated direct request returned HTTP 401; blob/raw views were also inaccessible. No gated access was bypassed and no weights were downloaded."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Llama 2 70B Chat",
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Exact 70B Chat variant; not the base pretrained checkpoint."
+    },
+    "developer": {
+      "value": "Meta",
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "The official card identifies Meta as developer."
+    },
+    "family": {
+      "value": "llama-2",
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Normalized catalog identifier for the Llama 2 family."
+    },
+    "release_date": {
+      "value": "2023-07-18",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Public availability of conversational fine-tuned weights is explicit in the launch announcement; license independently supplies this date. Repository creation is not used."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7"
+      ],
+      "note": "Weights are released under a custom license with an access-request process; this is a weight-availability flag, not an unrestricted-license claim."
+    },
+    "license": {
+      "value": "Llama 2 Community License",
+      "status": "verified",
+      "source_ids": [
+        "s3"
+      ],
+      "note": "Custom Llama 2 Community License Agreement; not Apache-2.0 or an unrestricted commercial license."
+    },
+    "parameters_b": {
+      "value": 70,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s6"
+      ],
+      "note": "Explicit nominal 70 billion parameter designation for this Chat variant, not a complete tensor-derived count. The inaccessible exact config prevents an independent shape census; the nominal count remains directly verified."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s6"
+      ],
+      "note": "Reviewed primary sources do not separately define or report an active-per-token count. Dense execution does not establish equality to total learned parameters, especially embedding lookup scope; retain null."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s6"
+      ],
+      "note": "Dense autoregressive Transformer: every block executes attention and one feed-forward network without an expert router. The exact 70B card and paper specify GQA; smaller Llama 2 attention configurations are not transferred."
+    },
+    "context_window": {
+      "value": 4096,
+      "status": "verified",
+      "source_ids": [
+        "s6",
+        "s7"
+      ],
+      "note": "Original trained/supported context is 4096 tokens. Generic code cache defaults or allocating rotary frequencies beyond the context are not evidence of a longer trained window; later extensions are outside this checkpoint."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "The official card explicitly limits input and output to text."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s5",
+        "s6"
+      ],
+      "note": "No native thinking mode or separate reasoning channel is documented. Reasoning benchmark scores and prompted reasoning text do not establish this capability flag; absence of a mode is not a claim that the model cannot reason."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s5",
+        "s6"
+      ],
+      "note": "The paper demonstrates emergent tool-use text, while the released interface only returns assistant content. No native structured function-calling contract is documented; neither a true capability flag nor a general inability is established."
+    },
+    "description": {
+      "value": "Meta’s nominal 70B Llama 2 text chat model, fine-tuned with SFT and RLHF; a dense Transformer using grouped-query attention and a 4,096-token context window.",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s6",
+        "s7"
+      ],
+      "note": "Clarifies the exact Chat checkpoint and its supported architecture, tuning, nominal size, modality and original context; omits unsupported performance comparisons."
+    }
+  },
+  "patch": {
+    "description": "Meta’s nominal 70B Llama 2 text chat model, fine-tuned with SFT and RLHF; a dense Transformer using grouped-query attention and a 4,096-token context window.",
+    "parameters_source": "primary_source",
+    "notes": "70B is Meta’s nominal total parameter size. Active parameters are not separately reported. The original context is 4096 tokens. Reasoning and tool-call flags remain unknown: ordinary reasoning benchmarks and emergent tool-use text do not document native thinking or function-calling interfaces. Weights use the custom Llama 2 Community License and require license-conditioned access.",
+    "sources": [
+      {
+        "label": "Meta and Microsoft Introduce the Next Generation of Llama",
+        "url": "https://ai.meta.com/blog/llama-2/",
+        "type": "primary"
+      },
+      {
+        "label": "Llama-2-70b-chat-hf official model card",
+        "url": "https://huggingface.co/meta-llama/Llama-2-70b-chat-hf",
+        "type": "weights"
+      },
+      {
+        "label": "Llama 2 Community License Agreement",
+        "url": "https://huggingface.co/meta-llama/Llama-2-70b-chat-hf/blob/main/LICENSE.txt",
+        "type": "primary"
+      },
+      {
+        "label": "Original Llama 2 reference Transformer implementation",
+        "url": "https://raw.githubusercontent.com/meta-llama/llama/llama_v2/llama/model.py",
+        "type": "primary"
+      },
+      {
+        "label": "Original Llama 2 text and chat generation implementation",
+        "url": "https://raw.githubusercontent.com/meta-llama/llama/llama_v2/llama/generation.py",
+        "type": "primary"
+      },
+      {
+        "label": "Llama 2: Open Foundation and Fine-Tuned Chat Models",
+        "url": "https://arxiv.org/html/2307.09288v2",
+        "type": "primary"
+      },
+      {
+        "label": "Original Llama 2 release and inference README",
+        "url": "https://raw.githubusercontent.com/meta-llama/llama/llama_v2/README.md",
+        "type": "primary"
+      }
+    ]
+  },
+  "conflicts": [
+    "Generic ModelArgs.max_seq_len defaults to 2048, while the release README and technical paper explicitly establish 4096 for Llama 2; runtime defaults do not override the model context.",
+    "The paper’s tool-use emergence examples do not establish a native tool-call schema; the original chat implementation exposes only system/user/assistant text messages.",
+    "Exact checkpoint config access returned HTTP 401. Nominal 70B is verified from the exact public card, but no exact learned-parameter census is claimed."
+  ],
+  "summary": "Confirmed the baseline identity, July 18, 2023 release, custom license, open weights, nominal 70B, dense GQA Transformer, 4096-token context and text-only modalities. Expanded the description and provenance. Active parameters, native thinking and native tool-calling remain undisclosed; gated config access does not undermine the explicit nominal count."
+}
