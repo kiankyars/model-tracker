@@ -1,0 +1,312 @@
+{
+  "index": 351,
+  "model_id": "mistral/voxtral-mini-3b-2507",
+  "reviewed_at": "2026-10-26T23:40:58.845360Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://mistral.ai/news/voxtral/",
+      "title": "Voxtral launch announcement",
+      "publisher": "Mistral AI",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Dated July 15, 2025; introduces both open Voxtral variants under Apache 2.0, native voice function calling, and 32k context. Separates the transcription-optimized API variant from the released audio-understanding models."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/mistralai/Voxtral-Mini-3B-2507",
+      "title": "Voxtral Mini 1.0 (3B) - 2507 model card and public weights",
+      "publisher": "Mistral AI",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Exact Mini checkpoint; enhances Ministral 3B with audio input, transcription, translation, audio question answering, text capability and voice function calling. Apache-2.0 metadata and public weight files. Card states 32k context, up to 30 minutes transcription or 40 minutes understanding."
+    },
+    {
+      "id": "s3",
+      "url": "https://arxiv.org/html/2507.13264v1",
+      "title": "Voxtral technical report, sections 2 and 3 and Table 1",
+      "publisher": "Mistral AI",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Table 1 gives Mini components: 640M audio encoder, 25M audio adapter, 400M text embeddings, 3.6B language decoder, 4.7B total. Section 2 explicitly describes a Transformer audio encoder, adapter and autoregressive text decoder. Separately identifies Mini Transcribe."
+    },
+    {
+      "id": "s4",
+      "url": "https://github.com/mistralai/platform-docs-public/blob/cd2192ef7d0e96388a4261dbb6d417869e4bb965/src/schema/models/models/voxtral-mini-25-07.ts",
+      "title": "Official Voxtral Mini 25.07 documentation schema, pinned revision",
+      "publisher": "Mistral AI",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Exact weights URL points to Voxtral-Mini-3B-2507. Row reports parameters 4 and active 4, Apache 2.0, 32k; capabilities are audio/text input and text output. Release date is 2025-07-15; chat aliases include voxtral-mini-2507 and voxtral-mini-latest. No component or inference-phase scope is supplied for the counts."
+    },
+    {
+      "id": "s5",
+      "url": "https://github.com/mistralai/platform-docs-public/blob/cd2192ef7d0e96388a4261dbb6d417869e4bb965/src/app/%5Blocale%5D/(docs)/model-card/%5Bslug%5D/components/weights-table.tsx",
+      "title": "Official model-card weights table renderer, pinned revision",
+      "publisher": "Mistral AI",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Maps weights.parameters to Parameters (B) for values without T and weights.active to Active (B), confirming that the exact Mini schema values are both billion-parameter quantities."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/mistralai/Voxtral-Mini-3B-2507/blob/3060fe34b35ba5d44202ce9ff3c097642914f8f3/params.json",
+      "title": "Native Voxtral Mini 3B 2507 configuration",
+      "publisher": "Mistral AI",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Native params specify max_position_embeddings 32768, 30 language layers with 32 query and 8 key/value heads, and a 32-layer audio encoder with factor-four downsampling."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/mistralai/Voxtral-Mini-3B-2507/blob/3060fe34b35ba5d44202ce9ff3c097642914f8f3/config.json",
+      "title": "Transformers conversion configuration for Voxtral Mini 3B 2507",
+      "publisher": "Mistral AI",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Declares VoxtralForConditionalGeneration, a 32-layer audio encoder and 30-layer llama-type text decoder. Converted text_config.max_position_embeddings is 131072, conflicting with native params and the published 32k model context."
+    },
+    {
+      "id": "s8",
+      "url": "https://github.com/mistralai/platform-docs-public/blob/cd2192ef7d0e96388a4261dbb6d417869e4bb965/src/schema/models/models/voxtral-mini-transcribe-25-07.ts",
+      "title": "Official separate Voxtral Mini Transcribe 25.07 documentation schema",
+      "publisher": "Mistral AI",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Distinct transcription-only entry: Premier type, no public weights row, audio input and text output. Shares API identifier voxtral-mini-2507, so the identifier alone cannot identify the open audio-chat checkpoint."
+    },
+    {
+      "id": "s9",
+      "url": "https://github.com/anomalyco/models.dev/blob/dev/models/mistral/voxtral-mini-3b-2507.toml",
+      "title": "Models.dev source record",
+      "publisher": "Models.dev",
+      "type": "catalog",
+      "accessed": true,
+      "evidence": "Matches the frozen name and description and asserts reasoning unsupported. Its primary links were followed; its negative reasoning assertion is not itself first-party verification."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/mistralai/Voxtral-Mini-3B-2507/blob/3060fe34b35ba5d44202ce9ff3c097642914f8f3/model.safetensors.index.json",
+      "title": "Exact Voxtral Mini checkpoint tensor index",
+      "publisher": "Mistral AI",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Parent read the complete762-entry index. All30 text layers have shared attention and single gate/up/down MLP projections; audio layers have ordinary attention and fc1/fc2 blocks. No expert/router tensor structures. Used for architecture only; stored positional data and metadata totals are not treated as an independent learned-parameter census."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Voxtral Mini 3B 2507",
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Matches the exact public checkpoint identifier; the 3B string is retained as the model name, not interpreted as its complete parameter count."
+    },
+    "developer": {
+      "value": "Mistral",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Released by Mistral AI under its official mistralai account; retain the catalog developer label."
+    },
+    "family": {
+      "value": "voxtral",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Officially part of the Voxtral audio-language family."
+    },
+    "release_date": {
+      "value": "2025-07-15",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4"
+      ],
+      "note": "First-party launch date; the technical report appeared later and is not used as the release date."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Exact checkpoint has publicly accessible weights; do not transfer the separate hosted Transcribe entry classification."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4"
+      ],
+      "note": "Launch, exact model card and official weights row agree."
+    },
+    "parameters_b": {
+      "value": 4.7,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "note": "Prefer Table 1 rounded full-checkpoint total over the name-derived 3B. Later official docs publish 4B without explaining the discrepancy; that row does not justify replacing the component-based total."
+    },
+    "active_parameters_b": {
+      "value": 4,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5"
+      ],
+      "note": "Official exact-model weights row explicitly labels 4B active. Preserve this nominal published figure without inferring equality to total; its component and inference-phase scope are unspecified, and the same row gives a 4B total that differs from the report."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s6",
+        "s7",
+        "s10"
+      ],
+      "note": "Dense multimodal Transformer: exact native/converted configurations and complete tensor inventory show30 text layers with shared attention/gated MLPs and32 audio encoder layers with attention and feedforward blocks; no expert routing."
+    },
+    "context_window": {
+      "value": 32768,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s6",
+        "s7"
+      ],
+      "note": "Native params give 32768 positions and card/docs say 32k. The converted config alone gives 131072 for text_config; it does not override the advertised native window. Audio durations are task limits: about 30 minutes transcription or 40 minutes understanding."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "audio"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4"
+      ],
+      "note": "Exact open audio-chat checkpoint supports both input types and generates text. No audio output is claimed."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s9"
+      ],
+      "note": "Dedicated thinking/reasoning-mode support is not established in reviewed primary material. Generic audio reasoning capability and absence from a feature enum establish neither a dedicated mode nor its explicit non-support; clear the catalog false."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Launch and exact model card explicitly support function calling from voice, despite omission from the later Mini docs feature list."
+    },
+    "description": {
+      "value": "Open audio-language model for speech transcription, audio understanding, and voice-driven tool use",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "All listed capabilities are explicit for the exact open checkpoint; keep this concise description."
+    }
+  },
+  "patch": {
+    "parameters_b": 4.7,
+    "active_parameters_b": 4,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "reasoning": null,
+    "source_url": "https://mistral.ai/news/voxtral/",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Voxtral launch announcement",
+        "url": "https://mistral.ai/news/voxtral/",
+        "type": "primary"
+      },
+      {
+        "label": "Voxtral Mini 1.0 (3B) - 2507 model card and public weights",
+        "url": "https://huggingface.co/mistralai/Voxtral-Mini-3B-2507",
+        "type": "weights"
+      },
+      {
+        "label": "Voxtral technical report, sections 2 and 3 and Table 1",
+        "url": "https://arxiv.org/html/2507.13264v1",
+        "type": "primary"
+      },
+      {
+        "label": "Official Voxtral Mini 25.07 documentation schema, pinned revision",
+        "url": "https://github.com/mistralai/platform-docs-public/blob/cd2192ef7d0e96388a4261dbb6d417869e4bb965/src/schema/models/models/voxtral-mini-25-07.ts",
+        "type": "primary"
+      },
+      {
+        "label": "Official model-card weights table renderer, pinned revision",
+        "url": "https://github.com/mistralai/platform-docs-public/blob/cd2192ef7d0e96388a4261dbb6d417869e4bb965/src/app/%5Blocale%5D/(docs)/model-card/%5Bslug%5D/components/weights-table.tsx",
+        "type": "primary"
+      },
+      {
+        "label": "Native Voxtral Mini 3B 2507 configuration",
+        "url": "https://huggingface.co/mistralai/Voxtral-Mini-3B-2507/blob/3060fe34b35ba5d44202ce9ff3c097642914f8f3/params.json",
+        "type": "weights"
+      },
+      {
+        "label": "Transformers conversion configuration for Voxtral Mini 3B 2507",
+        "url": "https://huggingface.co/mistralai/Voxtral-Mini-3B-2507/blob/3060fe34b35ba5d44202ce9ff3c097642914f8f3/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Official separate Voxtral Mini Transcribe 25.07 documentation schema",
+        "url": "https://github.com/mistralai/platform-docs-public/blob/cd2192ef7d0e96388a4261dbb6d417869e4bb965/src/schema/models/models/voxtral-mini-transcribe-25-07.ts",
+        "type": "primary"
+      },
+      {
+        "label": "Models.dev source record",
+        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/mistral/voxtral-mini-3b-2507.toml",
+        "type": "catalog"
+      },
+      {
+        "label": "Exact Voxtral Mini checkpoint tensor index",
+        "url": "https://huggingface.co/mistralai/Voxtral-Mini-3B-2507/blob/3060fe34b35ba5d44202ce9ff3c097642914f8f3/model.safetensors.index.json",
+        "type": "weights"
+      }
+    ],
+    "notes": "The 3B name is not the full multimodal checkpoint count: the technical report gives 4.7B total. The later official weights table instead lists 4B total and 4B active without defining component or inference-phase scope; 4B active is retained only as that published nominal figure. Native context is 32768 tokens (about 30 minutes transcription or 40 minutes audio understanding), despite 131072 in the converted Transformers text configuration. The public audio-chat checkpoint is distinct from Voxtral Mini Transcribe, which shares an API identifier. Dedicated thinking-mode support remains unverified. Component figures are independently rounded in the technical report and are not an exact-sum reconstruction.",
+    "license": "Apache-2.0"
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "audio_encoder": 0.64,
+      "audio_adapter": 0.025,
+      "text_embeddings": 0.4,
+      "language_decoder": 3.6
+    }
+  },
+  "summary": "Correct name-derived 3B to the technical report full-checkpoint total of 4.7B; separately record the official docs nominal 4B active value and disclose the conflicting 4B total. Establish dense Transformer architecture, preserve native 32768 context and supported audio/text/tool capabilities, and clear unsupported false reasoning-mode assertion. Proposed component figures are independently rounded in Table 1 and are not an exact-sum reconstruction."
+}
