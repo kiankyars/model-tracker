@@ -1,0 +1,335 @@
+{
+  "index": 182,
+  "model_id": "deepseek/deepseek-v4-pro-0423",
+  "reviewed_at": "2026-10-26T19:16:28.661059+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://openrouter.ai/blog/insights/deepseek-v4-vision/",
+      "title": "OpenRouter exact V4 variant mapping",
+      "publisher": "OpenRouter",
+      "accessed": true,
+      "evidence": "Maps its DeepSeek V4 Pro 0423 label to deepseek/deepseek-v4-pro and explicitly identifies it as the original April 2026 release, separate from Pro 0813. Specifies text input/output only."
+    },
+    {
+      "id": "s2",
+      "url": "https://api-docs.deepseek.com/news/news260424/",
+      "title": "DeepSeek V4 Preview Release, April 24, 2026",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Dated official announcement releases the Pro preview, its open weights and API; reports nominal 1.6T total/49B active, one-million-token context, and thinking/non-thinking modes."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/b5968e9190ef611bbf34a7229255be88a0e937c1/README.md",
+      "title": "Pinned original DeepSeek-V4-Pro model card",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Names the model as the DeepSeek-V4 preview; identifies MoE, hybrid CSA/HCA attention and mHC. Reports nominal 1.6T/49B and 1M context, non-think/high/max modes, and explicitly applies MIT to repository and weights."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/b5968e9190ef611bbf34a7229255be88a0e937c1/config.json",
+      "title": "Pinned DeepSeek-V4-Pro configuration",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Specifies DeepseekV4ForCausalLM, 61 main layers, hidden size 7168, 384 routed experts/top-6 plus one shared expert, one next-token prediction layer, FP4 experts, and max_position_embeddings=1048576."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/b5968e9190ef611bbf34a7229255be88a0e937c1/inference/model.py",
+      "title": "Official DeepSeek-V4-Pro inference implementation",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Defines the Transformer, MoE and MTP modules. Packed FP4 matrices have half-width storage; quantization scales are separate. Token-to-expert maps have requires_grad=False. mHC scales and gate biases are parameters; MTP shares main embedding/head."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/b5968e9190ef611bbf34a7229255be88a0e937c1/inference/convert.py",
+      "title": "Official FP4 checkpoint conversion",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Unpacks the low/high nibbles of each I8 expert matrix element into two FP4 weights and applies separate block scales. Skips any shared MTP embedding/head duplicates."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/resolve/b5968e9190ef611bbf34a7229255be88a0e937c1/model.safetensors.index.json",
+      "title": "Pinned index and all 64 bounded safetensors headers",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Independently matched all 145116 indexed tensors to 64 shard headers. Raw 861608274846 elements include 786381668352 packed FP4 elements, 49150268416 quantization-scale elements and 2327040 fixed routing indices. Correct logical count is 1598837347742: main 1572997201763 plus unique MTP 25840145979. No MTP embedding/head duplicates occur."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/b5968e9190ef611bbf34a7229255be88a0e937c1/encoding/README.md",
+      "title": "Original V4 text, reasoning and tool encoding",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Documents text conversation encoding and parsed text output, thinking/chat modes, reasoning blocks, DSML tool invocation and tool-result handling."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/b5968e9190ef611bbf34a7229255be88a0e937c1/LICENSE",
+      "title": "DeepSeek-V4-Pro MIT license",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Contains MIT license text; the matching model card explicitly applies this license to both code and model weights."
+    },
+    {
+      "id": "s10",
+      "url": "https://arxiv.org/html/2606.19348v1",
+      "title": "DeepSeek-V4 technical report",
+      "publisher": "DeepSeek-AI",
+      "accessed": true,
+      "evidence": "The Pro-specific setup describes a 61-layer Transformer, 384 routed experts/top-6 with one shared expert, MTP depth one, hybrid attention and mHC. Reports nominal 1.6T total/49B active. FP4 QAT uses master weights, distinguishing logical weights from quantized storage scales."
+    },
+    {
+      "id": "s11",
+      "url": "https://api-docs.deepseek.com/updates/",
+      "title": "DeepSeek release and alias change log",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "April 24 explicitly announces V4-Pro API availability. August 13 replaces the official deepseek-v4-pro API alias with its GA revision, so current official alias behavior must not be attributed to the 0423 checkpoint."
+    },
+    {
+      "id": "s12",
+      "url": "https://huggingface.co/api/models/deepseek-ai/DeepSeek-V4-Pro/commits/main",
+      "title": "Official checkpoint revision history",
+      "publisher": "DeepSeek / Hugging Face",
+      "accessed": true,
+      "evidence": "History records Release DeepSeek-V4 on April 24 at revision 0e1a0e5e52aea73055f50fef6f2423db370265b6. The indexed tensor mapping and all 64 weight-file metadata entries at that release match the counted June 22 revision; later commits update supporting files."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "DeepSeek V4 Pro 0423",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Provider display label for the original DeepSeek-V4-Pro preview. The 0423 label does not establish an April 23 public release."
+    },
+    "developer": {
+      "value": "DeepSeek",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s9"
+      ],
+      "note": "Official DeepSeek release and checkpoint organization."
+    },
+    "family": {
+      "value": "deepseek-thinking",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s8"
+      ],
+      "note": "Retains the catalog reasoning-model grouping; the developer identifies the underlying series as DeepSeek-V4. This model supports both thinking and non-thinking modes."
+    },
+    "release_date": {
+      "value": "2026-04-24",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s11",
+        "s12"
+      ],
+      "note": "Explicit preview announcement and change log date. Earlier repository upload activity and the provider suffix do not establish an earlier public release."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s7"
+      ],
+      "note": "Official public preview checkpoint and every indexed shard header were accessible."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s9"
+      ],
+      "note": "Model card expressly licenses both the repository and model weights under MIT."
+    },
+    "parameters_b": {
+      "value": 1598.837347742,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s12"
+      ],
+      "note": "Complete learned logical checkpoint count: 1572.997201763B main + 25.840145979B unique MTP. Each packed FP4 element contributes two weights; exclude quantization scales and fixed routing indices, retain mHC scales and parameterized gate biases. Shared embedding/head counted once. Developer 1.6T is nominal, not an exact count."
+    },
+    "active_parameters_b": {
+      "value": 49,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s10"
+      ],
+      "note": "Developer-reported nominal activation per token for the main model; not an exact tensor count or combined main-plus-MTP execution cost."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s5",
+        "s10"
+      ],
+      "note": "Decoder Transformer with DeepSeekMoE, hybrid CSA/HCA attention and mHC. Main model has 61 blocks, 384 routed experts/top-6 and one shared expert per block; checkpoint also contains one MTP block."
+    },
+    "context_window": {
+      "value": 1000000,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "note": "Preserves advertised one-million-token context. Configuration has a 1048576-position ceiling; the configured value is distinguished from the advertised decimal context window."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s5",
+        "s7",
+        "s8"
+      ],
+      "note": "Exact 0423 provider mapping says text-only; original tokenizer/inference/checkpoint structures implement text generation without a visual encoder."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s8"
+      ],
+      "note": "Original preview supports non-thinking, Think High and Think Max, with explicit reasoning prompt encoding."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s8"
+      ],
+      "note": "Original released encoding defines DSML tool calls and tool-result handling, including interleaved thinking."
+    },
+    "description": {
+      "value": "DeepSeek V4 Pro initial snapshot with million-token context and support for thinking and non-thinking modes",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Existing description accurately describes the original preview and its documented modes/context."
+    }
+  },
+  "patch": {
+    "release_date": "2026-04-24",
+    "date_precision": "day",
+    "license": "MIT",
+    "parameters_b": 1598.837347742,
+    "active_parameters_b": 49,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "source_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/b5968e9190ef611bbf34a7229255be88a0e937c1/README.md",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "OpenRouter exact V4 variant mapping",
+        "url": "https://openrouter.ai/blog/insights/deepseek-v4-vision/",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeek V4 Preview Release, April 24, 2026",
+        "url": "https://api-docs.deepseek.com/news/news260424/",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned original DeepSeek-V4-Pro model card",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/b5968e9190ef611bbf34a7229255be88a0e937c1/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned DeepSeek-V4-Pro configuration",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/b5968e9190ef611bbf34a7229255be88a0e937c1/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Official DeepSeek-V4-Pro inference implementation",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/b5968e9190ef611bbf34a7229255be88a0e937c1/inference/model.py",
+        "type": "primary"
+      },
+      {
+        "label": "Official FP4 checkpoint conversion",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/b5968e9190ef611bbf34a7229255be88a0e937c1/inference/convert.py",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned index and all 64 bounded safetensors headers",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/resolve/b5968e9190ef611bbf34a7229255be88a0e937c1/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Original V4 text, reasoning and tool encoding",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/b5968e9190ef611bbf34a7229255be88a0e937c1/encoding/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeek-V4-Pro MIT license",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/b5968e9190ef611bbf34a7229255be88a0e937c1/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeek-V4 technical report",
+        "url": "https://arxiv.org/html/2606.19348v1",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeek release and alias change log",
+        "url": "https://api-docs.deepseek.com/updates/",
+        "type": "primary"
+      },
+      {
+        "label": "Official checkpoint revision history",
+        "url": "https://huggingface.co/api/models/deepseek-ai/DeepSeek-V4-Pro/commits/main",
+        "type": "primary"
+      }
+    ],
+    "notes": "0423 identifies the original DeepSeek-V4-Pro preview, publicly released April 24, 2026; it is separate from the August 13 GA model. Complete logical checkpoint total is 1598.837347742B: 1572.997201763B main plus 25.840145979B unique MTP. Count expands packed FP4 weights and excludes quantization scales/fixed routing indices while retaining learned mHC scales and parameterized gate biases. Shared embedding/head counted once. DeepSeek reports nominal 1.6T total and 49B active; active figure describes main-model inference rather than combined MTP drafting. Advertised context is 1M; configured positional ceiling is 1048576. The official deepseek-v4-pro API alias was upgraded to GA on August 13, so it no longer establishes this dated preview identity. No endpoint execution was tested."
+  },
+  "proposed_fields": {
+    "active_parameters_scope": "main",
+    "parameter_components_b": {
+      "main": 1572.997201763,
+      "mtp": 25.840145979
+    }
+  },
+  "summary": "Verified all 14 fields for the original 0423-labeled Pro preview. Corrected public release date to April 24; added MIT, MoE, complete 1598.837347742B parameters and nominal 49B active. Independently counted all shard headers with FP4/metadata handling and verified release-weight continuity. Preserved advertised 1M text context, reasoning/tools and supported description; distinguished later GA alias behavior."
+}
