@@ -1,0 +1,295 @@
+{
+  "index": 229,
+  "model_id": "google/t5-11b",
+  "reviewed_at": "2026-10-26T20:37:51.752975+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://github.com/google-research/text-to-text-transfer-transformer/blob/9fd7b14a769417be33bc6c850f9598764913c833/README.md",
+      "title": "Original T5 release README",
+      "publisher": "Google Research",
+      "accessed": true,
+      "evidence": "The October 23, 2019 repository snapshot explicitly lists T5-11B among released model checkpoints, linking gs://t5-data/pretrained_models/11B and giving nominal 11 billion parameters. It describes pretraining and downstream fine-tuning in a text-to-text encoder-decoder framework."
+    },
+    {
+      "id": "s2",
+      "url": "https://api.github.com/repos/google-research/text-to-text-transfer-transformer/commits/9fd7b14a769417be33bc6c850f9598764913c833",
+      "title": "Original T5 release commit metadata",
+      "publisher": "Google Research / GitHub",
+      "accessed": true,
+      "evidence": "Author timestamp 2019-10-23T23:34:41Z and committer timestamp 2019-10-23T23:52:05Z date the snapshot that already links released T5-11B weights. Later February 2020 publicity is not used as the initial release date."
+    },
+    {
+      "id": "s3",
+      "url": "https://storage.googleapis.com/t5-data/pretrained_models/11B/model.ckpt-1000000.index",
+      "title": "Original Google T5-11B checkpoint tensor index",
+      "publisher": "Google Research",
+      "accessed": true,
+      "evidence": "Downloaded only the 21,276-byte TensorFlow index, not weight shards. Decoded variable shapes from SSTable/Snappy BundleEntry metadata: 509 unique BF16 model tensors sum to 11,307,321,344 elements after excluding Adafactor slot variables and global_step. Encoder 4,831,892,480; decoder 6,442,529,792; shared embedding 32,899,072. No partition aliases or cross-attention relative-bias tensor; exactly two self-attention relative-bias tables. Every retained tensor byte length equals twice its element count."
+    },
+    {
+      "id": "s4",
+      "url": "https://storage.googleapis.com/t5-data/pretrained_models/11B/operative_config.gin",
+      "title": "Original T5-11B operative configuration",
+      "publisher": "Google Research",
+      "accessed": true,
+      "evidence": "24 encoder and 24 decoder blocks, d_model=1024, d_ff=65536, d_kv=128, 128 heads, dense ReLU feed-forward layers. Encoder/decoder share the embedding, decoder embedding/softmax weights are tied; relative attention bias is shared across layers. Config sets input/target lengths and max_length to 512, disables absolute positional embeddings, and uses vocabulary padding divisor 128."
+    },
+    {
+      "id": "s5",
+      "url": "https://jmlr.org/papers/volume21/20-074/20-074.pdf",
+      "title": "Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer",
+      "publisher": "T5 authors / Google Research",
+      "accessed": true,
+      "evidence": "Original research describes dense encoder-decoder Transformers, text inputs and outputs, relative-position bias, shared input/output vocabulary, nominal 11B variant, and multitask pretraining combining denoising with supervised tasks. Length 512 is documented for training/fine-tuning. No separately defined active-parameter count, dedicated thinking mode or native tool-call capability is supplied."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/google-t5/t5-11b/resolve/90f37703b3334dfe9d2b009bfcbfbf1ac9d28ea3/config.json",
+      "title": "Pinned original T5-11B Transformers configuration",
+      "publisher": "T5 checkpoint / Hugging Face",
+      "accessed": true,
+      "evidence": "Exact original T5 config matches Google dimensions: 24 layers per stack, d_model1024, d_ff65536, d_kv128, 128 heads, vocabulary32128 and 32 relative-position buckets. n_positions512 is metadata; it is not a learned absolute-position table or verified universal serving cap."
+    },
+    {
+      "id": "s7",
+      "url": "https://github.com/huggingface/transformers/blob/a672eb5f474b8b30173e9f96eab66adf292da635/src/transformers/models/t5/modeling_t5.py",
+      "title": "T5 model implementation",
+      "publisher": "T5 authors / Hugging Face",
+      "accessed": true,
+      "evidence": "Defines dense self-attention and decoder cross-attention, two-matrix ReLU feed-forward layers, scale-only layer normalization and shared token embeddings/output weights. Relative biases occur only for the first self-attention block of each stack. Cross-attention is constructed without relative bias; old converted unexpected cross-attention bias keys are ignored. Shape-based formula agrees exactly with the original Google checkpoint index."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/google-t5/t5-11b/blob/90f37703b3334dfe9d2b009bfcbfbf1ac9d28ea3/README.md",
+      "title": "T5 11B model card",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Identifies original T5-11B checkpoint and its Google Research authors, text-to-text uses, C4 plus supervised multitask pretraining, and Apache 2.0 license. Card is authored by Hugging Face, not a separate claim of a Google-authored card; original checkpoint evidence is used for parameter count."
+    },
+    {
+      "id": "s9",
+      "url": "https://github.com/google-research/text-to-text-transfer-transformer/blob/9fd7b14a769417be33bc6c850f9598764913c833/LICENSE",
+      "title": "Original T5 Apache License 2.0",
+      "publisher": "Google Research",
+      "accessed": true,
+      "evidence": "The original released project carries Apache License 2.0, consistent with the exact checkpoint model card."
+    },
+    {
+      "id": "s10",
+      "url": "https://github.com/google-research/t5x/blob/main/docs/models.md",
+      "title": "T5X released-model documentation",
+      "publisher": "Google Research",
+      "accessed": true,
+      "evidence": "Later first-party documentation explicitly separates original T5 11B from T5 1.1 XXL, LM-adapted and Flan variants, with differing shapes and embedding sharing. No active-parameter specification for original T5-11B was found here; later-model capabilities/counts are not transferred."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "T5 11B",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8"
+      ],
+      "note": "Original T5-11B variant, not T5 1.1 XXL, Flan-T5 or T5Gemma."
+    },
+    "developer": {
+      "value": "Google",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5",
+        "s8"
+      ],
+      "note": "Google Research model; individual authors are listed in the original report."
+    },
+    "family": {
+      "value": "t5",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Original Text-to-Text Transfer Transformer family."
+    },
+    "release_date": {
+      "value": "2019-10-23",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Retain the original repository release date: the dated snapshot already states that the exact 11B checkpoint has been released. Later blog publication and HF conversion dates are distinct."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Public Google checkpoint release; its tensor index was accessed directly without credentials."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s8",
+        "s9"
+      ],
+      "note": "Exact checkpoint card explicitly says Apache 2.0; original release repository carries the same license."
+    },
+    "parameters_b": {
+      "value": 11.307321344,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s6",
+        "s7"
+      ],
+      "note": "Complete original model count in decimal billions, verified by original TensorFlow checkpoint index and independent configuration formula. 509 unique BF16 tensors: encoder 4,831,892,480 + decoder 6,442,529,792 + shared token/output embedding 32,899,072 = 11,307,321,344. Excludes optimizer slots/global_step; no quantization metadata or extra converted cross-attention bias. Embeddings shared by encoder, decoder and output are counted once. 11B is the nominal size name; no weight payloads were downloaded."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s10"
+      ],
+      "note": "No separately defined per-token active count is reported for original T5-11B in reviewed primary evidence or later original-model documentation. Dense total is not copied into this field: encoder computation and autoregressive decoder computation occur in different phases."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s7"
+      ],
+      "note": "Dense Transformer encoder-decoder: 24 encoder and 24 decoder blocks, bidirectional encoder self-attention, causal decoder self-attention and encoder-decoder cross-attention, with relative-position bias and ReLU feed-forward layers; no routed experts."
+    },
+    "context_window": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "note": "512 is the documented training/default input and target length (also n_positions metadata), not a verified universal maximum input context. Relative-position bias does not impose a fixed absolute-position table, and deployment limits depend on configuration; do not invent an unlimited supported context either."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5",
+        "s8"
+      ],
+      "note": "Original checkpoint maps tokenized text inputs to generated text; no vision or audio encoder."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s5",
+        "s8",
+        "s10"
+      ],
+      "note": "Task benchmarks and text generation do not establish a dedicated thinking/reasoning feature for this original checkpoint; later Flan reasoning results are a different model."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s5",
+        "s8",
+        "s10"
+      ],
+      "note": "No native tool/function-call capability is specified for original T5-11B; task-specific fine-tuning or an external wrapper would not verify this base checkpoint flag."
+    },
+    "description": {
+      "value": "Original T5 encoder-decoder model pretrained with span corruption and supervised text-to-text tasks.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s5",
+        "s8"
+      ],
+      "note": "Plain description of original model structure and multitask pretraining, without implying modern instruction/chat tuning."
+    }
+  },
+  "patch": {
+    "parameters_b": 11.307321344,
+    "parameters_source": "primary_source",
+    "description": "Original T5 encoder-decoder model pretrained with span corruption and supervised text-to-text tasks.",
+    "source_url": "https://github.com/google-research/text-to-text-transfer-transformer/blob/9fd7b14a769417be33bc6c850f9598764913c833/README.md",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Original T5 release README",
+        "url": "https://github.com/google-research/text-to-text-transfer-transformer/blob/9fd7b14a769417be33bc6c850f9598764913c833/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Original T5 release commit metadata",
+        "url": "https://api.github.com/repos/google-research/text-to-text-transfer-transformer/commits/9fd7b14a769417be33bc6c850f9598764913c833",
+        "type": "primary"
+      },
+      {
+        "label": "Original Google T5-11B checkpoint tensor index",
+        "url": "https://storage.googleapis.com/t5-data/pretrained_models/11B/model.ckpt-1000000.index",
+        "type": "weights"
+      },
+      {
+        "label": "Original T5-11B operative configuration",
+        "url": "https://storage.googleapis.com/t5-data/pretrained_models/11B/operative_config.gin",
+        "type": "weights"
+      },
+      {
+        "label": "Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer",
+        "url": "https://jmlr.org/papers/volume21/20-074/20-074.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned original T5-11B Transformers configuration",
+        "url": "https://huggingface.co/google-t5/t5-11b/resolve/90f37703b3334dfe9d2b009bfcbfbf1ac9d28ea3/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "T5 model implementation",
+        "url": "https://github.com/huggingface/transformers/blob/a672eb5f474b8b30173e9f96eab66adf292da635/src/transformers/models/t5/modeling_t5.py",
+        "type": "primary"
+      },
+      {
+        "label": "T5 11B model card",
+        "url": "https://huggingface.co/google-t5/t5-11b/blob/90f37703b3334dfe9d2b009bfcbfbf1ac9d28ea3/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Original T5 Apache License 2.0",
+        "url": "https://github.com/google-research/text-to-text-transfer-transformer/blob/9fd7b14a769417be33bc6c850f9598764913c833/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "T5X released-model documentation",
+        "url": "https://github.com/google-research/t5x/blob/main/docs/models.md",
+        "type": "primary"
+      }
+    ],
+    "notes": "The 11B name is nominal. Original checkpoint metadata gives 11,307,321,344 unique parameters across encoder, decoder and one shared token/output embedding; optimizer state is excluded. Active parameters are not separately defined. The documented 512-token training/default length is not a verified hard context limit. Release date follows the original repository snapshot linking the released checkpoint."
+  },
+  "summary": "Replace nominal 11B with exact 11.307321344B from the original Google checkpoint index, independently reconciled with the full encoder-decoder configuration and tied embedding. All 14 fields checked; dense architecture and Apache-2.0 confirmed. Context, dedicated reasoning and native tools remain unverified; 512 is a training/default length rather than a universal cap. Active count remains undisclosed. October 23, 2019 original release retained."
+}
