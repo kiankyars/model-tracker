@@ -1,0 +1,285 @@
+{
+  "index": 320,
+  "model_id": "mistral/ministral-14b",
+  "reviewed_at": "2026-10-26T22:54:58.852658Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://raw.githubusercontent.com/anomalyco/models.dev/dev/models/mistral/ministral-14b.toml",
+      "title": "Models.dev undated Ministral 14B record",
+      "publisher": "Models.dev",
+      "accessed": true,
+      "evidence": "The upstream undated entry explicitly links the Ministral-3-14B-Instruct-2512 checkpoint and the December 2025 Mistral 3 launch. This establishes the catalog record’s intended identity; its capability assertions are verified separately with developer sources."
+    },
+    {
+      "id": "s2",
+      "url": "https://mistral.ai/news/mistral-3/",
+      "title": "Introducing Mistral 3",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "December 2, 2025 launch introduces the dense 3B, 8B and 14B Ministral 3 sizes, each with base, instruct and reasoning variants, and releases them under Apache 2.0. It describes local and edge deployment."
+    },
+    {
+      "id": "s3",
+      "url": "https://docs.mistral.ai/models/ministral-3-14b-25-12",
+      "title": "Ministral 3 14B v25.12 — model reference and Weights table",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Exact official page identifies the December 2 release and links Instruct, Reasoning and Base checkpoints separately. The Instruct Weights row in the delivered React payload explicitly reports Parameters (B)=14 and Active (B)=14, Apache 2.0 and 256k context."
+    },
+    {
+      "id": "s4",
+      "url": "https://docs.mistral.ai/models/ministral-3-14b-25-12.md",
+      "title": "Ministral 3 14B — official Markdown model reference",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Explicitly names API identifiers ministral-14b-2512 and ministral-14b-latest, text/image input, text output, function calling, December 2 release and 256k context. The bare ministral-14b catalog key is not itself established as an API endpoint identifier."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/mistralai/Ministral-3-14B-Instruct-2512/blob/29439f81c2be264d8d393273f99e7db9c0961120/README.md",
+      "title": "Ministral 3 14B Instruct 2512 — pinned official checkpoint card",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Identifies the FP8 instruction variant separately from Base and Reasoning. States a nominal 13.5B language model and 0.4B vision encoder, Apache 2.0, native function calling, text/image understanding and 256k context. The serving notes explicitly give default max-model-len 262144."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/mistralai/Ministral-3-14B-Instruct-2512/blob/29439f81c2be264d8d393273f99e7db9c0961120/config.json",
+      "title": "Ministral 3 14B Instruct — pinned Transformers configuration",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Mistral3ForConditionalGeneration with a dense ministral3 language decoder: 40 layers, hidden size 5120, FFN size 16384, 32 query and 8 KV heads, 131072 vocabulary, untied embeddings and max_position_embeddings 262144. Includes a 24-layer Pixtral vision encoder and projector; FP8 quantization excludes these vision modules and the output head."
+    },
+    {
+      "id": "s7",
+      "url": "https://arxiv.org/html/2601.08584v1",
+      "title": "Ministral 3 technical report",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "January 2026 report explicitly describes dense decoder-only Transformers, GQA, SwiGLU, RMSNorm and YaRN. Table 1 provides the exact 14B configuration. Section 2 separately describes a 410M-parameter ViT plus a newly trained projector. It distinguishes Instruct from Reasoning post-training and their context limits."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/mistralai/Ministral-3-14B-Instruct-2512/discussions/25",
+      "title": "Mistral maintainer correction of unused reasoning tokens",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Mistral organization maintainer juliendenize explicitly identifies this exact Instruct repository as non-reasoning and explains that unused THINK tokens were renamed to prevent tooling from falsely treating it as reasoning-capable. The change was merged June 30, 2026; only tokenizer files changed."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/api/models/mistralai/Ministral-3-14B-Instruct-2512",
+      "title": "Official checkpoint repository metadata",
+      "publisher": "Mistral AI / Hugging Face",
+      "accessed": true,
+      "evidence": "Public, ungated repository at revision 29439f81c2be264d8d393273f99e7db9c0961120, containing native and Transformers weights. Pinned card/configuration/index were retrieved; the index has 1145 entries including FP8 scales, which are not treated as learned parameters."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/mistralai/Ministral-3-14B-Instruct-2512/resolve/29439f81c2be264d8d393273f99e7db9c0961120/model-00001-of-00004.safetensors",
+      "title": "Public pinned weight shard availability probe",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "An unauthenticated Range request for bytes 0–7 succeeded with HTTP 206 and Content-Range bytes 0-7/4980912374. Exactly eight bytes were read; safetensors header length is 22560. This verifies downloadable weights without downloading a full shard."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Ministral 3 14B Instruct",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s5"
+      ],
+      "note": "Expand the undated catalog shorthand using the exact linked checkpoint; distinguish the Instruct variant from Base and Reasoning."
+    },
+    "developer": {
+      "value": "Mistral",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s5"
+      ],
+      "note": "Official Mistral AI announcement and checkpoint; retain the normalized developer label."
+    },
+    "family": {
+      "value": "ministral",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s5"
+      ],
+      "note": "Developer explicitly places this checkpoint in the Ministral 3 family."
+    },
+    "release_date": {
+      "value": "2025-12-02",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "note": "Dated public launch and model reference agree. January 2026 technical-report publication is not the release date."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s5",
+        "s9",
+        "s10"
+      ],
+      "note": "Exact official checkpoint is public, ungated and downloadable; verified with a bounded eight-byte weight request."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s5"
+      ],
+      "note": "Explicit model license in the launch, exact checkpoint metadata/body and Instruct Weights table. No separate LICENSE file appears in the repository listing."
+    },
+    "parameters_b": {
+      "value": 14,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s5"
+      ],
+      "note": "Developer’s nominal whole-model size in billions. The card separately gives rounded 13.5B language and 0.4B vision figures; do not replace nominal 14B with an exact-looking sum or the FP8 storage aggregate."
+    },
+    "active_parameters_b": {
+      "value": 14,
+      "status": "verified",
+      "source_ids": [
+        "s3"
+      ],
+      "note": "Official exact Instruct Weights row directly labels Active (B)=14. This is nominal disclosure, not an inference from dense architecture or an asserted per-modality FLOP count."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s6",
+        "s7"
+      ],
+      "note": "Explicit dense architecture is corroborated by the 40-layer GQA language decoder and vision encoder/projector. No MoE routing is inferred from another Mistral release."
+    },
+    "context_window": {
+      "value": 262144,
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "note": "Checkpoint config and serving notes explicitly specify 262144. The separate Reasoning variant’s shorter context and third-party hosting limits do not apply to this Instruct checkpoint."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "note": "Native vision encoder/projector accepts images alongside text; the model generates text. No native audio or image generation is claimed."
+    },
+    "reasoning": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s8"
+      ],
+      "note": "Explicit exact-checkpoint maintainer statement settles dedicated native reasoning; ordinary reasoning benchmarks in the family card do not make this the Reasoning variant."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "note": "Official model reference lists Function Calling; the exact checkpoint card provides native Mistral tool parsing and function schemas."
+    },
+    "description": {
+      "value": "Multimodal instruction model for local assistants and edge agents, with native function calling.",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s5"
+      ],
+      "note": "Restrict description to documented instruction, local deployment, vision and native tools; remove subjective efficiency claim."
+    }
+  },
+  "patch": {
+    "name": "Ministral 3 14B Instruct",
+    "active_parameters_b": 14,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "description": "Multimodal instruction model for local assistants and edge agents, with native function calling.",
+    "source_url": "https://mistral.ai/news/mistral-3/",
+    "source_type": "primary",
+    "notes": "This undated catalog entry explicitly links Ministral-3-14B-Instruct-2512; official API names are ministral-14b-2512 and ministral-14b-latest. Specifications here describe that Instruct checkpoint, not Base or Reasoning. Mistral reports nominal 14B total and 14B active parameters; rounded component figures and FP8 storage totals are not exact whole-model counts. The checkpoint context is 262,144 tokens. A Mistral maintainer explicitly confirms it is non-reasoning.",
+    "sources": [
+      {
+        "label": "Models.dev undated Ministral 14B record",
+        "url": "https://raw.githubusercontent.com/anomalyco/models.dev/dev/models/mistral/ministral-14b.toml",
+        "type": "catalog"
+      },
+      {
+        "label": "Introducing Mistral 3",
+        "url": "https://mistral.ai/news/mistral-3/",
+        "type": "primary"
+      },
+      {
+        "label": "Ministral 3 14B v25.12 — model reference and Weights table",
+        "url": "https://docs.mistral.ai/models/ministral-3-14b-25-12",
+        "type": "primary"
+      },
+      {
+        "label": "Ministral 3 14B — official Markdown model reference",
+        "url": "https://docs.mistral.ai/models/ministral-3-14b-25-12.md",
+        "type": "primary"
+      },
+      {
+        "label": "Ministral 3 14B Instruct 2512 — pinned official checkpoint card",
+        "url": "https://huggingface.co/mistralai/Ministral-3-14B-Instruct-2512/blob/29439f81c2be264d8d393273f99e7db9c0961120/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "Ministral 3 14B Instruct — pinned Transformers configuration",
+        "url": "https://huggingface.co/mistralai/Ministral-3-14B-Instruct-2512/blob/29439f81c2be264d8d393273f99e7db9c0961120/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Ministral 3 technical report",
+        "url": "https://arxiv.org/html/2601.08584v1",
+        "type": "primary"
+      },
+      {
+        "label": "Mistral maintainer correction of unused reasoning tokens",
+        "url": "https://huggingface.co/mistralai/Ministral-3-14B-Instruct-2512/discussions/25",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "Audited all 14 fields for the undated catalog alias, tracing its own weight link to Ministral 3 14B Instruct 2512. Add directly disclosed nominal 14B active parameters, dense architecture and primary parameter provenance; clarify the official variant name and description. Verify December 2 release, public Apache-2.0 weights, 262144 context, native text/image input and tools, and explicitly non-reasoning status. Bare catalog ID is not asserted to be a live API endpoint; Base and Reasoning specifications are kept separate."
+}
