@@ -1,0 +1,296 @@
+{
+  "index": 285,
+  "model_id": "meta/muse-spark-open",
+  "reviewed_at": "2026-10-26T21:55:16.284223Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://research.meta.ai/blog/muse-spark-open",
+      "title": "Introducing Muse Spark Open",
+      "publisher": "Meta AI Research",
+      "accessed": true,
+      "evidence": "Announcement dated October 15, 2026 releases the weights that day. Describes native multimodality, coding and agentic work, nominal 816B total/42B active parameters, and the Muse Model License."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/meta-models/Muse-Spark-Open-816B-A42B",
+      "title": "Muse Spark Open model card and displayed license",
+      "publisher": "Meta Superintelligence Labs",
+      "accessed": true,
+      "evidence": "Model overview identifies Meta, October 15, 2026, 816B total/42B active, MoE Transformer with perception encoder, 256 experts with top-8 routing, and text/image/video/audio input with text output. Card describes additional safety post-training for this open release. The displayed license is version Muse Spark Open, with attribution, usage-policy and certain model-as-a-service conditions."
+    },
+    {
+      "id": "s3",
+      "url": "https://dev.meta.ai/docs/muse-spark-open",
+      "title": "Muse Spark Open overview",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Exact open variant: sparse MoE Transformer with built-in perception encoders, 816B total/42B active, 1,048,576-token context, four input modalities and text output. BF16 and NVFP4 are formats of this release."
+    },
+    {
+      "id": "s4",
+      "url": "https://dev.meta.ai/docs/models",
+      "title": "Meta model lineup",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Separately lists hosted Muse Spark 1.1, 1.2 and 1.3, and Muse Spark Open in the self-hosted/provider-hosted section. The Open model is not called through Meta Model API. Establishes Muse family membership without identifying Open with a particular closed revision."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/api/models/meta-models/Muse-Spark-Open-816B-A42B",
+      "title": "Official BF16 repository metadata",
+      "publisher": "Hugging Face / Meta repository",
+      "accessed": true,
+      "evidence": "At revision 0fb02478b02565b2ce7fc57e6051c91172774ac9, public metadata reports manual gating, MuseSparkForConditionalGeneration, 821,906,490,368 BF16 elements and 130,039,296 F32 elements: 822,036,529,664 aggregate. This is storage metadata, not a tensor-by-tensor learned-parameter audit."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/meta-models/Muse-Spark-Open-816B-A42B/resolve/main/config.json",
+      "title": "Official checkpoint configuration (access denied)",
+      "publisher": "Meta",
+      "accessed": false,
+      "evidence": "Bounded unauthenticated request returned HTTP 401. The blob view also returned HTTP 401; exact checkpoint configuration could not be inspected."
+    },
+    {
+      "id": "s7",
+      "url": "https://dev.meta.ai/docs/muse-spark-open/prompting",
+      "title": "Muse Spark Open prompting guide",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Documents always-on reasoning with low/medium/high/xhigh effort, native function calls and parallel calls, and image/video/audio content parts for the exact released checkpoint. None/max are rejected effort values."
+    },
+    {
+      "id": "s8",
+      "url": "https://github.com/huggingface/transformers/blob/main/src/transformers/models/muse_spark/configuration_muse_spark.py",
+      "title": "Transformers Muse Spark configuration implementation",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Bounded source download inspected. Defaults: 62 text layers, 8192 hidden size, 256 routed experts/top-8, expert hidden and intermediate widths 4096, untied embeddings, and separate vision/audio configs. Defaults corroborate the model card but do not substitute for the inaccessible checkpoint config."
+    },
+    {
+      "id": "s9",
+      "url": "https://github.com/huggingface/transformers/blob/main/src/transformers/models/muse_spark/modeling_muse_spark.py",
+      "title": "Transformers Muse Spark model implementation",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Bounded source inspected: complete conditional generation model includes language model, vision tower, adapter/projection, audio tower and output head. MoE has shared pre/post expert projections around routed experts, with no separate shared-expert branch. Router correction bias is a buffer, demonstrating why aggregate tensor elements cannot automatically be called learned parameters."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/api/models/meta-models/Muse-Spark-Open-816B-A42B-NVFP4",
+      "title": "Official NVFP4 repository metadata",
+      "publisher": "Hugging Face / Meta repository",
+      "accessed": true,
+      "evidence": "Public metadata reports 483,807,947,264 aggregate stored elements, including U8 packed weights and F8_E4M3 scaling storage alongside BF16/F32. This lower storage aggregate is not a different learned-model parameter count."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/meta-models/Muse-Spark-Open-816B-A42B/resolve/main/model.safetensors.index.json",
+      "title": "Official tensor index (access denied)",
+      "publisher": "Meta",
+      "accessed": false,
+      "evidence": "Bounded request returned HTTP 401; tensor names and component decomposition could not be checked."
+    },
+    {
+      "id": "s12",
+      "url": "https://huggingface.co/meta-models/Muse-Spark-Open-816B-A42B/resolve/main/model-00001-of-00065.safetensors",
+      "title": "Official first-shard header (access denied)",
+      "publisher": "Meta",
+      "accessed": false,
+      "evidence": "Range request for bytes 0-7 returned HTTP 401. No weight data was downloaded."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Muse Spark Open",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Exact public release name."
+    },
+    "developer": {
+      "value": "Meta",
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Meta Superintelligence Labs authors the model card; Meta is the normalized developer."
+    },
+    "family": {
+      "value": "muse",
+      "status": "verified",
+      "source_ids": [
+        "s4"
+      ],
+      "note": "Catalog family normalization of the official Muse model lineup."
+    },
+    "release_date": {
+      "value": "2026-10-15",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "The dated announcement says the weights are released that day; repository creation is not public release."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "BF16 and NVFP4 checkpoints are released for download/self-hosting, subject to license and access conditions."
+    },
+    "license": {
+      "value": "Muse Model License",
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Verified in the publicly displayed license; this is a custom license, not an unrestricted open-source classification."
+    },
+    "parameters_b": {
+      "value": 816,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s5",
+        "s6",
+        "s9",
+        "s10",
+        "s11",
+        "s12"
+      ],
+      "note": "Nominal developer-published total in billions. The full architecture is multimodal, but exact component inclusion in 816B is unspecified. BF16 storage metadata totals 822.036529664B elements; gated config/index/header prevent reconciliation and exclusion of buffers. Do not replace the nominal count with that aggregate or add the encoder to it."
+    },
+    "active_parameters_b": {
+      "value": 42,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s8",
+        "s9"
+      ],
+      "note": "Nominal published per-token active count, not an independently reconstructed multimodal phase count. Top-8 of 256 routed experts does not mean 816 × 8/256: shared projections, attention and other components also operate. Encoder/prefill versus text-decode counting conventions are not explicitly resolved."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s8",
+        "s9"
+      ],
+      "note": "Sparse MoE Transformer with a 62-layer language backbone plus vision and audio components. Implementation routes top-8 of 256 experts at width 4096, with shared pre/post projections but no separate shared-expert branch. Checkpoint config is inaccessible, so implementation defaults are corroboration, not a precise parameter audit."
+    },
+    "context_window": {
+      "value": 1048576,
+      "status": "verified",
+      "source_ids": [
+        "s3"
+      ],
+      "note": "Exact token limit from the open-model specification; 1M is the rounded marketing form."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "video",
+          "audio"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s7"
+      ],
+      "note": "All four input modalities and text-only output are explicitly documented for Open."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s7"
+      ],
+      "note": "Always-on reasoning; low, medium, high and xhigh are supported, with xhigh default."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s7"
+      ],
+      "note": "Native structured function calling and parallel tool calls are explicitly documented."
+    },
+    "description": {
+      "value": "Muse Spark Open is Meta’s open-weight multimodal MoE Transformer, published as 816B total and 42B active parameters, for coding and agentic work with a 1,048,576-token context window.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Retains supported coding/agentic/multimodal/context claims and labels parameter figures as published counts."
+    }
+  },
+  "patch": {
+    "parameters_b": 816,
+    "active_parameters_b": 42,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "description": "Muse Spark Open is Meta’s open-weight multimodal MoE Transformer, published as 816B total and 42B active parameters, for coding and agentic work with a 1,048,576-token context window.",
+    "source_url": "https://research.meta.ai/blog/muse-spark-open",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Meta release announcement",
+        "url": "https://research.meta.ai/blog/muse-spark-open",
+        "type": "primary"
+      },
+      {
+        "label": "Meta model card and license",
+        "url": "https://huggingface.co/meta-models/Muse-Spark-Open-816B-A42B",
+        "type": "primary"
+      },
+      {
+        "label": "Meta open-model specifications",
+        "url": "https://dev.meta.ai/docs/muse-spark-open",
+        "type": "primary"
+      },
+      {
+        "label": "Meta prompting guide",
+        "url": "https://dev.meta.ai/docs/muse-spark-open/prompting",
+        "type": "primary"
+      },
+      {
+        "label": "Official BF16 metadata",
+        "url": "https://huggingface.co/api/models/meta-models/Muse-Spark-Open-816B-A42B",
+        "type": "weights"
+      },
+      {
+        "label": "Official NVFP4 metadata",
+        "url": "https://huggingface.co/api/models/meta-models/Muse-Spark-Open-816B-A42B-NVFP4",
+        "type": "weights"
+      },
+      {
+        "label": "Transformers model implementation",
+        "url": "https://github.com/huggingface/transformers/blob/main/src/transformers/models/muse_spark/modeling_muse_spark.py",
+        "type": "primary"
+      },
+      {
+        "label": "Meta model lineup",
+        "url": "https://dev.meta.ai/docs/models",
+        "type": "primary"
+      }
+    ],
+    "notes": "816B total and 42B active are Meta’s nominal published figures, not independently counted exact totals. BF16 repository metadata aggregates 822.036529664B stored tensor elements; its difference from the advertised 816B remains unreconciled because checkpoint config, tensor index and header access returned 401. The full released architecture includes language, vision and audio components; no verified component accounting establishes which are included in the nominal counts. Quantized storage elements, scale tensors and buffers are not automatically learned parameters. The 256 experts use top-8 routing; shared pre/post projections are not additional shared experts. This Open release is distinct from hosted Muse Spark 1.1, 1.2 and 1.3."
+  },
+  "summary": "Verified all 14 fields for the exact Open release. Fills nominal 816B total/42B active and MoE architecture from primary sources; qualifies description and records the unresolved advertised-total versus storage-aggregate discrepancy. Confirms October 15 release, custom Muse Model License, 1,048,576 context, four input modalities, text output, reasoning and tools. No weights downloaded; complete exact learned-parameter/component counting remains unverified due gated files."
+}
