@@ -1,0 +1,328 @@
+{
+  "index": 311,
+  "model_id": "minimax/minimax-m1-80k",
+  "reviewed_at": "2026-10-26T22:43:01.857589Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://www.minimax.io/news/minimaxm1",
+      "title": "MiniMax M1 launch announcement",
+      "publisher": "MiniMax",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Dated June 16, 2025. Explicitly names both M1-40k and M1-80k, announces complete weights and API access, and distinguishes one-million-token context from 80,000-token reasoning output."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M1-80k/blob/8d1494b1a260e22040d5b9b2eb332eb44500b34d/README.md",
+      "title": "MiniMax-M1-80k official model card",
+      "publisher": "MiniMax",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Exact 80k repository card identifies its 80K thinking budget, one-million-token native context, hybrid-attention MoE, reasoning training, text generation and native function calling; links this checkpoint and its Apache-2.0 license."
+    },
+    {
+      "id": "s3",
+      "url": "https://arxiv.org/html/2506.13585v1",
+      "title": "MiniMax-M1: Scaling Test-Time Compute Efficiently with Lightning Attention",
+      "publisher": "MiniMax",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "June 16, 2025 first-party report. Introduction explicitly states M1 comprises 456B total and 45.9B activated parameters with 32 experts; every seven Lightning Attention blocks are followed by a softmax-attention block. Table 1 names M1-80k with 1M input and 80K output. The 40K variant is an intermediate phase of 80K training."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M1-80k/blob/8d1494b1a260e22040d5b9b2eb332eb44500b34d/config.json",
+      "title": "MiniMax-M1-80k checkpoint configuration",
+      "publisher": "MiniMax",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "MiniMaxM1ForCausalLM with 80 layers, hidden size 6144, 32 local experts/top 2, no shared expert intermediate width, and a 70/10 linear/full attention layer schedule. max_position_embeddings 10240000 is larger than documented native context and is not treated as a validated capability."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M1-80k/blob/8d1494b1a260e22040d5b9b2eb332eb44500b34d/LICENSE",
+      "title": "MiniMax-M1-80k Apache License 2.0",
+      "publisher": "MiniMax",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Full distributed Apache License Version 2.0 with copyright 2025 MiniMax, matching the exact model card metadata."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M1-80k/blob/8d1494b1a260e22040d5b9b2eb332eb44500b34d/docs/function_call_guide.md",
+      "title": "MiniMax-M1 native function-call guide",
+      "publisher": "MiniMax",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Developer guide explicitly starts an M1-80k server with the MiniMax tool-call parser and demonstrates tool schemas, structured arguments and tool results. Documented output includes think and tool_calls tags."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M1-80k/blob/8d1494b1a260e22040d5b9b2eb332eb44500b34d/tokenizer_config.json",
+      "title": "MiniMax-M1-80k tokenizer and chat template",
+      "publisher": "MiniMax",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Text-only GPT 2 tokenizer template serializes user/assistant text and structured tool calls. tokenizer model_max_length 40960000 is a configured ceiling, not proof of validated context quality."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M1-80k/blob/8d1494b1a260e22040d5b9b2eb332eb44500b34d/modeling_minimax_m1.py",
+      "title": "MiniMax-M1-80k reference implementation",
+      "publisher": "MiniMax",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Static inspection confirms causal text-language modeling, Lightning Attention and full softmax attention, sparse top 2-of 32 expert routing, and untied embeddings/output weights. No vision/audio model path is present. No remote code was executed."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/api/models/MiniMaxAI/MiniMax-M1-80k",
+      "title": "Official M1-80k repository metadata and bounded weight access",
+      "publisher": "MiniMax / Hugging Face",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Public ungated repository at revision 8d1494b1a260e22040d5b9b2eb332eb44500b34d. The index maps 8,243 tensor keys to 414 shards. A pinned first-shard bytes=0-7 probe returned HTTP 206 with exactly 8 bytes. The automatic safetensors aggregate of 456,089,655,296 stored elements was not substituted for developer nominal parameter counts. June 13 repository creation alone does not establish a public release date."
+    },
+    {
+      "id": "s10",
+      "url": "https://github.com/MiniMax-AI/MiniMax-M1/blob/main/docs/vllm_deployment_guide.md",
+      "title": "MiniMax M1 vLLM deployment guide",
+      "publisher": "MiniMax",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Guide links both 40K/80K checkpoints and says particular 8-GPU setups can process 2M/5M context inputs. These hardware-serving capacity statements do not replace the exact model paper/card 1M supported-context specification."
+    },
+    {
+      "id": "s11",
+      "url": "https://platform.minimax.io/docs/faq/models",
+      "title": "Current MiniMax model list",
+      "publisher": "MiniMax",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Current available LLM table lists M 3/M 3.1 Flash. M1 is absent from both available and retired tables; surviving launch/card API links are not evidence of present native endpoint operation."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "MiniMax M1 80K",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Readable name for the exact MiniMax-M1-80k checkpoint; the suffix identifies its thinking/output budget, not context length."
+    },
+    "developer": {
+      "value": "MiniMax",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5"
+      ],
+      "note": "Developer-owned announcement, model repository and copyright agree."
+    },
+    "family": {
+      "value": "minimax",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Retains the catalog broad MiniMax family key; specifically the M1 generation derived from Text-01."
+    },
+    "release_date": {
+      "value": "2025-06-16",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s9"
+      ],
+      "note": "Earliest explicit primary public announcement reviewed, corroborated by the same-day technical report. Corrects baseline June 17; June 13 repository creation is not independent proof of public availability."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s5",
+        "s9"
+      ],
+      "note": "Exact 80k checkpoint is public and ungated; weight-file access was verified with a bounded HTTP 206 probe. No entire shard was downloaded."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s5"
+      ],
+      "note": "Exact checkpoint contains the Apache-2.0 license; later MiniMax custom licenses are not transferred."
+    },
+    "parameters_b": {
+      "value": 456,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s9"
+      ],
+      "note": "Developer nominal total in billions, explicitly assigned to M1 in the report introduction. No exact learned-tensor total is inferred from automatic Hugging Face storage metadata."
+    },
+    "active_parameters_b": {
+      "value": 45.9,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4"
+      ],
+      "note": "Developer nominal activated parameters per token. The exact embedding/component accounting convention is not separately specified; this is not total divided by expert count."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s8"
+      ],
+      "note": "Hybrid-attention MoE: 80 decoder layers with 70 Lightning/linear-attention blocks and 10 full-softmax-attention blocks, top 2 of 32 experts per layer. MoE describes routing; hybrid attention is retained in the description and notes."
+    },
+    "context_window": {
+      "value": 1000000,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s7",
+        "s10"
+      ],
+      "note": "Preserves the documented native 1M context/input capacity. 80K is the separate reasoning/output budget. Larger config/tokenizer ceilings and 2M/5M hardware-serving statements do not establish a revised validated model limit."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s7",
+        "s8"
+      ],
+      "note": "Exact released checkpoint is text-to-text. Linked external MCP image/video/speech tools do not make these native model modalities."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s6"
+      ],
+      "note": "Exact 80K variant is trained for extended reasoning with CISPO reinforcement learning; the developer documents think-tag output and the separate 80K thinking budget."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s6",
+        "s7"
+      ],
+      "note": "Exact 80k deployment example and native serialization support structured function calls and tool results."
+    },
+    "description": {
+      "value": "Open-weight MoE reasoning model with hybrid Lightning and softmax attention, a one-million-token context and an 80K thinking budget.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "note": "Describes documented architecture and capacities without benchmark or cost superiority claims."
+    }
+  },
+  "patch": {
+    "release_date": "2025-06-16",
+    "date_precision": "day",
+    "parameters_b": 456,
+    "active_parameters_b": 45.9,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "description": "Open-weight MoE reasoning model with hybrid Lightning and softmax attention, a one-million-token context and an 80K thinking budget.",
+    "source_url": "https://www.minimax.io/news/minimaxm1",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "MiniMax M1 launch announcement",
+        "url": "https://www.minimax.io/news/minimaxm1",
+        "type": "primary"
+      },
+      {
+        "label": "MiniMax-M1-80k official model card",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M1-80k/blob/8d1494b1a260e22040d5b9b2eb332eb44500b34d/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax-M1: Scaling Test-Time Compute Efficiently with Lightning Attention",
+        "url": "https://arxiv.org/html/2506.13585v1",
+        "type": "primary"
+      },
+      {
+        "label": "MiniMax-M1-80k checkpoint configuration",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M1-80k/blob/8d1494b1a260e22040d5b9b2eb332eb44500b34d/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax-M1-80k Apache License 2.0",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M1-80k/blob/8d1494b1a260e22040d5b9b2eb332eb44500b34d/LICENSE",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax-M1 native function-call guide",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M1-80k/blob/8d1494b1a260e22040d5b9b2eb332eb44500b34d/docs/function_call_guide.md",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax-M1-80k tokenizer and chat template",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M1-80k/blob/8d1494b1a260e22040d5b9b2eb332eb44500b34d/tokenizer_config.json",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax-M1-80k reference implementation",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M1-80k/blob/8d1494b1a260e22040d5b9b2eb332eb44500b34d/modeling_minimax_m1.py",
+        "type": "weights"
+      },
+      {
+        "label": "Official M1-80k repository metadata and bounded weight access",
+        "url": "https://huggingface.co/api/models/MiniMaxAI/MiniMax-M1-80k",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax M1 vLLM deployment guide",
+        "url": "https://github.com/MiniMax-AI/MiniMax-M1/blob/main/docs/vllm_deployment_guide.md",
+        "type": "primary"
+      },
+      {
+        "label": "Current MiniMax model list",
+        "url": "https://platform.minimax.io/docs/faq/models",
+        "type": "primary"
+      }
+    ],
+    "notes": "456B total and 45.9B active are developer nominal figures; the active-component counting convention is not separately specified. Hybrid attention uses seven Lightning blocks per softmax block, with top-2-of-32 MoE routing. The 1M context is distinct from the 80K thinking/output budget. Configuration/tokenizer ceilings of 10.24M/40.96M and hardware-serving claims of 2M/5M are not substituted for the documented native context. Public launch was June 16, 2025; June 13 repository creation is not proof of earlier public release. The exact 80k weights use Apache-2.0. Current native API availability is not established by surviving launch/card links."
+  },
+  "summary": "Verified all 14 fields. Adds nominal 456B total/45.9B active and MoE architecture; corrects launch date to June 16, 2025. Confirms Apache-2.0, text-only reasoning and native function calling. Separates one-million-token context from 80K thinking/output and larger unvalidated configuration ceilings. Exact public weights access verified using an 8-byte HTTP 206 probe; no full weights or remote code execution."
+}
