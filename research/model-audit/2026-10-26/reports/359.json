@@ -1,0 +1,282 @@
+{
+  "index": 359,
+  "model_id": "moonshotai/kimi-k2.5",
+  "reviewed_at": "2026-10-26T23:56:31.007834Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/moonshotai/Kimi-K2.5",
+      "title": "Kimi-K2.5 official model card",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Names Kimi K2.5 and its Kimi-K2-Base foundation. Declares nominal 1T total, 32B activated, MoE with MLA, 256K context, and a nominal 400M MoonViT encoder. Documents public weights, thinking/instant modes, image/video inputs, text responses, and interleaved thinking with multi-step tool calls."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/moonshotai/Kimi-K2.5/blob/4d01dfe0332d63057c186e0b262165819efb6611/config.json",
+      "title": "Kimi-K2.5 released checkpoint configuration",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Pinned revision specifies 262144 context tokens; 61 text layers, one dense layer, 384 routed experts with eight selected, one shared expert, 7168 hidden width, 2048 expert width, 163840 vocabulary, untied embeddings, and zero next-token-prediction layers. Routed matrices use packed INT4; the vision encoder and projector are excluded from quantization."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/moonshotai/Kimi-K2.5/blob/4d01dfe0332d63057c186e0b262165819efb6611/LICENSE",
+      "title": "Kimi K2.5 Modified MIT License",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Copyright names Moonshot AI. The Modified MIT license permits redistribution and use, with an added Kimi K2.5 display requirement for commercial services exceeding specified monthly user or revenue thresholds."
+    },
+    {
+      "id": "s4",
+      "url": "https://www.kimi.com/en/help/agent/agent-swarm",
+      "title": "Agent Swarm Capabilities \u2014 release history",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Explicitly states that Moonshot AI officially released Kimi K2.5 on January 27, 2026, alongside Agent Swarm."
+    },
+    {
+      "id": "s5",
+      "url": "https://arxiv.org/html/2602.02276v1",
+      "title": "Kimi K2.5: Visual Agentic Intelligence \u2014 technical report",
+      "publisher": "Kimi Team / Moonshot AI",
+      "accessed": true,
+      "evidence": "Section 4.1 describes the Kimi K2 foundation as a MoE Transformer, reporting 1.04T total and 32B activated for that foundation. Section 4.2 distinguishes K2.5\u2019s MoonViT-3D encoder, MLP projector, and Kimi K2 language model; images and video share visual parameters. The foundation figure is not an exact count of the released K2.5 checkpoint."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/moonshotai/Kimi-K2.5/blob/4d01dfe0332d63057c186e0b262165819efb6611/model.safetensors.index.json",
+      "title": "Kimi-K2.5 complete safetensors index and referenced shard headers",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "All 208550 indexed entries were reconciled against bounded HTTP-range reads of all 64 shard headers (29795472 header bytes; no full shards). Reconstructed 69120 packed INT4 matrices using eight logical weights per I32 and configuration-checked dimensions; excluded 69120 scale and 69120 shape tensors. Together with 1190 ordinary parameter tensors, the complete logical count is 1026879376368."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/moonshotai/Kimi-K2.5/blob/4d01dfe0332d63057c186e0b262165819efb6611/modeling_deepseek.py",
+      "title": "Released Kimi K2.5 language-model implementation",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Defines embeddings, attention projections, dense/shared/routed expert matrices, router weights, normalization weights, and output projection. Router correction biases are explicitly nn.Parameter. A complete configuration-and-code census independently matches the header-derived language subtotal of 1026408232448."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/moonshotai/Kimi-K2.5/blob/4d01dfe0332d63057c186e0b262165819efb6611/modeling_kimi_k25.py",
+      "title": "Released Kimi K2.5 vision and projector implementation",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Declares MoonViT-3D, the patch-merger MLP projector, and the language model. Spatial position embeddings are parameters; temporal-position and rotary-frequency tensors are nonpersistent buffers absent from the index. Header counts and implementation arithmetic agree on 416866032 vision parameters and 54277888 projector parameters."
+    },
+    {
+      "id": "s9",
+      "url": "https://www.kimi.com/en/blog/kimi-k2-5",
+      "title": "Kimi K2.5: Visual Agentic Intelligence \u2014 launch blog",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Introduces Kimi K2.5 as a native multimodal continuation of Kimi K2, with coding and visual understanding, thinking/instant modes, and agentic tool use."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Kimi K2.5",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s9"
+      ],
+      "note": "Official model name."
+    },
+    "developer": {
+      "value": "Moonshot AI",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4"
+      ],
+      "note": "Named in the license copyright and official release history."
+    },
+    "family": {
+      "value": "kimi-k2",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Catalog family key reflects the explicitly documented Kimi K2 foundation."
+    },
+    "release_date": {
+      "value": "2026-01-27",
+      "status": "verified",
+      "source_ids": [
+        "s4"
+      ],
+      "note": "Explicit first-party release date; the January 1 Hugging Face repository creation timestamp is not the public release date."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Official public checkpoint files and deployment instructions establish downloadable weights."
+    },
+    "license": {
+      "value": "Modified MIT",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Use the modified license name, not unqualified MIT; the additional commercial attribution condition applies."
+    },
+    "parameters_b": {
+      "value": 1026.879376368,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "note": "Exact logical parameter count for pinned checkpoint 4d01dfe0332d63057c186e0b262165819efb6611: 1026408232448 language + 416866032 vision + 54277888 projector = 1026879376368. Complete header census independently matched implementation arithmetic. INT4 packing is undone; quantization scales and shape metadata are excluded. The official 1T label is nominal, while the report\u2019s 1.04T statement concerns the K2 foundation."
+    },
+    "active_parameters_b": {
+      "value": 32,
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Developer-declared nominal activated count, not an exact tensor count or a phase-specific multimodal total. No unsupported addition of all visual parameters or recalculation of the embedding convention is made."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5"
+      ],
+      "note": "Kimi K2 MoE Transformer language backbone with MLA, combined with MoonViT-3D and an MLP projector."
+    },
+    "context_window": {
+      "value": 262144,
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Exact text_config.max_position_embeddings; matches the card\u2019s 256K convention."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Native image/video understanding and text generation are documented. The card notes that direct video chat was experimental and supported in the official API; that serving limitation does not remove the underlying video input capability."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s9"
+      ],
+      "note": "Explicit thinking mode and interleaved reasoning are documented, alongside optional instant mode."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Official usage section explicitly documents interleaved thinking and multi-step tool calls."
+    },
+    "description": {
+      "value": "Open-weight multimodal MoE model built on Kimi K2, with thinking and instant modes, 256K context, and support for visual understanding, coding, and tool use.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s9"
+      ],
+      "note": "Replaces relative \u201cearlier frontier\u201d wording with specific supported capabilities and lineage."
+    }
+  },
+  "patch": {
+    "license": "Modified MIT",
+    "parameters_b": 1026.879376368,
+    "active_parameters_b": 32,
+    "architecture": "moe",
+    "description": "Open-weight multimodal MoE model built on Kimi K2, with thinking and instant modes, 256K context, and support for visual understanding, coding, and tool use.",
+    "parameters_source": "primary_source",
+    "notes": "Exact complete checkpoint total is 1,026,879,376,368 logical parameters (1,026,408,232,448 language; 416,866,032 vision; 54,277,888 projector), reconstructed from all 64 shard headers and independently checked against configuration and implementation. Packed INT4 storage is unpacked; quantization scales, shape metadata, and nonparameter buffers are excluded. The model card\u2019s 1T total, 32B activated, and 400M vision figures are nominal. The published active count is retained without asserting an exact text/vision phase convention.",
+    "sources": [
+      {
+        "label": "Kimi-K2.5 official model card",
+        "url": "https://huggingface.co/moonshotai/Kimi-K2.5",
+        "type": "weights"
+      },
+      {
+        "label": "Kimi-K2.5 released checkpoint configuration",
+        "url": "https://huggingface.co/moonshotai/Kimi-K2.5/blob/4d01dfe0332d63057c186e0b262165819efb6611/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Kimi K2.5 Modified MIT License",
+        "url": "https://huggingface.co/moonshotai/Kimi-K2.5/blob/4d01dfe0332d63057c186e0b262165819efb6611/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "Agent Swarm Capabilities \u2014 release history",
+        "url": "https://www.kimi.com/en/help/agent/agent-swarm",
+        "type": "primary"
+      },
+      {
+        "label": "Kimi K2.5: Visual Agentic Intelligence \u2014 technical report",
+        "url": "https://arxiv.org/html/2602.02276v1",
+        "type": "primary"
+      },
+      {
+        "label": "Kimi-K2.5 complete safetensors index and referenced shard headers",
+        "url": "https://huggingface.co/moonshotai/Kimi-K2.5/blob/4d01dfe0332d63057c186e0b262165819efb6611/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Released Kimi K2.5 language-model implementation",
+        "url": "https://huggingface.co/moonshotai/Kimi-K2.5/blob/4d01dfe0332d63057c186e0b262165819efb6611/modeling_deepseek.py",
+        "type": "weights"
+      },
+      {
+        "label": "Released Kimi K2.5 vision and projector implementation",
+        "url": "https://huggingface.co/moonshotai/Kimi-K2.5/blob/4d01dfe0332d63057c186e0b262165819efb6611/modeling_kimi_k25.py",
+        "type": "weights"
+      },
+      {
+        "label": "Kimi K2.5: Visual Agentic Intelligence \u2014 launch blog",
+        "url": "https://www.kimi.com/en/blog/kimi-k2-5",
+        "type": "primary"
+      }
+    ],
+    "source_url": "https://www.kimi.com/en/help/agent/agent-swarm",
+    "source_type": "primary"
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "language_backbone": 1026.408232448,
+      "vision_encoder": 0.416866032,
+      "vision_projector": 0.054277888
+    }
+  },
+  "summary": "Verified all fourteen factual fields. Adds Modified MIT licensing, MoE architecture, exact complete learned-parameter total, and the published nominal 32B activated count; replaces the relative description. Release date, modalities, reasoning, tools, and context are confirmed. Separately proposes component counts. The declared activated count remains nominal because an exact activation/embedding and visual-phase convention is not specified."
+}
