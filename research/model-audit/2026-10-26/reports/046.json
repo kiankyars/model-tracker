@@ -1,0 +1,218 @@
+{
+  "index": 46,
+  "model_id": "alibaba/qwen3.5-0.8b",
+  "reviewed_at": "2026-10-26T14:47:19.613644Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/Qwen/Qwen3.5-0.8B",
+      "title": "Qwen3.5-0.8B model card",
+      "publisher": "Qwen / Alibaba",
+      "accessed": true,
+      "evidence": "Exact post-trained checkpoint; nominal language-model size 0.8B, native 262144-token context, text/image/video input, text responses, thinking and tool examples. Intended for prototyping and task-specific fine-tuning."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/Qwen/Qwen3.5-0.8B/raw/main/config.json",
+      "title": "Qwen3.5-0.8B configuration",
+      "publisher": "Qwen / Alibaba",
+      "accessed": true,
+      "evidence": "Qwen3_5ForConditionalGeneration; 24 language layers with three linear-attention layers per full-attention layer, dense intermediate_size 3584, tied embeddings, vision encoder, and one MTP layer. No routed-expert configuration."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/Qwen/Qwen3.5-0.8B/resolve/main/model.safetensors-00001-of-00001.safetensors",
+      "title": "Official Qwen3.5-0.8B safetensors checkpoint header",
+      "publisher": "Qwen / Alibaba",
+      "accessed": true,
+      "evidence": "Read the 59840-byte JSON tensor header by HTTP range. Sum of shape products across 488 stored tensors is 873438784: model.language_model 752393024, model.visual 100592896, mtp 20452864. Independently matches Hugging Face API tensor total."
+    },
+    {
+      "id": "s4",
+      "url": "https://github.com/QwenLM/Qwen3.8#news",
+      "title": "Official Qwen repository release news",
+      "publisher": "Qwen / Alibaba",
+      "accessed": true,
+      "evidence": "The Qwen3.5 repository redirects to the maintained Qwen3.8 repository. Its retained news explicitly announces availability of Qwen3.5-0.8B on Hugging Face and ModelScope on 2026-03-02; repository identifies Qwen team, Alibaba Group."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/Qwen/Qwen3.5-0.8B/raw/main/LICENSE",
+      "title": "Qwen3.5-0.8B LICENSE",
+      "publisher": "Qwen / Alibaba",
+      "accessed": true,
+      "evidence": "Fetched successfully via direct HTTP after web extraction failed; Apache License Version 2.0."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Qwen3.5 0.8B",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Display formatting of official Qwen3.5-0.8B name."
+    },
+    "developer": {
+      "value": "Alibaba",
+      "status": "verified",
+      "source_ids": [
+        "s4"
+      ],
+      "note": "Developed by the Qwen team at Alibaba."
+    },
+    "family": {
+      "value": "qwen",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4"
+      ],
+      "note": "Qwen3.5 is part of Qwen."
+    },
+    "release_date": {
+      "value": "2026-03-02",
+      "status": "verified",
+      "source_ids": [
+        "s4"
+      ],
+      "note": "Explicit open-weight announcement; earlier repository creation alone does not establish public release."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4"
+      ],
+      "note": "Official checkpoint is publicly downloadable."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s5"
+      ],
+      "note": "Exact checkpoint license file."
+    },
+    "parameters_b": {
+      "value": 0.873438784,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s2",
+        "s1"
+      ],
+      "note": "Complete checkpoint tensor count, including vision and MTP; counted from actual tensor shapes, not inferred from file bytes. The card's 0.8B is a nominal language-model label."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "No separately defined active-per-token count. Dense FFNs do not justify treating every vision, embedding and MTP parameter as active on each generated token."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "Dense FFNs with hybrid Gated DeltaNet linear attention and gated full attention, plus a vision encoder. Family-level MoE marketing does not describe this variant."
+    },
+    "context_window": {
+      "value": 262144,
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "max_position_embeddings is 262144; card also calls this native context."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Exact-model input examples and conditional text generation."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Optional thinking; non-thinking is the default."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Exact-model Qwen-Agent example defines and invokes tools."
+    },
+    "description": {
+      "value": "Dense Qwen3.5 vision-language model with optional thinking and tool calling, intended for prototyping and task-specific fine-tuning.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Replaces the unsupported on-device use-case characterization with the stated intended uses."
+    }
+  },
+  "patch": {
+    "parameters_b": 0.873438784,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "description": "Dense Qwen3.5 vision-language model with optional thinking and tool calling, intended for prototyping and task-specific fine-tuning.",
+    "source_url": "https://huggingface.co/Qwen/Qwen3.5-0.8B",
+    "source_type": "primary",
+    "notes": "The official 0.8B label refers to nominal language-model size. The full released checkpoint contains 0.873438784B stored parameters: language model 0.752393024B, vision 0.100592896B, MTP 0.020452864B. Its dense FFNs use hybrid Gated DeltaNet and gated attention. No active-per-token parameter count is separately reported.",
+    "sources": [
+      {
+        "label": "Official model card",
+        "url": "https://huggingface.co/Qwen/Qwen3.5-0.8B",
+        "type": "primary"
+      },
+      {
+        "label": "Official architecture configuration",
+        "url": "https://huggingface.co/Qwen/Qwen3.5-0.8B/raw/main/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Official checkpoint tensor header",
+        "url": "https://huggingface.co/Qwen/Qwen3.5-0.8B/resolve/main/model.safetensors-00001-of-00001.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Official open-weight release announcement",
+        "url": "https://github.com/QwenLM/Qwen3.8#news",
+        "type": "primary"
+      }
+    ]
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "language_model": 0.752393024,
+      "vision": 0.100592896,
+      "mtp": 0.020452864
+    }
+  },
+  "summary": "Correct full-checkpoint count to 0.873438784B and identify dense hybrid-attention architecture. Keep active parameters null. Confirm March 2 open-weight release, Apache-2.0, native context and capabilities; remove unsupported on-device positioning."
+}

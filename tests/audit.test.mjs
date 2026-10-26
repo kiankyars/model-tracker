@@ -33,4 +33,8 @@ test('phase-dependent counts retain their scope in validation, display and both 
   }
   assert.equal(missingLabel({ field_status: { parameters_b: 'undisclosed' } }, 'parameters_b'), 'Not disclosed');
   assert.equal(activeSizeLabel({ field_status: { active_parameters_b: 'not_applicable' } }), 'Not separately reported');
+  const multimodal = { ...model, active_parameters_b: 3, active_parameters_scope: 'thinker_decoder', active_parameters_by_phase_b: undefined };
+  validateModels([multimodal]);
+  assert.equal(activeSizeLabel(multimodal), '3B thinker decoder');
+  assert.throws(() => validateModels([{ ...multimodal, active_parameters_b: null }]), /active parameter scope/);
 });

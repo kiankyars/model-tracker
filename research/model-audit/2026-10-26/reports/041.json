@@ -1,0 +1,245 @@
+{
+  "index": 41,
+  "model_id": "alibaba/qwen3-vl-235b-a22b-instruct",
+  "reviewed_at": "2026-10-26T14:39:01.571680+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Instruct",
+      "title": "Qwen3-VL-235B-A22B-Instruct model card",
+      "publisher": "Qwen",
+      "accessed": true,
+      "evidence": "Exact Instruct weight repository; Apache-2.0 license; text/image/video understanding; visual agent and tool capabilities; distinguishes Instruct from Thinking editions."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Instruct/raw/main/config.json",
+      "title": "Exact checkpoint config.json",
+      "publisher": "Qwen",
+      "accessed": true,
+      "evidence": "Qwen3VLMoeForConditionalGeneration; qwen3_vl_moe; 94 text layers, 128 experts and 8 experts per token; max_position_embeddings 262144; separate vision configuration. Retrieved directly after the browser fetch failed."
+    },
+    {
+      "id": "s3",
+      "url": "https://github.com/QwenLM/Qwen3-VL",
+      "title": "Official Qwen3-VL repository release announcement and examples",
+      "publisher": "Qwen / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "News entry dated 2025-09-23 explicitly announces the exact Instruct and Thinking checkpoints. Identifies Alibaba Cloud Qwen team and demonstrates video inputs for this exact Instruct checkpoint."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/api/models/Qwen/Qwen3-VL-235B-A22B-Instruct",
+      "title": "Exact official checkpoint safetensors metadata",
+      "publisher": "Hugging Face metadata for Qwen-owned repository",
+      "accessed": true,
+      "evidence": "safetensors.total and BF16 parameter count both report 235670022896 stored parameters for the complete checkpoint, about 235.67B; the model page rounds this to 236B."
+    },
+    {
+      "id": "s5",
+      "url": "https://arxiv.org/pdf/2511.21631",
+      "title": "Qwen3-VL Technical Report, section 2",
+      "publisher": "Qwen Team",
+      "accessed": true,
+      "evidence": "Describes separate LLM, vision encoder and mergers. The Large Language Model subsection reports nominal 235B total and 22B activated per token for the flagship. Describes separate non-thinking and thinking variants."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Instruct/raw/main/chat_template.json",
+      "title": "Exact Instruct checkpoint chat template",
+      "publisher": "Qwen",
+      "accessed": true,
+      "evidence": "Handles supplied tool definitions, function-name/arguments tool calls and tool responses, plus image and video content. Plain assistant generation prompt supports the Instruct variant distinction."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Qwen3 VL 235B A22B Instruct",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Baseline is a readable rendering of exact checkpoint name Qwen3-VL-235B-A22B-Instruct."
+    },
+    "developer": {
+      "value": "Alibaba",
+      "status": "verified",
+      "source_ids": [
+        "s3"
+      ],
+      "note": "Developed by the Qwen team at Alibaba Cloud."
+    },
+    "family": {
+      "value": "qwen",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Qwen3-VL belongs to Qwen."
+    },
+    "release_date": {
+      "value": "2025-09-23",
+      "status": "verified",
+      "source_ids": [
+        "s3"
+      ],
+      "note": "Explicit developer release announcement for this exact open checkpoint; repository creation is not treated as release."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4"
+      ],
+      "note": "Official downloadable checkpoint with safetensors weights."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Exact model repository license metadata."
+    },
+    "parameters_b": {
+      "value": 235.670022896,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5"
+      ],
+      "note": "Full stored checkpoint count: 235670022896 / 1e9. Includes vision and mergers; 235B is the nominal language-backbone designation rather than the precise multimodal total."
+    },
+    "active_parameters_b": {
+      "value": 22,
+      "status": "verified",
+      "source_ids": [
+        "s5"
+      ],
+      "note": "Published nominal activated parameters per token in the report's LLM subsection. This is the language-path count, not a measured aggregate for image/video encoder and merger execution; no full multimodal active scalar is established."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s5"
+      ],
+      "note": "MoE language decoder with 128 experts and 8 selected per token, plus vision encoder and projection/DeepStack mergers."
+    },
+    "context_window": {
+      "value": 262144,
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Native configured maximum; 1M requires length-extrapolation settings and is not the default."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s6"
+      ],
+      "note": "Video support is present in exact-checkpoint examples and template. No audio modality established."
+    },
+    "reasoning": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5",
+        "s6"
+      ],
+      "note": "Instruct is the non-thinking edition; false denotes absence of the dedicated Thinking mode, not inability to perform visual reasoning."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Official exact-checkpoint template explicitly supports tools and tool-call/response serialization."
+    },
+    "description": {
+      "value": "Qwen vision-language instruct model for visual reasoning, documents, and agent tasks",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "The existing description is supported by model-card capabilities without benchmark or superlative claims."
+    }
+  },
+  "patch": {
+    "license": "Apache-2.0",
+    "parameters_b": 235.670022896,
+    "parameters_source": "primary_source",
+    "context_window": 262144,
+    "modalities": {
+      "input": [
+        "text",
+        "image",
+        "video"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "notes": "Full checkpoint metadata reports 235.670022896B stored parameters including vision and mergers. The 235B-A22B designation and reported 22B active-per-token figure describe nominal language-backbone scale; 22B does not establish a complete multimodal activation count. Instruct is the non-thinking edition.",
+    "sources": [
+      {
+        "label": "Models.dev record",
+        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/alibaba/qwen3-vl-235b-a22b-instruct.toml",
+        "type": "catalog"
+      },
+      {
+        "label": "Official model card and weights",
+        "url": "https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Instruct",
+        "type": "weights"
+      },
+      {
+        "label": "Official checkpoint configuration",
+        "url": "https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Instruct/raw/main/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Official release announcement",
+        "url": "https://github.com/QwenLM/Qwen3-VL",
+        "type": "primary"
+      },
+      {
+        "label": "Official checkpoint parameter metadata",
+        "url": "https://huggingface.co/api/models/Qwen/Qwen3-VL-235B-A22B-Instruct",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3-VL technical report",
+        "url": "https://arxiv.org/pdf/2511.21631",
+        "type": "primary"
+      },
+      {
+        "label": "Official tool-calling template",
+        "url": "https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Instruct/raw/main/chat_template.json",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "Confirmed exact release date and MoE architecture. Correct full checkpoint count from nominal 235B to 235.670022896B, add Apache-2.0, correct native context to 262144, and add video input. Retain published nominal 22B language-path active count with explicit scope caveat; no full multimodal active count established. Other fields supported.",
+  "proposed_fields": {
+    "active_parameters_scope": "language_decoder"
+  }
+}

@@ -9298,15 +9298,15 @@
     "developer": "Alibaba",
     "developer_id": "alibaba",
     "family": "qwen",
-    "description": "Smallest Qwen3.5 multimodal model for on-device chat, reasoning, and tool use",
+    "description": "Dense Qwen3.5 vision-language model with optional thinking and tool calling, intended for prototyping and task-specific fine-tuning.",
     "release_date": "2026-03-02",
     "date_precision": "day",
     "open_weights": true,
     "license": "Apache-2.0",
-    "parameters_b": 0.8,
+    "parameters_b": 0.873438784,
     "active_parameters_b": null,
-    "parameters_source": "model_name",
-    "architecture": null,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
     "context_window": 262144,
     "modalities": {
       "input": [
@@ -9320,24 +9320,50 @@
     },
     "reasoning": true,
     "tool_call": true,
-    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/alibaba/qwen3.5-0.8b.toml",
-    "source_type": "catalog",
+    "source_url": "https://huggingface.co/Qwen/Qwen3.5-0.8B",
+    "source_type": "primary",
     "sources": [
-      {
-        "label": "Models.dev record",
-        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/alibaba/qwen3.5-0.8b.toml",
-        "type": "catalog"
-      },
       {
         "label": "Hugging Face",
         "url": "https://huggingface.co/Qwen/Qwen3.5-0.8B",
         "type": "weights"
+      },
+      {
+        "label": "Official architecture configuration",
+        "url": "https://huggingface.co/Qwen/Qwen3.5-0.8B/raw/main/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Official checkpoint tensor header",
+        "url": "https://huggingface.co/Qwen/Qwen3.5-0.8B/resolve/main/model.safetensors-00001-of-00001.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Official open-weight release announcement",
+        "url": "https://github.com/QwenLM/Qwen3.8#news",
+        "type": "primary"
+      },
+      {
+        "label": "Models.dev record",
+        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/alibaba/qwen3.5-0.8b.toml",
+        "type": "catalog"
       }
     ],
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
+    "upstream_present": true,
+    "notes": "The official 0.8B label refers to nominal language-model size. The full released checkpoint contains 0.873438784B stored parameters: language model 0.752393024B, vision 0.100592896B, MTP 0.020452864B. Its dense FFNs use hybrid Gated DeltaNet and gated attention. No active-per-token parameter count is separately reported.",
+    "parameter_components_b": {
+      "language_model": 0.752393024,
+      "vision": 0.100592896,
+      "mtp": 0.020452864
+    },
+    "field_status": {
+      "active_parameters_b": "undisclosed"
+    },
+    "audited_at": "2026-10-26T14:47:19.613644Z",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/046.json"
   },
   {
     "id": "alibaba/qwen3.5-2b",
@@ -9484,6 +9510,92 @@
     "upstream_present": true
   },
   {
+    "id": "alibaba/qwen3.5-122b-a10b",
+    "slug": "alibaba--qwen3.5-122b-a10b",
+    "name": "Qwen3.5 122B-A10B",
+    "developer": "Alibaba",
+    "developer_id": "alibaba",
+    "family": "qwen",
+    "description": "Qwen vision-language model for visual reasoning, documents, and agent tasks",
+    "release_date": "2026-02-24",
+    "date_precision": "day",
+    "open_weights": true,
+    "license": "Apache-2.0",
+    "parameters_b": 125.086497008,
+    "active_parameters_b": 10,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "context_window": 262144,
+    "modalities": {
+      "input": [
+        "text",
+        "image",
+        "video"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "reasoning": true,
+    "tool_call": true,
+    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/alibaba/qwen3.5-122b-a10b.toml",
+    "source_type": "catalog",
+    "sources": [
+      {
+        "label": "Hugging Face",
+        "url": "https://huggingface.co/Qwen/Qwen3.5-122B-A10B",
+        "type": "weights"
+      },
+      {
+        "label": "Official configuration",
+        "url": "https://huggingface.co/Qwen/Qwen3.5-122B-A10B/raw/main/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Official release timeline",
+        "url": "https://github.com/QwenLM/Qwen3.8/blob/main/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Official checkpoint metadata",
+        "url": "https://huggingface.co/api/models/Qwen/Qwen3.5-122B-A10B",
+        "type": "weights"
+      },
+      {
+        "label": "Official tensor index",
+        "url": "https://huggingface.co/Qwen/Qwen3.5-122B-A10B/raw/main/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Official Apache 2.0 license",
+        "url": "https://huggingface.co/Qwen/Qwen3.5-122B-A10B/blob/main/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "Official publication history",
+        "url": "https://huggingface.co/Qwen/Qwen3.5-122B-A10B/commits/main",
+        "type": "primary"
+      },
+      {
+        "label": "Models.dev record",
+        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/alibaba/qwen3.5-122b-a10b.toml",
+        "type": "catalog"
+      }
+    ],
+    "aliases": [],
+    "first_seen": "2026-10-26T08:55:12.627Z",
+    "last_seen": "2026-10-26T09:05:47.987Z",
+    "upstream_present": true,
+    "notes": "Full checkpoint: 125.086497008B tensor parameters, including vision and MTP weights. Qwen reports a nominal 122B language model with 10B active; active count applies to the language decoder. Native context is 262,144 tokens.",
+    "active_parameters_scope": "language_decoder",
+    "parameter_components_b": {
+      "language_decoder": 122
+    },
+    "field_status": {},
+    "audited_at": "2026-10-26T14:47:13.960689Z",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/047.json"
+  },
+  {
     "id": "alibaba/qwen3.5-35b-a3b-base",
     "slug": "alibaba--qwen3.5-35b-a3b-base",
     "name": "Qwen3.5 35B-A3B Base",
@@ -9610,54 +9722,6 @@
       {
         "label": "Hugging Face",
         "url": "https://huggingface.co/LiquidAI/LFM2-24B-A2B",
-        "type": "weights"
-      }
-    ],
-    "aliases": [],
-    "first_seen": "2026-10-26T08:55:12.627Z",
-    "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
-  },
-  {
-    "id": "alibaba/qwen3.5-122b-a10b",
-    "slug": "alibaba--qwen3.5-122b-a10b",
-    "name": "Qwen3.5 122B-A10B",
-    "developer": "Alibaba",
-    "developer_id": "alibaba",
-    "family": "qwen",
-    "description": "Qwen vision-language model for visual reasoning, documents, and agent tasks",
-    "release_date": "2026-02-23",
-    "date_precision": "day",
-    "open_weights": true,
-    "license": null,
-    "parameters_b": 122,
-    "active_parameters_b": 10,
-    "parameters_source": "model_name",
-    "architecture": "moe",
-    "context_window": 262144,
-    "modalities": {
-      "input": [
-        "text",
-        "image",
-        "video"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "reasoning": true,
-    "tool_call": true,
-    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/alibaba/qwen3.5-122b-a10b.toml",
-    "source_type": "catalog",
-    "sources": [
-      {
-        "label": "Models.dev record",
-        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/alibaba/qwen3.5-122b-a10b.toml",
-        "type": "catalog"
-      },
-      {
-        "label": "Hugging Face",
-        "url": "https://huggingface.co/Qwen/Qwen3.5-122B-A10B",
         "type": "weights"
       }
     ],
@@ -13722,48 +13786,6 @@
     "upstream_present": true
   },
   {
-    "id": "alibaba/qwen3-vl-flash",
-    "slug": "alibaba--qwen3-vl-flash",
-    "name": "Qwen3 VL Flash (Alibaba Cloud)",
-    "developer": "Alibaba",
-    "developer_id": "alibaba",
-    "family": null,
-    "description": "Qwen vision-language model for visual reasoning, documents, and agent tasks",
-    "release_date": "2025-10-15",
-    "date_precision": "day",
-    "open_weights": false,
-    "license": null,
-    "parameters_b": null,
-    "active_parameters_b": null,
-    "parameters_source": null,
-    "architecture": null,
-    "context_window": 262144,
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "reasoning": false,
-    "tool_call": true,
-    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/alibaba/qwen3-vl-flash.toml",
-    "source_type": "catalog",
-    "sources": [
-      {
-        "label": "Models.dev record",
-        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/alibaba/qwen3-vl-flash.toml",
-        "type": "catalog"
-      }
-    ],
-    "aliases": [],
-    "first_seen": "2026-10-26T08:55:12.627Z",
-    "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
-  },
-  {
     "id": "anthropic/claude-haiku-4-5-20251001",
     "slug": "anthropic--claude-haiku-4-5-20251001",
     "name": "Claude Haiku 4.5",
@@ -13863,6 +13885,79 @@
     "upstream_present": true
   },
   {
+    "id": "alibaba/qwen3-vl-flash",
+    "slug": "alibaba--qwen3-vl-flash",
+    "name": "Qwen3 VL Flash (Alibaba Cloud)",
+    "developer": "Alibaba",
+    "developer_id": "alibaba",
+    "family": "Qwen3-VL",
+    "description": "Alibaba Cloud hosted Qwen3-VL model for image, video and document understanding, with optional thinking mode.",
+    "release_date": "2025-10-14",
+    "date_precision": "day",
+    "open_weights": null,
+    "license": null,
+    "parameters_b": null,
+    "active_parameters_b": null,
+    "parameters_source": null,
+    "architecture": null,
+    "context_window": 262144,
+    "modalities": {
+      "input": [
+        "text",
+        "image",
+        "video"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "reasoning": true,
+    "tool_call": true,
+    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/alibaba/qwen3-vl-flash.toml",
+    "source_type": "catalog",
+    "sources": [
+      {
+        "label": "Alibaba Cloud model lifecycle",
+        "url": "https://help.aliyun.com/zh/model-studio/newly-released-models",
+        "type": "primary"
+      },
+      {
+        "label": "Alibaba Cloud Qwen3-VL-Flash card",
+        "url": "https://docs.modelstudio.console.alibabacloud.com/en/model-studio/qwen3-vl-flash",
+        "type": "primary"
+      },
+      {
+        "label": "Alibaba Cloud regional capability card",
+        "url": "https://docs.modelstudio.console.alibabacloud.com/tc/model-studio/qwen3-vl-flash",
+        "type": "primary"
+      },
+      {
+        "label": "Alibaba Cloud Flash alias update",
+        "url": "https://www.alibabacloud.com/en/notice/model_studio_update_notice_for_qwen3vlflash_models_6e1?_p_lc=1",
+        "type": "primary"
+      },
+      {
+        "label": "Models.dev record",
+        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/alibaba/qwen3-vl-flash.toml",
+        "type": "catalog"
+      }
+    ],
+    "aliases": [],
+    "first_seen": "2026-10-26T08:55:12.627Z",
+    "last_seen": "2026-10-26T09:05:47.987Z",
+    "upstream_present": true,
+    "notes": "Hosted rolling alias; total/active parameter counts and dense/MoE architecture are undisclosed. Do not identify it with Qwen3-VL-30B-A3B. Last documented model-card specifications are available through the search index; the public help card now redirects and the console mirror exceeds the reader limit. Function calling is documented for Beijing but unsupported in Singapore, Frankfurt and Virginia. Beijing availability began 2025-10-14; international/global availability began 2025-10-15. The March 2026 notice schedules the Beijing/Singapore alias upgrade to the 2026-01-22 snapshot. Current endpoint availability was not tested.",
+    "field_status": {
+      "open_weights": "unverified",
+      "license": "undisclosed",
+      "parameters_b": "undisclosed",
+      "active_parameters_b": "undisclosed",
+      "architecture": "undisclosed"
+    },
+    "audited_at": "2026-10-26T14:42:25Z",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/044.json"
+  },
+  {
     "id": "google/gemini-2.5-computer-use-preview-10-2025",
     "slug": "google--gemini-2.5-computer-use-preview-10-2025",
     "name": "Gemini 2.5 Computer Use Preview",
@@ -13958,9 +14053,9 @@
     "date_precision": "day",
     "open_weights": true,
     "license": "Apache-2.0",
-    "parameters_b": 30,
-    "active_parameters_b": 3,
-    "parameters_source": "model_name",
+    "parameters_b": 31.070754032,
+    "active_parameters_b": 3.3,
+    "parameters_source": "primary_source",
     "architecture": "moe",
     "context_window": 262144,
     "modalities": {
@@ -13979,20 +14074,88 @@
     "source_type": "catalog",
     "sources": [
       {
-        "label": "Models.dev record",
-        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/alibaba/qwen3-vl-30b-a3b-instruct.toml",
-        "type": "catalog"
-      },
-      {
         "label": "Hugging Face",
         "url": "https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct",
         "type": "weights"
+      },
+      {
+        "label": "Official checkpoint parameter metadata",
+        "url": "https://huggingface.co/api/models/Qwen/Qwen3-VL-30B-A3B-Instruct",
+        "type": "primary"
+      },
+      {
+        "label": "Official checkpoint weight index",
+        "url": "https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct/raw/main/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Official checkpoint configuration",
+        "url": "https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct/raw/main/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3-VL release announcement",
+        "url": "https://github.com/QwenLM/Qwen3-VL",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3-VL technical report",
+        "url": "https://arxiv.org/pdf/2511.21631",
+        "type": "paper"
+      },
+      {
+        "label": "Qwen3 language-backbone parameter disclosure",
+        "url": "https://huggingface.co/Qwen/Qwen3-30B-A3B/raw/main/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Model Studio deployment history",
+        "url": "https://www.alibabacloud.com/help/en/model-studio/newly-released-models",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3-30B-A3B language-backbone configuration",
+        "url": "https://huggingface.co/Qwen/Qwen3-30B-A3B/raw/main/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3: Think Deeper, Act Faster",
+        "url": "https://qwenlm.github.io/blog/qwen3/",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3-VL MoE implementation, Transformers 4.57.0",
+        "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.57.0/src/transformers/models/qwen3_vl_moe/modeling_qwen3_vl_moe.py",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3 MoE implementation, Transformers 4.57.0",
+        "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.57.0/src/transformers/models/qwen3_moe/modeling_qwen3_moe.py",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3-30B-A3B weight index",
+        "url": "https://huggingface.co/Qwen/Qwen3-30B-A3B/raw/main/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Models.dev record",
+        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/alibaba/qwen3-vl-30b-a3b-instruct.toml",
+        "type": "catalog"
       }
     ],
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
+    "upstream_present": true,
+    "notes": "Full checkpoint: 31,070,754,032 parameters including vision components. Active 3.3B is an approximate language-decoder-only figure inferred from the explicitly linked Qwen3 backbone after verifying complete learned-parameter and routing equivalence; it is not a full multimodal active count. Decoder total 30,532,122,624 includes embeddings/output head. A3B is the backbone announcement's nominal 3B label. October 4 is the open-weight announcement; Model Studio lists earlier region-specific API dates.",
+    "active_parameters_scope": "language_decoder",
+    "parameter_components_b": {
+      "language_decoder": 30.532122624
+    },
+    "field_status": {},
+    "audited_at": "2026-10-26T14:45:50Z",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/043.json"
   },
   {
     "id": "ibm/granite-4-h-micro",
@@ -14322,7 +14485,7 @@
     "developer": "Alibaba",
     "developer_id": "alibaba",
     "family": "qwen",
-    "description": "Flagship Qwen3 model for coding agents, complex reasoning, and tool use",
+    "description": "Hosted Qwen3 text model for coding, reasoning, and tool-using agents.",
     "release_date": "2025-09-23",
     "date_precision": "day",
     "open_weights": false,
@@ -14330,7 +14493,7 @@
     "parameters_b": null,
     "active_parameters_b": null,
     "parameters_source": null,
-    "architecture": null,
+    "architecture": "moe",
     "context_window": 262144,
     "modalities": {
       "input": [
@@ -14340,11 +14503,36 @@
         "text"
       ]
     },
-    "reasoning": false,
+    "reasoning": true,
     "tool_call": true,
     "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/alibaba/qwen3-max.toml",
     "source_type": "catalog",
     "sources": [
+      {
+        "label": "Qwen3-Max official launch",
+        "url": "https://qwen.ai/blog?from=research.latest-advancements-list&id=241398b9cd6353de490b0f82806c7848c5d2777d",
+        "type": "primary"
+      },
+      {
+        "label": "Alibaba Cloud release log",
+        "url": "https://www.alibabacloud.com/help/en/model-studio/newly-released-models",
+        "type": "primary"
+      },
+      {
+        "label": "Alibaba Cloud alias mapping and modes",
+        "url": "https://www.alibabacloud.com/help/en/model-studio/model-pricing",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3-Max-Thinking announcement",
+        "url": "https://qwen.ai/blog?id=qwen3-max-thinking",
+        "type": "primary"
+      },
+      {
+        "label": "Official exact model and snapshot specifications",
+        "url": "https://docs.modelstudio.console.alibabacloud.com/zh/model-studio/model-qwen3-max",
+        "type": "primary"
+      },
       {
         "label": "Models.dev record",
         "url": "https://github.com/anomalyco/models.dev/blob/dev/models/alibaba/qwen3-max.toml",
@@ -14354,7 +14542,15 @@
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
+    "upstream_present": true,
+    "notes": "First documented China availability is September 23, 2025; global rollout and launch post followed September 24. The alias now maps to the January 23, 2026 snapshot with thinking support. The original base is MoE with over 1 trillion parameters; exact total and active counts remain undisclosed. Exact context is 262144 in the indexed model card.",
+    "field_status": {
+      "license": "not_applicable",
+      "parameters_b": "undisclosed",
+      "active_parameters_b": "undisclosed"
+    },
+    "audited_at": "2026-10-26T14:33:10.936583Z",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/036.json"
   },
   {
     "id": "alibaba/qwen3-vl-235b-a22b-instruct",
@@ -14367,16 +14563,17 @@
     "release_date": "2025-09-23",
     "date_precision": "day",
     "open_weights": true,
-    "license": null,
-    "parameters_b": 235,
+    "license": "Apache-2.0",
+    "parameters_b": 235.670022896,
     "active_parameters_b": 22,
-    "parameters_source": "model_name",
+    "parameters_source": "primary_source",
     "architecture": "moe",
-    "context_window": 131072,
+    "context_window": 262144,
     "modalities": {
       "input": [
         "text",
-        "image"
+        "image",
+        "video"
       ],
       "output": [
         "text"
@@ -14396,12 +14593,42 @@
         "label": "Hugging Face",
         "url": "https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Instruct",
         "type": "weights"
+      },
+      {
+        "label": "Official checkpoint configuration",
+        "url": "https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Instruct/raw/main/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Official release announcement",
+        "url": "https://github.com/QwenLM/Qwen3-VL",
+        "type": "primary"
+      },
+      {
+        "label": "Official checkpoint parameter metadata",
+        "url": "https://huggingface.co/api/models/Qwen/Qwen3-VL-235B-A22B-Instruct",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3-VL technical report",
+        "url": "https://arxiv.org/pdf/2511.21631",
+        "type": "primary"
+      },
+      {
+        "label": "Official tool-calling template",
+        "url": "https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Instruct/raw/main/chat_template.json",
+        "type": "primary"
       }
     ],
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
+    "upstream_present": true,
+    "notes": "Full checkpoint metadata reports 235.670022896B stored parameters including vision and mergers. The 235B-A22B designation and reported 22B active-per-token figure describe nominal language-backbone scale; 22B does not establish a complete multimodal activation count. Instruct is the non-thinking edition.",
+    "active_parameters_scope": "language_decoder",
+    "field_status": {},
+    "audited_at": "2026-10-26T14:39:01.571680+00:00",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/041.json"
   },
   {
     "id": "alibaba/qwen3-vl-235b-a22b-thinking",
@@ -14414,16 +14641,17 @@
     "release_date": "2025-09-23",
     "date_precision": "day",
     "open_weights": true,
-    "license": null,
-    "parameters_b": 235,
+    "license": "apache-2.0",
+    "parameters_b": 235.670022896,
     "active_parameters_b": 22,
-    "parameters_source": "model_name",
+    "parameters_source": "primary_source",
     "architecture": "moe",
-    "context_window": 131072,
+    "context_window": 262144,
     "modalities": {
       "input": [
         "text",
-        "image"
+        "image",
+        "video"
       ],
       "output": [
         "text"
@@ -14435,20 +14663,50 @@
     "source_type": "catalog",
     "sources": [
       {
-        "label": "Models.dev record",
-        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/alibaba/qwen3-vl-235b-a22b-thinking.toml",
-        "type": "catalog"
-      },
-      {
         "label": "Hugging Face",
         "url": "https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Thinking",
         "type": "weights"
+      },
+      {
+        "label": "Qwen checkpoint configuration",
+        "url": "https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Thinking/raw/main/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3-VL official release announcement",
+        "url": "https://github.com/QwenLM/Qwen3-VL",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3-VL Technical Report",
+        "url": "https://arxiv.org/pdf/2511.21631",
+        "type": "primary"
+      },
+      {
+        "label": "Full checkpoint parameter metadata",
+        "url": "https://huggingface.co/api/models/Qwen/Qwen3-VL-235B-A22B-Thinking",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen checkpoint chat template",
+        "url": "https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Thinking/raw/main/chat_template.json",
+        "type": "primary"
+      },
+      {
+        "label": "Models.dev record",
+        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/alibaba/qwen3-vl-235b-a22b-thinking.toml",
+        "type": "catalog"
       }
     ],
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
+    "upstream_present": true,
+    "notes": "Full multimodal checkpoint contains 235.670022896B stored parameters according to its safetensors metadata. The nominal 235B/22B figures are presented in the technical report language-model subsection; 22B denotes published per-token language-model activation, not a separately measured full-multimodal active count. Native context is 262144 tokens; optional extension to 1M requires configuration changes.",
+    "active_parameters_scope": "language_decoder",
+    "field_status": {},
+    "audited_at": "2026-10-26T14:38:51.932351Z",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/042.json"
   },
   {
     "id": "alibaba/qwen3-vl-plus",
@@ -14457,10 +14715,10 @@
     "developer": "Alibaba",
     "developer_id": "alibaba",
     "family": "qwen",
-    "description": "Qwen vision-language model for visual reasoning, documents, and agent tasks",
+    "description": "Alibaba Cloud Qwen3 vision-language API model for visual reasoning, spatial understanding, video understanding and visual agent tasks, with optional thinking.",
     "release_date": "2025-09-23",
     "date_precision": "day",
-    "open_weights": false,
+    "open_weights": null,
     "license": null,
     "parameters_b": null,
     "active_parameters_b": null,
@@ -14470,7 +14728,8 @@
     "modalities": {
       "input": [
         "text",
-        "image"
+        "image",
+        "video"
       ],
       "output": [
         "text"
@@ -14478,9 +14737,34 @@
     },
     "reasoning": true,
     "tool_call": true,
-    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/alibaba/qwen3-vl-plus.toml",
-    "source_type": "catalog",
+    "source_url": "https://docs.modelstudio.console.alibabacloud.com/en/model-studio/qwen3-vl-plus",
+    "source_type": "primary",
     "sources": [
+      {
+        "label": "Alibaba Cloud exact model card",
+        "url": "https://docs.modelstudio.console.alibabacloud.com/en/model-studio/qwen3-vl-plus",
+        "type": "primary"
+      },
+      {
+        "label": "Alibaba Cloud model releases",
+        "url": "https://www.alibabacloud.com/help/en/model-studio/newly-released-models",
+        "type": "primary"
+      },
+      {
+        "label": "Alibaba Cloud alias mapping",
+        "url": "https://docs.modelstudio.console.alibabacloud.com/en/model-studio/model-pricing",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3-VL official repository",
+        "url": "https://github.com/QwenLM/Qwen3-VL",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen API platform",
+        "url": "https://qwen.ai/apiplatform",
+        "type": "primary"
+      },
       {
         "label": "Models.dev record",
         "url": "https://github.com/anomalyco/models.dev/blob/dev/models/alibaba/qwen3-vl-plus.toml",
@@ -14490,7 +14774,17 @@
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
+    "upstream_present": true,
+    "notes": "Hosted alias currently documented as equivalent to qwen3-vl-plus-2025-12-19. Parameter counts and architecture are undisclosed; no equivalence to an open Qwen3-VL checkpoint is established. Function calling is documented for Beijing but unsupported in the other listed regional deployments. Context is the exact Alibaba Cloud card's indexed specification; Qwen's platform page lists a conflicting 131027. Open-weight status was not independently established.",
+    "field_status": {
+      "open_weights": "unverified",
+      "license": "undisclosed",
+      "parameters_b": "undisclosed",
+      "active_parameters_b": "undisclosed",
+      "architecture": "undisclosed"
+    },
+    "audited_at": "2026-10-26T14:42:09Z",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/045.json"
   },
   {
     "id": "alibaba/qwen3-omni-30b-a3b-thinking",
@@ -14504,9 +14798,9 @@
     "date_precision": "day",
     "open_weights": true,
     "license": "Apache-2.0",
-    "parameters_b": 30,
+    "parameters_b": 31.719205488,
     "active_parameters_b": 3,
-    "parameters_source": "model_name",
+    "parameters_source": "primary_source",
     "architecture": "moe",
     "context_window": 65536,
     "modalities": {
@@ -14526,20 +14820,50 @@
     "source_type": "catalog",
     "sources": [
       {
-        "label": "Models.dev record",
-        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/alibaba/qwen3-omni-30b-a3b-thinking.toml",
-        "type": "catalog"
-      },
-      {
         "label": "Hugging Face",
         "url": "https://huggingface.co/Qwen/Qwen3-Omni-30B-A3B-Thinking",
         "type": "weights"
+      },
+      {
+        "label": "Thinking checkpoint parameter metadata",
+        "url": "https://huggingface.co/Qwen/Qwen3-Omni-30B-A3B-Thinking/raw/main/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Thinking configuration",
+        "url": "https://huggingface.co/Qwen/Qwen3-Omni-30B-A3B-Thinking/raw/main/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3-Omni technical report",
+        "url": "https://arxiv.org/html/2509.17765v1",
+        "type": "paper"
+      },
+      {
+        "label": "Official release announcement",
+        "url": "https://github.com/QwenLM/Qwen3-Omni",
+        "type": "primary"
+      },
+      {
+        "label": "Models.dev record",
+        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/alibaba/qwen3-omni-30b-a3b-thinking.toml",
+        "type": "catalog"
       }
     ],
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
+    "upstream_present": true,
+    "notes": "The Thinking checkpoint has 31,719,205,488 parameters, including audio and vision encoders plus its MoE text decoder. The nominal 30B total and 3B active labels describe the Thinker decoder; 3B is not a complete multimodal active count. Thinking contains no Talker, MTP, or Code2Wav speech-generation components.",
+    "active_parameters_scope": "thinker_decoder",
+    "parameter_components_b": {
+      "thinker_decoder": 30,
+      "audio_encoder": 0.65,
+      "vision_encoder": 0.54
+    },
+    "field_status": {},
+    "audited_at": "2026-10-26T14:38:15.479318Z",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/040.json"
   },
   {
     "id": "mistral/magistral-small-2509",
@@ -14637,10 +14961,10 @@
     "developer": "Alibaba",
     "developer_id": "alibaba",
     "family": "qwen",
-    "description": "Flagship Qwen model for complex reasoning, coding, and agentic workflows",
+    "description": "Hosted preview of Alibaba's Qwen3-Max model, announced with more than one trillion parameters for text generation, instruction following, and agentic tasks.",
     "release_date": "2025-09-05",
     "date_precision": "day",
-    "open_weights": false,
+    "open_weights": null,
     "license": null,
     "parameters_b": null,
     "active_parameters_b": null,
@@ -14655,11 +14979,31 @@
         "text"
       ]
     },
-    "reasoning": false,
-    "tool_call": true,
+    "reasoning": true,
+    "tool_call": false,
     "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/alibaba/qwen3-max-preview.toml",
     "source_type": "catalog",
     "sources": [
+      {
+        "label": "Qwen exact-preview announcement",
+        "url": "https://www.linkedin.com/posts/qwen_big-news-introducing-qwen3-max-preview-activity-7369757496581763073-SYEF",
+        "type": "primary"
+      },
+      {
+        "label": "Alibaba Cloud model release history",
+        "url": "https://help.aliyun.com/en/model-studio/newly-released-models",
+        "type": "primary"
+      },
+      {
+        "label": "Alibaba Cloud current preview mode pricing",
+        "url": "https://www.alibabacloud.com/help/en/model-studio/model-pricing",
+        "type": "primary"
+      },
+      {
+        "label": "Official exact model and snapshot specifications",
+        "url": "https://docs.modelstudio.console.alibabacloud.com/zh/model-studio/model-qwen3-max",
+        "type": "primary"
+      },
       {
         "label": "Models.dev record",
         "url": "https://github.com/anomalyco/models.dev/blob/dev/models/alibaba/qwen3-max-preview.toml",
@@ -14669,7 +15013,17 @@
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
+    "upstream_present": true,
+    "notes": "Qwen disclosed more than 1 trillion parameters for the Preview Instruct model, without exact total or active counts. The exact indexed preview card documents 262144 context, thinking/non-thinking support and no native Function Calling. Preview-specific architecture and weight availability remain unverified; later Max revisions are separate.",
+    "field_status": {
+      "open_weights": "unverified",
+      "license": "undisclosed",
+      "parameters_b": "undisclosed",
+      "active_parameters_b": "undisclosed",
+      "architecture": "unverified"
+    },
+    "audited_at": "2026-10-26T14:33:50Z",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/037.json"
   },
   {
     "id": "moonshotai/kimi-k2-0905",
@@ -14867,14 +15221,14 @@
     "developer": "Alibaba",
     "developer_id": "alibaba",
     "family": "qwen",
-    "description": "Qwen instruction model for multilingual chat, reasoning, and tool use",
+    "description": "Non-thinking Qwen3-Next text model with hybrid attention and sparse MoE, supporting multilingual chat and tool use.",
     "release_date": "2025-09",
     "date_precision": "month",
     "open_weights": true,
-    "license": null,
+    "license": "Apache-2.0",
     "parameters_b": 80,
     "active_parameters_b": 3,
-    "parameters_source": "model_name",
+    "parameters_source": "primary_source",
     "architecture": "moe",
     "context_window": 262144,
     "modalities": {
@@ -14891,20 +15245,39 @@
     "source_type": "catalog",
     "sources": [
       {
-        "label": "Models.dev record",
-        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/alibaba/qwen3-next-80b-a3b-instruct.toml",
-        "type": "catalog"
-      },
-      {
         "label": "Hugging Face",
         "url": "https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Instruct",
         "type": "weights"
+      },
+      {
+        "label": "Qwen checkpoint configuration",
+        "url": "https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Instruct/raw/main/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Alibaba Cloud model releases",
+        "url": "https://help.aliyun.com/en/model-studio/newly-released-models",
+        "type": "primary"
+      },
+      {
+        "label": "Official release announcement",
+        "url": "https://qwen.ai/blog?id=qwen3-next",
+        "type": "primary"
+      },
+      {
+        "label": "Models.dev record",
+        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/alibaba/qwen3-next-80b-a3b-instruct.toml",
+        "type": "catalog"
       }
     ],
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
+    "upstream_present": true,
+    "notes": "80B total and 3B activated are nominal developer-reported counts. Architecture combines Gated DeltaNet and Gated Attention with MoE. Native context is 262144 tokens. Release month is September 2025; indexed announcement and API availability dates differ by one day.",
+    "field_status": {},
+    "audited_at": "2026-10-26T14:34:56Z",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/038.json"
   },
   {
     "id": "alibaba/qwen3-next-80b-a3b-thinking",
@@ -14913,14 +15286,14 @@
     "developer": "Alibaba",
     "developer_id": "alibaba",
     "family": "qwen",
-    "description": "Efficient Qwen thinking model for local reasoning, math, and coding agents",
+    "description": "Open-weight Qwen3-Next thinking model with 80B total and 3B active parameters, hybrid attention, and tool-calling support.",
     "release_date": "2025-09",
     "date_precision": "month",
     "open_weights": true,
-    "license": null,
+    "license": "Apache-2.0",
     "parameters_b": 80,
     "active_parameters_b": 3,
-    "parameters_source": "model_name",
+    "parameters_source": "primary_source",
     "architecture": "moe",
     "context_window": 262144,
     "modalities": {
@@ -14945,12 +15318,26 @@
         "label": "Hugging Face",
         "url": "https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Thinking",
         "type": "weights"
+      },
+      {
+        "label": "Official model configuration",
+        "url": "https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Thinking/blob/main/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Alibaba Cloud release log",
+        "url": "https://help.aliyun.com/en/model-studio/newly-released-models",
+        "type": "primary"
       }
     ],
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
+    "upstream_present": true,
+    "notes": "80B total and 3B active are nominal developer counts for this exact thinking checkpoint. Hybrid attention combines Gated DeltaNet and gated attention with MoE. Native context is 262144. Release month is September 2025; indexed announcement displays September 10 and API table says September 11.",
+    "field_status": {},
+    "audited_at": "2026-10-26T14:34:39Z",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/039.json"
   },
   {
     "id": "bytedance-seed/seed-1-6-flash",
@@ -16461,47 +16848,6 @@
     "upstream_present": true
   },
   {
-    "id": "alibaba/qwen3-coder-plus",
-    "slug": "alibaba--qwen3-coder-plus",
-    "name": "Qwen3 Coder Plus",
-    "developer": "Alibaba",
-    "developer_id": "alibaba",
-    "family": "qwen",
-    "description": "Hosted Qwen coder for software agents, repo edits, and long-context code",
-    "release_date": "2025-07-23",
-    "date_precision": "day",
-    "open_weights": false,
-    "license": null,
-    "parameters_b": null,
-    "active_parameters_b": null,
-    "parameters_source": null,
-    "architecture": null,
-    "context_window": 1048576,
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "reasoning": false,
-    "tool_call": true,
-    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/alibaba/qwen3-coder-plus.toml",
-    "source_type": "catalog",
-    "sources": [
-      {
-        "label": "Models.dev record",
-        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/alibaba/qwen3-coder-plus.toml",
-        "type": "catalog"
-      }
-    ],
-    "aliases": [],
-    "first_seen": "2026-10-26T08:55:12.627Z",
-    "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
-  },
-  {
     "id": "alibaba/qwen3-coder-480b-a35b-instruct",
     "slug": "alibaba--qwen3-coder-480b-a35b-instruct",
     "name": "Qwen3-Coder 480B-A35B Instruct",
@@ -16570,6 +16916,88 @@
     "field_status": {},
     "audited_at": "2026-10-26T14:25:56Z",
     "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/032.json"
+  },
+  {
+    "id": "alibaba/qwen3-coder-plus",
+    "slug": "alibaba--qwen3-coder-plus",
+    "name": "Qwen3 Coder Plus",
+    "developer": "Alibaba",
+    "developer_id": "alibaba",
+    "family": "qwen",
+    "description": "Hosted Qwen3 coding model for code generation and tool-driven programming.",
+    "release_date": "2025-07-22",
+    "date_precision": "day",
+    "open_weights": null,
+    "license": null,
+    "parameters_b": null,
+    "active_parameters_b": null,
+    "parameters_source": null,
+    "architecture": null,
+    "context_window": 1000000,
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "reasoning": null,
+    "tool_call": true,
+    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/alibaba/qwen3-coder-plus.toml",
+    "source_type": "catalog",
+    "sources": [
+      {
+        "label": "Alibaba model lifecycle and release dates",
+        "url": "https://help.aliyun.com/en/model-studio/newly-released-models",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3-Coder launch announcement",
+        "url": "https://qwenlm.github.io/blog/qwen3-coder/",
+        "type": "primary"
+      },
+      {
+        "label": "Historical official Qwen3-Coder-Plus model card (indexed)",
+        "url": "https://docs.modelstudio.console.alibabacloud.com/id/model-studio/qwen3-coder-plus",
+        "type": "primary"
+      },
+      {
+        "label": "Alibaba text generation capability table",
+        "url": "https://www.alibabacloud.com/help/en/model-studio/text-generation-model/",
+        "type": "primary"
+      },
+      {
+        "label": "Alibaba Dataphin model capabilities",
+        "url": "https://help.aliyun.com/zh/dataphin/semimanaged-v4/user-guide/untitled-document-1753169796047",
+        "type": "primary"
+      },
+      {
+        "label": "DataWorks model retirement notice",
+        "url": "https://www.alibabacloud.com/help/en/dataworks/announcement-on-model-retirement-for-dataworks-data-agent",
+        "type": "primary"
+      },
+      {
+        "label": "Models.dev record",
+        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/alibaba/qwen3-coder-plus.toml",
+        "type": "catalog"
+      }
+    ],
+    "aliases": [],
+    "first_seen": "2026-10-26T08:55:12.627Z",
+    "last_seen": "2026-10-26T09:05:47.987Z",
+    "upstream_present": true,
+    "notes": "Hosted alias: launch instructions linked it to Qwen3-Coder-480B-A35B-Instruct, but later documentation maps it to qwen3-coder-plus-2025-09-23; counts, architecture and weight license for that later snapshot remain undisclosed. Context and modalities use historical indexed official documentation; current model pages omit/redirect this alias and DataWorks announced phased retirement from 2026-10-10. Present endpoint operation is unverified. Official sources conflict on thinking mode and regional tool-calling support. Release date is earliest documented China availability; international/global service followed July 23.",
+    "field_status": {
+      "open_weights": "unverified",
+      "license": "undisclosed",
+      "parameters_b": "undisclosed",
+      "active_parameters_b": "undisclosed",
+      "architecture": "undisclosed",
+      "reasoning": "unverified"
+    },
+    "audited_at": "2026-10-26T14:32:35.089208Z",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/035.json"
   },
   {
     "id": "alibaba/qwen3-235b-a22b-instruct-2507",

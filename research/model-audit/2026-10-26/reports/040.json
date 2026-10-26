@@ -1,0 +1,221 @@
+{
+  "index": 40,
+  "model_id": "alibaba/qwen3-omni-30b-a3b-thinking",
+  "reviewed_at": "2026-10-26T14:38:15.479318Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/Qwen/Qwen3-Omni-30B-A3B-Thinking",
+      "title": "Qwen3-Omni-30B-A3B-Thinking model card",
+      "publisher": "Qwen",
+      "accessed": true,
+      "evidence": "Exact checkpoint is Apache-2.0, openly downloadable, and contains the reasoning Thinker with text output. Its Thinking evaluation includes visual reasoning and BFCL-v3 function calling (63.2)."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/Qwen/Qwen3-Omni-30B-A3B-Thinking/raw/main/config.json",
+      "title": "Thinking checkpoint configuration",
+      "publisher": "Qwen",
+      "accessed": true,
+      "evidence": "Audio output is disabled. thinker_config contains audio, vision, and MoE text configurations; the text decoder has 128 experts, 8 selected per token and max_position_embeddings=65536. No Talker configuration is present."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/Qwen/Qwen3-Omni-30B-A3B-Thinking/raw/main/model.safetensors.index.json",
+      "title": "Thinking checkpoint weight index",
+      "publisher": "Qwen",
+      "accessed": true,
+      "evidence": "Fetched successfully through HTTPS after the browser fetch failed. metadata.total_parameters explicitly equals 31719205488. Weight prefixes are thinker.audio_tower, thinker.visual, thinker.model, and thinker.lm_head; no Talker/MTP/Code2Wav weights."
+    },
+    {
+      "id": "s4",
+      "url": "https://arxiv.org/html/2509.17765v1",
+      "title": "Qwen3-Omni Technical Report, version 1",
+      "publisher": "Qwen Team",
+      "accessed": true,
+      "evidence": "Table 1 lists the Thinker MoE decoder as 30B-A3B, audio encoder as 650M, and vision encoder as 540M. Talker, MTP and Code2Wav are separate components. The dated September 22, 2025 report explicitly names the publicly released Thinking variant."
+    },
+    {
+      "id": "s5",
+      "url": "https://github.com/QwenLM/Qwen3-Omni",
+      "title": "Qwen3-Omni official repository",
+      "publisher": "Qwen Team, Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Identifies Alibaba Cloud as developer and announces Qwen3-Omni release on 2025-09-22; model table explicitly includes the Thinking checkpoint."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Qwen3 Omni 30B A3B Thinking",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Normalized display spelling of Qwen3-Omni-30B-A3B-Thinking."
+    },
+    "developer": {
+      "value": "Alibaba",
+      "status": "verified",
+      "source_ids": [
+        "s5"
+      ],
+      "note": "Developed by the Qwen team at Alibaba Cloud."
+    },
+    "family": {
+      "value": "qwen",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Qwen3-Omni belongs to the Qwen family."
+    },
+    "release_date": {
+      "value": "2025-09-22",
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5"
+      ],
+      "note": "Official dated release news and same-day report naming Thinking; repository creation is not used as release evidence."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Public downloadable checkpoint and weight index."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4"
+      ],
+      "note": "Model card and report identify Apache 2.0 for this release."
+    },
+    "parameters_b": {
+      "value": 31.719205488,
+      "status": "verified",
+      "source_ids": [
+        "s3"
+      ],
+      "note": "Complete published Thinking checkpoint: 31,719,205,488 parameters divided by 1e9. Includes perception encoders and text decoder; excludes absent speech-generation components. The nominal 30B label is not the checkpoint total."
+    },
+    "active_parameters_b": {
+      "value": 3,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s2"
+      ],
+      "note": "Nominal active parameter count of the Thinker MoE text decoder. It does not include input-dependent audio/vision encoder work; the sources do not give a single active count for the entire multimodal checkpoint."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4"
+      ],
+      "note": "Thinker text decoder is MoE; audio and vision encoders are additional components. Thinking excludes the Talker found in Instruct."
+    },
+    "context_window": {
+      "value": 65536,
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Exact checkpoint text configuration max_position_embeddings; not a Flash API limit."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "video",
+          "audio"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Exact variant is text-output only; vision examples/config support images as well as video."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Thinking variant explicitly uses chain-of-thought reasoning."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Exact Thinking checkpoint is evaluated on the BFCL-v3 function-calling benchmark (63.2)."
+    },
+    "description": {
+      "value": "Multimodal reasoning model accepting text, images, video, and audio with text output",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Supported and appropriately specific to Thinking."
+    }
+  },
+  "patch": {
+    "parameters_b": 31.719205488,
+    "parameters_source": "primary_source",
+    "notes": "The Thinking checkpoint has 31,719,205,488 parameters, including audio and vision encoders plus its MoE text decoder. The nominal 30B total and 3B active labels describe the Thinker decoder; 3B is not a complete multimodal active count. Thinking contains no Talker, MTP, or Code2Wav speech-generation components.",
+    "sources": [
+      {
+        "label": "Thinking model card",
+        "url": "https://huggingface.co/Qwen/Qwen3-Omni-30B-A3B-Thinking",
+        "type": "weights"
+      },
+      {
+        "label": "Thinking checkpoint parameter metadata",
+        "url": "https://huggingface.co/Qwen/Qwen3-Omni-30B-A3B-Thinking/raw/main/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Thinking configuration",
+        "url": "https://huggingface.co/Qwen/Qwen3-Omni-30B-A3B-Thinking/raw/main/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3-Omni technical report",
+        "url": "https://arxiv.org/html/2509.17765v1",
+        "type": "paper"
+      },
+      {
+        "label": "Official release announcement",
+        "url": "https://github.com/QwenLM/Qwen3-Omni",
+        "type": "primary"
+      }
+    ]
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "thinker_decoder": 30,
+      "audio_encoder": 0.65,
+      "vision_encoder": 0.54
+    },
+    "active_parameters_scope": "thinker_decoder",
+    "component_count_note": "Paper Table 1 uses nominal component sizes; do not sum these rounded figures to replace the exact checkpoint total. The complete multimodal active count is not reported."
+  },
+  "summary": "Correct complete checkpoint total from nominal decoder-only 30B to the weight index's exact 31.719205488B. Confirm 3B as nominal active Thinker decoder count, with explicit scope; multimodal-wide active count remains unspecified. Confirm remaining baseline fields, including text-only output and 65,536 context."
+}

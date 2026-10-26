@@ -206,7 +206,10 @@ export function validateModels(models, asOf = '9999-12-31') {
       }
     }
     if (model.parameters_scope && model.parameter_components_b?.[model.parameters_scope] !== model.parameters_b) throw new Error(`Parameter scope disagrees with component count: ${model.id}`);
-    if (model.active_parameters_scope && model.active_parameters_by_phase_b?.[model.active_parameters_scope] !== model.active_parameters_b) throw new Error(`Active parameter scope disagrees with phase count: ${model.id}`);
+    if (model.active_parameters_scope !== undefined) {
+      if (typeof model.active_parameters_scope !== 'string' || !/^[a-z][a-z0-9_]*$/.test(model.active_parameters_scope) || !model.active_parameters_b) throw new Error(`Invalid active parameter scope: ${model.id}`);
+      if (model.active_parameters_by_phase_b && model.active_parameters_by_phase_b[model.active_parameters_scope] !== model.active_parameters_b) throw new Error(`Active parameter scope disagrees with phase count: ${model.id}`);
+    }
     if (![true, false, null].includes(model.open_weights)) throw new Error(`Invalid openness: ${model.id}`);
     if (!Array.isArray(model.modalities?.input) || !Array.isArray(model.modalities?.output) || !model.modalities.output.includes('text')) throw new Error(`Not a language model: ${model.id}`);
     for (const url of [model.source_url, ...model.sources.map(source => source.url)]) {

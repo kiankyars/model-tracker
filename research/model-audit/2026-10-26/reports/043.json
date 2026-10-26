@@ -1,0 +1,370 @@
+{
+  "index": 43,
+  "model_id": "alibaba/qwen3-vl-30b-a3b-instruct",
+  "reviewed_at": "2026-10-26T14:45:50Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct",
+      "title": "Qwen3-VL-30B-A3B-Instruct model card",
+      "publisher": "Qwen / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Exact public weight repository identifies the Instruct model, Apache-2.0 license, text/image/video understanding, document OCR and visual agents."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct/raw/main/config.json",
+      "title": "Qwen3-VL-30B-A3B-Instruct configuration",
+      "publisher": "Qwen / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Qwen3VLMoeForConditionalGeneration combines separate vision and language configurations. Decoder has 48 layers, 128 experts, 8 experts per token, hidden size 2048, and max_position_embeddings 262144."
+    },
+    {
+      "id": "s3",
+      "url": "https://github.com/QwenLM/Qwen3-VL",
+      "title": "Qwen3-VL official repository and release news",
+      "publisher": "Qwen / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Identifies Alibaba Cloud's Qwen team and explicitly announces Qwen3-VL-30B-A3B-Instruct and Thinking releases on 2025-10-04."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/api/models/Qwen/Qwen3-VL-30B-A3B-Instruct",
+      "title": "Exact checkpoint safetensors metadata",
+      "publisher": "Hugging Face, metadata for Qwen's official checkpoint",
+      "accessed": true,
+      "evidence": "safetensors.parameters.BF16 and safetensors.total both report 31,070,754,032 parameters; repository is public and ungated."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct/raw/main/model.safetensors.index.json",
+      "title": "Official checkpoint weight index",
+      "publisher": "Qwen / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "The weight index includes language-model tensors, output head and visual tensors. Its total_size is 62,141,508,064 bytes, consistent with the API's full BF16 parameter count."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct/raw/main/chat_template.json",
+      "title": "Exact checkpoint chat template",
+      "publisher": "Qwen / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Template accepts text/image/video content, tool definitions, assistant function calls and tool responses; the generation prompt starts an ordinary assistant response without a thinking prefix."
+    },
+    {
+      "id": "s7",
+      "url": "https://arxiv.org/pdf/2511.21631",
+      "title": "Qwen3-VL Technical Report",
+      "publisher": "Qwen Team",
+      "accessed": true,
+      "evidence": "Describes Qwen3 language backbones plus vision encoder and vision-language mergers. Identifies 30B-A3B as MoE and separates non-thinking/Instruct from Thinking variants. Does not explicitly report an exact full-model active count for this checkpoint."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/Qwen/Qwen3-30B-A3B/raw/main/README.md",
+      "title": "Qwen3-30B-A3B language-backbone model card",
+      "publisher": "Qwen / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Text-only Qwen3-30B-A3B publishes rounded 30.5B total and 3.3B activated parameters, with 48 layers, 128 experts and 8 selected experts. These are language-backbone figures, not a full multimodal count."
+    },
+    {
+      "id": "s9",
+      "url": "https://www.alibabacloud.com/help/en/model-studio/newly-released-models",
+      "title": "Model Studio model lifecycle and updates",
+      "publisher": "Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Lists the similarly named API model on 2025-10-03 for international/global regions and 2025-09-30 in the China section, earlier than the October 4 open-weight release announcement."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/Qwen/Qwen3-30B-A3B/raw/main/config.json",
+      "title": "Qwen3-30B-A3B language-backbone configuration",
+      "publisher": "Qwen / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Every learned decoder dimension matches the VL text_config: vocabulary 151936, hidden size 2048, 48 layers, 32 Q / 4 KV heads, head dimension 128, expert width 768, 128 experts with 8 selected, and untied embeddings. Differences concern positional configuration and nonparameter settings."
+    },
+    {
+      "id": "s11",
+      "url": "https://qwenlm.github.io/blog/qwen3/",
+      "title": "Qwen3: Think Deeper, Act Faster",
+      "publisher": "Qwen Team",
+      "accessed": true,
+      "evidence": "The April 29, 2025 announcement explicitly describes Qwen3-30B-A3B as 30 billion total parameters and 3 billion activated parameters. This establishes nominal A3B naming for the text backbone; its model-card disclosure is 3.3B."
+    },
+    {
+      "id": "s12",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.57.0/src/transformers/models/qwen3_vl_moe/modeling_qwen3_vl_moe.py",
+      "title": "Qwen3-VL MoE implementation, Transformers 4.57.0",
+      "publisher": "Qwen Team and Hugging Face",
+      "accessed": true,
+      "evidence": "Language decoder has matching bias-free Q/K/V/O projections, head-dimension Q/K norms, two hidden-dimension layer norms, router and three expert matrices. Experts are packed, preserving parameter counts. RoPE uses nonpersistent buffers; DeepStack adds already-projected visual embeddings without learned decoder modules. Vision mergers reside outside the language decoder."
+    },
+    {
+      "id": "s13",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.57.0/src/transformers/models/qwen3_moe/modeling_qwen3_moe.py",
+      "title": "Qwen3 MoE implementation, Transformers 4.57.0",
+      "publisher": "Qwen Team, Alibaba Group and Hugging Face",
+      "accessed": true,
+      "evidence": "Constructors and top-k routing establish the same learned parameter accounting as the VL decoder. Text experts use three bias-free Linear matrices individually; VL packs their equivalent matrices. Both use separate token embedding and output-head matrices and a final RMSNorm."
+    },
+    {
+      "id": "s14",
+      "url": "https://huggingface.co/Qwen/Qwen3-30B-A3B/raw/main/model.safetensors.index.json",
+      "title": "Qwen3-30B-A3B weight index",
+      "publisher": "Qwen / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "All 18,867 text checkpoint parameter names match the normalized VL language decoder plus output head after expanding packed experts. BF16 tensor bytes of 61,064,245,248 correspond to 30,532,122,624 parameters, exactly matching the constructor/config calculation."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Qwen3 VL 30B A3B Instruct",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Baseline display spelling identifies the exact official Qwen3-VL-30B-A3B-Instruct checkpoint."
+    },
+    "developer": {
+      "value": "Alibaba",
+      "status": "verified",
+      "source_ids": [
+        "s3"
+      ],
+      "note": "Official repository attributes the series to Qwen team, Alibaba Cloud."
+    },
+    "family": {
+      "value": "qwen",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Qwen3-VL belongs to the Qwen family."
+    },
+    "release_date": {
+      "value": "2025-10-04",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s9"
+      ],
+      "note": "Explicit open-checkpoint release announcement. API lifecycle dates differ by region (September 30/October 3); those are recorded as distinct deployment dates, not substituted for the open-weight announcement."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s5"
+      ],
+      "note": "Official ungated repository publishes the BF16 safetensors checkpoint."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Exact checkpoint card declares apache-2.0."
+    },
+    "parameters_b": {
+      "value": 31.070754032,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5"
+      ],
+      "note": "Exact full multimodal checkpoint metadata reports 31,070,754,032 parameters; billions use 10^9. The nominal 30B language-backbone label is not the complete checkpoint count."
+    },
+    "active_parameters_b": {
+      "value": 3.3,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s5",
+        "s7",
+        "s8",
+        "s10",
+        "s12",
+        "s13",
+        "s14"
+      ],
+      "note": "Language-decoder scope only; transparent structural inference, not a direct full-VL active-count disclosure. Qwen publishes 3.3B activated for its text backbone. Exact configurations, normalized weight-index keys, parameter-bearing constructors and top-8/128 routing match completely, supporting the same published approximate figure for this decoder, including its language embeddings/output head. Excludes vision encoder and mergers; retain developer precision rather than inventing an exact activated count."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s7"
+      ],
+      "note": "MoE language decoder selects 8 of 128 experts per token; vision encoder and merger modules are additional components."
+    },
+    "context_window": {
+      "value": 262144,
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Exact checkpoint max_position_embeddings is 262144; retain native configured context."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Exact multimodal template supports text, images and video and generates assistant text."
+    },
+    "reasoning": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6",
+        "s7"
+      ],
+      "note": "Instruct is the non-thinking edition, distinguished from the separately released Thinking checkpoint. False refers to dedicated thinking mode, not absence of reasoning ability."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s6"
+      ],
+      "note": "Exact template implements tool schemas, function-call output and tool responses."
+    },
+    "description": {
+      "value": "Open vision-language MoE model for image and video understanding, documents, and visual agents",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Card supports the listed application areas and the exact configuration confirms MoE; no unsupported performance superlative."
+    }
+  },
+  "patch": {
+    "parameters_b": 31.070754032,
+    "active_parameters_b": 3.3,
+    "parameters_source": "primary_source",
+    "notes": "Full checkpoint: 31,070,754,032 parameters including vision components. Active 3.3B is an approximate language-decoder-only figure inferred from the explicitly linked Qwen3 backbone after verifying complete learned-parameter and routing equivalence; it is not a full multimodal active count. Decoder total 30,532,122,624 includes embeddings/output head. A3B is the backbone announcement's nominal 3B label. October 4 is the open-weight announcement; Model Studio lists earlier region-specific API dates.",
+    "sources": [
+      {
+        "label": "Official model card",
+        "url": "https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct",
+        "type": "weights"
+      },
+      {
+        "label": "Official checkpoint parameter metadata",
+        "url": "https://huggingface.co/api/models/Qwen/Qwen3-VL-30B-A3B-Instruct",
+        "type": "primary"
+      },
+      {
+        "label": "Official checkpoint weight index",
+        "url": "https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct/raw/main/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Official checkpoint configuration",
+        "url": "https://huggingface.co/Qwen/Qwen3-VL-30B-A3B-Instruct/raw/main/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3-VL release announcement",
+        "url": "https://github.com/QwenLM/Qwen3-VL",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3-VL technical report",
+        "url": "https://arxiv.org/pdf/2511.21631",
+        "type": "paper"
+      },
+      {
+        "label": "Qwen3 language-backbone parameter disclosure",
+        "url": "https://huggingface.co/Qwen/Qwen3-30B-A3B/raw/main/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Model Studio deployment history",
+        "url": "https://www.alibabacloud.com/help/en/model-studio/newly-released-models",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3-30B-A3B language-backbone configuration",
+        "url": "https://huggingface.co/Qwen/Qwen3-30B-A3B/raw/main/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3: Think Deeper, Act Faster",
+        "url": "https://qwenlm.github.io/blog/qwen3/",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3-VL MoE implementation, Transformers 4.57.0",
+        "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.57.0/src/transformers/models/qwen3_vl_moe/modeling_qwen3_vl_moe.py",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3 MoE implementation, Transformers 4.57.0",
+        "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.57.0/src/transformers/models/qwen3_moe/modeling_qwen3_moe.py",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3-30B-A3B weight index",
+        "url": "https://huggingface.co/Qwen/Qwen3-30B-A3B/raw/main/model.safetensors.index.json",
+        "type": "primary"
+      }
+    ]
+  },
+  "proposed_fields": {
+    "active_parameters_scope": "language_decoder",
+    "parameter_components_b": {
+      "language_decoder": 30.532122624
+    }
+  },
+  "summary": "Correct full checkpoint total from nominal 30B to 31.070754032B. Set activated parameters to the published approximate 3.3B with required language_decoder scope: transparent inference established by complete parameter/routing equivalence to the explicitly linked Qwen3 backbone. Decoder component total is 30.532122624B. A3B is explicitly a nominal 3B active label in the backbone announcement. All 14 fields assessed; preserve October 4 open-weight announcement and distinguish earlier API dates.",
+  "decoder_comparison": {
+    "matching_configuration": {
+      "hidden_size": 2048,
+      "num_hidden_layers": 48,
+      "num_attention_heads": 32,
+      "num_key_value_heads": 4,
+      "head_dim": 128,
+      "moe_intermediate_size": 768,
+      "num_experts": 128,
+      "num_experts_per_tok": 8,
+      "decoder_sparse_step": 1,
+      "mlp_only_layers": [],
+      "norm_topk_prob": true,
+      "attention_bias": false,
+      "vocab_size": 151936,
+      "tie_word_embeddings": false
+    },
+    "parameter_structure": "All 18,867 learned text parameter names match after renaming model.language_model to model and expanding VL packed gate_up/down tensors into 128 individual expert gate/up/down matrices. Both decoder constructors use identical matrix dimensions and norms; no shared expert or additional learned decoder module is present.",
+    "nonparameter_differences": "VL uses interleaved multimodal RoPE, different RoPE theta/context settings and parameter-free DeepStack residual additions. RoPE frequencies are buffers. Visual projection/merger parameters are outside language_decoder.",
+    "decoder_total_calculation": "2*151936*2048 + 2048 + 48*(2048*128*(2*32+2*4) + 2*2048+2*128 + 2048*128 + 128*3*2048*768) = 30,532,122,624; exactly matches the text checkpoint BF16 index total_size/2.",
+    "active_accounting": "Transfer the publisher's approximate 3.3B figure only because learned parameter structure and per-token routing match, rather than family lineage alone. Do not treat it as an exact count or add visual components to it.",
+    "source_ids": [
+      "s2",
+      "s5",
+      "s8",
+      "s10",
+      "s12",
+      "s13",
+      "s14"
+    ]
+  }
+}
