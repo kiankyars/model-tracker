@@ -1,0 +1,288 @@
+{
+  "index": 235,
+  "model_id": "ibm/granite-4-h-micro",
+  "reviewed_at": "2026-10-26T20:47:32.388410Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/ibm-granite/granite-4.0-h-micro/blob/d5f01a3ea75f088947be3aae039f4ad52837dfde/README.md",
+      "title": "Granite-4.0-H-Micro official model card",
+      "publisher": "IBM Granite",
+      "accessed": true,
+      "evidence": "Identifies the exact IBM instruct checkpoint, Apache 2.0 license and October 2, 2025 release. The H Micro Dense column explicitly labels both total and active parameters 3B; lists four attention and 36 Mamba2 layers. Provides text generation and tool-calling examples."
+    },
+    {
+      "id": "s2",
+      "url": "https://www.ibm.com/new/announcements/ibm-granite-4-0-hyper-efficient-high-performance-hybrid-models",
+      "title": "IBM Granite 4.0 launch announcement, October 2, 2025",
+      "publisher": "IBM",
+      "accessed": true,
+      "evidence": "Announces H-Micro as a dense hybrid, distinct from conventional Micro and MoE Tiny/Small. Specifies Mamba2/attention, dense feedforward layers and NoPE; validates 128K context despite training samples up to 512K. Separates the released Instruct variants from future explicit-reasoning variants."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/ibm-granite/granite-4.0-h-micro/resolve/d5f01a3ea75f088947be3aae039f4ad52837dfde/config.json",
+      "title": "Pinned H-Micro configuration",
+      "publisher": "IBM Granite",
+      "accessed": true,
+      "evidence": "40 layers: attention at zero-based indices 5, 15, 25 and 35, otherwise Mamba; hidden size 2048; vocabulary 100352; 32 attention/8 KV heads; MLP width 8192; no positional encoding; zero local or selected experts; tied word embeddings; BF16; maximum positions 131072. No quantization configuration."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/ibm-granite/granite-4.0-h-micro/resolve/d5f01a3ea75f088947be3aae039f4ad52837dfde/model.safetensors.index.json",
+      "title": "Pinned original checkpoint index",
+      "publisher": "IBM Granite",
+      "accessed": true,
+      "evidence": "Maps 466 tensors to two shards; total_size is 6,382,792,192 bytes. The total_parameters field is a zero placeholder, not a usable count. No separate lm_head, quantization-scale, router or rotary-frequency entries appear."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/ibm-granite/granite-4.0-h-micro/resolve/d5f01a3ea75f088947be3aae039f4ad52837dfde/model-00001-of-00002.safetensors",
+      "title": "First BF16 shard tensor header",
+      "publisher": "IBM Granite",
+      "accessed": true,
+      "evidence": "HTTP 206 range requests read the eight-byte header length and 39,912-byte JSON header only. Shapes, dtypes and offsets were inventoried without tensor payloads; together with the second shard, all 466 tensors exactly match the index and sum to 3,191,396,096 BF16 elements."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/ibm-granite/granite-4.0-h-micro/resolve/d5f01a3ea75f088947be3aae039f4ad52837dfde/model-00002-of-00002.safetensors",
+      "title": "Second BF16 shard tensor header",
+      "publisher": "IBM Granite",
+      "accessed": true,
+      "evidence": "HTTP 206 range requests read the eight-byte header length and 11,928-byte JSON header only. The combined learned-tensor total is 3,191,396,096, including the 205,520,896-element shared embedding once; headers contain no packed weights, quantization scales or non-parameter buffers."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/api/models/ibm-granite/granite-4.0-h-micro?blobs=true",
+      "title": "Original model repository metadata",
+      "publisher": "IBM Granite / Hugging Face",
+      "accessed": true,
+      "evidence": "Repository revision d5f01a3ea75f088947be3aae039f4ad52837dfde independently reports safetensors total 3,191,396,096, entirely BF16. Metadata and checkpoint index corroborate the bounded header count."
+    },
+    {
+      "id": "s8",
+      "url": "https://github.com/huggingface/transformers/blob/v4.56.0/src/transformers/models/granitemoehybrid/modeling_granitemoehybrid.py",
+      "title": "Granite hybrid implementation matching the checkpoint config version",
+      "publisher": "Hugging Face Transformers",
+      "accessed": true,
+      "evidence": "Mamba A_log, D and dt_bias are nn.Parameters, as are linear, convolution and norm weights. NoPE does not instantiate rotary buffers. Zero experts bypasses routed MoE while the dense shared_mlp runs in each block. lm_head.weight is tied; embedding lookup, selective Mamba activations, caches and logits_to_keep explain why a nominal active figure is not an exact per-token weight-access count."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/ibm-granite/granite-4.0-h-micro/resolve/d5f01a3ea75f088947be3aae039f4ad52837dfde/chat_template.jinja",
+      "title": "Pinned H-Micro conversation template",
+      "publisher": "IBM Granite",
+      "accessed": true,
+      "evidence": "Serializes text content, function definitions, tool calls and tool responses. No image/audio processing or thinking-mode switch is supplied; generation examples and model structure are text-only."
+    },
+    {
+      "id": "s10",
+      "url": "https://github.com/ibm-granite/granite-4.0-language-models",
+      "title": "Granite 4.0 language-model repository",
+      "publisher": "IBM Granite",
+      "accessed": true,
+      "evidence": "Distinguishes dense, dense-hybrid and MoE-hybrid releases and lists H-Micro separately from Micro. Current README still has a commented future technical-report reference; the exact card citation contains a placeholder arXiv identifier, which is not treated as a published report."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/blog/ibm-granite/granite-4-1",
+      "title": "Granite 4.1 LLMs: How They Are Built, April 29, 2026",
+      "publisher": "IBM Granite",
+      "accessed": true,
+      "evidence": "Later first-party technical walkthrough describes 4.1 as dense Transformers with RoPE and compares 4.1-8B with 4.0-H-Small. These later-generation specifications are not transferred to H-Micro; the exact 4.0 card supplies its own total/active comparison table."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Granite-4.0-H-Micro",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Exact instruct variant; distinct from Micro, H-Micro-Base, H-Tiny and Granite 4.1."
+    },
+    "developer": {
+      "value": "IBM",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "The model card credits the Granite Team at IBM."
+    },
+    "family": {
+      "value": "granite",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Granite 4.0 belongs to IBM Granite."
+    },
+    "release_date": {
+      "value": "2025-10-02",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Explicit original public release date, corroborated by the dated launch announcement."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "note": "Original BF16 checkpoint shards are publicly readable without authentication."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "IBM explicitly releases these weights under Apache 2.0."
+    },
+    "parameters_b": {
+      "value": 3.191396096,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "note": "Complete unique learned-parameter count: 3,191,396,096. Counts tied embeddings once; includes learned Mamba A_log/D/dt_bias, convolutions, dense MLPs, attention and norms. All tensors are BF16; no quantization scales or persistent buffers inflate the sum. IBM markets this as nominal 3B."
+    },
+    "active_parameters_b": {
+      "value": 3,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s8"
+      ],
+      "note": "IBM explicitly labels H Micro Dense as 3B active: retain this nominal source-defined count. It is not inferred from density or replaced by the precise total. There is no expert routing; input embedding lookup touches selected rows, the tied vocabulary projection is evaluated only for requested logit positions, and Mamba input-dependent state coefficients are activations rather than additional or routed learned weights. No exact phase-specific active count is asserted."
+    },
+    "architecture": {
+      "value": "hybrid-ssm-transformer",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s8"
+      ],
+      "note": "Dense decoder-only hybrid: 36 Mamba2 and four GQA attention layers, each with a dense SwiGLU MLP; RMSNorm, NoPE and tied embeddings. The generic GraniteMoeHybrid class name does not make this checkpoint MoE: both expert counts are zero."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "Exact configured limit, consistent with IBM validation at 128K. Longer training sequences and theoretical unbounded SSM context do not establish a larger supported context."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s9"
+      ],
+      "note": "Tokenizer-based causal language model with text-only content handling and vocabulary output; no vision or audio components."
+    },
+    "reasoning": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s9"
+      ],
+      "note": "Instruct release without a dedicated thinking mode. IBM explicitly distinguished it from then-planned reasoning variants; false does not mean incapable of ordinary reasoning or chain-of-thought prompting."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s9"
+      ],
+      "note": "Official function-calling example and tool-definition/call/response serialization establish support."
+    },
+    "description": {
+      "value": "IBM instruction-tuned text model combining Mamba2 and attention layers with dense feedforward blocks, supporting multilingual chat, coding, retrieval-augmented generation and tool calling.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Replaces vague compact/enterprise wording with the documented architecture and uses."
+    }
+  },
+  "patch": {
+    "license": "Apache-2.0",
+    "parameters_b": 3.191396096,
+    "active_parameters_b": 3,
+    "parameters_source": "primary_source",
+    "architecture": "hybrid-ssm-transformer",
+    "description": "IBM instruction-tuned text model combining Mamba2 and attention layers with dense feedforward blocks, supporting multilingual chat, coding, retrieval-augmented generation and tool calling.",
+    "source_url": "https://huggingface.co/ibm-granite/granite-4.0-h-micro",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "IBM H-Micro model card",
+        "url": "https://huggingface.co/ibm-granite/granite-4.0-h-micro/blob/d5f01a3ea75f088947be3aae039f4ad52837dfde/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "IBM Granite 4.0 launch",
+        "url": "https://www.ibm.com/new/announcements/ibm-granite-4-0-hyper-efficient-high-performance-hybrid-models",
+        "type": "primary"
+      },
+      {
+        "label": "Exact H-Micro configuration",
+        "url": "https://huggingface.co/ibm-granite/granite-4.0-h-micro/resolve/d5f01a3ea75f088947be3aae039f4ad52837dfde/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Original checkpoint index",
+        "url": "https://huggingface.co/ibm-granite/granite-4.0-h-micro/resolve/d5f01a3ea75f088947be3aae039f4ad52837dfde/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint metadata",
+        "url": "https://huggingface.co/api/models/ibm-granite/granite-4.0-h-micro?blobs=true",
+        "type": "primary"
+      },
+      {
+        "label": "Granite hybrid implementation",
+        "url": "https://github.com/huggingface/transformers/blob/v4.56.0/src/transformers/models/granitemoehybrid/modeling_granitemoehybrid.py",
+        "type": "primary"
+      }
+    ],
+    "notes": "Total is the exact 3,191,396,096 learned-parameter count from the original BF16 checkpoint headers, including tied embeddings once. IBM labels this model 3B total and 3B active; active_parameters_b preserves that nominal published figure, not an exact per-token or phase-specific count. Dense MLPs have no routed experts. Configured and validated context is 131,072 tokens; larger training samples do not change that supported limit."
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "tied_embeddings": 0.205520896,
+      "dense_mlp": 2.01326592,
+      "mamba2_mixers": 0.930500352,
+      "attention_projections": 0.04194304,
+      "other_norms": 0.000165888
+    }
+  },
+  "summary": "Verified all 14 fields. Add Apache-2.0, dense hybrid SSM/Transformer architecture, exact 3.191396096B total and explicitly published nominal 3B active. Confirm October 2, 2025 release, 131072-token context, text modalities, tool calling and absence of a dedicated reasoning mode. Header-only audit accounts for all learned tensors and tied aliases; no complete weight shards downloaded. Current 4.0 documentation and later 4.1 technical comparisons were checked without substituting sibling specifications."
+}
