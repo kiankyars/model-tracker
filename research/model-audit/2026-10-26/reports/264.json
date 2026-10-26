@@ -1,0 +1,255 @@
+{
+  "index": 264,
+  "model_id": "meta/llama-3-70b",
+  "reviewed_at": "2026-10-26T21:27:55.736056Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://github.com/meta-llama/llama3/blob/main/MODEL_CARD.md",
+      "title": "Meta Llama 3 model card",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Original Llama 3 pretrained and instruction-tuned variants: 8B and 70B nominal sizes, text input and text/code output, GQA, 8K context, and April 18, 2024 release. The card distinguishes base models from instruction-tuned models."
+    },
+    {
+      "id": "s2",
+      "url": "https://ai.meta.com/blog/meta-llama-3/",
+      "title": "Introducing Meta Llama 3: The most capable openly available LLM to date",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "April 18, 2024 announcement releases pretrained and instruction-fine-tuned 8B/70B models, describes decoder-only Transformers and GQA, and specifies training on 8,192-token sequences. Longer context and multimodality are future goals for later releases."
+    },
+    {
+      "id": "s3",
+      "url": "https://github.com/meta-llama/llama3/blob/main/llama/model.py",
+      "title": "Llama 3 reference model implementation",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Transformer blocks invoke attention and one dense SwiGLU feed-forward network on every layer; there is no expert router. Model dimensions are supplied through ModelArgs, whose defaults alone do not identify the 70B checkpoint."
+    },
+    {
+      "id": "s4",
+      "url": "https://github.com/meta-llama/llama3/blob/main/LICENSE",
+      "title": "Meta Llama 3 Community License Agreement",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "The custom Meta Llama 3 license explicitly covers model weights and permits use, redistribution and modification subject to conditions. Its version release date is April 18, 2024."
+    },
+    {
+      "id": "s5",
+      "url": "https://github.com/meta-llama/llama3/blob/main/README.md",
+      "title": "Original Meta Llama 3 repository README",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Documents released model weights, license-gated downloads, sequence support up to 8192 tokens for all original models, and pretrained models intended for text continuation rather than chat/Q&A fine-tuning. Later Llama 3.1 repository migration is identified separately."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/meta-llama/Meta-Llama-3-70B",
+      "title": "Meta-Llama-3-70B official base checkpoint",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Exact base repository is distinct from the Instruct variant and links Llama-3.1-70B as a newer model. Its usage examples target Meta-Llama-3-70B and its original checkpoints. The card contains an apparent copied 8B-Instruct sentence under How to use; that sentence is not used to identify this variant."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/meta-llama/Meta-Llama-3-70B/resolve/main/config.json",
+      "title": "Meta-Llama-3-70B configuration access attempt",
+      "publisher": "Meta",
+      "accessed": false,
+      "evidence": "Unauthenticated request returned HTTP 401 requiring authorized access. No credentials, gate bypass, or weight downloads were attempted; exact parameter accounting is not established."
+    },
+    {
+      "id": "s8",
+      "url": "https://arxiv.org/html/2407.21783v3#S1.T1",
+      "title": "The Llama 3 Herd of Models, Table 1",
+      "publisher": "Llama Team, Meta",
+      "accessed": true,
+      "evidence": "The exact Llama 3 70B base row marks native tool use absent; original April models are distinguished from later Llama 3.1 and its instruction-tuned tool support."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Llama 3 70B",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Original 70B pretrained base variant; official checkpoint identifier Meta-Llama-3-70B has no Instruct or 3.1 suffix."
+    },
+    "developer": {
+      "value": "Meta",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "The original card identifies Meta as developer."
+    },
+    "family": {
+      "value": "llama-3",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Catalog family key for original Llama 3, released before Llama 3.1."
+    },
+    "release_date": {
+      "value": "2024-04-18",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4"
+      ],
+      "note": "Exact release day appears in the original card, dated announcement, and license."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s6"
+      ],
+      "note": "Meta released downloadable base weights under its custom license, with access approval; this is not a claim of an OSI-approved license."
+    },
+    "license": {
+      "value": "Llama 3 Community License",
+      "status": "verified",
+      "source_ids": [
+        "s4"
+      ],
+      "note": "Existing label denotes the custom Meta Llama 3 Community License Agreement."
+    },
+    "parameters_b": {
+      "value": 70,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s6",
+        "s7"
+      ],
+      "note": "70 billion is the nominal developer-published model size, not an exact learned-parameter count. Exact checkpoint configuration could not be retrieved because it requires authenticated access; no tensor count was inferred from another variant."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Meta does not separately define or report a per-token active count in these original sources. Dense architecture alone does not justify copying the nominal total into this field."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "Dense decoder-only Transformer with grouped-query attention. The official implementation executes one feed-forward network per block without expert routing; model-parallel layers do not imply mixture-of-experts."
+    },
+    "context_window": {
+      "value": 8192,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5"
+      ],
+      "note": "The original README explicitly supports sequences up to 8192 tokens; the announcement states the same sequence length. Later 3.1 context specifications do not apply."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Official inputs are text and outputs text/code; code is represented as text. No original base-model image or audio modality is documented."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5"
+      ],
+      "note": "General reasoning benchmarks and improved reasoning claims do not establish a dedicated native reasoning mode for this base checkpoint; no such mode is documented in the examined original sources."
+    },
+    "tool_call": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s8"
+      ],
+      "note": "Meta explicitly marks native tool use absent for the original Llama 3 70B base model in Table 1. External prompting and downstream fine-tunes do not change that released native capability."
+    },
+    "description": {
+      "value": "Original Llama 3 70B pretrained text-generation model with a dense decoder-only Transformer, grouped-query attention, and an 8,192-token context.",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s5",
+        "s6"
+      ],
+      "note": "Makes the original base variant explicit and restricts claims to documented architecture and context."
+    }
+  },
+  "patch": {
+    "parameters_source": "primary_source",
+    "description": "Original Llama 3 70B pretrained text-generation model with a dense decoder-only Transformer, grouped-query attention, and an 8,192-token context.",
+    "notes": "70B is Meta's nominal model-size label; an exact learned-parameter count was not established. Active parameters are not separately reported. This is the original April 2024 base checkpoint with 8192-token context, distinct from Llama 3.1. A dedicated reasoning mode is not documented. Meta explicitly marks native tool use absent for this exact model in its later comparison table.",
+    "sources": [
+      {
+        "label": "Original release source",
+        "url": "https://ai.meta.com/blog/meta-llama-3/",
+        "type": "primary"
+      },
+      {
+        "label": "Official model card",
+        "url": "https://github.com/meta-llama/llama3/blob/main/MODEL_CARD.md",
+        "type": "weights"
+      },
+      {
+        "label": "Official base checkpoint",
+        "url": "https://huggingface.co/meta-llama/Meta-Llama-3-70B",
+        "type": "weights"
+      },
+      {
+        "label": "Reference architecture implementation",
+        "url": "https://github.com/meta-llama/llama3/blob/main/llama/model.py",
+        "type": "primary"
+      },
+      {
+        "label": "Original model usage and context support",
+        "url": "https://github.com/meta-llama/llama3/blob/main/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Llama 3 Community License",
+        "url": "https://github.com/meta-llama/llama3/blob/main/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "Meta comparison of original Llama 3 and 3.1",
+        "url": "https://arxiv.org/html/2407.21783v3#S1.T1",
+        "type": "primary"
+      }
+    ],
+    "tool_call": false
+  },
+  "summary": "Confirmed the original Llama 3 70B base identity, nominal 70B total, dense decoder-only/GQA architecture, 8192-token context, April 18, 2024 release, custom license, released weights and text modalities. Added variant-specific description and count qualification. Exact learned count was not established because official configuration access is gated; active count and dedicated reasoning remain null as undisclosed. Parent review added explicit tool_call=false from the exact-model row in Meta's later comparison table."
+}
