@@ -1,0 +1,180 @@
+{
+  "index": 255,
+  "model_id": "meta/llama-1-33b",
+  "reviewed_at": "2026-10-26T21:18:41Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://ai.meta.com/blog/large-language-model-Llama-meta-ai/",
+      "title": "Introducing LLaMA: A foundational, 65-billion-parameter large language model",
+      "publisher": "Meta AI",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Dated February 24, 2023, the announcement includes the 33B variant in the first LLaMA release. It specifies a noncommercial research license and access granted case by case through applications. This dates the announced gated release, not unrestricted downloading or an individual applicant's approval."
+    },
+    {
+      "id": "s2",
+      "url": "https://arxiv.org/pdf/2302.13971",
+      "title": "LLaMA: Open and Efficient Foundation Language Models",
+      "publisher": "Meta AI",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Table 2 reports 32.5B parameters, dimension 6656, 52 attention heads and 60 layers for the model called LLaMA-33B elsewhere in the paper. Section 2.2 describes its Transformer, RMSNorm, SwiGLU and rotary embeddings. The paper evaluates text generation and reasoning benchmarks; its separate instruction-finetuning experiment is LLaMA-I 65B."
+    },
+    {
+      "id": "s3",
+      "url": "https://github.com/meta-llama/llama/blob/53011c3d7946dadb8274a4c5c7586ab54edf792d/MODEL_CARD.md",
+      "title": "Original LLaMA model card, March 2, 2023 revision",
+      "publisher": "Meta AI",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Identifies Meta AI's FAIR team, version 1, the 33B size, an autoregressive Transformer, research use and a noncommercial bespoke license. It explicitly calls LLaMA a base/foundational model without human-feedback training. The 33B row lists dimension 6656, 52 heads and 60 layers."
+    },
+    {
+      "id": "s4",
+      "url": "https://github.com/meta-llama/llama/blob/57b0eb62de0636e75af471e49e2f1862d908d9d8/llama/model.py",
+      "title": "Original LLaMA Transformer implementation, llama_v1 revision",
+      "publisher": "Meta",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "The preserved v1 implementation sets max_seq_len to 2048 and implements causal multi-head attention plus dense SwiGLU feed-forward layers in every Transformer block, with no expert router. Its token embedding and output projection operate on a text vocabulary. The file header identifies GPLv3 as the software license."
+    },
+    {
+      "id": "s5",
+      "url": "https://github.com/meta-llama/llama/blob/57b0eb62de0636e75af471e49e2f1862d908d9d8/README.md",
+      "title": "Original LLaMA release README, llama_v1 revision",
+      "publisher": "Meta",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Documents application approval followed by emailed signed download links for checkpoints and tokenizer. Its inference table explicitly includes 33B with model parallelism 4. This establishes the intended checkpoint distribution, without testing whether that historical access process still operates."
+    },
+    {
+      "id": "s6",
+      "url": "https://github.com/meta-llama/llama/blob/57b0eb62de0636e75af471e49e2f1862d908d9d8/llama/generation.py",
+      "title": "Original LLaMA text-generation interface, llama_v1 revision",
+      "publisher": "Meta",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "The released generate interface accepts string prompts, tokenizes them, samples autoregressive tokens and returns decoded strings. It has generation length, temperature and top-p settings, without a dedicated thinking mode or structured tool-call interface. This does not establish the impossibility of prompted reasoning or external tool wrappers."
+    },
+    {
+      "id": "s7",
+      "url": "https://arxiv.org/html/2307.09288v2",
+      "title": "Llama 2: Open Foundation and Fine-Tuned Chat Models, Llama 1 comparison",
+      "publisher": "Meta",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Table 1 explicitly labels the earlier Llama 1 33B model with 2k context and no grouped-query attention, separately from Llama 2 34B. Appendix A.2.1 states that context increased from 2048 to 4096 tokens; A.3.5 also identifies Llama 1 pretraining context as 2048. Only the explicit Llama 1 comparisons are used."
+    },
+    {
+      "id": "s8",
+      "url": "https://github.com/meta-llama/llama/blob/53011c3d7946dadb8274a4c5c7586ab54edf792d/LICENSE",
+      "title": "Original LLaMA inference-code license",
+      "publisher": "Meta repository / Free Software Foundation license text",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "The repository LICENSE contains GPLv3. In conjunction with the implementation's software-license header and the model card's separate noncommercial model license, it must not be substituted for the checkpoint license. The full bespoke weight-access agreement was not retrieved."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "LLaMA 33B",
+      "status": "verified",
+      "source_ids": ["s1", "s2", "s3"],
+      "note": "Original first-generation model designation; distinct from the later Llama 2 34B research model."
+    },
+    "developer": {
+      "value": "Meta",
+      "status": "verified",
+      "source_ids": ["s3"],
+      "note": "The original card attributes development to Meta AI's FAIR team."
+    },
+    "family": {
+      "value": "llama",
+      "status": "verified",
+      "source_ids": ["s1", "s3"],
+      "note": "Catalog-normalized family name for version 1 of LLaMA."
+    },
+    "release_date": {
+      "value": "2023-02-24",
+      "status": "verified",
+      "source_ids": ["s1", "s5"],
+      "note": "Date of the announced gated research release and access-request availability. It is not evidence that every requester could download weights that day."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": ["s1", "s5"],
+      "note": "Released checkpoints were downloadable by approved researchers under restrictions. This catalog flag does not imply an OSI license, unrestricted redistribution, or present-day access-service availability."
+    },
+    "license": {
+      "value": "LLaMA non-commercial research license",
+      "status": "verified",
+      "source_ids": ["s1", "s3", "s4", "s8"],
+      "note": "Supported descriptive checkpoint-license classification. The original card calls it a noncommercial bespoke license; the code's GPLv3 and the later Llama 2 Community License do not replace it. The full bespoke agreement was not inspected."
+    },
+    "parameters_b": {
+      "value": 32.5,
+      "status": "verified",
+      "source_ids": ["s2", "s3"],
+      "note": "Billions of total parameters at the precision reported in original paper Table 2. Refines the nominal 33B designation; 32.5B is still a rounded published count, not a tensor-exact measurement. No full weights were downloaded."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": ["s2", "s3", "s4", "s7"],
+      "note": "Reviewed original and later first-party sources report total/nominal model size, not a separately defined per-token active-parameter count. Dense architecture alone is not used to copy total into this field."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": ["s2", "s3", "s4"],
+      "note": "Direct implementation-based classification: an autoregressive decoder Transformer with dense attention and SwiGLU feed-forward blocks, with all 60 layers evaluated and no mixture-of-experts routing."
+    },
+    "context_window": {
+      "value": 2048,
+      "status": "verified",
+      "source_ids": ["s4", "s7"],
+      "note": "Original pretraining context in tokens. The exact Llama 1 33B comparison row and explicit 2048-token wording corroborate the preserved v1 code; smaller example-program cache defaults do not redefine training context."
+    },
+    "modalities": {
+      "value": {"input": ["text"], "output": ["text"]},
+      "status": "verified",
+      "source_ids": ["s3", "s4", "s6"],
+      "note": "Original checkpoint and reference generation interface consume and generate tokenized text. No image/audio encoder or corresponding output head is present."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": ["s2", "s3", "s6"],
+      "note": "The base model has published reasoning-task evaluations, but the release does not declare a dedicated thinking/reasoning mode. Benchmark ability is not treated as evidence for that capability flag; null avoids implying inability to reason."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": ["s3", "s6"],
+      "note": "No native structured tool/function-calling contract is documented for this base checkpoint. The reference interface is text completion; possible wrappers or later fine-tunes do not establish this model's native flag."
+    },
+    "description": {
+      "value": "First-generation LLaMA research checkpoint.",
+      "status": "verified",
+      "source_ids": ["s1", "s3", "s5"],
+      "note": "Accurately describes the version-1 base model and its research checkpoint release without importing later chat, tool or commercial-use claims."
+    }
+  },
+  "patch": {
+    "parameters_b": 32.5,
+    "parameters_source": "primary_source",
+    "notes": "Original LLaMA-33B: the paper reports 32.5B total parameters (rounded), while 33B is the nominal model name. A separate active-parameter count and native thinking/tool-call flags are not documented. February 24, 2023 dates the gated research-release announcement; access required approval. Released weights use a noncommercial bespoke research license, separate from the inference code's GPLv3 and the later Llama 2 license.",
+    "sources": [
+      {"label": "Original LLaMA release announcement", "url": "https://ai.meta.com/blog/large-language-model-Llama-meta-ai/", "type": "primary"},
+      {"label": "Original LLaMA paper: Table 2 parameter count", "url": "https://arxiv.org/pdf/2302.13971", "type": "primary"},
+      {"label": "Original LLaMA v1 model card", "url": "https://github.com/meta-llama/llama/blob/53011c3d7946dadb8274a4c5c7586ab54edf792d/MODEL_CARD.md", "type": "primary"},
+      {"label": "Original LLaMA v1 architecture", "url": "https://github.com/meta-llama/llama/blob/57b0eb62de0636e75af471e49e2f1862d908d9d8/llama/model.py", "type": "primary"},
+      {"label": "Original gated-checkpoint download documentation", "url": "https://github.com/meta-llama/llama/blob/57b0eb62de0636e75af471e49e2f1862d908d9d8/README.md", "type": "primary"},
+      {"label": "Original LLaMA text-generation interface", "url": "https://github.com/meta-llama/llama/blob/57b0eb62de0636e75af471e49e2f1862d908d9d8/llama/generation.py", "type": "primary"},
+      {"label": "Meta Llama 2 paper: explicit Llama 1 context comparison", "url": "https://arxiv.org/html/2307.09288v2", "type": "primary"}
+    ]
+  },
+  "summary": "Audited all 14 fields for the original LLaMA 33B. Refined the nominal 33B count to the original paper's reported 32.5B, preserving its rounded precision. Confirmed dense architecture, 2048-token context, text modalities, February 24 gated-release announcement, and noncommercial research checkpoint licensing. Retained null active count and native thinking/tool flags because the reviewed sources do not separately specify them. No checkpoint tensors or full bespoke license agreement were obtained; no current download-service operation is claimed."
+}
