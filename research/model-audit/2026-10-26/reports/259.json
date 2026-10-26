@@ -1,0 +1,266 @@
+{
+  "index": 259,
+  "model_id": "meta/llama-2-13b-chat",
+  "reviewed_at": "2026-10-26T21:23:15.613898Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://ai.meta.com/blog/llama-2/",
+      "title": "Meta and Microsoft Introduce the Next Generation of Llama",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "July 18, 2023 announcement makes Llama 2 weights and code available, including pretrained and conversational fine-tuned versions."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/meta-llama/Llama-2-13b-chat-hf",
+      "title": "Llama-2-13b-chat-hf model card",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Identifies this repository as the 13B dialogue fine-tune converted to Transformers. Names Meta, text input/output, SFT/RLHF, and 4k context. Its 13B row explicitly excludes GQA. License acceptance is required for downloading weights."
+    },
+    {
+      "id": "s3",
+      "url": "https://arxiv.org/html/2307.09288v2",
+      "title": "Llama 2: Open Foundation and Fine-Tuned Chat Models",
+      "publisher": "Meta research authors / arXiv",
+      "accessed": true,
+      "evidence": "Table 1 lists the Llama 2 13B model with 4k context and no GQA. Sections 2.2 and 3 describe Transformer architecture and Chat fine-tuning. Appendix A.2.1 explicitly gives 4096 tokens. Section 5.1 reports emergent tool use without tool-use training."
+    },
+    {
+      "id": "s4",
+      "url": "https://github.com/meta-llama/llama/blob/7565eb6fee2175b2d4fe2cfb45067a61b35d7f5e/llama/model.py",
+      "title": "Llama 2 reference model implementation",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Original llama_v2 reference code implements causal attention, dense SwiGLU feed-forward layers, RMSNorm and RoPE; each Transformer block executes sequentially, without expert routing. Read from the branch resolved to this commit."
+    },
+    {
+      "id": "s5",
+      "url": "https://github.com/meta-llama/llama/blob/7565eb6fee2175b2d4fe2cfb45067a61b35d7f5e/llama/generation.py",
+      "title": "Llama 2 reference chat generation",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Chat messages have system, user and assistant roles and string content. The reference chat_completion interface generates assistant text; it does not declare a reasoning mode or structured native function-call interface."
+    },
+    {
+      "id": "s6",
+      "url": "https://github.com/meta-llama/llama/blob/7565eb6fee2175b2d4fe2cfb45067a61b35d7f5e/LICENSE",
+      "title": "Llama 2 Community License Agreement",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Names the custom Llama 2 Community License and July 18, 2023 release date. Grants limited use and redistribution rights subject to conditions, acceptable-use restrictions and additional commercial terms."
+    },
+    {
+      "id": "s7",
+      "url": "https://github.com/meta-llama/llama/blob/7565eb6fee2175b2d4fe2cfb45067a61b35d7f5e/README.md",
+      "title": "Llama 2 reference repository README",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Separates pretrained models from fine-tuned dialogue models, documents release of model weights and a maximum supported sequence length of 4096 tokens. Llama 1 is assigned a separate branch."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/meta-llama/Llama-2-13b-chat-hf/blob/main/config.json",
+      "title": "Original Llama-2-13b-chat-hf configuration (gated)",
+      "publisher": "Meta",
+      "accessed": false,
+      "evidence": "Direct public retrieval returned HTTP 401 Unauthorized. No gated configuration or weight tensors were accessed; no exact learned-parameter count is claimed."
+    },
+    {
+      "id": "s9",
+      "url": "https://github.com/meta-llama/llama-models/blob/main/models/sku_list.py",
+      "title": "Later Llama model SKU utility",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "The later llama2_13b_chat entry lists n_heads=40 and n_kv_heads=8, conflicting with the original 13B model card and paper, which explicitly exclude GQA. This later utility is not used to infer the released checkpoint topology or exact count."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Llama 2 13B Chat",
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Readable catalog name for the original 13B Chat checkpoint; the HF suffix denotes its serialization format."
+    },
+    "developer": {
+      "value": "Meta",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Meta is the original developer and publisher."
+    },
+    "family": {
+      "value": "llama-2",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s7"
+      ],
+      "note": "Llama 2 Chat belongs to the second-generation Llama family; distinguish its dialogue fine-tune from the base model and Llama 1."
+    },
+    "release_date": {
+      "value": "2023-07-18",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "The dated launch explicitly includes conversational fine-tunes; the license independently records the same version release date."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s7"
+      ],
+      "note": "Meta released downloadable pretrained and Chat weights, subject to license acceptance and access approval."
+    },
+    "license": {
+      "value": "Llama 2 Community License",
+      "status": "verified",
+      "source_ids": [
+        "s6",
+        "s2"
+      ],
+      "note": "Custom community/commercial license with conditions; it is not Apache-2.0 or an unrestricted permissive license."
+    },
+    "parameters_b": {
+      "value": 13,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s8"
+      ],
+      "note": "Meta explicitly labels this variant 13B. Retain that nominal billions figure, not an exact tensor-derived count. The original HF config is gated; no complete checkpoint count was established."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "note": "The reviewed primary materials do not define a separate active-parameter count. Dense architecture alone is not used to set active parameters equal to total."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s9"
+      ],
+      "note": "Dense causal Transformer with SwiGLU, RMSNorm and RoPE. Original release sources place 13B in the MHA variants and reserve GQA for larger models. The conflicting later SKU utility is not treated as checkpoint evidence."
+    },
+    "context_window": {
+      "value": 4096,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s7"
+      ],
+      "note": "Original training and documented inference context is 4096 tokens. This excludes later extensions and shorter demonstration cache settings."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "The original model card explicitly specifies text-only input and output."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s3",
+        "s5"
+      ],
+      "note": "No dedicated reasoning mode or separate reasoning output is specified for this checkpoint. Ordinary reasoning benchmarks and generated explanations do not establish that feature."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s3",
+        "s5"
+      ],
+      "note": "The paper describes emergent prompted tool use, but its examples do not establish a native tool-call feature for exactly 13B Chat. The released interface is text chat; downstream wrappers are separate."
+    },
+    "description": {
+      "value": "Meta's nominal 13B-parameter Llama 2 dialogue model, fine-tuned with supervised learning and RLHF, with text input/output and a 4,096-token context.",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s7"
+      ],
+      "note": "Makes the exact Chat variant and documented capabilities explicit without unsupported performance or tool-use claims."
+    }
+  },
+  "patch": {
+    "parameters_source": "primary_source",
+    "description": "Meta's nominal 13B-parameter Llama 2 dialogue model, fine-tuned with supervised learning and RLHF, with text input/output and a 4,096-token context.",
+    "notes": "13B is Meta's nominal parameter label; the original HF configuration is gated, so an exact complete count was not established. The original 13B release uses MHA, despite a conflicting GQA setting in a later Meta SKU utility. Active parameters and dedicated reasoning/tool-call features are not separately disclosed.",
+    "sources": [
+      {
+        "label": "Meta Llama 2 release announcement",
+        "url": "https://ai.meta.com/blog/llama-2/",
+        "type": "primary"
+      },
+      {
+        "label": "Original Llama 2 13B Chat model card",
+        "url": "https://huggingface.co/meta-llama/Llama-2-13b-chat-hf",
+        "type": "weights"
+      },
+      {
+        "label": "Llama 2 technical report",
+        "url": "https://arxiv.org/html/2307.09288v2",
+        "type": "primary"
+      },
+      {
+        "label": "Llama 2 reference model code",
+        "url": "https://github.com/meta-llama/llama/blob/7565eb6fee2175b2d4fe2cfb45067a61b35d7f5e/llama/model.py",
+        "type": "primary"
+      },
+      {
+        "label": "Llama 2 reference README",
+        "url": "https://github.com/meta-llama/llama/blob/7565eb6fee2175b2d4fe2cfb45067a61b35d7f5e/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Llama 2 Community License",
+        "url": "https://github.com/meta-llama/llama/blob/7565eb6fee2175b2d4fe2cfb45067a61b35d7f5e/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "Llama 2 reference chat interface",
+        "url": "https://github.com/meta-llama/llama/blob/7565eb6fee2175b2d4fe2cfb45067a61b35d7f5e/llama/generation.py",
+        "type": "primary"
+      },
+      {
+        "label": "Later Meta SKU utility (conflicts with original 13B attention specification)",
+        "url": "https://github.com/meta-llama/llama-models/blob/main/models/sku_list.py",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "Confirmed the original Meta Llama 2 13B Chat release, custom license, nominal 13B size, dense MHA architecture, 4096-token context and text-only modalities. Expanded the sparse description and documented parameter precision. Active parameters and dedicated reasoning/tool-call features remain undisclosed. Original HF configuration was inaccessible (401); no exact count or weights download was attempted. Original card/paper evidence takes precedence over a conflicting later SKU utility."
+}
