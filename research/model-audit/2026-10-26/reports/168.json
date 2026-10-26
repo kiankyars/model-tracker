@@ -1,7 +1,7 @@
 {
   "index": 168,
   "model_id": "deepseek/deepseek-r1",
-  "reviewed_at": "2026-10-26T19:00:16.732769+00:00",
+  "reviewed_at": "2026-10-26T19:15:59.946749+00:00",
   "sources": [
     {
       "id": "s1",
@@ -74,6 +74,22 @@
       "publisher": "DeepSeek",
       "accessed": true,
       "evidence": "Historical announcement with trailing slash confirms January 20 release, MIT licensing, six distillations and R1 reasoner alias."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-R1/resolve/56d4cbbb4d29f4355bab4b9a39ccb717a14ad5ad/model-00160-of-000163.safetensors",
+      "title": "model.norm.weight bounded tensor comparison",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Fetched only the complete 14336-byte BF16 normalization tensor after its header. Main and MTP norms differ at7165 of7168 scalar positions, so this MTP norm is distinct and retained."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-R1/resolve/56d4cbbb4d29f4355bab4b9a39ccb717a14ad5ad/model-00163-of-000163.safetensors",
+      "title": "model.layers.61.shared_head.norm.weight bounded tensor comparison",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Fetched only the complete 14336-byte BF16 normalization tensor after its header. Main and MTP norms differ at7165 of7168 scalar positions, so this MTP norm is distinct and retained."
     }
   ],
   "fields": {
@@ -131,15 +147,16 @@
       "note": "Original R1 weights and code are MIT; distilled-model base licenses are separate."
     },
     "parameters_b": {
-      "value": 671,
+      "value": 682.636487424,
       "status": "verified",
       "source_ids": [
-        "s1",
         "s3",
         "s5",
-        "s6"
+        "s6",
+        "s10",
+        "s11"
       ],
-      "note": "Verified nominal MAIN-model count, not a complete unique total including MTP. Main headers contain 671.0264192B parameter slots. The full checkpoint sum 684.489845504B duplicates MTP embedding/head entries; sharing prevents calling that an exact learned total. See proposed main scope and checkpoint_audit."
+      "note": "Complete unique logical count:671.0264192B main +11.610068224B unique MTP =682.636487424B. All163 headers were reconciled, FP8 scales excluded, and documented shared embedding/head copies deducted once. Full small norm comparison proves the MTP norm differs from main norm and must remain counted. The original671B headline is main-only."
     },
     "active_parameters_b": {
       "value": 37,
@@ -219,7 +236,7 @@
     "parameters_source": "primary_source",
     "tool_call": false,
     "description": "Original DeepSeek-R1 open-weight reasoning model, post-trained from DeepSeek-V3-Base for mathematics, coding and reasoning.",
-    "notes": "Original January 2025 R1 checkpoint, distinct from R1-0528 and the changing deepseek-reasoner API alias. 671B total and 37B active are nominal MAIN-model figures. The checkpoint also stores an MTP module; 684.489845504B non-scale tensor slots are not a unique learned total because the architecture shares MTP embedding/output-head parameters. Advertised context is 128K; max_position_embeddings is 163840. Native tool calling is unsupported for this original version.",
+    "notes": "Original January 2025 R1 checkpoint, distinct from R1-0528 and the changing deepseek-reasoner API alias. Complete unique logical count is 682.636487424B: 671.0264192B main plus 11.610068224B MTP. FP8 scales and documented shared embedding/output-head copies are excluded. The MTP final norm differs from the main norm and is retained. Nominal 37B active refers to main inference. Advertised context is 128K; configured positions are 163840. Native tool calling is unsupported for this original version.",
     "sources": [
       {
         "label": "DeepSeek API release history",
@@ -250,14 +267,25 @@
         "label": "Original R1 release announcement",
         "url": "https://api-docs.deepseek.com/news/news250120/",
         "type": "primary"
+      },
+      {
+        "label": "Original R1 model.norm.weight comparison",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-R1/resolve/56d4cbbb4d29f4355bab4b9a39ccb717a14ad5ad/model-00160-of-000163.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Original R1 model.layers.61.shared_head.norm.weight comparison",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-R1/resolve/56d4cbbb4d29f4355bab4b9a39ccb717a14ad5ad/model-00163-of-000163.safetensors",
+        "type": "weights"
       }
-    ]
+    ],
+    "parameters_b": 682.636487424
   },
   "proposed_fields": {
-    "parameters_scope": "main",
     "active_parameters_scope": "main",
     "parameter_components_b": {
-      "main": 671
+      "main": 671.0264192,
+      "mtp_unique": 11.610068224
     },
     "active_parameters_by_phase_b": {
       "main": 37
@@ -273,13 +301,13 @@
     "non_scale_parameter_slots": 684489845504,
     "excluded_scale_elements": 41540496,
     "duplicated_embedding_and_head_slots": 1853358080,
-    "shared_norm_slots_under_review": 7168,
-    "unique_total_status": "unverified",
-    "note": "No complete weight shards were downloaded. The architecture explicitly shares MTP embedding and output head with the main model. Tensor headers establish storage shapes, not independence or equality of learned weights. Subtracting documented embedding/head duplication yields 682.636487424B; whether shared_head.norm also duplicates model.norm changes this by 7168. Neither candidate is promoted to an exact unique total. The guide nominal11.5B unique MTP figure is not substituted for an exact R1 measurement."
+    "unique_total_status": "verified",
+    "note": "All tensor headers establish shapes. The architecture guide explicitly ties MTP embedding/output-head matrices to the main model. Subsequent complete BF16 norm comparisons resolve the remaining7168-entry ambiguity:7165values differ, so the MTP norm is distinct. Full total deducts only documented embedding/head copies; FP8 scales are excluded. No whole shard downloaded.",
+    "unique_total_parameters": 682636487424,
+    "mtp_norm_different_values": 7165
   },
   "access_limitations": [
-    "Historical release announcement is accessible at the trailing-slash news250120 URL; the slashless path can fall back to current documentation.",
-    "Exact unique full-model total including MTP remains unresolved; the confirmed nominal main-model scope must accompany 671B."
+    "Historical release announcement is accessible at the trailing-slash news250120 URL; the slashless path can fall back to current documentation."
   ],
-  "summary": "Audited all 14 fields for original January 2025 R1. Correct tool_call to false and replace unsupported description wording. Confirm MIT/open weights, release, text modality, reasoning and MoE. Retain nominal 671B main / 37B active with proposed explicit main scope. Full header audit finds 684.489845504B non-scale stored parameter slots, but shared MTP embeddings/head prevent equating that with unique learned parameters. Context remains advertised 128K, separately noting 163840 configured positions."
+  "summary": "All14fields audited for original January2025 R1. Follow-up bounded norm comparison resolves unique total as682.636487424B including MTP, excluding scales/shared matrix copies. Nominal37B main active, MIT, MoE, advertised128K, text/reasoning and explicitly unsupported native tools remain verified."
 }
