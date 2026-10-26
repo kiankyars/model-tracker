@@ -1,0 +1,320 @@
+{
+  "index": 289,
+  "model_id": "meta/opt-125m",
+  "reviewed_at": "2026-10-26T22:01:13.463836Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://ai.meta.com/blog/democratizing-access-to-large-scale-language-models-with-opt-175b/",
+      "title": "Democratizing access to large-scale language models with OPT-175B",
+      "publisher": "Meta AI",
+      "accessed": true,
+      "evidence": "Dated May 3, 2022; explicitly releases smaller baseline models including 125 million parameters, with pretrained weights and a noncommercial research license."
+    },
+    {
+      "id": "s2",
+      "url": "https://arxiv.org/html/2205.01068v4",
+      "title": "OPT: Open Pre-trained Transformer Language Models, Table 1 and Sections 2 and D",
+      "publisher": "Meta AI",
+      "accessed": true,
+      "evidence": "The 125M row specifies 12 layers, 12 attention heads and width 768. The suite uses decoder-only Transformers, ReLU and 2048-token training sequences. Appendix D explicitly applies the noncommercial weight license to the smaller baselines."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/facebook/opt-125m/blob/27dcfa74d334bc871f3234de431e71c6eeba5dd6/config.json",
+      "title": "facebook/opt-125m configuration",
+      "publisher": "Meta / Hugging Face",
+      "accessed": true,
+      "evidence": "Exact OPTForCausalLM configuration: hidden size and embedding width 768, FFN width 3072, 12 layers, 12 heads, vocabulary 50272, 2048 positions, pre-layer normalization, ReLU and Transformers 4.21.0.dev0."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/facebook/opt-125m",
+      "title": "facebook/opt-125m model card",
+      "publisher": "Hugging Face, hosted in Meta official model repository",
+      "accessed": true,
+      "evidence": "The card identifies this as a pretrained-only causal language model for text generation and downstream fine-tuning. It states a May 3, 2022 original release and explains that Hugging Face authored this card; the original Meta card is in the paper."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/facebook/opt-125m/raw/main/LICENSE.md",
+      "title": "OPT-125M distributed weight license",
+      "publisher": "Meta Platforms, Inc.",
+      "accessed": true,
+      "evidence": "The exact repository distributes the OPT-175B License Agreement. Its grant is solely for non-commercial research and its restrictions exclude commercial or production purposes; this is the weight license, distinct from the code license."
+    },
+    {
+      "id": "s6",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.21.0/src/transformers/models/opt/modeling_opt.py",
+      "title": "Transformers v4.21.0 OPT implementation",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Defines dense attention and two-layer FFNs, parameter embeddings with two additional positional rows, biased attention/FFN linear layers, two affine layer norms per block, the conditional final norm and a bias-free tied language-model head."
+    },
+    {
+      "id": "s7",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.21.0/src/transformers/models/opt/configuration_opt.py",
+      "title": "Transformers v4.21.0 OPT configuration defaults",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "The default _remove_final_layer_norm is false. With the exact config do_layer_norm_before=true this includes the final affine layer norm; equal embedding and hidden dimensions introduce no input/output projection matrices."
+    },
+    {
+      "id": "s8",
+      "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/main/projects/OPT/README.md",
+      "title": "Official OPT pretrained checkpoint listing",
+      "publisher": "Meta AI",
+      "accessed": true,
+      "evidence": "Lists OPT-125M, nominal size 125M and a direct pretrained checkpoint URL. The current link uses v1_20230405, a later package revision that does not replace the original public release date. Weight use is governed by MODEL_LICENSE.md."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/api/models/facebook/opt-125m",
+      "title": "Hugging Face metadata for facebook/opt-125m",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "The official repository resolves to 27dcfa74d334bc871f3234de431e71c6eeba5dd6 and was created May 11, 2022, after the original release. Metadata lists PyTorch, TensorFlow and Flax weight files; no weight file was downloaded."
+    },
+    {
+      "id": "s10",
+      "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/main/metaseq/models/transformer_decoder.py",
+      "title": "Meta metaseq Transformer decoder reference implementation",
+      "publisher": "Meta AI",
+      "accessed": true,
+      "evidence": "Defines ordinary Transformer blocks and final affine layer norm. Shared embeddings directly assign output_projection.weight to embed_tokens.weight. decoder.version is registered as a buffer, and attention-mask tensors are not learned parameters."
+    },
+    {
+      "id": "s11",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.21.0/src/transformers/configuration_utils.py",
+      "title": "Transformers v4.21.0 shared configuration defaults",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "tie_word_embeddings defaults to true. The official OPT-125M config does not override it."
+    },
+    {
+      "id": "s12",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.21.0/src/transformers/modeling_utils.py",
+      "title": "Transformers v4.21.0 weight tying implementation",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "With tie_word_embeddings true and TorchScript false, tie_weights assigns output and input embeddings the same weight Parameter, rather than a second independent learned matrix."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "OPT 125M",
+      "status": "verified",
+      "source_ids": [
+        "s8"
+      ],
+      "note": "Catalog display spelling corresponds to the exact official OPT-125M checkpoint."
+    },
+    "developer": {
+      "value": "Meta",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Developed and released by Meta AI; Meta is the catalog developer label."
+    },
+    "family": {
+      "value": "opt",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "The exact configuration declares model_type=opt and the paper identifies the OPT family."
+    },
+    "release_date": {
+      "value": "2022-05-03",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s9"
+      ],
+      "note": "The dated original Meta announcement explicitly releases the 125M baseline. May 11 is the HF hosting creation date; neither that nor the later checkpoint package revision is the original release."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s8",
+        "s9"
+      ],
+      "note": "The exact pretrained model has a direct Meta checkpoint link and publicly listed official HF weights. Availability does not imply an unrestricted license."
+    },
+    "license": {
+      "value": "OPT non-commercial research license",
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s8"
+      ],
+      "note": "Supported descriptive name for the custom OPT-175B License Agreement distributed with OPT-125M; limited to non-commercial research, independent of the metaseq source-code license."
+    },
+    "parameters_b": {
+      "value": 0.125239296,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s6",
+        "s7",
+        "s10",
+        "s11",
+        "s12"
+      ],
+      "note": "Derived complete unique registered parameter-element count for the official HF configuration, not a checkpoint-header measurement. With H=768, F=3072, L=12, V=50272 and P=2048: V*H + (P+2)*H + L*(4*H*H + 4*H + 2*H*F + F + H + 4*H) + 2*H = 38,608,896 + 1,574,400 + 12*7,087,872 + 1,536 = 125,239,296 = 0.125239296B. The shared embedding/LM-head matrix is counted once; attention and FFN biases, two affine norms per block and the final affine norm are included. Equal embedding/hidden widths require no projection matrices. The positional table includes its two reserved offset/padding rows; this counts full parameter tensors, not a claim that every scalar was updated during training. Version/mask buffers, KV caches and duplicate serialization aliases are excluded. Meta publishes the rounded nominal label 125M. No full weight download or unpickling occurred."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s6"
+      ],
+      "note": "The sources define the architecture and total parameter tensors but do not define or separately report an active-per-token parameter count. Dense architecture alone is insufficient to substitute the total, especially for indexed embedding tables."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s6",
+        "s10"
+      ],
+      "note": "A decoder-only Transformer with 12 standard self-attention/FFN blocks, 12 attention heads, width 768 and FFN width 3072. The exact implementation has no expert routing or sparse MoE modules."
+    },
+    "context_window": {
+      "value": 2048,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s6"
+      ],
+      "note": "max_position_embeddings=2048 agrees with the paper training sequence length. Two positional offset rows are implementation padding and do not extend the usable context to 2050 tokens."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s6"
+      ],
+      "note": "Text-token inputs and vocabulary-logit text generation; the exact causal-LM model contains no image, audio or video encoders/decoders."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s4",
+        "s6"
+      ],
+      "note": "The exact pretrained base model has no separately documented dedicated reasoning mode or reasoning-training feature. Prompted text reasoning does not establish a native reasoning-mode flag, and absence of documentation does not prove inability."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s4",
+        "s6"
+      ],
+      "note": "No native tool-call schema, protocol or dedicated tool-use training is specified for this base checkpoint. The documented text-generation interface and external wrappers do not establish a native tool-call feature."
+    },
+    "description": {
+      "value": "Meta's OPT-125M pretrained dense decoder-only Transformer for text generation.",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s6"
+      ],
+      "note": "Variant-specific description supported by the paper, exact checkpoint card and model implementation."
+    }
+  },
+  "patch": {
+    "parameters_b": 0.125239296,
+    "parameters_source": "primary_source",
+    "reasoning": null,
+    "tool_call": null,
+    "description": "Meta's OPT-125M pretrained dense decoder-only Transformer for text generation.",
+    "notes": "Published nominal size: 125M. The 125,239,296 total is derived from the official HF configuration and matching reference definitions, counting tied token/output embeddings once, all biases/norms and the full positional table including two reserved rows; it is not checkpoint-header verified. Active parameters are not separately defined or reported. This is a pretrained text model with no documented native reasoning mode or tool-call protocol. Weights use the custom non-commercial research license. Original release: May 3, 2022; HF repository creation: May 11, 2022.",
+    "sources": [
+      {
+        "label": "Democratizing access to large-scale language models with OPT-175B",
+        "url": "https://ai.meta.com/blog/democratizing-access-to-large-scale-language-models-with-opt-175b/",
+        "type": "primary"
+      },
+      {
+        "label": "OPT: Open Pre-trained Transformer Language Models, Table 1 and Sections 2 and D",
+        "url": "https://arxiv.org/html/2205.01068v4",
+        "type": "primary"
+      },
+      {
+        "label": "facebook/opt-125m configuration",
+        "url": "https://huggingface.co/facebook/opt-125m/blob/27dcfa74d334bc871f3234de431e71c6eeba5dd6/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "facebook/opt-125m model card",
+        "url": "https://huggingface.co/facebook/opt-125m",
+        "type": "weights"
+      },
+      {
+        "label": "OPT-125M distributed weight license",
+        "url": "https://huggingface.co/facebook/opt-125m/raw/main/LICENSE.md",
+        "type": "weights"
+      },
+      {
+        "label": "Transformers v4.21.0 OPT implementation",
+        "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.21.0/src/transformers/models/opt/modeling_opt.py",
+        "type": "primary"
+      },
+      {
+        "label": "Transformers v4.21.0 OPT configuration defaults",
+        "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.21.0/src/transformers/models/opt/configuration_opt.py",
+        "type": "primary"
+      },
+      {
+        "label": "Official OPT pretrained checkpoint listing",
+        "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/main/projects/OPT/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "Hugging Face metadata for facebook/opt-125m",
+        "url": "https://huggingface.co/api/models/facebook/opt-125m",
+        "type": "catalog"
+      },
+      {
+        "label": "Meta metaseq Transformer decoder reference implementation",
+        "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/main/metaseq/models/transformer_decoder.py",
+        "type": "primary"
+      },
+      {
+        "label": "Transformers v4.21.0 shared configuration defaults",
+        "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.21.0/src/transformers/configuration_utils.py",
+        "type": "primary"
+      },
+      {
+        "label": "Transformers v4.21.0 weight tying implementation",
+        "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.21.0/src/transformers/modeling_utils.py",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "Reconciled the nominal 125M label to 125,239,296 unique configured parameter elements, including tied-weight, positional-offset, bias and normalization accounting. Kept active parameters null rather than assuming dense equals total. Confirmed original May 3, 2022 release, public research weights, custom non-commercial weight license, dense architecture, 2048-token context and text-only modalities. Kept native reasoning/tool flags null because they are not separately documented for this pretrained-only checkpoint and replaced the generic description. No full weights were downloaded; the exact total is derived from config/reference code rather than checkpoint headers."
+}
