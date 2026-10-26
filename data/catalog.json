@@ -5792,20 +5792,21 @@
     "developer": "DeepReinforce",
     "developer_id": "deepreinforce",
     "family": "ornith",
-    "description": "Large coding-reasoning model for agentic software tasks and RL search",
+    "description": "Mixture-of-experts coding and reasoning model trained with reinforcement learning to generate task scaffolds and software-task solutions.",
     "release_date": "2026-06-25",
     "date_precision": "day",
     "open_weights": true,
     "license": "MIT",
-    "parameters_b": 397,
+    "parameters_b": 396.802360816,
     "active_parameters_b": null,
-    "parameters_source": "model_name",
-    "architecture": null,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
     "context_window": 262144,
     "modalities": {
       "input": [
         "text",
-        "image"
+        "image",
+        "video"
       ],
       "output": [
         "text"
@@ -5813,9 +5814,64 @@
     },
     "reasoning": true,
     "tool_call": true,
-    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/deepreinforce/ornith-1.0-397b.toml",
-    "source_type": "catalog",
+    "source_url": "https://raw.githubusercontent.com/ornith-ai/Ornith-1/16d32b11211ac83373d37dc67234f77e77f909a1/README.md",
+    "source_type": "primary",
     "sources": [
+      {
+        "label": "Ornith-1.0-397B model card",
+        "url": "https://huggingface.co/ornith-ai/Ornith-1.0-397B",
+        "type": "primary"
+      },
+      {
+        "label": "Exact 397B checkpoint configuration",
+        "url": "https://huggingface.co/ornith-ai/Ornith-1.0-397B/raw/5e3e761811e804c295c1d3c0ce68b21da6154209/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Exact BF16 checkpoint index and indexed tensor headers",
+        "url": "https://huggingface.co/ornith-ai/Ornith-1.0-397B/raw/5e3e761811e804c295c1d3c0ce68b21da6154209/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Hugging Face metadata for official checkpoint",
+        "url": "https://huggingface.co/api/models/ornith-ai/Ornith-1.0-397B",
+        "type": "primary"
+      },
+      {
+        "label": "Exact 397B native chat template",
+        "url": "https://huggingface.co/ornith-ai/Ornith-1.0-397B/raw/5e3e761811e804c295c1d3c0ce68b21da6154209/chat_template.jinja",
+        "type": "primary"
+      },
+      {
+        "label": "Exact 397B image and video processors",
+        "url": "https://huggingface.co/ornith-ai/Ornith-1.0-397B/raw/5e3e761811e804c295c1d3c0ce68b21da6154209/processor_config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Ornith-1.0 announcement",
+        "url": "https://ornith.ai/ornith_1_0.html",
+        "type": "primary"
+      },
+      {
+        "label": "397B checkpoint commit history",
+        "url": "https://huggingface.co/api/models/ornith-ai/Ornith-1.0-397B/commits/main",
+        "type": "primary"
+      },
+      {
+        "label": "Dated original family announcement commit",
+        "url": "https://api.github.com/repos/ornith-ai/Ornith-1/commits/16d32b11211ac83373d37dc67234f77e77f909a1",
+        "type": "primary"
+      },
+      {
+        "label": "Later first-party comparison table",
+        "url": "https://huggingface.co/ornith-ai/Ornith-1.5-397B",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3.5 MoE implementation",
+        "url": "https://raw.githubusercontent.com/huggingface/transformers/main/src/transformers/models/qwen3_5_moe/modeling_qwen3_5_moe.py",
+        "type": "primary"
+      },
       {
         "label": "Models.dev record",
         "url": "https://github.com/anomalyco/models.dev/blob/dev/models/deepreinforce/ornith-1.0-397b.toml",
@@ -5840,7 +5896,13 @@
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
+    "upstream_present": true,
+    "notes": "397B is nominal; the complete released BF16 checkpoint contains exactly 396,802,360,816 learned parameters, including 456,010,480 vision parameters and the untied output head. All 122 shard headers were checked without downloading weight payloads. No MTP tensors are present despite an MTP configuration entry. Active parameters remain undisclosed for this exact variant; top-10 routing is not a complete active-count definition. Text/image/video inputs are declared by this checkpoint’s processor, template and architecture; practical vision quality remains unresolved due to unanswered user reports of image-input failures. The card’s lightweight/single-GPU sentence conflicts with its explicit 8-GPU serving recipe and is not relied upon. MIT is the developer’s stated license; the linked standalone LICENSE file is absent. A pre-release README’s 397B-A3B table header is inconsistent with the final routed tensors and was removed in the release-day card; it is not accepted as an active count.",
+    "field_status": {
+      "active_parameters_b": "undisclosed"
+    },
+    "audited_at": "2026-10-26T18:48:41.058472+00:00",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/163.json"
   },
   {
     "id": "deepreinforce/ornith-1.0-9b",
