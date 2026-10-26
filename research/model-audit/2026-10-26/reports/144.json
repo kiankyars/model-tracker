@@ -1,0 +1,328 @@
+{
+  "index": 144,
+  "model_id": "cohere/c4ai-aya-vision-32b",
+  "reviewed_at": "2026-10-26T18:11:23.062201Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/CohereLabs/aya-vision-32b",
+      "title": "Model Card for Aya Vision 32B",
+      "publisher": "Cohere Labs",
+      "accessed": true,
+      "evidence": "Names the exact model, developer, open-weight research release, nominal 32-billion size, 16K context, text/image inputs and text output. Describes OCR, captioning, visual reasoning and question answering. Links the noncommercial license and Aya Expanse 32B backbone. The card body is readable, although checkpoint downloads require access approval and authentication."
+    },
+    {
+      "id": "s2",
+      "url": "https://docs.cohere.com/docs/aya-vision",
+      "title": "Aya Vision API documentation",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "The exact c4ai-aya-vision-32b row specifies nominal 32 billion parameters, text/image modality, 16k context and 4k maximum output. Documents captioning, visual question answering, text generation and translation, and downloadable research weights."
+    },
+    {
+      "id": "s3",
+      "url": "https://docs.cohere.com/changelog/aya-vision-announcement",
+      "title": "Our Groundbreaking Multimodal Model, Aya Vision, is Here!",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "The March 4, 2025 release note announces Aya Vision that day and identifies Cohere Labs as Cohere's research arm."
+    },
+    {
+      "id": "s4",
+      "url": "https://cohere.com/blog/aya-vision",
+      "title": "Aya Vision: Expanding the worlds AI can see",
+      "publisher": "Cohere Labs",
+      "accessed": true,
+      "evidence": "Dated March 4, 2025. The page's embedded article text explicitly releases both 8B and 32B weights and says they are available that day; the web text extractor exposed only the article heading, so the embedded article was also inspected directly."
+    },
+    {
+      "id": "s5",
+      "url": "https://arxiv.org/html/2505.08751v1",
+      "title": "Aya Vision: Advancing the Frontier of Multilingual Multimodality",
+      "publisher": "Cohere Labs authors, arXiv",
+      "accessed": true,
+      "evidence": "May 13, 2025 report, section 4.1 and Table 6: the 32B variant combines Aya Expanse 32B, a SigLIP2-so400m-patch16-512 encoder and a SwiGLU connector. Nominal component counts are 32.3B LLM, 400M encoder and 428M connector. The LLM has 40 layers, 8192 width, 64 query heads and 8 KV heads. It calls Aya Vision a model family."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/api/models/CohereLabs/aya-vision-32b",
+      "title": "Public metadata for the original Aya Vision 32B checkpoint",
+      "publisher": "Hugging Face metadata for Cohere Labs repository",
+      "accessed": true,
+      "evidence": "Public metadata declares AyaVisionForConditionalGeneration, automatic gating, 15 safetensors shards and 33,137,896,688 F16 tensor elements. This aggregate is not an independently inspected learned-parameter count. No shard headers were accessible. The repository creation timestamp is March 2, 2025, which is not used as the public release date."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/CohereLabs/aya-vision-32b/resolve/main/config.json",
+      "title": "Original checkpoint configuration access attempt",
+      "publisher": "Cohere Labs",
+      "accessed": false,
+      "evidence": "Unauthenticated raw/main and resolve/main config requests returned HTTP 401 with an access-restricted/authentication-required message."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/CohereLabs/aya-vision-32b/raw/main/model.safetensors.index.json",
+      "title": "Original safetensors index access attempt",
+      "publisher": "Cohere Labs",
+      "accessed": false,
+      "evidence": "Unauthenticated request returned HTTP 401. Index contents and the complete tensor name inventory could not be inspected."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/CohereLabs/aya-vision-32b/resolve/main/model-00001-of-00015.safetensors",
+      "title": "Original safetensors header access attempt",
+      "publisher": "Cohere Labs",
+      "accessed": false,
+      "evidence": "An unauthenticated Range: bytes=0-7 request returned HTTP 401. No weight shard was downloaded; buffer exclusion and exact learned-parameter counting remain unverified."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/CohereLabs/aya-expanse-32b",
+      "title": "Aya Expanse 32B backbone model card",
+      "publisher": "Cohere Labs",
+      "accessed": true,
+      "evidence": "Describes the specifically identified language backbone as an autoregressive language model using an optimized Transformer architecture. Backbone evidence is used for structure, not to transfer its context limit or capabilities to Aya Vision."
+    },
+    {
+      "id": "s11",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.49.0-AyaVision/src/transformers/models/aya_vision/modeling_aya_vision.py",
+      "title": "Cohere Aya Vision implementation in the model card's recommended Transformers revision",
+      "publisher": "Cohere Inc. team / Hugging Face Transformers",
+      "accessed": true,
+      "evidence": "The Cohere-authored implementation constructs a vision tower, dense two-linear-layer multimodal projector and a causal language model. It confirms the late-fusion structure and processes the vision tower only when image inputs are present."
+    },
+    {
+      "id": "s12",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.49.0-AyaVision/src/transformers/models/cohere/modeling_cohere.py",
+      "title": "Cohere decoder implementation in the Aya Vision release revision",
+      "publisher": "Cohere team / Hugging Face Transformers",
+      "accessed": true,
+      "evidence": "CohereDecoderLayer combines attention and a CohereMLP with ordinary gate/up/down linear projections; it does not route tokens among experts. This corroborates a dense Transformer classification for the documented Aya Expanse backbone."
+    },
+    {
+      "id": "s13",
+      "url": "https://cohere.com/cohere-labs-cc-by-nc-license",
+      "title": "CC-BY-NC 4.0 License with Acceptable Use Addendum",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "The license linked by the model card is Creative Commons Attribution-NonCommercial 4.0 with a Cohere Labs acceptable-use addendum."
+    },
+    {
+      "id": "s14",
+      "url": "https://docs.cohere.com/docs/reasoning",
+      "title": "Reasoning Capabilities",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "Documents dedicated thinking blocks and the Command A Reasoning endpoint. It does not give an explicit reasoning-mode support decision for Aya Vision 32B."
+    },
+    {
+      "id": "s15",
+      "url": "https://docs.cohere.com/docs/tool-use-overview",
+      "title": "Basic usage of tool use (function calling)",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "Introduces native tool use for the Command family. It does not explicitly establish support or lack of support for Aya Vision 32B."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Aya Vision 32B",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Matches the publisher's model name."
+    },
+    "developer": {
+      "value": "Cohere",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Cohere Labs is the named development team within Cohere; retain the catalog's company-level developer."
+    },
+    "family": {
+      "value": "aya-vision",
+      "status": "verified",
+      "source_ids": [
+        "s5"
+      ],
+      "note": "Normalized family key for the explicitly named Aya Vision family."
+    },
+    "release_date": {
+      "value": "2025-03-04",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4"
+      ],
+      "note": "Explicit public launch and availability date; not repository creation or later paper submission."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Research weights are distributed under noncommercial terms; gated access does not negate their release."
+    },
+    "license": {
+      "value": "CC-BY-NC-4.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s13"
+      ],
+      "note": "Retain the named license; the additional acceptable-use condition is recorded in notes."
+    },
+    "parameters_b": {
+      "value": 33.1,
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s1",
+        "s2",
+        "s6",
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "note": "Approximately 33.1B full-model parameters, calculated from the developer technical report's rounded component counts: 32.3B language model, 0.4B vision encoder and 0.428B connector. This includes the learned vision encoder even when frozen during multimodal training. The sum is approximate, not an exact checkpoint tensor count; gated files prevent independent verification."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5",
+        "s11"
+      ],
+      "note": "No active-parameter convention or count is disclosed in the reviewed primary sources. Dense structure does not justify equating active and total, and image processing and text decoding use different components."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s10",
+        "s11",
+        "s12"
+      ],
+      "note": "Classification inferred from the documented Transformer backbone and ordinary dense implementation, with a vision encoder and MLP connector. Exact-variant conflict: the paper specifies patch16-512, while the current card specifies patch14-384; inaccessible checkpoint config prevents adjudication."
+    },
+    "context_window": {
+      "value": 16000,
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Retains the documented nominal 16k context in decimal catalog units; an exact 16,384-token implementation limit was not established."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Explicit input/output descriptions and API examples agree."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s1",
+        "s14"
+      ],
+      "note": "Visual reasoning capability is documented, but dedicated reasoning/thinking mode support is not. Neither true nor the baseline false is established."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s1",
+        "s6",
+        "s15"
+      ],
+      "note": "Reviewed card, public chat template and tool-use documentation do not provide an exact-model native function-calling support statement. Clear unsupported false."
+    },
+    "description": {
+      "value": "Open multilingual vision model for OCR, visual reasoning, and image question answering",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "The stated capabilities are explicitly supported; no benchmark superiority claim is added."
+    }
+  },
+  "patch": {
+    "family": "aya-vision",
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "reasoning": null,
+    "tool_call": null,
+    "notes": "Approximately 33.1B full-model parameters, calculated from the developer technical report's rounded component counts: 32.3B language model, 0.4B vision encoder and 0.428B connector. This includes the learned vision encoder even when frozen during multimodal training. The sum is approximate, not an exact checkpoint tensor count; gated files prevent independent verification. Public metadata reports 33,137,896,688 F16 elements, but gated config/index/header requests returned HTTP 401, preventing learned-parameter and buffer verification. Active parameters are not separately disclosed. The paper's patch16-512 encoder conflicts with the model card's patch14-384 description. The CC-BY-NC-4.0 release also requires Cohere Labs' acceptable-use addendum. Dedicated reasoning-mode and native tool-calling flags remain unverified.",
+    "sources": [
+      {
+        "label": "Official model card",
+        "url": "https://huggingface.co/CohereLabs/aya-vision-32b",
+        "type": "weights"
+      },
+      {
+        "label": "Aya Vision technical report",
+        "url": "https://arxiv.org/html/2505.08751v1",
+        "type": "primary"
+      },
+      {
+        "label": "Aya Vision API documentation",
+        "url": "https://docs.cohere.com/docs/aya-vision",
+        "type": "primary"
+      },
+      {
+        "label": "Official release note",
+        "url": "https://docs.cohere.com/changelog/aya-vision-announcement",
+        "type": "primary"
+      },
+      {
+        "label": "Cohere Aya Vision implementation",
+        "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.49.0-AyaVision/src/transformers/models/aya_vision/modeling_aya_vision.py",
+        "type": "primary"
+      },
+      {
+        "label": "Cohere decoder implementation",
+        "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.49.0-AyaVision/src/transformers/models/cohere/modeling_cohere.py",
+        "type": "primary"
+      },
+      {
+        "label": "Public checkpoint metadata",
+        "url": "https://huggingface.co/api/models/CohereLabs/aya-vision-32b",
+        "type": "weights"
+      },
+      {
+        "label": "License and acceptable-use addendum",
+        "url": "https://cohere.com/cohere-labs-cc-by-nc-license",
+        "type": "primary"
+      }
+    ],
+    "parameters_b": 33.1
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "language_model": 32.3,
+      "vision_encoder": 0.4,
+      "vision_language_connector": 0.428
+    }
+  },
+  "summary": "Confirmed release, open weights, licensing, modalities, dense architecture and nominal context. Replaced the advertised size label with an approximate full total of 33.1B from the developer's rounded component breakdown. Exact checkpoint and active counts remain unverified or undisclosed. Cleared unsupported reasoning/tool-call negatives."
+}
