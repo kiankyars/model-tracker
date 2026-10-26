@@ -1,0 +1,310 @@
+{
+  "index": 232,
+  "model_id": "google/t5-large",
+  "reviewed_at": "2026-10-26T20:42:38.438621+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://github.com/google-research/text-to-text-transfer-transformer/blob/9fd7b14a769417be33bc6c850f9598764913c833/README.md",
+      "title": "Original T5 release README",
+      "publisher": "Google Research",
+      "accessed": true,
+      "evidence": "The October 23, 2019 repository revision explicitly says the pretrained checkpoints have been released and links the exact large checkpoint directory. It names T5-Large with a nominal 770 million parameters, distinct from Base, 3B and 11B."
+    },
+    {
+      "id": "s2",
+      "url": "https://api.github.com/repos/google-research/text-to-text-transfer-transformer/commits/9fd7b14a769417be33bc6c850f9598764913c833",
+      "title": "Original T5 release commit",
+      "publisher": "Google Research / GitHub",
+      "accessed": true,
+      "evidence": "The commit containing the release README is timestamped 2019-10-23T23:52:05Z. The contemporaneous README already links the released Large weights; this is stronger evidence than a later model-host upload timestamp."
+    },
+    {
+      "id": "s3",
+      "url": "https://arxiv.org/abs/1910.10683",
+      "title": "Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer",
+      "publisher": "Google Research",
+      "accessed": true,
+      "evidence": "First submitted October 23, 2019; the paper states models and code are released. Read the full current PDF: section 3.7 describes Large as a dense encoder-decoder Transformer with 24 layers in each stack, width 1024, FFN width 4096, head dimension 64 and 16 heads. Section 2.1 describes tied input/output embeddings and relative position biases; 512-token sequences are an experimental training setup, not a stated architectural ceiling. The approximately 770M figure is nominal."
+    },
+    {
+      "id": "s4",
+      "url": "https://storage.googleapis.com/t5-data/pretrained_models/large/model.ckpt-1000700.index",
+      "title": "Original Google T5-Large TensorFlow checkpoint index",
+      "publisher": "Google Research",
+      "accessed": true,
+      "evidence": "Downloaded only the 20,702-byte checkpoint index, not weight shards. Parsed original variable names/shapes: 509 BF16 model tensors total 737,668,096 parameters after excluding Adafactor optimizer slots and global_step. Encoder 302,040,576; decoder 402,728,448; shared embedding 32,899,072. One shared embedding and two self-attention relative-bias tables; no cross-attention relative-bias parameter. Shape products match BF16 byte sizes and independently derived architecture count."
+    },
+    {
+      "id": "s5",
+      "url": "https://storage.googleapis.com/t5-data/pretrained_models/large/operative_config.gin",
+      "title": "Original T5-Large operative configuration",
+      "publisher": "Google Research",
+      "accessed": true,
+      "evidence": "The released Large configuration specifies d_model=1024, d_ff=4096, d_kv=64, num_heads=16 and 24 layers per stack. Bitransformer.shared_embedding and shared_embedding_and_softmax_weights are true. Inputs and targets are configured to 512 tokens for this training run. This identifies the original T5 Large checkpoint, not T5 v1.1 or Flan."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/google-t5/t5-large/resolve/150ebc2c4b72291e770f58e6057481c8d2ed331a/config.json",
+      "title": "Pinned T5-Large converted configuration",
+      "publisher": "T5 community / Hugging Face",
+      "accessed": true,
+      "evidence": "Configuration identifies T5ForConditionalGeneration, is_encoder_decoder=true, vocabulary 32128 and the same Large dimensions as the original operative config. n_positions=512 is a saved default; there is no learned absolute-position table establishing a fixed maximum."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/google-t5/t5-large/resolve/150ebc2c4b72291e770f58e6057481c8d2ed331a/model.safetensors",
+      "title": "Pinned converted T5-Large safetensors header",
+      "publisher": "T5 community / Hugging Face",
+      "accessed": true,
+      "evidence": "Fetched only HTTP 206 ranges 0-7 and 8-62297. The 62,290-byte JSON header contains 510 F32 tensors totaling 737,668,608 stored elements, including an extra 512-element decoder cross-attention relative-bias table absent from the original checkpoint. Removing that unused conversion tensor gives exactly 737,668,096. Tied shared embedding appears once; no packed quantization tensors or optimizer state in this file."
+    },
+    {
+      "id": "s8",
+      "url": "https://github.com/huggingface/transformers/blob/a672eb5f474b8b30173e9f96eab66adf292da635/src/transformers/models/t5/modeling_t5.py",
+      "title": "Pinned T5 implementation",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "T5ForConditionalGeneration explicitly ignores decoder.block.0.layer.1.EncDecAttention.relative_attention_bias.weight on load, and cross-attention is constructed with has_relative_attention_bias=False. Encoder input, decoder input and output head tie to shared.weight. Relative-distance buckets accept variable sequence lengths; their maximum-distance bucket is not a context-length ceiling."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/google-t5/t5-large/blob/150ebc2c4b72291e770f58e6057481c8d2ed331a/README.md",
+      "title": "Pinned T5 Large model card",
+      "publisher": "T5 community / Hugging Face",
+      "accessed": true,
+      "evidence": "The exact Large card attributes the model to the original T5 authors, declares Apache 2.0, describes text-to-text tasks and reiterates nominal 770M. It describes a mixture of denoising and supervised text tasks. It provides no dedicated thinking, tool-calling, inference-active parameter count or fixed maximum-context specification."
+    },
+    {
+      "id": "s10",
+      "url": "https://github.com/google-research/text-to-text-transfer-transformer/blob/9fd7b14a769417be33bc6c850f9598764913c833/LICENSE",
+      "title": "Original T5 Apache License 2.0",
+      "publisher": "Google Research",
+      "accessed": true,
+      "evidence": "The original release repository carries Apache License 2.0. The exact converted checkpoint card independently declares the same model license."
+    },
+    {
+      "id": "s11",
+      "url": "https://research.google/blog/distilling-step-by-step-outperforming-larger-language-models-with-less-training-data-and-smaller-model-sizes/",
+      "title": "Later Google T5 research: Distilling step-by-step",
+      "publisher": "Google Research",
+      "accessed": true,
+      "evidence": "September 2023 article and linked research discuss a 770M T5 model and downstream rationale training. They do not disclose an original T5-Large per-token inference-active count; capabilities acquired by later distillation are not attributed to the original checkpoint."
+    },
+    {
+      "id": "s12",
+      "url": "https://arxiv.org/pdf/2005.14165",
+      "title": "Language Models are Few-Shot Learners, Appendix D",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Later paper Table D.1 labels T5-Large as 770M with 0.5 fraction of parameters active per token for an approximate training-compute calculation. The appendix explicitly simplifies away attention costs. This is not a Google-disclosed inference-active parameter count and is not multiplied into the catalog field."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "T5 Large",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s9"
+      ],
+      "note": "Normalize the original T5-Large variant name; not T5 v1.1 Large, Flan-T5 Large or a task-specific derivative."
+    },
+    "developer": {
+      "value": "Google",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "The original paper and release are from Google Research."
+    },
+    "family": {
+      "value": "t5",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Original Text-to-Text Transfer Transformer family."
+    },
+    "release_date": {
+      "value": "2019-10-23",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Retain the dated original release README and same-day paper release. The February 2020 Google blog is later publicity, not the first release."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s7"
+      ],
+      "note": "Original Google weights are released publicly; exact original index and converted checkpoint header are accessible without authentication."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s9",
+        "s10"
+      ],
+      "note": "Original repository license and exact model-card license agree."
+    },
+    "parameters_b": {
+      "value": 0.737668096,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "note": "Exact unique full-model count: 737,668,096 = encoder 302,040,576 + decoder 402,728,448 + shared embedding 32,899,072. Original checkpoint index excludes optimizer slots and global_step; all 509 model tensors are BF16. Independent shape formula with both 24-layer stacks, feed-forward and attention matrices, normalization vectors and two relative-bias tables agrees. Tied encoder/decoder input and output embedding counted once. Converted HF storage adds an unused 512-element cross-attention bias, explicitly ignored by the implementation. The published 770M label is approximate and is not treated as the exact unique count. No weight shards were downloaded."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s3",
+        "s9",
+        "s11",
+        "s12"
+      ],
+      "note": "No separately defined inference-active count in the reviewed original or later Google sources. Encoder processing and autoregressive decoder steps involve different components. OpenAI Appendix D uses an approximate 0.5 fraction for training FLOPs, not a developer-disclosed inference count; do not equate total with active or publish 385M from that estimate."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "note": "Dense encoder-decoder Transformer: 24 layers per stack, bidirectional encoder attention, causal decoder attention and encoder-decoder cross-attention. ReLU feed-forward layers; relative position bias; no routed experts."
+    },
+    "context_window": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s3",
+        "s5",
+        "s6",
+        "s8"
+      ],
+      "note": "No fixed maximum-context ceiling is established. The 512-token value is a training/default sequence length. Relative-position bucket saturation at distance 128 is not a length cap; do not claim unlimited practical context either."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s9"
+      ],
+      "note": "Text-to-text task inputs and outputs; no multimodal encoder or decoder in the original model."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s3",
+        "s9",
+        "s11"
+      ],
+      "note": "General NLP and reasoning-related benchmark tasks do not establish a dedicated thinking/reasoning mode in this original checkpoint. Later rationale-distilled derivatives do not verify the capability for it."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s3",
+        "s9"
+      ],
+      "note": "No source-reported tool/function-calling capability for the exact original model was verified. Lack of documentation is not an explicit negative capability claim."
+    },
+    "description": {
+      "value": "Google's original dense T5 encoder-decoder model for text-to-text tasks.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s9"
+      ],
+      "note": "Plain description of the original architecture and task format without claims from later instruction-tuned variants."
+    }
+  },
+  "patch": {
+    "name": "T5 Large",
+    "parameters_b": 0.737668096,
+    "parameters_source": "primary_source",
+    "description": "Google's original dense T5 encoder-decoder model for text-to-text tasks.",
+    "source_url": "https://github.com/google-research/text-to-text-transfer-transformer/blob/9fd7b14a769417be33bc6c850f9598764913c833/README.md",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Original T5 release README",
+        "url": "https://github.com/google-research/text-to-text-transfer-transformer/blob/9fd7b14a769417be33bc6c850f9598764913c833/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer",
+        "url": "https://arxiv.org/abs/1910.10683",
+        "type": "primary"
+      },
+      {
+        "label": "Original Google T5-Large TensorFlow checkpoint index",
+        "url": "https://storage.googleapis.com/t5-data/pretrained_models/large/model.ckpt-1000700.index",
+        "type": "weights"
+      },
+      {
+        "label": "Original T5-Large operative configuration",
+        "url": "https://storage.googleapis.com/t5-data/pretrained_models/large/operative_config.gin",
+        "type": "weights"
+      },
+      {
+        "label": "Pinned T5-Large converted configuration",
+        "url": "https://huggingface.co/google-t5/t5-large/resolve/150ebc2c4b72291e770f58e6057481c8d2ed331a/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Pinned converted T5-Large safetensors header",
+        "url": "https://huggingface.co/google-t5/t5-large/resolve/150ebc2c4b72291e770f58e6057481c8d2ed331a/model.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Pinned T5 implementation",
+        "url": "https://github.com/huggingface/transformers/blob/a672eb5f474b8b30173e9f96eab66adf292da635/src/transformers/models/t5/modeling_t5.py",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned T5 Large model card",
+        "url": "https://huggingface.co/google-t5/t5-large/blob/150ebc2c4b72291e770f58e6057481c8d2ed331a/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Original T5 Apache License 2.0",
+        "url": "https://github.com/google-research/text-to-text-transfer-transformer/blob/9fd7b14a769417be33bc6c850f9598764913c833/LICENSE",
+        "type": "primary"
+      }
+    ],
+    "notes": "The original checkpoint has 737,668,096 unique parameters across encoder, decoder and shared embeddings; the published 770M figure is nominal. Optimizer state and an unused 512-value cross-attention bias in the Hugging Face conversion are excluded. Tied embeddings count once. A 512-token training/default length does not establish a fixed maximum context. Active parameters are not separately reported. Release date comes from the original checkpoint release README and paper."
+  },
+  "summary": "Verified all 14 fields. Replaces nominal 0.77B with exact 0.737668096B full unique count, corroborated by the original Google checkpoint index and independent shape calculation. Records unused conversion bias and tied embedding treatment. Confirms dense encoder-decoder architecture, Apache-2.0 and October 23 release. Maximum context, active count and dedicated reasoning/tool support remain explicitly unspecified."
+}
