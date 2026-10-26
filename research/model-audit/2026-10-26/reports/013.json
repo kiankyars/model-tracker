@@ -1,7 +1,7 @@
 {
   "index": 13,
   "model_id": "alibaba/qwen-max",
-  "reviewed_at": "2026-10-26T13:58:58Z",
+  "reviewed_at": "2026-10-26T14:21:02Z",
   "sources": [
     {
       "id": "s1",
@@ -58,6 +58,30 @@
       "publisher": "Models.dev (third-party catalog)",
       "accessed": true,
       "evidence": "Baseline source gives release_date 2024-04-03 and last_updated 2025-01-25, without primary evidence for the initial date."
+    },
+    {
+      "id": "s8",
+      "url": "https://www.alibabacloud.com/help/en/model-studio/qwen-max",
+      "title": "qwen-max Model Info (international documentation)",
+      "publisher": "Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Page updated October 11, 2026 still maps qwen-max to qwen-max-2025-01-25 and specifies 32768 context with 30720 maximum input; regional capabilities cover Beijing and Singapore, but context is a single shared table."
+    },
+    {
+      "id": "s9",
+      "url": "https://help.aliyun.com/zh/model-studio/qwen-max",
+      "title": "qwen-max model information (Chinese documentation)",
+      "publisher": "Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Chinese exact-model card likewise identifies the Qwen2.5 snapshot mapping and 32768 context; it does not provide a 128k alternative for Beijing."
+    },
+    {
+      "id": "s10",
+      "url": "https://help.aliyun.com/en/model-studio/qwen-model-free-quota-adjustment",
+      "title": "Qwen Series Model Free Quota Validity Period Adjustment Notice",
+      "publisher": "Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Quota change effective September 19, 2024 lists qwen-max separately from qwen-max-0403, qwen-max-0428 and qwen-max-0107. Establishes availability by that date, not the original release date, and shows why a snapshot suffix must not establish alias introduction."
     }
   ],
   "fields": {
@@ -92,9 +116,10 @@
       "source_ids": [
         "s5",
         "s7",
-        "s2"
+        "s2",
+        "s10"
       ],
-      "note": "The baseline 2024-04-03 date is not primary-verified. The lifecycle entry is 2024-10-15, while 2025-01-28 announces the later Qwen2.5-Max snapshot. These dates describe different events; neither is substituted for initial alias release."
+      "note": "Initial alias release date remains unverified: baseline 2024-04-03 has no located primary announcement. The September 19, 2024 quota notice already lists qwen-max separately from qwen-max-0403, so the October 15, 2024 lifecycle entry cannot establish its original availability. January 28, 2025 is the announcement of the later Qwen2.5-Max snapshot. Patch clears the unsupported date rather than substituting one of these different events."
     },
     "open_weights": {
       "value": false,
@@ -141,13 +166,15 @@
       "note": "Applies to the currently documented qwen-max-2025-01-25 mapping, explicitly named Qwen2.5-Max in the developer announcement. Not a claim about every historical alias revision."
     },
     "context_window": {
-      "value": 32768,
-      "status": "verified",
+      "value": null,
+      "status": "unverified",
       "source_ids": [
         "s1",
-        "s4"
+        "s4",
+        "s8",
+        "s9"
       ],
-      "note": "Verified for the exact model card. Overview groups alias and snapshots at 128k; conflict remains unresolved, so no numerical correction is proposed."
+      "note": "Exact alias cards, including international documentation updated October 11, 2026, map to qwen-max-2025-01-25 and state 32768. The October 15, 2026 overview states 128k for qwen-max and snapshots. Neither exact card specifies a Beijing/Singapore context difference, and no primary upgrade notice resolving the discrepancy was located. 32768 remains the strongest exact-snapshot evidence, but the current canonical alias limit is unresolved; clear the unqualified numeric field pending resolution."
     },
     "modalities": {
       "value": {
@@ -196,7 +223,7 @@
   "patch": {
     "architecture": "moe",
     "description": "Hosted Qwen text model for multilingual chat and coding, currently mapped to the Qwen2.5-Max snapshot.",
-    "notes": "Rolling hosted alias: MoE architecture refers to the documented qwen-max-2025-01-25 (Qwen2.5-Max) mapping. Exact total and active parameter counts remain undisclosed. Context documentation conflicts: exact model card 32768 versus overview 128k. Function calling is supported in Beijing but marked unsupported in Singapore. Initial alias release date remains unverified; do not confuse it with the January 28, 2025 snapshot announcement.",
+    "notes": "Rolling hosted alias: MoE architecture refers to the documented qwen-max-2025-01-25 (Qwen2.5-Max) mapping. Exact total and active parameter counts remain undisclosed. Current context is unresolved: exact model cards state 32768, including the October 11, 2026 international card; the October 15 overview says 128k. No region-specific context difference or upgrade announcement was verified. Function calling is supported in Beijing but marked unsupported in Singapore. Initial alias release date is unverified; the alias was listed by September 19, 2024, separately from the 0403 snapshot. January 28, 2025 announces the later Qwen2.5-Max snapshot.",
     "sources": [
       {
         "label": "qwen-max Model Info",
@@ -232,8 +259,26 @@
         "label": "Models.dev qwen-max record",
         "url": "https://github.com/anomalyco/models.dev/blob/dev/models/alibaba/qwen-max.toml",
         "type": "catalog"
+      },
+      {
+        "label": "qwen-max Model Info (international documentation)",
+        "url": "https://www.alibabacloud.com/help/en/model-studio/qwen-max",
+        "type": "primary"
+      },
+      {
+        "label": "qwen-max model information (Chinese documentation)",
+        "url": "https://help.aliyun.com/zh/model-studio/qwen-max",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen Series Model Free Quota Validity Period Adjustment Notice",
+        "url": "https://help.aliyun.com/en/model-studio/qwen-model-free-quota-adjustment",
+        "type": "primary"
       }
-    ]
+    ],
+    "release_date": null,
+    "date_precision": null,
+    "context_window": null
   },
-  "summary": "Verified currently documented alias-to-snapshot identity and MoE architecture, without importing open-Qwen sizes. Total/active counts stay null. Confirmed text modalities, non-thinking mode and region-qualified function calling. Proposed neutral description and scope notes. Release date is unverified; context conflict requires follow-up and no context change is proposed."
+  "summary": "Verified documented alias-to-Qwen2.5-Max mapping and MoE architecture, without importing open-Qwen sizes. Total/active counts stay null. Confirmed text modalities, non-thinking mode and region-qualified function calling. Clears unsupported release date/date precision. Further exact-card checks corroborate 32768 for the named snapshot but do not resolve the newer 128k overview; therefore clears unqualified current context and retains both claims in notes."
 }

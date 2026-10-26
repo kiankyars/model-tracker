@@ -1,7 +1,7 @@
 {
   "index": 20,
   "model_id": "alibaba/qwen2-5-vl-72b-instruct",
-  "reviewed_at": "2026-10-26T14:09:40.499754Z",
+  "reviewed_at": "2026-10-26T14:21:20.074986Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Qwen2.5-VL-72B-Instruct model card",
       "publisher": "Qwen / Alibaba",
       "accessed": true,
-      "evidence": "Identifies the instruction-tuned nominal 72B Qwen model; documents text, image and video inputs, text generation, visual reasoning, document understanding and tool-directed visual agents."
+      "evidence": "Identifies the instruction-tuned nominal 72B Qwen model; documents text, image and video inputs, text generation, visual reasoning, document understanding and tool-directed visual agents. Its Processing Long Texts section describes 32768 and optional YaRN extrapolation, although the shipped model config specifies 128000."
     },
     {
       "id": "s2",
@@ -49,7 +49,7 @@
       "title": "Exact checkpoint tokenizer configuration",
       "publisher": "Qwen / Alibaba",
       "accessed": true,
-      "evidence": "model_max_length is 131072, conflicting with model config 128000. Template handles image/video/text and has no separate thinking-mode switch; tool-call tokens are present."
+      "evidence": "Tokenizer model_max_length is 131072; this controls tokenization defaults, not model positional capacity. Template handles image/video/text and has no separate thinking-mode switch; tool-call tokens are present."
     },
     {
       "id": "s7",
@@ -57,7 +57,31 @@
       "title": "Qwen2.5-VL Technical Report",
       "publisher": "Qwen Team, Alibaba Group",
       "accessed": true,
-      "evidence": "Section 2.1 and Table 1 describe the 72B variant as Qwen2.5 language decoder, vision transformer and MLP merger; no expert routing. General reasoning and tool-use abilities are described, without defining a separate reasoning-mode capability."
+      "evidence": "Section 2.1 and Table 1 describe the 72B variant as Qwen2.5 language decoder, vision transformer and MLP merger; no expert routing. General reasoning and tool-use abilities are described, without defining a separate reasoning-mode capability. Section 2.2.2 gives 32768 as final-stage pretraining sequence length."
+    },
+    {
+      "id": "s8",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.51.3/src/transformers/models/qwen2_5_vl/configuration_qwen2_5_vl.py",
+      "title": "Qwen2.5-VL configuration implementation",
+      "publisher": "Qwen Team / Hugging Face",
+      "accessed": true,
+      "evidence": "Defines max_position_embeddings as the model maximum sequence length; checkpoint configuration overrides the class default. Legacy mrope selects the default RoPE computation, not automatic YaRN scaling."
+    },
+    {
+      "id": "s9",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.51.3/src/transformers/models/qwen2_5_vl/modeling_qwen2_5_vl.py",
+      "title": "Qwen2.5-VL rotary embedding implementation",
+      "publisher": "Qwen Team / Hugging Face",
+      "accessed": true,
+      "evidence": "Qwen2_5_VLRotaryEmbedding initializes its original_max_seq_len and max_seq_len_cached from model config.max_position_embeddings, not tokenizer.model_max_length. Position frequencies are computed from supplied position IDs."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/docs/transformers/v4.51.3/en/main_classes/tokenizer",
+      "title": "Transformers tokenizer truncation and padding documentation",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Tokenizer maximum length supplies padding/truncation defaults. Tokenization can emit longer sequences when truncation is disabled; this setting does not alter model positional configuration."
     }
   ],
   "fields": {
@@ -139,13 +163,18 @@
       "note": "Dense decoder plus ViT and MLP merger, corroborated by tensor inventory; no MoE expert/router tensors."
     },
     "context_window": {
-      "value": null,
-      "status": "unverified",
+      "value": 128000,
+      "status": "verified",
       "source_ids": [
         "s3",
-        "s6"
+        "s8",
+        "s9",
+        "s6",
+        "s10",
+        "s1",
+        "s7"
       ],
-      "note": "Primary files disagree: model max_position_embeddings=128000, tokenizer model_max_length=131072. No single exact effective context limit is established; preserve both values as an unresolved conflict."
+      "note": "128000 is the shipped checkpoint configured maximum (max_position_embeddings), used by the model implementation; tokenizer model_max_length=131072 only supplies preprocessing defaults and does not supersede it. This is configured context, not an independently tested quality limit. The card still describes 32768 and optional YaRN, while the report gives 32768 training sequences; those remain caveats about long-text extrapolation rather than grounds to replace the explicit current model setting."
     },
     "modalities": {
       "value": {
@@ -200,7 +229,7 @@
     "parameters_b": 73.410777344,
     "parameters_source": "primary_source",
     "architecture": "dense",
-    "context_window": null,
+    "context_window": 128000,
     "reasoning": null,
     "modalities": {
       "input": [
@@ -212,7 +241,7 @@
         "text"
       ]
     },
-    "notes": "72B is the nominal model label; the full published BF16 checkpoint contains 73.410777344B parameters, including 0.704573696B in the visual encoder and merger. Active parameters are not separately defined. Context remains unresolved: model configuration specifies 128000 while the tokenizer specifies 131072. General visual reasoning is documented, but a dedicated reasoning-mode boolean is unverified.",
+    "notes": "72B is the nominal label; the complete BF16 checkpoint has 73.410777344B parameters, including 0.704573696B in the visual encoder and merger. Active parameters are not separately defined. Context 128000 follows the shipped model positional configuration; tokenizer length 131072 is a preprocessing setting. The card describes 32768 and optional YaRN, and the report documents 32768 training sequences, so configured context does not establish long-text quality. A dedicated reasoning-mode boolean remains unverified.",
     "sources": [
       {
         "label": "Qwen2.5-VL-72B-Instruct model card",
@@ -248,13 +277,27 @@
         "label": "Qwen2.5-VL Technical Report",
         "url": "https://arxiv.org/html/2502.13923v1",
         "type": "primary"
+      },
+      {
+        "label": "Qwen2.5-VL configuration implementation",
+        "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.51.3/src/transformers/models/qwen2_5_vl/configuration_qwen2_5_vl.py",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen2.5-VL rotary embedding implementation",
+        "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.51.3/src/transformers/models/qwen2_5_vl/modeling_qwen2_5_vl.py",
+        "type": "primary"
+      },
+      {
+        "label": "Transformers tokenizer truncation and padding documentation",
+        "url": "https://huggingface.co/docs/transformers/v4.51.3/en/main_classes/tokenizer",
+        "type": "primary"
       }
     ]
   },
-  "summary": "Verified exact full-checkpoint size 73.410777344B versus nominal 72B; added dense architecture, custom Qwen license and video input. Release date and description confirmed. Active size remains undisclosed; exact context and reasoning-mode flag remain unresolved.",
+  "summary": "Verified total size 73.410777344B versus nominal 72B; added dense architecture, Qwen license and video input. Context corrected to the shipped model configuration value 128000, distinguishing tokenizer defaults and 32768 training/card guidance. Release and description confirmed; active size undisclosed and dedicated reasoning mode unverified.",
   "proposed_fields": {
     "parameter_components_b": {
-      "total": 73.410777344,
       "language_model": 72.706203648,
       "vision_encoder_and_merger": 0.704573696
     }
