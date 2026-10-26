@@ -1,0 +1,337 @@
+{
+  "index": 181,
+  "model_id": "deepseek/deepseek-v4-pro",
+  "reviewed_at": "2026-10-26T19:16:11.457805Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://api-docs.deepseek.com/news/news260424/",
+      "title": "DeepSeek V4 Preview Release, April 24, 2026",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Dated official announcement releases V4 Pro preview, publishes open weights, names deepseek-v4-pro, reports nominal 1.6T total/49B active and 1M context, and describes Thinking/Non-Thinking modes and agentic coding."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/b5968e9190ef611bbf34a7229255be88a0e937c1/README.md",
+      "title": "Original DeepSeek-V4-Pro model card",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Identifies this repository as the V4 preview, with nominal 1.6T/49B MoE, CSA/HCA hybrid attention and mHC, advertised one-million-token context, three reasoning modes, agent benchmarks, and MIT coverage of repository and weights."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/b5968e9190ef611bbf34a7229255be88a0e937c1/config.json",
+      "title": "DeepSeek-V4-Pro checkpoint configuration",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Causal language model with hidden size 7168, 61 main layers, one next-token prediction layer, 384 routed experts/top-6 plus one shared expert per block, three hash-routing layers, and 1048576 positional capacity; packed FP4 experts with mixed FP8 weights."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/b5968e9190ef611bbf34a7229255be88a0e937c1/inference/model.py",
+      "title": "DeepSeek-V4-Pro reference inference model",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Defines the Transformer, hybrid attention, MoE and MTP modules. FP4 stores two weights per byte; quantization scales are representations. Hash routing tid2eid has requires_grad=False. mHC scales and router weights/biases are parameters. MTP shares the main embedding and output head explicitly."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/b5968e9190ef611bbf34a7229255be88a0e937c1/inference/convert.py",
+      "title": "DeepSeek-V4-Pro checkpoint conversion",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "FP4 conversion explicitly doubles the packed input dimension and unpacks low/high nibbles. Conversion skips duplicated MTP embedding/head state. Supports the logical-weight interpretation independently of storage-element counts."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/b5968e9190ef611bbf34a7229255be88a0e937c1/model.safetensors.index.json",
+      "title": "DeepSeek-V4-Pro weight index and all indexed shard headers",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Resolved index plus bounded HTTP Range reads of every one of its 64 shard headers at this revision account for all 145116 tensors. Logical total is 1598837347742: main 1572997201763 plus unique MTP 25840145979. Expanded 71424 FP4 tensors; excluded 49150268416 quantization-scale elements and 2327040 fixed routing-index entries. Retained 374 learned mHC scale values, 170655744 gate weights and 22656 gate biases. No full shard downloaded."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/b5968e9190ef611bbf34a7229255be88a0e937c1/LICENSE",
+      "title": "DeepSeek-V4-Pro MIT license",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Repository license is MIT, copyright DeepSeek; the exact model card explicitly applies it to the released weights."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/b5968e9190ef611bbf34a7229255be88a0e937c1/encoding/README.md",
+      "title": "DeepSeek-V4 prompt and tool-call encoding",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Exact repository documents text-message input/output, explicit reasoning blocks, three reasoning settings in combination with the card, and DSML tool invocation/response handling with OpenAI-compatible tool definitions."
+    },
+    {
+      "id": "s9",
+      "url": "https://arxiv.org/html/2606.19348v1",
+      "title": "DeepSeek-V4: Towards Highly Efficient Million-Token Context Intelligence",
+      "publisher": "DeepSeek-AI",
+      "accessed": true,
+      "evidence": "Technical report explicitly concerns the preview. Pro setup specifies 61 Transformer blocks, 384 routed experts/top-6 plus one shared, MTP depth one, CSA/HCA and mHC, nominal 1.6T/49B. FP4 QAT quantizes FP32 master weights. Multimodal capabilities are identified as future work."
+    },
+    {
+      "id": "s10",
+      "url": "https://api-docs.deepseek.com/quick_start/pricing/",
+      "title": "DeepSeek current API model mapping",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Current deepseek-v4-pro API alias maps to DeepSeek-V4-Pro-0813. This is later than the original preview checkpoint, so current alias specifications are not substituted into this April record."
+    },
+    {
+      "id": "s11",
+      "url": "https://api-docs.deepseek.com/news/news260813/",
+      "title": "DeepSeek-V4-Pro GA Release, August 13, 2026",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Dated GA announcement says API model names remain unchanged, establishing why the same API identifier must be distinguished from the April preview."
+    },
+    {
+      "id": "s12",
+      "url": "https://huggingface.co/api/models/deepseek-ai/DeepSeek-V4-Pro/commits/main",
+      "title": "Original DeepSeek-V4-Pro repository history",
+      "publisher": "DeepSeek via Hugging Face",
+      "accessed": true,
+      "evidence": "Repository history identifies April 24 release commit 0e1a0e5 and latest June 22 technical-report update b5968e9, preceding the August GA revision. Pinned configuration and model card match the accessed main files."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "DeepSeek V4 Pro",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Catalog display spelling of official DeepSeek-V4-Pro; this assessment preserves the April preview identity linked by the baseline, not the 0813 API alias target."
+    },
+    "developer": {
+      "value": "DeepSeek",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s9"
+      ],
+      "note": "Official DeepSeek announcement, organization-hosted checkpoint and DeepSeek-AI technical report identify the developer."
+    },
+    "family": {
+      "value": "deepseek-thinking",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s8"
+      ],
+      "note": "Retains the catalog grouping for DeepSeek reasoning models. The developer identifies the architectural generation as DeepSeek-V4 and supports thinking and non-thinking modes; the grouping is not a separate checkpoint name."
+    },
+    "release_date": {
+      "value": "2026-04-24",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s12"
+      ],
+      "note": "Explicit official preview-release date, corroborated by the named release commit. August 13 is a later GA revision using the same API model name."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s6"
+      ],
+      "note": "Officially released, publicly accessible checkpoint; every indexed shard header was read at a pinned original-preview revision."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s7"
+      ],
+      "note": "Exact model card explicitly applies MIT to the repository and model weights; license text accessed."
+    },
+    "parameters_b": {
+      "value": 1598.837347742,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s9"
+      ],
+      "note": "Complete logical checkpoint count is 1598837347742: 1572.997201763B main plus 25.840145979B unique MTP. Expands packed FP4 weights two per byte; excludes quantization scales and fixed routing indices while retaining learned mHC scales and parameterized router weights/biases. Shared main embedding/head counted once. The advertised 1.6T is rounded and cannot resolve main-versus-complete scope by itself."
+    },
+    "active_parameters_b": {
+      "value": 49,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s9"
+      ],
+      "note": "Developer-reported nominal activation per token of the main model, not an exact tensor-derived count or combined main-plus-MTP compute. The main has top-6 routed experts plus one shared expert per layer; separate MTP adds parameters and prediction work."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s9"
+      ],
+      "note": "Decoder Transformer with DeepSeekMoE, hybrid Compressed Sparse Attention/Heavily Compressed Attention and manifold-constrained hyper-connections. 61 main blocks with 384 routed experts/top-6 and one shared expert, plus one MTP block; first three main blocks use hash routing."
+    },
+    "context_window": {
+      "value": 1000000,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s9"
+      ],
+      "note": "Preserves advertised one-million-token context. Checkpoint max_position_embeddings is 1048576; this configured positional ceiling is distinct from the decimal advertised window."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s6",
+        "s8",
+        "s9"
+      ],
+      "note": "Causal text language-model configuration, token embedding/output head, complete checkpoint structure and text encoder establish text input/output; the preview report places multimodal capabilities in future work."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s8"
+      ],
+      "note": "Original release supports Thinking and Non-Thinking; exact card details Non-think, Think High and Think Max, with explicit thinking blocks in the encoder."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s8"
+      ],
+      "note": "Original checkpoint encoder explicitly supports tool schemas, DSML tool calls and tool responses; original card reports tool-use evaluations."
+    },
+    "description": {
+      "value": "April 2026 DeepSeek-V4 preview: open-weight text MoE with hybrid compressed attention, million-token context, reasoning modes and tool calling.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s8",
+        "s9"
+      ],
+      "note": "Replaces promotional flagship wording and clarifies the historical preview so it cannot be mistaken for the current August API target."
+    }
+  },
+  "patch": {
+    "license": "MIT",
+    "parameters_b": 1598.837347742,
+    "active_parameters_b": 49,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "description": "April 2026 DeepSeek-V4 preview: open-weight text MoE with hybrid compressed attention, million-token context, reasoning modes and tool calling.",
+    "source_url": "https://api-docs.deepseek.com/news/news260424/",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "DeepSeek V4 Preview Release, April 24, 2026",
+        "url": "https://api-docs.deepseek.com/news/news260424/",
+        "type": "primary"
+      },
+      {
+        "label": "Original DeepSeek-V4-Pro model card",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/b5968e9190ef611bbf34a7229255be88a0e937c1/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeek-V4-Pro checkpoint configuration",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/b5968e9190ef611bbf34a7229255be88a0e937c1/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeek-V4-Pro reference inference model",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/b5968e9190ef611bbf34a7229255be88a0e937c1/inference/model.py",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeek-V4-Pro checkpoint conversion",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/b5968e9190ef611bbf34a7229255be88a0e937c1/inference/convert.py",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeek-V4-Pro weight index and all indexed shard headers",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/b5968e9190ef611bbf34a7229255be88a0e937c1/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "DeepSeek-V4-Pro MIT license",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/b5968e9190ef611bbf34a7229255be88a0e937c1/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeek-V4 prompt and tool-call encoding",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/b5968e9190ef611bbf34a7229255be88a0e937c1/encoding/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeek-V4: Towards Highly Efficient Million-Token Context Intelligence",
+        "url": "https://arxiv.org/html/2606.19348v1",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeek current API model mapping",
+        "url": "https://api-docs.deepseek.com/quick_start/pricing/",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeek-V4-Pro GA Release, August 13, 2026",
+        "url": "https://api-docs.deepseek.com/news/news260813/",
+        "type": "primary"
+      },
+      {
+        "label": "Original DeepSeek-V4-Pro repository history",
+        "url": "https://huggingface.co/api/models/deepseek-ai/DeepSeek-V4-Pro/commits/main",
+        "type": "primary"
+      }
+    ],
+    "notes": "April 24, 2026 preview checkpoint. Complete logical weights total 1598.837347742B: 1572.997201763B main plus 25.840145979B unique MTP; packed FP4 weights expanded, quantization scales/fixed routing indices excluded, shared embedding/head counted once. Official 1.6T is nominal; official 49B active describes main-model activation, not additional MTP work. Advertised context is 1M, while configured positional ceiling is 1048576. Current API alias deepseek-v4-pro maps to the later DeepSeek-V4-Pro-0813; this record preserves the original preview linked by its baseline date and checkpoint. No endpoint execution was tested."
+  },
+  "proposed_fields": {
+    "active_parameters_scope": "main",
+    "parameter_components_b": {
+      "main": 1572.997201763,
+      "mtp": 25.840145979
+    }
+  },
+  "summary": "Independently verified all 14 fields for the original April preview. Adds MIT, MoE architecture, complete 1598.837347742B logical parameters and nominal 49B main-model active count. All 64 tensor headers reconcile the MTP attachment, FP4 packing and metadata exclusions. Keeps advertised 1M distinct from 1048576 configured positions, preserves text/reasoning/tool support and documents the later 0813 API alias identity conflict."
+}
