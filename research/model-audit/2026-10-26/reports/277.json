@@ -1,0 +1,262 @@
+{
+  "index": 277,
+  "model_id": "meta/llama-4-maverick-17b-instruct",
+  "reviewed_at": "2026-10-26T21:43:37.073822Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://ai.meta.com/blog/llama-4-multimodal-intelligence/",
+      "title": "The Llama 4 herd: The beginning of a new era of natively multimodal AI innovation",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "April 5, 2025 launch makes Scout and Maverick weights available. Maverick has nominal 400B total and 17B active parameters; alternating dense/MoE layers, 128 routed experts plus one shared expert, routing each token to one routed expert and the shared expert. Native multimodality uses early fusion and a MetaCLIP-based vision encoder. Arena results are explicitly for an experimental chat version."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/meta-llama/Llama-4-Maverick-17B-128E-Instruct",
+      "title": "Llama-4-Maverick-17B-128E-Instruct official checkpoint and model card",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Exact non-FP8 Instruct checkpoint. Maverick table specifies 17B activated/400B total, multilingual text and image inputs, multilingual text/code outputs, and rounded 1M context. Model developer Meta; April 5, 2025 release; custom Llama 4 Community License."
+    },
+    {
+      "id": "s3",
+      "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama4/MODEL_CARD.md",
+      "title": "Official Llama 4 model card",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Public model card identifies autoregressive MoE with early fusion, explicitly labels Maverick 17B activated and 400B total, states April 5, 2025 release and text/image-to-text/code modalities, and describes assistant chat and visual reasoning uses."
+    },
+    {
+      "id": "s4",
+      "url": "https://github.com/meta-llama/llama-models/blob/0e0b8c519242d5833d8c11bffc1232b77ad7f301/models/sku_types.py",
+      "title": "Official model SKU types and exact sequence limits",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Current public source read from main; latest file commit is 0e0b8c519242d5833d8c11bffc1232b77ad7f301. CoreModelId llama4_maverick_17b_128e_instruct maps specifically to max_seq_length 1048576; base Maverick separately maps to 262144. Default checkpoint format is BF16."
+    },
+    {
+      "id": "s5",
+      "url": "https://github.com/meta-llama/llama-models/blob/main/models/sku_list.py",
+      "title": "Official Llama model SKU registry",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "llama4_instruct_models lists meta-llama/Llama-4-Maverick-17B-128E-Instruct separately from the -FP8 checkpoint, which has fp8_mixed quantization and variant fp8. Both belong to the exact Maverick Instruct core SKU."
+    },
+    {
+      "id": "s6",
+      "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama4/prompt_format.md",
+      "title": "Official Llama 4 prompt formats",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Complete prompt documentation specifies text and multi-image conversations and zero-shot function calls with native multiple/parallel tool-call outputs. It documents no separate thinking mode, reasoning channel, or thinking-budget control."
+    },
+    {
+      "id": "s7",
+      "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama4/LICENSE",
+      "title": "Llama 4 Community License Agreement",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Named license with April 5, 2025 effective date grants limited rights to use, reproduce, distribute and modify Llama materials under its terms; it is a custom community license, not an unrestricted open-source license."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/api/models/meta-llama/Llama-4-Maverick-17B-128E-Instruct",
+      "title": "Public metadata for the exact BF16 Maverick Instruct checkpoint",
+      "publisher": "Hugging Face / Meta checkpoint",
+      "accessed": true,
+      "evidence": "Revision 73d14711bcc77c16df3470856949c3764056b617, last modified 2025-05-22. Reports manually gated access, Llama4ForConditionalGeneration, and 401583781376 BF16 safetensors elements. The exposed chat template handles text, images and tool calls without a dedicated thinking channel. The element aggregate is not independently reconciled with tensor shapes, tying, and buffers and is not substituted for the developer nominal count."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/meta-llama/Llama-4-Maverick-17B-128E-Instruct/resolve/main/config.json",
+      "title": "Exact checkpoint configuration (gated)",
+      "publisher": "Meta",
+      "accessed": false,
+      "evidence": "Unauthenticated request returned HTTP 401; no attempt was made to bypass the gate and no weight shards were downloaded."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Llama 4 Maverick 17B Instruct",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s5"
+      ],
+      "note": "The catalog display name is an accurate abbreviation of the official Llama-4-Maverick-17B-128E-Instruct identifier. The 17B refers to active parameters; the target is the standard Instruct checkpoint, not FP8 or experimental arena chat."
+    },
+    "developer": {
+      "value": "Meta",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "The developer is explicitly identified as Meta."
+    },
+    "family": {
+      "value": "llama",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s5"
+      ],
+      "note": "Member of the Llama 4 series within the catalog’s Llama family grouping."
+    },
+    "release_date": {
+      "value": "2025-04-05",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Official launch announces same-day weight availability and the model card explicitly gives April 5, 2025; later checkpoint modification or hosting dates are not release dates."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s7"
+      ],
+      "note": "Official weights are distributed subject to the custom license and access gate. Open weights does not imply an OSI-approved license."
+    },
+    "license": {
+      "value": "Llama 4 Community License",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s7"
+      ],
+      "note": "Official custom Llama 4 Community License Agreement; baseline label is accurate."
+    },
+    "parameters_b": {
+      "value": 400,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s8",
+        "s9"
+      ],
+      "note": "Developer-reported nominal total in billions, not 17B and not an exact independently reconciled count. Public BF16 metadata reports 401583781376 stored elements, but shape/tying/buffer reconciliation was not possible through gated config/weights; retain the original nominal 400B rather than assert an exact count."
+    },
+    "active_parameters_b": {
+      "value": 17,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Explicit nominal developer active count in billions. Each MoE layer sends a token to the shared expert and one of 128 routed experts; 17B is not the full model size."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Autoregressive early-fusion multimodal MoE. Alternating dense and MoE layers; 128 routed experts plus one shared expert per MoE layer, with top-1 routed selection. Text and vision tokens share a backbone, with a MetaCLIP-based vision encoder."
+    },
+    "context_window": {
+      "value": 1048576,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4"
+      ],
+      "note": "Official exact Instruct SKU max_seq_length is 1048576 tokens, refining the model card’s rounded 1M. The base SKU’s 262144 limit and provider-specific caps do not apply to this record."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s6"
+      ],
+      "note": "Model card explicitly lists multilingual text and image inputs and text/code output; code is text. Video-frame training does not establish a separate native video input interface."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s6",
+        "s8"
+      ],
+      "note": "The card advertises general and visual reasoning ability, but neither the complete official prompt specification nor the exact public chat template discloses a dedicated thinking/reasoning mode. Primary-source searches did not yield an explicit exact-Maverick negative capability statement; clear the categorical false baseline instead of treating absence of mode documentation as proof."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s6",
+        "s8"
+      ],
+      "note": "Official prompt specification explicitly supports native multiple and parallel function calls; the exact checkpoint chat template accepts tools and serializes tool calls and responses."
+    },
+    "description": {
+      "value": "Meta’s instruction-tuned multimodal MoE model with nominal 400B total and 17B active parameters, 128 routed experts, text and image input, and native tool calling.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s6"
+      ],
+      "note": "Replace vague performance/serving claims with supported nominal size, expert structure, modalities, and tool capability; do not attribute experimental arena-chat results to the released Instruct weights."
+    }
+  },
+  "patch": {
+    "context_window": 1048576,
+    "reasoning": null,
+    "description": "Meta’s instruction-tuned multimodal MoE model with nominal 400B total and 17B active parameters, 128 routed experts, text and image input, and native tool calling.",
+    "parameters_source": "primary_source",
+    "notes": "Meta reports nominal 400B total and 17B active parameters. Maverick alternates dense and MoE layers; each MoE layer uses 128 routed experts plus a shared expert and activates one routed expert per token. The standard BF16 Instruct checkpoint is distinct from its FP8 packaging and the experimental arena-chat model. Exact Instruct context is 1,048,576 tokens. Dedicated thinking-mode support is not explicitly disclosed in the reviewed native interface documentation.",
+    "sources": [
+      {
+        "label": "Official Llama 4 model card",
+        "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama4/MODEL_CARD.md",
+        "type": "primary"
+      },
+      {
+        "label": "Official exact Maverick Instruct context limit",
+        "url": "https://github.com/meta-llama/llama-models/blob/0e0b8c519242d5833d8c11bffc1232b77ad7f301/models/sku_types.py",
+        "type": "primary"
+      },
+      {
+        "label": "Official Llama 4 prompt and tool formats",
+        "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama4/prompt_format.md",
+        "type": "primary"
+      },
+      {
+        "label": "Llama 4 launch and architecture",
+        "url": "https://ai.meta.com/blog/llama-4-multimodal-intelligence/",
+        "type": "primary"
+      },
+      {
+        "label": "Official BF16 Maverick Instruct checkpoint",
+        "url": "https://huggingface.co/meta-llama/Llama-4-Maverick-17B-128E-Instruct",
+        "type": "weights"
+      }
+    ]
+  },
+  "summary": "Confirmed nominal 400B total / 17B active, native multimodal autoregressive MoE with 128 routed experts plus a shared expert and top-1 routing, April 5, 2025 release, gated open weights and custom license, text/image input, text output, and native parallel tool calls. Correct context from rounded 1000000 to exact 1048576 and replace the vague description. Clear reasoning:false to null because a separate native thinking mode is not explicitly disclosed. Keep nominal counts rather than promote un-reconciled BF16 storage metadata to an exact learned-parameter count."
+}
