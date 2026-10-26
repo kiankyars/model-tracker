@@ -1,0 +1,282 @@
+{
+  "index": 352,
+  "model_id": "mistral/voxtral-small-24b-2507",
+  "reviewed_at": "2026-10-26T23:44:35.909765+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://mistral.ai/news/voxtral/",
+      "title": "Voxtral release announcement, July 15, 2025",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Announces both original Voxtral sizes on July 15, 2025 under Apache 2.0 with downloadable weights, 32k context, multilingual speech understanding and native function calling from voice."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/mistralai/Voxtral-Small-24B-2507/blob/da5b42409f279fdd92febee0511a6c32828569c1/README.md",
+      "title": "Voxtral Small 1.0 (24B) - 2507 model card",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Names the exact July 2025 checkpoint; documents transcription, translation, audio understanding, text capability, eight named languages, 32k context and experimental function calling with an audio-input example."
+    },
+    {
+      "id": "s3",
+      "url": "https://arxiv.org/html/2507.13264v1",
+      "title": "Voxtral technical report, Table 1 and sections 1\u20132",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Table 1 gives Small 24.3B total: 640M audio encoder, 52M adapter, 670M text embeddings and 22.9B language decoder. Sections 1\u20132 describe native audio function calling, text/audio inputs, text output and the encoder-adapter-decoder Transformer."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/mistralai/Voxtral-Small-24B-2507/blob/da5b42409f279fdd92febee0511a6c32828569c1/params.json",
+      "title": "Voxtral Small native configuration",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Native params specify max_position_embeddings=32768; a 40-layer language decoder (dim 5120, hidden_dim 32768, 32 attention and 8 KV heads), 32-layer Whisper encoder and 4x audio downsampling."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/mistralai/Voxtral-Small-24B-2507/blob/da5b42409f279fdd92febee0511a6c32828569c1/config.json",
+      "title": "Voxtral Small Transformers conversion configuration",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "The converted VoxtralForConditionalGeneration config contains a llama text model and voxtral_encoder audio model. Its text_config.max_position_embeddings=131072 conflicts with native params.json and the advertised 32k support."
+    },
+    {
+      "id": "s6",
+      "url": "https://github.com/mistralai/platform-docs-public/blob/cd2192ef7d0e96388a4261dbb6d417869e4bb965/src/schema/models/models/voxtral-small-25-07.ts",
+      "title": "Official Voxtral Small 25.07 documentation source",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Exact checkpoint row links Voxtral-Small-24B-2507 and explicitly reports parameters 24, active 24, Apache 2.0, 32k context, July 15, 2025 release, audio/text inputs, text output and function-calling. Feature enumeration supplies no explicit negative reasoning classification."
+    },
+    {
+      "id": "s7",
+      "url": "https://github.com/mistralai/platform-docs-public/blob/cd2192ef7d0e96388a4261dbb6d417869e4bb965/src/app/%5Blocale%5D/(docs)/models/model-cards/%5Bslug%5D/components/weights-table.tsx",
+      "title": "Official model weights table renderer",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Maps the parameters and active fields to the separate Parameters (B) and Active (B) column headers, establishing units and the meaning of the exact model row."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/mistralai/Voxtral-Small-24B-2507/resolve/da5b42409f279fdd92febee0511a6c32828569c1/consolidated.safetensors",
+      "title": "Native Voxtral Small checkpoint tensor header",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Read only HTTP 206 byte ranges 0\u20137 and 8\u2013115751. All 851 entries are BF16 weight/bias tensors: 40 decoder layers each have single w1/w2/w3 feed-forward blocks; 32 audio encoder layers have single w1/w2 blocks; no expert/router tensors. Tensor shapes total 24,259,880,960 elements, comprising learned matrix, bias and normalization tensors without quantization scales, packed storage or positional buffers."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Voxtral Small 24B 2507",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s6"
+      ],
+      "note": "Catalog rendering of the exact Voxtral Small 1.0 (24B) - 2507 name and checkpoint identifier."
+    },
+    "developer": {
+      "value": "Mistral",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "First-party announcement and mistralai checkpoint identify Mistral AI as developer; retain existing short name."
+    },
+    "family": {
+      "value": "voxtral",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "The original July 2025 Voxtral Small release belongs to the Voxtral family."
+    },
+    "release_date": {
+      "value": "2025-07-15",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Announcement date and exact-version documentation releaseDate agree; this precedes the July 17 technical-report publication."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s8"
+      ],
+      "note": "Official announcement offers downloadable weights; the public exact-checkpoint native tensor header was accessed."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s6"
+      ],
+      "note": "The exact model card and official weights row identify Apache 2.0."
+    },
+    "parameters_b": {
+      "value": 24.3,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s6",
+        "s8"
+      ],
+      "note": "Use Table 1 complete-checkpoint total, rounded to 0.1B: audio encoder 0.640B, adapter 0.052B, text embeddings 0.670B and language decoder 22.9B. Independently read native header shapes total 24.259880960B, consistent with 24.3B; component values in the report are rounded. The docs/name round total to 24B."
+    },
+    "active_parameters_b": {
+      "value": 24,
+      "status": "verified",
+      "source_ids": [
+        "s6",
+        "s7"
+      ],
+      "note": "The exact first-party weights row explicitly publishes Active (B)=24. Preserve this nominal figure independently of the more precise complete total; do not infer equality from dense architecture. No finer or audio/text-phase-specific active count is supplied."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s5",
+        "s8"
+      ],
+      "note": "Verified from native structure, not merely the Transformer label: all 40 decoder layers have one w1/w2/w3 FFN, all 32 encoder layers one w1/w2 FFN, with attention blocks and a two-matrix audio adapter; no expert bank or router. Official configs agree with this dense audio-language structure."
+    },
+    "context_window": {
+      "value": 32768,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "note": "Native params explicitly set 32768, matching documented 32k support. Converted config carries 131072, recorded as a conversion discrepancy rather than evidence of supported 128k context. The 30/40-minute task limits and encoder max_source_positions=1500 are not total token context."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "audio"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s6"
+      ],
+      "note": "Exact official capability record and examples establish text/audio input and text output; no audio-generation output is asserted."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s6"
+      ],
+      "note": "Sources describe general audio/text reasoning ability and instruction tuning, but do not explicitly classify this exact checkpoint as supporting or lacking a dedicated reasoning mode. Absence from a feature enum does not verify false; clear the baseline assertion."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s6"
+      ],
+      "note": "Native function calling from voice is explicit, including an exact-checkpoint tool-call example; the model-card example labels support experimental."
+    },
+    "description": {
+      "value": "Open audio-language model for speech transcription, audio understanding, and voice-driven tool use",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s6"
+      ],
+      "note": "Existing description accurately summarizes the released checkpoint and its documented capabilities without unsupported performance claims."
+    }
+  },
+  "patch": {
+    "parameters_b": 24.3,
+    "active_parameters_b": 24,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "reasoning": null,
+    "source_url": "https://mistral.ai/news/voxtral/",
+    "source_type": "primary",
+    "notes": "Technical report Table 1 reports a complete 24.3B checkpoint (rounded); its independently rounded components are 0.640B audio encoder, 0.052B adapter, 0.670B text embeddings and 22.9B language decoder. Native BF16 header shapes total 24.259880960B. The official documentation independently labels 24B active, a nominal figure without modality-phase detail. Retain native/documented 32,768-token context despite the converted Transformers config listing 131,072. Function calling is native; the model card calls its example experimental. Dedicated reasoning-mode classification remains unverified.",
+    "sources": [
+      {
+        "label": "Voxtral release announcement, July 15, 2025",
+        "url": "https://mistral.ai/news/voxtral/",
+        "type": "primary"
+      },
+      {
+        "label": "Voxtral Small 1.0 (24B) - 2507 model card",
+        "url": "https://huggingface.co/mistralai/Voxtral-Small-24B-2507/blob/da5b42409f279fdd92febee0511a6c32828569c1/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "Voxtral technical report, Table 1 and sections 1\u20132",
+        "url": "https://arxiv.org/html/2507.13264v1",
+        "type": "primary"
+      },
+      {
+        "label": "Voxtral Small native configuration",
+        "url": "https://huggingface.co/mistralai/Voxtral-Small-24B-2507/blob/da5b42409f279fdd92febee0511a6c32828569c1/params.json",
+        "type": "weights"
+      },
+      {
+        "label": "Voxtral Small Transformers conversion configuration",
+        "url": "https://huggingface.co/mistralai/Voxtral-Small-24B-2507/blob/da5b42409f279fdd92febee0511a6c32828569c1/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Official Voxtral Small 25.07 documentation source",
+        "url": "https://github.com/mistralai/platform-docs-public/blob/cd2192ef7d0e96388a4261dbb6d417869e4bb965/src/schema/models/models/voxtral-small-25-07.ts",
+        "type": "primary"
+      },
+      {
+        "label": "Official model weights table renderer",
+        "url": "https://github.com/mistralai/platform-docs-public/blob/cd2192ef7d0e96388a4261dbb6d417869e4bb965/src/app/%5Blocale%5D/(docs)/models/model-cards/%5Bslug%5D/components/weights-table.tsx",
+        "type": "primary"
+      },
+      {
+        "label": "Native Voxtral Small checkpoint tensor header",
+        "url": "https://huggingface.co/mistralai/Voxtral-Small-24B-2507/resolve/da5b42409f279fdd92febee0511a6c32828569c1/consolidated.safetensors",
+        "type": "weights"
+      }
+    ],
+    "license": "Apache-2.0"
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "audio_encoder": 0.64,
+      "audio_adapter": 0.052,
+      "text_embeddings": 0.67,
+      "language_decoder": 22.9
+    }
+  },
+  "summary": "Correct total parameters from nominal 24B to the technical report\u2019s complete 24.3B; independently verify the official 24B active label and dense native architecture. Preserve July 15 release, Apache 2.0, 32,768 native/documented context, text/audio-to-text modalities and native tool calls. Clear unsupported reasoning=false to null/unverified; record the converted-config context discrepancy and rounded component counts."
+}
