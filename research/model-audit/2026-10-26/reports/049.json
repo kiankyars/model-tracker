@@ -1,0 +1,233 @@
+{
+  "index": 49,
+  "model_id": "alibaba/qwen3.5-2b",
+  "reviewed_at": "2026-10-26T14:50:36.572278Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/Qwen/Qwen3.5-2B",
+      "title": "Qwen3.5-2B model card",
+      "publisher": "Qwen / Alibaba",
+      "accessed": true,
+      "evidence": "Exact post-trained checkpoint. The overview places nominal 2B under Language Model, documents a vision encoder, hybrid attention, native 262,144-token context, optional thinking, text/image/video usage and tool calling."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/Qwen/Qwen3.5-2B/raw/main/config.json",
+      "title": "Qwen3.5-2B configuration",
+      "publisher": "Qwen / Alibaba",
+      "accessed": true,
+      "evidence": "Qwen3_5ForConditionalGeneration has 24 text layers, alternating three linear-attention layers with one full-attention layer, dense intermediate_size 6144, tied embeddings, a vision configuration and max_position_embeddings 262144."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/api/models/Qwen/Qwen3.5-2B",
+      "title": "Official checkpoint repository metadata",
+      "publisher": "Hugging Face, for Qwen repository",
+      "accessed": true,
+      "evidence": "Safetensors metadata reports 2,274,069,824 stored parameters: 2,274,067,232 BF16 plus 2,592 F32. Repository is public and ungated. This is checkpoint metadata, not the rounded language-model figure."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/Qwen/Qwen3.5-2B/blob/main/LICENSE",
+      "title": "Qwen3.5-2B Apache License",
+      "publisher": "Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Apache License 2.0 with Copyright 2026 Alibaba Cloud."
+    },
+    {
+      "id": "s5",
+      "url": "https://github.com/QwenLM/Qwen3.8#news",
+      "title": "Official Qwen repository release news",
+      "publisher": "Qwen / Alibaba",
+      "accessed": true,
+      "evidence": "News explicitly announces Qwen3.5-2B availability on Hugging Face and ModelScope on 2026-03-02. The former Qwen3.5 repository redirects here and retains its release chronology."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/Qwen/Qwen3.5-2B/raw/main/model.safetensors.index.json",
+      "title": "Qwen3.5-2B checkpoint tensor index",
+      "publisher": "Qwen / Alibaba",
+      "accessed": true,
+      "evidence": "The checkpoint contains language-model, visual-encoder/merger and MTP tensors. Feed-forward tensors use gate/up/down projections; no expert tensor keys appear."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Qwen3.5 2B",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Display-name spacing corresponds to official Qwen3.5-2B."
+    },
+    "developer": {
+      "value": "Alibaba",
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5"
+      ],
+      "note": "Published by the Qwen team; checkpoint license names Alibaba Cloud."
+    },
+    "family": {
+      "value": "qwen",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Qwen3.5 member of the Qwen family."
+    },
+    "release_date": {
+      "value": "2026-03-02",
+      "status": "verified",
+      "source_ids": [
+        "s5"
+      ],
+      "note": "Explicit open-weight release announcement; repository creation time and later API listings are not release dates."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s5"
+      ],
+      "note": "Official downloadable checkpoint is public and ungated."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s4"
+      ],
+      "note": "Exact checkpoint license."
+    },
+    "parameters_b": {
+      "value": 2.274069824,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s6",
+        "s1"
+      ],
+      "note": "Full released checkpoint: 2,274,069,824 stored parameters / 1e9, including vision and MTP. Card nominal 2B is scoped to the language model, not this full tensor total."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s6"
+      ],
+      "note": "No separate active-per-token count is published. Dense FFNs do not establish one count across text, vision and optional MTP execution."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s6"
+      ],
+      "note": "Dense FFNs with hybrid Gated DeltaNet/full attention and a vision encoder. Generic family-level MoE highlights on the card do not describe this checkpoint."
+    },
+    "context_window": {
+      "value": 262144,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s1"
+      ],
+      "note": "Native context, confirmed by max_position_embeddings."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Text generation with image and video input examples and corresponding configuration tokens."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Thinking is supported but disabled by default for 2B."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Exact 2B serving and Qwen-Agent examples document function/tool use."
+    },
+    "description": {
+      "value": "Post-trained Qwen3.5 vision-language model with dense feed-forward layers, hybrid attention, optional thinking and tool calling.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s6"
+      ],
+      "note": "Replaces unqualified speed language with documented architecture and capabilities."
+    }
+  },
+  "patch": {
+    "parameters_b": 2.274069824,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "description": "Post-trained Qwen3.5 vision-language model with dense feed-forward layers, hybrid attention, optional thinking and tool calling.",
+    "source_url": "https://huggingface.co/Qwen/Qwen3.5-2B",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Qwen3.5-2B model card",
+        "url": "https://huggingface.co/Qwen/Qwen3.5-2B",
+        "type": "weights"
+      },
+      {
+        "label": "Qwen3.5-2B configuration",
+        "url": "https://huggingface.co/Qwen/Qwen3.5-2B/raw/main/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Official checkpoint repository metadata",
+        "url": "https://huggingface.co/api/models/Qwen/Qwen3.5-2B",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3.5-2B Apache License",
+        "url": "https://huggingface.co/Qwen/Qwen3.5-2B/blob/main/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "Official Qwen repository release news",
+        "url": "https://github.com/QwenLM/Qwen3.8#news",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3.5-2B checkpoint tensor index",
+        "url": "https://huggingface.co/Qwen/Qwen3.5-2B/raw/main/model.safetensors.index.json",
+        "type": "primary"
+      }
+    ],
+    "notes": "The card nominal 2B refers to the language model. Full checkpoint metadata reports 2.274069824B stored parameters, including vision and MTP tensors. Architecture is dense FFN with hybrid linear/full attention. Active parameters are not separately reported; no total-to-active equivalence is assumed. Thinking is optional and off by default. Release date is the official open-weight announcement."
+  },
+  "summary": "Correct total from nominal language-model 2B to full checkpoint 2.274069824B; establish dense architecture and replace unsupported speed wording. Confirm March 2 open-weight release, Apache-2.0, native context and modalities/capabilities. Separate active count remains undisclosed."
+}

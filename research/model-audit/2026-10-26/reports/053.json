@@ -1,0 +1,232 @@
+{
+  "index": 53,
+  "model_id": "alibaba/qwen3.5-4b",
+  "reviewed_at": "2026-10-26T14:54:30.150422Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/Qwen/Qwen3.5-4B",
+      "title": "Qwen3.5-4B model card",
+      "publisher": "Qwen / Alibaba",
+      "accessed": true,
+      "evidence": "Post-trained vision-language checkpoint. The language-model section labels 4B parameters; documents native 262,144 context, text/image/video input, text generation, thinking control, and tool calling."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/Qwen/Qwen3.5-4B/blob/main/config.json",
+      "title": "Qwen3.5-4B configuration",
+      "publisher": "Qwen / Alibaba",
+      "accessed": true,
+      "evidence": "Qwen3_5ForConditionalGeneration with dense FFNs, 32 language layers in a 3:1 linear/full attention pattern, a vision encoder, one MTP layer, and max_position_embeddings 262144; no routed-expert configuration."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/api/models/Qwen/Qwen3.5-4B",
+      "title": "Qwen3.5-4B repository safetensors metadata",
+      "publisher": "Hugging Face / Qwen repository",
+      "accessed": true,
+      "evidence": "safetensors.total is 4,659,865,088: 4,659,861,248 BF16 and 3,840 F32 stored parameters. Repository creation was February 27, which is not evidence of public release."
+    },
+    {
+      "id": "s4",
+      "url": "https://github.com/QwenLM/Qwen3.8#news",
+      "title": "Official Qwen repository release news",
+      "publisher": "Qwen / Alibaba",
+      "accessed": true,
+      "evidence": "QwenLM/Qwen3.5 redirects to this renamed official repository. Retained news explicitly announces Qwen3.5-4B availability on Hugging Face and ModelScope on 2026-03-02; repository identifies Qwen team as part of Alibaba Group."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/Qwen/Qwen3.5-4B/blob/main/LICENSE",
+      "title": "Qwen3.5-4B LICENSE",
+      "publisher": "Qwen / Alibaba",
+      "accessed": true,
+      "evidence": "Exact checkpoint repository supplies Apache License 2.0."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/Qwen/Qwen3.5-4B/resolve/main/model.safetensors.index.json",
+      "title": "Qwen3.5-4B checkpoint tensor index",
+      "publisher": "Qwen / Alibaba",
+      "accessed": true,
+      "evidence": "Published weight map contains model.language_model, model.visual, and mtp tensors; the full checkpoint count therefore includes the vision encoder and auxiliary multi-token-prediction weights."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Qwen3.5 4B",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Catalog spacing denotes the official Qwen3.5-4B checkpoint."
+    },
+    "developer": {
+      "value": "Alibaba",
+      "status": "verified",
+      "source_ids": [
+        "s4"
+      ],
+      "note": "Developed by Alibaba’s Qwen team."
+    },
+    "family": {
+      "value": "qwen",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4"
+      ],
+      "note": "Qwen3.5 belongs to the Qwen family."
+    },
+    "release_date": {
+      "value": "2026-03-02",
+      "status": "verified",
+      "source_ids": [
+        "s4"
+      ],
+      "note": "Explicit public weight-release announcement; neither repository creation nor hosted API availability."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Official repository publishes post-trained weights."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s5"
+      ],
+      "note": "Exact checkpoint license."
+    },
+    "parameters_b": {
+      "value": 4.659865088,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s6"
+      ],
+      "note": "Full published checkpoint total divided by 1e9; includes language, vision, and MTP tensors. The card’s 4B is the nominal language-component count."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s6"
+      ],
+      "note": "No separate active count is documented. Dense FFNs do not justify equating the full multimodal/MTP checkpoint with parameters active per token."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Dense FFNs with hybrid Gated DeltaNet/gated attention and a vision encoder. Generic family-card MoE wording does not describe this variant."
+    },
+    "context_window": {
+      "value": 262144,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Native context; optional YaRN extension reaches 1,010,000."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Exact-model examples cover all three inputs and text responses."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Thinking is enabled by default and can be disabled."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Exact-model vLLM/SGLang tool-call commands and Qwen-Agent example."
+    },
+    "description": {
+      "value": "Post-trained dense vision-language model with hybrid Gated DeltaNet and gated attention, switchable thinking, and tool calling.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Replaces the unquantified low-cost claim with documented capabilities."
+    }
+  },
+  "patch": {
+    "parameters_b": 4.659865088,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "description": "Post-trained dense vision-language model with hybrid Gated DeltaNet and gated attention, switchable thinking, and tool calling.",
+    "notes": "Full checkpoint: 4,659,865,088 stored parameters, including vision and auxiliary MTP weights. The 4B label describes the nominal language model. Active parameters are not separately reported. Native context is 262,144; optional YaRN extension is 1,010,000. Release date denotes public weights.",
+    "sources": [
+      {
+        "label": "Qwen3.5-4B model card",
+        "url": "https://huggingface.co/Qwen/Qwen3.5-4B",
+        "type": "weights"
+      },
+      {
+        "label": "Qwen3.5-4B configuration",
+        "url": "https://huggingface.co/Qwen/Qwen3.5-4B/blob/main/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3.5-4B repository safetensors metadata",
+        "url": "https://huggingface.co/api/models/Qwen/Qwen3.5-4B",
+        "type": "weights"
+      },
+      {
+        "label": "Official Qwen repository release news",
+        "url": "https://github.com/QwenLM/Qwen3.8#news",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3.5-4B LICENSE",
+        "url": "https://huggingface.co/Qwen/Qwen3.5-4B/blob/main/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3.5-4B checkpoint tensor index",
+        "url": "https://huggingface.co/Qwen/Qwen3.5-4B/resolve/main/model.safetensors.index.json",
+        "type": "weights"
+      }
+    ]
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "language_model": 4
+    }
+  },
+  "summary": "Corrects the full checkpoint total from nominal 4B to 4.659865088B and confirms dense hybrid-attention architecture. Active count stays undisclosed. Confirms the March 2 public weight release, Apache-2.0, modalities, native context, thinking, and tool calling; removes unsupported low-cost wording. Optional language-model component is nominal, as explicitly labeled in the card."
+}
