@@ -1,0 +1,387 @@
+{
+  "index": 224,
+  "model_id": "google/gemma-4-31b-it",
+  "reviewed_at": "2026-10-26T20:23:56.464121Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/google/gemma-4-31B-it/blob/842da3794eaa0b77d5f08bae87a17459d91ff475/README.md",
+      "title": "Gemma 4 31B IT model card",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Identifies the instruction-tuned Gemma 4 31B checkpoint, Apache-2.0 license, text/image inputs and text output, configurable thinking and native function calling. Its video example explicitly loads google/gemma-4-31B-it."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/google/gemma-4-31B-it/resolve/842da3794eaa0b77d5f08bae87a17459d91ff475/config.json",
+      "title": "Gemma 4 31B IT configuration",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Gemma4ForConditionalGeneration: 60-layer dense text decoder, hidden size 5376, MLP width 21504, vocabulary 262144, 262144 positions, tied word embeddings, 50 sliding and 10 full-attention layers. Includes a 27-layer vision encoder; audio_config is null."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/google/gemma-4-31B-it/resolve/842da3794eaa0b77d5f08bae87a17459d91ff475/model.safetensors.index.json",
+      "title": "Gemma 4 31B IT tensor index",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Maps 1188 tensors to two BF16 shards. total_size is 62546177752 bytes. metadata.total_parameters is 32682372656, which exceeds the Transformers parameter-only count (31,273,086,512) by exactly the tied 1409286144-element token embedding; it is not the unique full-model total."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/google/gemma-4-31B-it/resolve/842da3794eaa0b77d5f08bae87a17459d91ff475/model-00001-of-00002.safetensors",
+      "title": "Gemma 4 31B IT first safetensors header",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Read only bytes 0-7 and 8-136903 via HTTP 206 Range requests. The 136896-byte JSON header contains 1009 tensors; combined with shard 2, every indexed tensor occurs exactly once. No weight payload downloaded."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/google/gemma-4-31B-it/resolve/842da3794eaa0b77d5f08bae87a17459d91ff475/model-00002-of-00002.safetensors",
+      "title": "Gemma 4 31B IT second safetensors header",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Read only bytes 0-7 and 8-23591 via HTTP 206 Range requests. The 23584-byte JSON header contains 179 tensors. Both headers sum to 31273088876 BF16 elements: text 30697345340, vision tower 569550384, vision projection 6193152."
+    },
+    {
+      "id": "s6",
+      "url": "https://github.com/huggingface/transformers/blob/a672eb5f474b8b30173e9f96eab66adf292da635/src/transformers/models/gemma4/modeling_gemma4.py",
+      "title": "Gemma 4 Transformers implementation",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Ties lm_head.weight to model.language_model.embed_tokens.weight. Registers vision std_bias/std_scale as feature-standardization buffers (1152 each) and layer_scalar as a buffer. Remaining indexed matrix, embedding and norm weights are model parameters; no quantization scale tensors occur in this BF16 checkpoint."
+    },
+    {
+      "id": "s7",
+      "url": "https://github.com/google-deepmind/gemma/blob/9e1f74131ba9d45e5fe6ae7bb3941d9f2abb39c3/gemma/gm/nn/gemma4/_modules.py",
+      "title": "Google Gemma 4 transformer blocks",
+      "publisher": "Google DeepMind",
+      "accessed": true,
+      "evidence": "Block creates skip_scale with self.param and multiplies the complete layer output by it. The corresponding 60 layer scalars are stored in the Flax params collection, unlike the buffer classification in Transformers; this alone does not establish their optimization history."
+    },
+    {
+      "id": "s8",
+      "url": "https://github.com/huggingface/transformers/blob/a672eb5f474b8b30173e9f96eab66adf292da635/src/transformers/models/gemma4/convert_gemma4_weights.py",
+      "title": "Gemma 4 checkpoint conversion",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Explicitly maps Google skip_scale to layer_scalar and vision standardization bias/scale to std_bias/std_scale, connecting the original model parameters with the checkpoint names."
+    },
+    {
+      "id": "s9",
+      "url": "https://arxiv.org/html/2607.02770v1",
+      "title": "Gemma 4 Technical Report",
+      "publisher": "Google DeepMind",
+      "accessed": true,
+      "evidence": "July 2026 report confirms decoder-only Transformers, dense 31B, and separate approximate counts: 1410M embedder, 29290M einsums, 550M vision encoder and 500M optional drafter. The 30.7B text figure is not the complete multimodal checkpoint. Does not give a separate active count for 31B."
+    },
+    {
+      "id": "s10",
+      "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/",
+      "title": "Gemma 4 launch announcement",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Dated April 2, 2026; announces release of 31B Dense and links directly to the exact google/gemma-4-31B-it checkpoint. Announces available BF16 weights, Apache 2.0, video/image processing, reasoning and function calling."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/api/models/google/gemma-4-31B-it/commits/main",
+      "title": "Gemma 4 31B IT repository history",
+      "publisher": "Google / Hugging Face",
+      "accessed": true,
+      "evidence": "The earliest returned commit is 419b2efe421994fdfd3394e621983d4cc511cd4f, dated 2026-04-02T10:52:51Z and titled Preparing for release!; this exact variant corroborates the April 2 launch. Repository creation on March 11 does not establish public availability."
+    },
+    {
+      "id": "s12",
+      "url": "https://ai.google.dev/gemma/docs/releases",
+      "title": "Gemma release chronology",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Current chronology says March 31, 2026 for Gemma 4 31B and other initial sizes. This conflicts with the contemporaneous April 2 launch linking the exact IT checkpoint and its April 2 release-preparation commit; the chronology alone does not establish an earlier public release for this variant."
+    },
+    {
+      "id": "s13",
+      "url": "https://ai.google.dev/gemma/docs/core/model_card_4",
+      "title": "Gemma 4 model card",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "31B column reports dense, 60 layers, 30.7B, 256K context, text/image and no audio, with approximately 550M vision encoder separately. Family supports configurable thinking and native function calling."
+    },
+    {
+      "id": "s14",
+      "url": "https://ai.google.dev/gemma/docs/mtp/mtp",
+      "title": "Gemma 4 multi-token prediction documentation",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Lists google/gemma-4-31B-it among target models and constructs its separate -assistant checkpoint name. MTP requires loading a second model; no drafter tensors belong to the inspected target checkpoint."
+    },
+    {
+      "id": "s15",
+      "url": "https://huggingface.co/google/gemma-4-31B-it/resolve/842da3794eaa0b77d5f08bae87a17459d91ff475/processor_config.json",
+      "title": "Gemma 4 31B IT processor configuration",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Contains Gemma4VideoProcessor with frame sampling as well as Gemma4ImageProcessor, corroborating exact-model video support. Shared audio preprocessing metadata does not override the absent audio model and explicit no-audio model card."
+    },
+    {
+      "id": "s16",
+      "url": "https://github.com/google-deepmind/gemma/blob/9e1f74131ba9d45e5fe6ae7bb3941d9f2abb39c3/gemma/gm/nn/gemma4/vision/_layers.py",
+      "title": "Google Gemma 4 vision standardization",
+      "publisher": "Google DeepMind",
+      "accessed": true,
+      "evidence": "Standardize applies (x - bias) * scale. Google represents these arrays in the Flax params collection; Transformers distinguishes them as standardization buffers. These 2304 values are separated in the accounting; their learning history is not independently established."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Gemma 4 31B IT",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Exact google/gemma-4-31B-it instruction-tuned variant; 31B is its nominal size label."
+    },
+    "developer": {
+      "value": "Google",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s10"
+      ],
+      "note": "Google DeepMind is the author; retain the catalog developer normalization Google."
+    },
+    "family": {
+      "value": "gemma",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s9"
+      ],
+      "note": "Gemma 4 belongs to the Gemma model family."
+    },
+    "release_date": {
+      "value": "2026-04-02",
+      "status": "verified",
+      "source_ids": [
+        "s10",
+        "s11",
+        "s12"
+      ],
+      "note": "Retain April 2: contemporaneous launch explicitly links this IT checkpoint and its earliest release-preparation commit is April 2. Current family chronology says March 31; recorded as a source conflict rather than treating repository creation or a later chronology as proof of earlier public availability."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4",
+        "s5",
+        "s10"
+      ],
+      "note": "Official complete BF16 target checkpoint is publicly accessible."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s10"
+      ],
+      "note": "Exact checkpoint card declares apache-2.0; launch confirms Apache 2.0."
+    },
+    "parameters_b": {
+      "value": 31.2731,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9",
+        "s14",
+        "s16"
+      ],
+      "note": "Complete unique target-model count rounded to 0.0001B, robust to small scalar/buffer classification differences. Header elements: 31,273,088,876 = text 30,697,345,340 + vision tower 569,550,384 + projection 6,193,152. Transformers classifies 60 block scalars and 2,304 vision standardization values as buffers, leaving 31,273,086,512 nn.Parameter elements. Google stores corresponding scalars/standardization arrays in Flax params; their optimization history is not established, so no exact learned count is asserted. Both conventions round to 31.2731B. Tied token embedding/output head counted once. Index total_parameters exceeds the Transformers parameter-only count by the 1,409,286,144-element tied table; total_size/2 agrees with headers. Includes the complete vision component. Separate optional MTP assistant excluded. The official 30.7B text figure omits the vision component."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s9",
+        "s13"
+      ],
+      "note": "No separately defined active-parameter count is reported for the dense 31B model. Do not copy either text or multimodal total into a per-token active count. Vision computation also depends on input modality."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s9",
+        "s13"
+      ],
+      "note": "Dense decoder-only text Transformer with 60 layers (5 local to 1 global attention), tied embeddings and a separate vision Transformer encoder plus projection; not MoE."
+    },
+    "context_window": {
+      "value": 262144,
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Exact text max_position_embeddings; model card rounds this to 256K."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s10",
+        "s13",
+        "s15"
+      ],
+      "note": "Exact 31B IT video example and video processor establish video input via sampled image frames. No native audio model: audio_config is null and card says No Audio."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s9"
+      ],
+      "note": "Configurable thinking mode is explicitly documented for instruction-tuned Gemma 4, including the 31B model."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s10",
+        "s13"
+      ],
+      "note": "Native function calling is a source-reported capability; no local inference test is claimed."
+    },
+    "description": {
+      "value": "Instruction-tuned dense Gemma 4 model for text generation from text, images and video, with configurable thinking and function calling.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s9",
+        "s15"
+      ],
+      "note": "Plain description of the exact IT model without performance superlatives."
+    }
+  },
+  "patch": {
+    "license": "Apache-2.0",
+    "parameters_b": 31.2731,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "modalities": {
+      "input": [
+        "text",
+        "image",
+        "video"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "description": "Instruction-tuned dense Gemma 4 model for text generation from text, images and video, with configurable thinking and function calling.",
+    "source_url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Official Gemma 4 31B IT card",
+        "url": "https://huggingface.co/google/gemma-4-31B-it/blob/842da3794eaa0b77d5f08bae87a17459d91ff475/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "Official configuration",
+        "url": "https://huggingface.co/google/gemma-4-31B-it/resolve/842da3794eaa0b77d5f08bae87a17459d91ff475/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Official tensor index",
+        "url": "https://huggingface.co/google/gemma-4-31B-it/resolve/842da3794eaa0b77d5f08bae87a17459d91ff475/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Official checkpoint shard 1 header",
+        "url": "https://huggingface.co/google/gemma-4-31B-it/resolve/842da3794eaa0b77d5f08bae87a17459d91ff475/model-00001-of-00002.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Official checkpoint shard 2 header",
+        "url": "https://huggingface.co/google/gemma-4-31B-it/resolve/842da3794eaa0b77d5f08bae87a17459d91ff475/model-00002-of-00002.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Google Gemma 4 transformer implementation",
+        "url": "https://github.com/google-deepmind/gemma/blob/9e1f74131ba9d45e5fe6ae7bb3941d9f2abb39c3/gemma/gm/nn/gemma4/_modules.py",
+        "type": "primary"
+      },
+      {
+        "label": "Transformers Gemma 4 implementation",
+        "url": "https://github.com/huggingface/transformers/blob/a672eb5f474b8b30173e9f96eab66adf292da635/src/transformers/models/gemma4/modeling_gemma4.py",
+        "type": "primary"
+      },
+      {
+        "label": "Gemma 4 checkpoint conversion",
+        "url": "https://github.com/huggingface/transformers/blob/a672eb5f474b8b30173e9f96eab66adf292da635/src/transformers/models/gemma4/convert_gemma4_weights.py",
+        "type": "primary"
+      },
+      {
+        "label": "Gemma 4 technical report",
+        "url": "https://arxiv.org/html/2607.02770v1",
+        "type": "primary"
+      },
+      {
+        "label": "Gemma 4 launch announcement",
+        "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/",
+        "type": "primary"
+      },
+      {
+        "label": "Exact checkpoint release history",
+        "url": "https://huggingface.co/api/models/google/gemma-4-31B-it/commits/main",
+        "type": "primary"
+      },
+      {
+        "label": "Google release chronology (conflicting date)",
+        "url": "https://ai.google.dev/gemma/docs/releases",
+        "type": "primary"
+      },
+      {
+        "label": "Separate MTP assistant documentation",
+        "url": "https://ai.google.dev/gemma/docs/mtp/mtp",
+        "type": "primary"
+      },
+      {
+        "label": "Official processor configuration",
+        "url": "https://huggingface.co/google/gemma-4-31B-it/resolve/842da3794eaa0b77d5f08bae87a17459d91ff475/processor_config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Google vision standardization implementation",
+        "url": "https://github.com/google-deepmind/gemma/blob/9e1f74131ba9d45e5fe6ae7bb3941d9f2abb39c3/gemma/gm/nn/gemma4/vision/_layers.py",
+        "type": "primary"
+      }
+    ],
+    "notes": "Full unique multimodal target checkpoint is approximately 31.2731B parameters; the official 30.7B figure covers the text backbone. Tied output/token embedding counted once; optional separate MTP assistant excluded. Active count is not separately reported. Video is processed as image frames; no native audio. Retain April 2, 2026 for the exact IT public launch; current family chronology instead lists March 31."
+  },
+  "summary": "Replaces nominal 31B with complete checkpoint-derived ~31.2731B; verifies dense architecture and Apache-2.0; adds documented video input and a plain description. All 1188 tensors reconciled from two headers without weight downloads and tied head counted once. Rounded total is invariant to the unresolved learning history of 60 block scalars and 2304 vision standardization values. Later technical report confirms the text/vision/drafter distinction. Active parameters remain undisclosed. April 2 is supported for the exact IT public release, with the conflicting March 31 family chronology documented."
+}

@@ -10775,20 +10775,21 @@
     "developer": "Google",
     "developer_id": "google",
     "family": "gemma",
-    "description": "Largest Gemma 4 instruction model for open, self-hosted chat and reasoning",
+    "description": "Instruction-tuned dense Gemma 4 model for text generation from text, images and video, with configurable thinking and function calling.",
     "release_date": "2026-04-02",
     "date_precision": "day",
     "open_weights": true,
-    "license": null,
-    "parameters_b": 31,
+    "license": "Apache-2.0",
+    "parameters_b": 31.2731,
     "active_parameters_b": null,
-    "parameters_source": "model_name",
-    "architecture": null,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
     "context_window": 262144,
     "modalities": {
       "input": [
         "text",
-        "image"
+        "image",
+        "video"
       ],
       "output": [
         "text"
@@ -10796,9 +10797,84 @@
     },
     "reasoning": true,
     "tool_call": true,
-    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/google/gemma-4-31b-it.toml",
-    "source_type": "catalog",
+    "source_url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/",
+    "source_type": "primary",
     "sources": [
+      {
+        "label": "Official Gemma 4 31B IT card",
+        "url": "https://huggingface.co/google/gemma-4-31B-it/blob/842da3794eaa0b77d5f08bae87a17459d91ff475/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "Official configuration",
+        "url": "https://huggingface.co/google/gemma-4-31B-it/resolve/842da3794eaa0b77d5f08bae87a17459d91ff475/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Official tensor index",
+        "url": "https://huggingface.co/google/gemma-4-31B-it/resolve/842da3794eaa0b77d5f08bae87a17459d91ff475/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Official checkpoint shard 1 header",
+        "url": "https://huggingface.co/google/gemma-4-31B-it/resolve/842da3794eaa0b77d5f08bae87a17459d91ff475/model-00001-of-00002.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Official checkpoint shard 2 header",
+        "url": "https://huggingface.co/google/gemma-4-31B-it/resolve/842da3794eaa0b77d5f08bae87a17459d91ff475/model-00002-of-00002.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Google Gemma 4 transformer implementation",
+        "url": "https://github.com/google-deepmind/gemma/blob/9e1f74131ba9d45e5fe6ae7bb3941d9f2abb39c3/gemma/gm/nn/gemma4/_modules.py",
+        "type": "primary"
+      },
+      {
+        "label": "Transformers Gemma 4 implementation",
+        "url": "https://github.com/huggingface/transformers/blob/a672eb5f474b8b30173e9f96eab66adf292da635/src/transformers/models/gemma4/modeling_gemma4.py",
+        "type": "primary"
+      },
+      {
+        "label": "Gemma 4 checkpoint conversion",
+        "url": "https://github.com/huggingface/transformers/blob/a672eb5f474b8b30173e9f96eab66adf292da635/src/transformers/models/gemma4/convert_gemma4_weights.py",
+        "type": "primary"
+      },
+      {
+        "label": "Gemma 4 technical report",
+        "url": "https://arxiv.org/html/2607.02770v1",
+        "type": "primary"
+      },
+      {
+        "label": "Gemma 4 launch announcement",
+        "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/",
+        "type": "primary"
+      },
+      {
+        "label": "Exact checkpoint release history",
+        "url": "https://huggingface.co/api/models/google/gemma-4-31B-it/commits/main",
+        "type": "primary"
+      },
+      {
+        "label": "Google release chronology (conflicting date)",
+        "url": "https://ai.google.dev/gemma/docs/releases",
+        "type": "primary"
+      },
+      {
+        "label": "Separate MTP assistant documentation",
+        "url": "https://ai.google.dev/gemma/docs/mtp/mtp",
+        "type": "primary"
+      },
+      {
+        "label": "Official processor configuration",
+        "url": "https://huggingface.co/google/gemma-4-31B-it/resolve/842da3794eaa0b77d5f08bae87a17459d91ff475/processor_config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Google vision standardization implementation",
+        "url": "https://github.com/google-deepmind/gemma/blob/9e1f74131ba9d45e5fe6ae7bb3941d9f2abb39c3/gemma/gm/nn/gemma4/vision/_layers.py",
+        "type": "primary"
+      },
       {
         "label": "Models.dev record",
         "url": "https://github.com/anomalyco/models.dev/blob/dev/models/google/gemma-4-31b-it.toml",
@@ -10813,7 +10889,13 @@
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
+    "upstream_present": true,
+    "notes": "Full unique multimodal target checkpoint is approximately 31.2731B parameters; the official 30.7B figure covers the text backbone. Tied output/token embedding counted once; optional separate MTP assistant excluded. Active count is not separately reported. Video is processed as image frames; no native audio. Retain April 2, 2026 for the exact IT public launch; current family chronology instead lists March 31.",
+    "field_status": {
+      "active_parameters_b": "undisclosed"
+    },
+    "audited_at": "2026-10-26T20:23:56.464121Z",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/224.json"
   },
   {
     "id": "google/gemma-4-E2B-it",
