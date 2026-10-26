@@ -1,0 +1,360 @@
+{
+  "index": 178,
+  "model_id": "deepseek/deepseek-v4-flash-0423",
+  "reviewed_at": "2026-10-26T19:12:43.852629+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://www.deepseek.com/en/news/v4-preview/",
+      "title": "DeepSeek-V4 Preview announcement, April 24, 2026",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Dated April 24 announcement explicitly launches the V4 preview and same-day API/open weights, including Flash with advertised 284B total and 13B active parameters and thinking/non-thinking modes."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/blob/60d8d70770c6776ff598c94bb586a859a38244f1/README.md",
+      "title": "Pinned DeepSeek-V4-Flash preview model card",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Identifies the preview Flash checkpoint, its MoE architecture, nominal 284B/13B specification, million-token context, reasoning modes and mixed FP4/FP8 weights. Explicitly applies MIT to repository and model weights."
+    },
+    {
+      "id": "s3",
+      "url": "https://openrouter.ai/blog/insights/deepseek-v4-vision/",
+      "title": "OpenRouter: exact V4 checkpoint names and modality mapping",
+      "publisher": "OpenRouter",
+      "accessed": true,
+      "evidence": "Explicitly identifies the two 0423 models as the original April 2026 V4 releases, mapping Flash 0423 to deepseek/deepseek-v4-flash; distinguishes July 31 and later vision/V4.1 checkpoints. Lists Flash 0423 as text input/output."
+    },
+    {
+      "id": "s4",
+      "url": "https://openrouter.ai/deepseek/deepseek-v4-flash-20260423/",
+      "title": "OpenRouter dated DeepSeek V4 Flash 0423 model page",
+      "publisher": "OpenRouter",
+      "accessed": true,
+      "evidence": "The provider page calls this DeepSeek V4 Flash 0423 and lists release April 24, 2026. Used for the provider label and identity, not as the authority for architecture or parameter counting."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/resolve/60d8d70770c6776ff598c94bb586a859a38244f1/config.json",
+      "title": "Pinned DeepSeek-V4-Flash configuration",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "DeepseekV4ForCausalLM configuration has 43 main layers, 4096 hidden size, 256 routed experts with top-6 routing plus one shared expert, one next-token-prediction layer, FP4 experts, untied embeddings and max_position_embeddings 1048576."
+    },
+    {
+      "id": "s6",
+      "url": "https://arxiv.org/html/2606.19348v1",
+      "title": "DeepSeek-V4 technical report",
+      "publisher": "DeepSeek-AI",
+      "accessed": true,
+      "evidence": "The report concerns the preview, not July GA. Section 4.2.1 details Flash Transformer/MoE and MTP setup with nominal 284B/13B; sections 2 and 5 describe CSA/HCA, mHC and reasoning/tool capabilities. Section 5.2.1 describes FP32 master weights quantized to FP4."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/resolve/60d8d70770c6776ff598c94bb586a859a38244f1/model.safetensors.index.json",
+      "title": "Pinned preview tensor index and all 46 indexed safetensors headers",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Independently read all 46 headers with bounded HTTP 206 byte ranges and matched all 69187 tensor names to the index. Raw storage elements total 158069433298. After unpacking FP4 and excluding quantization scales/fixed routing indices: 290942289362 logical parameters = 284332240471 main + 6610048891 MTP. No full weight payload was fetched."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/resolve/60d8d70770c6776ff598c94bb586a859a38244f1/inference/model.py",
+      "title": "Pinned official DeepSeek-V4 inference implementation",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Linear distinguishes packed FP4 weights and their separate scales; Gate marks token-to-expert indices requires_grad=False. MTP shares the main embedding/output head; MTP projections/norms/hyper-connections are separate. Learned mHC scale parameters are distinct from quantization scales."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/resolve/60d8d70770c6776ff598c94bb586a859a38244f1/inference/convert.py",
+      "title": "Pinned official DeepSeek-V4 checkpoint conversion code",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Conversion unpacks each I8 expert element into two FP4 values, combining separate scales. It skips any serialized MTP shared embedding/head copies; the inspected preview headers have no such duplicates."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/resolve/60d8d70770c6776ff598c94bb586a859a38244f1/encoding/README.md",
+      "title": "Pinned DeepSeek-V4 conversation and tool encoding",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Documents text messages/output, chat and thinking modes, interleaved reasoning retention, and DSML tool-call schema. This is shipped inside the preview checkpoint repository."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/raw/main/LICENSE",
+      "title": "DeepSeek-V4-Flash MIT license",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "MIT license text; the model card explicitly applies it to the weights."
+    },
+    {
+      "id": "s12",
+      "url": "https://api-docs.deepseek.com/updates/",
+      "title": "DeepSeek API change log",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "July 31 updates the stable Flash API name to the GA model; September 10 retires V4 Flash and routes its old name to V4.1 Flash. Those later service aliases must not replace the April checkpoint specifications."
+    },
+    {
+      "id": "s13",
+      "url": "https://raw.githubusercontent.com/anomalyco/models.dev/dev/models/deepseek/deepseek-v4-flash-0423.toml",
+      "title": "Models.dev exact 0423 record and source mapping",
+      "publisher": "Models.dev",
+      "accessed": true,
+      "evidence": "The exact catalog entry points to DeepSeek preview announcement and the unsuffixed original Flash weight repository. Its April 23 date and decimal one-million context conflict with the primary launch date/configuration; used only as an identity lead."
+    },
+    {
+      "id": "s14",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/commits/main",
+      "title": "DeepSeek-V4-Flash official repository history",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Repository records April 24 Release DeepSeek-V4 commit and earlier staging/upload commits. Earlier repository creation/upload timestamps do not establish public availability; later history updates reports/config/inference code, not a July checkpoint substitution."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "DeepSeek V4 Flash 0423",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s13"
+      ],
+      "note": "Retain the documented provider/catalog snapshot label. DeepSeek calls the released checkpoint DeepSeek-V4-Flash (preview); 0423 does not establish its public-release day."
+    },
+    "developer": {
+      "value": "DeepSeek",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s11"
+      ],
+      "note": "Official developer announcement, model repository and license identify DeepSeek."
+    },
+    "family": {
+      "value": "deepseek-flash",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Retain the normalized Flash family key. The architecture and checkpoint examined here belong specifically to the V4 preview generation."
+    },
+    "release_date": {
+      "value": "2026-04-24",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s14"
+      ],
+      "note": "Correct April 23 to the explicit public launch date. The 0423 label and earlier repository upload timestamps do not override the dated April 24 announcement."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s7"
+      ],
+      "note": "The announcement and exact public checkpoint establish distributed model weights."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s11"
+      ],
+      "note": "Exact preview card explicitly licenses both repository and weights under MIT."
+    },
+    "parameters_b": {
+      "value": 290.942289362,
+      "status": "verified",
+      "source_ids": [
+        "s7",
+        "s8",
+        "s9",
+        "s6"
+      ],
+      "note": "Complete logical checkpoint count, in billions: 284.332240471 main + 6.610048891 unique MTP. Expand 141733920768 packed I8 expert elements twofold; exclude 8858737664 quantization-scale elements and 2327040 fixed routing indices. Keep learned mHC scales and 10496 trained routing-bias entries. The advertised 284B is the rounded main-model count, not the complete checkpoint."
+    },
+    "active_parameters_b": {
+      "value": 13,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s6"
+      ],
+      "note": "Developer-reported nominal parameters activated per token for the main model. Not an exact all-module count and not a total including additional MTP execution."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s5",
+        "s6"
+      ],
+      "note": "Decoder Transformer with MoE in every main block, six selected routed experts plus one shared expert; hybrid CSA/HCA attention and mHC. The checkpoint includes one MTP layer."
+    },
+    "context_window": {
+      "value": 1000000,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5"
+      ],
+      "note": "Advertised one-million-token context, consistent with the original preview record. Configuration1048576 positions is a separate ceiling; the provider label does not establish a different underlying model."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s5",
+        "s10"
+      ],
+      "note": "The exact April checkpoint is text-only; no later Vision-Exp or V4.1 capabilities are transferred."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s10"
+      ],
+      "note": "The preview supports thinking and non-thinking modes; its own encoding implements reasoning content."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s10",
+        "s6"
+      ],
+      "note": "Official preview encoding and report document DSML tool invocation and interleaved thinking."
+    },
+    "description": {
+      "value": "April 2026 DeepSeek V4 Flash preview: a text-only MoE language model with hybrid CSA/HCA attention, thinking and non-thinking modes, tool calling, and an advertised 1M-token context.",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s5",
+        "s6",
+        "s10"
+      ],
+      "note": "Replace promotional economy wording with verified preview identity, architecture and capabilities."
+    }
+  },
+  "patch": {
+    "release_date": "2026-04-24",
+    "date_precision": "day",
+    "parameters_b": 290.942289362,
+    "active_parameters_b": 13,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "context_window": 1000000,
+    "description": "April 2026 DeepSeek V4 Flash preview: a text-only MoE language model with hybrid CSA/HCA attention, thinking and non-thinking modes, tool calling, and an advertised 1M-token context.",
+    "source_url": "https://www.deepseek.com/en/news/v4-preview/",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "DeepSeek-V4 Preview announcement, April 24, 2026",
+        "url": "https://www.deepseek.com/en/news/v4-preview/",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned DeepSeek-V4-Flash preview model card",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/blob/60d8d70770c6776ff598c94bb586a859a38244f1/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "OpenRouter: exact V4 checkpoint names and modality mapping",
+        "url": "https://openrouter.ai/blog/insights/deepseek-v4-vision/",
+        "type": "primary"
+      },
+      {
+        "label": "OpenRouter dated DeepSeek V4 Flash 0423 model page",
+        "url": "https://openrouter.ai/deepseek/deepseek-v4-flash-20260423/",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned DeepSeek-V4-Flash configuration",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/resolve/60d8d70770c6776ff598c94bb586a859a38244f1/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeek-V4 technical report",
+        "url": "https://arxiv.org/html/2606.19348v1",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned preview tensor index and all 46 indexed safetensors headers",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/resolve/60d8d70770c6776ff598c94bb586a859a38244f1/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned official DeepSeek-V4 inference implementation",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/resolve/60d8d70770c6776ff598c94bb586a859a38244f1/inference/model.py",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned official DeepSeek-V4 checkpoint conversion code",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/resolve/60d8d70770c6776ff598c94bb586a859a38244f1/inference/convert.py",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned DeepSeek-V4 conversation and tool encoding",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/resolve/60d8d70770c6776ff598c94bb586a859a38244f1/encoding/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeek-V4-Flash MIT license",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/raw/main/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeek API change log",
+        "url": "https://api-docs.deepseek.com/updates/",
+        "type": "primary"
+      },
+      {
+        "label": "Models.dev exact 0423 record and source mapping",
+        "url": "https://raw.githubusercontent.com/anomalyco/models.dev/dev/models/deepseek/deepseek-v4-flash-0423.toml",
+        "type": "catalog"
+      },
+      {
+        "label": "DeepSeek-V4-Flash official repository history",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/commits/main",
+        "type": "primary"
+      }
+    ],
+    "notes": "The 0423 label maps to the original April V4 Flash preview; official public release was April 24, 2026. Complete checkpoint has 290.942289362B logical parameters: 284.332240471B main plus 6.610048891B unique MTP. Advertised 284B/13B describe the rounded main-model total/activation; quantization metadata and fixed hash indices are excluded. Context is advertised 1M and configured as 1048576. July 31 GA and later V4.1/vision revisions are different checkpoints; the current DeepSeek API stable alias has changed since release. No live endpoint operation is claimed."
+  },
+  "proposed_fields": {
+    "active_parameters_scope": "main",
+    "parameter_components_b": {
+      "main": 284.332240471,
+      "mtp": 6.610048891
+    }
+  },
+  "summary": "Audited all 14 fields for the exact original Flash preview identified as 0423. Corrected public release to April 24 and retained advertised1M context separately from1048576 configured positions; established MoE architecture, complete 290.942289362B checkpoint total and nominal main-model 13B active. Verified MIT/open weights, text-only input/output, reasoning and tools. Exact identity is mapped through the catalog sources and OpenRouter documentation; later GA/V4.1 specifications are excluded."
+}
