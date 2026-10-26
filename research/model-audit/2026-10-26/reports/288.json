@@ -1,0 +1,278 @@
+{
+  "index": 288,
+  "model_id": "meta/opt-1.3b",
+  "reviewed_at": "2026-10-26T21:58:57.340874Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://ai.meta.com/blog/democratizing-access-to-large-scale-language-models-with-opt-175b/",
+      "title": "Democratizing access to large-scale language models with OPT-175B",
+      "publisher": "Meta AI",
+      "accessed": true,
+      "evidence": "Dated May 3, 2022. Explicitly announces full release of smaller OPT baselines including the 1.3-billion-parameter model, alongside restricted research access to OPT-175B."
+    },
+    {
+      "id": "s2",
+      "url": "https://arxiv.org/html/2205.01068v4",
+      "title": "OPT: Open Pre-trained Transformer Language Models",
+      "publisher": "Meta AI authors / arXiv",
+      "accessed": true,
+      "evidence": "Table 1 specifies the 1.3B variant with 24 layers, 32 attention heads and width 2048. Section 2 describes decoder-only Transformers, ReLU and 2048-token training sequences. Appendix D confirms that smaller baselines share the noncommercial model license."
+    },
+    {
+      "id": "s3",
+      "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/main/projects/OPT/README.md",
+      "title": "OPT pretrained model weights",
+      "publisher": "Meta AI / facebookresearch",
+      "accessed": true,
+      "evidence": "Lists OPT-1.3B with its nominal 1.3B size and direct pretrained-weight download, identifies the OPT family as text-trained NLP models, and links the model-specific license."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/facebook/opt-1.3b/raw/3f5c25d0bc631cb57ac65913f76e22c2dfb61d62/config.json",
+      "title": "facebook/opt-1.3b exact checkpoint configuration",
+      "publisher": "Meta AI / Hugging Face repository",
+      "accessed": true,
+      "evidence": "OPTForCausalLM; 24 layers, hidden and word embedding width 2048, FFN width 8192, 32 heads, vocabulary 50272, maximum positions 2048, pre-layer normalization and float16. No quantization configuration."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/facebook/opt-1.3b/resolve/3f5c25d0bc631cb57ac65913f76e22c2dfb61d62/pytorch_model.bin",
+      "title": "facebook/opt-1.3b PyTorch checkpoint tensor metadata",
+      "publisher": "Meta AI / Hugging Face repository",
+      "accessed": true,
+      "evidence": "Read only bytes 0-131071 via HTTP 206; the complete 49,785-byte data.pkl metadata lists 389 FP16 tensor entries. Token embedding and lm_head share storage 0. Deduplication gives 388 tensors and 1,315,758,080 parameters. All shapes match the configuration and implementation; no buffer, packed or quantization-scale tensors are present."
+    },
+    {
+      "id": "s6",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.21.0/src/transformers/models/opt/modeling_opt.py",
+      "title": "OPT PyTorch reference implementation, Transformers v4.21.0",
+      "publisher": "Fairseq authors / Hugging Face",
+      "accessed": true,
+      "evidence": "Implements dense attention and two dense FFN projections with biases, two affine layer norms per block, a final affine decoder layer norm, a two-row positional offset, and tied bias-free output embeddings. Equal hidden/embedding dimensions omit projection adapters."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/facebook/opt-1.3b/raw/main/LICENSE.md",
+      "title": "OPT-175B License Agreement distributed with facebook/opt-1.3b",
+      "publisher": "Meta Platforms, Inc.",
+      "accessed": true,
+      "evidence": "Section 1(a) limits the grant to noncommercial research; Section 2 restricts commercial and production use. This custom model license applies to this checkpoint despite its OPT-175B title."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/facebook/opt-1.3b",
+      "title": "facebook/opt-1.3b model card",
+      "publisher": "Meta AI repository; card text authored by Hugging Face",
+      "accessed": true,
+      "evidence": "Exact checkpoint page describes pretrained-only causal language modeling and text generation. It explicitly attributes card prose to Hugging Face; primary training and release claims were cross-checked against Meta sources. No native reasoning mode or structured tool-call interface is specified."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/api/models/facebook/opt-1.3b",
+      "title": "facebook/opt-1.3b repository metadata",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Repository createdAt is 2022-05-11T08:26:00.000Z, later than the original public release. Lists the publicly accessible PyTorch checkpoint, configuration, tokenizer, license and alternative framework files."
+    },
+    {
+      "id": "s10",
+      "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/main/metaseq/launcher/opt_baselines.py",
+      "title": "OPT baseline training configuration",
+      "publisher": "Meta AI / facebookresearch",
+      "accessed": true,
+      "evidence": "Original OPT baseline launcher sets 2048 sequence length, learned positional embeddings and shared decoder input/output embeddings; its settings corroborate the checkpoint implementation."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "OPT 1.3B",
+      "status": "verified",
+      "source_ids": [
+        "s3"
+      ],
+      "note": "The official weights table names this exact model OPT-1.3B; catalog spacing preserves its identity."
+    },
+    "developer": {
+      "value": "Meta",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Developed and released by Meta AI."
+    },
+    "family": {
+      "value": "opt",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "note": "Open Pre-trained Transformers family; exact configuration model_type is opt."
+    },
+    "release_date": {
+      "value": "2022-05-03",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s9"
+      ],
+      "note": "Meta explicitly released the 1.3B baseline on this date. The May 2 paper submission and May 11 Hub creation are distinct events."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s5",
+        "s9"
+      ],
+      "note": "Official direct checkpoint download is public and its metadata was accessed without authentication. This records weight availability, not unrestricted licensing."
+    },
+    "license": {
+      "value": "OPT non-commercial research license",
+      "status": "verified",
+      "source_ids": [
+        "s7",
+        "s2"
+      ],
+      "note": "Custom OPT model license; the exact checkpoint includes the license titled OPT-175B License Agreement. It is not the implementation repository code license."
+    },
+    "parameters_b": {
+      "value": 1.31575808,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s6",
+        "s10"
+      ],
+      "note": "Exact unique checkpoint count: 50272*2048 token embeddings + 2050*2048 learned positions + 24*(4*2048^2 + 2*2048*8192 + 9*2048 + 8192) decoder parameters + 2*2048 final layer norm = 1,315,758,080. Includes all linear biases and affine norms; tied output embeddings counted once. Every header tensor matches; all are FP16 parameter tensors, with no additional buffers or quantization metadata. Nominal paper/release size is 1.3B."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "note": "The primary sources do not separately define or report an active-parameter count. Dense topology and total parameter metadata do not by themselves establish an active-count convention; retain null."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "note": "Dense decoder-only Transformer: every block has ordinary attention and a two-matrix ReLU FFN; the full checkpoint and implementation contain no expert routers or expert banks."
+    },
+    "context_window": {
+      "value": 2048,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s6"
+      ],
+      "note": "Maximum sequence length is 2048 tokens. The learned positional table has 2050 rows because of the two-row offset; it does not imply a 2050-token context."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s8"
+      ],
+      "note": "Text-token causal language model producing text-token continuations; no other modality encoder or decoder."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s8"
+      ],
+      "note": "Pretrained base completion model with no separate native reasoning mode documented. General benchmark performance or prompted reasoning is not a reasoning-mode flag."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s4",
+        "s6",
+        "s8"
+      ],
+      "note": "Base text-completion checkpoint; no native structured tool-call protocol or instruction/chat interface is specified. Downstream wrappers can supply their own protocols."
+    },
+    "description": {
+      "value": "Open Pretrained Transformer research checkpoint.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Accurately describes the original research model without unsupported performance or capability claims."
+    }
+  },
+  "patch": {
+    "parameters_b": 1.31575808,
+    "parameters_source": "primary_source",
+    "notes": "OPT-1.3B is the nominal size name; the exact checkpoint has 1,315,758,080 unique parameters, counting tied token/output embeddings once and including positional embeddings, biases and layer norms. Active parameters are not separately reported. This is a pretrained text-completion checkpoint with no documented native reasoning mode or tool-call protocol. The May 3, 2022 public release predates its May 11 Hugging Face repository creation. Weights use the custom OPT noncommercial research license.",
+    "sources": [
+      {
+        "label": "Original OPT release announcement",
+        "url": "https://ai.meta.com/blog/democratizing-access-to-large-scale-language-models-with-opt-175b/",
+        "type": "primary"
+      },
+      {
+        "label": "OPT technical report",
+        "url": "https://arxiv.org/html/2205.01068v4",
+        "type": "primary"
+      },
+      {
+        "label": "Official OPT model downloads",
+        "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/main/projects/OPT/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "Exact OPT-1.3B configuration",
+        "url": "https://huggingface.co/facebook/opt-1.3b/raw/3f5c25d0bc631cb57ac65913f76e22c2dfb61d62/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Exact OPT-1.3B checkpoint metadata",
+        "url": "https://huggingface.co/facebook/opt-1.3b/resolve/3f5c25d0bc631cb57ac65913f76e22c2dfb61d62/pytorch_model.bin",
+        "type": "weights"
+      },
+      {
+        "label": "OPT parameter architecture implementation",
+        "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.21.0/src/transformers/models/opt/modeling_opt.py",
+        "type": "primary"
+      },
+      {
+        "label": "OPT model license",
+        "url": "https://huggingface.co/facebook/opt-1.3b/raw/main/LICENSE.md",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "Verified all 14 fields for the exact OPT-1.3B baseline. Refined nominal 1.3B to the complete checkpoint count of 1.31575808B after deduplicating tied embeddings, and documented the count, base-model capability scope and release/Hub-date distinction. Confirmed dense architecture, 2048 context, public weights and custom noncommercial research license. Active parameters remain undisclosed; native reasoning mode and tool calling are not separately documented for the base checkpoint."
+}
