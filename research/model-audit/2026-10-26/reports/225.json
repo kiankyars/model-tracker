@@ -1,0 +1,365 @@
+{
+  "index": 225,
+  "model_id": "google/gemma-4-E2B-it",
+  "reviewed_at": "2026-10-26T20:33:21.427852+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/google/gemma-4-E2B-it/blob/3e22461f65e89153144f8adb70e3b8c2cc9845a7/README.md",
+      "title": "Official Gemma 4 E2B IT model card",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Exact instruction-tuned repository: Apache-2.0, dense E2B, 35 layers, 128K context, text/image/audio/video input, text output, configurable thinking and native function calling. The card calls 2.3B effective and 5.1B with embeddings; it distinguishes effective parameters from the MoE active-parameter metric."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/google/gemma-4-E2B-it/resolve/3e22461f65e89153144f8adb70e3b8c2cc9845a7/config.json",
+      "title": "Exact E2B IT checkpoint configuration",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Gemma4ForConditionalGeneration has a 35-layer dense text backbone, width 1536, 256 per-layer input dimensions, vocabulary 262144, 131072 positions, tied embeddings and 20 KV-sharing layers. Vision has 16 layers at width 768 with standardize=false; audio has 12 layers at width 1024. Clippable linears are enabled in both encoders. No MoE experts or packed quantization configuration."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/google/gemma-4-E2B-it/resolve/3e22461f65e89153144f8adb70e3b8c2cc9845a7/model.safetensors",
+      "title": "Official E2B IT safetensors header",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "HTTP 206 ranges 0-7 and 8-263959 yielded only the 263952-byte JSON header. All 2011 tensors are BF16; shape products agree with byte offsets. The 5,123,178,979 stored elements include 928 clipping thresholds, 35 block scalars and 18,880,512 redundant K/V-projection and K-normalization values in shared layers 15-34. A single 402,653,184-element token/output embedding and separate 2,348,810,240-element PLE table are present; no MTP or duplicate lm_head tensors."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/api/models/google/gemma-4-E2B-it",
+      "title": "Exact E2B IT repository metadata",
+      "publisher": "Google / Hugging Face",
+      "accessed": true,
+      "evidence": "Revision 3e22461f65e89153144f8adb70e3b8c2cc9845a7 reports 5,123,178,051 BF16 parameters. This equals header elements minus 928 clipping thresholds, but still includes 35 block scalars and redundant shared-layer K/V tensors; it is not the current loaded-runtime parameter count. The repository contains one safetensors file and no shard index."
+    },
+    {
+      "id": "s5",
+      "url": "https://github.com/huggingface/transformers/blob/a672eb5f474b8b30173e9f96eab66adf292da635/src/transformers/models/gemma4/modeling_gemma4.py",
+      "title": "Pinned Gemma 4 Transformers implementation",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "ClippableLinear registers activation thresholds as buffers; decoder layer_scalar is also a buffer. Audio per_dim_scale, normalization weights and vision position embeddings are parameters. KV-sharing layers have no K/V projections or K-norm, and loading explicitly ignores those checkpoint entries. Input/output embeddings are tied. Fixed positional frequencies and embedding scales are nonpersistent buffers."
+    },
+    {
+      "id": "s6",
+      "url": "https://github.com/huggingface/transformers/blob/a672eb5f474b8b30173e9f96eab66adf292da635/src/transformers/models/gemma4/convert_gemma4_weights.py",
+      "title": "Pinned Gemma 4 checkpoint converter",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Exact E2B configuration specifies 20 shared KV layers and 35 total layers. Conversion maps skip_scale to layer_scalar, copies token embeddings directly, reshapes PLE without adding rows, maps clipping thresholds separately from linear weights, and aliases lm_head to the token embedding. BF16 conversion adds no vocabulary padding; assistant/MTP conversion is separate."
+    },
+    {
+      "id": "s7",
+      "url": "https://github.com/google-deepmind/gemma/blob/9e1f74131ba9d45e5fe6ae7bb3941d9f2abb39c3/gemma/gm/nn/gemma4/_modules.py",
+      "title": "Google Gemma 4 attention and transformer blocks",
+      "publisher": "Google DeepMind",
+      "accessed": true,
+      "evidence": "Google JAX stores skip_scale with self.param, unlike Transformers buffer registration; this does not establish historical optimization. Attention notes that checkpoints retain K/V projections for shared layers. It calculates those values and then overwrites them with the shared cache, establishing that these retained tensors do not affect the corresponding layer output."
+    },
+    {
+      "id": "s8",
+      "url": "https://github.com/google-deepmind/gemma/blob/9e1f74131ba9d45e5fe6ae7bb3941d9f2abb39c3/gemma/gm/nn/gemma4/_gemma4.py",
+      "title": "Google exact Gemma 4 E2B configuration",
+      "publisher": "Google DeepMind",
+      "accessed": true,
+      "evidence": "Gemma4_E2B specifies 35 layers, hidden width 1536, per-layer input width 256, shared-layer fraction 20/35, four local layers per global layer, and separate audio/vision encoders. Global K and V are not tied for E2B; both redundant matrices are excluded in shared layers."
+    },
+    {
+      "id": "s9",
+      "url": "https://arxiv.org/html/2607.02770v1",
+      "title": "Gemma 4 Technical Report",
+      "publisher": "Google DeepMind",
+      "accessed": true,
+      "evidence": "The later report describes dense E2B as 2.3B effective out of approximately 5B total. Its rounded component table separately lists audio, vision, token embeddings, PLE, einsum weights and a 76M optional drafter. Only the MoE variant has an explicitly activated-parameter metric. Per-block scalars stabilize fp16 inference, but their optimization history is unspecified."
+    },
+    {
+      "id": "s10",
+      "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/",
+      "title": "Gemma 4 launch announcement",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Dated April 2, 2026 and announces introduction/release that day. Its E2B link redirects from gg-hf-gg/gemma-4-E2B-it to the exact google/gemma-4-E2B-it repository. It confirms open BF16 weights, Apache 2.0, multimodal inputs, thinking and function calling. The effective inference-footprint language does not define an exact E2B per-token active count."
+    },
+    {
+      "id": "s11",
+      "url": "https://ai.google.dev/gemma/docs/releases",
+      "title": "Gemma release chronology",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "The current chronology dates the initial Gemma 4 sizes, including E2B, to March 31, 2026, conflicting with the contemporaneous April 2 announcement. MTP is listed separately on April 16. The earlier chronology entry is recorded as a conflict rather than proof of this exact checkpoint being public on March 31."
+    },
+    {
+      "id": "s12",
+      "url": "https://huggingface.co/api/models/google/gemma-4-E2B-it/commits/main",
+      "title": "Exact E2B IT repository release history",
+      "publisher": "Google / Hugging Face",
+      "accessed": true,
+      "evidence": "Earliest returned commit 4742fe843cc01b9aed62122f6e0ddd13ea48b3d3 is titled Preparing for release! and dated 2026-04-02T10:53:02Z. This corroborates the contemporaneous announcement; repository creation/upload dates alone do not establish public availability."
+    },
+    {
+      "id": "s13",
+      "url": "https://ai.google.dev/gemma/docs/mtp/mtp",
+      "title": "Gemma 4 multi-token prediction documentation",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Explicitly uses google/gemma-4-E2B-it as the target and google/gemma-4-E2B-it-assistant as a separate lightweight drafter, requiring two loaded models. The assistant is excluded from the main model total."
+    },
+    {
+      "id": "s14",
+      "url": "https://huggingface.co/google/gemma-4-E2B-it/resolve/3e22461f65e89153144f8adb70e3b8c2cc9845a7/processor_config.json",
+      "title": "Exact E2B IT processor configuration",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Contains image, audio and video processor configurations; video frame processing corroborates the model card. Native audio/vision model configurations are also present, unlike a shared processor alone."
+    },
+    {
+      "id": "s15",
+      "url": "https://ai.google.dev/gemma/docs/core",
+      "title": "Gemma 4 model overview",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Explains E2B/E4B effective sizes using PLE lookup tables and static-memory requirements, separately from the 26B MoE per-token activated subset. Supports distinguishing complete model size from effective footprint."
+    },
+    {
+      "id": "s16",
+      "url": "https://github.com/google-deepmind/gemma/blob/9e1f74131ba9d45e5fe6ae7bb3941d9f2abb39c3/gemma/gm/nn/gemma4/_transformer.py",
+      "title": "Google Gemma 4 KV-cache sharing execution",
+      "publisher": "Google DeepMind",
+      "accessed": true,
+      "evidence": "The model forwards a prior-layer shared K/V cache to each configured sharing layer. Together with the exact E2B 20/35 sharing configuration and Attention overwrite branch, this corroborates excluding the redundant stored K/V tensors from the operative model."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Gemma 4 E2B IT",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Exact instruction-tuned E2B variant, distinct from pretrained, QAT/mobile and assistant checkpoints."
+    },
+    "developer": {
+      "value": "Google",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s10"
+      ],
+      "note": "The card credits Google DeepMind; retain catalog grouping Google."
+    },
+    "family": {
+      "value": "gemma",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Gemma fourth-generation family."
+    },
+    "release_date": {
+      "value": "2026-04-02",
+      "status": "verified",
+      "source_ids": [
+        "s10",
+        "s11",
+        "s12"
+      ],
+      "note": "Retain the contemporaneous public launch date. The exact checkpoint link and April 2 release-preparation commit corroborate it. Current chronology says March 31; no contemporaneous evidence establishing earlier public availability for this exact IT variant was verified."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s10"
+      ],
+      "note": "Official complete BF16 checkpoint metadata, configuration and header are publicly accessible without authentication."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s10"
+      ],
+      "note": "Exact repository declares apache-2.0 and the launch confirms the license."
+    },
+    "parameters_b": {
+      "value": 5.1043,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9",
+        "s13",
+        "s16"
+      ],
+      "note": "Rounded complete usable-model count for the pinned Transformers architecture, including text, full PLE, audio/vision encoders and both projectors. Header total 5,123,178,979 minus 928 clipping buffers, 35 block scalars and 18,880,512 unused shared-layer K/V-projection and K-norm values gives 5,104,297,504 parameters. Components: text 4,628,569,344 (including PLE 2,348,810,240), vision 167,364,608, audio 304,824,608, vision projector 1,179,648 and audio projector 2,359,296. The 60 unused tensors remain serialized but are ignored by Transformers; their computed outputs are overwritten by Google JAX. Google stores block scalars as params while HF treats them as buffers; the unresolved 35-element convention does not change 5.1043B at 0.0001B precision. Count tied input/output embeddings once and exclude the separate MTP assistant. Stored parameter-like elements before removing redundant K/V total 5,123,178,016, approximately 5.1232B; the card gives nominal 5.1B. No packed quantization elements, vocabulary padding or vision standardization buffers were found."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5",
+        "s9",
+        "s15"
+      ],
+      "note": "Sources call 2.3B an effective size, not a separately defined E2B per-token active count. PLE lookup/caching and modality-specific encoder use make it inappropriate to copy the complete total or effective footprint into this field. Runtime text parameters excluding the full PLE table total 2,279,759,104, which rounds to 2.3B; this is a component/footprint calculation, not a published universal active count."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s8",
+        "s9"
+      ],
+      "note": "Dense decoder-only Transformer with 35 layers, per-layer embeddings, four local-attention layers per global layer and 20 layers sharing earlier K/V cache. Separate vision Transformer and audio encoder; no routed MoE experts."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s1"
+      ],
+      "note": "Exact max_position_embeddings=131072; the card reports 128K tokens."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "audio",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s10",
+        "s14"
+      ],
+      "note": "Add explicitly documented video input, processed as sampled image frames. Native image and audio encoders are present; output is text."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s9"
+      ],
+      "note": "Configurable thinking is explicitly documented for the instruction-tuned family including E2B."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s10"
+      ],
+      "note": "The card reports native function calling. This is a developer-reported capability; no local inference test is claimed."
+    },
+    "description": {
+      "value": "Instruction-tuned dense Gemma 4 model with per-layer embeddings, text, image, audio and video inputs, text output, configurable thinking and function calling.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s8",
+        "s9"
+      ],
+      "note": "Replaces efficiency/deployment marketing with verified structure and capabilities."
+    }
+  },
+  "patch": {
+    "license": "Apache-2.0",
+    "parameters_b": 5.1043,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "modalities": {
+      "input": [
+        "text",
+        "image",
+        "audio",
+        "video"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "description": "Instruction-tuned dense Gemma 4 model with per-layer embeddings, text, image, audio and video inputs, text output, configurable thinking and function calling.",
+    "source_url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Official Gemma 4 E2B IT model card",
+        "url": "https://huggingface.co/google/gemma-4-E2B-it/blob/3e22461f65e89153144f8adb70e3b8c2cc9845a7/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "Exact E2B IT checkpoint configuration",
+        "url": "https://huggingface.co/google/gemma-4-E2B-it/resolve/3e22461f65e89153144f8adb70e3b8c2cc9845a7/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Official E2B IT safetensors header",
+        "url": "https://huggingface.co/google/gemma-4-E2B-it/resolve/3e22461f65e89153144f8adb70e3b8c2cc9845a7/model.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Pinned Gemma 4 Transformers implementation",
+        "url": "https://github.com/huggingface/transformers/blob/a672eb5f474b8b30173e9f96eab66adf292da635/src/transformers/models/gemma4/modeling_gemma4.py",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned Gemma 4 checkpoint converter",
+        "url": "https://github.com/huggingface/transformers/blob/a672eb5f474b8b30173e9f96eab66adf292da635/src/transformers/models/gemma4/convert_gemma4_weights.py",
+        "type": "primary"
+      },
+      {
+        "label": "Google Gemma 4 attention and transformer blocks",
+        "url": "https://github.com/google-deepmind/gemma/blob/9e1f74131ba9d45e5fe6ae7bb3941d9f2abb39c3/gemma/gm/nn/gemma4/_modules.py",
+        "type": "primary"
+      },
+      {
+        "label": "Gemma 4 Technical Report",
+        "url": "https://arxiv.org/html/2607.02770v1",
+        "type": "primary"
+      },
+      {
+        "label": "Gemma 4 launch announcement",
+        "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/",
+        "type": "primary"
+      },
+      {
+        "label": "Gemma release chronology",
+        "url": "https://ai.google.dev/gemma/docs/releases",
+        "type": "primary"
+      },
+      {
+        "label": "Gemma 4 multi-token prediction documentation",
+        "url": "https://ai.google.dev/gemma/docs/mtp/mtp",
+        "type": "primary"
+      }
+    ],
+    "notes": "Approximately 5.1043B parameters in the complete usable model under the pinned Transformers architecture, including PLE, audio, vision and projectors. The checkpoint stores about 5.1232B parameter-like values because it retains 18.88M unused shared-layer K/V and normalization values; the card rounds the total to 5.1B. E2B/2.3B is an effective size, not a separately reported active count. Tied embeddings count once; separate MTP assistant excluded. Video uses image frames. April 2, 2026 is retained from contemporaneous release evidence; the current family chronology says March 31."
+  },
+  "summary": "Verified all 14 fields. Added Apache-2.0, dense architecture, video input and approximately 5.1043B complete usable-model parameters. Header count reconciles buffers, tied embeddings and 60 retained but unused shared-layer K/V tensors. Stored checkpoint size is separately documented as approximately 5.1232B. Effective 2.3B is distinguished from total and an undisclosed active count. April 2 launch retained with March 31 chronology conflict recorded."
+}
