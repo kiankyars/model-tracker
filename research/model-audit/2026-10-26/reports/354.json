@@ -1,0 +1,325 @@
+{
+  "index": 354,
+  "model_id": "moonshotai/kimi-k2",
+  "reviewed_at": "2026-10-26T23:47:34.094255Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/moonshotai/Kimi-K2-Instruct",
+      "title": "Kimi-K2-Instruct model card",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Original July checkpoint, with 0905 identified as a newer version. Card reports nominal 1T total / 32B active, 128K context, MLA, and the Instruct variant for chat and agentic use. It explicitly classifies Instruct as without long thinking and documents native tool calling."
+    },
+    {
+      "id": "s2",
+      "url": "https://arxiv.org/html/2507.20534v2#S2.SS3",
+      "title": "Kimi K2: Open Agentic Intelligence, section 2.3 and Table 2 (v2)",
+      "publisher": "Moonshot AI / Kimi Team",
+      "accessed": true,
+      "evidence": "February 2026 revision of the original July model report retains Table 2 figures of 1.04T total and 32.6B activated parameters. Describes a 61-layer MoE Transformer with MLA, 384 routed experts, eight selected per token, one shared expert and one dense layer. Section 2.5 documents extension to 128K with YaRN."
+    },
+    {
+      "id": "s3",
+      "url": "https://arxiv.org/html/2507.20534v1#S2.SS3",
+      "title": "Kimi K2: Open Agentic Intelligence, original July 2025 technical report",
+      "publisher": "Moonshot AI / Kimi Team",
+      "accessed": true,
+      "evidence": "Original July 28, 2025 report has the same 1.04T / 32.6B Table 2 figures and MoE/MLA architecture. These are specifications of the July K2 release, not September, Thinking, or K2.5."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/moonshotai/Kimi-K2-Instruct/blob/fd1984e2b7a3350dbf7305fe73a4ede25c14de50/config.json",
+      "title": "Original Kimi-K2-Instruct checkpoint configuration",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Config declares kimi_k2 with DeepseekV3ForCausalLM; 61 layers, hidden size 7168, 384 routed plus one shared expert, top-eight routing, 64 attention heads, MLA projection dimensions, max_position_embeddings 131072, YaRN factor 32, and block-FP8 quantization."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/moonshotai/Kimi-K2-Instruct/blob/fd1984e2b7a3350dbf7305fe73a4ede25c14de50/modeling_deepseek.py",
+      "title": "Kimi-K2-Instruct official model implementation",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Code implements a causal Transformer decoder, low-rank attention projections and routed/shared expert MLPs. It declares rotary inv_freq as a buffer. The configuration uses one dense layer followed by MoE layers and untied input/output embeddings."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/moonshotai/Kimi-K2-Instruct/blob/fd1984e2b7a3350dbf7305fe73a4ede25c14de50/model.safetensors.index.json",
+      "title": "Original Kimi-K2-Instruct safetensors checkpoint index",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Public index maps 139644 named tensors across 61 shards. Includes weight_scale_inv tensors and rotary_emb.inv_freq buffers; metadata.total_size is 1029173256720 bytes, not a learned parameter count. No weight shards were downloaded."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/api/models/moonshotai/Kimi-K2-Instruct",
+      "title": "Public metadata for the original Kimi-K2-Instruct repository",
+      "publisher": "Hugging Face / Moonshot AI",
+      "accessed": true,
+      "evidence": "Unauthenticated metadata access confirms private=false and gated=false, creation on 2025-07-11 and public checkpoint files. This verifies public weight availability rather than current hosted API operation."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/moonshotai/Kimi-K2-Instruct/blob/fd1984e2b7a3350dbf7305fe73a4ede25c14de50/LICENSE",
+      "title": "Kimi-K2-Instruct Modified MIT License",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Actual license text grants MIT-style use, modification and distribution rights, with an additional requirement to display Kimi K2 prominently in commercial product interfaces above 100 million monthly active users or US$20 million monthly revenue."
+    },
+    {
+      "id": "s9",
+      "url": "https://www.kimi.com/en/blog/",
+      "title": "Kimi research publication index",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Lists the original Kimi K2 release dated 2025-07-11 separately from Kimi-K2-Instruct-0905 and Kimi K2 Thinking."
+    },
+    {
+      "id": "s10",
+      "url": "https://www.kimi.com/en/blog/kimi-k2",
+      "title": "Kimi K2: Open Agentic Intelligence launch announcement",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Announces Kimi-K2-Base and Kimi-K2-Instruct, identifies Instruct as a reflex model without long thinking, describes agentic coding and tools, and explicitly states that vision is unsupported. Its later 0905 update is clearly separated."
+    },
+    {
+      "id": "s11",
+      "url": "https://github.com/MoonshotAI/Kimi-K2/blob/main/docs/tool_call_guidance.md",
+      "title": "Kimi K2 official tool calling guide",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Uses the exact moonshotai/Kimi-K2-Instruct checkpoint identifier in an end-to-end example with function schemas, tool_calls output, tool-result messages and successive native model tool calls."
+    },
+    {
+      "id": "s12",
+      "url": "https://platform.kimi.ai/docs/models",
+      "title": "Kimi API model list and deprecations",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Separately lists kimi-k2-0711-preview and kimi-k2-0905-preview among deprecated models and states the original K2 series was discontinued on 2026-05-25. This is identity/deprecation evidence, not a basis for transferring current K2-family context limits."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Kimi K2 0711",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s9",
+        "s12"
+      ],
+      "note": "Retain the catalog display name for the original July 11 Kimi-K2-Instruct release; the dated official API identifier is kimi-k2-0711-preview."
+    },
+    "developer": {
+      "value": "Moonshot AI",
+      "status": "verified",
+      "source_ids": [
+        "s8",
+        "s9"
+      ],
+      "note": "Official model repository and license identify Moonshot AI."
+    },
+    "family": {
+      "value": "kimi-k2",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4"
+      ],
+      "note": "Normalized family key for the original Kimi K2 model; checkpoint model_type is kimi_k2."
+    },
+    "release_date": {
+      "value": "2025-07-11",
+      "status": "verified",
+      "source_ids": [
+        "s9",
+        "s7"
+      ],
+      "note": "Official research index explicitly dates the original release July 11, 2025; public repository creation corroborates the day."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "note": "Official model weights are publicly distributed under the accompanying license; metadata and index are accessible without authentication and the repository is ungated."
+    },
+    "license": {
+      "value": "Modified MIT",
+      "status": "verified",
+      "source_ids": [
+        "s8"
+      ],
+      "note": "Verified actual license text, not plain MIT: commercial products exceeding either stated monthly-user or revenue threshold must display Kimi K2 prominently."
+    },
+    "parameters_b": {
+      "value": 1040,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s1",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "note": "Nominal developer-reported total: Table 2 gives 1.04T (1040B), while the model card rounds to 1T. Not a tensor-exact count. Index bytes, FP8 scales and rotary buffers were not counted as learned parameters; no exact checkpoint reconciliation is claimed."
+    },
+    "active_parameters_b": {
+      "value": 32.6,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s1"
+      ],
+      "note": "Nominal activated count from the original-model Table 2, retained in the later revision; card uses the coarser 32B. Not independently derived from checkpoint tensors or equated to total parameters."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s5"
+      ],
+      "note": "Decoder-only Transformer with Multi-head Latent Attention; 61 layers, first layer dense, then 384 routed experts with eight selected plus one shared expert per MoE layer. Catalog category is moe."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4"
+      ],
+      "note": "Original model card and report support 128K context; original config resolves this to 131072 tokens. This is corroborated supported context, not positional capacity alone. The 256K 0905 update is a different checkpoint."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5",
+        "s10"
+      ],
+      "note": "Original release is a text language model with textual chat/tool outputs; launch explicitly excludes vision. No later multimodal sibling specifications are transferred."
+    },
+    "reasoning": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s10"
+      ],
+      "note": "Dedicated long-thinking capability is explicitly absent for this exact original Instruct variant. This does not deny ordinary reasoning ability; the negative is based on affirmative developer classification."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s11"
+      ],
+      "note": "Official exact-checkpoint examples document native function schemas, model-produced tool calls and multi-turn tool-result handling."
+    },
+    "description": {
+      "value": "Original July 2025 Kimi K2 Instruct: an open-weight text MoE Transformer with MLA, 128K context, and native tool calling for chat, coding, and agentic tasks; explicitly released without long thinking.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4",
+        "s10",
+        "s11"
+      ],
+      "note": "Replace generic agentic-reasoning wording with exact original-variant capabilities and explicit non-thinking classification."
+    }
+  },
+  "patch": {
+    "license": "Modified MIT",
+    "parameters_b": 1040,
+    "active_parameters_b": 32.6,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "description": "Original July 2025 Kimi K2 Instruct: an open-weight text MoE Transformer with MLA, 128K context, and native tool calling for chat, coding, and agentic tasks; explicitly released without long thinking.",
+    "source_url": "https://huggingface.co/moonshotai/Kimi-K2-Instruct",
+    "source_type": "primary",
+    "notes": "Counts are nominal: the original Kimi K2 technical report (Table 2, also retained in v2) specifies 1.04T total and 32.6B activated; the card uses 1T/32B. These are not tensor-exact checkpoint counts. FP8 scale tensors, rotary buffers and checkpoint byte sizes were not interpreted as learned parameters. Original July Instruct supports 128K context and native tool calling, without long thinking. Modified MIT includes a prominent-name condition above 100M monthly active users or US$20M monthly revenue. Public weights remain available; the original 0711 hosted API is listed as deprecated.",
+    "sources": [
+      {
+        "label": "Kimi-K2-Instruct model card",
+        "url": "https://huggingface.co/moonshotai/Kimi-K2-Instruct",
+        "type": "primary"
+      },
+      {
+        "label": "Kimi K2: Open Agentic Intelligence, section 2.3 and Table 2 (v2)",
+        "url": "https://arxiv.org/html/2507.20534v2#S2.SS3",
+        "type": "primary"
+      },
+      {
+        "label": "Kimi K2: Open Agentic Intelligence, original July 2025 technical report",
+        "url": "https://arxiv.org/html/2507.20534v1#S2.SS3",
+        "type": "primary"
+      },
+      {
+        "label": "Original Kimi-K2-Instruct checkpoint configuration",
+        "url": "https://huggingface.co/moonshotai/Kimi-K2-Instruct/blob/fd1984e2b7a3350dbf7305fe73a4ede25c14de50/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Kimi-K2-Instruct official model implementation",
+        "url": "https://huggingface.co/moonshotai/Kimi-K2-Instruct/blob/fd1984e2b7a3350dbf7305fe73a4ede25c14de50/modeling_deepseek.py",
+        "type": "primary"
+      },
+      {
+        "label": "Original Kimi-K2-Instruct safetensors checkpoint index",
+        "url": "https://huggingface.co/moonshotai/Kimi-K2-Instruct/blob/fd1984e2b7a3350dbf7305fe73a4ede25c14de50/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Public metadata for the original Kimi-K2-Instruct repository",
+        "url": "https://huggingface.co/api/models/moonshotai/Kimi-K2-Instruct",
+        "type": "primary"
+      },
+      {
+        "label": "Kimi-K2-Instruct Modified MIT License",
+        "url": "https://huggingface.co/moonshotai/Kimi-K2-Instruct/blob/fd1984e2b7a3350dbf7305fe73a4ede25c14de50/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "Kimi research publication index",
+        "url": "https://www.kimi.com/en/blog/",
+        "type": "primary"
+      },
+      {
+        "label": "Kimi K2: Open Agentic Intelligence launch announcement",
+        "url": "https://www.kimi.com/en/blog/kimi-k2",
+        "type": "primary"
+      },
+      {
+        "label": "Kimi K2 official tool calling guide",
+        "url": "https://github.com/MoonshotAI/Kimi-K2/blob/main/docs/tool_call_guidance.md",
+        "type": "primary"
+      },
+      {
+        "label": "Kimi API model list and deprecations",
+        "url": "https://platform.kimi.ai/docs/models",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "Adds Modified MIT license, nominal 1040B total / 32.6B active figures from the original technical report, and MoE architecture with MLA. Confirms July 11 release, public original weights, text modalities, 131072 context, native tools and explicit non-thinking classification. Refines the description. Counts are reported nominal values; exact learned checkpoint totals were not computed. No September, Thinking or K2.5 specifications were transferred."
+}
