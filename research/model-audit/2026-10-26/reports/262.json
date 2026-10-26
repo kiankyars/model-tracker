@@ -1,0 +1,271 @@
+{
+  "index": 262,
+  "model_id": "meta/llama-2-7b",
+  "reviewed_at": "2026-10-26T21:26:04.676702Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://ai.meta.com/blog/llama-2/",
+      "title": "Meta and Microsoft Introduce the Next Generation of Llama",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Dated July 18, 2023; announces availability that day and distribution of model weights and starting code for pretrained and conversationally fine-tuned models."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/meta-llama/Llama-2-7b-hf",
+      "title": "Llama-2-7b-hf official model card",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Identifies this exact repository as the 7B pretrained model converted to Transformers format; names Meta, text-only inputs/outputs, autoregressive Transformer, nominal 7B, 4k context and no GQA for 7B. Download access requires license acceptance."
+    },
+    {
+      "id": "s3",
+      "url": "https://arxiv.org/html/2307.09288v2",
+      "title": "Llama 2: Open Foundation and Fine-Tuned Chat Models",
+      "publisher": "Meta authors / arXiv",
+      "accessed": true,
+      "evidence": "Table 1 explicitly gives Llama 2 7B, 4k trained context and no GQA; Section 2.2 describes Transformer, RMSNorm, SwiGLU and RoPE. Section 5.1 tool-use experiment concerns Llama 2-Chat. Does not define an active-parameter count."
+    },
+    {
+      "id": "s4",
+      "url": "https://raw.githubusercontent.com/meta-llama/llama/7565eb6fee2175b2d4fe2cfb45067a61b35d7f5e/LICENSE",
+      "title": "Llama 2 Community License Agreement",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Names the custom Llama 2 Community License Agreement and July 18, 2023 version release date; licenses weights and code, with acceptable-use obligations and additional commercial terms."
+    },
+    {
+      "id": "s5",
+      "url": "https://raw.githubusercontent.com/meta-llama/llama/7565eb6fee2175b2d4fe2cfb45067a61b35d7f5e/README.md",
+      "title": "Original Llama 2 inference repository README",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Release includes pretrained/fine-tuned weights; documents license-gated downloads, maximum 4096 sequence length, and natural-continuation inference for pretrained models, which are not fine-tuned for chat or Q&A."
+    },
+    {
+      "id": "s6",
+      "url": "https://raw.githubusercontent.com/meta-llama/llama/7565eb6fee2175b2d4fe2cfb45067a61b35d7f5e/llama/model.py",
+      "title": "Llama 2 reference Transformer implementation",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Transformer uses causal attention and unconditional SwiGLU feed-forward layers, with no expert router. Attention defaults KV heads to query heads. Embeddings and output projection are separate. ModelArgs max_seq_len default is a runtime setting, not training evidence."
+    },
+    {
+      "id": "s7",
+      "url": "https://raw.githubusercontent.com/meta-llama/llama/7565eb6fee2175b2d4fe2cfb45067a61b35d7f5e/llama/generation.py",
+      "title": "Llama 2 reference generation implementation",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Loads checkpoint params, explicitly supplies runtime max_seq_len, and exposes token/text completion. No dedicated thinking channel or structured function-call interface is defined."
+    },
+    {
+      "id": "s8",
+      "url": "https://raw.githubusercontent.com/meta-llama/llama/7565eb6fee2175b2d4fe2cfb45067a61b35d7f5e/MODEL_CARD.md",
+      "title": "Original Llama 2 model card",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Lists Meta, nominal 7B pretrained/fine-tuned variants, text-only inputs/outputs, autoregressive Transformer and 4k/no-GQA row for 7B; distinguishes tuned variants and calls the license custom commercial."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/meta-llama/Llama-2-7b-hf/resolve/main/config.json",
+      "title": "Exact official checkpoint configuration (access restricted)",
+      "publisher": "Meta / Hugging Face",
+      "accessed": false,
+      "evidence": "Unauthenticated request returned HTTP 401 requiring permission and authentication. No configuration content or tensor headers were obtained; no gate bypass or weight download was attempted."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Llama 2 7B",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s8"
+      ],
+      "note": "Official 7B pretrained/base variant; the separate Llama-2-7b-chat checkpoint is outside this record."
+    },
+    "developer": {
+      "value": "Meta",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s8"
+      ],
+      "note": "Both official cards identify Meta as model developer; Microsoft is a distribution partner."
+    },
+    "family": {
+      "value": "llama-2",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s8"
+      ],
+      "note": "Catalog slug normalizes the explicitly named Llama 2 family."
+    },
+    "release_date": {
+      "value": "2023-07-18",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4"
+      ],
+      "note": "Original public availability date is explicit in the launch announcement and license; independent of repository creation or later Transformers updates."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5"
+      ],
+      "note": "Meta released downloadable pretrained weights subject to access approval and its custom license. This does not assert an unrestricted or OSI-approved license."
+    },
+    "license": {
+      "value": "Llama 2 Community License",
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s8"
+      ],
+      "note": "Exact custom license, with use restrictions and additional commercial terms; not Apache/MIT."
+    },
+    "parameters_b": {
+      "value": 7,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s8",
+        "s9"
+      ],
+      "note": "Retains Meta's explicit nominal 7B total, in billions. This is not a claim of exactly 7,000,000,000 learned scalars. Exact official config was access restricted, so no independent complete checkpoint count is asserted."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s3",
+        "s6",
+        "s8"
+      ],
+      "note": "Primary sources do not separately define or report an active-parameter total for this dense checkpoint. Dense structure alone does not justify copying nominal total into this field."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s6",
+        "s8"
+      ],
+      "note": "Dense causal Transformer: standard attention and unconditional SwiGLU blocks, with RMSNorm/RoPE and no expert routing. The 7B row explicitly excludes GQA; it uses ordinary multi-head attention, unlike larger GQA variants."
+    },
+    "context_window": {
+      "value": 4096,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s5",
+        "s7",
+        "s8"
+      ],
+      "note": "Original trained context is 4k, made exact as 4096 in Meta's inference README. Runtime cache limits/defaults are configurable and do not replace this limit; no later context-extension fine-tune is included."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s8"
+      ],
+      "note": "Both official model cards explicitly restrict input/output modalities to text."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s2",
+        "s5",
+        "s7"
+      ],
+      "note": "No dedicated native thinking mode is documented for the pretrained base. Commonsense/math benchmark results or prompted chain-of-thought text do not establish a separate reasoning-mode capability; no absolute inability is inferred."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s3",
+        "s5",
+        "s7"
+      ],
+      "note": "No native structured tool-call protocol is documented for this base checkpoint. Paper Section 5.1 describes Llama 2-Chat tool-use experiments, which cannot be transferred to 7B base; external wrappers also do not establish native support."
+    },
+    "description": {
+      "value": "Llama 2 pretrained checkpoint.",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s5"
+      ],
+      "note": "Accurate concise description of the base pretrained release; does not claim chat alignment, tools or multimodality."
+    }
+  },
+  "patch": {
+    "parameters_source": "primary_source",
+    "notes": "7B is Meta's nominal model size, not a complete tensor-count claim. Llama 2 7B is a dense pretrained text Transformer with multi-head attention and a 4096-token trained context. Active parameters and native thinking/tool-call support are not separately documented for this base checkpoint. Weights use the custom Llama 2 Community License.",
+    "sources": [
+      {
+        "label": "Original Meta release announcement",
+        "url": "https://ai.meta.com/blog/llama-2/",
+        "type": "primary"
+      },
+      {
+        "label": "Official 7B base model card",
+        "url": "https://huggingface.co/meta-llama/Llama-2-7b-hf",
+        "type": "weights"
+      },
+      {
+        "label": "Llama 2 technical report",
+        "url": "https://arxiv.org/html/2307.09288v2",
+        "type": "primary"
+      },
+      {
+        "label": "Llama 2 Community License",
+        "url": "https://raw.githubusercontent.com/meta-llama/llama/7565eb6fee2175b2d4fe2cfb45067a61b35d7f5e/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "Original inference documentation",
+        "url": "https://raw.githubusercontent.com/meta-llama/llama/7565eb6fee2175b2d4fe2cfb45067a61b35d7f5e/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Reference Transformer implementation",
+        "url": "https://raw.githubusercontent.com/meta-llama/llama/7565eb6fee2175b2d4fe2cfb45067a61b35d7f5e/llama/model.py",
+        "type": "primary"
+      },
+      {
+        "label": "Reference generation implementation",
+        "url": "https://raw.githubusercontent.com/meta-llama/llama/7565eb6fee2175b2d4fe2cfb45067a61b35d7f5e/llama/generation.py",
+        "type": "primary"
+      }
+    ]
+  },
+  "conflicts": [
+    "The paper introduction broadly mentions adopting GQA, but Table 1 limits it to larger variants; the exact 7B row is no-GQA.",
+    "Reference ModelArgs defaults max_seq_len to 2048, while the README explicitly supports 4096 and generation builds ModelArgs with a supplied max_seq_len. The default is an allocation/inference choice, not the trained context.",
+    "Model-card family prose includes Chat fine-tuning and benchmarks. Repository identity explicitly identifies this checkpoint as pretrained; Chat-specific tool emergence is not evidence of base-model native tool calls.",
+    "The public exact model card was accessible, but the exact config download returned 401. Third-party config mirrors surfaced in search were not used as first-party verification."
+  ],
+  "summary": "All 14 fields reviewed. Core baseline values are confirmed, including nominal 7B, dense/MHA architecture, 4096 context, July 18 release, text-only base identity and custom license. Active parameters, native thinking and native tool calling remain null/undisclosed. Added source-backed notes/provenance only; exact configuration and a complete learned-parameter count were not independently accessible."
+}
