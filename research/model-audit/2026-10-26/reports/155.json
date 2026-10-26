@@ -1,0 +1,303 @@
+{
+  "index": 155,
+  "model_id": "cohere/north-mini-code-1-0",
+  "reviewed_at": "2026-10-26T18:26:57.957828Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://docs.cohere.com/docs/north-mini-code-1.0",
+      "title": "North Mini Code model documentation",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "Maps north-mini-code-1-0 to North Mini Code, the first North-family model; states 30B total / 3B active MoE, Apache 2.0, 256K context and 64K maximum output, trained for agentic coding."
+    },
+    {
+      "id": "s2",
+      "url": "https://docs.cohere.com/changelog/north-mini-code-1-0",
+      "title": "Announcing Cohere\u2019s North Mini Code \u2014 June 9, 2026",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "Dated release announcement identifies the exact API identifier and says open weights are available on Hugging Face; explicitly reports 30B total, 3B active and Apache 2.0."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/CohereLabs/North-Mini-Code-1.0",
+      "title": "North-Mini-Code-1.0 model card",
+      "publisher": "Cohere and Cohere Labs",
+      "accessed": true,
+      "evidence": "Identifies developer, text-only input/text output, sparse decoder Transformer, interleaved thinking and tool use. Gives tool-call/history examples, 256000 context and 64000 output in its OpenCode configuration, alongside a vLLM max-model-len example of 320000."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/blog/CohereLabs/introducing-north-mini-code",
+      "title": "Introducing North Mini Code: Cohere\u2019s First Model For Developers",
+      "publisher": "Cohere Code Agents Team / Cohere Labs",
+      "accessed": true,
+      "evidence": "June 9 technical launch article describes decoder-only sparse MoE Transformer: one initial dense layer, 128 experts with 8 selected per token, SwiGLU experts, sigmoid routing and sliding-window/global attention in a 3:1 pattern."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/CohereLabs/North-Mini-Code-1.0/raw/d11e61a842617a22dc328552fa5bb86231ee4f37/config.json",
+      "title": "North-Mini-Code-1.0 pinned checkpoint configuration",
+      "publisher": "Cohere Labs",
+      "accessed": true,
+      "evidence": "Cohere2MoeForCausalLM; cohere2_moe; 49 layers, hidden size 2048, 128 experts, 8 experts per token, first_k_dense_replace=1, BF16, sliding window 4096 and max_position_embeddings=500000. No multimodal encoder configuration."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/CohereLabs/North-Mini-Code-1.0/raw/d11e61a842617a22dc328552fa5bb86231ee4f37/model.safetensors.index.json",
+      "title": "North-Mini-Code-1.0 BF16 tensor index and corresponding shard headers",
+      "publisher": "Cohere Labs",
+      "accessed": true,
+      "evidence": "Index declares total_parameters=30484303872 and total_size=60968607744 across 49 shards. Independently retrieved only headers by HTTP Range for all 49 pinned shards (2293640 header bytes): all 18730 tensors match index keys, all BF16, all learned weight tensors, summed shape products 30484303872. No packed storage, quantization scales or saved non-weight buffers. Only embedding and final norm occur outside decoder layers."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/api/models/CohereLabs/North-Mini-Code-1.0",
+      "title": "Hugging Face metadata for the official Cohere checkpoint",
+      "publisher": "Hugging Face / Cohere Labs",
+      "accessed": true,
+      "evidence": "Current revision d11e61a842617a22dc328552fa5bb86231ee4f37; safetensors reports 30484303872 BF16 elements. Repository creation is June 5, 2026; this metadata does not establish when it became publicly available."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/CohereLabs/North-Mini-Code-1.0/raw/d11e61a842617a22dc328552fa5bb86231ee4f37/chat_template.jinja",
+      "title": "North Mini Code current standalone chat template",
+      "publisher": "Cohere Labs",
+      "accessed": true,
+      "evidence": "Defaults reasoning on unless reasoning_effort is none; serializes reasoning with START_THINKING/END_THINKING and calls/results with START_ACTION/END_ACTION and START_TOOL_RESULT/END_TOOL_RESULT. Supports function JSON schemas and preserves reasoning in assistant history. Current tokenizer_config has no legacy chat_template."
+    },
+    {
+      "id": "s9",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/main/src/transformers/models/cohere2_moe/modeling_cohere2_moe.py",
+      "title": "Transformers Cohere2MoE implementation",
+      "publisher": "Hugging Face Transformers",
+      "accessed": true,
+      "evidence": "Defines learned attention, expert, router, norm and embedding weights. Cohere2MoeForCausalLM ties lm_head.weight to model.embed_tokens.weight, explaining the single embedding tensor in this checkpoint; the tensor sum does not double-count its output use."
+    },
+    {
+      "id": "s10",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/main/src/transformers/models/cohere2_moe/configuration_cohere2_moe.py",
+      "title": "Transformers Cohere2MoE configuration implementation",
+      "publisher": "Hugging Face Transformers",
+      "accessed": true,
+      "evidence": "Cohere2MoeConfig defaults tie_word_embeddings to true, consistent with the checkpoint config and absence of a separate lm_head tensor."
+    },
+    {
+      "id": "s11",
+      "url": "https://cohere.com/blog/north-mini-code",
+      "title": "Introducing North Mini Code: Cohere\u2019s first model for developers",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "June 9, 2026 product launch explicitly links official BF16/FP8 weights and describes the exact North-Mini-Code-1.0 variant as 30B total / 3B active, Apache 2.0, 256K total context and 64K maximum generation."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "North Mini Code",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Exact API identifier maps to this public display name."
+    },
+    "developer": {
+      "value": "Cohere",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "Cohere and its Cohere Labs research organization developed the model."
+    },
+    "family": {
+      "value": "north",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Official documentation explicitly identifies the North model family."
+    },
+    "release_date": {
+      "value": "2026-06-09",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s7",
+        "s11"
+      ],
+      "note": "Explicit official launch date. HF repository creation on June 5 is not proof of initial public availability and does not justify replacing this date."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s6",
+        "s11"
+      ],
+      "note": "Official BF16 checkpoint is publicly downloadable; header requests succeeded for all 49 shards without authentication."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s11"
+      ],
+      "note": "Exact model release is explicitly licensed under Apache 2.0."
+    },
+    "parameters_b": {
+      "value": 30.484303872,
+      "status": "verified",
+      "source_ids": [
+        "s6",
+        "s7",
+        "s9",
+        "s10"
+      ],
+      "note": "Complete checkpoint count: sum of shapes for 18730 learned BF16 tensors across all 49 shards is 30484303872, matching index metadata. No scales, packed storage or saved buffers are counted. Tied input/output embedding counted once. The developer rounds this to nominal 30B."
+    },
+    "active_parameters_b": {
+      "value": 3,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s11"
+      ],
+      "note": "Developer-reported nominal 3 billion active parameters; exact active count is not published here. Not inferred from the 8-of-128 expert routing ratio."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s9"
+      ],
+      "note": "Decoder-only sparse MoE Transformer: 49 layers, first dense then 48 sparse, 128 experts/8 selected, SwiGLU, sliding-window RoPE attention interleaved with global attention without positional embeddings."
+    },
+    "context_window": {
+      "value": 256000,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s5",
+        "s11"
+      ],
+      "note": "Advertised 256K context; official card specifies 256000 in its client configuration and 64000 maximum output. The 320000 vLLM example and max_position_embeddings=500000 are configuration limits, not a supported replacement for advertised context."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s5"
+      ],
+      "note": "Exact model card explicitly says text-only input and generated text. Shared template image-token handling does not establish image capability for this text checkpoint."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s8"
+      ],
+      "note": "Native interleaved thinking is explicitly documented. Current standalone template preserves thinking and begins generation with START_THINKING by default; disabling reasoning emits an empty thinking block."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s8"
+      ],
+      "note": "Native tool use is documented with exact function schemas and tool-result history. Current standalone template serializes calls and results into dedicated action/result tokens."
+    },
+    "description": {
+      "value": "Cohere coding model for practical software engineering and agentic edits",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s11"
+      ],
+      "note": "Supported by explicit agentic software-engineering, repository-change, terminal-task and code-generation purposes; no unsupported benchmark or generality claim."
+    }
+  },
+  "patch": {
+    "license": "Apache-2.0",
+    "parameters_b": 30.484303872,
+    "active_parameters_b": 3,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "source_url": "https://docs.cohere.com/docs/north-mini-code-1.0",
+    "source_type": "primary",
+    "notes": "Complete BF16 checkpoint contains 30,484,303,872 learned parameters (30.484303872B), marketed as 30B. Cohere separately reports a nominal 3B active; this is not calculated from expert fractions. Architecture is a decoder-only sparse MoE Transformer with one initial dense layer and 128 experts, selecting 8 per token. Advertised context is 256,000 tokens with 64,000 maximum output; the 500,000 position configuration and 320,000 vLLM example are not substituted for the documented context. June 9 is the explicit official release date; June 5 repository creation alone does not establish public release.",
+    "sources": [
+      {
+        "label": "North Mini Code model documentation",
+        "url": "https://docs.cohere.com/docs/north-mini-code-1.0",
+        "type": "primary"
+      },
+      {
+        "label": "Announcing Cohere\u2019s North Mini Code \u2014 June 9, 2026",
+        "url": "https://docs.cohere.com/changelog/north-mini-code-1-0",
+        "type": "primary"
+      },
+      {
+        "label": "North-Mini-Code-1.0 model card",
+        "url": "https://huggingface.co/CohereLabs/North-Mini-Code-1.0",
+        "type": "primary"
+      },
+      {
+        "label": "Introducing North Mini Code: Cohere\u2019s First Model For Developers",
+        "url": "https://huggingface.co/blog/CohereLabs/introducing-north-mini-code",
+        "type": "primary"
+      },
+      {
+        "label": "North-Mini-Code-1.0 pinned checkpoint configuration",
+        "url": "https://huggingface.co/CohereLabs/North-Mini-Code-1.0/raw/d11e61a842617a22dc328552fa5bb86231ee4f37/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "North-Mini-Code-1.0 BF16 tensor index and corresponding shard headers",
+        "url": "https://huggingface.co/CohereLabs/North-Mini-Code-1.0/raw/d11e61a842617a22dc328552fa5bb86231ee4f37/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "North Mini Code current standalone chat template",
+        "url": "https://huggingface.co/CohereLabs/North-Mini-Code-1.0/raw/d11e61a842617a22dc328552fa5bb86231ee4f37/chat_template.jinja",
+        "type": "primary"
+      },
+      {
+        "label": "Transformers Cohere2MoE implementation",
+        "url": "https://raw.githubusercontent.com/huggingface/transformers/main/src/transformers/models/cohere2_moe/modeling_cohere2_moe.py",
+        "type": "primary"
+      },
+      {
+        "label": "Transformers Cohere2MoE configuration implementation",
+        "url": "https://raw.githubusercontent.com/huggingface/transformers/main/src/transformers/models/cohere2_moe/configuration_cohere2_moe.py",
+        "type": "primary"
+      },
+      {
+        "label": "Introducing North Mini Code: Cohere\u2019s first model for developers",
+        "url": "https://cohere.com/blog/north-mini-code",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "All 14 fields reviewed. Fill missing Apache-2.0 license, sparse MoE architecture, exact 30.484303872B complete BF16 parameter count and nominal developer-reported 3B active count. Confirm text-only modalities, native interleaved thinking/tool calls, 256000 advertised context and June 9 official launch. Distinguish larger configuration limits, nominal versus exact counts, and repository creation from public release."
+}
