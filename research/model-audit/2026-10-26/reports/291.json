@@ -1,0 +1,391 @@
+{
+  "index": 291,
+  "model_id": "meta/opt-175b",
+  "reviewed_at": "2026-10-26T22:06:53.532174Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://ai.meta.com/blog/democratizing-access-to-large-scale-language-models-with-opt-175b/",
+      "title": "Democratizing access to large-scale language models with OPT-175B",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "May 3, 2022 announcement names OPT-175B, 175 billion parameters, and a noncommercial research release; access to 175B requires a request, unlike the smaller downloadable models."
+    },
+    {
+      "id": "s2",
+      "url": "https://arxiv.org/html/2205.01068v4",
+      "title": "OPT: Open Pre-trained Transformer Language Models",
+      "publisher": "Meta AI",
+      "accessed": true,
+      "evidence": "Table 1 specifies 96 layers, 96 heads and width 12288 for 175B; section 2.2 specifies 2048-token sequences. Appendix D identifies Meta AI, version 1.0.0, a decoder-only language model, and May 3, 2022 release. Section 2.4 distinguishes FP16 model weights from FP32 optimizer state."
+    },
+    {
+      "id": "s3",
+      "url": "https://ai.meta.com/blog/opt-175b-large-language-model-applications/",
+      "title": "Applications of Meta\u2019s OPT-175B: Protein design, quantum physics, translation, and more",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "July 26, 2022 update confirms access granted to 668 entities. Requesters were manually screened before receiving weight-download links; initial access was gradually rolled out."
+    },
+    {
+      "id": "s4",
+      "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/main/projects/OPT/MODEL_LICENSE.md",
+      "title": "OPT-175B License Agreement",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Section 1 grants use of the model software solely for non-commercial research; the repository code MIT license is separate from these model terms."
+    },
+    {
+      "id": "s5",
+      "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/main/projects/OPT/README.md",
+      "title": "OPT pretrained model weights",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Lists OPT-175B as a 175B member of Open Pre-trained Transformers and links to an access request; direct download links apply to smaller variants."
+    },
+    {
+      "id": "s6",
+      "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/3591201ebc1c668d34aef6679a1792a07b5edf35/metaseq/launcher/opt_job_constants.py",
+      "title": "Release-day OPT model-size configuration",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "The exact 175b preset has 96 layers, width 12288, 96 heads, head width 128, eight-way tensor parallelism; FFN width is four times hidden width."
+    },
+    {
+      "id": "s7",
+      "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/3591201ebc1c668d34aef6679a1792a07b5edf35/metaseq/launcher/opt_baselines.py",
+      "title": "Release-day OPT launcher",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Selects the size preset, 2048-token sequences, shared decoder input/output embedding and learned positions; no additional projection widths or optional scaling layers are selected."
+    },
+    {
+      "id": "s8",
+      "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/3591201ebc1c668d34aef6679a1792a07b5edf35/metaseq/model_parallel/models/transformer_lm.py",
+      "title": "Release-day tensor-parallel language model",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Pads both dictionaries to a multiple of eight; the alternative padding to tensor-parallel-size times eight is commented out. Input/output dimensions default to hidden width and token embedding size comes from the loaded dictionary."
+    },
+    {
+      "id": "s9",
+      "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/3591201ebc1c668d34aef6679a1792a07b5edf35/metaseq/models/transformer.py",
+      "title": "Release-day Transformer decoder implementation",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Ties output-projection weight to token embedding without output bias; includes a final affine LayerNorm with pre-normalization. Equal embedding widths introduce no input/output projection matrices."
+    },
+    {
+      "id": "s10",
+      "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/3591201ebc1c668d34aef6679a1792a07b5edf35/metaseq/modules/transformer_layer.py",
+      "title": "Release-day Transformer layer implementation",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Defines two affine normalization layers per decoder block and two FFN projections. Optional additional normalization/scaling is conditional and absent from the released launcher preset."
+    },
+    {
+      "id": "s11",
+      "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/3591201ebc1c668d34aef6679a1792a07b5edf35/metaseq/model_parallel/modules/multihead_attention.py",
+      "title": "Release-day model-parallel attention implementation",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Defines full-width QKV and output projections with biases; tensor parallelism partitions the matrices rather than creating distinct model parameters for each shard."
+    },
+    {
+      "id": "s12",
+      "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/3591201ebc1c668d34aef6679a1792a07b5edf35/metaseq/modules/positional_embedding.py",
+      "title": "Release-day positional embedding implementation",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Learned positional embeddings allocate sequence length plus padding index plus one rows; padding index 1 therefore gives 2050 stored rows for a 2048-token context."
+    },
+    {
+      "id": "s13",
+      "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/3591201ebc1c668d34aef6679a1792a07b5edf35/projects/OPT/assets/gpt2-vocab.json",
+      "title": "Release-day OPT tokenizer vocabulary",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Fetched JSON contains 50265 token IDs, highest ID 50264, including pad ID 1; rounding this vocabulary to eight gives 50272 embedding rows."
+    },
+    {
+      "id": "s14",
+      "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/3591201ebc1c668d34aef6679a1792a07b5edf35/metaseq/tasks/language_modeling.py",
+      "title": "Release-day language-model dictionary loading",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "The original language-model task loads its dictionary from external data/dict.txt. The tokenizer asset alone does not independently establish the gated checkpoint-associated dictionary and serialized configuration."
+    },
+    {
+      "id": "s15",
+      "url": "https://huggingface.co/facebook/opt-175b/raw/main/config.json",
+      "title": "Attempted official OPT-175B configuration",
+      "publisher": "Meta / Hugging Face",
+      "accessed": false,
+      "evidence": "Unauthenticated config request returned HTTP 401, as did the exact facebook/opt-175b model API request. This does not establish absence of a repository; no exact checkpoint config was inspected."
+    },
+    {
+      "id": "s16",
+      "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/main/projects/OPT/chronicles/final_update.md",
+      "title": "175B Training Run Completed",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "The OPT-175B training chronicle explicitly calls this a dense model, independently supporting dense architecture rather than an inference from its name."
+    },
+    {
+      "id": "s17",
+      "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/main/projects/OPT/download_opt175b.md",
+      "title": "Accessing OPT-175B",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Documents emailed presigned URLs and 992 model-parameter shard files across eight-way tensor parallelism, followed by consolidation. Weight download links require prior access approval."
+    },
+    {
+      "id": "s18",
+      "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/3591201ebc1c668d34aef6679a1792a07b5edf35/metaseq/model_parallel/modules/transformer_layer.py",
+      "title": "Release-day model-parallel FFN implementation",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Implements the two FFN matrices through column/row parallel linear layers with biases and no extra learned projection component."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "OPT 175B",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Catalog spelling of the exact OPT-175B base model; not OPT-IML-175B or BlenderBot 3."
+    },
+    "developer": {
+      "value": "Meta",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s1"
+      ],
+      "note": "Meta AI is the developing organization; Meta is the catalog developer name."
+    },
+    "family": {
+      "value": "opt",
+      "status": "verified",
+      "source_ids": [
+        "s5"
+      ],
+      "note": "Open Pre-trained Transformers (OPT)."
+    },
+    "release_date": {
+      "value": "2022-05-03",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s1",
+        "s3"
+      ],
+      "note": "Appendix D explicitly assigns this release date. It marks the documented request-based research release, not unrestricted downloads. The announcement uses future-tense access grants; the first individual approval day is not established. The July update confirms actual grants, without redefining release as July."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s5",
+        "s17"
+      ],
+      "note": "Weights were distributed to approved external researchers, with manual screening and presigned download links. True denotes weight availability under restrictions, not unrestricted access or an open-source license. Current fulfillment of new access requests was not tested."
+    },
+    "license": {
+      "value": "OPT non-commercial research license",
+      "status": "verified",
+      "source_ids": [
+        "s4"
+      ],
+      "note": "Descriptive catalog label for the OPT-175B License Agreement; retain the non-commercial restriction."
+    },
+    "parameters_b": {
+      "value": 175,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9",
+        "s10",
+        "s11",
+        "s12",
+        "s13",
+        "s14",
+        "s15",
+        "s18"
+      ],
+      "note": "175B is the primary-source nominal size. Complete unique parameter-element reconciliation of the release-day reference configuration gives 174604468224 (174.604468224B): attention matrices 57982058496; FFN matrices 115964116992; projection biases 10616832; all affine norm weights/biases 4743168; tied token/output embedding 617742336; learned position tensor 25190400. Formula: 96*(4*h*h+2*h*f+9*h+f)+50272*h+2050*h+2*h, with h=12288 and f=49152. Count the shared embedding once, include the two reserved positional rows and padded vocabulary rows, and count tensor-parallel duplicates once. No optimizer state, masks, KV cache, quantization scales or storage padding are included; the original model uses FP16, not a quantized weight format. This is a reference-implementation reconstruction, not a checkpoint-header count: original loading uses external dict.txt and serialized checkpoint configuration, which were not inspected. Retain nominal 175 rather than substituting unjustified checkpoint-level precision. No full weight files were downloaded or unpickled."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s2",
+        "s16"
+      ],
+      "note": "No separately defined active-parameter count was found in the inspected primary sources. Dense architecture does not justify equating active and total parameters."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s16",
+        "s2",
+        "s6",
+        "s11"
+      ],
+      "note": "Explicitly dense in the OPT-175B training chronicle; decoder-only Transformer with 96 layers and 96 attention heads. No expert-routing architecture is substituted from another Meta model."
+    },
+    "context_window": {
+      "value": 2048,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s7",
+        "s12"
+      ],
+      "note": "2048 tokens in the paper and release-day launcher; the 2050-row position tensor includes two offset/reserved rows and does not imply a 2050-token context."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s5"
+      ],
+      "note": "Language-model text input and generated text continuation are documented for this exact checkpoint. Research applications to proteins or other domains do not establish native image/audio input."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Native reasoning-mode capability is not specified by the inspected model documentation. Benchmark results and ordinary prompted text generation do not resolve this catalog flag."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s2",
+        "s5"
+      ],
+      "note": "Native structured tool/function calling is not documented for this checkpoint. Absence from these sources is not affirmative evidence of false."
+    },
+    "description": {
+      "value": "Open Pretrained Transformer research checkpoint.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "The concise baseline description is supported; the accompanying notes clarify restricted weight access and nominal parameter precision."
+    }
+  },
+  "patch": {
+    "parameters_source": "primary_source",
+    "notes": "Meta documents May 3, 2022 as the request-based OPT-175B research release; the first individual access-grant date is not established. Weights were distributed to approved researchers under non-commercial terms, with actual grants confirmed by July 26. The 175B size is nominal. Release-day reference code reconciles to 174.604468224B unique parameter elements, including tied embeddings, all biases/norms and 2050 position rows, but the original checkpoint-associated dictionary/configuration was not independently inspected; this is not an exact checkpoint-header count. Active parameters, native reasoning mode and native tool calling are not separately disclosed.",
+    "sources": [
+      {
+        "label": "Democratizing access to large-scale language models with OPT-175B",
+        "url": "https://ai.meta.com/blog/democratizing-access-to-large-scale-language-models-with-opt-175b/",
+        "type": "primary"
+      },
+      {
+        "label": "OPT: Open Pre-trained Transformer Language Models",
+        "url": "https://arxiv.org/html/2205.01068v4",
+        "type": "primary"
+      },
+      {
+        "label": "Applications of Meta\u2019s OPT-175B: Protein design, quantum physics, translation, and more",
+        "url": "https://ai.meta.com/blog/opt-175b-large-language-model-applications/",
+        "type": "primary"
+      },
+      {
+        "label": "OPT-175B License Agreement",
+        "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/main/projects/OPT/MODEL_LICENSE.md",
+        "type": "primary"
+      },
+      {
+        "label": "OPT pretrained model weights",
+        "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/main/projects/OPT/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Release-day OPT model-size configuration",
+        "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/3591201ebc1c668d34aef6679a1792a07b5edf35/metaseq/launcher/opt_job_constants.py",
+        "type": "primary"
+      },
+      {
+        "label": "Release-day OPT launcher",
+        "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/3591201ebc1c668d34aef6679a1792a07b5edf35/metaseq/launcher/opt_baselines.py",
+        "type": "primary"
+      },
+      {
+        "label": "Release-day tensor-parallel language model",
+        "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/3591201ebc1c668d34aef6679a1792a07b5edf35/metaseq/model_parallel/models/transformer_lm.py",
+        "type": "primary"
+      },
+      {
+        "label": "Release-day Transformer decoder implementation",
+        "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/3591201ebc1c668d34aef6679a1792a07b5edf35/metaseq/models/transformer.py",
+        "type": "primary"
+      },
+      {
+        "label": "Release-day Transformer layer implementation",
+        "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/3591201ebc1c668d34aef6679a1792a07b5edf35/metaseq/modules/transformer_layer.py",
+        "type": "primary"
+      },
+      {
+        "label": "Release-day model-parallel attention implementation",
+        "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/3591201ebc1c668d34aef6679a1792a07b5edf35/metaseq/model_parallel/modules/multihead_attention.py",
+        "type": "primary"
+      },
+      {
+        "label": "Release-day positional embedding implementation",
+        "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/3591201ebc1c668d34aef6679a1792a07b5edf35/metaseq/modules/positional_embedding.py",
+        "type": "primary"
+      },
+      {
+        "label": "Release-day OPT tokenizer vocabulary",
+        "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/3591201ebc1c668d34aef6679a1792a07b5edf35/projects/OPT/assets/gpt2-vocab.json",
+        "type": "primary"
+      },
+      {
+        "label": "Release-day language-model dictionary loading",
+        "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/3591201ebc1c668d34aef6679a1792a07b5edf35/metaseq/tasks/language_modeling.py",
+        "type": "primary"
+      },
+      {
+        "label": "175B Training Run Completed",
+        "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/main/projects/OPT/chronicles/final_update.md",
+        "type": "primary"
+      },
+      {
+        "label": "Accessing OPT-175B",
+        "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/main/projects/OPT/download_opt175b.md",
+        "type": "primary"
+      },
+      {
+        "label": "Release-day model-parallel FFN implementation",
+        "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/3591201ebc1c668d34aef6679a1792a07b5edf35/metaseq/model_parallel/modules/transformer_layer.py",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "Confirmed all supported baseline specifications and retained the primary nominal 175B total. Reconciled the original reference implementation to 174.604468224B unique parameter elements without claiming a verified gated-checkpoint count. Clarified May 3 as Meta\u2019s documented request-based research release, with the first approval date unresolved and actual weight grants established by July. Active parameters and native reasoning/tool-calling flags remain undisclosed nulls."
+}
