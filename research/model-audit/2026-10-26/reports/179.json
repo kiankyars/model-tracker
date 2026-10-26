@@ -1,0 +1,318 @@
+{
+  "index": 179,
+  "model_id": "deepseek/deepseek-v4-flash-0731",
+  "reviewed_at": "2026-10-26T19:13:46.885217+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://api-docs.deepseek.com/updates/",
+      "title": "DeepSeek API change log: July 31 release and subsequent alias lifecycle",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "The dated July 31 entry explicitly names DeepSeek-V4-Flash-0731, states that the preview architecture and size are retained with new post-training, and announces the updated API. September 10 retires V4 Flash and redirects its API alias to V4.1 Flash; October 17 updates that successor again."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/7872f01b1d1fe23eabc4c98b48bffcef5a386062/README.md",
+      "title": "DeepSeek-V4-Flash-0731 official model card",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Identifies this exact release as the successor to the preview, reports improved agent benchmarks, and specifies the same structure as Flash-DSpark with an attached speculative decoding module. Documents thinking effort, local serving and MIT-licensed weights."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/7872f01b1d1fe23eabc4c98b48bffcef5a386062/config.json",
+      "title": "Pinned DeepSeek-V4-Flash-0731 model configuration",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Defines DeepseekV4ForCausalLM, 43 main layers, hidden size 4096, 256 routed experts with top-6 selection and one shared expert, FP4 experts, DSpark settings, and max_position_embeddings 1048576. The num_nextn_predict_layers value is 1, inconsistent with the three actual DSpark stages in the inference configuration and tensor headers."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/7872f01b1d1fe23eabc4c98b48bffcef5a386062/inference/config.json",
+      "title": "Pinned 0731 inference configuration",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Explicitly configures 43 main layers and n_mtp_layers=3 for the DSpark attachment, block size 5 and target layers 40/41/42. Matches the three mtp.* namespaces in the released weights."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/7872f01b1d1fe23eabc4c98b48bffcef5a386062/inference/model.py",
+      "title": "Official 0731 inference implementation",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Shows decoder Transformer/MoE blocks and a three-stage DSpark draft stored under mtp.*, sharing the main embedding/output head. FP4 Linear stores two logical weights per packed element; quantization scales are separate. Fixed token-to-expert maps have requires_grad=False; learned hyper-connection scales and parameterized gate biases are retained."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/7872f01b1d1fe23eabc4c98b48bffcef5a386062/inference/convert.py",
+      "title": "Official 0731 FP4 conversion",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Unpacks each I8 expert matrix element into two FP4 values from its low/high nibbles and reconstructs values with separate block scales. Shared MTP embedding/head duplicates are skipped by conversion."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/resolve/7872f01b1d1fe23eabc4c98b48bffcef5a386062/model.safetensors.index.json",
+      "title": "Pinned 0731 index and all 48 bounded safetensors headers",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "All 72317 indexed tensors matched all 48 shard headers; 7998896 header bytes read, zero weight payload. Raw elements 165265454782 include 148176371712 packed FP4 elements, 9261408000 quantization scales and 2327040 fixed routing indices. Expanded logical count excluding scales/indices is 304178091454: 284332240471 main plus 19845850983 DSpark. No duplicated main embedding/head tensors occur under mtp.*."
+    },
+    {
+      "id": "s8",
+      "url": "https://arxiv.org/html/2606.19348v1",
+      "title": "DeepSeek-V4 technical report",
+      "publisher": "DeepSeek-AI",
+      "accessed": true,
+      "evidence": "The Flash-specific preview configuration reports nominal 284B total/13B activated and million-token context. Describes DeepSeekMoE, hybrid compressed sparse/heavily compressed attention and manifold-constrained hyper-connections. FP4 quantization-aware training maintains FP32 master weights, supporting exclusion of representation scales from logical weight counts. Applied to 0731 core only via the explicit same-architecture/size statement."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/7872f01b1d1fe23eabc4c98b48bffcef5a386062/encoding/README.md",
+      "title": "Pinned 0731 text, reasoning and tool encoding",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Defines text-message encoding and text-output parsing, chat/thinking modes with interleaved reasoning, and DSML tool invocation and tool-result schemas."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/7872f01b1d1fe23eabc4c98b48bffcef5a386062/LICENSE",
+      "title": "DeepSeek-V4-Flash-0731 MIT license",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "MIT license text; the exact model card explicitly applies it to both repository and model weights."
+    },
+    {
+      "id": "s11",
+      "url": "https://api-docs.deepseek.com/news/news260424/",
+      "title": "DeepSeek V4 Preview Release, April 24, 2026",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Original preview announcement reports Flash at 284B total, 13B activated and 1M context. Establishes the predecessor specifications explicitly retained in the July 31 core update; this April date is not the release date of 0731."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "DeepSeek V4 Flash 0731",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Display punctuation normalized from the exact official DeepSeek-V4-Flash-0731 identifier."
+    },
+    "developer": {
+      "value": "DeepSeek",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s10"
+      ],
+      "note": "Published by the official DeepSeek organization and documentation site."
+    },
+    "family": {
+      "value": "deepseek-flash",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Retains the catalog family key for the DeepSeek Flash line; this dated checkpoint is V4, not the later V4.1 API alias target."
+    },
+    "release_date": {
+      "value": "2026-07-31",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Explicit dated official API release entry names this exact 0731 variant. April 24 is the earlier preview release."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s7"
+      ],
+      "note": "Public exact-variant checkpoint accessed at a pinned revision; all indexed tensor headers verified."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s10"
+      ],
+      "note": "Exact model card explicitly licenses both the repository and model weights under MIT."
+    },
+    "parameters_b": {
+      "value": 304.178091454,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "note": "Complete logical checkpoint count: 284.332240471B main + 19.845850983B unique DSpark parameters. Expands each packed FP4 byte to two logical weights and excludes quantization scales/fixed routing indices, while retaining learned hyper-connection scales and parameterized gate biases. Shared main embedding/head counted once. Nominal 284B and same-size language concern the core model, not the full DSpark-bearing checkpoint."
+    },
+    "active_parameters_b": {
+      "value": 13,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8",
+        "s11"
+      ],
+      "note": "Developer-reported nominal main-model activation per token, supported for 0731 by the explicit same-architecture/size statement. It is not an exact count or the combined work of main verification and DSpark drafting."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4",
+        "s5",
+        "s8"
+      ],
+      "note": "Decoder Transformer with DeepSeekMoE, CSA/HCA hybrid attention and mHC; 43 main blocks with 256 routed experts/top-6 plus one shared expert. Includes three separate DSpark stages under mtp.*. Root num_nextn_predict_layers=1 is stale/inconsistent with inference n_mtp_layers=3 and actual headers; the latter agree."
+    },
+    "context_window": {
+      "value": 1000000,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s8",
+        "s11"
+      ],
+      "note": "Retains advertised 1M context of the unchanged V4 Flash architecture. Exact 0731 configuration supports 1048576 positions; positional ceiling is distinguished from the advertised decimal window."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s5",
+        "s7",
+        "s9",
+        "s1"
+      ],
+      "note": "Exact checkpoint and encoder implement text tokens without a visual encoder. The separately announced August Vision Exp and September V4.1 models do not establish visual input for 0731."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s9"
+      ],
+      "note": "Exact release documents low/high/max reasoning effort and thinking/chat prompt encoding."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s9"
+      ],
+      "note": "Exact repository documents DSML tool calls and tool-result handling, including interleaved thinking."
+    },
+    "description": {
+      "value": "Official DeepSeek V4 Flash release with enhanced agentic capabilities and integrated DSpark speculative decoding",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s5"
+      ],
+      "note": "Baseline description is supported by the exact model card and attached DSpark implementation; enhanced refers to the published comparisons against the preview."
+    }
+  },
+  "patch": {
+    "parameters_b": 304.178091454,
+    "active_parameters_b": 13,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "source_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/7872f01b1d1fe23eabc4c98b48bffcef5a386062/README.md",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "DeepSeek API change log: July 31 release and subsequent alias lifecycle",
+        "url": "https://api-docs.deepseek.com/updates/",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeek-V4-Flash-0731 official model card",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/7872f01b1d1fe23eabc4c98b48bffcef5a386062/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned DeepSeek-V4-Flash-0731 model configuration",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/7872f01b1d1fe23eabc4c98b48bffcef5a386062/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned 0731 inference configuration",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/7872f01b1d1fe23eabc4c98b48bffcef5a386062/inference/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Official 0731 inference implementation",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/7872f01b1d1fe23eabc4c98b48bffcef5a386062/inference/model.py",
+        "type": "primary"
+      },
+      {
+        "label": "Official 0731 FP4 conversion",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/7872f01b1d1fe23eabc4c98b48bffcef5a386062/inference/convert.py",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned 0731 index and all 48 bounded safetensors headers",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/resolve/7872f01b1d1fe23eabc4c98b48bffcef5a386062/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "DeepSeek-V4 technical report",
+        "url": "https://arxiv.org/html/2606.19348v1",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned 0731 text, reasoning and tool encoding",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/7872f01b1d1fe23eabc4c98b48bffcef5a386062/encoding/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeek-V4-Flash-0731 MIT license",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731/blob/7872f01b1d1fe23eabc4c98b48bffcef5a386062/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeek V4 Preview Release, April 24, 2026",
+        "url": "https://api-docs.deepseek.com/news/news260424/",
+        "type": "primary"
+      }
+    ],
+    "notes": "July 31, 2026 dated V4 Flash release. Core advertised 284B/13B architecture is retained from the April preview, with new post-training and a DSpark attachment. Complete logical weights total 304.178091454B: 284.332240471B main plus 19.845850983B unique DSpark; packed FP4 values are expanded, quantization scales/fixed routing indices excluded, and shared embeddings/head counted once. Nominal 13B active applies to main model only. Actual weights and inference configuration contain three DSpark stages, despite root config num_nextn_predict_layers=1. Advertised context is 1M; configured positional ceiling is 1048576. The September 10 redirect of deepseek-v4-flash to V4.1 Flash and October 17 successor update do not change this checkpoint identity. No endpoint execution was tested."
+  },
+  "proposed_fields": {
+    "active_parameters_scope": "main",
+    "parameter_components_b": {
+      "main": 284.332240471,
+      "dspark": 19.845850983
+    }
+  },
+  "summary": "Verified all 14 fields for exact July 31 0731 weights. Added MoE architecture, complete 304.178091454B logical parameters and nominal 13B main-model active parameters. Independently inspected every shard header and reconciled the DSpark attachment, FP4 packing, excluded metadata and shared weights. Preserved release date, MIT, advertised 1M text context, reasoning/tools and supported description; documented config-stage discrepancy and later API alias routing."
+}
