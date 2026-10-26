@@ -32,6 +32,8 @@ Include one `fields` assessment for every field listed above. `value` is the sup
 
 Keep component/phase breakdowns in an optional `proposed_fields` object for parent review. Do not add `parameters_scope` for a complete checkpoint count: total is already the default. A component scope must be a short key matched to a numeric `parameter_components_b` entry, not a prose explanation. Do not add checksum bookkeeping. Keep evidence notes concise.
 
+The license field accepts a supported descriptive `proprietary` classification as well as named licenses; it is not limited to SPDX identifiers. Do not mark it not applicable solely because weights are not distributed.
+
 For nullable fields, explicitly clear an unsupported baseline assertion in `patch`; an unverified assessment must not leave an asserted value merely because it was already in the catalog. A complete indexed primary page can establish last-documented specifications if its age and access limitations are recorded; it cannot prove current endpoint operation. Distinguish the earliest public release from a later region, provider listing or upgrade. Preserve month precision when the release day genuinely remains unresolved.
 
 Finish with your report path and a concise account of the findings. The parent reviews evidence and integrates accepted changes. Unresolved cases remain open in the overall audit.
