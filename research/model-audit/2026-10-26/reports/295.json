@@ -1,0 +1,303 @@
+{
+  "index": 295,
+  "model_id": "microsoft/phi-4-mini",
+  "reviewed_at": "2026-10-26T22:08:27.928502Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://azure.microsoft.com/en-us/blog/empowering-innovation-the-next-generation-of-the-phi-family/",
+      "title": "Empowering innovation: The next generation of the Phi family",
+      "publisher": "Microsoft",
+      "accessed": true,
+      "evidence": "Dated February 26, 2025, announces Phi-4-mini as newly available in the Phi family. Describes a nominal 3.8B dense decoder-only Transformer with grouped-query attention, shared embeddings and function calling. The prose describes sequences up to 128,000 tokens."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/microsoft/Phi-4-mini-instruct/blob/cfbefacb99257ffa30c83adab238a50856ac3083/README.md",
+      "title": "Phi-4-mini-instruct official model card",
+      "publisher": "Microsoft",
+      "accessed": true,
+      "evidence": "Identifies the released instruction checkpoint, text inputs and outputs, multilingual support, nominal 3.8B parameters, 128K context, supervised fine-tuning and DPO. Documents native function-calling prompts using tool delimiters and JSON tool definitions. Supplies loading instructions for open weights and states MIT licensing."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/microsoft/Phi-4-mini-instruct/blob/cfbefacb99257ffa30c83adab238a50856ac3083/config.json",
+      "title": "Phi-4-mini-instruct checkpoint configuration",
+      "publisher": "Microsoft",
+      "accessed": true,
+      "evidence": "Specifies 32 layers, hidden size 3072, intermediate size 8192, 24 query and 8 KV heads, vocabulary 200064, tied embeddings, BF16 and no attention/MLP/head biases. max_position_embeddings is 131072. No expert routing or quantization configuration."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/microsoft/Phi-4-mini-instruct/blob/cfbefacb99257ffa30c83adab238a50856ac3083/modeling_phi3.py",
+      "title": "Phi-4-mini-instruct model implementation",
+      "publisher": "Microsoft",
+      "accessed": true,
+      "evidence": "Defines embedding, bias-free fused QKV/output and gated-MLP projections, two learned RMSNorms per block, final RMSNorm and tied language-model head. Rotary inverse frequencies are nonpersistent buffers. These modules establish which header entries are learned parameters and avoid counting the tied head twice."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/microsoft/Phi-4-mini-instruct/blob/cfbefacb99257ffa30c83adab238a50856ac3083/model.safetensors.index.json",
+      "title": "Phi-4-mini-instruct checkpoint tensor index",
+      "publisher": "Microsoft",
+      "accessed": true,
+      "evidence": "Maps 194 tensor keys to two shards. Every key and shape was reconciled with the implementation and configuration. The 7,672,043,520-byte tensor-data total agrees with the learned-parameter count at BF16; bytes alone were not used to infer the count."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/microsoft/Phi-4-mini-instruct/resolve/cfbefacb99257ffa30c83adab238a50856ac3083/model-00001-of-00002.safetensors",
+      "title": "Phi-4-mini-instruct first shard header",
+      "publisher": "Microsoft",
+      "accessed": true,
+      "evidence": "Read only the 8-byte length and 13,000-byte JSON header using HTTP 206 ranges. Contains 111 BF16 learned tensors totaling 2,451,812,352 parameters. All shapes match expected architecture tensors; no scales, packed weights or buffers appear."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/microsoft/Phi-4-mini-instruct/resolve/cfbefacb99257ffa30c83adab238a50856ac3083/model-00002-of-00002.safetensors",
+      "title": "Phi-4-mini-instruct second shard header",
+      "publisher": "Microsoft",
+      "accessed": true,
+      "evidence": "Read only the 8-byte length and 9,680-byte JSON header using HTTP 206 ranges. Contains 83 BF16 learned tensors totaling 1,384,209,408 parameters. All shapes match expected architecture tensors; combined shard keys exactly match the index."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/microsoft/Phi-4-mini-instruct/blob/cfbefacb99257ffa30c83adab238a50856ac3083/LICENSE",
+      "title": "Phi-4-mini-instruct MIT license",
+      "publisher": "Microsoft",
+      "accessed": true,
+      "evidence": "The repository license is the MIT License, copyrighted by Microsoft Corporation; the model card explicitly applies it to the model."
+    },
+    {
+      "id": "s9",
+      "url": "https://arxiv.org/html/2503.01743v1",
+      "title": "Phi-4-Mini Technical Report",
+      "publisher": "Microsoft",
+      "accessed": true,
+      "evidence": "Sections 2 and 2.1 give dense decoder Transformer details: 32 layers, width 3072, tied embeddings, 24 query/8 KV heads and LongRoPE 128K context. The abstract footnote and section 3.1.3 explicitly distinguish the experimental reasoning-enhanced model and say its CoT training data was not applied to the officially released Phi-4-Mini checkpoint."
+    },
+    {
+      "id": "s10",
+      "url": "https://arxiv.org/html/2504.21233v1",
+      "title": "Phi-4-Mini-Reasoning: Exploring the Limits of Small Reasoning Language Models in Math",
+      "publisher": "Microsoft",
+      "accessed": true,
+      "evidence": "Later first-party report identifies Phi-4-Mini as the 3.8B starting model and explains the additional long-CoT training and reinforcement learning that produce the distinct Phi-4-Mini-Reasoning. It does not disclose a separate per-token active count for Phi-4-Mini."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/api/models/microsoft/Phi-4-mini-instruct",
+      "title": "Phi-4-mini-instruct repository metadata",
+      "publisher": "Hugging Face / Microsoft repository",
+      "accessed": true,
+      "evidence": "Current repository revision is cfbefacb99257ffa30c83adab238a50856ac3083. Repository creation was February 19, 2025, distinct from the February 26 public launch. The metadata reports 3,836,021,760 BF16 tensor elements, independently matched here to complete learned parameters using config, code and shard headers."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Phi-4-mini",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "The official launch uses Phi-4-mini; the released weights are Phi-4-mini-instruct. Retain the valid short name while identifying the exact instruction checkpoint; this is not Phi-4-mini-reasoning or Phi-4-mini-flash-reasoning."
+    },
+    "developer": {
+      "value": "Microsoft",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8"
+      ],
+      "note": "Microsoft announces and licenses the model."
+    },
+    "family": {
+      "value": "phi",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Member of Microsoft's Phi family, specifically its Phi-4 generation."
+    },
+    "release_date": {
+      "value": "2025-02-26",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s11"
+      ],
+      "note": "The dated Microsoft announcement states the model is newly available. February 19 repository creation is not evidence of public release; the March 3 technical report is later."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "note": "Publicly accessible original BF16 checkpoint shards and documented local loading establish open weights."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s8",
+        "s2"
+      ],
+      "note": "The official model card applies the repository MIT License to these weights."
+    },
+    "parameters_b": {
+      "value": 3.83602176,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "note": "Exact complete learned count: 200064×3072 + 32×[3072×5120 + 3072² + 3×3072×8192 + 2×3072] + 3072 = 3,836,021,760. All 194 header tensors reconcile with these trainable modules. Tied embedding/head counted once; nonpersistent RoPE buffers excluded. Microsoft's 3.8B is nominal."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s2",
+        "s9",
+        "s10"
+      ],
+      "note": "No separate per-token active-parameter count is defined in the inspected first-party cards/reports. The model is dense, but total learned parameters are not automatically substituted for an undisclosed active count."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4",
+        "s9"
+      ],
+      "note": "Dense decoder-only Transformer with 32 layers, grouped-query attention and tied input/output embeddings. Phi3ForCausalLM is the implementation class, not a claim that this is a Phi-3 checkpoint. The multimodal sibling's mixture of LoRAs does not apply to this text model."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s1",
+        "s2"
+      ],
+      "note": "The exact released checkpoint config sets max_position_embeddings=131072, consistent with the card's 128K. Microsoft launch prose says 128,000; use the machine-readable checkpoint limit for this open-weight record and retain this discrepancy. This does not certify a hosted provider limit."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s9"
+      ],
+      "note": "Text input and generated text output; the independently released Phi-4-multimodal is outside this record."
+    },
+    "reasoning": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s9",
+        "s10"
+      ],
+      "note": "False means no dedicated extended-reasoning variant/mode in this checkpoint, not inability to solve reasoning tasks. Microsoft explicitly separates the reasoning-enhanced model and its training from released Phi-4-Mini; the later report names that derivative Phi-4-Mini-Reasoning."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s9"
+      ],
+      "note": "Native function-calling training and a documented tool-delimited prompt format support tool-call generation."
+    },
+    "description": {
+      "value": "Microsoft's multilingual text instruction model, released as Phi-4-mini-instruct, with native function calling.",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s9"
+      ],
+      "note": "Replace the broad low-latency agent-task characterization with directly documented instruction, multilingual and function-calling properties."
+    }
+  },
+  "patch": {
+    "license": "MIT",
+    "parameters_b": 3.83602176,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "context_window": 131072,
+    "description": "Microsoft's multilingual text instruction model, released as Phi-4-mini-instruct, with native function calling.",
+    "source_url": "https://huggingface.co/microsoft/Phi-4-mini-instruct",
+    "source_type": "primary",
+    "notes": "Phi-4-mini is the launch name of Phi-4-mini-instruct. Exact checkpoint count is 3,836,021,760 learned parameters; 3.8B is the nominal published size. The tied input/output embedding is counted once. Active parameters are not separately reported. Config specifies 131,072 context tokens; launch prose says 128,000 and the card says 128K. The dedicated reasoning model is a separate release.",
+    "sources": [
+      {
+        "label": "Empowering innovation: The next generation of the Phi family",
+        "url": "https://azure.microsoft.com/en-us/blog/empowering-innovation-the-next-generation-of-the-phi-family/",
+        "type": "primary"
+      },
+      {
+        "label": "Phi-4-mini-instruct official model card",
+        "url": "https://huggingface.co/microsoft/Phi-4-mini-instruct/blob/cfbefacb99257ffa30c83adab238a50856ac3083/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Phi-4-mini-instruct checkpoint configuration",
+        "url": "https://huggingface.co/microsoft/Phi-4-mini-instruct/blob/cfbefacb99257ffa30c83adab238a50856ac3083/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Phi-4-mini-instruct model implementation",
+        "url": "https://huggingface.co/microsoft/Phi-4-mini-instruct/blob/cfbefacb99257ffa30c83adab238a50856ac3083/modeling_phi3.py",
+        "type": "primary"
+      },
+      {
+        "label": "Phi-4-mini-instruct checkpoint tensor index",
+        "url": "https://huggingface.co/microsoft/Phi-4-mini-instruct/blob/cfbefacb99257ffa30c83adab238a50856ac3083/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Phi-4-mini-instruct first shard header",
+        "url": "https://huggingface.co/microsoft/Phi-4-mini-instruct/resolve/cfbefacb99257ffa30c83adab238a50856ac3083/model-00001-of-00002.safetensors",
+        "type": "primary"
+      },
+      {
+        "label": "Phi-4-mini-instruct second shard header",
+        "url": "https://huggingface.co/microsoft/Phi-4-mini-instruct/resolve/cfbefacb99257ffa30c83adab238a50856ac3083/model-00002-of-00002.safetensors",
+        "type": "primary"
+      },
+      {
+        "label": "Phi-4-mini-instruct MIT license",
+        "url": "https://huggingface.co/microsoft/Phi-4-mini-instruct/blob/cfbefacb99257ffa30c83adab238a50856ac3083/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "Phi-4-Mini Technical Report",
+        "url": "https://arxiv.org/html/2503.01743v1",
+        "type": "primary"
+      },
+      {
+        "label": "Phi-4-Mini-Reasoning: Exploring the Limits of Small Reasoning Language Models in Math",
+        "url": "https://arxiv.org/html/2504.21233v1",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "Confirmed that the catalog short name denotes the February 26, 2025 Phi-4-mini-instruct release. Added MIT, dense architecture and exact 3.83602176B complete learned parameters, derived from architecture and reconciled against bounded headers of both BF16 shards. Corrected context to the configured 131072 tokens and narrowed the description. Native function calling and lack of a dedicated reasoning variant are supported; separate active parameters remain undisclosed. Recorded 128000 launch prose versus 128K/config context and repository-creation versus public-release distinctions."
+}
