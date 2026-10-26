@@ -1,0 +1,385 @@
+{
+  "index": 223,
+  "model_id": "google/gemma-4-26b-a4b-it",
+  "reviewed_at": "2026-10-26T20:22:31.763063Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://ai.google.dev/gemma/docs/core/model_card_4",
+      "title": "Gemma 4 model card",
+      "publisher": "Google DeepMind",
+      "accessed": true,
+      "evidence": "The 26B A4B column reports 25.2B total, 3.8B active, 30 layers, top-8 of 128 experts plus a shared expert, and a separate approximately 550M vision encoder. The card identifies Apache 2.0 open weights, instruction-tuned variants, text/image/video understanding, text output, configurable thinking, native function calling, and 256K context for this size."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/google/gemma-4-26B-A4B-it/resolve/4d7ae4984b7db7de8f8457170b3f1a419ee76d52/config.json",
+      "title": "Exact Gemma 4 26B A4B IT configuration",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Accessible ungated JSON: 30-layer MoE text decoder, hidden size 2816, 128 experts of width 704, top_k_experts=8, shared MLP width 2112, tied embeddings, vocabulary 262144, and max_position_embeddings=262144. Five local layers precede each global layer; global keys also supply values. Vision has 27 layers, width 1152, FFN width 4304 and learned position table dimensions 2 by 10240 by 1152. audio_config=null; video token present."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/google/gemma-4-26B-A4B-it/resolve/4d7ae4984b7db7de8f8457170b3f1a419ee76d52/model.safetensors.index.json",
+      "title": "Official checkpoint index",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Index lists 1,013 tensors in two shards. total_size=51,611,872,412 bytes agrees exactly with BF16 tensor shapes; total_parameters=26,544,131,376 is larger than the unique HF parameter count by exactly the 738,197,504-element tied embedding matrix. The index has no separately stored lm_head, MTP assistant, audio encoder or quantization metadata tensors."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/google/gemma-4-26B-A4B-it/resolve/4d7ae4984b7db7de8f8457170b3f1a419ee76d52/model-00001-of-00002.safetensors",
+      "title": "Official BF16 shard 1: header inspection",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Read only the 8-byte header length and 129,800-byte JSON header by HTTP Range, not weight payloads. Together with shard 2 there are 25,805,936,206 stored BF16 elements: text 25,233,141,790, vision 569,550,384, and vision projector 3,244,032. All tensor shapes match byte offsets and the index; no duplicate names or quantized/packed storage elements."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/google/gemma-4-26B-A4B-it/resolve/4d7ae4984b7db7de8f8457170b3f1a419ee76d52/model-00002-of-00002.safetensors",
+      "title": "Official BF16 shard 2: header inspection",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Read only the 8-byte header length and 7,688-byte JSON header by HTTP Range. Completing the index confirms a single tied text embedding matrix, routed expert tensors, the vision encoder and projection, and no embedded MTP/draft head."
+    },
+    {
+      "id": "s6",
+      "url": "https://github.com/huggingface/transformers/blob/6c5f8f4186c15f4bfbd67941a1736b2b347e0155/src/transformers/models/gemma4/modeling_gemma4.py",
+      "title": "Gemma 4 Transformers parameter and buffer definitions",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "The official checkpoint implementation declares 30 layer_scalar entries and two length-1152 vision std_bias/std_scale entries as buffers. Expert matrices, router.scale, router.per_expert_scale and positional embeddings are parameters. Input/output embeddings are tied, and global attention omits a separate value projection. Router scoring uses all 128 experts but gathers only eight per_expert_scale values for a token."
+    },
+    {
+      "id": "s7",
+      "url": "https://github.com/huggingface/transformers/blob/6c5f8f4186c15f4bfbd67941a1736b2b347e0155/src/transformers/models/gemma4/convert_gemma4_weights.py",
+      "title": "Gemma 4 checkpoint conversion implementation",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Conversion aliases lm_head.weight to embed_tokens.weight. BF16 dense matrices are reshaped/transposed and MoE matrices split without dimension padding; the padding routines found are for packed quantized representations, absent in the inspected BF16 checkpoint. This prevents treating the index total_parameters or quantized storage size as a unique model count."
+    },
+    {
+      "id": "s8",
+      "url": "https://arxiv.org/html/2607.02770v1",
+      "title": "Gemma 4 Technical Report, July 2026",
+      "publisher": "Google DeepMind",
+      "accessed": true,
+      "evidence": "The exact 26B-A4B model is a decoder-only Transformer MoE. Table 1 separately lists rounded 550M vision, 740M embedder, 24,500M einsums / 2,800M active einsums and 430M drafter. Main text reports 3.8B activated and 26B total. The table active subtotal plus embedder does not reproduce the main-text 3.8B and is not used as an exact count. The report discusses scalars for fp16 activation bounds."
+    },
+    {
+      "id": "s9",
+      "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/",
+      "title": "Gemma 4 launch announcement, April 2, 2026",
+      "publisher": "Google DeepMind",
+      "accessed": true,
+      "evidence": "Dated April 2, 2026; announces introduction and release that day, explicitly includes 26B MoE and links the exact 26B-A4B-it repository. States 3.8B parameters activate during inference, all variants support images/video, and the large models support up to 256K context."
+    },
+    {
+      "id": "s10",
+      "url": "https://ai.google.dev/gemma/docs/releases",
+      "title": "Gemma releases: conflicting current release log",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "The current log, updated October 7, 2026, says March 31 for Gemma 4 E2B/E4B/31B/26B A4B. It conflicts with contemporaneous April 2 Google launch statements. It separately dates MTP to April 16. The earlier log date is recorded as a conflict rather than automatically replacing the public-launch evidence."
+    },
+    {
+      "id": "s11",
+      "url": "https://developers.googleblog.com/bring-state-of-the-art-agentic-skills-to-the-edge-with-gemma-4/",
+      "title": "Google AI Edge Gemma 4 launch article",
+      "publisher": "Google AI Edge Team",
+      "accessed": true,
+      "evidence": "Dated April 2, 2026, and explicitly says Google DeepMind launched Gemma 4 today; it links the main launch announcement. Independent first-party corroboration of the public announcement date."
+    },
+    {
+      "id": "s12",
+      "url": "https://huggingface.co/blog/gemma4",
+      "title": "Welcome Gemma 4: launch partner announcement",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Published April 2, 2026, announces that the Google models are out on Hugging Face and describes collaboration on the launch. Its variant table directly links the 26B A4B IT checkpoint. Later additions to this evolving article are not used to backdate later variants."
+    },
+    {
+      "id": "s13",
+      "url": "https://huggingface.co/api/models/google/gemma-4-26B-A4B-it/commits/main",
+      "title": "Exact model repository commit history",
+      "publisher": "Google / Hugging Face",
+      "accessed": true,
+      "evidence": "The earliest visible root commit is 47b6801b24d15ff9bcd8c96dfaea0be9ed3a0301, titled Preparing for release!, dated April 2, 2026 at 10:52:44 UTC. It includes config, card, tokenizer and both weight shards. This corroborates launch timing but a commit timestamp alone does not establish when repository access became public."
+    },
+    {
+      "id": "s14",
+      "url": "https://ai.google.dev/gemma/docs/mtp/mtp",
+      "title": "Gemma 4 MTP model loading guide",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Lists google/gemma-4-26B-A4B-it as a target and constructs the separate drafter identifier by adding -assistant. Two models are loaded. Therefore the optional MTP assistant is outside the audited main checkpoint and must not be added to its parameter count."
+    },
+    {
+      "id": "s15",
+      "url": "https://github.com/google-deepmind/gemma/blob/9e1f74131ba9d45e5fe6ae7bb3941d9f2abb39c3/gemma/gm/nn/gemma4/_gemma4.py",
+      "title": "Google reference architecture: Gemma4_26B_A4B",
+      "publisher": "Google DeepMind",
+      "accessed": true,
+      "evidence": "The exact class specifies 128 routed experts of width 704, top-8 routing, a shared dense MLP of width 2112, hidden width 2816, vocabulary 262144, 30 decoder layers, global K=V, and the 27-layer 1152-wide vision encoder. Its shapes agree with the official checkpoint."
+    },
+    {
+      "id": "s16",
+      "url": "https://github.com/google-deepmind/gemma/blob/9e1f74131ba9d45e5fe6ae7bb3941d9f2abb39c3/gemma/gm/nn/gemma4/_modules.py",
+      "title": "Google reference decoder scalar definition",
+      "publisher": "Google DeepMind",
+      "accessed": true,
+      "evidence": "Google JAX exposes skip_scale as self.param, whereas Transformers stores the corresponding layer_scalar as a buffer. This audit distinguishes the HF parameter/buffer accounting convention from a claim about the historical optimization of every scalar."
+    },
+    {
+      "id": "s17",
+      "url": "https://github.com/google-deepmind/gemma/blob/9e1f74131ba9d45e5fe6ae7bb3941d9f2abb39c3/gemma/gm/nn/gemma4/vision/_layers.py",
+      "title": "Google reference vision standardization definition",
+      "publisher": "Google DeepMind",
+      "accessed": true,
+      "evidence": "Google JAX exposes standardization scale/bias with self.param, whereas Transformers stores their corresponding tensors as buffers. The exact training provenance of those 2,304 elements is not established by headers; both the raw storage total and HF parameter-only total are recorded."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Gemma 4 26B A4B IT",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s12"
+      ],
+      "note": "Exact instruction-tuned 26B A4B variant; capitalization normalizes the official repository name. It is not the pretrained or separately released assistant variant."
+    },
+    "developer": {
+      "value": "Google",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s9",
+        "s15"
+      ],
+      "note": "Google DeepMind is the named author; retain the catalog’s Google developer grouping."
+    },
+    "family": {
+      "value": "gemma",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s9"
+      ],
+      "note": "Official Gemma family, fourth generation."
+    },
+    "release_date": {
+      "value": "2026-04-02",
+      "status": "verified",
+      "source_ids": [
+        "s9",
+        "s10",
+        "s11",
+        "s12",
+        "s13"
+      ],
+      "note": "Retain April 2 at day precision: contemporaneous Google launch statements explicitly announce the release that day, a launch-partner article links the exact IT variant, and its root release-preparation commit is April 2. Current release notes instead say March 31; no contemporaneous public-availability evidence for March 31 was verified. The contradiction remains recorded. Repository creation/upload timestamps alone do not establish public release."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "note": "Official complete main-model BF16 checkpoint is publicly accessible without a gate; inspected config/index and both tensor headers."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s9"
+      ],
+      "note": "Google explicitly licenses this Gemma 4 release under Apache 2.0."
+    },
+    "parameters_b": {
+      "value": 25.8059,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s14",
+        "s15",
+        "s16",
+        "s17"
+      ],
+      "note": "Rounded complete main-checkpoint estimate, in decimal billions, including text, vision and projection. The two headers contain 25,805,936,206 BF16 elements: text 25,233,141,790; vision 569,550,384; projection 3,244,032. HF parameter-only accounting excludes 30 layer-scalar and 2,304 vision standardization buffer elements, yielding 25,805,933,872. Google JAX exposes those same scalars/statistics with self.param; neither framework registration nor headers establishes their historical learning provenance. Both conventions round to 25.8059B at 0.0001B (100,000 parameter) precision, which is the published value. The 738,197,504-element tied embedding/output matrix is counted once; index total_parameters counts it twice under HF parameter accounting. The card’s 25.2B corresponds to the rounded text component; 26B is a size label. No packed tensors, quantization-scale tensors, conversion padding, audio encoder or MTP head are present; the separate assistant is excluded."
+    },
+    "active_parameters_b": {
+      "value": 3.8,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4",
+        "s5",
+        "s6",
+        "s8",
+        "s9",
+        "s15"
+      ],
+      "note": "Google’s rounded per-token inference figure, one decimal billion, for the text decoder; do not substitute the A4B label. A configuration/header derivation gives approximately 3.8225B for ordinary autoregressive decoding with full-vocabulary logits: using the HF parameter-only convention, 25,233,141,760 text parameters minus 120/128 of 22,837,985,280 routed-expert matrix parameters minus 30×120 unselected per-expert scales = 3,822,526,960. Possible inclusion of the 30 block scalars does not change that rounded result. This includes shared MLP, all router logits, attention/norms and tied vocabulary output once; it is a single-token computation rather than the union over a batch or sequence. Vision encoding is a separate image/video prefill phase and optional MTP is separate. The technical report’s rounded active-einsum table does not sum to its 3.8B headline and is not used as an exact decomposition."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s8",
+        "s15"
+      ],
+      "note": "Decoder-only Transformer text backbone with 30 layers, eight of 128 routed experts plus a shared dense MLP in every layer. Five sliding-attention layers per global layer; global K and V share the projection. A separate vision Transformer supplies image/frame embeddings. No audio tower in this variant."
+    },
+    "context_window": {
+      "value": 262144,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s1"
+      ],
+      "note": "Exact max_position_embeddings=262144 in the model configuration resolves the card’s rounded 256K token label."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s9"
+      ],
+      "note": "Add documented video input, represented through image frames. The exact config has vision and a video token but no audio encoder; output is text."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8"
+      ],
+      "note": "The instruction-tuned variant supports a configurable thinking mode; this verifies the capability rather than promising a fixed reasoning policy in every serving wrapper."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "The model card reports native function calling for the IT models. This is a source-reported model capability; no separate claim of a particular provider protocol is required."
+    },
+    "description": {
+      "value": "Google’s instruction-tuned Gemma 4 mixture-of-experts model with text, image and video input, text output, configurable reasoning, and native function calling.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s8"
+      ],
+      "note": "Replace generic deployment marketing with the verified model type, input/output modalities, reasoning and function-calling capabilities."
+    }
+  },
+  "patch": {
+    "license": "Apache-2.0",
+    "parameters_b": 25.8059,
+    "active_parameters_b": 3.8,
+    "parameters_source": "primary_source",
+    "modalities": {
+      "input": [
+        "text",
+        "image",
+        "video"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "description": "Google’s instruction-tuned Gemma 4 mixture-of-experts model with text, image and video input, text output, configurable reasoning, and native function calling.",
+    "source_url": "https://ai.google.dev/gemma/docs/core/model_card_4",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Google Gemma 4 model card",
+        "url": "https://ai.google.dev/gemma/docs/core/model_card_4",
+        "type": "primary"
+      },
+      {
+        "label": "Google Gemma 4 launch announcement",
+        "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemma-4/",
+        "type": "primary"
+      },
+      {
+        "label": "Exact checkpoint configuration",
+        "url": "https://huggingface.co/google/gemma-4-26B-A4B-it/resolve/4d7ae4984b7db7de8f8457170b3f1a419ee76d52/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Official checkpoint index",
+        "url": "https://huggingface.co/google/gemma-4-26B-A4B-it/resolve/4d7ae4984b7db7de8f8457170b3f1a419ee76d52/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Official BF16 shard 1 tensor header",
+        "url": "https://huggingface.co/google/gemma-4-26B-A4B-it/resolve/4d7ae4984b7db7de8f8457170b3f1a419ee76d52/model-00001-of-00002.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Official BF16 shard 2 tensor header",
+        "url": "https://huggingface.co/google/gemma-4-26B-A4B-it/resolve/4d7ae4984b7db7de8f8457170b3f1a419ee76d52/model-00002-of-00002.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Gemma 4 implementation: parameters and buffers",
+        "url": "https://github.com/huggingface/transformers/blob/6c5f8f4186c15f4bfbd67941a1736b2b347e0155/src/transformers/models/gemma4/modeling_gemma4.py",
+        "type": "primary"
+      },
+      {
+        "label": "Gemma 4 Technical Report",
+        "url": "https://arxiv.org/html/2607.02770v1",
+        "type": "primary"
+      },
+      {
+        "label": "Gemma release log: date conflict",
+        "url": "https://ai.google.dev/gemma/docs/releases",
+        "type": "primary"
+      },
+      {
+        "label": "Google AI Edge launch corroboration",
+        "url": "https://developers.googleblog.com/bring-state-of-the-art-agentic-skills-to-the-edge-with-gemma-4/",
+        "type": "primary"
+      },
+      {
+        "label": "Separate MTP model documentation",
+        "url": "https://ai.google.dev/gemma/docs/mtp/mtp",
+        "type": "primary"
+      }
+    ],
+    "notes": "25.8059B is a rounded complete main-checkpoint estimate, including vision/projection and counting tied input/output embeddings once. Exact BF16 storage contains 25,805,936,206 elements; HF parameter-only accounting gives 25,805,933,872 after excluding 2,334 scalar/standardization buffer elements. Google JAX exposes those elements with self.param, so historical learning provenance is not independently established; both conventions round to the published value. The card’s 25.2B is the rounded text component. Active 3.8B is Google’s rounded text-decoding count, excluding vision prefill and the separate MTP assistant. Video is processed as image frames. April 2 is retained from contemporaneous Google/Hugging Face launch evidence despite the current release log’s conflicting March 31 entry."
+  },
+  "summary": "Replace model-name estimates with a rounded complete-checkpoint 25.8059B total and Google’s nominal 3.8B active count. Add Apache-2.0 and video input; confirm MoE, 262144 context, thinking and function calling. Header-only inspection reconciles text/vision/projector, tied embeddings and the index overcount; separate MTP is excluded. Retain April 2 public launch while documenting the current release log’s March 31 conflict. Total precision is invariant to the unresolved historical learned status of 2,334 elements classified as buffers by HF and as self.param by Google JAX; exact storage and HF parameter-only counts are evidence, not interchangeable learned totals."
+}
