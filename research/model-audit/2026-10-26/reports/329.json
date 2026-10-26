@@ -1,0 +1,295 @@
+{
+  "index": 329,
+  "model_id": "mistral/mistral-7b-instruct-v0.1",
+  "reviewed_at": "2026-10-26T23:08:11.596900Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://mistral.ai/news/announcing-mistral-7b/",
+      "title": "Mistral 7B launch, September 27, 2023",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Dated release announcement includes the instruction-fine-tuned model and links directly to Mistral-7B-Instruct-v0.1. Announces Apache 2.0 weights, nominal 7.3B size and 4,096-token sliding-window attention."
+    },
+    {
+      "id": "s2",
+      "url": "https://docs.mistral.ai/models/mistral-7b-0-1",
+      "title": "Mistral 7B v0.1 official model specifications",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "The exact v0.1 page lists release September 27, 2023, Apache 2.0, 8k context and retired status. Its Instruct Weights row links to this checkpoint and separately labels Parameters (B)=7 and Active (B)=7. The Markdown rendition confirms text input/output. These are archived specifications, not evidence of a currently operating endpoint."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.1/blob/ec5deb64f2c6e6fa90c1abf74a91d5c93a9669ca/README.md",
+      "title": "Mistral-7B-Instruct-v0.1 model card at pinned revision",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Names the exact revision as an instruction fine-tune of Mistral-7B-v0.1 on public conversation datasets. Declares Apache 2.0 and text generation, explains Transformer/GQA/SWA architecture, and explicitly selects MistralTokenizer.v1() for official inference."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.1/blob/ec5deb64f2c6e6fa90c1abf74a91d5c93a9669ca/config.json",
+      "title": "Exact v0.1 checkpoint configuration",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "MistralForCausalLM: 32 layers, width 4,096, MLP width 14,336, 32 query heads, 8 KV heads, 32,000 vocabulary and untied embeddings. Sets sliding_window=4096 and max_position_embeddings=32768; the latter differs from the documented reference context."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.1/blob/ec5deb64f2c6e6fa90c1abf74a91d5c93a9669ca/model.safetensors.index.json",
+      "title": "Complete v0.1 Safetensors index",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Maps all 291 tensors to exactly two shards and declares total_size=14,483,464,192 bytes. Every indexed name appears exactly once in the inspected shard headers. All tensors are ordinary learned weights; there are no quantization scales, packed weights or buffers."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.1/resolve/ec5deb64f2c6e6fa90c1abf74a91d5c93a9669ca/model-00001-of-00002.safetensors",
+      "title": "v0.1 Safetensors shard 1 header",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Read only the 8-byte length prefix and 23,608-byte JSON header using verified HTTP 206 byte ranges. Its 203 BF16 weight tensors contain 4,971,479,040 scalar parameters. Tensor byte spans are contiguous and their end plus header/prefix equals the server-reported file size."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.1/resolve/ec5deb64f2c6e6fa90c1abf74a91d5c93a9669ca/model-00002-of-00002.safetensors",
+      "title": "v0.1 Safetensors shard 2 header",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Read only the 8-byte length prefix and 10,224-byte JSON header using verified HTTP 206 byte ranges. Its 88 BF16 weight tensors contain 2,270,253,056 scalar parameters. Tensor byte spans are contiguous and their end plus header/prefix equals the server-reported file size."
+    },
+    {
+      "id": "s8",
+      "url": "https://arxiv.org/html/2310.06825v1",
+      "title": "Mistral 7B original technical report, arXiv v1",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Table 1 gives context_len=8192 and window_size=4096 with the architecture dimensions matching this checkpoint. Section 4 covers its original instruction fine-tuning. The October 10, 2023 paper appeared after the September release. The theoretical multilayer attention span and longer-sequence efficiency examples do not replace the reference context specification."
+    },
+    {
+      "id": "s9",
+      "url": "https://github.com/mistralai/mistral-common/blob/d4364d04c684051a7a246e49bc699b9b1ed46420/src/mistral_common/tokens/tokenizers/instruct.py#L297",
+      "title": "Mistral official InstructTokenizerV1 implementation",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "InstructTokenizerV1 explicitly describes text-only instruction formatting without tools. encode_tool_message and nonempty assistant tool_calls raise unsupported-tools errors. encode_think rejects structured thinking chunks, but this serialization limitation does not rule out a trained reasoning mode expressed in plain text."
+    },
+    {
+      "id": "s10",
+      "url": "https://github.com/mistralai/mistral-common/blob/d4364d04c684051a7a246e49bc699b9b1ed46420/src/mistral_common/tokens/tokenizers/mistral.py#L193",
+      "title": "Mistral official tokenizer version factory",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "v1() loads tokenizer.model.v1. The TokenizerVersion.v1 branch constructs InstructTokenizerV1 and disallows image and audio encoders. This connects the exact model card’s v1() instruction to the implementation examined for capabilities."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Mistral 7B Instruct v0.1",
+      "status": "verified",
+      "source_ids": [
+        "s3"
+      ],
+      "note": "Normalized display form of the exact checkpoint name; not v0.2 or v0.3."
+    },
+    "developer": {
+      "value": "Mistral AI",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Released by the Mistral AI team under its official model organization."
+    },
+    "family": {
+      "value": "mistral",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4"
+      ],
+      "note": "Explicit fine-tune of Mistral-7B-v0.1 and model_type=mistral."
+    },
+    "release_date": {
+      "value": "2023-09-27",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "The dated announcement already offers and links this instruct checkpoint; do not substitute the later technical-report publication date."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "note": "Exact public checkpoint metadata and both weight headers were accessible without authentication."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Explicit model-card license and exact Instruct Weights license column agree."
+    },
+    "parameters_b": {
+      "value": 7.241732096,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "note": "Complete checkpoint count: 4,971,479,040 + 2,270,253,056 = 7,241,732,096 learned BF16 scalar weights across 291 tensors. Includes both untied 32,000×4,096 embedding/output matrices, all 32 dense Transformer blocks and final norm. All names/offsets/shapes match the complete index and 14,483,464,192 payload bytes. No buffers or quantization tensors are present. Replaces the announcement’s nominal 7.3B with an exact count derived from first-party headers; no full weight downloads."
+    },
+    "active_parameters_b": {
+      "value": 7,
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Direct nominal disclosure from the exact Instruct Weights row’s Active (B) column. This rounded 7B is not inferred by equating active and total, and is not an exact per-token tensor census."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "note": "Decoder-only Transformer with GQA and SWA. Each of 32 layers has the same dense gated MLP and attention projections; the complete tensor inventory contains no expert banks or router."
+    },
+    "context_window": {
+      "value": 8192,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s8"
+      ],
+      "note": "Retain the exact paper’s context_len=8192, consistent with the official v0.1 8k listing. The 4,096 attention window is per layer; config max_position_embeddings=32768 and the paper’s theoretical 131k receptive field are separate quantities. This records documented reference context, not an assertion that longer inference is impossible."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s10"
+      ],
+      "note": "Exact generative text checkpoint and V1 tokenizer; no image/audio encoders."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s3",
+        "s8",
+        "s9",
+        "s10"
+      ],
+      "note": "The exact release is instruction-tuned and has ordinary reasoning benchmark results, but the inspected primary evidence does not explicitly classify it as a dedicated reasoning or non-reasoning model. V1 rejects structured ThinkChunk serialization; that alone cannot rule out reasoning expressed through ordinary text. Retain null rather than infer false."
+    },
+    "tool_call": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s9",
+        "s10"
+      ],
+      "note": "Native tools are explicitly unsupported by the official V1 tokenizer used by this checkpoint. External prompting/parsers and later Mistral revisions do not establish native v0.1 tool calling."
+    },
+    "description": {
+      "value": "Original Mistral 7B instruction-tuned checkpoint.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s8"
+      ],
+      "note": "Concise original description accurately identifies the first instruction-tuned release; no unsupported performance claim."
+    }
+  },
+  "patch": {
+    "parameters_b": 7.241732096,
+    "active_parameters_b": 7,
+    "parameters_source": "primary_source",
+    "tool_call": false,
+    "notes": "Total is the complete 7,241,732,096-parameter BF16 checkpoint count; active 7B is separately published and nominal. The documented context is 8,192 tokens, distinct from the 4,096-token sliding attention window and 32,768 configuration position ceiling. Native tool calls are unsupported by the official V1 tokenizer. Dedicated reasoning mode remains unverified; structured thinking-chunk rejection alone cannot establish its absence.",
+    "sources": [
+      {
+        "label": "Mistral 7B launch, September 27, 2023",
+        "url": "https://mistral.ai/news/announcing-mistral-7b/",
+        "type": "primary"
+      },
+      {
+        "label": "Mistral 7B v0.1 official model specifications",
+        "url": "https://docs.mistral.ai/models/mistral-7b-0-1",
+        "type": "primary"
+      },
+      {
+        "label": "Mistral-7B-Instruct-v0.1 model card at pinned revision",
+        "url": "https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.1/blob/ec5deb64f2c6e6fa90c1abf74a91d5c93a9669ca/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "Exact v0.1 checkpoint configuration",
+        "url": "https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.1/blob/ec5deb64f2c6e6fa90c1abf74a91d5c93a9669ca/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Complete v0.1 Safetensors index",
+        "url": "https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.1/blob/ec5deb64f2c6e6fa90c1abf74a91d5c93a9669ca/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "v0.1 Safetensors shard 1 header",
+        "url": "https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.1/resolve/ec5deb64f2c6e6fa90c1abf74a91d5c93a9669ca/model-00001-of-00002.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "v0.1 Safetensors shard 2 header",
+        "url": "https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.1/resolve/ec5deb64f2c6e6fa90c1abf74a91d5c93a9669ca/model-00002-of-00002.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Mistral 7B original technical report, arXiv v1",
+        "url": "https://arxiv.org/html/2310.06825v1",
+        "type": "primary"
+      },
+      {
+        "label": "Mistral official InstructTokenizerV1 implementation",
+        "url": "https://github.com/mistralai/mistral-common/blob/d4364d04c684051a7a246e49bc699b9b1ed46420/src/mistral_common/tokens/tokenizers/instruct.py#L297",
+        "type": "primary"
+      },
+      {
+        "label": "Mistral official tokenizer version factory",
+        "url": "https://github.com/mistralai/mistral-common/blob/d4364d04c684051a7a246e49bc699b9b1ed46420/src/mistral_common/tokens/tokenizers/mistral.py#L193",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "Audited all 14 fields for the original v0.1 instruct checkpoint. Refined nominal 7.3B total to 7.241732096B from every tensor header, added the separately documented nominal 7B active count, and marked native tools false from the official V1 implementation. Confirmed the September 27, 2023 Apache-2.0 release and 8,192-token reference context while documenting the distinct sliding-window and configuration limits. Dedicated reasoning mode remains null/unverified because structured-tokenizer limitations do not prove its absence."
+}
