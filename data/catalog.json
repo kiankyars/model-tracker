@@ -13124,11 +13124,11 @@
     "release_date": "2025-12-02",
     "date_precision": "day",
     "open_weights": false,
-    "license": null,
+    "license": "proprietary",
     "parameters_b": null,
     "active_parameters_b": null,
     "parameters_source": null,
-    "architecture": null,
+    "architecture": "transformer",
     "context_window": 1000000,
     "modalities": {
       "input": [
@@ -13147,6 +13147,31 @@
     "source_type": "catalog",
     "sources": [
       {
+        "label": "Amazon Nova 2 Lite service card",
+        "url": "https://docs.aws.amazon.com/ai/responsible-ai/nova-2-lite/overview.html",
+        "type": "primary"
+      },
+      {
+        "label": "Amazon Nova 2 technical report",
+        "url": "https://cdn.amazon.science/c5/3d/84514a224666b5be6de4b43ef4aa/nova-2-0-technical-report2.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Nova 2 Lite launch announcement",
+        "url": "https://aws.amazon.com/blogs/aws/introducing-amazon-nova-2-lite-a-fast-cost-effective-reasoning-model/",
+        "type": "primary"
+      },
+      {
+        "label": "Amazon Nova 2 multimodal documentation",
+        "url": "https://docs.aws.amazon.com/nova/latest/nova2-userguide/using-multimodal-models.html",
+        "type": "docs"
+      },
+      {
+        "label": "Nova 2 migration comparison",
+        "url": "https://aws.amazon.com/blogs/machine-learning/migrate-from-amazon-nova-1-to-amazon-nova-2-on-amazon-bedrock/",
+        "type": "primary"
+      },
+      {
         "label": "Models.dev record",
         "url": "https://github.com/anomalyco/models.dev/blob/dev/models/amazon/nova-2-lite-v1.toml",
         "type": "catalog"
@@ -13163,6 +13188,13 @@
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
     "upstream_present": true,
+    "notes": "Transformer-based architecture is documented; dense versus mixture-of-experts, total parameters, and active parameters remain undisclosed in the primary sources checked. PDF input is available through the Converse API; video audio tracks are not processed.",
+    "field_status": {
+      "parameters_b": "undisclosed",
+      "active_parameters_b": "undisclosed"
+    },
+    "audited_at": "2026-10-26T15:52:08Z",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/077.json",
     "alias_sources": {
       "amazon/nova-2-lite": {
         "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-amazon-nova-2-lite.html",
@@ -20824,11 +20856,11 @@
     "release_date": "2025-03-05",
     "date_precision": "day",
     "open_weights": true,
-    "license": null,
-    "parameters_b": 32,
-    "active_parameters_b": null,
-    "parameters_source": "model_name",
-    "architecture": null,
+    "license": "apache-2.0",
+    "parameters_b": 32.763876352,
+    "active_parameters_b": 32,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
     "context_window": 131072,
     "modalities": {
       "input": [
@@ -20840,24 +20872,58 @@
     },
     "reasoning": true,
     "tool_call": true,
-    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/alibaba/qwq-32b.toml",
-    "source_type": "catalog",
+    "source_url": "https://qwenlm.github.io/blog/qwq-32b/",
+    "source_type": "primary",
     "sources": [
-      {
-        "label": "Models.dev record",
-        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/alibaba/qwq-32b.toml",
-        "type": "catalog"
-      },
       {
         "label": "Hugging Face",
         "url": "https://huggingface.co/Qwen/QwQ-32B",
         "type": "weights"
+      },
+      {
+        "label": "QwQ-32B: Embracing the Power of Reinforcement Learning",
+        "url": "https://qwenlm.github.io/blog/qwq-32b/",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3 Technical Report, Table 13",
+        "url": "https://arxiv.org/html/2505.09388v1#S4.T13",
+        "type": "primary"
+      },
+      {
+        "label": "QwQ-32B checkpoint configuration",
+        "url": "https://huggingface.co/Qwen/QwQ-32B/blob/976055f8c83f394f35dbd3ab09a285a984907bd0/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "QwQ-32B published checkpoint tensor index",
+        "url": "https://huggingface.co/Qwen/QwQ-32B/blob/976055f8c83f394f35dbd3ab09a285a984907bd0/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "QwQ-32B repository and safetensors metadata",
+        "url": "https://huggingface.co/api/models/Qwen/QwQ-32B",
+        "type": "primary"
+      },
+      {
+        "label": "QwQ-32B official chat template",
+        "url": "https://huggingface.co/Qwen/QwQ-32B/blob/976055f8c83f394f35dbd3ab09a285a984907bd0/tokenizer_config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Models.dev record",
+        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/alibaba/qwq-32b.toml",
+        "type": "catalog"
       }
     ],
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
+    "upstream_present": true,
+    "notes": "Exact BF16 checkpoint total is 32,763,876,352 parameters; the model card states 32.5B and Qwen3 Table 13 uses nominal 32B total/active. Active count is the explicitly reported nominal 32B, not an exact per-token count. Full 131,072-token context requires documented YaRN configuration. Release day is March 5 UTC; the announcement displays March 6 in UTC+08:00.",
+    "field_status": {},
+    "audited_at": "2026-10-26T15:53:23.087438Z",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/075.json"
   },
   {
     "id": "alibaba/qwq-plus",
@@ -20869,7 +20935,7 @@
     "description": "Qwen reasoning model for deliberate problem solving, math, and coding",
     "release_date": "2025-03-05",
     "date_precision": "day",
-    "open_weights": false,
+    "open_weights": null,
     "license": null,
     "parameters_b": null,
     "active_parameters_b": null,
@@ -20886,9 +20952,34 @@
     },
     "reasoning": true,
     "tool_call": true,
-    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/alibaba/qwq-plus.toml",
-    "source_type": "catalog",
+    "source_url": "https://www.alibabacloud.com/help/en/model-studio/newly-released-models",
+    "source_type": "primary",
     "sources": [
+      {
+        "label": "Alibaba Cloud explicit release table",
+        "url": "https://www.alibabacloud.com/help/en/model-studio/newly-released-models",
+        "type": "primary"
+      },
+      {
+        "label": "QwQ-Plus last-documented model information",
+        "url": "https://www.alibabacloud.com/help/en/model-studio/qwq-plus",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3 technical report: distinct QwQ-32B comparison column",
+        "url": "https://arxiv.org/html/2505.09388v1",
+        "type": "primary"
+      },
+      {
+        "label": "Separate QwQ-32B checkpoint card",
+        "url": "https://huggingface.co/Qwen/QwQ-32B",
+        "type": "primary"
+      },
+      {
+        "label": "Alibaba Cloud announced legacy-model retirement",
+        "url": "https://www.alibabacloud.com/en/notice/model_studio_notice_on_the_postponed_retirement_of_selected_legacy_models_7d0?_p_lc=1",
+        "type": "primary"
+      },
       {
         "label": "Models.dev record",
         "url": "https://github.com/anomalyco/models.dev/blob/dev/models/alibaba/qwq-plus.toml",
@@ -20898,7 +20989,17 @@
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
+    "upstream_present": true,
+    "notes": "QwQ-Plus has no verified mapping to the released QwQ-32B checkpoint. Weight openness remains unverified; total/active parameters and architecture are undisclosed in the reviewed exact-model sources. Function Calling was documented for Beijing but not Singapore. Context and modality values are last-documented specifications from the indexed October 10, 2026 model page, which now redirects. Alibaba announced October 10, 2026 retirement; current endpoint operation was not tested.",
+    "field_status": {
+      "open_weights": "unverified",
+      "license": "unverified",
+      "parameters_b": "undisclosed",
+      "active_parameters_b": "undisclosed",
+      "architecture": "undisclosed"
+    },
+    "audited_at": "2026-10-26T15:53:05Z",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/076.json"
   },
   {
     "id": "cohere/c4ai-aya-vision-32b",
@@ -21990,89 +22091,6 @@
     "upstream_present": true
   },
   {
-    "id": "amazon/nova-lite-v1",
-    "slug": "amazon--nova-lite-v1",
-    "name": "Nova Lite 1.0",
-    "developer": "Amazon",
-    "developer_id": "amazon",
-    "family": "nova-lite",
-    "description": "Efficient model for low-latency assistance, extraction, and routine automation",
-    "release_date": "2024-12-05",
-    "date_precision": "day",
-    "open_weights": false,
-    "license": null,
-    "parameters_b": null,
-    "active_parameters_b": null,
-    "parameters_source": null,
-    "architecture": null,
-    "context_window": 300000,
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "reasoning": false,
-    "tool_call": true,
-    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/amazon/nova-lite-v1.toml",
-    "source_type": "catalog",
-    "sources": [
-      {
-        "label": "Models.dev record",
-        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/amazon/nova-lite-v1.toml",
-        "type": "catalog"
-      }
-    ],
-    "aliases": [],
-    "first_seen": "2026-10-26T08:55:12.627Z",
-    "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
-  },
-  {
-    "id": "amazon/nova-micro-v1",
-    "slug": "amazon--nova-micro-v1",
-    "name": "Nova Micro 1.0",
-    "developer": "Amazon",
-    "developer_id": "amazon",
-    "family": "nova-micro",
-    "description": "Efficient model for low-latency assistance, extraction, and routine automation",
-    "release_date": "2024-12-05",
-    "date_precision": "day",
-    "open_weights": false,
-    "license": null,
-    "parameters_b": null,
-    "active_parameters_b": null,
-    "parameters_source": null,
-    "architecture": null,
-    "context_window": 128000,
-    "modalities": {
-      "input": [
-        "text"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "reasoning": false,
-    "tool_call": true,
-    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/amazon/nova-micro-v1.toml",
-    "source_type": "catalog",
-    "sources": [
-      {
-        "label": "Models.dev record",
-        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/amazon/nova-micro-v1.toml",
-        "type": "catalog"
-      }
-    ],
-    "aliases": [],
-    "first_seen": "2026-10-26T08:55:12.627Z",
-    "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
-  },
-  {
     "id": "amazon/nova-pro-v1",
     "slug": "amazon--nova-pro-v1",
     "name": "Nova Pro 1.0",
@@ -22163,16 +22181,16 @@
     "name": "Nova Lite",
     "developer": "Amazon",
     "developer_id": "amazon",
-    "family": "nova-lite",
-    "description": "Efficient model for low-latency assistance, extraction, and routine automation",
+    "family": "nova",
+    "description": "Nova model with text, image, video and PDF input, text output, a 300K-token context and tool calling.",
     "release_date": "2024-12-03",
     "date_precision": "day",
     "open_weights": false,
-    "license": null,
+    "license": "AWS Service Terms",
     "parameters_b": null,
     "active_parameters_b": null,
     "parameters_source": null,
-    "architecture": null,
+    "architecture": "transformer",
     "context_window": 300000,
     "modalities": {
       "input": [
@@ -22185,11 +22203,61 @@
         "text"
       ]
     },
-    "reasoning": false,
+    "reasoning": null,
     "tool_call": true,
     "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/amazon/nova-lite.toml",
     "source_type": "catalog",
     "sources": [
+      {
+        "label": "Introducing Amazon Nova: A New Generation of Foundation Models",
+        "url": "https://press.aboutamazon.com/2024/12/introducing-amazon-nova-a-new-generation-of-foundation-models",
+        "type": "primary"
+      },
+      {
+        "label": "Nova Lite - Amazon Bedrock",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-amazon-nova-lite.html",
+        "type": "primary"
+      },
+      {
+        "label": "What is Amazon Nova? - Version 1",
+        "url": "https://docs.aws.amazon.com/nova/latest/userguide/what-is-nova.html",
+        "type": "primary"
+      },
+      {
+        "label": "The Amazon Nova Family of Models: Technical Report and Model Card",
+        "url": "https://arxiv.org/html/2506.12103v1",
+        "type": "primary"
+      },
+      {
+        "label": "Amazon Nova Micro, Lite, Pro, and Premier - AWS AI Service Cards",
+        "url": "https://docs.aws.amazon.com/ai/responsible-ai/nova-micro-lite-pro/overview.html",
+        "type": "primary"
+      },
+      {
+        "label": "Customize Amazon Nova in Amazon SageMaker AI",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2025/07/customize-amazon-nova-sagemaker-ai/",
+        "type": "primary"
+      },
+      {
+        "label": "Available foundation models - Amazon SageMaker AI",
+        "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/jumpstart-foundation-models-latest.html",
+        "type": "primary"
+      },
+      {
+        "label": "Iterative Training - Amazon Nova",
+        "url": "https://docs.aws.amazon.com/nova/latest/userguide/nova-iterative-training.html",
+        "type": "primary"
+      },
+      {
+        "label": "Migrate from Amazon Nova 1 to Amazon Nova 2 on Amazon Bedrock",
+        "url": "https://aws.amazon.com/blogs/machine-learning/migrate-from-amazon-nova-1-to-amazon-nova-2-on-amazon-bedrock/",
+        "type": "primary"
+      },
+      {
+        "label": "Complete request schema - Amazon Nova",
+        "url": "https://docs.aws.amazon.com/nova/latest/userguide/complete-request-schema.html",
+        "type": "primary"
+      },
       {
         "label": "Models.dev record",
         "url": "https://github.com/anomalyco/models.dev/blob/dev/models/amazon/nova-lite.toml",
@@ -22199,7 +22267,122 @@
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
+    "upstream_present": true,
+    "notes": "Total and active parameter counts are undisclosed in reviewed first-party reports; Transformer architecture is confirmed, but dense versus MoE topology is not. Public GA was December 3, 2024, despite the current Bedrock card listing December 5. Dedicated reasoning remains unresolved: the AWS migration table says Nova 1 Lite has no extended thinking, while the v1 API schema documents reasoningConfig for Lite. AWS explicitly classifies Nova as proprietary; inconsistent SageMaker table grouping is recorded in the audit.",
+    "field_status": {
+      "parameters_b": "undisclosed",
+      "active_parameters_b": "undisclosed",
+      "reasoning": "unverified"
+    },
+    "audited_at": "2026-10-26T16:02:26.929044+00:00",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/078.json"
+  },
+  {
+    "id": "amazon/nova-lite-v1",
+    "slug": "amazon--nova-lite-v1",
+    "name": "Nova Lite 1.0",
+    "developer": "Amazon",
+    "developer_id": "amazon",
+    "family": "nova",
+    "description": "Nova model with text, image, video and PDF input, text output, a 300K-token context and tool calling.",
+    "release_date": "2024-12-03",
+    "date_precision": "day",
+    "open_weights": false,
+    "license": "AWS Service Terms",
+    "parameters_b": null,
+    "active_parameters_b": null,
+    "parameters_source": null,
+    "architecture": "transformer",
+    "context_window": 300000,
+    "modalities": {
+      "input": [
+        "text",
+        "image",
+        "video",
+        "pdf"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "reasoning": null,
+    "tool_call": true,
+    "source_url": "https://press.aboutamazon.com/2024/12/introducing-amazon-nova-a-new-generation-of-foundation-models",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Amazon Nova launch and public availability",
+        "url": "https://press.aboutamazon.com/2024/12/introducing-amazon-nova-a-new-generation-of-foundation-models",
+        "type": "primary"
+      },
+      {
+        "label": "Nova Lite Bedrock model card",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-amazon-nova-lite.html",
+        "type": "primary"
+      },
+      {
+        "label": "Amazon Nova technical report",
+        "url": "https://cdn.amazon.science/96/7d/0d3e59514abf8fdcfafcdc574300/nova-tech-report-20250317-0810.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Nova model service card",
+        "url": "https://docs.aws.amazon.com/ai/responsible-ai/nova-micro-lite-pro/overview.html",
+        "type": "primary"
+      },
+      {
+        "label": "Nova proprietary customization announcement",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2025/07/customize-amazon-nova-sagemaker-ai/",
+        "type": "primary"
+      },
+      {
+        "label": "Nova Lite license in SageMaker inventory",
+        "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/jumpstart-foundation-models-latest.html",
+        "type": "primary"
+      },
+      {
+        "label": "Nova 1 to Nova 2 feature comparison",
+        "url": "https://aws.amazon.com/blogs/machine-learning/migrate-from-amazon-nova-1-to-amazon-nova-2-on-amazon-bedrock/",
+        "type": "primary"
+      },
+      {
+        "label": "Nova proprietary checkpoint handling",
+        "url": "https://docs.aws.amazon.com/nova/latest/userguide/nova-iterative-training.html",
+        "type": "primary"
+      },
+      {
+        "label": "Nova request schema reasoning conflict",
+        "url": "https://docs.aws.amazon.com/nova/latest/userguide/complete-request-schema.html",
+        "type": "primary"
+      },
+      {
+        "label": "Nova Version 1 Converse API",
+        "url": "https://docs.aws.amazon.com/nova/latest/userguide/using-converse-api.html",
+        "type": "primary"
+      },
+      {
+        "label": "Amazon Nova Version 1 model and document specifications",
+        "url": "https://docs.aws.amazon.com/nova/latest/userguide/what-is-nova.html",
+        "type": "primary"
+      },
+      {
+        "label": "Models.dev record",
+        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/amazon/nova-lite-v1.toml",
+        "type": "catalog"
+      }
+    ],
+    "aliases": [],
+    "first_seen": "2026-10-26T08:55:12.627Z",
+    "last_seen": "2026-10-26T09:05:47.987Z",
+    "upstream_present": true,
+    "notes": "Public GA was announced December 3, 2024; the later Bedrock card lists December 5. Transformer-based is disclosed, but total/active parameter counts and dense/MoE topology are not. AWS Service Terms are proprietary use terms; Nova-specific documentation identifies proprietary weights held in AWS-managed escrow despite the JumpStart inventory's broad Open-Weight heading. Reasoning mode is unresolved: the Nova 1 Lite migration table says no extended thinking, while the current shared Nova request schema assigns reasoningConfig to Lite. PDF input is supported through the Converse API.",
+    "field_status": {
+      "parameters_b": "undisclosed",
+      "active_parameters_b": "undisclosed",
+      "reasoning": "unverified"
+    },
+    "audited_at": "2026-10-26T16:02:26.929044+00:00",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/079.json"
   },
   {
     "id": "amazon/nova-micro",
@@ -22207,16 +22390,16 @@
     "name": "Nova Micro",
     "developer": "Amazon",
     "developer_id": "amazon",
-    "family": "nova-micro",
-    "description": "Efficient model for low-latency assistance, extraction, and routine automation",
+    "family": "nova",
+    "description": "Text-only Nova model for summarization, translation and classification, with a 128K-token context and tool calling.",
     "release_date": "2024-12-03",
     "date_precision": "day",
     "open_weights": false,
-    "license": null,
+    "license": "AWS Service Terms",
     "parameters_b": null,
     "active_parameters_b": null,
     "parameters_source": null,
-    "architecture": null,
+    "architecture": "transformer",
     "context_window": 128000,
     "modalities": {
       "input": [
@@ -22228,9 +22411,74 @@
     },
     "reasoning": false,
     "tool_call": true,
-    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/amazon/nova-micro.toml",
-    "source_type": "catalog",
+    "source_url": "https://press.aboutamazon.com/2024/12/introducing-amazon-nova-a-new-generation-of-foundation-models",
+    "source_type": "primary",
     "sources": [
+      {
+        "label": "Introducing Amazon Nova: A New Generation of Foundation Models",
+        "url": "https://press.aboutamazon.com/2024/12/introducing-amazon-nova-a-new-generation-of-foundation-models",
+        "type": "primary"
+      },
+      {
+        "label": "The Amazon Nova Family of Models: Technical Report and Model Card (March 2025 revision)",
+        "url": "https://cdn.amazon.science/96/7d/0d3e59514abf8fdcfafcdc574300/nova-tech-report-20250317-0810.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Amazon Nova Micro, Lite, Pro, and Premier - AWS AI Service Cards",
+        "url": "https://docs.aws.amazon.com/ai/responsible-ai/nova-micro-lite-pro/overview.html",
+        "type": "primary"
+      },
+      {
+        "label": "Nova Micro - Amazon Bedrock",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-amazon-nova-micro.html",
+        "type": "primary"
+      },
+      {
+        "label": "Amazon Nova Premier: Technical Report and Model Card",
+        "url": "https://cdn.amazon.science/e5/e6/ccc5378c42dca467d1abe1628ec9/amazon-nova-premier-technical-report-and-model-card.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Amazon Nova 2: Multimodal Reasoning and Generation Models",
+        "url": "https://cdn.amazon.science/c5/3d/84514a224666b5be6de4b43ef4aa/nova-2-0-technical-report2.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "MASSIVE-Agents: A Benchmark for Multilingual Function-Calling in 52 Languages",
+        "url": "https://cdn.amazon.science/91/54/8aa885d04ccbb58f9b16da17f632/scipub-approval152129-35517880-massiveagents-a-benchmark-for-multilingual-functioncalling-in-52-languages.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Complete request schema - Amazon Nova",
+        "url": "https://docs.aws.amazon.com/nova/latest/userguide/complete-request-schema.html",
+        "type": "primary"
+      },
+      {
+        "label": "Available foundation models - Amazon SageMaker AI",
+        "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/jumpstart-foundation-models-latest.html",
+        "type": "primary"
+      },
+      {
+        "label": "Iterative Training - Amazon Nova",
+        "url": "https://docs.aws.amazon.com/nova/latest/userguide/nova-iterative-training.html",
+        "type": "primary"
+      },
+      {
+        "label": "AWS Service Terms",
+        "url": "https://aws.amazon.com/service-terms/",
+        "type": "primary"
+      },
+      {
+        "label": "Customize Amazon Nova in Amazon SageMaker AI using Direct Preference Optimization",
+        "url": "https://aws.amazon.com/blogs/machine-learning/customize-amazon-nova-in-amazon-sagemaker-ai-using-direct-preference-optimization/",
+        "type": "primary"
+      },
+      {
+        "label": "Amazon Nova",
+        "url": "https://aws.amazon.com/nova/",
+        "type": "primary"
+      },
       {
         "label": "Models.dev record",
         "url": "https://github.com/anomalyco/models.dev/blob/dev/models/amazon/nova-micro.toml",
@@ -22240,7 +22488,112 @@
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
+    "upstream_present": true,
+    "notes": "Total and active parameter counts are not disclosed in checked primary reports; Transformer is confirmed, while dense versus MoE is unknown. Release uses Amazon’s December 3, 2024 GA announcement despite a December 5 date on the current Bedrock card. Micro remains proprietary under AWS Service Terms: customized weights stay in Amazon-controlled escrow; the JumpStart open-weight table heading conflicts with explicit weight-access documentation. Reasoning=false refers to a dedicated reasoning mode, not inability to perform reasoning tasks.",
+    "field_status": {
+      "parameters_b": "undisclosed",
+      "active_parameters_b": "undisclosed"
+    },
+    "audited_at": "2026-10-26T16:02:26.929044+00:00",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/080.json"
+  },
+  {
+    "id": "amazon/nova-micro-v1",
+    "slug": "amazon--nova-micro-v1",
+    "name": "Nova Micro 1.0",
+    "developer": "Amazon",
+    "developer_id": "amazon",
+    "family": "nova",
+    "description": "Text-only Nova model for summarization, translation and classification, with a 128K-token context and tool calling.",
+    "release_date": "2024-12-03",
+    "date_precision": "day",
+    "open_weights": false,
+    "license": "AWS Service Terms",
+    "parameters_b": null,
+    "active_parameters_b": null,
+    "parameters_source": null,
+    "architecture": "transformer",
+    "context_window": 128000,
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "reasoning": false,
+    "tool_call": true,
+    "source_url": "https://aws.amazon.com/blogs/aws/introducing-amazon-nova-frontier-intelligence-and-industry-leading-price-performance/",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Introducing Amazon Nova foundation models: Frontier intelligence and industry leading price performance",
+        "url": "https://aws.amazon.com/blogs/aws/introducing-amazon-nova-frontier-intelligence-and-industry-leading-price-performance/",
+        "type": "primary"
+      },
+      {
+        "label": "What is Amazon Nova? (Version 1)",
+        "url": "https://docs.aws.amazon.com/nova/latest/userguide/what-is-nova.html",
+        "type": "primary"
+      },
+      {
+        "label": "Nova Micro - Amazon Bedrock",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-amazon-nova-micro.html",
+        "type": "primary"
+      },
+      {
+        "label": "The Amazon Nova Family of Models: Technical Report and Model Card",
+        "url": "https://cdn.amazon.science/96/7d/0d3e59514abf8fdcfafcdc574300/nova-tech-report-20250317-0810.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Amazon Nova Premier: Technical Report and Model Card",
+        "url": "https://cdn.amazon.science/e5/e6/ccc5378c42dca467d1abe1628ec9/amazon-nova-premier-technical-report-and-model-card.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Amazon Nova 2: Multimodal Reasoning and Generation Models",
+        "url": "https://cdn.amazon.science/c5/3d/84514a224666b5be6de4b43ef4aa/nova-2-0-technical-report2.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "AWS AI Service Cards - Amazon Nova Micro, Lite, Pro, and Premier",
+        "url": "https://docs.aws.amazon.com/ai/responsible-ai/nova-micro-lite-pro/overview.html",
+        "type": "primary"
+      },
+      {
+        "label": "Iterative Training - Amazon Nova",
+        "url": "https://docs.aws.amazon.com/nova/latest/userguide/nova-iterative-training.html",
+        "type": "primary"
+      },
+      {
+        "label": "Available foundation models - Amazon SageMaker AI",
+        "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/jumpstart-foundation-models-latest.html",
+        "type": "primary"
+      },
+      {
+        "label": "Complete request schema - Amazon Nova",
+        "url": "https://docs.aws.amazon.com/nova/latest/userguide/complete-request-schema.html",
+        "type": "primary"
+      },
+      {
+        "label": "Models.dev record",
+        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/amazon/nova-micro-v1.toml",
+        "type": "catalog"
+      }
+    ],
+    "aliases": [],
+    "first_seen": "2026-10-26T08:55:12.627Z",
+    "last_seen": "2026-10-26T09:05:47.987Z",
+    "upstream_present": true,
+    "notes": "The Dec 3, 2024 launch announcement explicitly states availability; the current Bedrock card instead lists Dec 5, 2024, an unexplained date conflict. Transformer backbone is documented, but total/active parameters and dense versus MoE structure remain undisclosed after reviewing the original, Premier and Nova 2 reports and service card. Nova weights are proprietary and trained checkpoints remain in AWS-managed escrow. Micro accepts text only, with no native document input or configurable thinking mode. Endpoint operation was not tested.",
+    "field_status": {
+      "parameters_b": "undisclosed",
+      "active_parameters_b": "undisclosed"
+    },
+    "audited_at": "2026-10-26T16:02:47.572245Z",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/081.json"
   },
   {
     "id": "amazon/nova-pro",

@@ -1,0 +1,258 @@
+{
+  "index": 75,
+  "model_id": "alibaba/qwq-32b",
+  "reviewed_at": "2026-10-26T15:53:23.087438Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/Qwen/QwQ-32B",
+      "title": "QwQ-32B official model card",
+      "publisher": "Qwen / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Names QwQ-32B as a Qwen reasoning model based on Qwen2.5; Apache-2.0; causal text generation; 32.5B parameters, 31.0B non-embedding; 64 transformer layers; 131,072-token context with YaRN guidance for inputs over 8,192 tokens."
+    },
+    {
+      "id": "s2",
+      "url": "https://qwenlm.github.io/blog/qwq-32b/",
+      "title": "QwQ-32B: Embracing the Power of Reinforcement Learning",
+      "publisher": "Qwen Team",
+      "accessed": true,
+      "evidence": "Announces open weights under Apache 2.0, reasoning, math/coding RL and agentic tool use. HTML article:published_time/datePublished is 2025-03-06T00:00:04+08:00, equivalent to 2025-03-05T16:00:04Z; visible date is March 6."
+    },
+    {
+      "id": "s3",
+      "url": "https://arxiv.org/html/2505.09388v1#S4.T13",
+      "title": "Qwen3 Technical Report, Table 13",
+      "publisher": "Qwen Team",
+      "accessed": true,
+      "evidence": "The exact QwQ-32B column explicitly labels Architecture Dense, Activated Params 32B and Total Params 32B. These are nominal whole-billion comparison figures, not an exact tensor count."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/Qwen/QwQ-32B/blob/976055f8c83f394f35dbd3ab09a285a984907bd0/config.json",
+      "title": "QwQ-32B checkpoint configuration",
+      "publisher": "Qwen / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Qwen2ForCausalLM; hidden size 5120; intermediate size 27648; 64 layers; 40 query and 8 KV heads; vocabulary 152064; untied embeddings; BF16; max_position_embeddings 40960."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/Qwen/QwQ-32B/blob/976055f8c83f394f35dbd3ab09a285a984907bd0/model.safetensors.index.json",
+      "title": "QwQ-32B published checkpoint tensor index",
+      "publisher": "Qwen / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "771 tensors exactly match the expected learned weights and biases for the configuration, with no additional buffers or quantization metadata. Total size 65,527,752,704 bytes agrees with 32,763,876,352 BF16 parameters derived from configuration."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/api/models/Qwen/QwQ-32B",
+      "title": "QwQ-32B repository and safetensors metadata",
+      "publisher": "Hugging Face hosting Qwen checkpoint",
+      "accessed": true,
+      "evidence": "Current revision 976055f8c83f394f35dbd3ab09a285a984907bd0; safetensors BF16 and total counts both 32,763,876,352; repository created 2025-03-05T14:16:59Z."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/Qwen/QwQ-32B/blob/976055f8c83f394f35dbd3ab09a285a984907bd0/tokenizer_config.json",
+      "title": "QwQ-32B official chat template",
+      "publisher": "Qwen / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Chat template accepts tool schemas, serializes function name/arguments in tool_call tags, consumes tool_response messages, and starts generated responses with a think prefix."
+    },
+    {
+      "id": "s8",
+      "url": "https://github.com/QwenLM/QwQ",
+      "title": "Official QwQ repository",
+      "publisher": "Qwen Team / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Repository identifies QwQ as the reasoning model series developed by the Qwen team at Alibaba Cloud and links the exact QwQ-32B weights."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "QwQ 32B",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Baseline display name corresponds to the official QwQ-32B spelling."
+    },
+    "developer": {
+      "value": "Alibaba",
+      "status": "verified",
+      "source_ids": [
+        "s8"
+      ],
+      "note": "Qwen team at Alibaba Cloud."
+    },
+    "family": {
+      "value": "qwen",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8"
+      ],
+      "note": "QwQ is the reasoning-specialized model in the Qwen series."
+    },
+    "release_date": {
+      "value": "2025-03-05",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s6"
+      ],
+      "note": "UTC release day. Announcement metadata converts from March 6 at 00:00:04 UTC+08:00 to March 5 at 16:00:04 UTC; repository creation agrees. The visible blog date uses UTC+08:00."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5"
+      ],
+      "note": "Official announcement and published checkpoint confirm downloadable weights."
+    },
+    "license": {
+      "value": "apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Official card and announcement state Apache 2.0."
+    },
+    "parameters_b": {
+      "value": 32.763876352,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s6",
+        "s1",
+        "s3"
+      ],
+      "note": "Exact complete checkpoint count: 32,763,876,352 learned parameters. Config-derived count equals HF BF16 metadata and index byte total / 2; all 771 tensor names checked against expected weights/biases, excluding no hidden buffers. Card reports 32.5B, while the later comparison table uses nominal 32B; preserve this precision discrepancy."
+    },
+    "active_parameters_b": {
+      "value": 32,
+      "status": "verified",
+      "source_ids": [
+        "s3"
+      ],
+      "note": "Directly disclosed nominal 32B in the QwQ-32B Activated Params column. Not inferred from density or equated to the exact checkpoint total; the report does not provide an exact active count."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s1"
+      ],
+      "note": "Table 13 explicitly says Dense. Checkpoint implements a Qwen2 causal decoder transformer with GQA, RoPE, SwiGLU and RMSNorm."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4"
+      ],
+      "note": "Official advertised full context. Card prescribes YaRN for prompts over 8,192 tokens; shipped max_position_embeddings is 40,960, so the full window requires the documented scaling configuration."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s7"
+      ],
+      "note": "Text tokenizer and causal text-generation checkpoint; no image/audio/video encoder or output component in the complete tensor index."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s7"
+      ],
+      "note": "Explicit reasoning model, with think-prefixed generation and RL for reasoning tasks."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s7"
+      ],
+      "note": "Announcement describes tool-enabled reasoning; official template defines function calls and tool responses."
+    },
+    "description": {
+      "value": "Open reasoning model from the Qwen team for math, coding, and step-by-step problem solving",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Supported by the official reasoning description, math/coding RL and step-by-step prompting guidance; contains no unsupported performance comparison."
+    }
+  },
+  "patch": {
+    "license": "apache-2.0",
+    "parameters_b": 32.763876352,
+    "active_parameters_b": 32,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "source_type": "primary",
+    "source_url": "https://qwenlm.github.io/blog/qwq-32b/",
+    "sources": [
+      {
+        "label": "QwQ-32B official model card",
+        "url": "https://huggingface.co/Qwen/QwQ-32B",
+        "type": "primary"
+      },
+      {
+        "label": "QwQ-32B: Embracing the Power of Reinforcement Learning",
+        "url": "https://qwenlm.github.io/blog/qwq-32b/",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3 Technical Report, Table 13",
+        "url": "https://arxiv.org/html/2505.09388v1#S4.T13",
+        "type": "primary"
+      },
+      {
+        "label": "QwQ-32B checkpoint configuration",
+        "url": "https://huggingface.co/Qwen/QwQ-32B/blob/976055f8c83f394f35dbd3ab09a285a984907bd0/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "QwQ-32B published checkpoint tensor index",
+        "url": "https://huggingface.co/Qwen/QwQ-32B/blob/976055f8c83f394f35dbd3ab09a285a984907bd0/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "QwQ-32B repository and safetensors metadata",
+        "url": "https://huggingface.co/api/models/Qwen/QwQ-32B",
+        "type": "primary"
+      },
+      {
+        "label": "QwQ-32B official chat template",
+        "url": "https://huggingface.co/Qwen/QwQ-32B/blob/976055f8c83f394f35dbd3ab09a285a984907bd0/tokenizer_config.json",
+        "type": "primary"
+      }
+    ],
+    "notes": "Exact BF16 checkpoint total is 32,763,876,352 parameters; the model card states 32.5B and Qwen3 Table 13 uses nominal 32B total/active. Active count is the explicitly reported nominal 32B, not an exact per-token count. Full 131,072-token context requires documented YaRN configuration. Release day is March 5 UTC; the announcement displays March 6 in UTC+08:00."
+  },
+  "summary": "Audited all 14 fields. Corrected name-derived 32B total to the validated complete checkpoint count 32.763876352B; added explicitly reported nominal 32B active count, dense architecture and Apache-2.0. Confirmed March 5 UTC release, text-only modalities, reasoning and tool calling. Recorded model-card/count precision discrepancy and YaRN condition for full context."
+}

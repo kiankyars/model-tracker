@@ -197,7 +197,7 @@ function detailRow(model, id) {
   const scope = model.parameters_scope;
   addDetail(list, scope ? `${scope.charAt(0).toUpperCase() + scope.slice(1).replaceAll('_', ' ')} parameters` : 'Total parameters', model.parameters_b == null ? missingLabel(model, 'parameters_b') : parameterLabel(model.parameters_b));
   addDetail(list, 'Active parameters', activeSizeLabel(model));
-  addDetail(list, 'Architecture', { moe: 'Mixture of experts', dense: 'Dense', 'hybrid-ssm-transformer-moe': 'Hybrid Mamba–Transformer (MoE)' }[model.architecture] || model.architecture || missingLabel(model, 'architecture'));
+  addDetail(list, 'Architecture', { moe: 'Mixture of experts', dense: 'Dense', transformer: 'Transformer', 'hybrid-ssm-transformer-moe': 'Hybrid Mamba–Transformer (MoE)' }[model.architecture] || model.architecture || missingLabel(model, 'architecture'));
   for (const [component, size] of Object.entries(model.parameter_components_b || {})) {
     if (component !== model.parameters_scope) addDetail(list, `${component.charAt(0).toUpperCase() + component.slice(1).replaceAll('_', ' ')} parameters`, billions(size));
   }

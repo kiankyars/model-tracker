@@ -1,0 +1,289 @@
+{
+  "index": 81,
+  "model_id": "amazon/nova-micro-v1",
+  "reviewed_at": "2026-10-26T16:02:47.572245Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://aws.amazon.com/blogs/aws/introducing-amazon-nova-frontier-intelligence-and-industry-leading-price-performance/",
+      "title": "Introducing Amazon Nova foundation models: Frontier intelligence and industry leading price performance",
+      "publisher": "Amazon Web Services",
+      "accessed": true,
+      "evidence": "Dated December 3, 2024; introduces Nova Micro and says Nova models are available in Bedrock that day. Micro is a text-only 128K model optimized for low latency and cost, including summarization, translation, classification and interactive chat."
+    },
+    {
+      "id": "s2",
+      "url": "https://docs.aws.amazon.com/nova/latest/userguide/what-is-nova.html",
+      "title": "What is Amazon Nova? (Version 1)",
+      "publisher": "Amazon Web Services",
+      "accessed": true,
+      "evidence": "Version 1 specification table maps Amazon Nova Micro to amazon.nova-micro-v1:0: text input/output, 128K context and Document Support = No. Lists interactive chat, RAG and agentic applications."
+    },
+    {
+      "id": "s3",
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-amazon-nova-micro.html",
+      "title": "Nova Micro - Amazon Bedrock",
+      "publisher": "Amazon Web Services",
+      "accessed": true,
+      "evidence": "Exact amazon.nova-micro-v1:0 model card confirms Amazon developer, text-only inputs/output, 128K context and client-side tool calling. Lists a conflicting Dec 05, 2024 launch date; the earlier dated launch announcement explicitly establishes public availability on Dec 3."
+    },
+    {
+      "id": "s4",
+      "url": "https://cdn.amazon.science/96/7d/0d3e59514abf8fdcfafcdc574300/nova-tech-report-20250317-0810.pdf",
+      "title": "The Amazon Nova Family of Models: Technical Report and Model Card",
+      "publisher": "Amazon Artificial General Intelligence",
+      "accessed": true,
+      "evidence": "PDF page 3 explicitly says Nova Pro, Lite and Micro use the Transformer architecture. Full text retrieved with urllib and pdftotext after web retrieval exceeded its size limit. It does not disclose Micro total/active parameter counts or dense versus MoE structure."
+    },
+    {
+      "id": "s5",
+      "url": "https://cdn.amazon.science/e5/e6/ccc5378c42dca467d1abe1628ec9/amazon-nova-premier-technical-report-and-model-card.pdf",
+      "title": "Amazon Nova Premier: Technical Report and Model Card",
+      "publisher": "Amazon Artificial General Intelligence",
+      "accessed": true,
+      "evidence": "April 30, 2025 addendum mentions distillation into Nova Micro but provides no Micro parameter-count or detailed architecture disclosure. Benchmark comparisons do not establish model size."
+    },
+    {
+      "id": "s6",
+      "url": "https://cdn.amazon.science/c5/3d/84514a224666b5be6de4b43ef4aa/nova-2-0-technical-report2.pdf",
+      "title": "Amazon Nova 2: Multimodal Reasoning and Generation Models",
+      "publisher": "Amazon Artificial General Intelligence",
+      "accessed": true,
+      "evidence": "December 2, 2025 later technical report checked for retrospective Micro specifications; the extracted report has no Micro or parameter-count entries. It does not resolve Micro size or dense/MoE structure."
+    },
+    {
+      "id": "s7",
+      "url": "https://docs.aws.amazon.com/ai/responsible-ai/nova-micro-lite-pro/overview.html",
+      "title": "AWS AI Service Cards - Amazon Nova Micro, Lite, Pro, and Premier",
+      "publisher": "Amazon Web Services",
+      "accessed": true,
+      "evidence": "Service card current as of April 30, 2025 identifies Micro as text-input/text-output and describes Nova token inference as Transformer-based. It supplies no parameter counts or detailed Micro routing architecture."
+    },
+    {
+      "id": "s8",
+      "url": "https://docs.aws.amazon.com/nova/latest/userguide/nova-iterative-training.html",
+      "title": "Iterative Training - Amazon Nova",
+      "publisher": "Amazon Web Services",
+      "accessed": true,
+      "evidence": "Explicitly states that Amazon Nova weights are proprietary and customized checkpoints remain in escrow S3 buckets in AWS-managed accounts rather than being copied to customer accounts."
+    },
+    {
+      "id": "s9",
+      "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/jumpstart-foundation-models-latest.html",
+      "title": "Available foundation models - Amazon SageMaker AI",
+      "publisher": "Amazon Web Services",
+      "accessed": true,
+      "evidence": "Nova Micro / nova-textgeneration-micro row lists AWS Service Terms as its license. Although it appears in the broadly named Open-Weight Models table, explicit proprietary-weight and escrow documentation provides the more specific accessibility evidence."
+    },
+    {
+      "id": "s10",
+      "url": "https://docs.aws.amazon.com/nova/latest/userguide/complete-request-schema.html",
+      "title": "Complete request schema - Amazon Nova",
+      "publisher": "Amazon Web Services",
+      "accessed": true,
+      "evidence": "The inferenceConfig documentation restricts reasoningConfig to Nova Pro and Nova Lite, excluding Micro. Supports toolConfig and toolChoice; explicitly excludes image and video input for Micro."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Nova Micro 1.0",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "Nova Micro is the official name; the existing 1.0 suffix identifies the documented Version 1 / v1 endpoint."
+    },
+    "developer": {
+      "value": "Amazon",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "First-party model announcement and Bedrock card identify Amazon."
+    },
+    "family": {
+      "value": "nova",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Normalize to the documented Amazon Nova family; Micro is the model tier."
+    },
+    "release_date": {
+      "value": "2024-12-03",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Earliest explicit public availability is the December 3 launch post. Current Bedrock card says December 5 without explaining the discrepancy; retain that conflict in notes rather than replacing launch evidence with lifecycle metadata."
+    },
+    "open_weights": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s8",
+        "s9"
+      ],
+      "note": "Explicit proprietary-weight escrow documentation outweighs the broad SageMaker table heading; no public weight release is established."
+    },
+    "license": {
+      "value": "AWS Service Terms",
+      "status": "verified",
+      "source_ids": [
+        "s9",
+        "s8"
+      ],
+      "note": "The exact Nova Micro row identifies AWS Service Terms; this is proprietary hosted-service access, not an open-weight license."
+    },
+    "parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "note": "No exact or nominal total is disclosed in the original report, later Premier and Nova 2 reports, or service card reviewed. Do not infer size from latency or hardware."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "note": "No active parameter count is disclosed. Dense versus MoE is also not established, so no total-to-active equality is assumed."
+    },
+    "architecture": {
+      "value": "transformer",
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s7"
+      ],
+      "note": "Transformer backbone is explicit; dense versus mixture-of-experts structure and layer dimensions remain undisclosed."
+    },
+    "context_window": {
+      "value": 128000,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "AWS specifies 128K for amazon.nova-micro-v1:0; stored using the catalog decimal K convention."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "The exact v1 table says text input/output and no document support. Text extracted from documents is ordinary text input, not native document support."
+    },
+    "reasoning": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s10"
+      ],
+      "note": "Interpreted as dedicated configurable thinking/reasoning mode. Micro is excluded from reasoningConfig; ordinary mathematical reasoning or chain-of-thought prompting does not make this flag true."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s10"
+      ],
+      "note": "Exact Bedrock card explicitly supports client-side tool calling; request schema defines toolConfig/toolChoice."
+    },
+    "description": {
+      "value": "Text-only Nova model for summarization, translation and classification, with a 128K-token context and tool calling.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Concrete documented text tasks, context and tool support without latency claims."
+    }
+  },
+  "patch": {
+    "release_date": "2024-12-03",
+    "license": "AWS Service Terms",
+    "architecture": "transformer",
+    "description": "Text-only Nova model for summarization, translation and classification, with a 128K-token context and tool calling.",
+    "source_url": "https://aws.amazon.com/blogs/aws/introducing-amazon-nova-frontier-intelligence-and-industry-leading-price-performance/",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Introducing Amazon Nova foundation models: Frontier intelligence and industry leading price performance",
+        "url": "https://aws.amazon.com/blogs/aws/introducing-amazon-nova-frontier-intelligence-and-industry-leading-price-performance/",
+        "type": "primary"
+      },
+      {
+        "label": "What is Amazon Nova? (Version 1)",
+        "url": "https://docs.aws.amazon.com/nova/latest/userguide/what-is-nova.html",
+        "type": "primary"
+      },
+      {
+        "label": "Nova Micro - Amazon Bedrock",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-amazon-nova-micro.html",
+        "type": "primary"
+      },
+      {
+        "label": "The Amazon Nova Family of Models: Technical Report and Model Card",
+        "url": "https://cdn.amazon.science/96/7d/0d3e59514abf8fdcfafcdc574300/nova-tech-report-20250317-0810.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Amazon Nova Premier: Technical Report and Model Card",
+        "url": "https://cdn.amazon.science/e5/e6/ccc5378c42dca467d1abe1628ec9/amazon-nova-premier-technical-report-and-model-card.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Amazon Nova 2: Multimodal Reasoning and Generation Models",
+        "url": "https://cdn.amazon.science/c5/3d/84514a224666b5be6de4b43ef4aa/nova-2-0-technical-report2.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "AWS AI Service Cards - Amazon Nova Micro, Lite, Pro, and Premier",
+        "url": "https://docs.aws.amazon.com/ai/responsible-ai/nova-micro-lite-pro/overview.html",
+        "type": "primary"
+      },
+      {
+        "label": "Iterative Training - Amazon Nova",
+        "url": "https://docs.aws.amazon.com/nova/latest/userguide/nova-iterative-training.html",
+        "type": "primary"
+      },
+      {
+        "label": "Available foundation models - Amazon SageMaker AI",
+        "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/jumpstart-foundation-models-latest.html",
+        "type": "primary"
+      },
+      {
+        "label": "Complete request schema - Amazon Nova",
+        "url": "https://docs.aws.amazon.com/nova/latest/userguide/complete-request-schema.html",
+        "type": "primary"
+      }
+    ],
+    "notes": "The Dec 3, 2024 launch announcement explicitly states availability; the current Bedrock card instead lists Dec 5, 2024, an unexplained date conflict. Transformer backbone is documented, but total/active parameters and dense versus MoE structure remain undisclosed after reviewing the original, Premier and Nova 2 reports and service card. Nova weights are proprietary and trained checkpoints remain in AWS-managed escrow. Micro accepts text only, with no native document input or configurable thinking mode. Endpoint operation was not tested.",
+    "family": "nova"
+  },
+  "summary": "Correct release to Dec 3, 2024; add documented Transformer architecture and AWS Service Terms; sharpen description. Confirm text-only 128K context, closed weights, tools and no configurable thinking mode. Exact total/active counts and dense/MoE details remain undisclosed; explicitly record the Bedrock Dec 5 date conflict."
+}
