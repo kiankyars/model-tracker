@@ -1,0 +1,397 @@
+{
+  "index": 302,
+  "model_id": "minimax/MiniMax-M2.1",
+  "reviewed_at": "2026-10-26T22:24:13.376175Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://www.minimax.io/news/post-training-experience-and-insights-for-agent-models",
+      "title": "MiniMax M2.1: Post-Training Experience and Insights for Agent Models",
+      "publisher": "MiniMax",
+      "accessed": true,
+      "evidence": "The January 22, 2026 post explicitly identifies M2.1 as further post-training of M2 and states approximately 230B total and approximately 10B activated parameters in a mixture-of-experts architecture."
+    },
+    {
+      "id": "s2",
+      "url": "https://www.minimax.io/news/minimax-m21",
+      "title": "MiniMax M2.1 launch announcement",
+      "publisher": "MiniMax",
+      "accessed": true,
+      "evidence": "Announcement dated December 23, 2025 names MiniMax M2.1 and describes multilingual coding, office workflows, interleaved thinking and tool-framework use. This date is one day later than the explicit API release-note date."
+    },
+    {
+      "id": "s3",
+      "url": "https://platform.minimax.io/docs/release-notes/models",
+      "title": "MiniMax API model release notes",
+      "publisher": "MiniMax",
+      "accessed": true,
+      "evidence": "The MiniMax-M2.1 entry explicitly says released on December 22, 2025. This is the earliest explicit public-release date found in the reviewed first-party announcements, rather than repository creation or upload time."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.1/raw/917dbb7d0761e24d8623c0a5d97624550181c8e6/config.json",
+      "title": "MiniMax-M2.1 checkpoint configuration at 917dbb7",
+      "publisher": "MiniMaxAI",
+      "accessed": true,
+      "evidence": "Exact checkpoint configuration: MiniMaxM2ForCausalLM, 62 layers, hidden size 3072, 256 experts with top-8 routing, 48 attention heads and 8 KV heads, intermediate size 1536, vocabulary 200064, untied embeddings, max_position_embeddings 196608, and FP8 block quantization. MTP flags exist but do not establish that MTP tensors are distributed."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.1/resolve/917dbb7d0761e24d8623c0a5d97624550181c8e6/model.safetensors.index.json",
+      "title": "MiniMax-M2.1 tensor index and all shard headers at 917dbb7",
+      "publisher": "MiniMaxAI",
+      "accessed": true,
+      "evidence": "Read the index and HTTP-206 JSON headers from all 130 listed model-00000 through model-00129-of-00130.safetensors files at revision 917dbb7. Headers contain 96103 unique tensors, exactly matching the index; files 00125 through 00129 contain only metadata. Shape products total 228703644928 storage elements; excluding 13880064 FP8 scale elements leaves 228689764864 non-scale elements, including 15872 routing-bias elements. Whether those bias elements were learned is not established by the M2.1 sources reviewed. No MTP tensor names occur. Only header bytes were read; no full weights or unpickling."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.1/raw/917dbb7d0761e24d8623c0a5d97624550181c8e6/modeling_minimax_m2.py",
+      "title": "MiniMax-M2.1 reference model implementation at 917dbb7",
+      "publisher": "MiniMaxAI",
+      "accessed": true,
+      "evidence": "The reference defines causal self-attention decoder blocks with sigmoid top-k MoE routing, untied token embeddings and output head. Each expert has three bias-free linear projections. e_score_correction_bias is registered as a buffer and added to expert-selection scores. The implementation contains no update rule for it; buffer registration in this reference does not establish whether the stored values were learned during original training."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.1",
+      "title": "MiniMax-M2.1 official model card",
+      "publisher": "MiniMaxAI",
+      "accessed": true,
+      "evidence": "Official card names MiniMax-M2.1, identifies MiniMax as developer, makes model weights available for local deployment, labels the license modified-mit and links the exact GitHub license. It describes text generation, coding, tool use and instruction following."
+    },
+    {
+      "id": "s8",
+      "url": "https://raw.githubusercontent.com/MiniMax-AI/MiniMax-M2.1/main/LICENSE",
+      "title": "MiniMax-M2.1 Modified MIT license",
+      "publisher": "MiniMax-AI",
+      "accessed": true,
+      "evidence": "The linked license gives MIT permissions subject to copyright/permission notice retention and adds a condition requiring prominent MiniMax M2.1 display in the user interface of commercial products or services using the software or derivatives. It is not unmodified MIT; no revenue or user threshold is specified."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.1/raw/917dbb7d0761e24d8623c0a5d97624550181c8e6/docs/vllm_deploy_guide.md",
+      "title": "MiniMax-M2.1 official vLLM deployment guide at 917dbb7",
+      "publisher": "MiniMaxAI",
+      "accessed": true,
+      "evidence": "Applies expressly to MiniMax-M2.1 and distinguishes aggregate hardware KV-cache capacity from a per-sequence maximum of approximately 196K tokens. Shows native reasoning and tool-call parser options."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.1/raw/917dbb7d0761e24d8623c0a5d97624550181c8e6/docs/tool_calling_guide.md",
+      "title": "MiniMax-M2.1 official tool-calling guide at 917dbb7",
+      "publisher": "MiniMaxAI",
+      "accessed": true,
+      "evidence": "Explicitly states M2.1 supports tool calling and documents its XML invoke/parameter output format, tool definitions, tool responses and thinking markers."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.1/raw/917dbb7d0761e24d8623c0a5d97624550181c8e6/chat_template.jinja",
+      "title": "MiniMax-M2.1 chat template at 917dbb7",
+      "publisher": "MiniMaxAI",
+      "accessed": true,
+      "evidence": "Template identifies MiniMax-M2.1 as built by MiniMax, renders text content, starts generation with a think marker, preserves reasoning within the current tool-use turn, and supports structured tool calls and tool responses. It does not define image, audio or video inputs."
+    },
+    {
+      "id": "s12",
+      "url": "https://arxiv.org/html/2605.26494v1",
+      "title": "The MiniMax-M2 Series: Mini Activations Unleashing Max Real-World Intelligence",
+      "publisher": "MiniMax",
+      "accessed": true,
+      "evidence": "May 26, 2026 report gives 229.9B total and 9.8B activated for M2 and describes learnable, jointly optimized expert-specific routing biases. It does not explicitly name M2.1 in the accessible HTML. Neither the finer counts nor the training status of M2.1 routing biases is established by transferring those M2-specific statements."
+    },
+    {
+      "id": "s13",
+      "url": "https://huggingface.co/api/models/MiniMaxAI/MiniMax-M2.1/commits/main",
+      "title": "MiniMax-M2.1 official checkpoint commit history",
+      "publisher": "MiniMaxAI via Hugging Face",
+      "accessed": true,
+      "evidence": "Paginated history has 53 commits: initial commit December 20, 2025; upload-large-folder commits begin December 21; documentation continues December 22-23. Commit timestamps do not reveal when a previously private repository became public."
+    },
+    {
+      "id": "s14",
+      "url": "https://platform.minimax.io/docs/guides/text-generation.md",
+      "title": "Current MiniMax model invocation documentation",
+      "publisher": "MiniMax",
+      "accessed": true,
+      "evidence": "Current model table lists M3.1-Flash and M3, with no M2.1 context row. It therefore does not verify the baseline 204800-token M2.1 API limit or current M2.1 endpoint operation."
+    },
+    {
+      "id": "s15",
+      "url": "https://platform.minimax.io/docs/api-reference/text-openai-api",
+      "title": "MiniMax OpenAI-compatible API documentation",
+      "publisher": "MiniMax",
+      "accessed": true,
+      "evidence": "Current instructions explicitly include MiniMax-M2.1 when requiring preservation of thinking content during tool calls and state that M2.x thinking cannot be disabled. Current supported-model context table lists newer models only."
+    },
+    {
+      "id": "s16",
+      "url": "https://huggingface.co/api/models/MiniMaxAI/MiniMax-M2.1",
+      "title": "MiniMax-M2.1 repository metadata",
+      "publisher": "MiniMaxAI via Hugging Face",
+      "accessed": true,
+      "evidence": "Current revision is 917dbb7d0761e24d8623c0a5d97624550181c8e6. API safetensors total is 228689764864 elements: compared with independently read headers, it excludes FP8 scales and includes 15872 routing-bias elements. This metadata total does not distinguish originally learned values from persistent buffers. Repository createdAt is December 20, 2025, not a public-release declaration."
+    },
+    {
+      "id": "s17",
+      "url": "https://api.github.com/repos/MiniMax-AI/MiniMax-M2.1/git/trees/main?recursive=1",
+      "title": "MiniMax-M2.1 official repository file tree",
+      "publisher": "MiniMax-AI via GitHub",
+      "accessed": true,
+      "evidence": "Reviewed official repository tree contains the model card, license, figures and inference/deployment guides, without an original training implementation that could establish how M2.1 routing-bias values were obtained."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "MiniMax-M2.1",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s7",
+        "s11"
+      ],
+      "note": "Official model card and checkpoint identity use MiniMax-M2.1."
+    },
+    "developer": {
+      "value": "MiniMax",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s7",
+        "s11"
+      ],
+      "note": "Developer is MiniMax; MiniMaxAI and MiniMax-AI are its publishing accounts."
+    },
+    "family": {
+      "value": "minimax",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4"
+      ],
+      "note": "Retain the catalog normalized MiniMax family label; the exact model is in the MiniMax M2 series."
+    },
+    "release_date": {
+      "value": "2025-12-22",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s2",
+        "s13",
+        "s16"
+      ],
+      "note": "Use the earliest explicit first-party release declaration, the API release notes dated December 22. The launch article is dated December 23; that discrepancy remains documented. December 20 repository creation and December 21 uploads do not establish public availability."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s7",
+        "s5"
+      ],
+      "note": "Official weights and metadata are openly downloadable for local deployment."
+    },
+    "license": {
+      "value": "Modified MIT (MiniMax M2.1)",
+      "status": "verified",
+      "source_ids": [
+        "s7",
+        "s8"
+      ],
+      "note": "The model card links the modified license. Commercial products/services using the model or derivatives must prominently display MiniMax M2.1 in their UI; standard notice retention also applies. Do not label this plain MIT or import M2 licensing thresholds."
+    },
+    "parameters_b": {
+      "value": 230,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5",
+        "s6",
+        "s12",
+        "s16",
+        "s17"
+      ],
+      "note": "Nominal approximately 230B total parameters, explicitly stated for M2.1 by MiniMax. Header audit establishes 228689764864 non-FP8-scale checkpoint elements, including 15872 routing-bias values; excluding those yields 228689748992 reference-registered parameter elements. Neither figure is asserted as an exact learned-parameter count: register_buffer does not prove that persisted values were never learned, and reviewed M2.1 sources do not resolve their original training status. The later report describes learned biases for M2 without naming M2.1. Config MTP flags do not add absent checkpoint tensors."
+    },
+    "active_parameters_b": {
+      "value": 10,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s12"
+      ],
+      "note": "Nominal approximately 10B activated parameters explicitly reported for M2.1. Its config confirms top-8 of 256 experts. The exact M2.1 source does not define embedding/output-head inclusion, so do not manufacture precise active counts from the checkpoint or transfer the later report's M2-specific 9.8B."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s6"
+      ],
+      "note": "62-layer decoder-only Transformer with full causal attention, GQA (48 query / 8 KV heads), and 256-expert MoE layers with sigmoid top-8 routing. Exact M2.1 config/reference establish this; architecture is not inferred solely from the M2 report."
+    },
+    "context_window": {
+      "value": 196608,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s9",
+        "s14"
+      ],
+      "note": "Native checkpoint limit is exactly 196608 tokens, consistent with the first-party per-sequence deployment guide. Correct the baseline 204800 provider/API-style value for this open checkpoint. Current MiniMax API docs no longer provide an M2.1 row, so its current API limit and operation are not independently established."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s6",
+        "s7",
+        "s11"
+      ],
+      "note": "Native text-token causal language model with a text chat template and no multimodal encoder/input path. Tool orchestration and office workflows do not make image/audio/video native modalities."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s11",
+        "s15"
+      ],
+      "note": "Interleaved thinking is expressly documented; the native template emits thinking markers and preserves reasoning during tool turns."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s10",
+        "s11"
+      ],
+      "note": "Native tool-call formatting, tool definitions and tool-result turns are documented for this exact model."
+    },
+    "description": {
+      "value": "Open-weight MiniMax M2-series text model for multilingual coding, tool use, and office workflows, with interleaved reasoning.",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s7",
+        "s10",
+        "s11"
+      ],
+      "note": "Replace the vague relative description with supported task, modality, weight-availability and reasoning characteristics; omit comparative benchmark claims."
+    }
+  },
+  "patch": {
+    "release_date": "2025-12-22",
+    "date_precision": "day",
+    "license": "Modified MIT (MiniMax M2.1)",
+    "parameters_b": 230,
+    "active_parameters_b": 10,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "context_window": 196608,
+    "description": "Open-weight MiniMax M2-series text model for multilingual coding, tool use, and office workflows, with interleaved reasoning.",
+    "source_url": "https://platform.minimax.io/docs/release-notes/models",
+    "source_type": "primary",
+    "notes": "MiniMax explicitly describes M2.1 nominally as ~230B total/~10B active. Header audit finds 228.689764864B non-FP8-scale elements, including 15872 routing-bias values whose original training status is unresolved for M2.1; do not treat inference buffer registration as proof they were not learned. The later report does not expressly identify M2.1, so its M2-specific finer counts are not transferred. Native context is 196608 tokens; current primary API tables no longer specify M2.1. Earliest explicit API release note is 2025-12-22 versus a 2025-12-23 launch article. Modified MIT requires prominent MiniMax M2.1 UI attribution for commercial uses.",
+    "sources": [
+      {
+        "label": "MiniMax M2.1: Post-Training Experience and Insights for Agent Models",
+        "url": "https://www.minimax.io/news/post-training-experience-and-insights-for-agent-models",
+        "type": "primary"
+      },
+      {
+        "label": "MiniMax M2.1 launch announcement",
+        "url": "https://www.minimax.io/news/minimax-m21",
+        "type": "primary"
+      },
+      {
+        "label": "MiniMax API model release notes",
+        "url": "https://platform.minimax.io/docs/release-notes/models",
+        "type": "primary"
+      },
+      {
+        "label": "MiniMax-M2.1 checkpoint configuration at 917dbb7",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.1/raw/917dbb7d0761e24d8623c0a5d97624550181c8e6/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax-M2.1 tensor index and all shard headers at 917dbb7",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.1/resolve/917dbb7d0761e24d8623c0a5d97624550181c8e6/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax-M2.1 reference model implementation at 917dbb7",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.1/raw/917dbb7d0761e24d8623c0a5d97624550181c8e6/modeling_minimax_m2.py",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax-M2.1 official model card",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.1",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax-M2.1 Modified MIT license",
+        "url": "https://raw.githubusercontent.com/MiniMax-AI/MiniMax-M2.1/main/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "MiniMax-M2.1 official vLLM deployment guide at 917dbb7",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.1/raw/917dbb7d0761e24d8623c0a5d97624550181c8e6/docs/vllm_deploy_guide.md",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax-M2.1 official tool-calling guide at 917dbb7",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.1/raw/917dbb7d0761e24d8623c0a5d97624550181c8e6/docs/tool_calling_guide.md",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax-M2.1 chat template at 917dbb7",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.1/raw/917dbb7d0761e24d8623c0a5d97624550181c8e6/chat_template.jinja",
+        "type": "weights"
+      },
+      {
+        "label": "The MiniMax-M2 Series: Mini Activations Unleashing Max Real-World Intelligence",
+        "url": "https://arxiv.org/html/2605.26494v1",
+        "type": "primary"
+      },
+      {
+        "label": "MiniMax-M2.1 official checkpoint commit history",
+        "url": "https://huggingface.co/api/models/MiniMaxAI/MiniMax-M2.1/commits/main",
+        "type": "weights"
+      },
+      {
+        "label": "Current MiniMax model invocation documentation",
+        "url": "https://platform.minimax.io/docs/guides/text-generation.md",
+        "type": "primary"
+      },
+      {
+        "label": "MiniMax OpenAI-compatible API documentation",
+        "url": "https://platform.minimax.io/docs/api-reference/text-openai-api",
+        "type": "primary"
+      },
+      {
+        "label": "MiniMax-M2.1 repository metadata",
+        "url": "https://huggingface.co/api/models/MiniMaxAI/MiniMax-M2.1",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax-M2.1 official repository file tree",
+        "url": "https://api.github.com/repos/MiniMax-AI/MiniMax-M2.1/git/trees/main?recursive=1",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "Independently audited all 14 public fields. Fill nominal developer-reported M2.1 counts (~230B total/~10B active), MoE architecture and Modified MIT license. All checkpoint headers were audited, but original training status of 15872 routing-bias values is unresolved; no exact learned total is claimed. Correct native context to 196608 and earliest explicitly documented release to December 22, 2025, recording the December 23 launch-article conflict and earlier repository timestamps. Confirm native text-only reasoning and tools. Current primary API tables do not establish legacy M2.1 context or endpoint operation."
+}
