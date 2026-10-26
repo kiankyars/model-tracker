@@ -1,0 +1,380 @@
+{
+  "index": 304,
+  "model_id": "minimax/MiniMax-M2.5-highspeed",
+  "reviewed_at": "2026-10-26T22:32:16.612315Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://www.minimax.io/news/minimax-m25",
+      "title": "MiniMax M2.5: Built for Real-World Productivity",
+      "publisher": "MiniMax",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Dated 2026-02-12. Announces M2.5 and M2.5-Lightning together as equal-capability versions with different serving speed; describes reasoning, coding and tool use."
+    },
+    {
+      "id": "s2",
+      "url": "https://www.minimax.io/models/text",
+      "title": "MiniMax M2.5 product page",
+      "publisher": "MiniMax",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "M2.5-specific body names M2.5 and M2.5-highspeed as the two API versions with identical results, and links the M2.5 Hugging Face weights. Current navigation names M3; the M2.5 body is legacy product evidence, not proof of present API availability."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.5/discussions/2",
+      "title": "Will M2.5-Lightning be released?",
+      "publisher": "MiniMax official organization member ryanlee-dev",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "MiniMax org reply on February 13 says Lightning uses more inference resources for speed while model parameters remain exactly the same. Together with the official two-version product descriptions, this supports shared M2.5 weights for highspeed."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.5/discussions/15",
+      "title": "MiniMax M2.5 model-size discussion",
+      "publisher": "MiniMax official organization member ryanlee-dev",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "February 15 official-org reply says all M2-series models have 230B parameters and points to an M2.5 quantization. The 10B-active wording is in a community member title, not in the official reply."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.5/raw/main/config.json",
+      "title": "MiniMax-M2.5 configuration",
+      "publisher": "MiniMax",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Defines MiniMaxM2ForCausalLM: 62 layers, 3072 hidden size, 256 local experts and top-8 routing, 48 query/8 KV heads, 128 head dimension, 196608 maximum positions, and FP8 block quantization."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.5/raw/main/modeling_minimax_m2.py",
+      "title": "MiniMax-M2.5 reference implementation",
+      "publisher": "MiniMax",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Implements decoder-only attention plus routed MoE; e_score_correction_bias is registered as a buffer. Token embedding and output weights are untied. No MTP module is constructed by this reference implementation."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.5/raw/main/model.safetensors.index.json",
+      "title": "MiniMax-M2.5 checkpoint index and shard headers",
+      "publisher": "MiniMax",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "All 96103 indexed keys were matched to bounded shard headers cached by audit303 and independently recounted here. There are 228689748992 reference-registered weight elements, 15872 routing-bias values and 13880064 FP8 scale entries. Buffer registration does not establish whether the routing values were originally learned. No MTP keys occur."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.5/raw/main/LICENSE-MODEL",
+      "title": "MiniMax-M2.5 Model License",
+      "publisher": "MiniMax",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Named MiniMax Model License grants use, modification and redistribution subject to attribution, agreement and prohibited-use requirements. Header gives weights-version release date 2026-02-13; the card labels the license modified-mit."
+    },
+    {
+      "id": "s9",
+      "url": "https://platform.minimax.io/docs/api-reference/text-openai-api",
+      "title": "MiniMax OpenAI SDK compatibility",
+      "publisher": "MiniMax",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Exact MiniMax-M2.5-highspeed ID remains in the multi-turn tool-call reasoning note, which requires preserving think content. Current supported-model/context table contains only M3 variants; it does not establish the former highspeed API limit."
+    },
+    {
+      "id": "s10",
+      "url": "https://platform.minimax.io/docs/api-reference/text-anthropic-api",
+      "title": "MiniMax Anthropic SDK compatibility",
+      "publisher": "MiniMax",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "States M2.5-series inputs are text and tool-call content, without image/video input, and M2.x thinking cannot be disabled. Current endpoint support table lists M3 variants only."
+    },
+    {
+      "id": "s11",
+      "url": "https://platform.minimax.io/docs/release-notes/models",
+      "title": "MiniMax model release notes",
+      "publisher": "MiniMax",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "February 2026 entry explicitly names the MiniMax-M2.5/M2.5-highspeed series release. Does not provide a release day."
+    },
+    {
+      "id": "s12",
+      "url": "https://arxiv.org/html/2605.26494v1",
+      "title": "The MiniMax-M2 Series: Mini Activations Unleashing Max Real-World Intelligence",
+      "publisher": "MiniMax",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "May 2026 first-party report covers evolution through M2.5/M2.7 but its explicit 229.9B total and 9.8B active architecture statement labels M2. These values are not directly assigned to M2.5-highspeed."
+    },
+    {
+      "id": "s13",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.5",
+      "title": "MiniMax-M2.5 model card and weights",
+      "publisher": "MiniMax",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Official downloadable text-generation checkpoint, modified-mit card metadata, local serving instructions and tool-calling guide. Its automatic parameter counter is not a learned-weight count."
+    },
+    {
+      "id": "s14",
+      "url": "https://github.com/anomalyco/models.dev/blob/dev/models/minimax/MiniMax-M2.5-highspeed.toml",
+      "title": "Frozen Models.dev source lead",
+      "publisher": "Models.dev",
+      "type": "catalog",
+      "accessed": false,
+      "evidence": "Frozen catalog supplied 204800 API context and February 13 date. This lead is not independent primary verification."
+    },
+    {
+      "id": "s15",
+      "url": "https://platform.minimax.io/docs/faq/models",
+      "title": "MiniMax retired model list",
+      "publisher": "MiniMax",
+      "accessed": true,
+      "evidence": "Explicitly lists MiniMax-M2.5 and MiniMax-M2.5-highspeed as retired. Historical product pages and surviving API instructions do not establish current endpoint operation."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "MiniMax-M2.5-highspeed",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s9",
+        "s11"
+      ],
+      "note": "Exact API identifier. The launch called the fast serving version M2.5-Lightning; the matching two-version descriptions establish the alias relationship."
+    },
+    "developer": {
+      "value": "MiniMax",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Developer-owned release and product pages."
+    },
+    "family": {
+      "value": "minimax",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s11"
+      ],
+      "note": "Retains the catalog family key; specifically part of MiniMax M2-series/M2.5."
+    },
+    "release_date": {
+      "value": "2026-02-12",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s8",
+        "s11"
+      ],
+      "note": "Earliest public launch of the fast version alongside M2.5. February 13 in the weights license is a later checkpoint-version date, not the earliest API announcement."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s13"
+      ],
+      "note": "Highspeed is a serving mode of the released M2.5 model. The official product page links the shared weights and the org reply rules out a separate Lightning parameter set."
+    },
+    "license": {
+      "value": "MiniMax Model License",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s8",
+        "s13"
+      ],
+      "note": "Actual distributed license title. Model-card metadata still labels it modified-mit, but the distributed agreement contains its own notice and prohibited-use terms; this is not plain MIT. Hosted API terms are separate."
+    },
+    "parameters_b": {
+      "value": 230,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "note": "Developer nominal 230B. Shared released checkpoint has 228.689764864B non-scale elements, including 15872 routing-bias values whose original training status is unresolved for M2.5. The reference registers 228.689748992B parameter elements. Neither storage subtotal is promoted to an exact learned count; M2-specific 229.9B is not transferred."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s12"
+      ],
+      "note": "No exact-variant developer scalar with a clear counting convention was found. Top-8 routing yields 9.801344B active non-embedding weights; counting complete embedding/output matrices gives 11.030537216B. The report explicitly assigns 9.8B to M2. These are explicitly scoped derivations, not a developer-disclosed activated count."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s5",
+        "s6"
+      ],
+      "note": "Decoder-only Transformer with full grouped-query attention and routed MoE; 62 layers, 256 experts, eight selected per token. Lightning is a serving name and does not establish Lightning Attention."
+    },
+    "context_window": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s5",
+        "s9",
+        "s10",
+        "s14"
+      ],
+      "note": "Could not recover the highspeed-specific 204800-token API limit in current primary tables. The shared checkpoint config supports 196608 native positions, which is not proof of the hosted endpoint limit. Clear the unsupported API scalar rather than transfer M3 limits."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s6",
+        "s10",
+        "s13"
+      ],
+      "note": "Text language model; MiniMax explicitly excludes image/video input for M2.5-series. Tool-call serialization does not add a sensory modality."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s9",
+        "s10"
+      ],
+      "note": "Exact highspeed API note preserves think output; M2.x thinking is always enabled."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s9",
+        "s11",
+        "s13"
+      ],
+      "note": "Exact highspeed API note documents tool-call conversation handling, reinforced by release notes and shared-weight tool guide."
+    },
+    "description": {
+      "value": "Faster serving version of MiniMax M2.5 for text reasoning, coding and tool-using agents, using the same underlying model parameters.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s9"
+      ],
+      "note": "Replaces generic latency wording with the verified serving-mode relationship and supported capabilities."
+    }
+  },
+  "patch": {
+    "release_date": "2026-02-12",
+    "date_precision": "day",
+    "license": "MiniMax Model License",
+    "parameters_b": 230,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "context_window": null,
+    "description": "Faster serving version of MiniMax M2.5 for text reasoning, coding and tool-using agents, using the same underlying model parameters.",
+    "source_url": "https://www.minimax.io/news/minimax-m25",
+    "source_type": "primary",
+    "notes": "Highspeed/Lightning is the faster serving mode of M2.5 with unchanged parameters. 230B is the developer nominal count. Shared checkpoint has 228.689764864B non-scale elements including 15872 routing-bias values whose original training status remains unresolved. Active count is unverified; scoped derivations differ with embedding conventions. The former API context limit is unverified; shared checkpoint max_position_embeddings is 196608. Official model list marks M2.5/highspeed retired. Shared downloadable weights use the MiniMax Model License; card metadata labels it modified-mit.",
+    "sources": [
+      {
+        "label": "MiniMax M2.5: Built for Real-World Productivity",
+        "url": "https://www.minimax.io/news/minimax-m25",
+        "type": "primary"
+      },
+      {
+        "label": "MiniMax M2.5 product page",
+        "url": "https://www.minimax.io/models/text",
+        "type": "primary"
+      },
+      {
+        "label": "Will M2.5-Lightning be released?",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.5/discussions/2",
+        "type": "primary"
+      },
+      {
+        "label": "MiniMax M2.5 model-size discussion",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.5/discussions/15",
+        "type": "primary"
+      },
+      {
+        "label": "MiniMax-M2.5 configuration",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.5/raw/main/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax-M2.5 reference implementation",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.5/raw/main/modeling_minimax_m2.py",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax-M2.5 checkpoint index and shard headers",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.5/raw/main/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax-M2.5 Model License",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.5/raw/main/LICENSE-MODEL",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax OpenAI SDK compatibility",
+        "url": "https://platform.minimax.io/docs/api-reference/text-openai-api",
+        "type": "primary"
+      },
+      {
+        "label": "MiniMax Anthropic SDK compatibility",
+        "url": "https://platform.minimax.io/docs/api-reference/text-anthropic-api",
+        "type": "primary"
+      },
+      {
+        "label": "MiniMax model release notes",
+        "url": "https://platform.minimax.io/docs/release-notes/models",
+        "type": "primary"
+      },
+      {
+        "label": "MiniMax-M2.5 model card and weights",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.5",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax retired model list",
+        "url": "https://platform.minimax.io/docs/faq/models",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "Verified the shared-weight highspeed/Lightning relationship, nominal 230B, MoE, custom MiniMax Model License, native reasoning/tools and February 12 launch. Exact activated count and former hosted context remain unverified. Checkpoint storage and reference-registered parameter subtotals are qualified because routing-bias training status is unresolved."
+}
