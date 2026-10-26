@@ -1,0 +1,287 @@
+{
+  "index": 297,
+  "model_id": "microsoft/wizardlm-2-8x22b",
+  "reviewed_at": "2026-10-26T22:15:55.923341Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://wizardlm.github.io/WizardLM2/",
+      "title": "WizardLM 2 official release announcement",
+      "publisher": "WizardLM team",
+      "accessed": true,
+      "evidence": "Dated April 15, 2024; names the exact 8x22B variant in the WizardLM-2 family. Describes multilingual instruction/chat post-training and Vicuna-style multi-turn text prompts. Explicitly licenses 8x22B and 7B under Apache2.0, separately from the 70B Llama-2-Community license."
+    },
+    {
+      "id": "s2",
+      "url": "https://web.archive.org/web/20240415175129id_/https://huggingface.co/microsoft/WizardLM-2-8x22B",
+      "title": "Original Microsoft WizardLM-2-8x22B model card, archived April 15, 2024",
+      "publisher": "Microsoft via Internet Archive",
+      "accessed": true,
+      "evidence": "Actual capture of the original Microsoft repository, fetched as HTML. States WizardLM@Microsoft AI, Mixture of Experts, base mistral-community/Mixtral-8x22B-v0.1, 141B parameters, multilingual text and Apache2.0. Embedded repository metadata identifies MixtralForCausalLM, ungated/public access and 140620634112 BF16 safetensor elements. Explicitly says 70B weights are forthcoming, unlike this published 8x22B checkpoint."
+    },
+    {
+      "id": "s3",
+      "url": "https://x.com/WizardLM_AI/status/1780101465950105775",
+      "title": "WizardLM release-process correction, April 16, 2024",
+      "publisher": "WizardLM team",
+      "accessed": true,
+      "evidence": "Direct X page fetch failed, but the first-party X syndication endpoint https://cdn.syndication.twimg.com/tweet-result?id=1780101465950105775&lang=en&token=0 returned the statement and creation time 2024-04-16T05:10:36Z. The team apologizes for missing required toxicity testing and says testing is being completed. Its embedded quoted announcement names 8x22B, 70B and 7B on April 15."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/microsoft/WizardLM-2-8x22B",
+      "title": "Original Microsoft model repository, current access check",
+      "publisher": "Microsoft / Hugging Face",
+      "accessed": false,
+      "evidence": "Current model-page request returns HTTP 401. This does not invalidate the archived original card or imply current Microsoft weight hosting."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/alpindale/WizardLM-2-8x22B/blob/661fa9dcdb48da87a59da37a97df289ee6f5dd50/huggingface-metadata.txt",
+      "title": "Community archive provenance record",
+      "publisher": "alpindale, community mirror",
+      "accessed": true,
+      "evidence": "Mirror metadata states source https://huggingface.co/microsoft/WizardLM-2-8x22B and download date 2024-04-15 16:48:15. This is the uploader provenance claim, not independent authentication of the original weights. The mirror was created April 16 and presently contains 59 accessible BF16 weight shards."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/alpindale/WizardLM-2-8x22B/blob/661fa9dcdb48da87a59da37a97df289ee6f5dd50/config.json",
+      "title": "Community mirror checkpoint configuration",
+      "publisher": "alpindale, community mirror",
+      "accessed": true,
+      "evidence": "Config reports MixtralForCausalLM, 56 layers, width 6144, intermediate 16384, vocabulary 32000, 48 query/8 KV heads, eight experts with two per token, untied embeddings, BF16 and max_position_embeddings=65536. No quantization config. Original configuration was not independently retrieved; these specifications describe the inspected mirror."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/alpindale/WizardLM-2-8x22B/blob/661fa9dcdb48da87a59da37a97df289ee6f5dd50/model.safetensors.index.json",
+      "title": "Community mirror tensor index and all shard-header inspection",
+      "publisher": "alpindale, community mirror",
+      "accessed": true,
+      "evidence": "Index maps 1739 tensors across 59 shards. Fetched only HTTP 206 length/header ranges for every shard at this revision, totaling 225120 bytes. All 1739 BF16 keys/shapes exactly matched expected Mixtral learned modules; no buffers, scales or packed storage. Sum 140620634112 agrees with archived original HF metadata, but header equality does not establish weight-value authenticity."
+    },
+    {
+      "id": "s8",
+      "url": "https://github.com/huggingface/transformers/blob/v4.36.2/src/transformers/models/mixtral/modeling_mixtral.py",
+      "title": "Transformers 4.36.2 Mixtral implementation",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Implementation version named by the mirror config defines bias-free QKV/output projections, three expert matrices, router, learned RMSNorms, embeddings and LM head. Rotary frequencies and cached sin/cos are nonpersistent buffers. Routing chooses config.num_experts_per_tok experts. Used only to classify/count mirror header tensors, not to prove original fine-tune topology."
+    },
+    {
+      "id": "s9",
+      "url": "https://mistral.ai/news/mixtral-8x22b/",
+      "title": "Cheaper, Better, Faster, Stronger: original Mixtral 8x22B announcement",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "The base-model developer reports a sparse MoE with 141B total and 39B active parameters and 64K context. This describes Mixtral 8x22B, not an independently specified WizardLM checkpoint; its active count, function-calling claims and context are not automatically transferred to WizardLM."
+    },
+    {
+      "id": "s10",
+      "url": "https://arxiv.org/html/2407.10627v1",
+      "title": "Arena Learning: Build Data Flywheel for LLMs Post-training via Simulated Chatbot Arena",
+      "publisher": "WizardLM researchers / Microsoft and academic collaborators",
+      "accessed": true,
+      "evidence": "July 2024 first-party report explicitly names WizardLM-2-8x22B-0415 as an evaluated/battle model, distinct from experimental WizardLM-beta-8x22B iterations. It corroborates the exact April model and team provenance but supplies no separate active count or original context specification for it."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/api/models/alpindale/WizardLM-2-8x22B",
+      "title": "Current community mirror metadata",
+      "publisher": "Hugging Face / alpindale",
+      "accessed": true,
+      "evidence": "Current revision 661fa9dcdb48da87a59da37a97df289ee6f5dd50 is ungated and enabled, created 2024-04-16T02:36:59Z. Reports 140620634112 BF16 elements. Full header accesses establish current artifact availability without downloading full weights or executing model code."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "WizardLM-2 8x22B",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Use the original exact model spelling; distinct from WizardLM-2 7B, announced 70B, and later WizardLM-beta experiments."
+    },
+    "developer": {
+      "value": "Microsoft",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s10"
+      ],
+      "note": "Original Microsoft card explicitly identifies WizardLM@Microsoft AI. Keep Microsoft as developer; alpindale is the mirror publisher, and Mistral is the base-model developer."
+    },
+    "family": {
+      "value": "wizardlm",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Official WizardLM-2 member of the WizardLM series; use the catalog family key wizardlm, separate from its Mixtral backbone."
+    },
+    "release_date": {
+      "value": "2024-04-15",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s5"
+      ],
+      "note": "Official dated release and contemporaneous original model-card capture establish April 15. Mirror creation on April 16 is later. The original card distinguishes the 70B weights as forthcoming, so family announcement alone is not used as proof for all siblings."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5",
+        "s7",
+        "s11"
+      ],
+      "note": "The original April 15 public ungated Microsoft repository exposed BF16 safetensors, and the exact-named community archive currently serves 59 weight shards. Microsoft hosting is now inaccessible. Open weights does not certify an independently authenticated byte-identical mirror or an operating hosted endpoint."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Explicit official license for WizardLM-2 8x22B, independently confirmed by its original card. Do not use the sibling 70B Llama 2 license."
+    },
+    "parameters_b": {
+      "value": 141,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s7"
+      ],
+      "note": "Original developer-reported nominal 141B. Archived original HF metadata reports140620634112 BF16 tensor elements; all mirror headers separately reconcile to 140620634112 learned parameters. Retain the nominal original claim rather than promote an unauthenticated mirror exact count to the original checkpoint."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s2",
+        "s6",
+        "s7",
+        "s8",
+        "s9",
+        "s10"
+      ],
+      "note": "No exact-WizardLM primary active count was located in the original card or later Arena Learning report. The mirror yields 39.152031744B when all shared matrices plus 2/8 expert matrices are counted (5.329164288B shared +33.822867456B experts); original Mixtral advertises 39B. Neither mirror topology nor the base-model number proves the original WizardLM active count."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "The archived original Microsoft card explicitly says Mixture of Experts and names Mixtral 8x22B as base; embedded original metadata identifies MixtralForCausalLM. Mirror details corroborate but are not the sole basis."
+    },
+    "context_window": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s2",
+        "s6",
+        "s9",
+        "s10"
+      ],
+      "note": "Baseline 65536 is corroborated by the community mirror configuration, but the accessible original card and later first-party report do not specify original context. No archived original raw/blob/resolve config was found in exact Internet Archive queries. Clear the assertion under the primary-source requirement; do not silently inherit the base model 64K."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "The original model card documents text-generation and Vicuna-format textual user/assistant turns. No multimodal input or output interface is part of this released model."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Original primary materials describe reasoning tasks and Vicuna-style chat but do not separately specify a dedicated extended-thinking mode. No negative capability claim is inferred from this omission."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "No native structured tool-call protocol or tool-specific training is documented in the inspected original primary materials. Agent-task claims and the base model interface do not establish this fine-tune feature; omission does not prove inability."
+    },
+    "description": {
+      "value": "Microsoft WizardLM team's multilingual text model, post-trained for complex instructions and multi-turn conversation using a Mixtral-8x22B-based mixture of experts.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Keeps developer, instruction/chat purpose, multilingual text and original-card MoE/base linkage. Avoids unsupported rankings, exact context, native agent tools or mirror-authentication claims."
+    }
+  },
+  "patch": {
+    "name": "WizardLM-2 8x22B",
+    "family": "wizardlm",
+    "parameters_b": 141,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "context_window": null,
+    "description": "Microsoft WizardLM team's multilingual text model, post-trained for complex instructions and multi-turn conversation using a Mixtral-8x22B-based mixture of experts.",
+    "source_url": "https://wizardlm.github.io/WizardLM2/",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "WizardLM-2 official release",
+        "url": "https://wizardlm.github.io/WizardLM2/",
+        "type": "primary"
+      },
+      {
+        "label": "Original Microsoft 8x22B card (April 15 archive)",
+        "url": "https://web.archive.org/web/20240415175129id_/https://huggingface.co/microsoft/WizardLM-2-8x22B",
+        "type": "primary"
+      },
+      {
+        "label": "WizardLM release-process correction",
+        "url": "https://x.com/WizardLM_AI/status/1780101465950105775",
+        "type": "primary"
+      },
+      {
+        "label": "Arena Learning first-party report",
+        "url": "https://arxiv.org/html/2407.10627v1",
+        "type": "primary"
+      },
+      {
+        "label": "Community archive provenance",
+        "url": "https://huggingface.co/alpindale/WizardLM-2-8x22B/blob/661fa9dcdb48da87a59da37a97df289ee6f5dd50/huggingface-metadata.txt",
+        "type": "weights"
+      },
+      {
+        "label": "Community mirror configuration (unverified original provenance)",
+        "url": "https://huggingface.co/alpindale/WizardLM-2-8x22B/blob/661fa9dcdb48da87a59da37a97df289ee6f5dd50/config.json",
+        "type": "weights"
+      }
+    ],
+    "notes": "Original Microsoft card reports nominal 141B and MoE/Mixtral 8x22B lineage. Official release was 2024-04-15; the team acknowledged missed toxicity testing the next day. Original hosting is now inaccessible; community weights remain available, without independent byte-authenticity verification. Mirror headers count 140.620634112B and imply 39.152031744B active under full-shared-matrix/top-2 counting; these derivations are not asserted as original checkpoint specifications. Original active count and context remain unverified (mirror config 65536). Dedicated reasoning and native tool-call features are not separately documented.",
+    "reasoning": null,
+    "tool_call": null
+  },
+  "summary": "Verified nominal 141B, MoE architecture, WizardLM family, Microsoft attribution, April 15 release and Apache2.0 using the actual archived original Microsoft card and official launch. Exact community-mirror headers reconcile, but their finer specifications are kept separate from the original model; original active parameters and context remain unverified, so baseline 65536 is cleared. Community weight availability is confirmed despite inaccessible original hosting. No other report or shared catalog file changed."
+}
