@@ -1,0 +1,270 @@
+{
+  "index": 275,
+  "model_id": "meta/llama-3.2-90b-vision-instruct",
+  "reviewed_at": "2026-10-26T21:40:41.246431Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/meta-llama/Llama-3.2-90B-Vision-Instruct",
+      "title": "Llama-3.2-90B-Vision-Instruct model card",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "The exact instruction-tuned checkpoint card names Meta, reports 90B (88.8) parameters for the complete vision model, text/image input and text output, and visual question-answering/captioning use cases."
+    },
+    {
+      "id": "s2",
+      "url": "https://ai.meta.com/blog/llama-3-2-connect-2024-vision-edge-mobile-devices/",
+      "title": "Llama 3.2 release announcement",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "September 25, 2024 announcement releases both pretrained and instruction-tuned 11B/90B vision models with downloadable weights; describes the vision encoder and cross-attention adapter added to the language model."
+    },
+    {
+      "id": "s3",
+      "url": "https://github.com/meta-llama/llama-models/blob/main/models/sku_list.py",
+      "title": "Official exact model architecture registry",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "The Llama-3.2-90B-Vision-Instruct entry specifies 80 language layers, width 8192, 64 attention heads, 8 KV heads and 20 vision cross-attention layers, with 560-pixel image tiles."
+    },
+    {
+      "id": "s4",
+      "url": "https://github.com/meta-llama/llama-models/blob/main/models/sku_types.py",
+      "title": "Official Llama model families and context limits",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Maps the exact 90B Vision Instruct identifier to Llama 3.2; max_seq_length returns 131072 for its default BF16 format. The 8192 exception concerns int4 models."
+    },
+    {
+      "id": "s5",
+      "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3/multimodal/model.py",
+      "title": "Official Llama multimodal Transformer implementation",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Implements dense vision and language Transformer blocks, a vision projection, and dense gated cross-attention blocks with SwiGLU feed-forward layers; the model registry determines the exact layer counts."
+    },
+    {
+      "id": "s6",
+      "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/vision_prompt_format.md",
+      "title": "Official Llama 3.2 Vision prompt and tool format",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Documents built-in and zero-shot tool calling using the Llama 3.1 format with text-only inputs, and explicitly states tool calling does not work with images in the prompt."
+    },
+    {
+      "id": "s7",
+      "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/LICENSE",
+      "title": "Llama 3.2 Community License Agreement",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Custom license dated September 25, 2024 grants conditioned use and redistribution of weights, incorporates the acceptable-use policy, and imposes additional terms above 700 million monthly active users."
+    },
+    {
+      "id": "s8",
+      "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/USE_POLICY.md",
+      "title": "Llama 3.2 Acceptable Use Policy",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "For the multimodal models, the license grant excludes EU-domiciled individuals and companies whose principal place of business is in the EU; the exception covers end users of incorporating products or services."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/meta-llama/Llama-3.2-90B-Vision-Instruct/resolve/main/config.json",
+      "title": "Exact checkpoint configuration access attempt",
+      "publisher": "Meta",
+      "accessed": false,
+      "evidence": "Unauthenticated request returned HTTP 401. No access gate was bypassed and no weight shards were downloaded; public Meta registry and implementation supply architecture/context evidence."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Llama-3.2-90B-Vision-Instruct",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Exact developer checkpoint name."
+    },
+    "developer": {
+      "value": "Meta",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Developer identified by the official card and announcement."
+    },
+    "family": {
+      "value": "llama",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4"
+      ],
+      "note": "The exact model belongs to Llama 3.2 within the catalog\u2019s broader Llama family."
+    },
+    "release_date": {
+      "value": "2024-09-25",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s7"
+      ],
+      "note": "Original public release includes the instruction-tuned 90B vision variant; day precision is explicit."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s7"
+      ],
+      "note": "Downloadable weights under a custom license and access conditions; this does not imply an unrestricted open-source license."
+    },
+    "license": {
+      "value": "Llama 3.2 Community License",
+      "status": "verified",
+      "source_ids": [
+        "s7",
+        "s8"
+      ],
+      "note": "Custom license incorporating the AUP. Multimodal license rights exclude EU-domiciled individuals and EU-principal-place-of-business companies, with an exception for end users of incorporating products/services."
+    },
+    "parameters_b": {
+      "value": 88.8,
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Developer-reported complete multimodal count in billions: 90B is the nominal tier and 88.8B the parenthetical precision. Includes language, vision, and adapter components; not a tensor-exact count or a storage-size calculation."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "A separate active-parameter count is not reported. Dense architecture does not justify copying the total, particularly because image and text-only processing use different paths."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s5"
+      ],
+      "note": "Dense autoregressive language Transformer with a vision encoder/projection and cross-attention adapter. Exact 90B Instruct registry: 80 language layers plus 20 cross-attention layers, width 8192, 64 query heads and 8 KV heads."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4"
+      ],
+      "note": "The exact model maps to the non-int4 Llama 3.2 registry limit of 131072 tokens; this resolves the card\u2019s abbreviated 128k."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Text-only and text-plus-image prompts generate text."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Visual reasoning and CoT benchmark results do not establish a dedicated reasoning/thinking mode; none is documented in the inspected card or prompt specification."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s6"
+      ],
+      "note": "Native built-in and zero-shot tool-call formats are documented for text-only prompts. Meta explicitly excludes prompts containing images."
+    },
+    "description": {
+      "value": "Instruction-tuned dense vision-language model with 88.8B reported parameters, supporting visual question answering, document understanding, captioning, and text chat.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s5"
+      ],
+      "note": "Replaces the vague large/open wording with supported model size, dense architecture, instruction tuning and intended tasks."
+    }
+  },
+  "patch": {
+    "parameters_b": 88.8,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "context_window": 131072,
+    "reasoning": null,
+    "description": "Instruction-tuned dense vision-language model with 88.8B reported parameters, supporting visual question answering, document understanding, captioning, and text chat.",
+    "source_url": "https://huggingface.co/meta-llama/Llama-3.2-90B-Vision-Instruct",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Llama-3.2-90B-Vision-Instruct model card",
+        "url": "https://huggingface.co/meta-llama/Llama-3.2-90B-Vision-Instruct",
+        "type": "weights"
+      },
+      {
+        "label": "Llama 3.2 release announcement",
+        "url": "https://ai.meta.com/blog/llama-3-2-connect-2024-vision-edge-mobile-devices/",
+        "type": "primary"
+      },
+      {
+        "label": "Official exact model architecture registry",
+        "url": "https://github.com/meta-llama/llama-models/blob/main/models/sku_list.py",
+        "type": "primary"
+      },
+      {
+        "label": "Official Llama model families and context limits",
+        "url": "https://github.com/meta-llama/llama-models/blob/main/models/sku_types.py",
+        "type": "primary"
+      },
+      {
+        "label": "Official Llama multimodal Transformer implementation",
+        "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3/multimodal/model.py",
+        "type": "primary"
+      },
+      {
+        "label": "Official Llama 3.2 Vision prompt and tool format",
+        "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/vision_prompt_format.md",
+        "type": "primary"
+      },
+      {
+        "label": "Llama 3.2 Community License Agreement",
+        "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "Llama 3.2 Acceptable Use Policy",
+        "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/USE_POLICY.md",
+        "type": "primary"
+      }
+    ],
+    "notes": "Meta reports 88.8B complete multimodal parameters (nominal 90B), at developer-reported precision. Architecture combines 80 language Transformer layers with 20 vision cross-attention layers. Context is 131072 tokens. Native tool calling applies only to text-only prompts; image prompts are excluded. The custom license incorporates the AUP\u2019s EU multimodal restriction and end-user exception. Active parameter count and dedicated reasoning mode are not separately disclosed."
+  },
+  "summary": "Corrects the nominal 90B count to Meta\u2019s reported complete 88.8B, identifies dense vision-language architecture and 20 cross-attention layers, and corrects context to 131072. Clears unsupported reasoning=false; active count remains undisclosed. Confirms original September 25 release, weights, license and modalities, with explicit image-prompt tool-call and EU license limitations. Exact HF config access returned 401; public Meta source code independently verifies context and architecture."
+}
