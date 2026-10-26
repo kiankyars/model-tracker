@@ -6266,16 +6266,16 @@
     "name": "Macaron V1 Venti",
     "developer": "MindLab",
     "developer_id": "mindlab",
-    "family": null,
+    "family": "macaron-v1",
     "description": "GLM-5.2-based Mixture-of-LoRA model with specialists for chat, personal agents, coding, and generative UI",
     "release_date": "2026-07-21",
     "date_precision": "day",
     "open_weights": true,
     "license": "MIT",
-    "parameters_b": null,
+    "parameters_b": 784.082091008,
     "active_parameters_b": null,
-    "parameters_source": null,
-    "architecture": null,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
     "context_window": 1048576,
     "modalities": {
       "input": [
@@ -6287,24 +6287,103 @@
     },
     "reasoning": true,
     "tool_call": true,
-    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/mindlab/macaron-v1-venti.toml",
-    "source_type": "catalog",
+    "source_url": "https://www.mindlab.im/updates/introducing-macaron-v1",
+    "source_type": "primary",
     "sources": [
       {
-        "label": "Models.dev record",
-        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/mindlab/macaron-v1-venti.toml",
-        "type": "catalog"
+        "label": "Mind Lab release announcement",
+        "url": "https://www.mindlab.im/updates/introducing-macaron-v1",
+        "type": "primary"
       },
       {
         "label": "Hugging Face",
         "url": "https://huggingface.co/mindlab-research/Macaron-V1-Venti",
         "type": "weights"
+      },
+      {
+        "label": "Macaron-V1 technical report v2",
+        "url": "https://arxiv.org/html/2608.09819v2",
+        "type": "primary"
+      },
+      {
+        "label": "Venti configuration",
+        "url": "https://huggingface.co/mindlab-research/Macaron-V1-Venti/raw/main/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Venti chat template",
+        "url": "https://huggingface.co/mindlab-research/Macaron-V1-Venti/raw/main/chat_template.jinja",
+        "type": "primary"
+      },
+      {
+        "label": "Macaron developer comparison table",
+        "url": "https://github.com/MindLab-Research/Macaron-V1",
+        "type": "primary"
+      },
+      {
+        "label": "Updated Mint model lineup",
+        "url": "https://mint-doc.macaron.im/model-api/models/",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned Venti base tensor index and complete shard headers",
+        "url": "https://huggingface.co/mindlab-research/Macaron-V1-Venti/blob/be05322da0f462b08e29166ab92eb98dd4c93d6c/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Pinned Venti L0-L3 adapter tensor headers",
+        "url": "https://huggingface.co/mindlab-research/Macaron-V1-Venti/tree/be05322da0f462b08e29166ab92eb98dd4c93d6c/loras",
+        "type": "weights"
+      },
+      {
+        "label": "GLM MoE DSA reference implementation: router buffers and MTP boundary",
+        "url": "https://github.com/huggingface/transformers/blob/6c5f8f4186c15f4bfbd67941a1736b2b347e0155/src/transformers/models/glm_moe_dsa/modeling_glm_moe_dsa.py",
+        "type": "primary"
+      },
+      {
+        "label": "Transformers GLM-5.2 implementation documentation",
+        "url": "https://huggingface.co/docs/transformers/model_doc/glm_moe_dsa",
+        "type": "primary"
+      },
+      {
+        "label": "Developer GLM-5.2 training model configuration",
+        "url": "https://github.com/THUDM/slime/blob/18868a79b0b083a093798a94ed0f8cb4f71b9c14/scripts/models/glm5.2-744B-A40B.sh",
+        "type": "primary"
+      },
+      {
+        "label": "Developer checkpoint conversion: router-state mapping",
+        "url": "https://github.com/THUDM/slime/blob/18868a79b0b083a093798a94ed0f8cb4f71b9c14/slime/backends/megatron_utils/hf_to_megatron/deepseek.py",
+        "type": "primary"
+      },
+      {
+        "label": "Megatron expert-bias state update implementation",
+        "url": "https://github.com/NVIDIA/Megatron-LM/blob/e3f528380c197e8811fb68064d9ef3acf59fd3c6/megatron/core/transformer/moe/moe_utils.py",
+        "type": "primary"
+      },
+      {
+        "label": "Models.dev record",
+        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/mindlab/macaron-v1-venti.toml",
+        "type": "catalog"
       }
     ],
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
+    "upstream_present": true,
+    "notes": "Complete released checkpoint: 784.082091008B learned parameters, including 9.952920320B MTP and four 7.688042496B LoRA adapters. Excludes 19,456 non-gradient router-balance-state values under the published implementation; counting that state yields 784.082110464B stored scalars. The base without MTP is 743.377000704B; base plus four adapters without MTP is 774.129170688B. Original 748B is a release label; later ~774.8B uses a nominal 744B base, so neither is an exact complete-checkpoint count. Active parameters per token remain undisclosed. Context maximum is 1,048,576 tokens; reference serving profile is 262K. MIT release retains inherited base-model and dependency requirements.",
+    "parameter_components_b": {
+      "base_without_mtp": 743.377000704,
+      "mtp": 9.95292032,
+      "lora_l0": 7.688042496,
+      "lora_l1": 7.688042496,
+      "lora_l2": 7.688042496,
+      "lora_l3": 7.688042496
+    },
+    "field_status": {
+      "active_parameters_b": "undisclosed"
+    },
+    "audited_at": "2026-10-26T22:28:46.204565Z",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/299.json"
   },
   {
     "id": "poolside/laguna-s-2.1",

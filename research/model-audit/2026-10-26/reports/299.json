@@ -1,0 +1,384 @@
+{
+  "index": 299,
+  "model_id": "mindlab/macaron-v1-venti",
+  "reviewed_at": "2026-10-26T22:28:46.204565Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://www.mindlab.im/updates/introducing-macaron-v1",
+      "title": "Introducing Macaron-V1",
+      "publisher": "Mind Lab",
+      "accessed": true,
+      "evidence": "Dated July 21, 2026 and announces V1-Venti with open weights, a GLM-5.2 base, four specialists, and the 748B release label."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/mindlab-research/Macaron-V1-Venti",
+      "title": "Macaron-V1-Venti model card",
+      "publisher": "Mind Lab",
+      "accessed": true,
+      "evidence": "Names the model and Macaron-V1 family; describes BF16 weights, MIT licensing, chat/agent/coding/GenUI specialists, and 1M context. Distinguishes 748B release label from about 774.8B logical stored parameters; warns that the automatic sidebar count matches neither."
+    },
+    {
+      "id": "s3",
+      "url": "https://arxiv.org/html/2608.09819v2",
+      "title": "Macaron-V1 technical report, revision 2 (August 24, 2026)",
+      "publisher": "Mind Lab",
+      "accessed": true,
+      "evidence": "Sections 2.2 and 2.6 and Table 11 identify Venti separately: nominal 744B base, four adapters with 7,688,042,496 BF16 stored values each, approximately 774.8B logical residency, and 748B release label. Explicitly says stored values are not active-per-token counts. One specialist is selected per user turn."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/mindlab-research/Macaron-V1-Venti/raw/main/config.json",
+      "title": "Venti checkpoint configuration",
+      "publisher": "Mind Lab",
+      "accessed": true,
+      "evidence": "GlmMoeDsaForCausalLM, glm_moe_dsa, 78 layers, 256 routed experts, eight experts per token, one shared expert, BF16, and max_position_embeddings=1048576. No vision or audio configuration."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/mindlab-research/Macaron-V1-Venti/raw/main/chat_template.jinja",
+      "title": "Venti native chat template",
+      "publisher": "Mind Lab",
+      "accessed": true,
+      "evidence": "Supports enable_thinking, reasoning effort, reasoning_content, think delimiters, function signatures, tool_call and tool_response tokens. Media inputs receive an explicit reminder that the model cannot process them because it lacks multimodal input ability."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/mindlab-research/Macaron-V1-Venti/raw/main/LICENSE",
+      "title": "Venti license file",
+      "publisher": "MindLab Research",
+      "accessed": true,
+      "evidence": "MIT license with 2026 MindLab Research copyright. The model card also requires respecting inherited GLM-5.2 and harness-dependency requirements."
+    },
+    {
+      "id": "s7",
+      "url": "https://github.com/MindLab-Research/Macaron-V1",
+      "title": "Macaron-V1 developer repository and comparison table",
+      "publisher": "Mind Lab",
+      "accessed": true,
+      "evidence": "The Venti column identifies its GLM-5.2 base, 748B release label, approximately 774.8B logical residency, 1M context on B300 configurations, and 262K reference profile. The Tall and merged Coding-Venti builds are distinguished."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/api/models/mindlab-research/Macaron-V1-Venti",
+      "title": "Venti public repository metadata and file listing",
+      "publisher": "Hugging Face hosting Mind Lab weights",
+      "accessed": true,
+      "evidence": "Public repository includes 282 base shards and four L0-L3 adapter files at revision be05322da0f462b08e29166ab92eb98dd4c93d6c. Automatic safetensors total 753329940480 covers the base, including 19456 F32 router buffers, and omits the four adapter totals. Independent header reads establish the complete learned count."
+    },
+    {
+      "id": "s9",
+      "url": "https://mint-doc.macaron.im/model-api/models/",
+      "title": "Mint Recursive hosted-model lineup",
+      "publisher": "Mind Lab",
+      "accessed": true,
+      "evidence": "Later documentation separately lists original macaron-v1-venti at 748B over frozen GLM-5.2, alongside newer Macaron-V1.1 over GLM-5.3. No active-parameter count for original Venti is provided."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/mindlab-research/Macaron-V1-Venti/blob/be05322da0f462b08e29166ab92eb98dd4c93d6c/model.safetensors.index.json",
+      "title": "Pinned Venti base tensor index and complete shard headers",
+      "publisher": "Mind Lab",
+      "accessed": true,
+      "evidence": "Read only length prefixes and JSON headers of all 282 listed base shards via bounded HTTP ranges. All 59,585 index keys matched. Counts: 753329921024 BF16 weight/bias elements and 19456 F32 e_score_correction_bias buffer elements. Layer 78 contains 9952920320 BF16 MTP parameters and 256 of those buffers. No packed or quantized tensors."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/mindlab-research/Macaron-V1-Venti/tree/be05322da0f462b08e29166ab92eb98dd4c93d6c/loras",
+      "title": "Pinned Venti L0-L3 adapter tensor headers",
+      "publisher": "Mind Lab",
+      "accessed": true,
+      "evidence": "Independently read all four adapter headers with bounded HTTP ranges. Each has 7688042496 BF16 elements, all in lora_A/lora_B parameter tensors; their sum is 30752169984. No buffer or scale tensors were found."
+    },
+    {
+      "id": "s12",
+      "url": "https://github.com/huggingface/transformers/blob/6c5f8f4186c15f4bfbd67941a1736b2b347e0155/src/transformers/models/glm_moe_dsa/modeling_glm_moe_dsa.py",
+      "title": "GLM MoE DSA reference implementation: router buffers and MTP boundary",
+      "publisher": "Hugging Face Transformers",
+      "accessed": true,
+      "evidence": "Line 480 declares e_score_correction_bias as nn.Buffer rather than a learned parameter. Line 637 ignores layer 78 when loading the main decoder implementation, consistent with the separate MTP layer."
+    },
+    {
+      "id": "s13",
+      "url": "https://huggingface.co/docs/transformers/model_doc/glm_moe_dsa",
+      "title": "Transformers GLM-5.2 implementation documentation",
+      "publisher": "Hugging Face Transformers",
+      "accessed": true,
+      "evidence": "Explicitly states that its GLM MoE DSA implementation omits the MTP layer. This confirms why a full released checkpoint count differs from a main-decoder-only scope."
+    },
+    {
+      "id": "s14",
+      "url": "https://github.com/THUDM/slime/blob/18868a79b0b083a093798a94ed0f8cb4f71b9c14/scripts/models/glm5.2-744B-A40B.sh",
+      "title": "Developer GLM-5.2 training model configuration",
+      "publisher": "THUDM / Z.ai slime",
+      "accessed": true,
+      "evidence": "Exact GLM-5.2 configuration enables expert bias, sets moe-router-bias-update-rate=0, uses sigmoid top-8 routing, and unties embedding/output weights."
+    },
+    {
+      "id": "s15",
+      "url": "https://github.com/THUDM/slime/blob/18868a79b0b083a093798a94ed0f8cb4f71b9c14/slime/backends/megatron_utils/hf_to_megatron/deepseek.py",
+      "title": "Developer checkpoint conversion: router-state mapping",
+      "publisher": "THUDM / Z.ai slime",
+      "accessed": true,
+      "evidence": "Maps Megatron mlp.router.expert_bias to HF mlp.gate.e_score_correction_bias. The adjacent dispatch module selects this converter for glm_moe_dsa."
+    },
+    {
+      "id": "s16",
+      "url": "https://github.com/NVIDIA/Megatron-LM/blob/e3f528380c197e8811fb68064d9ef3acf59fd3c6/megatron/core/transformer/moe/moe_utils.py",
+      "title": "Megatron expert-bias state update implementation",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "get_updated_expert_bias runs under torch.no_grad and adds update_rate times the sign of the token-load imbalance to expert_bias. This is load-control state updated outside gradient optimization, rather than an optimizer-learned affine bias."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Macaron V1 Venti",
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Display normalization of the official Macaron-V1-Venti name."
+    },
+    "developer": {
+      "value": "MindLab",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Existing normalized developer spelling; official sources use Mind Lab and MindLab Research."
+    },
+    "family": {
+      "value": "macaron-v1",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s9"
+      ],
+      "note": "Original Macaron-V1 family; distinct from V1.1 and the Preview release."
+    },
+    "release_date": {
+      "value": "2026-07-21",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Explicit dated public release announcement; July 20 repository creation is not substituted for release."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8"
+      ],
+      "note": "Developer announces open weights and the public exact-variant repository distributes base shards and four specialist adapters."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s6"
+      ],
+      "note": "MIT is the published repository license. Inherited base-model and dependency requirements remain relevant."
+    },
+    "parameters_b": {
+      "value": 784.082091008,
+      "status": "verified",
+      "source_ids": [
+        "s10",
+        "s11",
+        "s12",
+        "s4",
+        "s3",
+        "s14",
+        "s15",
+        "s16"
+      ],
+      "note": "Complete released learned-parameter count from all 286 safetensors headers: 753329921024 BF16 base parameters (including 9952920320 MTP) plus 4 x 7688042496 BF16 LoRA parameters. Excludes 19456 F32 router correction buffers. Decoder base excluding MTP is 743377000704; decoder plus all adapters excluding MTP is 774129170688. The 748B release label and later ~774.8B calculation from nominal 744B base are not exact full-checkpoint counts. Untied embedding/head and each adapter are counted once. Router-bias exclusion follows both nn.Buffer registration and developer training/conversion references: it is token-load balancing state with a no_grad update rule, configured with zero update rate for GLM-5.2 post-training. The exact pretraining history of those values is not established; including this state gives 784.082110464B stored scalar values."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s3",
+        "s7",
+        "s9"
+      ],
+      "note": "No Venti-specific active-per-token total is disclosed in the checked card, later technical report, comparison table or updated lineup. Selecting one LoRA does not imply activating the entire sparse base or all its adapter tensors. The report explicitly separates stored values from active counts. No Tall or base-only active count is transferred."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s3",
+        "s10",
+        "s13"
+      ],
+      "note": "GLM-5.2 sparse MoE Transformer backbone with MLA/DSA attention; 78 main layers (three dense, 75 sparse), 256 routed experts with top-8 routing and one shared expert, plus one MTP layer. Four routed LoRA specialists add the MoL serving layer."
+    },
+    "context_window": {
+      "value": 1048576,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s7"
+      ],
+      "note": "Exact checkpoint maximum. Developer documents 1M on B300 configurations and a lower 262K reference serving profile; training-system capacity beyond this is not the model context limit."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s4"
+      ],
+      "note": "Native text model. Template explicitly rejects image, video and audio content; GenUI is generated code rendered by a harness, not native image output. Tall multimodal benchmark results do not apply."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s5"
+      ],
+      "note": "Native template includes thinking controls, reasoning effort and separate reasoning content."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s5"
+      ],
+      "note": "Native template serializes function definitions, tool calls and tool responses; the model is explicitly trained and served for agent use."
+    },
+    "description": {
+      "value": "GLM-5.2-based Mixture-of-LoRA model with specialists for chat, personal agents, coding, and generative UI",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "All stated architecture and specialist domains are supported for this exact variant."
+    }
+  },
+  "patch": {
+    "family": "macaron-v1",
+    "parameters_b": 784.082091008,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "source_url": "https://www.mindlab.im/updates/introducing-macaron-v1",
+    "source_type": "primary",
+    "notes": "Complete released checkpoint: 784.082091008B learned parameters, including 9.952920320B MTP and four 7.688042496B LoRA adapters. Excludes 19,456 non-gradient router-balance-state values under the published implementation; counting that state yields 784.082110464B stored scalars. The base without MTP is 743.377000704B; base plus four adapters without MTP is 774.129170688B. Original 748B is a release label; later ~774.8B uses a nominal 744B base, so neither is an exact complete-checkpoint count. Active parameters per token remain undisclosed. Context maximum is 1,048,576 tokens; reference serving profile is 262K. MIT release retains inherited base-model and dependency requirements.",
+    "sources": [
+      {
+        "label": "Mind Lab release announcement",
+        "url": "https://www.mindlab.im/updates/introducing-macaron-v1",
+        "type": "primary"
+      },
+      {
+        "label": "Venti model card and parameter accounting",
+        "url": "https://huggingface.co/mindlab-research/Macaron-V1-Venti",
+        "type": "primary"
+      },
+      {
+        "label": "Macaron-V1 technical report v2",
+        "url": "https://arxiv.org/html/2608.09819v2",
+        "type": "primary"
+      },
+      {
+        "label": "Venti configuration",
+        "url": "https://huggingface.co/mindlab-research/Macaron-V1-Venti/raw/main/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Venti chat template",
+        "url": "https://huggingface.co/mindlab-research/Macaron-V1-Venti/raw/main/chat_template.jinja",
+        "type": "primary"
+      },
+      {
+        "label": "Macaron developer comparison table",
+        "url": "https://github.com/MindLab-Research/Macaron-V1",
+        "type": "primary"
+      },
+      {
+        "label": "Updated Mint model lineup",
+        "url": "https://mint-doc.macaron.im/model-api/models/",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned Venti base tensor index and complete shard headers",
+        "url": "https://huggingface.co/mindlab-research/Macaron-V1-Venti/blob/be05322da0f462b08e29166ab92eb98dd4c93d6c/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Pinned Venti L0-L3 adapter tensor headers",
+        "url": "https://huggingface.co/mindlab-research/Macaron-V1-Venti/tree/be05322da0f462b08e29166ab92eb98dd4c93d6c/loras",
+        "type": "weights"
+      },
+      {
+        "label": "GLM MoE DSA reference implementation: router buffers and MTP boundary",
+        "url": "https://github.com/huggingface/transformers/blob/6c5f8f4186c15f4bfbd67941a1736b2b347e0155/src/transformers/models/glm_moe_dsa/modeling_glm_moe_dsa.py",
+        "type": "primary"
+      },
+      {
+        "label": "Transformers GLM-5.2 implementation documentation",
+        "url": "https://huggingface.co/docs/transformers/model_doc/glm_moe_dsa",
+        "type": "primary"
+      },
+      {
+        "label": "Developer GLM-5.2 training model configuration",
+        "url": "https://github.com/THUDM/slime/blob/18868a79b0b083a093798a94ed0f8cb4f71b9c14/scripts/models/glm5.2-744B-A40B.sh",
+        "type": "primary"
+      },
+      {
+        "label": "Developer checkpoint conversion: router-state mapping",
+        "url": "https://github.com/THUDM/slime/blob/18868a79b0b083a093798a94ed0f8cb4f71b9c14/slime/backends/megatron_utils/hf_to_megatron/deepseek.py",
+        "type": "primary"
+      },
+      {
+        "label": "Megatron expert-bias state update implementation",
+        "url": "https://github.com/NVIDIA/Megatron-LM/blob/e3f528380c197e8811fb68064d9ef3acf59fd3c6/megatron/core/transformer/moe/moe_utils.py",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "Verified complete released total of 784.082091008B learned parameters from all 282 base and four adapter headers, including MTP and excluding router buffers. Provides component breakdown and distinguishes exact full-checkpoint count from the 748B release label and ~774.8B nominal-base accounting. Adds Macaron-V1 family and sparse MoE architecture; confirms all other public fields. Active-per-token count remains undisclosed.",
+  "proposed_fields": {
+    "parameter_components_b": {
+      "base_without_mtp": 743.377000704,
+      "mtp": 9.95292032,
+      "lora_l0": 7.688042496,
+      "lora_l1": 7.688042496,
+      "lora_l2": 7.688042496,
+      "lora_l3": 7.688042496
+    }
+  },
+  "parameter_count_method": {
+    "revision": "be05322da0f462b08e29166ab92eb98dd4c93d6c",
+    "method": "For each indexed base shard and each of four adapter files, request bytes 0-7 to decode the safetensors header length, then request only that JSON header. Sum products of shapes once for each parameter tensor, and exclude e_score_correction_bias buffers identified in the reference implementation. No weight payloads downloaded.",
+    "base_shards": 282,
+    "adapter_files": 4,
+    "base_index_tensor_count": 59585,
+    "base_header_tensor_count": 59585,
+    "missing_or_extra_base_tensors": 0,
+    "base_learned_parameters": 753329921024,
+    "base_router_buffer_elements_excluded": 19456,
+    "mtp_learned_parameters_included": 9952920320,
+    "adapter_parameters_each": 7688042496,
+    "complete_learned_parameters": 784082091008,
+    "scope_note": "Includes auxiliary MTP parameters. The main model has untied embedding and output-head weights; the stored MTP head contributes its normalization only, with no duplicate embedding or output-head tensor. Adapter tensors are all BF16 lora_A/lora_B, not quantization storage or buffers.",
+    "buffer_classification": "The 19456 F32 elements are exactly 76 x 256 e_score_correction_bias values. Transformers registers them as buffers; the developer converter maps them to expert_bias; Megatron updates that state from token-count imbalance under torch.no_grad; the developer GLM-5.2 training configuration sets its update rate to zero. They are excluded from optimizer-learned parameter tensors, not dismissed merely because they are F32.",
+    "classification_limit": "No exact GLM-5.2 pretraining update-history record was verified. This exclusion follows the published parameter-versus-routing-state implementation. For an accounting convention that includes the saved routing state, the raw complete scalar total is 784082110464.",
+    "complete_stored_scalar_values_including_router_state": 784082110464
+  }
+}
