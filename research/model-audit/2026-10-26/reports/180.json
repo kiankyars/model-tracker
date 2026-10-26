@@ -1,0 +1,350 @@
+{
+  "index": 180,
+  "model_id": "deepseek/deepseek-v4-flash-vision-exp",
+  "reviewed_at": "2026-10-26T19:16:39.554392Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-Vision-Exp/blob/6821d6ad3681a4b137b066b76094fa82ebd0a380/README.md",
+      "title": "DeepSeek-V4-Flash-Vision-Exp model card",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Exact experimental multimodal V4 Flash checkpoint; adds visual modules with continued training. Gives image/text task results, max reasoning effort, tool parser and DSpark serving examples; MIT license."
+    },
+    {
+      "id": "s2",
+      "url": "https://api-docs.deepseek.com/news/news260821/",
+      "title": "August 21 experimental vision API announcement",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Introduces this exact API model with mixed text and image input, visual understanding, reasoning and tool-supported agent use. This was API availability, preceding the weights upload."
+    },
+    {
+      "id": "s3",
+      "url": "https://api-docs.deepseek.com/updates/",
+      "title": "DeepSeek API changelog",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "August 21 entry explicitly dates this model release. September 10 retires original V4 Flash Vision Exp and routes its old identifier to V4.1 Flash; October 17 updates the successor again. The historical checkpoint remains distinct."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-Vision-Exp/blob/6821d6ad3681a4b137b066b76094fa82ebd0a380/config.json",
+      "title": "Exact checkpoint configuration",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "43 causal language layers, width 4096, 256 routed and one shared expert per layer, six routed experts per token; 32 vision layers of width 1024; three DSpark prediction layers; max_position_embeddings 1048576; FP4 experts and FP8 block quantization."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-Vision-Exp/blob/6821d6ad3681a4b137b066b76094fa82ebd0a380/model.safetensors.index.json",
+      "title": "Exact checkpoint index and bounded safetensors headers",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Independently read headers for all 48 indexed shards and matched every one of 72633 tensor names. Logical count after FP4 expansion and exclusions is 304644497086, including all vision and DSpark parameters. Only byte-range headers were downloaded, no whole shards."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-Vision-Exp/blob/6821d6ad3681a4b137b066b76094fa82ebd0a380/inference/model.py",
+      "title": "Official vision model and DSpark reference implementation",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Defines MoE causal Transformer with compressed/sparse attention and learned hyper-connections. Vision runs during image prefill; DSpark has a separate forward path. Draft stages share the main embedding and output head. tid2eid has requires_grad=False; mHC scale variables are learned parameters; modality-specific router biases are retained."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-Vision-Exp/blob/6821d6ad3681a4b137b066b76094fa82ebd0a380/inference/convert.py",
+      "title": "Official quantized checkpoint conversion",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "FP4 int8 tensors store two logical weight values per element; conversion unpacks both nibbles. Associated scale tensors represent quantization, not extra logical model weights. Shared MTP embedding/head aliases are omitted during conversion."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-Vision-Exp/blob/6821d6ad3681a4b137b066b76094fa82ebd0a380/inference/vision.py",
+      "title": "Official vision encoder and aligner",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "32-layer full-attention ViT with 2D RoPE, RMSNorm and SwiGLU; patch embedding and two-linear-layer aligner after 3x3 spatial downsampling. Confirms all learned vision weights, biases and norm vectors represented in the tensor count."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-Vision-Exp/blob/6821d6ad3681a4b137b066b76094fa82ebd0a380/LICENSE",
+      "title": "Exact checkpoint MIT license",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "MIT permission and copyright notice apply to the repository."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/api/models/deepseek-ai/DeepSeek-V4-Flash-Vision-Exp",
+      "title": "Official repository metadata",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Public, ungated repository created August 31. Current revision 6821d6ad3681a4b137b066b76094fa82ebd0a380. Automatic safetensors total 304646824126 expands FP4 and omits quantization scales but includes 2327040 fixed routing indices; subtracting those matches the independent learned count."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/blob/main/README.md",
+      "title": "V4 Flash text model card, used only for scoped comparison",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Text-only V4 Flash is advertised as 284B total and 13B activated, with million-token context. Those nominal figures do not describe the complete Vision Exp checkpoint. The exact Vision Exp card and configuration establish the inherited language architecture."
+    },
+    {
+      "id": "s12",
+      "url": "https://arxiv.org/html/2609.19969v1",
+      "title": "Later DeepSeek-V4.1-Flash technical report",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Reviewed later architecture discussion and comparison tables. Their 284B/13B comparison column is DeepSeek-V4-Flash, not Vision Exp. V4.1-specific CED, Engram and 8B/16B phase counts cannot be assigned to this earlier checkpoint."
+    },
+    {
+      "id": "s13",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-Vision-Exp/blob/47bede87da740b19971b0e7193d22d5a34fe37d4/README.md",
+      "title": "Initial August 31 Vision Exp model card",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Historical complete card covers visual encoder, aligner, MoE, hyper-connections and DSpark but supplies no complete or active parameter count."
+    },
+    {
+      "id": "s14",
+      "url": "https://arxiv.org/html/2607.05147v1",
+      "title": "DSpark technical report",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Reviewed speculative-decoding architecture and model comparisons; no Vision Exp-specific complete active count is stated. Exact checkpoint implementation controls the three-stage attachment count."
+    },
+    {
+      "id": "s15",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/blob/60d8d70770c6776ff598c94bb586a859a38244f1/config.json",
+      "title": "Pinned original Flash language configuration",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Parent compared language dimensions, routing configuration and every original main-model tensor shape with Vision Exp: no shape changes or removed tensors, only 46 added router-bias vectors of 256 elements. This supports retaining the nominal 13B language active count at the original reporting precision."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "DeepSeek V4 Flash Vision Exp",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Spaced display normalization of the official DeepSeek-V4-Flash-Vision-Exp name; original experimental model identity."
+    },
+    "developer": {
+      "value": "DeepSeek",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s9"
+      ],
+      "note": "Official DeepSeek repository, announcement and license."
+    },
+    "family": {
+      "value": "deepseek-flash",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4"
+      ],
+      "note": "Catalog grouping for the Flash branch of DeepSeek V4; the model is an experimental visual extension of V4 Flash."
+    },
+    "release_date": {
+      "value": "2026-08-21",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s10"
+      ],
+      "note": "Earliest explicitly dated public API release. Open weights followed on August 31; do not replace the API release date with repository creation."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s9",
+        "s10"
+      ],
+      "note": "All 48 public checkpoint shard headers and weight index were accessible without authentication."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s9"
+      ],
+      "note": "Exact distributed checkpoint repository license."
+    },
+    "parameters_b": {
+      "value": 304.644497086,
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s10"
+      ],
+      "note": "Complete checkpoint logical learned count at pinned revision: 304644497086 weights. Components: 284332252247 language backbone + 19845851751 unique DSpark + 411842560 ViT + 54534144 aligner + 16384 image sentinels. Each of 148176371712 packed I8 storage elements encodes two FP4 weights. Excluded 9261408000 F8_E8M0 quantization scales and 2327040 fixed tid2eid indices; retained 278 learned mHC scale scalars and learned router biases. Main embed/head each stored once and shared with DSpark. Integer count is tensor-derived, not an advertised nominal count; cache and reproducible counting script: /tmp/model-audit-180."
+    },
+    "active_parameters_b": {
+      "value": 13,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s6",
+        "s11",
+        "s12",
+        "s13",
+        "s14",
+        "s15"
+      ],
+      "note": "Nominal 13B for the language backbone only, derived from the developer-reported V4 Flash active count and the exact Vision Exp architecture. All original language tensor shapes match; Vision Exp adds only 11776 router-bias parameters to that backbone. Layer count, dimensions, routed/shared expert counts and top-6 routing match. This is an architectural inference, not a direct complete Vision Exp active-count declaration. Excludes image encoding and DSpark drafting; no single complete-model active figure is disclosed."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s6",
+        "s8"
+      ],
+      "note": "43-layer causal MoE language Transformer using compressed sparse/heavily compressed attention and manifold-constrained hyper-connections; 256 routed experts with 6 selected plus 1 shared. Adds 32-layer vision Transformer, aligner, image embeddings and 3-stage DSpark. The class name DeepseekV4ForCausalLM alone omits these visual modules."
+    },
+    "context_window": {
+      "value": 1048576,
+      "status": "verified",
+      "source_ids": [
+        "s4"
+      ],
+      "note": "Exact checkpoint max_position_embeddings is 1048576. Baseline 1000000 is the rounded 1M representation; original Vision Exp-specific advertised API limit was not recovered from primary launch/card text. Current API pricing describes the redirected successor, so this value explicitly records the original checkpoint configuration, not a tested API limit."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s6",
+        "s8"
+      ],
+      "note": "Visual encoder and language generation support image/text input and text output; no image-output model head."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Exact card uses max reasoning effort and includes a DeepSeek V4 reasoning parser."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Exact serving example enables automatic tool choice and DeepSeek V4 tool-call parsing."
+    },
+    "description": {
+      "value": "Experimental multimodal DeepSeek V4 Flash model for image understanding, coding, and agentic work",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Supported by exact model introduction and coding/visual-agent evaluations; this description identifies the original experimental checkpoint."
+    }
+  },
+  "patch": {
+    "parameters_b": 304.644497086,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "context_window": 1048576,
+    "source_url": "https://api-docs.deepseek.com/news/news260821/",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "DeepSeek-V4-Flash-Vision-Exp model card",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-Vision-Exp/blob/6821d6ad3681a4b137b066b76094fa82ebd0a380/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "August 21 experimental vision API announcement",
+        "url": "https://api-docs.deepseek.com/news/news260821/",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeek API changelog",
+        "url": "https://api-docs.deepseek.com/updates/",
+        "type": "primary"
+      },
+      {
+        "label": "Exact checkpoint configuration",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-Vision-Exp/blob/6821d6ad3681a4b137b066b76094fa82ebd0a380/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Exact checkpoint index and bounded safetensors headers",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-Vision-Exp/blob/6821d6ad3681a4b137b066b76094fa82ebd0a380/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Official vision model and DSpark reference implementation",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-Vision-Exp/blob/6821d6ad3681a4b137b066b76094fa82ebd0a380/inference/model.py",
+        "type": "weights"
+      },
+      {
+        "label": "Official quantized checkpoint conversion",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-Vision-Exp/blob/6821d6ad3681a4b137b066b76094fa82ebd0a380/inference/convert.py",
+        "type": "weights"
+      },
+      {
+        "label": "Official vision encoder and aligner",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-Vision-Exp/blob/6821d6ad3681a4b137b066b76094fa82ebd0a380/inference/vision.py",
+        "type": "weights"
+      },
+      {
+        "label": "Exact checkpoint MIT license",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-Vision-Exp/blob/6821d6ad3681a4b137b066b76094fa82ebd0a380/LICENSE",
+        "type": "weights"
+      },
+      {
+        "label": "Original Flash language configuration",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/blob/60d8d70770c6776ff598c94bb586a859a38244f1/config.json",
+        "type": "primary"
+      }
+    ],
+    "notes": "Original August 21 experimental vision model, with public weights available August 31. Complete logical parameter count 304.644497086B includes 284.332252247B language backbone, 19.845851751B DSpark, 0.411842560B ViT, 0.054534144B aligner and 0.000016384B image embeddings; shared embedding/head counted once, packed FP4 expanded, representation scales and fixed routing indices excluded. Whole-model active count is not stated; nominal 13B belongs to the inherited language main-model scope, while image prefill and optional DSpark drafting activate additional components. Context 1048576 is the exact checkpoint positional ceiling, distinguished from rounded 1M advertising. The original API model was retired September 10; its identifier now routes to the V4.1 Flash successor, updated again October 17. This does not change the checkpoint identity. No endpoint execution was tested. Nominal 13B for the language backbone only, derived from the developer-reported V4 Flash active count and the exact Vision Exp architecture. All original language tensor shapes match; Vision Exp adds only 11776 router-bias parameters to that backbone. Layer count, dimensions, routed/shared expert counts and top-6 routing match. This is an architectural inference, not a direct complete Vision Exp active-count declaration. Excludes image encoding and DSpark drafting; no single complete-model active figure is disclosed.",
+    "active_parameters_b": 13
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "language_backbone": 284.332252247,
+      "dspark": 19.845851751,
+      "vision_encoder": 0.41184256,
+      "vision_aligner": 0.054534144,
+      "image_embeddings": 1.6384e-05
+    },
+    "active_parameters_scope": "language_backbone"
+  },
+  "summary": "Audited all 14 fields for the original experimental vision model. Added independently counted 304.644497086B complete logical weights and MoE architecture; set exact configured context 1048576 with 1M distinction. Confirmed August 21 API release, later MIT open weights, input/output modalities, reasoning, tools and description. Accepted nominal 13B scoped to the inherited language backbone, supported by matching tensor shapes and routing configuration; complete-model activation remains undisclosed. Preserved original identity despite later rolling API redirect. All 48 bounded shard headers and count scripts retained in /tmp/model-audit-180."
+}
