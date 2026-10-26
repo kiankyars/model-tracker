@@ -1,0 +1,311 @@
+{
+  "index": 222,
+  "model_id": "google/gemma-4-12b-it",
+  "reviewed_at": "2026-10-26T20:24:03.201662+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/google/gemma-4-12B-it/blob/707f0a3b8a3c7ad586ed01e27eafbad8a27dd0f7/README.md",
+      "title": "Official Gemma 4 12B IT model card",
+      "publisher": "Google DeepMind",
+      "accessed": true,
+      "evidence": "The exact IT repository identifies the Gemma 4 12B Unified variant, Apache 2.0 open weights, text/image/audio/video input and text output. Its dense-model table labels total parameters 11.95B, 48 layers and 256K context. It documents configurable thinking and function calling."
+    },
+    {
+      "id": "s2",
+      "url": "https://ai.google.dev/gemma/docs/releases",
+      "title": "Gemma releases",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Explicitly records the release of Gemma 4 12B Unified on June 3, 2026. The June 9 baseline date is later than the documented public release."
+    },
+    {
+      "id": "s3",
+      "url": "https://developers.googleblog.com/gemma-4-12b-the-developer-guide/",
+      "title": "Gemma 4 12B: The Developer Guide",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Dated June 3, 2026. Describes a dense decoder-only Transformer with a 35M vision embedder, direct audio waveform projection and a separate dedicated MTP draft model."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/google/gemma-4-12B-it/resolve/707f0a3b8a3c7ad586ed01e27eafbad8a27dd0f7/config.json",
+      "title": "Official 12B IT checkpoint configuration",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Ungated config identifies Gemma4UnifiedForConditionalGeneration; 48 layers, hidden size 3840, 40 sliding and 8 full-attention layers, no MoE, max_position_embeddings 262144, vocabulary 262144 and tied word embeddings. Audio and vision projection configurations are present."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/google/gemma-4-12B-it/resolve/707f0a3b8a3c7ad586ed01e27eafbad8a27dd0f7/model.safetensors",
+      "title": "Official 12B IT safetensors header",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Read only HTTP 206 ranges 0-7 and 8-88959, not tensor payloads. The 677 tensor entries contain 11,959,730,224 BF16 stored elements, including 48 one-element layer_scalar entries. Applying Transformers nn.Parameter versus nn.Buffer classification yields 11,959,730,176 parameter elements; scalar training provenance remains unresolved. Both counts round to 11.9597B. All multimodal components are present; no separate MTP or duplicate lm_head tensors are present."
+    },
+    {
+      "id": "s6",
+      "url": "https://github.com/huggingface/transformers/blob/main/src/transformers/models/gemma4_unified/modeling_gemma4_unified.py",
+      "title": "Transformers Gemma 4 Unified implementation",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Defines layer_scalar as nn.Buffer and ties lm_head.weight to model.language_model.embed_tokens.weight. RoPE frequencies and embedding scale are nonpersistent buffers. This establishes runtime parameter/buffer classification, not whether the scalar coefficients were learned during original training."
+    },
+    {
+      "id": "s7",
+      "url": "https://github.com/huggingface/transformers/blob/main/src/transformers/models/gemma4_unified/convert_gemma4_unified_weights.py",
+      "title": "Gemma 4 Unified checkpoint conversion",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Copies the input embedding table directly, maps multimodal weights, projects end-of-audio/end-of-image embeddings into existing token rows, and keeps lm_head tied. The inspected conversion contains no added vocabulary padding. Assistant/drafter conversion is a separate variant."
+    },
+    {
+      "id": "s8",
+      "url": "https://arxiv.org/html/2607.02770v1",
+      "title": "Gemma 4 Technical Report",
+      "publisher": "Gemma Team / Google DeepMind",
+      "accessed": true,
+      "evidence": "Later first-party training report explicitly includes dense 12B and its unified architecture. Table 1 separately lists rounded embedder, einsum and drafter components. Section 2.5 says per-block scalar scales bound activation ranges for fp16 inference; it does not state whether they were learned or calibrated/fixed. No separately defined 12B active-parameter total is given."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/google/gemma-4-12B-it-assistant",
+      "title": "Official Gemma 4 12B IT assistant model card",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "The separately published assistant repository is explicitly an MTP draft model that extends the main model for speculative decoding. It is not part of the audited main IT checkpoint."
+    },
+    {
+      "id": "s10",
+      "url": "https://ai.google.dev/gemma/docs/gemma_4_license",
+      "title": "Gemma 4 Apache License 2.0",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "The license link from the exact IT card resolves to the Apache License 2.0 text."
+    },
+    {
+      "id": "s11",
+      "url": "https://github.com/google-deepmind/gemma/blob/9e1f74131ba9d45e5fe6ae7bb3941d9f2abb39c3/gemma/gm/nn/gemma4/_modules.py",
+      "title": "Google Gemma 4 JAX Transformer block",
+      "publisher": "Google DeepMind",
+      "accessed": true,
+      "evidence": "The shared Gemma 4 Block creates skip_scale with self.param and multiplies block output by it. The inspected code does not specify original optimization history. The Unified converter maps skip_scale to layer_scalar, conflicting with Transformers buffer classification as a basis for an exact learned-parameter count."
+    },
+    {
+      "id": "s12",
+      "url": "https://github.com/google-deepmind/gemma/blob/9e1f74131ba9d45e5fe6ae7bb3941d9f2abb39c3/gemma/gm/nn/gemma4/_gemma4.py",
+      "title": "Google JAX released Gemma 4 configurations",
+      "publisher": "Google DeepMind",
+      "accessed": true,
+      "evidence": "This inspected revision defines E2B, E4B, 31B and 26B A4B classes, but no 12B Unified class. Its shared-block parameter convention is supporting family evidence, not direct proof of exact Unified training provenance."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Gemma 4 12B IT",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "The repository is the instruction-tuned 12B Unified checkpoint, distinct from its base and assistant models."
+    },
+    "developer": {
+      "value": "Google",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Published by Google; the model card credits Google DeepMind."
+    },
+    "family": {
+      "value": "gemma",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Gemma 4 belongs to the Gemma family."
+    },
+    "release_date": {
+      "value": "2026-06-03",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "The official release log and dated developer announcement agree on June 3, 2026."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s5"
+      ],
+      "note": "Official model weights are public; the configuration and checkpoint header were accessible without authentication."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s10"
+      ],
+      "note": "The exact repository and its linked license specify Apache 2.0."
+    },
+    "parameters_b": {
+      "value": 11.9597,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9",
+        "s11",
+        "s12"
+      ],
+      "note": "Rounded complete main-checkpoint parameter estimate, in billions. Header total is 11,959,730,224 BF16 elements; applying Transformers parameter/buffer convention removes 48 layer scalars, yielding 11,959,730,176. Both round to 11.9597B. Google JAX represents corresponding skip_scale values with self.param, while the report explains their fp16 stabilization role without establishing training provenance, so no exact learned count is asserted. Includes text and all vision/audio embedders/projections, counts tied embedding/output once, and excludes the separate MTP assistant. No conversion-added vocabulary padding found. The model card’s 11.95B and name’s 12B are nominal."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s8"
+      ],
+      "note": "No separately defined active-parameter count is reported for this dense model. Neither the full total nor the rounded einsum subtotal is relabeled as active."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s8"
+      ],
+      "note": "Dense decoder-only Transformer with 48 layers and alternating local/global attention; unified multimodal inputs use projections instead of separate audio/vision encoders."
+    },
+    "context_window": {
+      "value": 262144,
+      "status": "verified",
+      "source_ids": [
+        "s4"
+      ],
+      "note": "Exact max_position_embeddings in the checkpoint config; the card uses the 256K shorthand."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "audio",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4"
+      ],
+      "note": "Audio is projected from waveform frames; video is processed as sequences of image frames. Output is text."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "The exact card includes enable_thinking=True usage and configurable thinking tokens."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "The developer reports function-calling support, satisfying the source-reported capability definition."
+    },
+    "description": {
+      "value": "Google’s instruction-tuned Gemma 4 model with a dense, encoder-free Transformer, text, image, audio and video inputs, text output, configurable thinking and function calling.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Replaces promotional compact/local-chat wording with verified model structure and capabilities."
+    }
+  },
+  "patch": {
+    "release_date": "2026-06-03",
+    "date_precision": "day",
+    "license": "Apache-2.0",
+    "parameters_b": 11.9597,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "modalities": {
+      "input": [
+        "text",
+        "image",
+        "audio",
+        "video"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "description": "Google’s instruction-tuned Gemma 4 model with a dense, encoder-free Transformer, text, image, audio and video inputs, text output, configurable thinking and function calling.",
+    "source_url": "https://huggingface.co/google/gemma-4-12B-it",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Official model card",
+        "url": "https://huggingface.co/google/gemma-4-12B-it",
+        "type": "primary"
+      },
+      {
+        "label": "Google release history",
+        "url": "https://ai.google.dev/gemma/docs/releases",
+        "type": "primary"
+      },
+      {
+        "label": "Official checkpoint configuration",
+        "url": "https://huggingface.co/google/gemma-4-12B-it/resolve/707f0a3b8a3c7ad586ed01e27eafbad8a27dd0f7/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Official checkpoint tensor header",
+        "url": "https://huggingface.co/google/gemma-4-12B-it/resolve/707f0a3b8a3c7ad586ed01e27eafbad8a27dd0f7/model.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Gemma 4 Technical Report",
+        "url": "https://arxiv.org/html/2607.02770v1",
+        "type": "primary"
+      },
+      {
+        "label": "Gemma 4 Unified implementation",
+        "url": "https://github.com/huggingface/transformers/blob/main/src/transformers/models/gemma4_unified/modeling_gemma4_unified.py",
+        "type": "primary"
+      },
+      {
+        "label": "Checkpoint converter",
+        "url": "https://github.com/huggingface/transformers/blob/main/src/transformers/models/gemma4_unified/convert_gemma4_unified_weights.py",
+        "type": "primary"
+      },
+      {
+        "label": "Google JAX Transformer block",
+        "url": "https://github.com/google-deepmind/gemma/blob/9e1f74131ba9d45e5fe6ae7bb3941d9f2abb39c3/gemma/gm/nn/gemma4/_modules.py",
+        "type": "primary"
+      }
+    ],
+    "notes": "The 12B name and model card’s 11.95B are nominal. The complete main checkpoint is approximately 11.9597B parameters, including all multimodal components and counting tied embedding/output weights once. Raw storage contains 11,959,730,224 BF16 elements; Transformers classifies 48 layer scalars as buffers, while Google JAX represents corresponding scalars as parameters. Their original training provenance is not established; both conventions round to the published value. The separate MTP assistant is excluded. Active parameters are not separately reported. Video is processed as image frames."
+  },
+  "summary": "Correct release from June 9 to June 3, add Apache-2.0 and dense architecture, add audio/video inputs, and replace name-inferred 12B with a rounded complete-checkpoint estimate of 11.9597B. Header-only inspection counts tied output weights once and excludes the separate MTP drafter. The 48 layer scalars have conflicting runtime classifications and unresolved training provenance; the rounded total is invariant to their inclusion. Context, reasoning, tool calling and open weights are verified; active count remains undisclosed."
+}

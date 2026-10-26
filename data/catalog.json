@@ -7396,53 +7396,6 @@
     "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/209.json"
   },
   {
-    "id": "google/gemma-4-12b-it",
-    "slug": "google--gemma-4-12b-it",
-    "name": "Gemma 4 12B IT",
-    "developer": "Google",
-    "developer_id": "google",
-    "family": "gemma",
-    "description": "Compact Gemma 4 instruction model for open, self-hosted chat and reasoning",
-    "release_date": "2026-06-09",
-    "date_precision": "day",
-    "open_weights": true,
-    "license": null,
-    "parameters_b": 12,
-    "active_parameters_b": null,
-    "parameters_source": "model_name",
-    "architecture": null,
-    "context_window": 262144,
-    "modalities": {
-      "input": [
-        "text",
-        "image"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "reasoning": true,
-    "tool_call": true,
-    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/google/gemma-4-12b-it.toml",
-    "source_type": "catalog",
-    "sources": [
-      {
-        "label": "Models.dev record",
-        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/google/gemma-4-12b-it.toml",
-        "type": "catalog"
-      },
-      {
-        "label": "Hugging Face",
-        "url": "https://huggingface.co/google/gemma-4-12B-it",
-        "type": "weights"
-      }
-    ],
-    "aliases": [],
-    "first_seen": "2026-10-26T08:55:12.627Z",
-    "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
-  },
-  {
     "id": "xiaomi/mimo-v2.5-pro-ultraspeed",
     "slug": "xiaomi--mimo-v2.5-pro-ultraspeed",
     "name": "MiMo-V2.5-Pro-UltraSpeed",
@@ -7528,6 +7481,96 @@
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
     "upstream_present": true
+  },
+  {
+    "id": "google/gemma-4-12b-it",
+    "slug": "google--gemma-4-12b-it",
+    "name": "Gemma 4 12B IT",
+    "developer": "Google",
+    "developer_id": "google",
+    "family": "gemma",
+    "description": "Google’s instruction-tuned Gemma 4 model with a dense, encoder-free Transformer, text, image, audio and video inputs, text output, configurable thinking and function calling.",
+    "release_date": "2026-06-03",
+    "date_precision": "day",
+    "open_weights": true,
+    "license": "Apache-2.0",
+    "parameters_b": 11.9597,
+    "active_parameters_b": null,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "context_window": 262144,
+    "modalities": {
+      "input": [
+        "text",
+        "image",
+        "audio",
+        "video"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "reasoning": true,
+    "tool_call": true,
+    "source_url": "https://huggingface.co/google/gemma-4-12B-it",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Hugging Face",
+        "url": "https://huggingface.co/google/gemma-4-12B-it",
+        "type": "weights"
+      },
+      {
+        "label": "Google release history",
+        "url": "https://ai.google.dev/gemma/docs/releases",
+        "type": "primary"
+      },
+      {
+        "label": "Official checkpoint configuration",
+        "url": "https://huggingface.co/google/gemma-4-12B-it/resolve/707f0a3b8a3c7ad586ed01e27eafbad8a27dd0f7/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Official checkpoint tensor header",
+        "url": "https://huggingface.co/google/gemma-4-12B-it/resolve/707f0a3b8a3c7ad586ed01e27eafbad8a27dd0f7/model.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Gemma 4 Technical Report",
+        "url": "https://arxiv.org/html/2607.02770v1",
+        "type": "primary"
+      },
+      {
+        "label": "Gemma 4 Unified implementation",
+        "url": "https://github.com/huggingface/transformers/blob/main/src/transformers/models/gemma4_unified/modeling_gemma4_unified.py",
+        "type": "primary"
+      },
+      {
+        "label": "Checkpoint converter",
+        "url": "https://github.com/huggingface/transformers/blob/main/src/transformers/models/gemma4_unified/convert_gemma4_unified_weights.py",
+        "type": "primary"
+      },
+      {
+        "label": "Google JAX Transformer block",
+        "url": "https://github.com/google-deepmind/gemma/blob/9e1f74131ba9d45e5fe6ae7bb3941d9f2abb39c3/gemma/gm/nn/gemma4/_modules.py",
+        "type": "primary"
+      },
+      {
+        "label": "Models.dev record",
+        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/google/gemma-4-12b-it.toml",
+        "type": "catalog"
+      }
+    ],
+    "aliases": [],
+    "first_seen": "2026-10-26T08:55:12.627Z",
+    "last_seen": "2026-10-26T09:05:47.987Z",
+    "upstream_present": true,
+    "notes": "The 12B name and model card’s 11.95B are nominal. The complete main checkpoint is approximately 11.9597B parameters, including all multimodal components and counting tied embedding/output weights once. Raw storage contains 11,959,730,224 BF16 elements; Transformers classifies 48 layer scalars as buffers, while Google JAX represents corresponding scalars as parameters. Their original training provenance is not established; both conventions round to the published value. The separate MTP assistant is excluded. Active parameters are not separately reported. Video is processed as image frames.",
+    "field_status": {
+      "active_parameters_b": "undisclosed"
+    },
+    "audited_at": "2026-10-26T20:24:03.201662+00:00",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/222.json"
   },
   {
     "id": "microsoft/mai-code-1-flash",
