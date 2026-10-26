@@ -1,0 +1,250 @@
+{
+  "index": 265,
+  "model_id": "meta/llama-3-70b-instruct",
+  "reviewed_at": "2026-10-26T21:29:48.141651Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/meta-llama/Meta-Llama-3-70B-Instruct",
+      "title": "Meta-Llama-3-70B-Instruct official model card",
+      "publisher": "Meta / Hugging Face",
+      "accessed": true,
+      "evidence": "Identifies the original Meta 70B instruction-tuned Llama 3 checkpoint, text generation task and llama3 license. Its public card is readable, although file downloads require approval."
+    },
+    {
+      "id": "s2",
+      "url": "https://github.com/meta-llama/llama3/blob/main/MODEL_CARD.md",
+      "title": "Original Llama 3 model card",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Specifies Meta as developer, pretrained and instruction-tuned 8B/70B variants, text input and text/code output, GQA, 8,192-token training sequences and 8K context, SFT plus RLHF, April 18, 2024 release and a custom commercial license."
+    },
+    {
+      "id": "s3",
+      "url": "https://ai.meta.com/blog/meta-llama-3/",
+      "title": "Introducing Meta Llama 3",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "April 18, 2024 announcement releases the original 8B/70B pretrained and instruction-tuned text models, describes a decoder-only Transformer with GQA, and states 8,192-token sequences. General reasoning improvements are mentioned, without a separate thinking mode."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/api/models/meta-llama/Meta-Llama-3-70B-Instruct",
+      "title": "Official checkpoint public Hub metadata",
+      "publisher": "Hugging Face / Meta repository",
+      "accessed": true,
+      "evidence": "For the exact official Instruct repository, safetensors.parameters.BF16 and safetensors.total both report 70,553,706,496 serialized tensor elements. This aggregate does not independently distinguish learned parameters from any persistent buffers. The metadata also identifies LlamaForCausalLM and a manual download gate."
+    },
+    {
+      "id": "s5",
+      "url": "https://github.com/meta-llama/llama3/blob/main/llama/model.py",
+      "title": "Original Llama 3 model implementation",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "The released implementation uses Transformer blocks with attention and a shared dense gated feed-forward network, without expert selection. GQA repeats key/value heads as needed; inference caches and rotary frequencies are separate from learned linear weights."
+    },
+    {
+      "id": "s6",
+      "url": "https://arxiv.org/html/2407.21783v3#S1.T1",
+      "title": "The Llama 3 Herd of Models, Table 1",
+      "publisher": "Llama Team, AI at Meta",
+      "accessed": true,
+      "evidence": "Table 1 explicitly labels Llama 3 70B Instruct as fine-tuned, released April 2024, and lacking native tool use and long context. It separately lists Llama 3.1 70B Instruct with those capabilities. The paper states its other results concern 3.1."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/meta-llama/Meta-Llama-3-70B-Instruct/resolve/main/config.json",
+      "title": "Exact checkpoint configuration download",
+      "publisher": "Meta / Hugging Face",
+      "accessed": false,
+      "evidence": "Unauthenticated access returned HTTP 401. Exact configuration dimensions, weight tying and individual tensor headers were not inspected, so the public serialized-element total was not independently reconciled to an exact learned-parameter count."
+    },
+    {
+      "id": "s8",
+      "url": "https://github.com/meta-llama/llama3/blob/main/LICENSE",
+      "title": "Meta Llama 3 Community License Agreement",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Names the Meta Llama 3 Community License Agreement, dates the version April 18, 2024 and grants conditional rights to use, distribute and modify the Llama materials, including weights."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Llama 3 70B Instruct",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Readable display name for the exact original Meta-Llama-3-70B-Instruct repository; not Llama 3.1."
+    },
+    "developer": {
+      "value": "Meta",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "The original model card explicitly identifies Meta as developer."
+    },
+    "family": {
+      "value": "llama-3",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s6"
+      ],
+      "note": "Original April 2024 Llama 3 family; the later 3.1 release is separately identified."
+    },
+    "release_date": {
+      "value": "2024-04-18",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "Explicit original release day, rather than the earlier repository creation timestamp or later 3.1 release."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8"
+      ],
+      "note": "Official weights are distributed under the custom license with an approval gate; open weights does not imply unrestricted licensing."
+    },
+    "license": {
+      "value": "Llama 3 Community License",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s8"
+      ],
+      "note": "Supported short name of the custom Meta Llama 3 Community License Agreement."
+    },
+    "parameters_b": {
+      "value": 70,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "note": "Nominal 70B is explicitly reported by Meta for this variant. Public Hub metadata reports 70,553,706,496 BF16 serialized tensor elements, but the aggregate was not independently reconciled against exact configuration dimensions, weight tying and persistent buffers. It is therefore not promoted to an exact learned-parameter count; no full weights were downloaded."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "note": "No separate active-per-token parameter count is reported for this dense checkpoint in the checked primary sources. Total parameters are not copied into this field; embedding lookups and the definition of active parameters require an explicit counting convention."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "note": "Dense autoregressive decoder-only Transformer with GQA. The exact repository identifies LlamaForCausalLM, and the original released model implementation has dense feed-forward blocks rather than routed experts."
+    },
+    "context_window": {
+      "value": 8192,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s6"
+      ],
+      "note": "Original 8,192-token context, corroborated by the model card and release announcement. The later 3.1 128K context is not attributed to this checkpoint."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Text input and text/code output; code is text rather than a separate modality."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "General reasoning capability and benchmarks are described, but no separate reasoning/thinking mode is specified for this checkpoint. Those claims do not establish a dedicated reasoning-mode boolean."
+    },
+    "tool_call": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s6"
+      ],
+      "note": "Meta's retrospective Table 1 explicitly marks native tool use absent for Llama 3 70B Instruct and present for the distinct Llama 3.1 70B Instruct. This describes native support, not whether external prompting or fine-tuning can elicit tool-like text."
+    },
+    "description": {
+      "value": "Llama 3 instruction-tuned checkpoint.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s6"
+      ],
+      "note": "The baseline description is supported. This is the 70B instruction-tuned variant, using SFT and RLHF for dialogue, not the pretrained sibling."
+    }
+  },
+  "patch": {
+    "parameters_b": 70,
+    "parameters_source": "primary_source",
+    "tool_call": false,
+    "notes": "Original April 2024 Llama 3 70B Instruct: Meta reports a nominal 70B parameter count. Official checkpoint Hub metadata reports 70,553,706,496 BF16 serialized tensor elements; this aggregate is not an independently verified learned-parameter count. Active parameters are not separately reported. Native tool use is absent in Meta's explicit comparison table; 3.1 tool support and 128K context do not apply. The exact configuration download returned HTTP 401; no checkpoint weights or tensor headers were downloaded.",
+    "sources": [
+      {
+        "label": "Original Llama 3 release announcement",
+        "url": "https://ai.meta.com/blog/meta-llama-3/",
+        "type": "primary"
+      },
+      {
+        "label": "Exact official Instruct model card",
+        "url": "https://huggingface.co/meta-llama/Meta-Llama-3-70B-Instruct",
+        "type": "weights"
+      },
+      {
+        "label": "Official checkpoint parameter metadata",
+        "url": "https://huggingface.co/api/models/meta-llama/Meta-Llama-3-70B-Instruct",
+        "type": "weights"
+      },
+      {
+        "label": "Original Llama 3 model card",
+        "url": "https://github.com/meta-llama/llama3/blob/main/MODEL_CARD.md",
+        "type": "weights"
+      },
+      {
+        "label": "Meta model comparison: original Llama 3 versus 3.1",
+        "url": "https://arxiv.org/html/2407.21783v3#S1.T1",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "Individually reviewed the original 70B Instruct checkpoint across all 14 fields. Retained Meta's verified nominal 70B count and set native tool_call=false from Meta's exact-model comparison table. The public Hub aggregate of 70,553,706,496 BF16 serialized tensor elements was not independently reconciled to an exact learned-parameter count because the configuration was gated. Confirmed dense decoder-only GQA, 8,192 context, April 18, 2024 release, custom community license, text modalities and instruction tuning. Active parameters and a distinct reasoning mode remain undisclosed."
+}
