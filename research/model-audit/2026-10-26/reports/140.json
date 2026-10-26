@@ -1,0 +1,239 @@
+{
+  "index": 140,
+  "model_id": "bytedance-seed/seed-oss-36b-instruct",
+  "reviewed_at": "2026-10-26T18:02:46.259623Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/ByteDance-Seed/Seed-OSS-36B-Instruct/blob/497f1dca95ebdec98e41d517b9f060ee753c902f/README.md",
+      "title": "Seed-OSS-36B-Instruct official README",
+      "publisher": "ByteDance Seed",
+      "accessed": true,
+      "evidence": "Names the exact Instruct release on 2025-08-20; reports nominal 36B, 64-layer causal architecture with GQA, RoPE, RMSNorm and SwiGLU; documents thinking budgets and a Seed-OSS tool-call parser."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/ByteDance-Seed/Seed-OSS-36B-Instruct/blob/497f1dca95ebdec98e41d517b9f060ee753c902f/MODEL_CARD.md",
+      "title": "Seed-OSS official model card shipped with Instruct",
+      "publisher": "ByteDance Seed",
+      "accessed": true,
+      "evidence": "Lists Seed-OSS-36B-Instruct, ByteDance Seed Team, 2025-08-20 release, Apache 2.0, 524288-token context, and text input/output."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/ByteDance-Seed/Seed-OSS-36B-Instruct/blob/497f1dca95ebdec98e41d517b9f060ee753c902f/config.json",
+      "title": "Seed-OSS-36B-Instruct checkpoint configuration",
+      "publisher": "ByteDance Seed",
+      "accessed": true,
+      "evidence": "SeedOssForCausalLM; 64 layers, width 5120, MLP width 27648, 80 query heads and eight KV heads of dimension 128; vocabulary 155136; untied embeddings; BF16; max_position_embeddings 524288."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/ByteDance-Seed/Seed-OSS-36B-Instruct/blob/497f1dca95ebdec98e41d517b9f060ee753c902f/model.safetensors.index.json",
+      "title": "Seed-OSS-36B-Instruct checkpoint tensor index and indexed shard headers",
+      "publisher": "ByteDance Seed",
+      "accessed": true,
+      "evidence": "Index explicitly reports total_parameters=36151104512 and total_size=72302209024. HTTP 206 byte-range reads of all 15 indexed shard headers independently sum 771 BF16 weight/bias tensors to exactly 36151104512 elements. Tensor names exactly match the index; no packed tensors, scales or other buffers occur."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/ByteDance-Seed/Seed-OSS-36B-Instruct/blob/497f1dca95ebdec98e41d517b9f060ee753c902f/LICENSE.txt",
+      "title": "Seed-OSS-36B-Instruct Apache license",
+      "publisher": "ByteDance Seed",
+      "accessed": true,
+      "evidence": "The checkpoint distributes Apache License Version 2.0. MODEL_CARD states its use guidance does not restrict or modify this license."
+    },
+    {
+      "id": "s6",
+      "url": "https://github.com/huggingface/transformers/blob/56d68c6706ee052b445e1e476056ed92ac5eb383/src/transformers/models/seed_oss/modeling_seed_oss.py",
+      "title": "SeedOss implementation at the Transformers revision recommended by ByteDance",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Causal decoder layers each apply dense gate/up/down MLP linear projections and causal grouped-query attention, with no expert router; embeddings and the output projection are separate modules."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/ByteDance-Seed/Seed-OSS-36B-Instruct/blob/497f1dca95ebdec98e41d517b9f060ee753c902f/chat_template.jinja",
+      "title": "Seed-OSS-36B-Instruct chat template",
+      "publisher": "ByteDance Seed",
+      "accessed": true,
+      "evidence": "Template read through the repository API serializes tool definitions, assistant tool_calls and tool results; supports thinking_budget and explicit reasoning delimiters."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Seed-OSS-36B-Instruct",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "The release news and version list identify this exact checkpoint. The README introductory callout has a Base-Instruct typo; the repository identity and explicit release/version lists agree on Instruct."
+    },
+    "developer": {
+      "value": "ByteDance",
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Developed by the ByteDance Seed Team."
+    },
+    "family": {
+      "value": "seed",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Catalog normalization of the Seed family; the concrete released series is Seed-OSS."
+    },
+    "release_date": {
+      "value": "2025-08-20",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Explicit original release date, not inferred from a repository modification time."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5"
+      ],
+      "note": "All 15 official checkpoint shard headers were publicly accessible without credentials; weights are distributed with the stated license."
+    },
+    "license": {
+      "value": "Apache 2.0",
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s2"
+      ],
+      "note": "Named license retained; exact checkpoint includes the Apache 2.0 text."
+    },
+    "parameters_b": {
+      "value": 36.151104512,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s3"
+      ],
+      "note": "Exact complete checkpoint count in decimal billions: 36,151,104,512. Header shape products equal explicit index metadata, including untied input/output embeddings, all dense-layer weights, norms and attention biases. All tensors are BF16 learned weights/biases, with no quantization buffers. The marketed 36B figure is rounded."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4",
+        "s6"
+      ],
+      "note": "No separately defined active-parameter count or counting convention is reported in the inspected primary sources. Dense architecture alone does not establish an active count equal to the complete checkpoint total."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4",
+        "s6"
+      ],
+      "note": "Dense decoder-only causal Transformer. The checkpoint and recommended implementation use 64 layers of dense SwiGLU MLPs and GQA attention, not routed experts; RoPE and RMSNorm are documented."
+    },
+    "context_window": {
+      "value": 524288,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "The card spells out 512K as 524,288 tokens and the configuration matches."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "The official card explicitly identifies text input and text generation."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7"
+      ],
+      "note": "The Instruct instructions and template support adjustable thinking budgets, including a zero-budget direct-answer mode."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7"
+      ],
+      "note": "Official inference instructions enable automatic tool choice with the seed_oss parser; the template serializes tool definitions, tool calls and tool responses."
+    },
+    "description": {
+      "value": "Text model with long-context instruction following, adjustable reasoning, and tool calling.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s7"
+      ],
+      "note": "Plain capability summary of the documented long-context, instruction-following, thinking-budget and tool-call behavior."
+    }
+  },
+  "patch": {
+    "parameters_b": 36.151104512,
+    "parameters_source": "primary_source",
+    "active_parameters_b": null,
+    "architecture": "dense",
+    "description": "Text model with long-context instruction following, adjustable reasoning, and tool calling.",
+    "source_url": "https://huggingface.co/ByteDance-Seed/Seed-OSS-36B-Instruct",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Official Seed-OSS Instruct model card",
+        "url": "https://huggingface.co/ByteDance-Seed/Seed-OSS-36B-Instruct/blob/497f1dca95ebdec98e41d517b9f060ee753c902f/MODEL_CARD.md",
+        "type": "primary"
+      },
+      {
+        "label": "Official Seed-OSS Instruct README",
+        "url": "https://huggingface.co/ByteDance-Seed/Seed-OSS-36B-Instruct/blob/497f1dca95ebdec98e41d517b9f060ee753c902f/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Official Instruct tensor index",
+        "url": "https://huggingface.co/ByteDance-Seed/Seed-OSS-36B-Instruct/blob/497f1dca95ebdec98e41d517b9f060ee753c902f/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Official Instruct configuration",
+        "url": "https://huggingface.co/ByteDance-Seed/Seed-OSS-36B-Instruct/blob/497f1dca95ebdec98e41d517b9f060ee753c902f/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "SeedOss implementation recommended by ByteDance",
+        "url": "https://github.com/huggingface/transformers/blob/56d68c6706ee052b445e1e476056ed92ac5eb383/src/transformers/models/seed_oss/modeling_seed_oss.py",
+        "type": "primary"
+      }
+    ],
+    "notes": "36B is the nominal model label. The original BF16 checkpoint has exactly 36,151,104,512 learned parameters, confirmed by all 15 safetensors headers and the explicit index metadata. It is a dense causal Transformer; active parameters are not separately reported under a defined convention and remain null. The release date is explicit in the official model card and release news."
+  },
+  "summary": "Verified all 14 requested fields against exact-model primary material. Replaced nominal 36B with the complete 36.151104512B checkpoint count, verified dense Transformer architecture, and simplified the capability description. Kept active parameters null because no separate primary counting convention is disclosed. Confirmed the original 2025-08-20 release, Apache 2.0, open weights, text modalities, 524288-token context, reasoning and tool calling."
+}

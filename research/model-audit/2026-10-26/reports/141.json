@@ -1,0 +1,334 @@
+{
+  "index": 141,
+  "model_id": "cognitivecomputations/dolphin-mistral-24b-venice-edition",
+  "reviewed_at": "2026-10-26T18:06:24.984593Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://venice.ai/blog/introducing-dolphin-mistral-24b-venice-edition-the-most-uncensored-ai-model-yet",
+      "title": "Dolphin Mistral 24B Venice Edition launch",
+      "publisher": "Venice",
+      "accessed": true,
+      "evidence": "Dated April 28, 2025 and explicitly announces public availability, the Dolphin/Venice collaboration, Venice Uncensored branding, nominal 24B parameters and original 32K context. Its July 3, 2025 update announces a retrained version 1.1."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/dphn/Dolphin-Mistral-24B-Venice-Edition/blob/853f87026d587889137c814bb56bba60f033e747/README.md",
+      "title": "Dolphin Mistral 24B Venice Edition original model card",
+      "publisher": "Dolphin",
+      "accessed": true,
+      "evidence": "The 2025 revision names the exact model, Apache-2.0 license, Mistral-Small-24B-Instruct-2501 base, Venice collaboration and Venice Uncensored alias. It documents general conversation, configurable system prompts and text-generation usage."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/dphn/Dolphin-Mistral-24B-Venice-Edition/blob/853f87026d587889137c814bb56bba60f033e747/config.json",
+      "title": "Original text checkpoint configuration",
+      "publisher": "Dolphin",
+      "accessed": true,
+      "evidence": "MistralForCausalLM, model_type mistral, 40 layers, hidden size 5120, intermediate size 32768, 32 attention heads, 8 KV heads, untied embeddings, BF16 and max_position_embeddings 32768. No expert routing or vision component."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/dphn/Dolphin-Mistral-24B-Venice-Edition/blob/853f87026d587889137c814bb56bba60f033e747/model.safetensors.index.json",
+      "title": "Original checkpoint index and indexed safetensors headers",
+      "publisher": "Dolphin",
+      "accessed": true,
+      "evidence": "All ten indexed shards were read with HTTP byte ranges 0-65535 only (206 responses). Their 363 named .weight tensors are BF16, contain 23,572,403,200 elements, and match the index total_size 47,144,806,400 bytes. No packed quantization, scales or non-weight buffers were present. This exact count applies to this pinned text checkpoint, not an unpinned provider route."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/api/models/dphn/Dolphin-Mistral-24B-Venice-Edition/commits/main",
+      "title": "Developer checkpoint revision history",
+      "publisher": "Dolphin / Hugging Face",
+      "accessed": true,
+      "evidence": "History shows the original weights uploaded June 12, 2025, and an April 16, 2026 replacement explicitly labeled version 1.2 with vision, 131K context and improved tool calling. Current revision is b23ff40b4a25e4f93de432bd896d4464479a9f79. The original cognitivecomputations repository URL redirects to this dphn repository."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/dphn/Dolphin-Mistral-24B-Venice-Edition/blob/b23ff40b4a25e4f93de432bd896d4464479a9f79/config.json",
+      "title": "Version 1.2 checkpoint configuration",
+      "publisher": "Dolphin",
+      "accessed": true,
+      "evidence": "Current model is Mistral3ForConditionalGeneration: a 40-layer dense Mistral text decoder plus 24-layer Pixtral vision encoder and projector. Text max_position_embeddings is 131072. This differs from the original text-only configuration."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/dphn/Dolphin-Mistral-24B-Venice-Edition/blob/b23ff40b4a25e4f93de432bd896d4464479a9f79/model.safetensors.index.json",
+      "title": "Version 1.2 checkpoint index and indexed safetensors headers",
+      "publisher": "Dolphin",
+      "accessed": true,
+      "evidence": "All ten indexed shards were read with HTTP byte ranges 0-65535 only (206 responses). The 585 BF16 .weight tensors total 24,011,361,280 parameters: language model 23,572,403,200, vision 403,305,472, projector 35,652,608. No quantization metadata or non-weight tensors were counted. This is the current multimodal checkpoint total, not a verified precise total for the unpinned OpenRouter alias."
+    },
+    {
+      "id": "s8",
+      "url": "https://openrouter.ai/api/v1/models/cognitivecomputations/dolphin-mistral-24b-venice-edition/endpoints",
+      "title": "Exact OpenRouter route metadata",
+      "publisher": "OpenRouter",
+      "accessed": true,
+      "evidence": "The exact canonical ID names Venice: Uncensored and exposes one Venice endpoint named venice/uncensored with context_length 128000, text input/output and supported_parameters excluding tools and reasoning. Its description still identifies the 2501 base; it does not pin a checkpoint revision. The supports_tool_choice subobject contains true flags despite tools being absent, so the explicit route documentation is also consulted."
+    },
+    {
+      "id": "s9",
+      "url": "https://openrouter.ai/cognitivecomputations/dolphin-mistral-24b-venice-edition",
+      "title": "Exact OpenRouter route page",
+      "publisher": "OpenRouter",
+      "accessed": true,
+      "evidence": "Links this ID to the original cognitivecomputations weights URL, which redirects to dphn. Explicitly documents 128000 context and no tools acceptance. Its July 9, 2025 date is later than the developer release. API exposure is provider-specific and does not establish the full current weight checkpoint capabilities."
+    },
+    {
+      "id": "s10",
+      "url": "https://api.venice.ai/api/v1/models",
+      "title": "Venice live model API",
+      "publisher": "Venice",
+      "accessed": true,
+      "evidence": "The current venice-uncensored-1-2 entry links to the same cognitivecomputations weights URL. It declares 128000 context, image input, function calling, no audio/video input, and supportsReasoning=false. These native-provider features differ from the exact OpenRouter route metadata."
+    },
+    {
+      "id": "s11",
+      "url": "https://featurebase.venice.ai/changelog/veniceai-change-log-april-21-2026-may-5-2026",
+      "title": "May 6, 2026 Venice changelog",
+      "publisher": "Venice",
+      "accessed": true,
+      "evidence": "Explicitly says Venice Uncensored 1.1 is retired and all traffic, including API requests to venice-uncensored, is routed to 1.2. This identifies the current native Venice alias; the exact OpenRouter route does not publish its backend checkpoint hash."
+    },
+    {
+      "id": "s12",
+      "url": "https://huggingface.co/dphn/Dolphin-Mistral-24B-Venice-Edition/blob/b23ff40b4a25e4f93de432bd896d4464479a9f79/README.md",
+      "title": "Version 1.2 model card",
+      "publisher": "Dolphin",
+      "accessed": true,
+      "evidence": "Current card retains Apache-2.0 and the exact model name, with vLLM instructions enabling tools, a 131072 model limit and image inputs. Its retained 2501 base-model front matter conflicts with the changed multimodal configuration, so it is not used to infer an unchanged checkpoint."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Dolphin Mistral 24B Venice Edition",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s9"
+      ],
+      "note": "Use the explicit developer model name. Uncensored/Venice Uncensored is the provider display alias, not a distinct checkpoint name."
+    },
+    "developer": {
+      "value": "Dolphin (Cognitive Computations) and Venice",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5"
+      ],
+      "note": "Co-developed by Dolphin and Venice. The cognitivecomputations repository identity now redirects to dphn; the canonical catalog ID remains unchanged."
+    },
+    "family": {
+      "value": "mistral",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s6"
+      ],
+      "note": "Exact original and updated configurations both use a Mistral language decoder."
+    },
+    "release_date": {
+      "value": "2025-04-28",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5",
+        "s9"
+      ],
+      "note": "Earliest explicit public availability of the named undated model. June 12 is the later repository upload; July 3 is v1.1; July 9 is the later OpenRouter listing; April 2026 is v1.2. These are not substituted for initial release."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s7"
+      ],
+      "note": "Both original and current developer checkpoints have publicly accessible weight indexes and shard headers."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s12"
+      ],
+      "note": "Both pinned model cards explicitly declare apache-2.0 for their released weights."
+    },
+    "parameters_b": {
+      "value": 24.01136128,
+      "status": "verified",
+      "source_ids": [
+        "s6",
+        "s7"
+      ],
+      "note": "Complete current v1.2 checkpoint count from all 585 BF16 learned .weight tensors: 24,011,361,280 parameters. Includes language model 23,572,403,200, vision encoder 403,305,472 and projector 35,652,608. Headers contain no packed quantization/scales or non-weight buffers; no whole shard bodies were downloaded. Developer 24B is nominal; the earlier text-only checkpoint differs."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s6"
+      ],
+      "note": "No separate active-parameter quantity or counting convention is disclosed for this model. Dense structure alone does not justify setting active equal to total."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s6",
+        "s7"
+      ],
+      "note": "Both inspected revisions have dense attention/MLP text blocks and no MoE routers or experts. Version 1.2 additionally has a dense vision encoder/projector; this broad classification does not imply the revisions are identical."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "s6",
+        "s12",
+        "s10"
+      ],
+      "note": "Current developer v1.2 text_config.max_position_embeddings is 131072, also explicitly used by its vLLM example. This canonical undated model follows the current checkpoint; Venice serves a lower 128000-token API limit."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s6",
+        "s10",
+        "s12"
+      ],
+      "note": "Current v1.2 checkpoint includes a Pixtral vision encoder/projector and its official usage enables images. Native Venice confirms vision input and text generation, with no audio/video input. OpenRouter publishes a narrower text-only interface; that does not define canonical checkpoint capabilities."
+    },
+    "reasoning": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s10"
+      ],
+      "note": "Native Venice explicitly reports supportsReasoning=false and supportsReasoningEffort=false for v1.2, the revision linked to these weights. This refers to dedicated extended-thinking support, not ordinary language reasoning."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s10",
+        "s12"
+      ],
+      "note": "Developer v1.2 update explicitly adds improved tool calling, its current usage enables Mistral tool parsing and automatic tool choice, and Venice reports supportsFunctionCalling=true. OpenRouter documentation remains narrower and is not used to define this canonical checkpoint."
+    },
+    "description": {
+      "value": "Instruction-tuned Mistral model for conversation and creative writing, with behavior guided by configurable system prompts.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Plain documented purpose and configurable system-prompt behavior of the canonical model."
+    }
+  },
+  "patch": {
+    "name": "Dolphin Mistral 24B Venice Edition",
+    "developer": "Dolphin (Cognitive Computations) and Venice",
+    "release_date": "2025-04-28",
+    "license": "Apache-2.0",
+    "parameters_b": 24.01136128,
+    "architecture": "dense",
+    "description": "Instruction-tuned Mistral model for conversation and creative writing, with behavior guided by configurable system prompts.",
+    "parameters_source": "primary_source",
+    "date_precision": "day",
+    "notes": "Specifications describe the current developer checkpoint, v1.2, which adds vision and tools; the named model first launched April 28, 2025. Its 24.01136128B learned parameters include 23.5724032B language, 0.403305472B vision and 0.035652608B projector parameters. The original text-only checkpoint had 23.5724032B parameters. Current configured context is 131072; native Venice serves 128000. OpenRouter advertises a narrower text-only interface without tools and does not pin its backend revision. Active parameters are not separately defined.",
+    "sources": [
+      {
+        "label": "Dolphin Mistral 24B Venice Edition launch",
+        "url": "https://venice.ai/blog/introducing-dolphin-mistral-24b-venice-edition-the-most-uncensored-ai-model-yet",
+        "type": "primary"
+      },
+      {
+        "label": "Dolphin Mistral 24B Venice Edition original model card",
+        "url": "https://huggingface.co/dphn/Dolphin-Mistral-24B-Venice-Edition/blob/853f87026d587889137c814bb56bba60f033e747/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Original text checkpoint configuration",
+        "url": "https://huggingface.co/dphn/Dolphin-Mistral-24B-Venice-Edition/blob/853f87026d587889137c814bb56bba60f033e747/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Original checkpoint index and indexed safetensors headers",
+        "url": "https://huggingface.co/dphn/Dolphin-Mistral-24B-Venice-Edition/blob/853f87026d587889137c814bb56bba60f033e747/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Developer checkpoint revision history",
+        "url": "https://huggingface.co/api/models/dphn/Dolphin-Mistral-24B-Venice-Edition/commits/main",
+        "type": "primary"
+      },
+      {
+        "label": "Version 1.2 checkpoint configuration",
+        "url": "https://huggingface.co/dphn/Dolphin-Mistral-24B-Venice-Edition/blob/b23ff40b4a25e4f93de432bd896d4464479a9f79/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Version 1.2 checkpoint index and indexed safetensors headers",
+        "url": "https://huggingface.co/dphn/Dolphin-Mistral-24B-Venice-Edition/blob/b23ff40b4a25e4f93de432bd896d4464479a9f79/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Exact OpenRouter route metadata",
+        "url": "https://openrouter.ai/api/v1/models/cognitivecomputations/dolphin-mistral-24b-venice-edition/endpoints",
+        "type": "primary"
+      },
+      {
+        "label": "Exact OpenRouter route page",
+        "url": "https://openrouter.ai/cognitivecomputations/dolphin-mistral-24b-venice-edition",
+        "type": "primary"
+      },
+      {
+        "label": "Venice live model API",
+        "url": "https://api.venice.ai/api/v1/models",
+        "type": "primary"
+      },
+      {
+        "label": "May 6, 2026 Venice changelog",
+        "url": "https://featurebase.venice.ai/changelog/veniceai-change-log-april-21-2026-may-5-2026",
+        "type": "primary"
+      },
+      {
+        "label": "Version 1.2 model card",
+        "url": "https://huggingface.co/dphn/Dolphin-Mistral-24B-Venice-Edition/blob/b23ff40b4a25e4f93de432bd896d4464479a9f79/README.md",
+        "type": "primary"
+      }
+    ],
+    "context_window": 131072,
+    "modalities": {
+      "input": [
+        "text",
+        "image"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "tool_call": true
+  },
+  "summary": "Audit uses the current canonical developer checkpoint, explicitly updated to v1.2. Correct name, joint developer attribution, initial release date, Apache-2.0 license, exact 24.01136128B complete learned parameter count, dense architecture, 131072 configured context, text/image input, tool calling and neutral description. Active count remains null; native Venice declares no reasoning mode. All ten shard headers were independently checked. Earlier 2025 text weights and OpenRouter's narrower published interface are distinguished in notes; exact OpenRouter backend execution remains unverified."
+}
