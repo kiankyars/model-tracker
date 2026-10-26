@@ -1,0 +1,259 @@
+{
+  "index": 249,
+  "model_id": "lightonai/lightonocr-3-0.8b",
+  "reviewed_at": "2026-10-26T21:10:06.839494Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/lightonai/LightOnOCR-3-0.8B/blob/36d8636925327c671bd8e479c517a004f7566bd9/README.md",
+      "title": "LightOnOCR-3-0.8B exact checkpoint model card",
+      "publisher": "LightOn",
+      "accessed": true,
+      "evidence": "Identifies the smallest LightOnOCR-3 model, Apache-2.0 release, Qwen3.5 VLM architecture, image/text prompts and text outputs. Supports empty-prompt transcription and grounding; other instructions are out of distribution. It was trained and evaluated with thinking disabled. Examples set 1,024 or 4,096 new output tokens."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/lightonai/LightOnOCR-3-0.8B/blob/36d8636925327c671bd8e479c517a004f7566bd9/config.json",
+      "title": "LightOnOCR-3-0.8B exact checkpoint configuration",
+      "publisher": "LightOn",
+      "accessed": true,
+      "evidence": "Qwen3_5ForConditionalGeneration; 24 decoder layers (18 linear attention, six full attention), hidden size 1,024, dense MLP width 3,584, vocabulary 248,320 and tied embeddings. Vision encoder has 12 layers, width 768 and output width 1,024. max_position_embeddings is 262,144; no quantization configuration or MTP layers."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/lightonai/LightOnOCR-3-0.8B/resolve/36d8636925327c671bd8e479c517a004f7566bd9/model.safetensors",
+      "title": "Original BF16 checkpoint tensor header",
+      "publisher": "LightOn",
+      "accessed": true,
+      "evidence": "Read only byte ranges 0-7 and 8-58687; both returned HTTP 206. The 58,680-byte JSON header describes 473 BF16 tensors totaling 852,985,920 learned parameters: text 752,393,024, vision encoder excluding merger 88,004,352, vision merger/projector 12,588,544. No separately stored lm_head, quantization metadata, or rotary buffers. No weight payload was downloaded."
+    },
+    {
+      "id": "s4",
+      "url": "https://github.com/huggingface/transformers/blob/v5.5.4/src/transformers/models/qwen3_5/modeling_qwen3_5.py",
+      "title": "Qwen3.5 reference implementation, Transformers v5.5.4",
+      "publisher": "Hugging Face / Qwen contributors",
+      "accessed": true,
+      "evidence": "Implementation version recorded by the checkpoint: dense gated MLPs, Gated DeltaNet linear-attention blocks and gated full-attention blocks, vision transformer and learned merger. lm_head aliases the text embedding; A_log and dt_bias are learned parameters. Rotary inv_freq/original_inv_freq are non-persistent buffers and absent from the checkpoint header."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/blog/lightonai/lightonocr-3",
+      "title": "LightOnOCR-3: High-Performance OCR and Layout Extraction in One Model",
+      "publisher": "LightOn",
+      "accessed": true,
+      "evidence": "Official release article dated October 8, 2026 lists the exact 0.8B, 1B and 4B variants. Its comparison tables label this variant nominally 0.8B. It distinguishes the 0.8B/4B Qwen3.5 architecture from the 1B predecessor architecture. Discusses packed SFT and GRPO but does not specify this model's training sequence length or an active-parameter count."
+    },
+    {
+      "id": "s6",
+      "url": "https://github.com/lightonai/LightOnOCR/blob/36755d461be079737860a5f03ae0c803501269e9/README.md",
+      "title": "LightOnOCR official serving guidance",
+      "publisher": "LightOn",
+      "accessed": true,
+      "evidence": "Exact 0.8B entry recommends 2,048-pixel page longest edge, a serving max-model-len of 18,000 and disabled thinking. This operational total sequence limit is distinct from the checkpoint positional capacity and an output-only token cap."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/api/models/lightonai/LightOnOCR-3-0.8B",
+      "title": "Official model repository metadata",
+      "publisher": "LightOn / Hugging Face",
+      "accessed": true,
+      "evidence": "Public, ungated repository; current revision 36d8636925327c671bd8e479c517a004f7566bd9, updated October 9, 2026. Repository creation on October 7 does not establish public release. Hub safetensors metadata independently reports 852,985,920 BF16 elements, matching the bounded header count."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/lightonai/LightOnOCR-3-0.8B/blob/36d8636925327c671bd8e479c517a004f7566bd9/chat_template.jinja",
+      "title": "Exact checkpoint inherited chat template",
+      "publisher": "LightOn",
+      "accessed": true,
+      "evidence": "Default generation prefix closes an empty thinking block; thinking can be enabled syntactically. Template contains tools and video branches inherited from the underlying VLM. Those code paths alone do not establish supported OCR fine-tune capabilities beyond the card's two prompt modes."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "LightOnOCR-3 0.8B",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Catalog display spacing corresponds to the official LightOnOCR-3-0.8B checkpoint name."
+    },
+    "developer": {
+      "value": "LightOn",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Published by LightOn through its lightonai organization."
+    },
+    "family": {
+      "value": "lightonocr-3",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "The developer explicitly groups this exact variant in the LightOnOCR-3 family."
+    },
+    "release_date": {
+      "value": "2026-10-08",
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s7"
+      ],
+      "note": "Explicit first-party release announcement. October 7 repository creation and October 9 current checkpoint revision are not substituted for announcement/public-release evidence."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s7"
+      ],
+      "note": "The official original BF16 checkpoint is publicly accessible without gating."
+    },
+    "license": {
+      "value": "apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Exact model card and release announcement specify Apache License 2.0."
+    },
+    "parameters_b": {
+      "value": 0.85298592,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s7"
+      ],
+      "note": "Complete unique learned-parameter count at revision 36d8636925327c671bd8e479c517a004f7566bd9: 752,393,024 text + 88,004,352 vision encoder + 12,588,544 merger/projector = 852,985,920. Includes text embeddings and learned vision positions; tied output head counted once. A_log/dt_bias are parameters, not buffers. No packed quantization tensors or persistent non-parameter buffers were counted. 0.8B is the nominal release name."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4",
+        "s5"
+      ],
+      "note": "No separate active-parameter count is defined for this dense OCR VLM in the examined exact card, architecture or first-party comparison tables. Do not copy total into active: vision processing and autoregressive text decoding use different components."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4"
+      ],
+      "note": "Dense Qwen3.5 vision-language model: 12-layer vision transformer, learned patch-merger/projector and 24-layer decoder with 18 Gated DeltaNet linear-attention blocks plus six gated full-attention blocks and dense SwiGLU MLPs. No expert routing. This is not the Mistral/Pixtral-based LightOnOCR-2/LightOnOCR-3-1B architecture."
+    },
+    "context_window": {
+      "value": 262144,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s6",
+        "s1"
+      ],
+      "note": "Retain as configured maximum positional capacity, not a verified OCR training length or demonstrated input-only allowance. Official serving guidance uses 18,000 total sequence tokens. Card generation examples cap new output at 1,024 or 4,096 tokens; those are request settings, not architectural context or a universal maximum output. The examined first-party training discussion does not disclose the exact OCR3-0.8B training length."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8"
+      ],
+      "note": "Supported OCR usage accepts a page image plus an optional text prompt and returns transcription/layout text. Inherited video placeholders are not sufficient evidence of trained video OCR support."
+    },
+    "reasoning": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8"
+      ],
+      "note": "The OCR checkpoint is expressly trained and evaluated with thinking disabled; template syntax for enabling thinking does not establish a supported reasoning mode."
+    },
+    "tool_call": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8"
+      ],
+      "note": "No supported tool-calling task: the developer limits supported instructions to empty-prompt transcription or grounding and labels other instructions out of distribution. The inherited template can serialize tools but does not establish tool-call training or support."
+    },
+    "description": {
+      "value": "Vision-language model for page transcription, document layout extraction, image descriptions and chart-to-table conversion.",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Describes supported transcription and grounding outputs from the exact model card without comparative claims."
+    }
+  },
+  "patch": {
+    "family": "lightonocr-3",
+    "parameters_b": 0.85298592,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "notes": "Complete BF16 checkpoint count is 852,985,920 parameters at revision 36d8636925327c671bd8e479c517a004f7566bd9; 0.8B is its nominal name. Includes 752,393,024 text parameters, 88,004,352 vision-encoder parameters and 12,588,544 merger/projector parameters, counting tied embeddings/output head once. Dense Qwen3.5 VLM with a hybrid linear/full-attention decoder; active parameters are not separately disclosed. Context 262,144 is the configured positional capacity; official OCR serving guidance uses 18,000 total sequence tokens. OCR training length and supported long-context OCR quality at 262,144 are not established by the examined primary sources. Thinking is disabled for the trained OCR task; supported prompts are empty or grounding.",
+    "sources": [
+      {
+        "label": "LightOnOCR-3-0.8B model card",
+        "url": "https://huggingface.co/lightonai/LightOnOCR-3-0.8B/blob/36d8636925327c671bd8e479c517a004f7566bd9/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "LightOnOCR-3-0.8B checkpoint configuration",
+        "url": "https://huggingface.co/lightonai/LightOnOCR-3-0.8B/blob/36d8636925327c671bd8e479c517a004f7566bd9/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Complete BF16 checkpoint tensor header",
+        "url": "https://huggingface.co/lightonai/LightOnOCR-3-0.8B/resolve/36d8636925327c671bd8e479c517a004f7566bd9/model.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Qwen3.5 implementation (Transformers 5.5.4)",
+        "url": "https://github.com/huggingface/transformers/blob/v5.5.4/src/transformers/models/qwen3_5/modeling_qwen3_5.py",
+        "type": "primary"
+      },
+      {
+        "label": "LightOnOCR-3 release announcement",
+        "url": "https://huggingface.co/blog/lightonai/lightonocr-3",
+        "type": "primary"
+      },
+      {
+        "label": "Official OCR serving guidance",
+        "url": "https://github.com/lightonai/LightOnOCR/blob/36755d461be079737860a5f03ae0c803501269e9/README.md",
+        "type": "primary"
+      }
+    ],
+    "description": "Vision-language model for page transcription, document layout extraction, image descriptions and chart-to-table conversion."
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "text": 0.752393024,
+      "vision_encoder": 0.088004352,
+      "vision_projector": 0.012588544
+    }
+  },
+  "summary": "Correct nominal 0.8B to the complete 0.85298592B checkpoint count; verify dense Qwen3.5 hybrid decoder/vision architecture and populate LightOnOCR-3 family. Confirm October 8 release, Apache-2.0 weights, text/image input and OCR modes. Retain configured 262,144-token positional capacity with explicit 18,000-token serving and unknown training-length qualifications. Active parameters remain undisclosed; thinking and tools are not supported OCR modes. All 14 fields audited; only bounded safetensors headers were read."
+}
