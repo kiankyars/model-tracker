@@ -89,6 +89,8 @@ function syncControls() {
   for (const button of document.querySelectorAll('[data-chart-view]')) button.setAttribute('aria-pressed', String(button.dataset.chartView === chartState.view));
   $('chart-interval').value = chartState.interval;
   $('chart-metric').value = chartState.metric;
+  const filterCount = ['from', 'to', 'developer', 'access', 'type', 'size'].filter(key => state[key]).length;
+  $('filter-toggle').textContent = filterCount ? `Filters (${filterCount})` : 'Filters';
   if (catalog) for (const button of document.querySelectorAll('[data-range]')) {
     const range = presetRange(button.dataset.range);
     button.setAttribute('aria-pressed', String(state.from === range.from && state.to === range.to));
@@ -188,6 +190,10 @@ function detailRow(model, id) {
   const list = element('dl', 'detail-grid');
   addDetail(list, 'Model ID', model.id);
   addDetail(list, 'Family', model.family || 'Not specified');
+  addDetail(list, 'Developer', model.developer);
+  addDetail(list, 'Released', dateLabel(model.release_date, model.date_precision));
+  addDetail(list, 'Type', isMultimodal(model) ? 'Multimodal' : 'Text');
+  addDetail(list, 'Weights', model.open_weights === true ? 'Open' : model.open_weights === false ? 'Closed' : 'Not specified');
   const scope = model.parameters_scope;
   addDetail(list, scope ? `${scope.charAt(0).toUpperCase() + scope.slice(1).replaceAll('_', ' ')} parameters` : 'Total parameters', model.parameters_b == null ? missingLabel(model, 'parameters_b') : parameterLabel(model.parameters_b));
   addDetail(list, 'Active parameters', activeSizeLabel(model));
@@ -210,7 +216,7 @@ function detailRow(model, id) {
   const seen = new Set();
   for (const source of links) {
     if (seen.has(source.url)) continue;
-    const link = safeLink(source.url, `${source.label || 'Source'} ↗`);
+    const link = safeLink(source.url, source.label || 'Source');
     if (link) { sources.append(link); seen.add(source.url); }
   }
   if (seen.size) cell.append(sources);
@@ -237,18 +243,24 @@ function renderRows() {
     toggle.setAttribute('aria-expanded', String(open));
     const detailId = `model-detail-${index}`;
     toggle.setAttribute('aria-controls', detailId);
-    toggle.append(element('span', 'chevron', '›'), element('span', 'model-name', model.name));
-    toggle.firstChild.setAttribute('aria-hidden', 'true');
-    modelCell.append(toggle);
+    const chevron = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    chevron.setAttribute('viewBox', '0 0 12 12');
+    chevron.setAttribute('class', 'chevron');
+    chevron.setAttribute('aria-hidden', 'true');
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', 'm4 2 4 4-4 4');
+    chevron.append(path);
+    toggle.append(chevron, element('span', 'model-name', model.name));
+    modelCell.append(toggle, element('span', 'mobile-developer', model.developer));
     const date = element('td', `release-date${model.release_date ? '' : ' unknown-value'}`, dateLabel(model.release_date, model.date_precision));
     if (model.date_precision === 'month') date.title = 'Only the release month is known.';
-    const type = element('td');
+    const type = element('td', 'type-cell');
     type.append(element('span', 'model-type', isMultimodal(model) ? 'Multimodal' : 'Text'));
     if (model.reasoning) type.append(element('span', 'reasoning-label', 'Reasoning'));
     const size = element('td', `numeric parameter-count${model.parameters_b == null ? ' unknown-value' : ''}`, modelSizeLabel(model));
     if (model.parameters_b == null) size.title = 'Parameter count not recorded in this catalog';
     else if (model.parameters_source === 'model_name') size.title = 'Nominal parameter count from the model name';
-    const weights = element('td');
+    const weights = element('td', 'weights-cell');
     weights.append(element('span', `weight-label${model.open_weights === true ? ' open' : model.open_weights == null ? ' unknown-value' : ''}`, model.open_weights === true ? 'Open' : model.open_weights === false ? 'Closed' : '—'));
     row.append(modelCell, element('td', 'developer-name', model.developer), date, type, size, weights);
     const details = detailRow(model, detailId);
@@ -267,7 +279,7 @@ function renderRows() {
   $('empty-state').hidden = !!filtered.length;
   $('shown-count').textContent = filtered.length ? `Showing ${number.format(Math.min(shown, filtered.length))} of ${number.format(filtered.length)}` : '';
   $('show-more').hidden = shown >= filtered.length;
-  $('show-more').textContent = `Show ${Math.min(pageSize, Math.max(0, filtered.length - shown))} more ↓`;
+  $('show-more').textContent = `Show ${Math.min(pageSize, Math.max(0, filtered.length - shown))} more`;
 }
 
 function render() {
@@ -279,7 +291,7 @@ function render() {
   $('filter-note').textContent = invalidRange ? 'The start month is after the end month. Choose an earlier start or a later end.' : '';
   const count = $('result-count');
   count.replaceChildren(document.createTextNode(`${number.format(filtered.length)} release${filtered.length === 1 ? '' : 's'}`));
-  if (filtered.length !== catalog.models.length) count.append(element('span', 'count-context', `of ${number.format(catalog.models.length)}`));
+  if (filtered.length !== catalog.models.length) count.append(element('span', 'count-context', ` of ${number.format(catalog.models.length)}`));
   $('download-csv').disabled = !filtered.length;
   $('download-json').disabled = !filtered.length;
   renderStats();
@@ -297,7 +309,9 @@ function download(format) {
   link.click();
   link.remove();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
-  document.querySelector('.download-menu').open = false;
+  const menu = document.querySelector('.download-menu');
+  menu.open = false;
+  menu.querySelector('summary').focus();
 }
 
 async function load() {
@@ -339,10 +353,20 @@ for (const button of document.querySelectorAll('[data-chart-view]')) button.addE
 for (const button of document.querySelectorAll('[data-range]')) button.addEventListener('click', () => { if (catalog) changeState(presetRange(button.dataset.range)); });
 $('chart-interval').addEventListener('change', () => changeChart({ interval: $('chart-interval').value }));
 $('chart-metric').addEventListener('change', () => changeChart({ metric: $('chart-metric').value }));
+$('filter-toggle').addEventListener('click', () => {
+  const open = $('filter-toggle').getAttribute('aria-expanded') !== 'true';
+  $('filter-toggle').setAttribute('aria-expanded', String(open));
+  $('filter-options').classList.toggle('is-open', open);
+});
 $('reset').addEventListener('click', reset);
 $('empty-reset').addEventListener('click', reset);
 $('retry').addEventListener('click', load);
-$('show-more').addEventListener('click', () => { shown += pageSize; renderRows(); });
+$('show-more').addEventListener('click', () => {
+  const firstNew = shown;
+  shown += pageSize;
+  renderRows();
+  $('release-rows').querySelectorAll('.model-toggle')[firstNew]?.focus();
+});
 $('download-csv').addEventListener('click', () => download('csv'));
 $('download-json').addEventListener('click', () => download('json'));
 window.addEventListener('popstate', () => {
@@ -360,7 +384,11 @@ document.addEventListener('click', event => {
   if (!menu.contains(event.target)) menu.open = false;
 });
 document.addEventListener('keydown', event => {
-  if (event.key === 'Escape') document.querySelector('.download-menu').open = false;
+  const menu = document.querySelector('.download-menu');
+  if (event.key === 'Escape' && menu.open) {
+    menu.open = false;
+    menu.querySelector('summary').focus();
+  }
 });
 
 let chartWidth = 0;

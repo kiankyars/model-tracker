@@ -22,6 +22,16 @@ npm run refresh  # fetch upstream and preserve catalog history
 npm run check
 ```
 
+## Frontend design tools
+
+[Impeccable](https://github.com/pbakaus/impeccable) 4.7.1 is installed for this project in `.agents/skills/impeccable`. Its shell launcher keeps engine downloads in the ignored `.impeccable/runtime/` directory and disables telemetry. No global skill installation or automatic hooks are configured. The skill and its engine are development tools; neither is shipped to the website.
+
+```sh
+.agents/skills/impeccable/scripts/impeccable detect --json index.html app.js styles.css
+```
+
+The vendored skill retains its [Apache 2.0 license](.agents/skills/impeccable/LICENSE) and [third-party notices](.agents/skills/impeccable/NOTICE.md). Preserve the project-local launcher changes when updating it.
+
 ## Data
 
 The primary source is the MIT-licensed [Models.dev](https://github.com/anomalyco/models.dev) canonical model catalog, supplemented by source-linked historical releases and corrections. The dataset is broad but incomplete. Open weights does not mean open source. Unknown fields are null; explicitly named parameter sizes are labeled as name-derived. Known aliases are merged; separately released revisions remain distinct. Read [methodology](public/about.md) before interpreting statistics.
