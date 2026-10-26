@@ -1,0 +1,392 @@
+{
+  "index": 219,
+  "model_id": "google/gemma-3-4b-it",
+  "reviewed_at": "2026-10-26T20:14:59.196Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/google/gemma-3-4b-it",
+      "title": "Google Gemma 3 4B IT model repository",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Exact instruction-tuned 4B repository, based on google/gemma-3-4b-pt; identifies Gemma license and demonstrates image/text input with text generation.",
+      "type": "weights"
+    },
+    {
+      "id": "s2",
+      "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemma-3/",
+      "title": "Introducing Gemma 3",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Dated March 12, 2025 launch announces 1B, 4B, 12B and 27B models available for download; explicitly reports function calling and structured output.",
+      "type": "primary"
+    },
+    {
+      "id": "s3",
+      "url": "https://ai.google.dev/gemma/docs/core/model_card_3",
+      "title": "Gemma 3 model card",
+      "publisher": "Google DeepMind",
+      "accessed": true,
+      "evidence": "Identifies Google authorship, open pretrained and instruction-tuned weights; 4B accepts text/images and produces text with 128K combined context. Reports ordinary reasoning benchmarks, without establishing a dedicated thinking-mode boolean.",
+      "type": "primary"
+    },
+    {
+      "id": "s4",
+      "url": "https://storage.googleapis.com/deepmind-media/gemma/Gemma3Report.pdf",
+      "title": "Gemma 3 Technical Report, March 12, 2025",
+      "publisher": "Google DeepMind",
+      "accessed": true,
+      "evidence": "Exact 4B-IT is discussed. Section 2 describes decoder-only Transformer with GQA, RMSNorm, QK normalization and 5:1 local/global attention. Table 1 lists rounded 4B components: vision 417M, embeddings 675M, non-embeddings 3,209M. Vision encoder is shared and frozen during language-model training; no active-parameter count is defined.",
+      "type": "primary"
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/api/models/google/gemma-3-4b-it/revision/093f9f388b31de276ce2de164bdc2081324b9767",
+      "title": "Exact official checkpoint metadata",
+      "publisher": "Google via Hugging Face",
+      "accessed": true,
+      "evidence": "Public model API reports safetensors.parameters.BF16=4,300,079,472 and safetensors.total=4,300,079,472 for this exact repository revision; architecture Gemma3ForConditionalGeneration. Aggregate checkpoint metadata was read, not tensor headers.",
+      "type": "weights"
+    },
+    {
+      "id": "s6",
+      "url": "https://github.com/huggingface/transformers/blob/6c5f8f4186c15f4bfbd67941a1736b2b347e0155/src/transformers/models/gemma3/convert_gemma3_weights.py",
+      "title": "Official Gemma 3 Orbax to Transformers converter",
+      "publisher": "Google and Hugging Face",
+      "accessed": true,
+      "evidence": "Exact gemma3_4b branch: 34 layers, width 2560, MLP 10240, 8 query/4 KV heads, head width 256 and original vocabulary 262144; vision dimensions 1152/4304/27 layers/896 pixels/14 patch. Conversion appends 64 statistically initialized embedding rows, increases vocabulary by 64 and ties the output head. These added rows are not original learned embeddings.",
+      "type": "primary"
+    },
+    {
+      "id": "s7",
+      "url": "https://github.com/huggingface/transformers/blob/6c5f8f4186c15f4bfbd67941a1736b2b347e0155/src/transformers/models/gemma3/modeling_gemma3.py",
+      "title": "Transformers Gemma 3 implementation",
+      "publisher": "Google and Hugging Face",
+      "accessed": true,
+      "evidence": "Defines dense attention and MLP weights, four hidden-width norms and two head-width QK norms per text layer, final text norm and tied output embedding. Projector is 1152x2560 plus a 1152-element RMSNorm, with parameter-free average pooling.",
+      "type": "primary"
+    },
+    {
+      "id": "s8",
+      "url": "https://github.com/google/gemma_pytorch/blob/main/gemma/siglip_vision/siglip_vision_model.py",
+      "title": "Google SigLIP vision implementation",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Vision parameters comprise patch convolution with bias, learned positional embedding, 27 Transformer blocks with biased attention/MLP and LayerNorms, and final LayerNorm. Position IDs are a nonpersistent buffer; average pooling has no learned parameters.",
+      "type": "primary"
+    },
+    {
+      "id": "s9",
+      "url": "https://github.com/huggingface/transformers/blob/6c5f8f4186c15f4bfbd67941a1736b2b347e0155/src/transformers/models/gemma3/configuration_gemma3.py",
+      "title": "Transformers Gemma 3 configuration",
+      "publisher": "Google and Hugging Face",
+      "accessed": true,
+      "evidence": "Gemma3TextConfig sets max_position_embeddings=131072 and tie_word_embeddings=true; these defaults apply to the exact converter branch. The multimodal vocabulary has 262208 entries after conversion.",
+      "type": "primary"
+    },
+    {
+      "id": "s10",
+      "url": "https://ai.google.dev/gemma/terms",
+      "title": "Gemma Terms of Use",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Custom Gemma Terms of Use expressly list Gemma 3 in their applicability appendix; the exact weight card labels the license gemma.",
+      "type": "primary"
+    },
+    {
+      "id": "s11",
+      "url": "https://github.com/google/adk-python/blob/main/src/google/adk/models/gemma_llm.py",
+      "title": "Google ADK Gemma 3 function-calling adapter",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Explains Gemma 3 lacks native function calling, implements tool definitions in prompts and parses generated function calls, and explicitly lists gemma-3-4b-it among supported model examples. Recommends larger 12B/27B models for agentic use.",
+      "type": "primary"
+    },
+    {
+      "id": "s12",
+      "url": "https://huggingface.co/api/models/google/gemma-3-4b-it/tree/main?recursive=true&expand=true",
+      "title": "Exact official checkpoint file history",
+      "publisher": "Google via Hugging Face",
+      "accessed": true,
+      "evidence": "Official config, index and both BF16 shards carry March 12, 2025 commit dates, corroborating launch-day availability of the exact IT variant.",
+      "type": "weights"
+    },
+    {
+      "id": "s13",
+      "url": "https://huggingface.co/google/gemma-3-4b-it/resolve/main/model-00001-of-00002.safetensors",
+      "title": "Official checkpoint tensor-header access attempt",
+      "publisher": "Google",
+      "accessed": false,
+      "evidence": "An 8-byte Range request returned HTTP 401 because this repository requires authenticated license access. Official raw config/index are similarly gated; no weight shard was downloaded.",
+      "type": "weights"
+    },
+    {
+      "id": "s14",
+      "url": "https://github.com/google/gemma_pytorch/blob/main/gemma/config.py",
+      "title": "Google Gemma 3 4B reference configuration",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "The get_config_for_4b branch independently matches 34 layers, 2560 hidden width, 10240 MLP width, 8 query heads, 4 KV heads, 256 head width and original 262144 vocabulary with quantization disabled by default.",
+      "type": "primary"
+    },
+    {
+      "id": "s15",
+      "url": "https://ai.google.dev/gemma/docs/releases",
+      "title": "Gemma release chronology",
+      "publisher": "Google",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Current chronology lists March 10, 2025 for Gemma 3, conflicting with the contemporaneous March 12 announcements and technical report. Retain the contemporaneous launch date."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Gemma 3 4B IT",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4"
+      ],
+      "note": "Exact 4B instruction-tuned model; IT means instruction-tuned, distinct from PT and later quantized/QAT variants."
+    },
+    "developer": {
+      "value": "Google",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Google DeepMind is the authoring organization; Google matches the catalog developer label."
+    },
+    "family": {
+      "value": "gemma",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "Gemma 3 belongs to the Gemma family."
+    },
+    "release_date": {
+      "value": "2025-03-12",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s12",
+        "s15"
+      ],
+      "note": "Google announced availability March 12, 2025; exact IT config and weight-shard history corroborates this day. The later release log says March 10; this conflict is recorded rather than silently backdating the model."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Google distributes the instruction-tuned checkpoint under its Gemma terms; authentication/license gating does not make weights closed."
+    },
+    "license": {
+      "value": "Gemma Terms of Use",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s10"
+      ],
+      "note": "Custom Gemma license, identified as gemma on the weight card. The software implementation Apache license does not replace the model license."
+    },
+    "parameters_b": {
+      "value": 4.300079472,
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9",
+        "s14"
+      ],
+      "note": "Complete released HF checkpoint count from aggregate BF16 metadata, independently reconciled to exact converter and architecture: text 3,880,263,168 + vision 416,866,032 + projector 2,950,272 = 4,300,079,472. Tied output embeddings count once. Includes 64 conversion-created vocabulary rows (163,840 values); original implementation count is 4,299,915,632. These added entries are not original learned weights. No packed quantization or scale tensors enter the formula; positional/RoPE buffers and pooling are excluded. Raw headers were gated: this is metadata-plus-implementation reconciliation, not a direct header census. The 4B label is nominal."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s4",
+        "s6",
+        "s7"
+      ],
+      "note": "No separately defined active-per-token count was found. Dense text layers do not justify copying total: vision/projector work depends on image input and inference phase."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s6",
+        "s7"
+      ],
+      "note": "Dense decoder-only language Transformer with GQA and interleaved local/global attention, plus SigLIP vision Transformer and multimodal projector; no expert router or MoE layers."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s6",
+        "s9"
+      ],
+      "note": "Google documents 128K combined input/output context for 4B; exact 4B converter inherits max_position_embeddings=131072 from Gemma3TextConfig. This is the documented window, not extrapolated RoPE capacity."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "4B-IT supports text/image input and text output. Video frames can be supplied as images; no native audio or generated image output is established."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "note": "Sources document general reasoning performance and standard instruction-tuned generation, but do not explicitly establish the catalog dedicated-reasoning/thinking-mode boolean for this exact 4B-IT checkpoint. Clear unsupported baseline false rather than infer from ordinary benchmarks or absent control tokens."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s11"
+      ],
+      "note": "Retain source-reported function-calling capability. Google ADK explicitly supports 4B-IT through prompting and response parsing; Gemma 3 lacks native function-call protocol support. This boolean does not claim a native API tool-call channel."
+    },
+    "description": {
+      "value": "Google's instruction-tuned Gemma 3 model with text and image input and text output.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Plain model identity and modalities; removes the unqualified efficiency claim."
+    }
+  },
+  "patch": {
+    "license": "Gemma Terms of Use",
+    "parameters_b": 4.300079472,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "reasoning": null,
+    "description": "Google's instruction-tuned Gemma 3 model with text and image input and text output.",
+    "source_url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemma-3/",
+    "source_type": "primary",
+    "notes": "Total includes 3,880,263,168 language, 416,866,032 vision and 2,950,272 projector parameters, with tied embeddings counted once. The language count includes 163,840 entries added during Hugging Face conversion. Pinned metadata and implementation agree; raw tensor headers were inaccessible. Active parameters are not separately defined. Function calling uses prompting and output parsing. The March 12 launch announcement conflicts with a later release log saying March 10.",
+    "sources": [
+      {
+        "label": "Google Gemma 3 4B IT model repository",
+        "url": "https://huggingface.co/google/gemma-3-4b-it",
+        "type": "weights"
+      },
+      {
+        "label": "Introducing Gemma 3",
+        "url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemma-3/",
+        "type": "primary"
+      },
+      {
+        "label": "Gemma 3 model card",
+        "url": "https://ai.google.dev/gemma/docs/core/model_card_3",
+        "type": "primary"
+      },
+      {
+        "label": "Gemma 3 Technical Report, March 12, 2025",
+        "url": "https://storage.googleapis.com/deepmind-media/gemma/Gemma3Report.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Exact official checkpoint metadata",
+        "url": "https://huggingface.co/api/models/google/gemma-3-4b-it/revision/093f9f388b31de276ce2de164bdc2081324b9767",
+        "type": "weights"
+      },
+      {
+        "label": "Official Gemma 3 Orbax to Transformers converter",
+        "url": "https://github.com/huggingface/transformers/blob/6c5f8f4186c15f4bfbd67941a1736b2b347e0155/src/transformers/models/gemma3/convert_gemma3_weights.py",
+        "type": "primary"
+      },
+      {
+        "label": "Transformers Gemma 3 implementation",
+        "url": "https://github.com/huggingface/transformers/blob/6c5f8f4186c15f4bfbd67941a1736b2b347e0155/src/transformers/models/gemma3/modeling_gemma3.py",
+        "type": "primary"
+      },
+      {
+        "label": "Google SigLIP vision implementation",
+        "url": "https://github.com/google/gemma_pytorch/blob/main/gemma/siglip_vision/siglip_vision_model.py",
+        "type": "primary"
+      },
+      {
+        "label": "Transformers Gemma 3 configuration",
+        "url": "https://github.com/huggingface/transformers/blob/6c5f8f4186c15f4bfbd67941a1736b2b347e0155/src/transformers/models/gemma3/configuration_gemma3.py",
+        "type": "primary"
+      },
+      {
+        "label": "Gemma Terms of Use",
+        "url": "https://ai.google.dev/gemma/terms",
+        "type": "primary"
+      },
+      {
+        "label": "Google ADK Gemma 3 function-calling adapter",
+        "url": "https://github.com/google/adk-python/blob/main/src/google/adk/models/gemma_llm.py",
+        "type": "primary"
+      },
+      {
+        "label": "Exact official checkpoint file history",
+        "url": "https://huggingface.co/api/models/google/gemma-3-4b-it/tree/main?recursive=true&expand=true",
+        "type": "weights"
+      },
+      {
+        "label": "Google Gemma 3 4B reference configuration",
+        "url": "https://github.com/google/gemma_pytorch/blob/main/gemma/config.py",
+        "type": "primary"
+      },
+      {
+        "label": "Gemma release chronology",
+        "url": "https://ai.google.dev/gemma/docs/releases",
+        "type": "primary"
+      }
+    ]
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "vision_encoder": 0.416866032,
+      "multimodal_projector": 0.002950272,
+      "language_model": 3.880263168
+    }
+  },
+  "count_derivation": {
+    "basis": "Complete released HF checkpoint parameter entries; original learned architecture and conversion-created rows distinguished.",
+    "language_embedding": "262208 * 2560 = 671252480; tied output head counted once",
+    "language_layer": "2560*256*(8+2*4) + 2560*256*8 + 3*2560*10240 + 4*2560 + 2*256 = 94382592",
+    "language_total": "671252480 + 34*94382592 + 2560 = 3880263168",
+    "vision_total": "14*14*3*1152 + 1152 + 4096*1152 + 27*(4*1152*1152 + 4*1152 + 2*1152*4304 + 4304 + 1152 + 4*1152) + 2*1152 = 416866032",
+    "projector": "1152*2560 + 1152 = 2950272",
+    "complete_checkpoint": "3880263168 + 416866032 + 2950272 = 4300079472",
+    "conversion_created_rows": "64*2560 = 163840; converter initializes these from embedding mean/covariance after loading original weights",
+    "original_implementation": "4300079472 - 163840 = 4299915632",
+    "access_limit": "Official raw configuration/index and tensor-header access require authenticated license acceptance; metadata and official source code were accessible."
+  },
+  "summary": "Correct nominal 4B to the complete released checkpoint count 4.300079472B, distinguish its 64 conversion-created embedding rows, add Gemma license and dense architecture, and simplify description. Confirm exact March 12, 2025 IT release, open weights, 131072 context, image/text modalities and prompted function calling. Active count remains undisclosed; clear unsupported reasoning=false to null. Raw headers were gated, with count established by official aggregate metadata reconciled to exact converter/configuration and implementation."
+}
