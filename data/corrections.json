@@ -9948,13 +9948,13 @@
       "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/167.json"
     },
     "deepseek/deepseek-r1-0528": {
-      "parameters_b": 671,
+      "parameters_b": 682.636487424,
       "active_parameters_b": 37,
       "parameters_source": "primary_source",
       "architecture": "moe",
       "source_url": "https://deepseek.com/news/r1-0528/",
       "source_type": "primary",
-      "notes": "671B and 37B active are nominal main-model counts. The release announcement reports 685B including 14B MTP; the weight guide documents shared MTP embedding/output weights, so that figure is not a unique learned total. FP8 scales are excluded from learned parameters. Advertised open-checkpoint context is 128K; configured positions are 163840 and launch API/app context was 64K. Function calling is supported outside thinking. Current API aliases do not establish this dated checkpoint’s capabilities.",
+      "notes": "Complete count: 671.0264192B main + 11.610068224B unique MTP; shared embedding/head counted once and FP8 scales excluded. The MTP norm differs from the main norm. Nominal 37B active applies to the main model. Advertised checkpoint context is 128K; config positions are 163840 and launch API context was 64K. Function calling is supported outside thinking.",
       "sources": [
         {
           "label": "DeepSeek May 28 release announcement",
@@ -9980,19 +9980,34 @@
           "label": "DeepSeek weight structure and shared MTP documentation",
           "url": "https://github.com/deepseek-ai/DeepSeek-V3/blob/main/README_WEIGHTS.md",
           "type": "primary"
+        },
+        {
+          "label": "Pinned R1-0528 tensor index and all163 bounded headers",
+          "url": "https://huggingface.co/deepseek-ai/DeepSeek-R1-0528/resolve/4236a6af538feda4548eca9ab308586007567f52/model.safetensors.index.json",
+          "type": "weights"
+        },
+        {
+          "label": "model.norm.weight bounded tensor comparison",
+          "url": "https://huggingface.co/deepseek-ai/DeepSeek-R1-0528/resolve/4236a6af538feda4548eca9ab308586007567f52/model-00160-of-000163.safetensors",
+          "type": "weights"
+        },
+        {
+          "label": "model.layers.61.shared_head.norm.weight bounded tensor comparison",
+          "url": "https://huggingface.co/deepseek-ai/DeepSeek-R1-0528/resolve/4236a6af538feda4548eca9ab308586007567f52/model-00163-of-000163.safetensors",
+          "type": "weights"
         }
       ],
       "context_window": 128000,
-      "parameters_scope": "main",
       "parameter_components_b": {
-        "main": 671
+        "main": 671.0264192,
+        "mtp_unique": 11.610068224
       },
       "active_parameters_scope": "main",
       "active_parameters_by_phase_b": {
         "main": 37
       },
       "field_status": {},
-      "audited_at": "2026-10-26T19:01:13.071532+00:00",
+      "audited_at": "2026-10-26T19:43:18.905509+00:00",
       "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/169.json"
     },
     "deepseek/deepseek-r1-0528-qwen3-8b": {

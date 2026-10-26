@@ -1,7 +1,7 @@
 {
   "index": 169,
   "model_id": "deepseek/deepseek-r1-0528",
-  "reviewed_at": "2026-10-26T19:01:13.071532+00:00",
+  "reviewed_at": "2026-10-26T19:43:18.905509+00:00",
   "sources": [
     {
       "id": "s1",
@@ -82,6 +82,30 @@
       "publisher": "DeepSeek",
       "accessed": true,
       "evidence": "Current documentation lists V4.1-Flash-1017 and V4-Pro-0813. These present-day service specifications do not establish R1-0528 endpoint behavior."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-R1-0528/resolve/4236a6af538feda4548eca9ab308586007567f52/model.safetensors.index.json",
+      "title": "Pinned R1-0528 tensor index and all163 bounded headers",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Reconciled91991 tensors across163 headers. Excluding41540496 FP8 scales gives671026419200 main and13463426304 serialized MTP parameters. Deduct1853358080 documented shared embedding/head copies once; no packed tensors. All remaining tensors are weights or learned gate-correction biases."
+    },
+    {
+      "id": "s12",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-R1-0528/resolve/4236a6af538feda4548eca9ab308586007567f52/model-00160-of-000163.safetensors",
+      "title": "model.norm.weight bounded tensor comparison",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Fetched only the14336-byte BF16 tensor at inclusive bytes3142391378\u20133142405713. Main and MTP norms differ at7166 of7168 positions; MTP norm is distinct and retained."
+    },
+    {
+      "id": "s13",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-R1-0528/resolve/4236a6af538feda4548eca9ab308586007567f52/model-00163-of-000163.safetensors",
+      "title": "model.layers.61.shared_head.norm.weight bounded tensor comparison",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Fetched only the14336-byte BF16 tensor at inclusive bytes4731412031\u20134731426366. Main and MTP norms differ at7166 of7168 positions; MTP norm is distinct and retained."
     }
   ],
   "fields": {
@@ -138,15 +162,18 @@
       "note": "License applies to this checkpoint; do not inherit the original V3 model license."
     },
     "parameters_b": {
-      "value": 671,
+      "value": 682.636487424,
       "status": "verified",
       "source_ids": [
         "s1",
         "s5",
         "s8",
-        "s9"
+        "s9",
+        "s11",
+        "s12",
+        "s13"
       ],
-      "note": "Nominal main-model count for the unchanged V3-Base architecture. The launch article reports 685B including 14B MTP, but the weight guide explicitly shares MTP embedding/head parameters; that headline is not a complete unique learned count. Display main scope explicitly."
+      "note": "Complete unique learned count:671.0264192B main +11.610068224B unique MTP =682.636487424B. All163 headers reconciled; FP8 scales excluded, shared embedding/head counted once. Exact small tensor comparison proves the MTP norm differs from main norm.671B is nominal main-only;685B/14B headline is not unique-weight accounting."
     },
     "active_parameters_b": {
       "value": 37,
@@ -224,13 +251,13 @@
     }
   },
   "patch": {
-    "parameters_b": 671,
+    "parameters_b": 682.636487424,
     "active_parameters_b": 37,
     "parameters_source": "primary_source",
     "architecture": "moe",
     "source_url": "https://deepseek.com/news/r1-0528/",
     "source_type": "primary",
-    "notes": "671B and 37B active are nominal main-model counts. The release announcement reports 685B including 14B MTP; the weight guide documents shared MTP embedding/output weights, so that figure is not a unique learned total. FP8 scales are excluded from learned parameters. Advertised open-checkpoint context is 128K; configured positions are 163840 and launch API/app context was 64K. Function calling is supported outside thinking. Current API aliases do not establish this dated checkpoint\u2019s capabilities.",
+    "notes": "Complete count: 671.0264192B main + 11.610068224B unique MTP; shared embedding/head counted once and FP8 scales excluded. The MTP norm differs from the main norm. Nominal 37B active applies to the main model. Advertised checkpoint context is 128K; config positions are 163840 and launch API context was 64K. Function calling is supported outside thinking.",
     "sources": [
       {
         "label": "DeepSeek May 28 release announcement",
@@ -256,19 +283,34 @@
         "label": "DeepSeek weight structure and shared MTP documentation",
         "url": "https://github.com/deepseek-ai/DeepSeek-V3/blob/main/README_WEIGHTS.md",
         "type": "primary"
+      },
+      {
+        "label": "Pinned R1-0528 tensor index and all163 bounded headers",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-R1-0528/resolve/4236a6af538feda4548eca9ab308586007567f52/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "model.norm.weight bounded tensor comparison",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-R1-0528/resolve/4236a6af538feda4548eca9ab308586007567f52/model-00160-of-000163.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "model.layers.61.shared_head.norm.weight bounded tensor comparison",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-R1-0528/resolve/4236a6af538feda4548eca9ab308586007567f52/model-00163-of-000163.safetensors",
+        "type": "weights"
       }
     ],
     "context_window": 128000
   },
   "proposed_fields": {
-    "parameters_scope": "main",
     "parameter_components_b": {
-      "main": 671
+      "main": 671.0264192,
+      "mtp_unique": 11.610068224
     },
     "active_parameters_scope": "main",
     "active_parameters_by_phase_b": {
       "main": 37
     }
   },
-  "summary": "Audited all14fields for May2025 R1-0528. Verified nominal671B main/37B active with explicitscope, MoE, May28release, MIT, tools, reasoning and text. Use advertised128K context rather than163840 configuration ceiling. Do not inflate total with shared MTP weights or FP8 scales."
+  "summary": "All14fields reviewed. Follow-up completes unique checkpoint count at682.636487424B after all163 headers and exact main/MTP normalization tensors. Retains verified37B nominal main active count, MoE, MIT, May28release and advertised128K context."
 }
