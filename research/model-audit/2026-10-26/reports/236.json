@@ -1,0 +1,279 @@
+{
+  "index": 236,
+  "model_id": "ibm/granite-4-h-small",
+  "reviewed_at": "2026-10-26T20:47:29.819274Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/ibm-granite/granite-4.0-h-small",
+      "title": "Granite-4.0-H-Small model card",
+      "publisher": "IBM Granite",
+      "accessed": true,
+      "evidence": "Names the IBM Granite instruct model, release date October 2, 2025, Apache 2.0 license, text/chat/code/RAG/function capabilities, and exact H Small MoE table column: 32B total, 9B active, 36 Mamba2 plus 4 attention layers, 72 experts with 10 active."
+    },
+    {
+      "id": "s2",
+      "url": "https://www.ibm.com/new/announcements/ibm-granite-4-0-hyper-efficient-high-performance-hybrid-models",
+      "title": "IBM Granite 4.0 launch announcement, October 2, 2025",
+      "publisher": "IBM",
+      "accessed": true,
+      "evidence": "Explicitly launches H-Small with nominal 32B total/9B active; describes hybrid Mamba-2/Transformer MoE with always-active shared experts, validated 128K context, and distinguishes the released instruct models from planned Thinking variants."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/ibm-granite/granite-4.0-h-small/blob/b8c0982bab7fde4eb48110f5a069527c008fab39/config.json",
+      "title": "Granite-4.0-H-Small released configuration",
+      "publisher": "IBM Granite",
+      "accessed": true,
+      "evidence": "GraniteMoeHybridForCausalLM; 40 layers: 36 mamba and 4 attention; hidden size 4096, shared intermediate 1536, expert intermediate 768, 72 local experts/top-10, vocabulary 100352, tied embeddings, NoPE, BF16, and max_position_embeddings 131072."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/ibm-granite/granite-4.0-h-small/blob/b8c0982bab7fde4eb48110f5a069527c008fab39/model.safetensors.index.json",
+      "title": "Granite-4.0-H-Small checkpoint index and linked BF16 shard headers",
+      "publisher": "IBM Granite",
+      "accessed": true,
+      "evidence": "Index maps 586 tensors across 14 BF16 shards. All 14 headers were inspected through HTTP 206 byte ranges, with matching tensor-name coverage. Shape products total 32,207,337,984 learned parameters; the tied output weight is absent as a duplicate. total_size 64,414,675,968 bytes corroborates BF16 element count; index total_parameters=0 is a placeholder."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/api/models/ibm-granite/granite-4.0-h-small?blobs=true",
+      "title": "Hugging Face metadata for the IBM checkpoint",
+      "publisher": "Hugging Face / IBM Granite",
+      "accessed": true,
+      "evidence": "Public repository revision b8c0982bab7fde4eb48110f5a069527c008fab39 lists safetensors.parameters.BF16 and safetensors.total as 32,207,337,984, independently matching the header sum."
+    },
+    {
+      "id": "s6",
+      "url": "https://github.com/huggingface/transformers/blob/v4.56.0/src/transformers/models/granitemoehybrid/modeling_granitemoehybrid.py",
+      "title": "GraniteMoeHybrid implementation at checkpoint Transformers version",
+      "publisher": "Hugging Face Transformers / IBM contributors",
+      "accessed": true,
+      "evidence": "Defines Mamba A_log, D and dt_bias as learned nn.Parameter tensors; convolutions/projections/norms, shared MLPs and expert matrices are learned. Router selects top-k and shared MLP is always evaluated. Output head is tied; optional RoPE frequencies are nonpersistent buffers and this checkpoint uses NoPE."
+    },
+    {
+      "id": "s7",
+      "url": "https://www.ibm.com/granite/docs/models/granite4-0",
+      "title": "Granite 4.0 model comparison table",
+      "publisher": "IBM",
+      "accessed": true,
+      "evidence": "Exact Granite-4.0-H-Small row confirms hybrid MoE, 32B total/9B activated, enterprise RAG/agent use, and Apache 2.0 family release. Page warns it is no longer updated; used only for historical specification corroboration."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/ibm-granite/granite-4.0-h-small/blob/b8c0982bab7fde4eb48110f5a069527c008fab39/chat_template.jinja",
+      "title": "Granite-4.0-H-Small chat template",
+      "publisher": "IBM Granite",
+      "accessed": true,
+      "evidence": "Text conversation template accepts tool definitions, emits tool_call JSON tags, and consumes tool responses. It has no thinking/reasoning-mode control."
+    },
+    {
+      "id": "s9",
+      "url": "https://www.ibm.com/docs/en/watsonx/saas?topic=models-foundation",
+      "title": "IBM watsonx foundation-model documentation (indexed excerpt)",
+      "publisher": "IBM",
+      "accessed": false,
+      "evidence": "Search-indexed excerpt lists Small as 30B and the API name granite-4-h-small with context 131072; direct page open returned 403. This conflicting coarse size is not adopted over the exact IBM checkpoint and release."
+    },
+    {
+      "id": "s10",
+      "url": "https://github.com/ibm-granite/granite-4.0-language-models",
+      "title": "Granite 4.0 official model repository",
+      "publisher": "IBM Granite",
+      "accessed": true,
+      "evidence": "Lists this exact instruct checkpoint and Apache 2.0 distribution. The downloaded README still has a commented future technical-report reference; its model-card citation is an arXiv placeholder, so neither establishes an accessible technical report."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Granite-4.0-H-Small",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Exact released instruct checkpoint name; baseline display name is correct."
+    },
+    "developer": {
+      "value": "IBM",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Model card credits the Granite Team at IBM."
+    },
+    "family": {
+      "value": "granite",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s10"
+      ],
+      "note": "IBM Granite 4.0 language-model family; preserve existing normalized family key."
+    },
+    "release_date": {
+      "value": "2025-10-02",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Model card explicitly gives October 2nd, 2025, matching the public launch; earlier repository creation is not the public release."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s10"
+      ],
+      "note": "Public original BF16 checkpoint files and loading code are available without gating."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s10"
+      ],
+      "note": "Explicit model-weight license; distinct from separate hosted-service terms."
+    },
+    "parameters_b": {
+      "value": 32.207337984,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "note": "Complete unique learned checkpoint count: 32,207,337,984, derived from all 586 BF16 tensor shapes. Tied embedding/output matrix counted once; no quantization scales, packed elements, or persistent buffers. IBM labels this nominally 32B. The inaccessible watsonx page has a conflicting indexed 30B label, outweighed by exact checkpoint metadata and launch."
+    },
+    "active_parameters_b": {
+      "value": 9,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s6"
+      ],
+      "note": "IBM explicitly reports a rounded 9B active. Header/config derivation gives 8,803,121,664 for one generated token with full tied-vocabulary output projection: 5,028,248,064 non-routed parameters plus 3,774,873,600 routed parameters (10/72 of 27,179,089,920). Retain the first-party nominal scalar; do not confuse 10 active experts with 10B parameters or omit shared/Mamba weights."
+    },
+    "architecture": {
+      "value": "Hybrid Mamba-2/Transformer MoE",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s6"
+      ],
+      "note": "Decoder-only hybrid: 36 Mamba-2 blocks and 4 GQA attention blocks, each followed by a top-10-of-72 routed SwiGLU MoE plus shared MLP. NoPE, RMSNorm, and tied token/output embeddings. Mamba recurrent state is runtime state, not additional learned parameters."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s7"
+      ],
+      "note": "Exact max_position_embeddings=131072 agrees with 128K model-card sequence length; longer training samples/theoretical extensibility are not the documented context limit."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s8"
+      ],
+      "note": "Exact checkpoint is a token-only causal language model with text input/output, no vision/audio encoders."
+    },
+    "reasoning": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s8"
+      ],
+      "note": "This released checkpoint is the instruct variant. IBM explicitly separates it from later Thinking variants; template has no thinking switch. False denotes lack of dedicated thinking mode, not absence of ordinary reasoning ability."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8"
+      ],
+      "note": "Exact model card provides a function-calling example and chat template implements tool-call formatting."
+    },
+    "description": {
+      "value": "Open-weight hybrid model for enterprise chat, coding, retrieval-augmented generation, and tool-calling workloads",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Baseline description is supported by the model card capabilities and intended business-assistant use; no unsupported performance superlative."
+    }
+  },
+  "patch": {
+    "license": "Apache-2.0",
+    "parameters_b": 32.207337984,
+    "active_parameters_b": 9,
+    "parameters_source": "primary_source",
+    "architecture": "Hybrid Mamba-2/Transformer MoE",
+    "source_url": "https://huggingface.co/ibm-granite/granite-4.0-h-small",
+    "source_type": "primary",
+    "notes": "IBM nominally reports 32B total and 9B active. Original BF16 checkpoint has 32,207,337,984 unique learned parameters with tied embeddings counted once; header/config accounting yields 8,803,121,664 active per generated token including full output projection, all shared experts, Mamba/attention, routers, and norms. The architecture is hybrid Mamba-2/Transformer MoE (36/4 layers, 10 of 72 routed experts per layer). This is the instruct variant without a dedicated Thinking mode.",
+    "sources": [
+      {
+        "label": "IBM Granite 4.0 H Small model card",
+        "url": "https://huggingface.co/ibm-granite/granite-4.0-h-small",
+        "type": "primary"
+      },
+      {
+        "label": "IBM Granite 4.0 launch announcement",
+        "url": "https://www.ibm.com/new/announcements/ibm-granite-4-0-hyper-efficient-high-performance-hybrid-models",
+        "type": "primary"
+      },
+      {
+        "label": "IBM original checkpoint configuration",
+        "url": "https://huggingface.co/ibm-granite/granite-4.0-h-small/blob/b8c0982bab7fde4eb48110f5a069527c008fab39/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "IBM BF16 checkpoint index and tensors",
+        "url": "https://huggingface.co/ibm-granite/granite-4.0-h-small/blob/b8c0982bab7fde4eb48110f5a069527c008fab39/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "GraniteMoeHybrid parameter and routing implementation",
+        "url": "https://github.com/huggingface/transformers/blob/v4.56.0/src/transformers/models/granitemoehybrid/modeling_granitemoehybrid.py",
+        "type": "primary"
+      }
+    ]
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "routed_experts": 27.17908992,
+      "shared_experts": 0.75497472,
+      "mamba": 3.682331136,
+      "attention": 0.16777216,
+      "tied_embedding_output": 0.411041792,
+      "routers": 0.01179648,
+      "other_norms": 0.000331776
+    }
+  },
+  "summary": "Adds Apache-2.0, complete 32.207337984B unique learned parameter count, IBM nominal 9B active, and hybrid Mamba-2/Transformer MoE architecture. All 14 baseline fields assessed; other claims confirmed. Exact component accounting supports 8.803121664B active including full vocabulary projection. Records an indexed IBM watsonx 30B conflict without adopting it. No standalone Granite 4.0 technical report was located in targeted IBM/arXiv searches; official repository/card retain placeholder report references, while later Granite 4.1 card supplies no exact H-Small parameter comparison. No whole weight shard downloaded."
+}

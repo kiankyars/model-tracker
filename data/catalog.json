@@ -18914,11 +18914,11 @@
     "release_date": "2025-10-02",
     "date_precision": "day",
     "open_weights": true,
-    "license": null,
-    "parameters_b": null,
-    "active_parameters_b": null,
-    "parameters_source": null,
-    "architecture": null,
+    "license": "Apache-2.0",
+    "parameters_b": 32.207337984,
+    "active_parameters_b": 9,
+    "parameters_source": "primary_source",
+    "architecture": "Hybrid Mamba-2/Transformer MoE",
     "context_window": 131072,
     "modalities": {
       "input": [
@@ -18930,24 +18930,57 @@
     },
     "reasoning": false,
     "tool_call": true,
-    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/ibm/granite-4-h-small.toml",
-    "source_type": "catalog",
+    "source_url": "https://huggingface.co/ibm-granite/granite-4.0-h-small",
+    "source_type": "primary",
     "sources": [
-      {
-        "label": "Models.dev record",
-        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/ibm/granite-4-h-small.toml",
-        "type": "catalog"
-      },
       {
         "label": "Hugging Face",
         "url": "https://huggingface.co/ibm-granite/granite-4.0-h-small",
         "type": "weights"
+      },
+      {
+        "label": "IBM Granite 4.0 launch announcement",
+        "url": "https://www.ibm.com/new/announcements/ibm-granite-4-0-hyper-efficient-high-performance-hybrid-models",
+        "type": "primary"
+      },
+      {
+        "label": "IBM original checkpoint configuration",
+        "url": "https://huggingface.co/ibm-granite/granite-4.0-h-small/blob/b8c0982bab7fde4eb48110f5a069527c008fab39/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "IBM BF16 checkpoint index and tensors",
+        "url": "https://huggingface.co/ibm-granite/granite-4.0-h-small/blob/b8c0982bab7fde4eb48110f5a069527c008fab39/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "GraniteMoeHybrid parameter and routing implementation",
+        "url": "https://github.com/huggingface/transformers/blob/v4.56.0/src/transformers/models/granitemoehybrid/modeling_granitemoehybrid.py",
+        "type": "primary"
+      },
+      {
+        "label": "Models.dev record",
+        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/ibm/granite-4-h-small.toml",
+        "type": "catalog"
       }
     ],
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
+    "upstream_present": true,
+    "notes": "IBM nominally reports 32B total and 9B active. Original BF16 checkpoint has 32,207,337,984 unique learned parameters with tied embeddings counted once; header/config accounting yields 8,803,121,664 active per generated token including full output projection, all shared experts, Mamba/attention, routers, and norms. The architecture is hybrid Mamba-2/Transformer MoE (36/4 layers, 10 of 72 routed experts per layer). This is the instruct variant without a dedicated Thinking mode.",
+    "parameter_components_b": {
+      "routed_experts": 27.17908992,
+      "shared_experts": 0.75497472,
+      "mamba": 3.682331136,
+      "attention": 0.16777216,
+      "tied_embedding_output": 0.411041792,
+      "routers": 0.01179648,
+      "other_norms": 0.000331776
+    },
+    "field_status": {},
+    "audited_at": "2026-10-26T20:47:29.819274Z",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/236.json"
   },
   {
     "id": "zhipuai/glm-4.6",
