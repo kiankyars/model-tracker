@@ -1,0 +1,348 @@
+{
+  "index": 125,
+  "model_id": "baidu/ernie-4.5-300b-a47b",
+  "reviewed_at": "2026-10-26T17:37:04.534972Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/baidu/ERNIE-4.5-300B-A47B-Paddle",
+      "title": "ERNIE-4.5-300B-A47B model card",
+      "publisher": "Baidu",
+      "accessed": true,
+      "evidence": "Identifies post-trained text MoE; nominal 300B total and 47B activated per token; Apache 2.0; 131072 context. PT denotes PyTorch format. Its Pretraining and Vision Experts table rows conflict with the exact-model description and configuration."
+    },
+    {
+      "id": "s2",
+      "url": "https://ernie.baidu.com/blog/posts/ernie4.5/",
+      "title": "Announcing the Open Source Release of the ERNIE 4.5 Model Family",
+      "publisher": "Baidu",
+      "accessed": true,
+      "evidence": "Dated June 30, 2025; announces open weights and Apache 2.0, explicitly names ERNIE-4.5-300B-A47B as the post-trained model."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/baidu/ERNIE-4.5-300B-A47B-Paddle/resolve/c96334ddf7c1dae19e50cf5f972d8820531f7e59/config.json",
+      "title": "Exact Paddle model configuration",
+      "publisher": "Baidu",
+      "accessed": true,
+      "evidence": "54 layers; 8192 hidden size; 64/8 attention heads; 64 experts with top-8 routing; MoE begins at layer index 3; intermediate sizes 28672 dense and 3584 expert; one next-token prediction block; untied embeddings; context 131072."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/baidu/ERNIE-4.5-300B-A47B-Paddle/resolve/c96334ddf7c1dae19e50cf5f972d8820531f7e59/model.safetensors.index.json",
+      "title": "Exact Paddle checkpoint index and indexed safetensors headers",
+      "publisher": "Baidu",
+      "accessed": true,
+      "evidence": "Read all 123 indexed shard headers via byte ranges: 6864 tensors and 300474051776 elements (300447309824 U16/bfloat16 payload values, 26741952 F32). All are learned weights or learned routing biases; no quantization scales, packed weights or storage-only tensors. MTP contributes 989888512."
+    },
+    {
+      "id": "s5",
+      "url": "https://github.com/PaddlePaddle/ERNIE/blob/release/v1.5/ernie/callbacks/moe_correction_bias_adjust_callback.py",
+      "title": "Auxiliary-loss-free routing-bias update implementation",
+      "publisher": "Baidu / PaddlePaddle",
+      "accessed": true,
+      "evidence": "Lines 114-126 update e_score_correction_bias from sign(mean expert usage minus observed usage) times update_lr. These 3264 stored biases are learned by non-gradient updates and are included in the complete count."
+    },
+    {
+      "id": "s6",
+      "url": "https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf",
+      "title": "ERNIE 4.5 Technical Report",
+      "publisher": "Baidu ERNIE Team",
+      "accessed": true,
+      "evidence": "Downloaded primary PDF and extracted text after web viewer rejected its size. Table 1 identifies exact model as post-trained, non-multimodal, MoE and non-thinking. Table 2 gives A47B family 54 layers, 64/8 text experts, no shared experts, and 131072 context."
+    },
+    {
+      "id": "s7",
+      "url": "https://ai.baidu.com/ai-doc/AISTUDIO/rm344erns",
+      "title": "AI Studio large-model API capability documentation",
+      "publisher": "Baidu",
+      "accessed": true,
+      "evidence": "Section 2.6 identifies this exact model in the 2025/6/30 open-model list as text chat, mapped to ernie-4.5-turbo-128k-preview. Its function-call support list omits this model; this service-specific omission does not prove universal impossibility."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/baidu/ERNIE-4.5-300B-A47B-Paddle/resolve/c96334ddf7c1dae19e50cf5f972d8820531f7e59/tokenizer_config.json",
+      "title": "Exact model chat template",
+      "publisher": "Baidu",
+      "accessed": true,
+      "evidence": "Template accepts system/user/assistant text messages, with no tools parameter or tool-call message formatting."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/baidu/ERNIE-4.5-300B-A47B-PT/resolve/47bbaf1c9e356313c3cb2ded9078a494fb152f0e/config.json",
+      "title": "PyTorch packaging configuration",
+      "publisher": "Baidu",
+      "accessed": true,
+      "evidence": "Same architecture and one next-token prediction block; explicitly zero shared experts. PT is the post-trained model in PyTorch format, not a pretraining suffix."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/baidu/ERNIE-4.5-300B-A47B-PT/resolve/47bbaf1c9e356313c3cb2ded9078a494fb152f0e/model.safetensors.index.json",
+      "title": "PyTorch packaging checkpoint index",
+      "publisher": "Baidu",
+      "accessed": true,
+      "evidence": "10242 tensors, including 12 MTP tensors; same 601001587456-byte indexed tensor payload as Paddle. Hub safetensors metadata independently reports 300447309824 BF16 and 26741952 F32 elements, confirming identical total across formats."
+    },
+    {
+      "id": "s11",
+      "url": "https://ai.baidu.com/ai-doc/WENXINWORKSHOP/flxu4ej5u",
+      "title": "Qianfan model release history",
+      "publisher": "Baidu",
+      "accessed": true,
+      "evidence": "June 2025 history lists ERNIE-4.5-Turbo-128K-Preview introduced June 25, whereas 0.3B, 21B and VL28B exact open-model names appear June 29. Later alias mapping alone cannot prove June25 endpoint served the released 300B checkpoint."
+    },
+    {
+      "id": "s12",
+      "url": "https://ai.baidu.com/ai-doc/WENXINWORKSHOP/4mchtzl8s",
+      "title": "ERNIE open model launch announcement for Qianfan",
+      "publisher": "Baidu",
+      "accessed": true,
+      "evidence": "Indexed primary announcement, updated July 18 2025, maps ERNIE-4.5-300B-A47B to ernie-4.5-turbo-128k-preview. Direct web fetch timed out; complete indexed model table was available. Does not establish when that alias began serving this exact checkpoint."
+    },
+    {
+      "id": "s13",
+      "url": "https://blogs.novita.ai/ernie-4-5-on-novita-ai/",
+      "title": "BaiDu ERNIE 4.5 MoE Model API Now Live on Novita AI",
+      "publisher": "Novita AI",
+      "accessed": true,
+      "evidence": "Provider publication dated June 29 2025 explicitly announces availability, names ERNIE-4.5-300B-A47B and gives exact baidu/ernie-4.5-300b-a47b-paddle API calls. This is primary evidence for its own hosted availability, not used to verify architecture. Broad Agents SDK tool-use marketing conflicts with lack of native developer documentation."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "ERNIE 4.5 300B A47B",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Readable spelling of exact ERNIE-4.5-300B-A47B post-trained variant; distinct from -Base and -VL."
+    },
+    "developer": {
+      "value": "Baidu",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Official Baidu release and copyright."
+    },
+    "family": {
+      "value": "ernie",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "ERNIE 4.5 family."
+    },
+    "release_date": {
+      "value": "2025-06-29",
+      "status": "verified",
+      "source_ids": [
+        "s13",
+        "s2",
+        "s11",
+        "s12"
+      ],
+      "note": "Earliest verified exact-name hosted availability: Novita June29 announcement and exact Paddle model API example. Baidu open-weight announcement is June30. A June25 Qianfan preview alias was later mapped to this model, but checkpoint identity on June25 is unproven; do not silently transfer that date."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4"
+      ],
+      "note": "Official accessible checkpoint and open-release announcement."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Explicit Apache License 2.0 release."
+    },
+    "parameters_b": {
+      "value": 300.474051776,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s5",
+        "s9",
+        "s10"
+      ],
+      "note": "Exact complete checkpoint: 300474051776 learned scalar values, including 0.989888512B MTP and 3264 non-gradient-learned routing biases. The public 300B figure is rounded. U16 is Paddle bfloat16 payload representation, not packed quantization. Main model excluding MTP is 299.484163264B."
+    },
+    "active_parameters_b": {
+      "value": 47,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s6"
+      ],
+      "note": "Official rounded active count per token, not an exact scalar count. Top-8 of 64 routed experts per MoE layer; 3 initial dense FFNs, all attention and routers are also involved. No shared experts. Auxiliary MTP and input-embedding counting conventions are not specified by the reported 47B, so no artificial exact active count is inferred."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s6",
+        "s9"
+      ],
+      "note": "Causal Transformer MoE: 3 initial dense layers, then 51 MoE layers with top-8 of 64 experts; zero shared experts; 64 query/8 KV heads. Separate auxiliary dense MTP block. The text checkpoint has no vision encoder or vision experts."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s6"
+      ],
+      "note": "Configured maximum position embeddings and technical report agree."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6",
+        "s7"
+      ],
+      "note": "Exact text checkpoint; multimodal pretraining heritage does not make this the VL release."
+    },
+    "reasoning": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s6",
+        "s7"
+      ],
+      "note": "Table 1 explicitly classifies this post-trained model as non-thinking; not a claim that it cannot solve reasoning tasks."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s7",
+        "s8",
+        "s13"
+      ],
+      "note": "Native tool calling remains unverified. Baidu service support list omits this model and released template lacks tools formatting. Novita advertises tool use in Agents SDK workflows; this deployment claim does not settle native checkpoint support. Clear unsupported baseline true."
+    },
+    "description": {
+      "value": "Baidu post-trained text MoE with approximately 300B parameters and a reported 47B activated per token.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s6"
+      ],
+      "note": "Adds exact training variant and preserves explicitly approximate parameter wording."
+    }
+  },
+  "patch": {
+    "parameters_b": 300.474051776,
+    "parameters_source": "primary_source",
+    "tool_call": null,
+    "description": "Baidu post-trained text MoE with approximately 300B parameters and a reported 47B activated per token.",
+    "source_url": "https://huggingface.co/baidu/ERNIE-4.5-300B-A47B-Paddle",
+    "source_type": "primary",
+    "notes": "Complete learned checkpoint count is 300.474051776B including 0.989888512B auxiliary MTP; 300B total and 47B active are published rounded labels. Routing correction biases are included because training updates them. This is the post-trained, non-thinking text variant; PT means PyTorch packaging. Native tool calling is unverified. The model-card table contains conflicting Pretraining and Vision Experts rows; exact configuration and technical report resolve these as post-trained and text-only. Earliest exact-name hosted availability verified June29 on Novita; Baidu announced open weights June30. A June25 Qianfan alias existed, but its checkpoint identity at launch is unresolved.",
+    "sources": [
+      {
+        "label": "ERNIE-4.5-300B-A47B model card",
+        "url": "https://huggingface.co/baidu/ERNIE-4.5-300B-A47B-Paddle",
+        "type": "primary"
+      },
+      {
+        "label": "Announcing the Open Source Release of the ERNIE 4.5 Model Family",
+        "url": "https://ernie.baidu.com/blog/posts/ernie4.5/",
+        "type": "primary"
+      },
+      {
+        "label": "Exact Paddle model configuration",
+        "url": "https://huggingface.co/baidu/ERNIE-4.5-300B-A47B-Paddle/resolve/c96334ddf7c1dae19e50cf5f972d8820531f7e59/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Exact Paddle checkpoint index and indexed safetensors headers",
+        "url": "https://huggingface.co/baidu/ERNIE-4.5-300B-A47B-Paddle/resolve/c96334ddf7c1dae19e50cf5f972d8820531f7e59/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Auxiliary-loss-free routing-bias update implementation",
+        "url": "https://github.com/PaddlePaddle/ERNIE/blob/release/v1.5/ernie/callbacks/moe_correction_bias_adjust_callback.py",
+        "type": "primary"
+      },
+      {
+        "label": "ERNIE 4.5 Technical Report",
+        "url": "https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "AI Studio large-model API capability documentation",
+        "url": "https://ai.baidu.com/ai-doc/AISTUDIO/rm344erns",
+        "type": "primary"
+      },
+      {
+        "label": "Exact model chat template",
+        "url": "https://huggingface.co/baidu/ERNIE-4.5-300B-A47B-Paddle/resolve/c96334ddf7c1dae19e50cf5f972d8820531f7e59/tokenizer_config.json",
+        "type": "primary"
+      },
+      {
+        "label": "PyTorch packaging configuration",
+        "url": "https://huggingface.co/baidu/ERNIE-4.5-300B-A47B-PT/resolve/47bbaf1c9e356313c3cb2ded9078a494fb152f0e/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "PyTorch packaging checkpoint index",
+        "url": "https://huggingface.co/baidu/ERNIE-4.5-300B-A47B-PT/resolve/47bbaf1c9e356313c3cb2ded9078a494fb152f0e/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Qianfan model release history",
+        "url": "https://ai.baidu.com/ai-doc/WENXINWORKSHOP/flxu4ej5u",
+        "type": "primary"
+      },
+      {
+        "label": "ERNIE open model launch announcement for Qianfan",
+        "url": "https://ai.baidu.com/ai-doc/WENXINWORKSHOP/4mchtzl8s",
+        "type": "primary"
+      },
+      {
+        "label": "BaiDu ERNIE 4.5 MoE Model API Now Live on Novita AI",
+        "url": "https://blogs.novita.ai/ernie-4-5-on-novita-ai/",
+        "type": "primary"
+      }
+    ],
+    "release_date": "2025-06-29",
+    "date_precision": "day"
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "mtp": 0.989888512,
+      "routed_experts": 287.494373376,
+      "dense_ffn": 2.113929216,
+      "attention": 8.153726976,
+      "embeddings_and_head": 1.694498816,
+      "routers": 0.026738688,
+      "routing_biases": 3.264e-06,
+      "norms": 0.000892928
+    }
+  },
+  "summary": "Corrected release to earliest verified exact-name hosted availability June29, before June30 Baidu open-weight announcement; documented unresolved June25 alias identity. Confirmed Apache-2.0, text-only non-thinking post-trained identity, context, and top-8/64 MoE with no shared experts. Replaced rounded 300B with exact 300.474051776B learned checkpoint count from every shard header, including MTP and learned routing biases; retained official rounded 47B active. Cleared unverified native tool calling. Card table conflicts documented."
+}

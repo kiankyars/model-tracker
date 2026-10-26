@@ -1,0 +1,324 @@
+{
+  "index": 126,
+  "model_id": "baidu/ernie-4.5-vl-424b-a47b",
+  "reviewed_at": "2026-10-26T17:38:24.471Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://ernie.baidu.com/blog/posts/ernie4.5/",
+      "title": "Announcing the Open Source Release of the ERNIE 4.5 Model Family",
+      "publisher": "Baidu",
+      "accessed": true,
+      "evidence": "Dated June 30, 2025. Announces the ten released ERNIE 4.5 variants under Apache 2.0 and explicitly discusses ERNIE-4.5-VL-424B-A47B in thinking and non-thinking modes."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/baidu/ERNIE-4.5-VL-424B-A47B-PT/blob/a3d5a8439d67c9a69003a1f7aac0961c6f1bc20d/README.md",
+      "title": "ERNIE-4.5-VL-424B-A47B official model card",
+      "publisher": "Baidu",
+      "accessed": true,
+      "evidence": "Read through raw file after the rendered page returned 429. PT means Transformer-style PyTorch weights. This is the post-trained chat model derived from the separate Base model. Reports 424B total, 47B activated per token, 54 layers, 64/8 query/KV heads, 64/8 total/active experts for each modality, 131072 context, and Apache 2.0."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/baidu/ERNIE-4.5-VL-424B-A47B-PT/blob/a3d5a8439d67c9a69003a1f7aac0961c6f1bc20d/config.json",
+      "title": "Exact checkpoint configuration",
+      "publisher": "Baidu",
+      "accessed": true,
+      "evidence": "54 layers, hidden size 8192, untied 103424-token embedding/head, three initial dense layers followed by 51 MoE layers, 64 text and 64 vision experts with respective intermediate widths 3584 and 1536, top-8 routing, 32-layer 1280-wide vision encoder, and max_position_embeddings 131072."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/baidu/ERNIE-4.5-VL-424B-A47B-PT/blob/a3d5a8439d67c9a69003a1f7aac0961c6f1bc20d/model.safetensors.index.json",
+      "title": "Complete checkpoint index and referenced safetensors headers",
+      "publisher": "Baidu",
+      "accessed": true,
+      "evidence": "Fetched only HTTP byte-range headers of all 172 indexed weight shards. All 20,475 indexed tensors were covered exactly once. Products of tensor shapes sum to 423,526,285,184 parameters: BF16 422,842,368,000; F32 53,483,904; F16 630,433,280. No packed quantized tensors, quantization-scale buffers, or MTP tensors occur. This is a shape count, not total_size divided by an assumed byte width."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/baidu/ERNIE-4.5-VL-424B-A47B-PT/blob/a3d5a8439d67c9a69003a1f7aac0961c6f1bc20d/modeling_ernie4_5_vl.py",
+      "title": "Official PyTorch model implementation",
+      "publisher": "Baidu",
+      "accessed": true,
+      "evidence": "Separates text and vision expert banks and routing. Defines e_score_correction_bias as a saved Parameter with requires_grad=False and uses it in top-k selection. The checkpoint contains no shared-expert tensors; its shared components are attention, initial dense FFNs, norms, embedding, and output head."
+    },
+    {
+      "id": "s6",
+      "url": "https://github.com/PaddlePaddle/ERNIE/blob/30ad9866a4fb89bd7184dc01aff2236e1f1fd1ec/ernie/callbacks/moe_correction_bias_adjust_callback.py",
+      "title": "Training update for routing correction biases",
+      "publisher": "Baidu / PaddlePaddle",
+      "accessed": true,
+      "evidence": "on_optimizer_end computes a signed usage-balancing update and adds it to e_score_correction_bias outside gradient descent. The 6,528 saved routing-bias values are learned routing state and remain included; requires_grad=False alone is not grounds for excluding them."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/baidu/ERNIE-4.5-VL-424B-A47B-PT/blob/a3d5a8439d67c9a69003a1f7aac0961c6f1bc20d/chat_template.json",
+      "title": "Exact checkpoint chat template",
+      "publisher": "Baidu",
+      "accessed": true,
+      "evidence": "Handles text, image/image_url, and video/video_url content and emits text. Implements enable_thinking with think delimiters. Supports system/user/assistant messages but contains no tools schema or tool-role serialization."
+    },
+    {
+      "id": "s8",
+      "url": "https://ai.baidu.com/ai-doc/AISTUDIO/rm344erns",
+      "title": "AI Studio large-model API: model and feature support",
+      "publisher": "Baidu",
+      "accessed": true,
+      "evidence": "Official API page maps ERNIE-4.5-VL-424B-A47B to ernie-4.5-turbo-vl and lists text/image/video and deep thinking. Separately labels 128K context and 123K maximum input. Its tools documentation restricts use to the function-call support list, which excludes this mapped model."
+    },
+    {
+      "id": "s9",
+      "url": "https://ai.baidu.com/ai-doc/WENXINWORKSHOP/flxu4ej5u",
+      "title": "Qianfan model release history",
+      "publisher": "Baidu",
+      "accessed": true,
+      "evidence": "Raw page's June 2025 table dates ERNIE-4.5-Turbo-VL-Preview to June 29. That row does not identify a 424B-A47B checkpoint or immutable revision, so it cannot independently date this exact variant."
+    },
+    {
+      "id": "s10",
+      "url": "https://ai.baidu.com/ai-doc/WENXINWORKSHOP/4mchtzl8s",
+      "title": "ERNIE open-model availability announcement",
+      "publisher": "Baidu",
+      "accessed": true,
+      "evidence": "Updated July 18, 2025. Maps ERNIE-4.5-VL-424B-A47B to ernie-4.5-turbo-vl-preview. This later mapping does not establish that the June 29 rolling endpoint already served this exact checkpoint; it also shows thinking was not yet exposed on that endpoint."
+    },
+    {
+      "id": "s11",
+      "url": "https://www.prnewswire.com/news-releases/baidu-unveils-ernie-4-5-and-reasoning-model-ernie-x1--makes-ernie-bot-free-ahead-of-schedule-302402490.html",
+      "title": "Baidu's March 16, 2025 ERNIE 4.5 and X1 announcement",
+      "publisher": "Baidu, distributed by PR Newswire",
+      "accessed": true,
+      "evidence": "Announces a hosted native-multimodal ERNIE 4.5 and names heterogeneous multimodal MoE technology, but does not name the 424B-A47B variant or identify its checkpoint. Its broader audio claims and X1 tool-use claims cannot be transferred to this June checkpoint."
+    },
+    {
+      "id": "s12",
+      "url": "https://blogs.novita.ai/ernie-4-5-on-novita-ai/",
+      "title": "ERNIE4.5 API now live on NovitaAI",
+      "publisher": "NovitaAI",
+      "accessed": true,
+      "evidence": "The provider June29,2025 launch article states ERNIE4.5 is now available and explicitly lists and links the exact baidu/ernie-4.5-vl-424b-a47b model. This gives exact-name hosted availability before the June30 Baidu weight announcement, without relying on a later rolling-endpoint alias mapping."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "ERNIE-4.5-VL-424B-A47B",
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Official model name; removes the trailing space and uses the developer's spelling. PT denotes serialization framework, not pretraining."
+    },
+    "developer": {
+      "value": "Baidu",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Released by Baidu's ERNIE team."
+    },
+    "family": {
+      "value": "ernie",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Member of the ERNIE 4.5 family; preserves the catalog's family key."
+    },
+    "release_date": {
+      "value": "2025-06-29",
+      "status": "verified",
+      "source_ids": [
+        "s12",
+        "s1",
+        "s9",
+        "s10",
+        "s11"
+      ],
+      "note": "Earliest documented exact-name hosted release: Novita June29 article explicitly lists this model as available. Baidu announced named open weights June30. Earlier family/rolling-alias dates do not prove this exact variant and are not substituted."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4"
+      ],
+      "note": "Baidu publicly distributes the complete post-trained checkpoint."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Explicit model-weight license in the official card and release announcement."
+    },
+    "parameters_b": {
+      "value": 423.526285184,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "note": "Complete checkpoint shape count, versus the nominal 424B label. Exact decomposition in billions: shared attention/dense FFNs/norms/embedding/head 11.963047936; text routed experts 287.494373376; vision routed experts 123.211874304; text routers 0.026738688; vision routers 0.026738688; learned routing corrections 0.000006528; vision encoder 0.630433280; vision adapter 0.173072384. Sum 423.526285184. Includes all language and visual components and both untied embedding/head matrices. No shared experts or MTP tensors are stored. No quantization buffers were counted."
+    },
+    "active_parameters_b": {
+      "value": 47,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s5"
+      ],
+      "note": "Developer-reported nominal activated-parameter figure, not an exact universal count. Text and vision tokens each select 8 of their own 64 experts, but those banks have different widths. The card does not define the embedding, visual-encoder/adapter, or modality/phase accounting convention. For example, counting both full embedding matrices and the shared decoder with 8 text experts produces 47.926586560B, so it must not be presented as the source's exact 47B definition. No unsupported exact phase count is substituted."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "note": "Heterogeneous vision-language Transformer MoE with modality-isolated text/vision routing. 54 decoder layers, of which 51 contain routed experts; a separate vision encoder and adapter are included in the total."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s8"
+      ],
+      "note": "Exact model-card context and max_position_embeddings. The baseline 123000 reflects a hosted input allowance; the primary API documentation distinguishes 123K maximum input from 128K context."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "image",
+          "text",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s7",
+        "s8"
+      ],
+      "note": "Exact template and official mapped API support image, text, and video inputs, with text output. No audio capability is inherited from the March hosted model."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s7"
+      ],
+      "note": "Post-trained checkpoint explicitly supports thinking and non-thinking modes, including an enable_thinking template switch. Early hosted endpoint restrictions do not remove the released checkpoint's capability."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s7",
+        "s8"
+      ],
+      "note": "Baidu excludes the mapped endpoint from its documented function-call support list and the released template lacks native tools formatting. This establishes the documented service limitation, but omission does not establish a universal absence of model capability. Exact-checkpoint native tool calling remains unverified; do not infer false from the unsupported interface."
+    },
+    "description": {
+      "value": "Post-trained vision-language MoE chat model with text, image, and video inputs, text output, and thinking and non-thinking modes.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s7"
+      ],
+      "note": "Replaces unsupported planning and tool-use marketing language with the documented exact-variant capabilities."
+    }
+  },
+  "patch": {
+    "name": "ERNIE-4.5-VL-424B-A47B",
+    "license": "Apache-2.0",
+    "parameters_b": 423.526285184,
+    "parameters_source": "primary_source",
+    "context_window": 131072,
+    "modalities": {
+      "input": [
+        "image",
+        "text",
+        "video"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "description": "Post-trained vision-language MoE chat model with text, image, and video inputs, text output, and thinking and non-thinking modes.",
+    "source_url": "https://huggingface.co/baidu/ERNIE-4.5-VL-424B-A47B-PT",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Announcing the Open Source Release of the ERNIE 4.5 Model Family",
+        "url": "https://ernie.baidu.com/blog/posts/ernie4.5/",
+        "type": "primary"
+      },
+      {
+        "label": "ERNIE-4.5-VL-424B-A47B official model card",
+        "url": "https://huggingface.co/baidu/ERNIE-4.5-VL-424B-A47B-PT/blob/a3d5a8439d67c9a69003a1f7aac0961c6f1bc20d/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Exact checkpoint configuration",
+        "url": "https://huggingface.co/baidu/ERNIE-4.5-VL-424B-A47B-PT/blob/a3d5a8439d67c9a69003a1f7aac0961c6f1bc20d/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Complete checkpoint index and referenced safetensors headers",
+        "url": "https://huggingface.co/baidu/ERNIE-4.5-VL-424B-A47B-PT/blob/a3d5a8439d67c9a69003a1f7aac0961c6f1bc20d/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Official PyTorch model implementation",
+        "url": "https://huggingface.co/baidu/ERNIE-4.5-VL-424B-A47B-PT/blob/a3d5a8439d67c9a69003a1f7aac0961c6f1bc20d/modeling_ernie4_5_vl.py",
+        "type": "primary"
+      },
+      {
+        "label": "Training update for routing correction biases",
+        "url": "https://github.com/PaddlePaddle/ERNIE/blob/30ad9866a4fb89bd7184dc01aff2236e1f1fd1ec/ernie/callbacks/moe_correction_bias_adjust_callback.py",
+        "type": "primary"
+      },
+      {
+        "label": "Exact checkpoint chat template",
+        "url": "https://huggingface.co/baidu/ERNIE-4.5-VL-424B-A47B-PT/blob/a3d5a8439d67c9a69003a1f7aac0961c6f1bc20d/chat_template.json",
+        "type": "primary"
+      },
+      {
+        "label": "AI Studio large-model API: model and feature support",
+        "url": "https://ai.baidu.com/ai-doc/AISTUDIO/rm344erns",
+        "type": "primary"
+      },
+      {
+        "label": "Novita exact-name hosted release",
+        "url": "https://blogs.novita.ai/ernie-4-5-on-novita-ai/",
+        "type": "primary"
+      }
+    ],
+    "notes": "The post-trained model PT suffix means PyTorch. The complete checkpoint contains 423.526285184B parameters, including the vision encoder and adapter; 424B is nominal. The published 47B active count does not define exact text/vision or embedding accounting. Novita documents this exact model available June 29, 2025; Baidu announced weights June 30. Earlier family and rolling-endpoint dates do not prove checkpoint identity. Native tool calling remains unverified; Baidu excludes the mapped endpoint from its function-call support list.",
+    "release_date": "2025-06-29",
+    "date_precision": "day",
+    "tool_call": null
+  },
+  "summary": "Verified the exact post-trained PyTorch variant. Corrected the complete checkpoint count to 423.526285184B, Apache-2.0 license, 131072 context, video input and neutral description. Retained nominal 47B active with modality/accounting caveats. Parent added exact-name Novita June 29 hosted availability before the June 30 weight announcement. Native tool support remains unverified."
+}

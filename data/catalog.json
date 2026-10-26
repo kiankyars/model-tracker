@@ -15846,49 +15846,6 @@
     }
   },
   {
-    "id": "bytedance-seed/seed-1-6",
-    "slug": "bytedance-seed--seed-1-6",
-    "name": "Seed 1.6",
-    "developer": "ByteDance",
-    "developer_id": "bytedance-seed",
-    "family": "seed",
-    "description": "ByteDance Seed model for long-context reasoning, instruction following, and tool-assisted tasks",
-    "release_date": "2025-10-15",
-    "date_precision": "day",
-    "open_weights": false,
-    "license": null,
-    "parameters_b": null,
-    "active_parameters_b": null,
-    "parameters_source": null,
-    "architecture": null,
-    "context_window": 256000,
-    "modalities": {
-      "input": [
-        "text",
-        "image",
-        "video"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "reasoning": true,
-    "tool_call": true,
-    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/bytedance-seed/seed-1-6.toml",
-    "source_type": "catalog",
-    "sources": [
-      {
-        "label": "Models.dev record",
-        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/bytedance-seed/seed-1-6.toml",
-        "type": "catalog"
-      }
-    ],
-    "aliases": [],
-    "first_seen": "2026-10-26T08:55:12.627Z",
-    "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
-  },
-  {
     "id": "alibaba/qwen3-vl-flash",
     "slug": "alibaba--qwen3-vl-flash",
     "name": "Qwen3 VL Flash (Alibaba Cloud)",
@@ -17409,49 +17366,6 @@
     "field_status": {},
     "audited_at": "2026-10-26T14:34:39Z",
     "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/039.json"
-  },
-  {
-    "id": "bytedance-seed/seed-1-6-flash",
-    "slug": "bytedance-seed--seed-1-6-flash",
-    "name": "Seed 1.6 Flash",
-    "developer": "ByteDance",
-    "developer_id": "bytedance-seed",
-    "family": "seed",
-    "description": "Low-latency ByteDance Seed model for high-throughput chat, extraction, and lightweight tool use",
-    "release_date": "2025-08-28",
-    "date_precision": "day",
-    "open_weights": false,
-    "license": null,
-    "parameters_b": null,
-    "active_parameters_b": null,
-    "parameters_source": null,
-    "architecture": null,
-    "context_window": 256000,
-    "modalities": {
-      "input": [
-        "text",
-        "image",
-        "video"
-      ],
-      "output": [
-        "text"
-      ]
-    },
-    "reasoning": false,
-    "tool_call": true,
-    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/bytedance-seed/seed-1-6-flash.toml",
-    "source_type": "catalog",
-    "sources": [
-      {
-        "label": "Models.dev record",
-        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/bytedance-seed/seed-1-6-flash.toml",
-        "type": "catalog"
-      }
-    ],
-    "aliases": [],
-    "first_seen": "2026-10-26T08:55:12.627Z",
-    "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
   },
   {
     "id": "cohere/command-a-translate-08-2025",
@@ -19754,14 +19668,14 @@
     "developer": "Baidu",
     "developer_id": "baidu",
     "family": "ernie",
-    "description": "Open ERNIE text MoE with 21B total and 3B active parameters",
-    "release_date": "2025-06-30",
+    "description": "Open-weight, post-trained ERNIE 4.5 text MoE with about 21.95B checkpoint parameters and a nominal 3B active per token.",
+    "release_date": "2025-06-29",
     "date_precision": "day",
     "open_weights": true,
     "license": "Apache-2.0",
-    "parameters_b": 21,
+    "parameters_b": 21.948655808,
     "active_parameters_b": 3,
-    "parameters_source": "model_name",
+    "parameters_source": "primary_source",
     "architecture": "moe",
     "context_window": 131072,
     "modalities": {
@@ -19773,25 +19687,70 @@
       ]
     },
     "reasoning": false,
-    "tool_call": true,
-    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/baidu/ernie-4.5-21b-a3b.toml",
-    "source_type": "catalog",
+    "tool_call": null,
+    "source_url": "https://ai.baidu.com/ai-doc/WENXINWORKSHOP/flxu4ej5u",
+    "source_type": "primary",
     "sources": [
-      {
-        "label": "Models.dev record",
-        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/baidu/ernie-4.5-21b-a3b.toml",
-        "type": "catalog"
-      },
       {
         "label": "Hugging Face",
         "url": "https://huggingface.co/baidu/ERNIE-4.5-21B-A3B-PT",
         "type": "weights"
+      },
+      {
+        "label": "Complete checkpoint tensor index",
+        "url": "https://huggingface.co/baidu/ERNIE-4.5-21B-A3B-PT/blob/87db95487941cb39592ee0abca3b9155a6d19c5c/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Router bias training implementation",
+        "url": "https://github.com/PaddlePaddle/ERNIE/blob/30ad9866a4fb89bd7184dc01aff2236e1f1fd1ec/ernie/callbacks/moe_correction_bias_adjust_callback.py",
+        "type": "primary"
+      },
+      {
+        "label": "ERNIE 4.5 technical report",
+        "url": "https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf",
+        "type": "paper"
+      },
+      {
+        "label": "Baidu Qianfan release history",
+        "url": "https://ai.baidu.com/ai-doc/WENXINWORKSHOP/flxu4ej5u",
+        "type": "primary"
+      },
+      {
+        "label": "Baidu open-weight announcement",
+        "url": "https://ernie.baidu.com/blog/posts/ernie4.5/",
+        "type": "primary"
+      },
+      {
+        "label": "Exact checkpoint chat template",
+        "url": "https://huggingface.co/baidu/ERNIE-4.5-21B-A3B-PT/raw/87db95487941cb39592ee0abca3b9155a6d19c5c/chat_template.jinja",
+        "type": "primary"
+      },
+      {
+        "label": "FastDeploy tool-calling documentation",
+        "url": "https://paddlepaddle.github.io/FastDeploy/features/tool_calling/",
+        "type": "primary"
+      },
+      {
+        "label": "Models.dev record",
+        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/baidu/ernie-4.5-21b-a3b.toml",
+        "type": "catalog"
       }
     ],
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
+    "upstream_present": true,
+    "notes": "PT means PyTorch; this is the post-trained non-thinking model, distinct from Base and Thinking. Complete checkpoint: 21.948655808B parameters including 0.123217920B MTP and 1728 training-adjusted routing biases; advertised 21B total / 3B active are nominal. Qianfan documents hosted release June 29, 2025; weights were announced June 30. Tool calling for this exact variant remains unverified because first-party examples conflict with the Thinking-only support table.",
+    "parameter_components_b": {
+      "main_model": 21.825437888,
+      "multi_token_prediction": 0.12321792
+    },
+    "field_status": {
+      "tool_call": "unverified"
+    },
+    "audited_at": "2026-10-26T17:36:18.511564+00:00",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/124.json"
   },
   {
     "id": "baidu/ernie-4.5-300b-a47b",
@@ -19800,14 +19759,14 @@
     "developer": "Baidu",
     "developer_id": "baidu",
     "family": "ernie",
-    "description": "Open ERNIE text MoE with 300B total and 47B active parameters",
-    "release_date": "2025-06-30",
+    "description": "Baidu post-trained text MoE with approximately 300B parameters and a reported 47B activated per token.",
+    "release_date": "2025-06-29",
     "date_precision": "day",
     "open_weights": true,
     "license": "Apache-2.0",
-    "parameters_b": 300,
+    "parameters_b": 300.474051776,
     "active_parameters_b": 47,
-    "parameters_source": "model_name",
+    "parameters_source": "primary_source",
     "architecture": "moe",
     "context_window": 131072,
     "modalities": {
@@ -19819,57 +19778,179 @@
       ]
     },
     "reasoning": false,
-    "tool_call": true,
-    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/baidu/ernie-4.5-300b-a47b.toml",
-    "source_type": "catalog",
+    "tool_call": null,
+    "source_url": "https://huggingface.co/baidu/ERNIE-4.5-300B-A47B-Paddle",
+    "source_type": "primary",
     "sources": [
-      {
-        "label": "Models.dev record",
-        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/baidu/ernie-4.5-300b-a47b.toml",
-        "type": "catalog"
-      },
       {
         "label": "Hugging Face",
         "url": "https://huggingface.co/baidu/ERNIE-4.5-300B-A47B-Paddle",
         "type": "weights"
+      },
+      {
+        "label": "Announcing the Open Source Release of the ERNIE 4.5 Model Family",
+        "url": "https://ernie.baidu.com/blog/posts/ernie4.5/",
+        "type": "primary"
+      },
+      {
+        "label": "Exact Paddle model configuration",
+        "url": "https://huggingface.co/baidu/ERNIE-4.5-300B-A47B-Paddle/resolve/c96334ddf7c1dae19e50cf5f972d8820531f7e59/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Exact Paddle checkpoint index and indexed safetensors headers",
+        "url": "https://huggingface.co/baidu/ERNIE-4.5-300B-A47B-Paddle/resolve/c96334ddf7c1dae19e50cf5f972d8820531f7e59/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Auxiliary-loss-free routing-bias update implementation",
+        "url": "https://github.com/PaddlePaddle/ERNIE/blob/release/v1.5/ernie/callbacks/moe_correction_bias_adjust_callback.py",
+        "type": "primary"
+      },
+      {
+        "label": "ERNIE 4.5 Technical Report",
+        "url": "https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "AI Studio large-model API capability documentation",
+        "url": "https://ai.baidu.com/ai-doc/AISTUDIO/rm344erns",
+        "type": "primary"
+      },
+      {
+        "label": "Exact model chat template",
+        "url": "https://huggingface.co/baidu/ERNIE-4.5-300B-A47B-Paddle/resolve/c96334ddf7c1dae19e50cf5f972d8820531f7e59/tokenizer_config.json",
+        "type": "primary"
+      },
+      {
+        "label": "PyTorch packaging configuration",
+        "url": "https://huggingface.co/baidu/ERNIE-4.5-300B-A47B-PT/resolve/47bbaf1c9e356313c3cb2ded9078a494fb152f0e/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "PyTorch packaging checkpoint index",
+        "url": "https://huggingface.co/baidu/ERNIE-4.5-300B-A47B-PT/resolve/47bbaf1c9e356313c3cb2ded9078a494fb152f0e/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Qianfan model release history",
+        "url": "https://ai.baidu.com/ai-doc/WENXINWORKSHOP/flxu4ej5u",
+        "type": "primary"
+      },
+      {
+        "label": "ERNIE open model launch announcement for Qianfan",
+        "url": "https://ai.baidu.com/ai-doc/WENXINWORKSHOP/4mchtzl8s",
+        "type": "primary"
+      },
+      {
+        "label": "BaiDu ERNIE 4.5 MoE Model API Now Live on Novita AI",
+        "url": "https://blogs.novita.ai/ernie-4-5-on-novita-ai/",
+        "type": "primary"
+      },
+      {
+        "label": "Models.dev record",
+        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/baidu/ernie-4.5-300b-a47b.toml",
+        "type": "catalog"
       }
     ],
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
+    "upstream_present": true,
+    "notes": "Complete learned checkpoint count is 300.474051776B including 0.989888512B auxiliary MTP; 300B total and 47B active are published rounded labels. Routing correction biases are included because training updates them. This is the post-trained, non-thinking text variant; PT means PyTorch packaging. Native tool calling is unverified. The model-card table contains conflicting Pretraining and Vision Experts rows; exact configuration and technical report resolve these as post-trained and text-only. Earliest exact-name hosted availability verified June29 on Novita; Baidu announced open weights June30. A June25 Qianfan alias existed, but its checkpoint identity at launch is unresolved.",
+    "parameter_components_b": {
+      "mtp": 0.989888512,
+      "routed_experts": 287.494373376,
+      "dense_ffn": 2.113929216,
+      "attention": 8.153726976,
+      "embeddings_and_head": 1.694498816,
+      "routers": 0.026738688,
+      "routing_biases": 0.000003264,
+      "norms": 0.000892928
+    },
+    "field_status": {
+      "tool_call": "unverified"
+    },
+    "audited_at": "2026-10-26T17:37:04.534972Z",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/125.json"
   },
   {
     "id": "baidu/ernie-4.5-vl-424b-a47b",
     "slug": "baidu--ernie-4.5-vl-424b-a47b",
-    "name": "ERNIE 4.5 VL 424B A47B ",
+    "name": "ERNIE-4.5-VL-424B-A47B",
     "developer": "Baidu",
     "developer_id": "baidu",
     "family": "ernie",
-    "description": "Multimodal reasoning model for visual analysis, planning, and tool use",
-    "release_date": "2025-06-30",
+    "description": "Post-trained vision-language MoE chat model with text, image, and video inputs, text output, and thinking and non-thinking modes.",
+    "release_date": "2025-06-29",
     "date_precision": "day",
     "open_weights": true,
-    "license": null,
-    "parameters_b": 424,
+    "license": "Apache-2.0",
+    "parameters_b": 423.526285184,
     "active_parameters_b": 47,
-    "parameters_source": "model_name",
+    "parameters_source": "primary_source",
     "architecture": "moe",
-    "context_window": 123000,
+    "context_window": 131072,
     "modalities": {
       "input": [
         "image",
-        "text"
+        "text",
+        "video"
       ],
       "output": [
         "text"
       ]
     },
     "reasoning": true,
-    "tool_call": false,
-    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/baidu/ernie-4.5-vl-424b-a47b.toml",
-    "source_type": "catalog",
+    "tool_call": null,
+    "source_url": "https://huggingface.co/baidu/ERNIE-4.5-VL-424B-A47B-PT",
+    "source_type": "primary",
     "sources": [
+      {
+        "label": "Announcing the Open Source Release of the ERNIE 4.5 Model Family",
+        "url": "https://ernie.baidu.com/blog/posts/ernie4.5/",
+        "type": "primary"
+      },
+      {
+        "label": "ERNIE-4.5-VL-424B-A47B official model card",
+        "url": "https://huggingface.co/baidu/ERNIE-4.5-VL-424B-A47B-PT/blob/a3d5a8439d67c9a69003a1f7aac0961c6f1bc20d/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Exact checkpoint configuration",
+        "url": "https://huggingface.co/baidu/ERNIE-4.5-VL-424B-A47B-PT/blob/a3d5a8439d67c9a69003a1f7aac0961c6f1bc20d/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Complete checkpoint index and referenced safetensors headers",
+        "url": "https://huggingface.co/baidu/ERNIE-4.5-VL-424B-A47B-PT/blob/a3d5a8439d67c9a69003a1f7aac0961c6f1bc20d/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Official PyTorch model implementation",
+        "url": "https://huggingface.co/baidu/ERNIE-4.5-VL-424B-A47B-PT/blob/a3d5a8439d67c9a69003a1f7aac0961c6f1bc20d/modeling_ernie4_5_vl.py",
+        "type": "primary"
+      },
+      {
+        "label": "Training update for routing correction biases",
+        "url": "https://github.com/PaddlePaddle/ERNIE/blob/30ad9866a4fb89bd7184dc01aff2236e1f1fd1ec/ernie/callbacks/moe_correction_bias_adjust_callback.py",
+        "type": "primary"
+      },
+      {
+        "label": "Exact checkpoint chat template",
+        "url": "https://huggingface.co/baidu/ERNIE-4.5-VL-424B-A47B-PT/blob/a3d5a8439d67c9a69003a1f7aac0961c6f1bc20d/chat_template.json",
+        "type": "primary"
+      },
+      {
+        "label": "AI Studio large-model API: model and feature support",
+        "url": "https://ai.baidu.com/ai-doc/AISTUDIO/rm344erns",
+        "type": "primary"
+      },
+      {
+        "label": "Novita exact-name hosted release",
+        "url": "https://blogs.novita.ai/ernie-4-5-on-novita-ai/",
+        "type": "primary"
+      },
       {
         "label": "Models.dev record",
         "url": "https://github.com/anomalyco/models.dev/blob/dev/models/baidu/ernie-4.5-vl-424b-a47b.toml",
@@ -19879,7 +19960,13 @@
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
+    "upstream_present": true,
+    "notes": "The post-trained model PT suffix means PyTorch. The complete checkpoint contains 423.526285184B parameters, including the vision encoder and adapter; 424B is nominal. The published 47B active count does not define exact text/vision or embedding accounting. Novita documents this exact model available June 29, 2025; Baidu announced weights June 30. Earlier family and rolling-endpoint dates do not prove checkpoint identity. Native tool calling remains unverified; Baidu excludes the mapped endpoint from its function-call support list.",
+    "field_status": {
+      "tool_call": "unverified"
+    },
+    "audited_at": "2026-10-26T17:38:24.471Z",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/126.json"
   },
   {
     "id": "google/gemma-3n-e2b-it",
@@ -20375,6 +20462,169 @@
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
     "upstream_present": true
+  },
+  {
+    "id": "bytedance-seed/seed-1-6",
+    "slug": "bytedance-seed--seed-1-6",
+    "name": "Seed 1.6",
+    "developer": "ByteDance",
+    "developer_id": "bytedance-seed",
+    "family": "seed",
+    "description": "ByteDance multimodal MoE model with adaptive reasoning, a 256K context window, and tool calling.",
+    "release_date": "2025-06-11",
+    "date_precision": "day",
+    "open_weights": false,
+    "license": "proprietary",
+    "parameters_b": 230,
+    "active_parameters_b": 23,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "context_window": 256000,
+    "modalities": {
+      "input": [
+        "text",
+        "image",
+        "video"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "reasoning": true,
+    "tool_call": true,
+    "source_url": "https://seed.bytedance.com/en/blog/introduction-to-techniques-used-in-seed1-6",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Introduction to Techniques Used in Seed1.6",
+        "url": "https://seed.bytedance.com/en/blog/introduction-to-techniques-used-in-seed1-6",
+        "type": "primary"
+      },
+      {
+        "label": "更强模型效果！豆包大模型 1.6 系列上线边缘大模型网关，最高申领1000万免费 Tokens",
+        "url": "https://developer.volcengine.com/articles/7518983626017472553",
+        "type": "primary"
+      },
+      {
+        "label": "豆包大模型1.6升级：国内首个原生支持“分档调节思考长度”的大模型",
+        "url": "https://www.volcengine.com/news/detail/23",
+        "type": "primary"
+      },
+      {
+        "label": "Model list - BytePlus ModelArk Documentation",
+        "url": "https://ai.byteplus.com/ark/region:ap-southeast-1/docs/model-list",
+        "type": "primary"
+      },
+      {
+        "label": "Model list - image and video capability rows",
+        "url": "https://docs.byteplus.com/zh-TW/docs/modelark/model-list",
+        "type": "primary"
+      },
+      {
+        "label": "BytePlus Service Specific Terms",
+        "url": "https://docs.byteplus.com/en/docs/legal/docs-service-specific-terms",
+        "type": "primary"
+      },
+      {
+        "label": "seed-1.6 - recommended model documentation",
+        "url": "https://ai.byteplus.com/ark/region:ap-southeast-1/docs/recommended-models-seed-1-6.md",
+        "type": "primary"
+      },
+      {
+        "label": "Volcano Engine Edge Cloud author profile",
+        "url": "https://developer.volcengine.com/user/26859967094408",
+        "type": "primary"
+      },
+      {
+        "label": "Models.dev record",
+        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/bytedance-seed/seed-1-6.toml",
+        "type": "catalog"
+      }
+    ],
+    "aliases": [],
+    "first_seen": "2026-10-26T08:55:12.627Z",
+    "last_seen": "2026-10-26T09:05:47.987Z",
+    "upstream_present": true,
+    "notes": "The original Doubao-Seed-1.6 launch was June 11, 2025; June 25 is the Seed technical-introduction date and October 15 an upgrade. Parameter counts describe the standard 230B/23B Seed1.6 foundation, not Flash. Capabilities are documented specifications, not a live endpoint test. Context 256000 is the decimal normalization of the provider’s nominal 256K specification.",
+    "field_status": {},
+    "audited_at": "2026-10-26T17:41:42.113970Z",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/128.json"
+  },
+  {
+    "id": "bytedance-seed/seed-1-6-flash",
+    "slug": "bytedance-seed--seed-1-6-flash",
+    "name": "Seed 1.6 Flash",
+    "developer": "ByteDance",
+    "developer_id": "bytedance-seed",
+    "family": "seed",
+    "description": "ByteDance multimodal model with optional thinking, text, image and video input, and tool calling.",
+    "release_date": "2025-06-11",
+    "date_precision": "day",
+    "open_weights": false,
+    "license": "proprietary",
+    "parameters_b": null,
+    "active_parameters_b": null,
+    "parameters_source": null,
+    "architecture": null,
+    "context_window": 256000,
+    "modalities": {
+      "input": [
+        "text",
+        "image",
+        "video"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "reasoning": true,
+    "tool_call": true,
+    "source_url": "https://developer.volcengine.com/articles/7518983626017472553",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "豆包大模型 1.6 系列上线边缘大模型网关",
+        "url": "https://developer.volcengine.com/articles/7518983626017472553",
+        "type": "primary"
+      },
+      {
+        "label": "Model releases - 2025",
+        "url": "https://ai.byteplus.com/ark/region:ap-southeast-1/docs/model-release-announcement-2025",
+        "type": "primary"
+      },
+      {
+        "label": "Model list",
+        "url": "https://ai.byteplus.com/ark/region:ap-southeast-1/docs/model-list",
+        "type": "primary"
+      },
+      {
+        "label": "Built on Seed1.6-Flash, Seed-1.6-Embedding Launched",
+        "url": "https://seed.bytedance.com/en/blog/built-on-seed1-6-flash-seed-1-6-embedding-launched",
+        "type": "primary"
+      },
+      {
+        "label": "BytePlus service-specific terms, June 16 2026 version",
+        "url": "https://docs.byteplus.com/en/docs/legal/docs-service-specific-terms?TimeBefore=1781602227",
+        "type": "primary"
+      },
+      {
+        "label": "Models.dev record",
+        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/bytedance-seed/seed-1-6-flash.toml",
+        "type": "catalog"
+      }
+    ],
+    "aliases": [],
+    "first_seen": "2026-10-26T08:55:12.627Z",
+    "last_seen": "2026-10-26T09:05:47.987Z",
+    "upstream_present": true,
+    "notes": "Seed 1.6 Flash is separate from Seed1.6: the latter's 230B total / 23B active MoE disclosure does not establish Flash's size or architecture. 256K context is the provider's nominal notation. Earliest public Flash launch was June 11, 2025; later provider dates and snapshot suffixes do not replace it.",
+    "field_status": {
+      "parameters_b": "undisclosed",
+      "active_parameters_b": "undisclosed",
+      "architecture": "undisclosed"
+    },
+    "audited_at": "2026-10-26T17:43:23.135421+00:00",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/129.json"
   },
   {
     "id": "nvidia/mistral-nemotron",
@@ -28933,8 +29183,8 @@
     "date_precision": "day",
     "open_weights": true,
     "license": "BigScience BLOOM RAIL 1.0",
-    "parameters_b": 176,
-    "active_parameters_b": null,
+    "parameters_b": 176.247271424,
+    "active_parameters_b": 176.247271424,
     "parameters_source": "primary_source",
     "architecture": "dense",
     "context_window": 2048,
@@ -28946,27 +29196,55 @@
         "text"
       ]
     },
-    "reasoning": null,
-    "tool_call": null,
+    "reasoning": false,
+    "tool_call": false,
     "source_url": "https://huggingface.co/blog/bloom",
     "source_type": "primary",
     "sources": [
       {
-        "label": "Original release source",
-        "url": "https://huggingface.co/blog/bloom",
-        "type": "announcement"
-      },
-      {
         "label": "BLOOM model card and license",
         "url": "https://huggingface.co/bigscience/bloom",
         "type": "weights"
+      },
+      {
+        "label": "BLOOM technical report",
+        "url": "https://arxiv.org/html/2211.05100v4",
+        "type": "paper"
+      },
+      {
+        "label": "BLOOM checkpoint configuration",
+        "url": "https://huggingface.co/bigscience/bloom/raw/main/config.json",
+        "type": "config"
+      },
+      {
+        "label": "BigScience clarification of active parameters",
+        "url": "https://huggingface.co/bigscience/bloom/discussions/284",
+        "type": "documentation"
+      },
+      {
+        "label": "BLOOM tensor index and shard metadata",
+        "url": "https://huggingface.co/bigscience/bloom/raw/main/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "BLOOM tokenizer configuration",
+        "url": "https://huggingface.co/bigscience/bloom/raw/main/tokenizer_config.json",
+        "type": "config"
+      },
+      {
+        "label": "Original release source",
+        "url": "https://huggingface.co/blog/bloom",
+        "type": "announcement"
       }
     ],
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T08:55:12.627Z",
     "upstream_present": false,
-    "notes": "Public launch date; the model card retains an earlier July 11 estimated release date."
+    "notes": "Public launch July 12, 2022; card’s July 11 date is an estimate. Exact total is 176,247,271,424 learned parameters with tied embeddings counted once. BigScience explicitly states all parameters are active. Context is the 2,048-token training sequence. Reasoning/tool flags describe dedicated native modes in the base release, not prompted behavior or downstream wrappers.",
+    "field_status": {},
+    "audited_at": "2026-10-26T17:40:28.264301+00:00",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/127.json"
   },
   {
     "id": "meta/opt-1.3b",

@@ -199,7 +199,7 @@ function detailRow(model, id) {
   addDetail(list, 'Active parameters', activeSizeLabel(model));
   addDetail(list, 'Architecture', { moe: 'Mixture of experts', dense: 'Dense', transformer: 'Transformer', 'hybrid-ssm-transformer-moe': 'Hybrid Mamba–Transformer (MoE)' }[model.architecture] || model.architecture || missingLabel(model, 'architecture'));
   for (const [component, size] of Object.entries(model.parameter_components_b || {})) {
-    if (component !== model.parameters_scope) addDetail(list, `${component.charAt(0).toUpperCase() + component.slice(1).replaceAll('_', ' ')} parameters`, billions(size));
+    if (component !== model.parameters_scope) addDetail(list, `${component.charAt(0).toUpperCase() + component.slice(1).replaceAll('_', ' ')} parameters`, size < 0.001 ? compactNumber(Math.round(size * 1e9)) : billions(size));
   }
   addDetail(list, 'Context window', model.context_window ? `${compactNumber(model.context_window)} tokens` : 'Unknown');
   addDetail(list, 'License', typeof model.license === 'string' ? model.license : model.license?.name || 'Not specified');

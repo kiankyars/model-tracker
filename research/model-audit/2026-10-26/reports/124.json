@@ -1,0 +1,295 @@
+{
+  "index": 124,
+  "model_id": "baidu/ernie-4.5-21b-a3b",
+  "reviewed_at": "2026-10-26T17:36:18.511564+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/baidu/ERNIE-4.5-21B-A3B-PT",
+      "title": "ERNIE-4.5-21B-A3B-PT model card",
+      "publisher": "Baidu",
+      "accessed": true,
+      "evidence": "Identifies this as the post-trained text MoE, nominally 21B total/3B activated, with 131072-token context and Apache-2.0 weights. PT means PyTorch; Base-PT is a separate pretrained variant."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/baidu/ERNIE-4.5-21B-A3B-PT/raw/87db95487941cb39592ee0abca3b9155a6d19c5c/config.json",
+      "title": "ERNIE-4.5-21B-A3B-PT configuration",
+      "publisher": "Baidu",
+      "accessed": true,
+      "evidence": "Ernie4_5_MoeForCausalLM; 28 layers, hidden size 2560, 27 MoE layers, 64 routed experts with six selected, two shared experts, tied embeddings, one MTP layer, and 131072 positions."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/baidu/ERNIE-4.5-21B-A3B-PT/blob/87db95487941cb39592ee0abca3b9155a6d19c5c/model.safetensors.index.json",
+      "title": "Complete checkpoint tensor index and nine indexed safetensors shards",
+      "publisher": "Baidu",
+      "accessed": true,
+      "evidence": "Read the index and byte-range JSON headers of all nine shards, without downloading their tensor payloads. 5504 tensors contain 21948655808 elements: BF16 weights 21944230400 plus F32 routers/biases 4425408. MTP tensors total 123217920. No quantization scales or packed weights occur. Parent independently fetched all nine headers pinned at revision 87db95487941cb39592ee0abca3b9155a6d19c5c and confirmed exact tensor inventory and count."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/api/models/baidu/ERNIE-4.5-21B-A3B-PT",
+      "title": "Checkpoint tensor metadata",
+      "publisher": "Hugging Face / Baidu checkpoint",
+      "accessed": true,
+      "evidence": "Independent safetensors metadata agrees with the header sum: total 21948655808, BF16 21944230400 and F32 4425408. Repository creation on June 28 is not evidence of public release."
+    },
+    {
+      "id": "s5",
+      "url": "https://github.com/PaddlePaddle/ERNIE/blob/30ad9866a4fb89bd7184dc01aff2236e1f1fd1ec/ernie/callbacks/moe_correction_bias_adjust_callback.py",
+      "title": "MoECorrectionBiasAdjustCallback training implementation",
+      "publisher": "Baidu / PaddlePaddle",
+      "accessed": true,
+      "evidence": "Auxiliary-loss-free balancing updates e_score_correction_bias after optimizer steps from expert-usage imbalance under no_grad. Therefore the checkpoint's 1728 correction-bias values are trained routing state, not storage metadata, and remain included in the complete count."
+    },
+    {
+      "id": "s6",
+      "url": "https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf",
+      "title": "ERNIE 4.5 Technical Report, Table 1",
+      "publisher": "Baidu ERNIE Team",
+      "accessed": true,
+      "evidence": "Downloaded and extracted the primary PDF after web rendering hit a size limit. Table 1 labels the exact ERNIE-4.5-21B-A3B as post-trained, non-multimodal, MoE and non-thinking, separately from Base and vision variants."
+    },
+    {
+      "id": "s7",
+      "url": "https://ernie.baidu.com/blog/posts/ernie4.5/",
+      "title": "Announcing the Open Source Release of the ERNIE 4.5 Model Family",
+      "publisher": "Baidu",
+      "accessed": true,
+      "evidence": "June 30, 2025 open-weight announcement includes the post-trained 21B-A3B and states Apache-2.0 availability, including PyTorch-compatible weights."
+    },
+    {
+      "id": "s8",
+      "url": "https://ai.baidu.com/ai-doc/WENXINWORKSHOP/flxu4ej5u",
+      "title": "Qianfan model release history",
+      "publisher": "Baidu",
+      "accessed": true,
+      "evidence": "The 2025 June table records ERNIE-4.5-21B-A3B as newly available through text-generation API V2 on June 29, with 21B total and 3B activated parameters. The exact row was verified in live HTML as well as indexed text; this predates the June 30 weight announcement."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/baidu/ERNIE-4.5-21B-A3B-PT/raw/87db95487941cb39592ee0abca3b9155a6d19c5c/chat_template.jinja",
+      "title": "Exact checkpoint chat template",
+      "publisher": "Baidu",
+      "accessed": true,
+      "evidence": "Template formats system, user and assistant messages only; it contains no tools argument, tool role or tool-call serialization. Absence alone does not establish universal inability to emit function calls."
+    },
+    {
+      "id": "s10",
+      "url": "https://paddlepaddle.github.io/FastDeploy/features/tool_calling/",
+      "title": "FastDeploy tool calling documentation",
+      "publisher": "Baidu / PaddlePaddle",
+      "accessed": true,
+      "evidence": "Support table identifies ERNIE-4.5-21B-A3B-Thinking, but a generic example uses a local path omitting Thinking while showing reasoning output. This conflicting naming is insufficient to verify tools for the original PT checkpoint."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/baidu/ERNIE-4.5-21B-A3B-Thinking/blob/main/README.md",
+      "title": "Distinct ERNIE-4.5-21B-A3B-Thinking model card",
+      "publisher": "Baidu",
+      "accessed": true,
+      "evidence": "Later Thinking variant explicitly advertises tool use and function calling, with reasoning/tool parser flags. Those capabilities are not transferred to the original non-thinking variant."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "ERNIE 4.5 21B A3B",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Display-name normalization of ERNIE-4.5-21B-A3B; PT denotes the PyTorch format, not a pretraining stage."
+    },
+    "developer": {
+      "value": "Baidu",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7"
+      ],
+      "note": "Baidu publishes the model and its technical report."
+    },
+    "family": {
+      "value": "ernie",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7"
+      ],
+      "note": "Member of the ERNIE 4.5 family."
+    },
+    "release_date": {
+      "value": "2025-06-29",
+      "status": "verified",
+      "source_ids": [
+        "s8",
+        "s7"
+      ],
+      "note": "Earliest explicit exact-model public availability located: Baidu Qianfan API launch June 29. The open-weight announcement is June 30. June 28 repository creation does not prove public availability."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s7"
+      ],
+      "note": "Baidu distributes all nine checkpoint shards publicly."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7"
+      ],
+      "note": "Exact model card and release announcement declare Apache License 2.0."
+    },
+    "parameters_b": {
+      "value": 21.948655808,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "note": "Complete published checkpoint count: 21948655808 learned tensor elements, including 123217920 MTP parameters and 1728 training-adjusted router biases. All nine shard headers inspected; no quantization/storage buffers found. Baidu's 21B is nominal, not the full-precision tensor count."
+    },
+    "active_parameters_b": {
+      "value": 3,
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Nominal developer-reported activated parameters per token. This is not an exact computed active count and does not imply every MTP weight participates in ordinary decoding."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s6"
+      ],
+      "note": "Transformer text decoder with attention and sparse MoE feed-forward blocks; exact config selects six of 64 routed experts plus two shared experts in 27 layers."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Exact model card context and max_position_embeddings agree on 131072 tokens."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Text input/output. Joint multimodal family pretraining does not make this extracted text checkpoint multimodal."
+    },
+    "reasoning": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s6"
+      ],
+      "note": "Table 1 explicitly marks this exact post-trained model non-thinking. This flag describes a dedicated thinking mode, not ordinary reasoning ability."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s1",
+        "s9",
+        "s10",
+        "s11"
+      ],
+      "note": "Exact original card lacks a tool claim and its template lacks tool formatting. FastDeploy's support table names Thinking but its example omits that suffix. Explicit function-call evidence applies to Thinking. Clear baseline true rather than transfer sibling capability or infer false from omission."
+    },
+    "description": {
+      "value": "Open-weight, post-trained ERNIE 4.5 text MoE with about 21.95B checkpoint parameters and a nominal 3B active per token.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s6"
+      ],
+      "note": "States the exact post-trained text variant and distinguishes complete checkpoint count from nominal active count."
+    }
+  },
+  "patch": {
+    "release_date": "2025-06-29",
+    "date_precision": "day",
+    "parameters_b": 21.948655808,
+    "parameters_source": "primary_source",
+    "tool_call": null,
+    "description": "Open-weight, post-trained ERNIE 4.5 text MoE with about 21.95B checkpoint parameters and a nominal 3B active per token.",
+    "notes": "PT means PyTorch; this is the post-trained non-thinking model, distinct from Base and Thinking. Complete checkpoint: 21.948655808B parameters including 0.123217920B MTP and 1728 training-adjusted routing biases; advertised 21B total / 3B active are nominal. Qianfan documents hosted release June 29, 2025; weights were announced June 30. Tool calling for this exact variant remains unverified because first-party examples conflict with the Thinking-only support table.",
+    "sources": [
+      {
+        "label": "Baidu exact model card",
+        "url": "https://huggingface.co/baidu/ERNIE-4.5-21B-A3B-PT",
+        "type": "primary"
+      },
+      {
+        "label": "Complete checkpoint tensor index",
+        "url": "https://huggingface.co/baidu/ERNIE-4.5-21B-A3B-PT/blob/87db95487941cb39592ee0abca3b9155a6d19c5c/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Router bias training implementation",
+        "url": "https://github.com/PaddlePaddle/ERNIE/blob/30ad9866a4fb89bd7184dc01aff2236e1f1fd1ec/ernie/callbacks/moe_correction_bias_adjust_callback.py",
+        "type": "primary"
+      },
+      {
+        "label": "ERNIE 4.5 technical report",
+        "url": "https://ernie.baidu.com/blog/publication/ERNIE_Technical_Report.pdf",
+        "type": "paper"
+      },
+      {
+        "label": "Baidu Qianfan release history",
+        "url": "https://ai.baidu.com/ai-doc/WENXINWORKSHOP/flxu4ej5u",
+        "type": "primary"
+      },
+      {
+        "label": "Baidu open-weight announcement",
+        "url": "https://ernie.baidu.com/blog/posts/ernie4.5/",
+        "type": "primary"
+      },
+      {
+        "label": "Exact checkpoint chat template",
+        "url": "https://huggingface.co/baidu/ERNIE-4.5-21B-A3B-PT/raw/87db95487941cb39592ee0abca3b9155a6d19c5c/chat_template.jinja",
+        "type": "primary"
+      },
+      {
+        "label": "FastDeploy tool-calling documentation",
+        "url": "https://paddlepaddle.github.io/FastDeploy/features/tool_calling/",
+        "type": "primary"
+      }
+    ],
+    "source_url": "https://ai.baidu.com/ai-doc/WENXINWORKSHOP/flxu4ej5u",
+    "source_type": "primary"
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "main_model": 21.825437888,
+      "multi_token_prediction": 0.12321792
+    }
+  },
+  "summary": "Assessed all 14 fields individually. Corrects total parameters to the complete 21.948655808B checkpoint, provenance to primary_source, and earliest public release to June 29, 2025 (hosted API; June 30 weights). Confirms non-thinking text MoE, nominal 3B active, 131072 context and Apache-2.0. Clears tool_call=true to null because exact-variant support remains unresolved. PT is PyTorch, not pretrained."
+}

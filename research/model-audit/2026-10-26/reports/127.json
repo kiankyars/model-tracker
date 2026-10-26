@@ -1,0 +1,265 @@
+{
+  "index": 127,
+  "model_id": "bigscience/bloom",
+  "reviewed_at": "2026-10-26T17:40:28.264301+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/bigscience/bloom",
+      "title": "BLOOM model card",
+      "publisher": "BigScience",
+      "accessed": true,
+      "evidence": "Names BigScience, the base autoregressive text model, RAIL v1.0, 176,247,271,424 total parameters, 3,596,615,680 embedding parameters, 70 decoder layers and a 2,048-token training sequence. Lists July 11 as an estimate."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/blog/bloom",
+      "title": "Introducing The World’s Largest Open Multilingual Language Model: BLOOM",
+      "publisher": "Hugging Face / BigScience",
+      "accessed": true,
+      "evidence": "July 12, 2022 announcement explicitly releases downloadable BLOOM; 176B is its nominal size. Describes instruction tuning as future work."
+    },
+    {
+      "id": "s3",
+      "url": "https://arxiv.org/html/2211.05100v4",
+      "title": "BLOOM: A 176B-Parameter Open-Access Multilingual Language Model",
+      "publisher": "BigScience Workshop",
+      "accessed": true,
+      "evidence": "Section 3.2 excludes MoE and describes causal decoder Transformer pretraining. Table 3 gives BLOOM 176,247M, 70 layers, hidden size 14,336, 112 heads, sequence length 2,048 and tied embeddings; BLOOMZ is separately finetuned."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/bigscience/bloom/raw/main/config.json",
+      "title": "BLOOM checkpoint configuration",
+      "publisher": "BigScience",
+      "accessed": true,
+      "evidence": "BloomForCausalLM; model_type bloom; hidden width 14,336; 70 layers; 112 heads; checkpoint vocabulary 250,880."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/bigscience/bloom/discussions/284",
+      "title": "BLOOM discussion #284: active parameters",
+      "publisher": "BigScience Workshop member christopher",
+      "accessed": true,
+      "evidence": "An August 18, 2025 reply marked BigScience Workshop org explicitly identifies this model as dense and says all its parameters are always active."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/bigscience/bloom/raw/main/model.safetensors.index.json",
+      "title": "BLOOM safetensors index and indexed shard headers",
+      "publisher": "BigScience",
+      "accessed": true,
+      "evidence": "Fetched the index and HTTP byte-range headers of all 72 indexed shards. All 845 tensors are BF16 learned weights/biases; shape products sum to 176,247,271,424. Index/header names match exactly. No quantization scales, buffers or separate lm_head tensor are present; no weight payloads downloaded."
+    },
+    {
+      "id": "s7",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.21.0/src/transformers/models/bloom/modeling_bloom.py",
+      "title": "BLOOM model implementation at checkpoint-declared Transformers version",
+      "publisher": "Hugging Face / BigScience",
+      "accessed": true,
+      "evidence": "Defines dense attention/MLP projections, biased LayerNorms, one token embedding and final LayerNorm. ALiBI is computed rather than learned. Supports the learned-tensor formula and plain causal text-generation interface."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/bigscience/bloom/raw/main/tokenizer_config.json",
+      "title": "BLOOM tokenizer configuration",
+      "publisher": "BigScience",
+      "accessed": true,
+      "evidence": "Fetched directly: BloomTokenizerFast with ordinary unknown, BOS, EOS and pad tokens and left padding; no chat template, thinking-mode switch or native tool-call schema."
+    },
+    {
+      "id": "s9",
+      "url": "https://bigscience-license.static.hf.space/index.html",
+      "title": "BigScience RAIL License v1.0",
+      "publisher": "BigScience",
+      "accessed": true,
+      "evidence": "The model card’s license link resolves here. The May 19, 2022 license expressly governs BLOOM models and allows use and distribution subject to use-based restrictions; its date is not the model release date."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "BLOOM 176B",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "BLOOM is the official name; 176B distinguishes the nominal-size variant."
+    },
+    "developer": {
+      "value": "BigScience",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Explicit developer attribution."
+    },
+    "family": {
+      "value": "bloom",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4"
+      ],
+      "note": "Official model_type and named model family."
+    },
+    "release_date": {
+      "value": "2022-07-12",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s1"
+      ],
+      "note": "Explicit public release announcement; July 11 on the card is only an estimate."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s6"
+      ],
+      "note": "Developer distributes the complete downloadable checkpoint."
+    },
+    "license": {
+      "value": "BigScience BLOOM RAIL 1.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s9"
+      ],
+      "note": "Supported display name for the card’s bigscience-bloom-rail-1.0 identifier and linked RAIL v1.0 text."
+    },
+    "parameters_b": {
+      "value": 176.247271424,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4",
+        "s6",
+        "s7"
+      ],
+      "note": "Exact complete learned-parameter count: 176,247,271,424 / 1e9. Independently sums 845 BF16 tensor shapes. Tied input/output embedding counted once; no learned positional embeddings or buffers. Formula Vh+70(12h²+13h)+4h, V=250880, h=14336. Uses checkpoint vocabulary rather than Table 3’s 250680. No byte conversion."
+    },
+    "active_parameters_b": {
+      "value": 176.247271424,
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s1",
+        "s6"
+      ],
+      "note": "The developer’s exact-model 2025 clarification explicitly says all parameters are active; applying that stated convention to the verified total gives 176.247271424B. Not inferred merely from the dense label; no separate numeric active table is required."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s5",
+        "s7"
+      ],
+      "note": "Causal decoder-only Transformer with dense attention/MLP blocks; paper excludes MoE and developer explicitly confirms dense architecture."
+    },
+    "context_window": {
+      "value": 2048,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Documented training sequence length. This does not assert a hard mathematical limit for ALiBI extrapolation."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s7"
+      ],
+      "note": "Base causal language model consumes text tokens and generates text."
+    },
+    "reasoning": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s8"
+      ],
+      "note": "Scope is a dedicated thinking/reasoning mode in the released base checkpoint: none is supplied. This is causal pretraining, distinct from BLOOMZ; does not mean generated text cannot perform reasoning."
+    },
+    "tool_call": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7",
+        "s8"
+      ],
+      "note": "Scope is native tool/function-call support in the base release: plain text generation without a tool protocol or tool chat template. Downstream prompting, finetuning and wrappers are outside scope."
+    },
+    "description": {
+      "value": "Multilingual pretrained model from the BigScience collaboration.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Accurate description of the base model and its multilingual pretraining."
+    }
+  },
+  "patch": {
+    "parameters_b": 176.247271424,
+    "active_parameters_b": 176.247271424,
+    "parameters_source": "primary_source",
+    "reasoning": false,
+    "tool_call": false,
+    "notes": "Public launch July 12, 2022; card’s July 11 date is an estimate. Exact total is 176,247,271,424 learned parameters with tied embeddings counted once. BigScience explicitly states all parameters are active. Context is the 2,048-token training sequence. Reasoning/tool flags describe dedicated native modes in the base release, not prompted behavior or downstream wrappers.",
+    "sources": [
+      {
+        "label": "BLOOM exact parameter count and model card",
+        "url": "https://huggingface.co/bigscience/bloom",
+        "type": "weights"
+      },
+      {
+        "label": "BLOOM technical report",
+        "url": "https://arxiv.org/html/2211.05100v4",
+        "type": "paper"
+      },
+      {
+        "label": "BLOOM checkpoint configuration",
+        "url": "https://huggingface.co/bigscience/bloom/raw/main/config.json",
+        "type": "config"
+      },
+      {
+        "label": "BigScience clarification of active parameters",
+        "url": "https://huggingface.co/bigscience/bloom/discussions/284",
+        "type": "documentation"
+      },
+      {
+        "label": "BLOOM tensor index and shard metadata",
+        "url": "https://huggingface.co/bigscience/bloom/raw/main/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "BLOOM tokenizer configuration",
+        "url": "https://huggingface.co/bigscience/bloom/raw/main/tokenizer_config.json",
+        "type": "config"
+      }
+    ]
+  },
+  "summary": "Replaces nominal 176B with the card’s exact 176.247271424B, independently reproduced from all 845 learned tensors. Sets active parameters to the same value using an explicit BigScience statement. Confirms dense architecture and release/specifications; sets dedicated native thinking/tool support false with base-model scope."
+}
