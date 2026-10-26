@@ -4880,15 +4880,15 @@
     "developer": "Meta",
     "developer_id": "meta",
     "family": "muse",
-    "description": "Muse Glimmer is a 30-billion-parameter open-weight multimodal model from Meta Superintelligence Labs, distilled from Muse Spark for always-on local agents, tool use, coding, and image understanding.",
+    "description": "Muse Glimmer 30B is a dense multimodal model from Meta Superintelligence Labs, distilled from Muse Spark for local agents, tool use, coding, and image understanding, with weights released under Apache 2.0.",
     "release_date": "2026-08-10",
     "date_precision": "day",
     "open_weights": true,
     "license": "Apache 2.0",
-    "parameters_b": 30,
+    "parameters_b": 29.776626688,
     "active_parameters_b": null,
-    "parameters_source": "model_name",
-    "architecture": null,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
     "context_window": 131072,
     "modalities": {
       "input": [
@@ -4901,14 +4901,9 @@
     },
     "reasoning": true,
     "tool_call": true,
-    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/meta/muse-glimmer-30b.toml",
-    "source_type": "catalog",
+    "source_url": "https://research.meta.ai/blog/introducing-muse-glimmer-open-agentic-model",
+    "source_type": "primary",
     "sources": [
-      {
-        "label": "Models.dev record",
-        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/meta/muse-glimmer-30b.toml",
-        "type": "catalog"
-      },
       {
         "label": "Announcement",
         "url": "https://research.meta.ai/blog/introducing-muse-glimmer-open-agentic-model",
@@ -4920,6 +4915,36 @@
         "type": "weights"
       },
       {
+        "label": "Technical report, October 23 revision",
+        "url": "https://arxiv.org/html/2610.24628v3",
+        "type": "primary"
+      },
+      {
+        "label": "Checkpoint parameter metadata",
+        "url": "https://huggingface.co/meta-models/Muse-Glimmer-30B/resolve/cec94fcfd6512f2cfe708138c32533b346ea4f69/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint configuration",
+        "url": "https://huggingface.co/meta-models/Muse-Glimmer-30B/resolve/cec94fcfd6512f2cfe708138c32533b346ea4f69/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Model license",
+        "url": "https://huggingface.co/meta-models/Muse-Glimmer-30B/resolve/cec94fcfd6512f2cfe708138c32533b346ea4f69/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "Current developer documentation",
+        "url": "https://dev.meta.ai/docs/muse-glimmer",
+        "type": "primary"
+      },
+      {
+        "label": "Models.dev record",
+        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/meta/muse-glimmer-30b.toml",
+        "type": "catalog"
+      },
+      {
         "label": "Developer docs",
         "url": "https://developer.meta.com/ai/models/muse-glimmer/",
         "type": "docs"
@@ -4928,7 +4953,19 @@
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
+    "upstream_present": true,
+    "notes": "The full BF16 checkpoint contains 29,776,626,688 parameters, including the perception encoder and vision adapter/projection; the separate DFlash assistant is excluded. Meta's model card and October 23 technical report instead give approximately 29.6B; the saved checkpoint count differs. 30B is the nominal model name. Active parameters are not separately specified and are not inferred from the dense architecture. The configured default context is 131,072 tokens; Meta also advertises longer contexts without an exact upper limit. Meta lists text/image inputs; the report also describes video ingestion as a sequence of frames, without explicit video optimization.",
+    "parameter_components_b": {
+      "language_model": 27.854780928,
+      "perception_encoder": 1.852639744,
+      "vision_adapter": 0.04194304,
+      "vision_projection": 0.027262976
+    },
+    "field_status": {
+      "active_parameters_b": "undisclosed"
+    },
+    "audited_at": "2026-10-26T21:48:18.464Z",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/281.json"
   },
   {
     "id": "motif-technologies/motif-3",
