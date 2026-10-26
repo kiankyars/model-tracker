@@ -1,0 +1,324 @@
+{
+  "index": 310,
+  "model_id": "minimax/MiniMax-Text-01",
+  "reviewed_at": "2026-10-26T22:42:24.204980Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://www.minimax.cn/news/minimax-01-%E7%B3%BB%E5%88%97",
+      "title": "MiniMax-01 release announcement",
+      "publisher": "MiniMax",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "January 15, 2025 announcement explicitly releases MiniMax-Text-01 and the separate MiniMax-VL-01, including downloadable complete weights. Names the text model separately from the visual model."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-Text-01/blob/a7351bf2bee0e1253919d349f1ad304e6dac13e9/README.md",
+      "title": "MiniMax-Text-01 official model card",
+      "publisher": "MiniMax",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Exact model card discloses nominal 456B total and 45.9B activated per token, 80 layers and top-2 of 32 experts. It describes 1M training context and up to 4M inference context, and documents native function calling."
+    },
+    {
+      "id": "s3",
+      "url": "https://arxiv.org/html/2501.08313v1",
+      "title": "MiniMax-01: Scaling Foundation Models with Lightning Attention",
+      "publisher": "MiniMax",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Sections 2 and 2.4 assign 456B total and 45.9B active to Text-01. Hybrid architecture combines seven linear-attention blocks per softmax block. Section 4.2 distinguishes 1M training from 4M extrapolated retrieval evaluation. Section 6 separately adds a visual encoder for VL-01."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-Text-01/blob/a7351bf2bee0e1253919d349f1ad304e6dac13e9/config.json",
+      "title": "MiniMax-Text-01 pinned configuration",
+      "publisher": "MiniMax",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "80 layers; hidden size 6144, expert FFN 9216, 32 experts/top-2; attention layout 70 linear and 10 softmax layers; untied embeddings and vocab 200064. Raw max_position_embeddings=10240000 is larger than the report-validated context."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-Text-01/blob/a7351bf2bee0e1253919d349f1ad304e6dac13e9/LICENSE-MODEL",
+      "title": "MiniMax Model License",
+      "publisher": "MiniMax",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Custom MiniMax Model License dated January 15, 2025 grants model use, modification and redistribution subject to notice, redistribution and prohibited-use conditions. It is distinct from the repository code MIT license."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-Text-01/blob/a7351bf2bee0e1253919d349f1ad304e6dac13e9/MiniMax-Text-01_Function_Call_Guide.md",
+      "title": "MiniMax-Text-01 Function Call Guide",
+      "publisher": "MiniMax",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Exact model API and local-generation examples define tools schemas, function-setting input serialization and structured function-call output; confirms native tool calling."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-Text-01/blob/a7351bf2bee0e1253919d349f1ad304e6dac13e9/tokenizer_config.json",
+      "title": "MiniMax-Text-01 chat template",
+      "publisher": "MiniMax",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Released template handles text messages and function definitions/results. It contains no dedicated thinking mode or separate reasoning serialization. Its model_max_length=40960000 is a tokenizer setting, not demonstrated model context."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/api/models/MiniMaxAI/MiniMax-Text-01",
+      "title": "Official checkpoint repository metadata",
+      "publisher": "MiniMax / Hugging Face",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Public and ungated at revision a7351bf2bee0e1253919d349f1ad304e6dac13e9. HF metadata reports 456089655296 stored F32/BF16 elements, not used as an exact learned count. A pinned weight-shard bytes 0-7 request returned HTTP 206 and exactly 8 bytes."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-Text-01/blob/a7351bf2bee0e1253919d349f1ad304e6dac13e9/model.safetensors.index.json",
+      "title": "MiniMax-Text-01 checkpoint index",
+      "publisher": "MiniMax",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Public index contains 8243 tensor keys across 413 shards and no MTP/nextn-named entries. Only metadata/index and an 8-byte access probe were read; no complete tensor census or whole weights download was performed."
+    },
+    {
+      "id": "s10",
+      "url": "https://arxiv.org/html/2506.13585v1",
+      "title": "MiniMax-M1 technical report",
+      "publisher": "MiniMax",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Later first-party report explicitly attributes 456B total and 45.9B active to the preceding MiniMax-Text-01. It describes continued pretraining and cold-start SFT to develop M1 reasoning; M1-specific thinking budgets cannot be assigned to Text-01."
+    },
+    {
+      "id": "s11",
+      "url": "https://platform.minimax.io/docs/guides/text-generation",
+      "title": "Current MiniMax Model Invocation documentation",
+      "publisher": "MiniMax",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Current documentation does not list Text-01. It cannot establish a present native API context limit or current endpoint operation."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "MiniMax-Text-01",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Developer spelling, with the redundant provider suffix removed."
+    },
+    "developer": {
+      "value": "MiniMax",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Developer-owned announcement and model agreement identify MiniMax."
+    },
+    "family": {
+      "value": "minimax",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Retains the catalog family key; the model belongs to the MiniMax-01 series."
+    },
+    "release_date": {
+      "value": "2025-01-15",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Explicit launch and model-license release date. Repository creation on January12 and paper submission on January14 do not by themselves prove public model availability on those dates."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8",
+        "s9"
+      ],
+      "note": "Complete weights are publicly indexed and ungated; a bounded shard probe independently confirmed access. Open weights does not imply a permissive software license."
+    },
+    "license": {
+      "value": "MiniMax Model License",
+      "status": "verified",
+      "source_ids": [
+        "s5"
+      ],
+      "note": "Named custom weights agreement; MIT applies to code separately."
+    },
+    "parameters_b": {
+      "value": 456,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s10"
+      ],
+      "note": "Developer nominal total in billions, corroborated by a later exact-model reference. This is not an exact checkpoint census; the HF aggregate 456.089655296B is not promoted to a learned-parameter total."
+    },
+    "active_parameters_b": {
+      "value": 45.9,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s10"
+      ],
+      "note": "Developer nominal activated parameters per token. The published scalar does not separately specify embedding/output accounting; do not replace it with a tensor-derived convention."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4"
+      ],
+      "note": "Hybrid linear/softmax-attention MoE: 80 layers, seven Lightning Attention blocks per softmax-attention block; each layer has 32 experts with top-2 routing. Lightning Attention is not a Mamba state-space block."
+    },
+    "context_window": {
+      "value": 4000000,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s7",
+        "s11"
+      ],
+      "note": "Developer-advertised inference extrapolation up to 4M tokens, demonstrated on retrieval after 1M training. This is not a verified hosted API limit or a claim of equal performance on all 4M tasks. Raw config 10.24M and tokenizer 40.96M settings are not accepted as capability evidence."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4",
+        "s7"
+      ],
+      "note": "Text-01 is text-only; the separately named VL-01 adds a vision encoder. External MCP media tools do not give Text-01 native visual/audio modalities."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s7",
+        "s10",
+        "s11"
+      ],
+      "note": "Dedicated thinking-mode status could not be established from exact-model primary documentation. Ordinary prompted CoT benchmark results do not prove a native reasoning mode; absence of thinking serialization alone does not prove incapability. Clear the unsupported categorical false."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s6",
+        "s7"
+      ],
+      "note": "Exact developer guide and template define native structured function calls and function responses."
+    },
+    "description": {
+      "value": "Text-only MoE model combining Lightning Attention and softmax attention, with native function calling and long-context inference.",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s6"
+      ],
+      "note": "Replaces a generic task claim with the exact documented architecture and capabilities."
+    }
+  },
+  "patch": {
+    "name": "MiniMax-Text-01",
+    "open_weights": true,
+    "license": "MiniMax Model License",
+    "parameters_b": 456,
+    "active_parameters_b": 45.9,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "context_window": 4000000,
+    "reasoning": null,
+    "description": "Text-only MoE model combining Lightning Attention and softmax attention, with native function calling and long-context inference.",
+    "source_url": "https://www.minimax.cn/news/minimax-01-%E7%B3%BB%E5%88%97",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "MiniMax-01 release announcement",
+        "url": "https://www.minimax.cn/news/minimax-01-%E7%B3%BB%E5%88%97",
+        "type": "primary"
+      },
+      {
+        "label": "MiniMax-Text-01 official model card",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-Text-01/blob/a7351bf2bee0e1253919d349f1ad304e6dac13e9/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "MiniMax-01: Scaling Foundation Models with Lightning Attention",
+        "url": "https://arxiv.org/html/2501.08313v1",
+        "type": "primary"
+      },
+      {
+        "label": "MiniMax-Text-01 pinned configuration",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-Text-01/blob/a7351bf2bee0e1253919d349f1ad304e6dac13e9/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax Model License",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-Text-01/blob/a7351bf2bee0e1253919d349f1ad304e6dac13e9/LICENSE-MODEL",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax-Text-01 Function Call Guide",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-Text-01/blob/a7351bf2bee0e1253919d349f1ad304e6dac13e9/MiniMax-Text-01_Function_Call_Guide.md",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax-Text-01 chat template",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-Text-01/blob/a7351bf2bee0e1253919d349f1ad304e6dac13e9/tokenizer_config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Official checkpoint repository metadata",
+        "url": "https://huggingface.co/api/models/MiniMaxAI/MiniMax-Text-01",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax-Text-01 checkpoint index",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-Text-01/blob/a7351bf2bee0e1253919d349f1ad304e6dac13e9/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax-M1 technical report",
+        "url": "https://arxiv.org/html/2506.13585v1",
+        "type": "primary"
+      },
+      {
+        "label": "Current MiniMax Model Invocation documentation",
+        "url": "https://platform.minimax.io/docs/guides/text-generation",
+        "type": "primary"
+      }
+    ],
+    "notes": "456B total and 45.9B active are developer nominal figures, not an exact tensor census. Text-01 combines Lightning Attention with softmax attention and top-2-of-32 expert routing. Reported 4M inference is extrapolation after 1M training, demonstrated on retrieval; the current native API limit is not verified. Configuration/tokenizer maxima are higher but do not establish supported context. Dedicated thinking-mode status is unverified. Text-01 weights use the custom MiniMax Model License; the visual model is the separate VL-01."
+  },
+  "summary": "Corrects closed-weights status, adds the custom license, nominal 456B/45.9B counts and hybrid-attention MoE architecture, and verifies native function calling and January 15 release. Records 4M inference extrapolation separately from 1M training and unverified current API limits. Clears an unsupported dedicated-reasoning false; ordinary CoT ability is not treated as a native thinking mode."
+}
