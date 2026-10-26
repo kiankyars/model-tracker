@@ -1,0 +1,237 @@
+{
+  "index": 267,
+  "model_id": "meta/llama-3-8b-instruct",
+  "reviewed_at": "2026-10-26T21:31:00.424Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct",
+      "title": "Meta-Llama-3-8B-Instruct model card",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "The exact checkpoint card identifies Meta, the original Llama 3 family, nominal 8B size, April 18, 2024 release, text input/output, GQA, and SFT/RLHF instruction tuning. The model card is public; downloads require license acceptance."
+    },
+    {
+      "id": "s2",
+      "url": "https://ai.meta.com/blog/meta-llama-3/",
+      "title": "Introducing Meta Llama 3",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "April 18, 2024 launch announcement releases 8B and 70B pretrained and instruction-tuned models; describes a decoder-only Transformer, GQA at both sizes and training sequences of 8,192 tokens."
+    },
+    {
+      "id": "s3",
+      "url": "https://github.com/meta-llama/llama3/blob/main/llama/model.py",
+      "title": "Original Llama 3 reference model implementation",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "TransformerBlock calls one shared FeedForward module per layer. FeedForward computes the dense SwiGLU projections directly without expert routing, establishing dense architecture."
+    },
+    {
+      "id": "s4",
+      "url": "https://github.com/meta-llama/llama3/blob/main/LICENSE",
+      "title": "Meta Llama 3 Community License Agreement",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Names the original Llama 3 community license and April 18, 2024 version release. Covers trained weights, permits use and redistribution subject to custom terms, and incorporates an acceptable-use policy."
+    },
+    {
+      "id": "s5",
+      "url": "https://github.com/meta-llama/llama3/blob/main/README.md",
+      "title": "Original Llama 3 release and inference README",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Includes original 8B Instruct download and inference instructions, confirms weight distribution subject to license acceptance, and explicitly says all original models support sequences up to 8192 tokens. Chat formatting lists system, user and assistant roles."
+    },
+    {
+      "id": "s6",
+      "url": "https://arxiv.org/html/2407.21783v3#S1.T1",
+      "title": "The Llama 3 Herd of Models, Table 1",
+      "publisher": "Meta Llama Team",
+      "accessed": true,
+      "evidence": "The retrospective table explicitly distinguishes original Llama 3 8B Instruct (April 2024; Tool use absent) from Llama 3.1 8B Instruct (July 2024; Tool use present). The caption states that the paper’s performance results are for Llama 3.1, so later capabilities are not transferred."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct/blob/main/config.json",
+      "title": "Exact checkpoint configuration (gated)",
+      "publisher": "Meta",
+      "accessed": false,
+      "evidence": "The configuration request returned HTTP 401 Unauthorized. No gate bypass, weight download, or precise tensor-derived parameter claim was attempted."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Llama 3 8B Instruct",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "The display name matches the exact original checkpoint and retrospective table row."
+    },
+    "developer": {
+      "value": "Meta",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "The exact card names Meta as model developer."
+    },
+    "family": {
+      "value": "llama-3",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Original April 2024 Llama 3 release; distinct from Llama 3.1."
+    },
+    "release_date": {
+      "value": "2024-04-18",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4"
+      ],
+      "note": "The exact card, dated release announcement and license explicitly agree on April 18, 2024."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Original trained weights are distributed under Meta’s custom license, with gated access requiring acceptance."
+    },
+    "license": {
+      "value": "Llama 3 Community License",
+      "status": "verified",
+      "source_ids": [
+        "s4"
+      ],
+      "note": "Supported short name for the Meta Llama 3 Community License Agreement; a custom commercial license."
+    },
+    "parameters_b": {
+      "value": 8,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Meta’s nominal total model size in billions. This is not a claim of exactly 8,000,000,000 learned parameters; gated configuration access did not establish a complete checkpoint count."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s6"
+      ],
+      "note": "The original card and later comparison table do not separately define an active-per-token count. Dense execution is confirmed, but total parameters are not copied into this field."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "Original launch documentation establishes decoder-only Transformer with GQA; original reference code directly executes dense feed-forward layers without an expert router."
+    },
+    "context_window": {
+      "value": 8192,
+      "status": "verified",
+      "source_ids": [
+        "s5"
+      ],
+      "note": "The original inference README explicitly gives a maximum of 8192 tokens; later Llama 3.1 context extensions do not apply."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "The card specifies text-only input and text/code output; code is represented as text."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5"
+      ],
+      "note": "General reasoning improvements are discussed, but no dedicated reasoning/thinking mode is documented for this original checkpoint; benchmarks do not establish that capability flag."
+    },
+    "tool_call": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s6"
+      ],
+      "note": "Meta’s Table 1 explicitly marks Tool use absent for the original Llama 3 8B Instruct row. This concerns native model support, not possible third-party prompting wrappers."
+    },
+    "description": {
+      "value": "Meta’s original Llama 3 8B instruction-tuned text model, aligned for dialogue using supervised fine-tuning and RLHF, with a dense decoder-only Transformer, grouped-query attention and an 8,192-token context.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s5"
+      ],
+      "note": "Expanded the baseline description with source-supported tuning, architecture and context details for the original checkpoint."
+    }
+  },
+  "patch": {
+    "parameters_source": "primary_source",
+    "tool_call": false,
+    "description": "Meta’s original Llama 3 8B instruction-tuned text model, aligned for dialogue using supervised fine-tuning and RLHF, with a dense decoder-only Transformer, grouped-query attention and an 8,192-token context.",
+    "notes": "8B is Meta’s nominal total parameter count. Active parameters are not separately reported. The original April 2024 model has an 8192-token context and is marked without native tool use in Meta’s retrospective table; later Llama 3.1 capabilities do not apply.",
+    "sources": [
+      {
+        "label": "Original release announcement",
+        "url": "https://ai.meta.com/blog/meta-llama-3/",
+        "type": "primary"
+      },
+      {
+        "label": "Exact official checkpoint card",
+        "url": "https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct",
+        "type": "weights"
+      },
+      {
+        "label": "Original reference architecture",
+        "url": "https://github.com/meta-llama/llama3/blob/main/llama/model.py",
+        "type": "primary"
+      },
+      {
+        "label": "Original inference and context documentation",
+        "url": "https://github.com/meta-llama/llama3/blob/main/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Original community license",
+        "url": "https://github.com/meta-llama/llama3/blob/main/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "Meta retrospective model capabilities, Table 1",
+        "url": "https://arxiv.org/html/2407.21783v3#S1.T1",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "Confirmed original Llama 3 8B Instruct identity, Meta developer, April 18 release, nominal 8B count, dense GQA architecture, 8192-token context, text modalities, custom-license weight release and SFT/RLHF tuning. Corrected native tool_call from unknown to false using the exact original-model row in Meta’s later Table 1. Active parameters and a dedicated reasoning mode remain undisclosed. Exact config access returned 401; no full weights or fabricated learned-parameter precision were used."
+}
