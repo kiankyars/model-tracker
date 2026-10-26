@@ -1,0 +1,245 @@
+{
+  "index": 166,
+  "model_id": "deepseek/deepseek-chat",
+  "reviewed_at": "2026-10-26T18:55:48.252123+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://api-docs.deepseek.com/updates/",
+      "title": "DeepSeek API Change Log",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "The alias already received an upgrade on 2024-05-17; 2025-12-01 is its V3.2 upgrade. The April 2026 entry maps it to V4-Flash non-thinking. Later V4.1 compatibility mappings name different aliases."
+    },
+    {
+      "id": "s2",
+      "url": "https://api-docs.deepseek.com/news/news260424/",
+      "title": "DeepSeek V4 Preview Release",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "April 24, 2026 announcement explicitly maps deepseek-chat to V4-Flash non-thinking, gives Flash 284B total and 13B active parameters, and makes 1M context standard. Announces legacy alias inaccessibility after July 24, 2026 at 15:59 UTC."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash",
+      "title": "DeepSeek-V4-Flash model card",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Exact preview Flash card identifies released text-generation weights, 284B total/13B activated, 1M context, and MIT licensing of repository and weights. Its non-thinking evaluation includes tool-agent benchmarks. The separate Hugging Face storage-size badge says 291B, not the developer nominal model count."
+    },
+    {
+      "id": "s4",
+      "url": "https://arxiv.org/html/2606.19348v1",
+      "title": "DeepSeek-V4: Towards Highly Efficient Million-Token Context Intelligence",
+      "publisher": "DeepSeek-AI",
+      "accessed": true,
+      "evidence": "Sections 2 and 4.2.1 specify Transformer architecture with MoE feed-forward layers and hybrid compressed attention. Exact Flash configuration has 43 Transformer layers, 284B total parameters and 13B activated per token."
+    },
+    {
+      "id": "s5",
+      "url": "https://www.deepseek.com/en/news/api-upgrade/",
+      "title": "DeepSeek API Upgrade: Chat Prefix Completion, FIM, Function Calling and JSON Output",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "July 25, 2024 announcement explicitly includes deepseek-chat in the models receiving function calling and text-completion features."
+    },
+    {
+      "id": "s6",
+      "url": "https://api-docs.deepseek.com/quick_start/pricing/",
+      "title": "DeepSeek Models & Pricing",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Current page lists deepseek-flash and deepseek-v4-pro; compatibility footnote names deepseek-v4-flash and deepseek-v4-flash-vision-exp, but not deepseek-chat. It does not establish this legacy alias still operates."
+    },
+    {
+      "id": "s7",
+      "url": "https://github.com/anomalyco/models.dev/blob/dev/models/deepseek/deepseek-chat.toml",
+      "title": "Models.dev deepseek-chat record",
+      "publisher": "Models.dev",
+      "accessed": true,
+      "evidence": "Catalog lead mixes a December 2025 date and V3.2 weight link with 1M context. Primary documentation resolves the later alias mapping; this source is not technical verification."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V3.2",
+      "title": "DeepSeek-V3.2 model card",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "The baseline weight link opens a V3.2 text-generation model card. It describes the earlier backing model, not the April 2026 alias mapping."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "DeepSeek Chat",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Readable normalization of the official deepseek-chat identifier; a mutable API alias."
+    },
+    "developer": {
+      "value": "DeepSeek",
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Developer identified by its own API announcement."
+    },
+    "family": {
+      "value": "deepseek",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Broad family retained because the alias has spanned several DeepSeek generations."
+    },
+    "release_date": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Original alias launch was not established. It existed by May 17, 2024; December 1, 2025 is a backing-model upgrade and must not serve as first release."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "The last explicitly mapped V4-Flash preview has downloadable weights. This describes its backing checkpoint, not a separate alias checkpoint."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s3"
+      ],
+      "note": "License of the documented backing weights; hosted-service terms are separate."
+    },
+    "parameters_b": {
+      "value": 284,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4"
+      ],
+      "note": "Developer nominal total in billions for the explicitly mapped preview. No storage-element counting or unproven later alias mapping is used."
+    },
+    "active_parameters_b": {
+      "value": 13,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4"
+      ],
+      "note": "Developer nominal activated parameters per token in billions for that same Flash preview."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s4"
+      ],
+      "note": "Transformer with MoE FFNs, compressed sparse/heavily compressed attention and manifold-constrained hyper-connections; specific to the last documented backing model."
+    },
+    "context_window": {
+      "value": 1000000,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "One million tokens for the documented April 2026 mapping; current endpoint availability is not established."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s5"
+      ],
+      "note": "Text chat/completion interface and text-generation backing weights. Later vision aliases are different identifiers."
+    },
+    "reasoning": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Alias selects non-thinking mode; this flag does not mean the backing model cannot solve reasoning tasks."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s3"
+      ],
+      "note": "Explicit alias function-calling support and later Flash non-thinking tool-agent results establish historical capability, not present service operation."
+    },
+    "description": {
+      "value": "Legacy DeepSeek chat API alias, last explicitly mapped to DeepSeek-V4-Flash preview in non-thinking mode; announced for retirement in July 2026.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s6"
+      ],
+      "note": "Replaces generic capability copy with identity and lifecycle context."
+    }
+  },
+  "patch": {
+    "release_date": null,
+    "date_precision": null,
+    "license": "MIT",
+    "parameters_b": 284,
+    "active_parameters_b": 13,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "description": "Legacy DeepSeek chat API alias, last explicitly mapped to DeepSeek-V4-Flash preview in non-thinking mode; announced for retirement in July 2026.",
+    "notes": "Specifications describe the explicit April 24, 2026 V4-Flash preview mapping. The original alias launch remains unverified; the former December 1, 2025 date describes its V3.2 upgrade. DeepSeek announced inaccessibility after July 24, 2026, 15:59 UTC; no authenticated endpoint test was performed. Counts are developer nominal model parameters, not Hugging Face storage totals. MIT/open weights refer to the backing checkpoint.",
+    "sources": [
+      {
+        "label": "DeepSeek alias history",
+        "url": "https://api-docs.deepseek.com/updates/",
+        "type": "primary"
+      },
+      {
+        "label": "V4 preview and legacy alias mapping",
+        "url": "https://api-docs.deepseek.com/news/news260424/",
+        "type": "primary"
+      },
+      {
+        "label": "Last documented backing weights: V4-Flash preview",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash",
+        "type": "weights"
+      },
+      {
+        "label": "DeepSeek-V4 technical report",
+        "url": "https://arxiv.org/html/2606.19348v1",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeek current API models",
+        "url": "https://api-docs.deepseek.com/quick_start/pricing/",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeek alias function calling announcement",
+        "url": "https://www.deepseek.com/en/news/api-upgrade/",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "All 14 fields reviewed. Add primary-supported nominal 284B total/13B active and MoE architecture for the last explicit V4-Flash preview mapping, plus MIT weight license. Clear the upgrade date incorrectly presented as first release. Retain historically documented 1M/text/non-thinking/tool capabilities with retirement and mapping caveats. Original release date and current endpoint operation remain unresolved."
+}
