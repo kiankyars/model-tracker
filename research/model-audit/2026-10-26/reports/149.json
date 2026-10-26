@@ -1,7 +1,7 @@
 {
   "index": 149,
   "model_id": "cohere/command-a-translate-08-2025",
-  "reviewed_at": "2026-10-26T18:18:27.715Z",
+  "reviewed_at": "2026-10-26T18:33:12.881346+00:00",
   "sources": [
     {
       "id": "s1",
@@ -82,6 +82,14 @@
       "publisher": "Cohere Labs",
       "accessed": false,
       "evidence": "Direct file access returned 401 because repository files are gated; no access terms were accepted and no exact learned tensor count was derived."
+    },
+    {
+      "id": "s11",
+      "url": "https://arxiv.org/html/2609.13916v1",
+      "title": "North Small Translate technical report, Tables 1 and 4",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "The September 2026 developer report explicitly lists Command A Translate (2025) as 111B total and 111B active in Tables 1 and 4. Section 3.1 identifies the earlier Command A Translate release and cites its 2025 technical report; this is a direct disclosure for the exact earlier translation model, not a value transferred from North Small Translate."
     }
   ],
   "fields": {
@@ -149,13 +157,12 @@
       "note": "Published whole-model nominal count in billions, not an exact independently counted learned-parameter total. Gated files prevented tensor-header inspection."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 111,
+      "status": "verified",
       "source_ids": [
-        "s1",
-        "s4"
+        "s11"
       ],
-      "note": "A separately defined active-parameter count is not reported. Dense architecture does not justify copying the total into this field."
+      "note": "Nominal active count explicitly published by Cohere for Command A Translate (2025) in Tables 1 and 4 of the later North Small Translate report. This uses the developer's reported counting convention, rather than inferring active=total from dense architecture."
     },
     "architecture": {
       "value": "dense",
@@ -228,7 +235,7 @@
     "architecture": "dense",
     "source_url": "https://docs.cohere.com/docs/command-a-translate",
     "source_type": "primary",
-    "notes": "111B is the developer’s nominal whole-model parameter count; active parameters are not separately disclosed. Architecture is a dense decoder-only Transformer fine-tuned from Command A. The API lists 8,000 input/context tokens and 8,000 maximum output tokens, also described as 16K combined. Research weights use CC-BY-NC-4.0 with Cohere Labs acceptable-use conditions. Reasoning=false refers to the explicitly disabled dedicated reasoning capability; the separate CommandA-WMT and Deep Translation workflows do not change this model specification.",
+    "notes": "Cohere reports 111B total and 111B active parameters for Command A Translate in its later North Small Translate technical report; both are nominal counts. Architecture is a dense decoder-only Transformer fine-tuned from Command A. The API lists 8,000 input/context tokens and 8,000 maximum output tokens, also described as 16K combined. Research weights use CC-BY-NC-4.0 with Cohere Labs acceptable-use conditions. Reasoning=false refers to the explicitly disabled dedicated reasoning capability; the separate CommandA-WMT and Deep Translation workflows do not change this model specification.",
     "sources": [
       {
         "label": "Cohere model card",
@@ -254,8 +261,14 @@
         "label": "Cohere models overview",
         "url": "https://cohere.com/models-overview",
         "type": "primary"
+      },
+      {
+        "label": "Later Cohere report: Command A Translate total and active parameters",
+        "url": "https://arxiv.org/html/2609.13916v1",
+        "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": 111
   },
-  "summary": "Confirmed the exact August 28, 2025 release and existing text, context, tool-use and dedicated-reasoning flags. Added nominal 111B parameters, dense architecture and CC-BY-NC-4.0 license from current primary sources and the later first-party technical paper. Replaced catalog-only source provenance with primary evidence and supplied the working official weight URL. Active parameters remain undisclosed; the 8K input plus 8K output distinction is documented. Gated configuration access did not establish an exact learned tensor count."
+  "summary": "Confirmed the exact August 28, 2025 release and existing text, context, tool-use and dedicated-reasoning flags. Added nominal 111B parameters, dense architecture and CC-BY-NC-4.0 license from current primary sources and the later first-party technical paper. Replaced catalog-only source provenance with primary evidence and supplied the working official weight URL. A later developer report explicitly verifies nominal 111B active parameters; the 8K input plus 8K output distinction is documented. Gated configuration access did not establish an exact learned tensor count."
 }
