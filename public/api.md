@@ -1,6 +1,6 @@
 # Data API
 
-A public, read-only JSON API. No API key, account, or application server. The website and API use the same versioned dataset.
+Read-only JSON and CSV. No authentication required.
 
 Base URL: `https://kiankyars.github.io/model-tracker/api/v1/`
 
@@ -65,8 +65,10 @@ Models can have overlapping types: a model may be both multimodal and reasoning-
 
 The `/v1/` contract supports additive fields. Clients should ignore unfamiliar fields and tolerate nulls. Breaking changes require a new API path. Data corrections can change historical aggregates; record the catalog's `updated_at` and source snapshot hash when reproducibility matters, or pin a source commit in the repository.
 
-The upstream catalog is scheduled to refresh daily. The API is served through GitHub Pages' CDN and may remain cached briefly after publication. Cache your downloads and use conditional requests with `ETag` or `Last-Modified` when provided. GitHub hosting limits apply; this project provides no uptime or rate-limit guarantee.
+Releases are researched weekly. GitHub Pages publishes changes after validation. `updated_at` is the later of source retrieval and completed research. `source.retrieved_at` dates the Models.dev snapshot; optional `research.reviewed_at` dates the latest research review. The snapshot checksum covers the saved upstream JSON; research additions and corrections are tracked in Git. Pin a repository commit when you need the exact complete dataset.
+
+Cache downloads and use conditional requests with `ETag` or `Last-Modified` when provided. GitHub Pages caching and hosting limits apply.
 
 ## For agents
 
-[llms.txt](./llms.txt) provides a concise entry point to data and documentation. It is an emerging discovery convention, not an access-control mechanism. Automated reading and reuse are permitted under the [MIT license](./LICENSE), including its notice requirements. Model weights and third-party publications retain their own licenses. See [coverage and methodology](./about.md) before treating the data as exhaustive.
+[llms.txt](./llms.txt) links to data and documentation. Automated reading and reuse are permitted under the [MIT license](./LICENSE). Model weights and third-party publications retain their own licenses. See [coverage](./about.md).

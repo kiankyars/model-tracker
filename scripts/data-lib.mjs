@@ -94,30 +94,59 @@ export function normalize(id, model, retrievedAt) {
   };
 }
 
-export function mergeCatalog({ upstream, previous = [], historical = [], corrections = {}, retrievedAt, asOf }) {
+export function catalogTimestamps(retrievedAt, reviewedAt = null) {
+  const timestamp = (value, label) => {
+    if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/.test(value)) throw new Error(`Invalid ${label} timestamp`);
+    const date = new Date(value);
+    if (!Number.isFinite(date.valueOf()) || !validDate(value.slice(0, 10))) throw new Error(`Invalid ${label} timestamp`);
+    return date.toISOString();
+  };
+  const source = timestamp(retrievedAt, 'retrieved_at');
+  const review = reviewedAt === null ? null : timestamp(reviewedAt, 'reviewed_at');
+  return { source, review, updated: review && review > source ? review : source };
+}
+
+function confirmedRelease(record) {
+  return record?.source_type === 'primary' && validDate(record.release_date) &&
+    /^https:\/\//.test(record.source_url || '') && record.sources?.some(source => /^https:\/\//.test(source.url || ''));
+}
+
+export function mergeCatalog({ upstream, previous = [], historical = [], corrections = {}, retrievedAt, asOf, reviewedAt = null }) {
+  const timestamps = catalogTimestamps(retrievedAt, reviewedAt);
+  const sourceAsOf = [asOf || timestamps.source.slice(0, 10), timestamps.source.slice(0, 10)].sort()[0];
+  const researchAsOf = timestamps.review?.slice(0, 10) || sourceAsOf;
+  const publicationAsOf = researchAsOf > sourceAsOf ? researchAsOf : sourceAsOf;
+  const reviewedIds = new Set(timestamps.review ? previous.filter(confirmedRelease).map(model => model.id) : []);
   const map = new Map(previous.map(model => [model.id, { ...model, upstream_present: false }]));
   let excludedTypes = 0;
   let future = 0;
   for (const [id, source] of Object.entries(upstream)) {
     if (!eligibleModel(source)) { excludedTypes++; map.delete(id); continue; }
     const model = normalize(id, source, retrievedAt);
-    if (isFuture(model.release_date, asOf)) { future++; map.delete(id); continue; }
+    const correction = corrections.overrides?.[id];
+    const confirmed = timestamps.review && confirmedRelease(correction) && !isFuture(correction.release_date, researchAsOf);
+    if (isFuture(model.release_date, sourceAsOf) && !confirmed) { future++; map.delete(id); continue; }
     const old = map.get(id);
-    map.set(id, { ...model, first_seen: old?.first_seen || retrievedAt });
+    const observedAt = isFuture(model.release_date, sourceAsOf) && confirmed ? timestamps.review : retrievedAt;
+    map.set(id, { ...model, first_seen: old?.first_seen || observedAt, last_seen: observedAt });
   }
   for (const item of historical) {
     const old = map.get(item.id);
-    const defaults = normalize(item.id, { name: item.name, modalities: item.modalities || { input: ['text'], output: ['text'] } }, retrievedAt);
+    const confirmed = timestamps.review && confirmedRelease(item);
+    if (confirmed) reviewedIds.add(item.id);
+    const observedAt = confirmed ? timestamps.review : retrievedAt;
+    const defaults = normalize(item.id, { name: item.name, modalities: item.modalities || { input: ['text'], output: ['text'] } }, observedAt);
     map.set(item.id, {
       ...defaults, ...old, ...item, slug: slugFor(item.id),
       date_precision: item.release_date ? (item.release_date.length === 7 ? 'month' : 'day') : null,
-      first_seen: old?.first_seen || retrievedAt, last_seen: old?.last_seen || retrievedAt,
+      first_seen: old?.first_seen || observedAt, last_seen: old?.last_seen || observedAt,
       upstream_present: old?.upstream_present || false,
     });
   }
   for (const [id, fields] of Object.entries(corrections.overrides || {})) {
     if (!map.has(id)) throw new Error(`Correction targets missing model: ${id}`);
     const model = map.get(id);
+    if (timestamps.review && confirmedRelease(fields)) reviewedIds.add(id);
     map.set(id, { ...model, ...fields, sources: [...(fields.sources || []), ...model.sources] });
   }
   for (const [alias, target] of Object.entries(corrections.aliases || {})) {
@@ -140,9 +169,9 @@ export function mergeCatalog({ upstream, previous = [], historical = [], correct
     map.delete(id);
   }
   for (const model of map.values()) model.sources = [...new Map(model.sources.map(source => [source.url, source])).values()];
-  const models = [...map.values()].filter(model => !isFuture(model.release_date, asOf))
+  const models = [...map.values()].filter(model => !isFuture(model.release_date, reviewedIds.has(model.id) ? researchAsOf : sourceAsOf))
     .sort((a, b) => (b.release_date || '').localeCompare(a.release_date || '') || a.id.localeCompare(b.id));
-  validateModels(models, asOf);
+  validateModels(models, publicationAsOf);
   return {
     models,
     coverage: {

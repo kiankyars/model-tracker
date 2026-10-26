@@ -1,10 +1,13 @@
-import { defaults, filterModels, sortModels, monthSeries, isMultimodal, toCSV } from './lib/model-data.js';
+import { defaults, filterModels, sortModels, isMultimodal, toCSV } from './lib/model-data.js';
+import { renderChart } from './lib/chart-view.js';
 
 const $ = id => document.getElementById(id);
 const number = new Intl.NumberFormat('en');
 const pageSize = 50;
 let catalog = null;
 let state = { ...defaults };
+const chartDefaults = { view: 'releases', interval: 'month', metric: 'total' };
+let chartState = { ...chartDefaults };
 let filtered = [];
 let shown = pageSize;
 let searchTimer;
@@ -36,10 +39,6 @@ function dateLabel(value, precision) {
   return date.toLocaleDateString('en-GB', { ...(precision === 'month' || value.length === 7 ? {} : { day: 'numeric' }), month: 'short', year: 'numeric', timeZone: 'UTC' });
 }
 
-function monthLabel(month) {
-  return dateLabel(month, 'month');
-}
-
 function parameterLabel(value) {
   if (value == null) return '—';
   return `${number.format(value)}B`;
@@ -67,14 +66,38 @@ function readState() {
   return next;
 }
 
+function readChartState() {
+  const query = new URLSearchParams(location.search);
+  const next = { ...chartDefaults };
+  for (const [key, values] of Object.entries({ view: ['releases', 'cumulative', 'developers', 'sizes'], interval: ['month', 'quarter', 'year'], metric: ['total', 'active'] })) {
+    if (values.includes(query.get(key))) next[key] = query.get(key);
+  }
+  return next;
+}
+
+function presetRange(preset) {
+  if (preset === 'all') return { from: '', to: '' };
+  const end = catalog.updated_at.slice(0, 7);
+  const [year, month] = end.split('-').map(Number);
+  const start = year * 12 + month - (preset === '1y' ? 12 : 36);
+  return { from: `${Math.floor(start / 12)}-${String(start % 12 + 1).padStart(2, '0')}`, to: end };
+}
+
 function syncControls() {
   for (const [key, value] of Object.entries(state)) $(key === 'q' ? 'search' : key).value = value;
+  for (const button of document.querySelectorAll('[data-chart-view]')) button.setAttribute('aria-pressed', String(button.dataset.chartView === chartState.view));
+  $('chart-interval').value = chartState.interval;
+  $('chart-metric').value = chartState.metric;
+  if (catalog) for (const button of document.querySelectorAll('[data-range]')) {
+    const range = presetRange(button.dataset.range);
+    button.setAttribute('aria-pressed', String(state.from === range.from && state.to === range.to));
+  }
 }
 
 function writeURL(replace = false) {
   const url = new URL(location.href);
-  for (const [key, value] of Object.entries(state)) {
-    if (value && value !== defaults[key]) url.searchParams.set(key, value);
+  for (const [key, value] of Object.entries({ ...state, ...chartState })) {
+    if (value && value !== { ...defaults, ...chartDefaults }[key]) url.searchParams.set(key, value);
     else url.searchParams.delete(key);
   }
   if (url.href !== location.href) history[replace ? 'replaceState' : 'pushState']({}, '', url);
@@ -109,43 +132,39 @@ function renderStats() {
     fragment.append(wrapper);
   }
   $('stats').replaceChildren(fragment);
-  const months = monthSeries(filtered, { from: state.from, to: state.to, fallback: catalog.updated_at?.slice(0, 7) });
-  const maximum = Math.max(1, ...months.map(month => month.total));
-  const bars = document.createDocumentFragment();
-  for (const month of months) {
-    const button = element('button', `chart-bar${state.from === month.month && state.to === month.month ? ' active' : ''}`);
-    button.type = 'button';
-    const label = `${monthLabel(month.month)}: ${month.total} release${month.total === 1 ? '' : 's'}; ${month.open} open, ${month.closed} closed${month.unknown ? `, ${month.unknown} unknown` : ''}. Filter to this month.`;
-    button.setAttribute('aria-label', label);
-    button.title = label;
-    const height = month.total / maximum * 100;
-    button.style.setProperty('--bar-height', `${height * .83}%`);
-    const stack = element('span', 'chart-stack');
-    stack.style.height = `${height}%`;
-    for (const kind of ['open', 'closed', 'unknown']) {
-      const segment = element('span', `chart-segment ${kind}`);
-      segment.style.height = `${month.total ? month[kind] / month.total * 100 : 0}%`;
-      stack.append(segment);
-    }
-    button.append(element('span', 'chart-value', number.format(month.total)), stack);
-    button.addEventListener('click', () => changeState({ from: month.month, to: month.month }));
-    bars.append(button);
-  }
-  $('chart').replaceChildren(bars);
-  $('chart-axis').replaceChildren();
-  if (months.length) {
-    const indexes = [...new Set([0, Math.floor((months.length - 1) / 2), months.length - 1])];
-    for (const index of indexes) $('chart-axis').append(element('span', '', monthLabel(months[index].month)));
-  }
-  const visibleChartCount = months.reduce((sum, month) => sum + month.total, 0);
-  $('chart-scope').textContent = `Monthly · peak ${number.format(maximum === 1 && !visibleChartCount ? 0 : maximum)}`;
-  const note = $('chart-note');
-  const hiddenDated = filtered.filter(model => model.release_date).length - visibleChartCount;
-  const unknown = filtered.filter(model => !model.release_date).length;
-  note.replaceChildren(element('span', 'chart-key open', 'Open'), element('span', 'chart-key', 'Closed'));
-  if (hiddenDated > 0) note.append(element('span', '', `Latest 24 months shown; ${number.format(hiddenDated)} earlier.`));
-  else note.append(element('span', '', 'Select a month to filter.'));
-  if (unknown) note.append(element('span', '', `${number.format(unknown)} undated, not plotted.`));
+  renderVisualization();
+}
+
+function renderVisualization() {
+  if (!catalog) return;
+  renderChart({
+    models: filtered, filters: state, options: chartState,
+    onRange: range => {
+      changeState(range);
+      $('chart').querySelector('[role="button"]')?.focus({ preventScroll: true });
+    },
+    onDeveloper: developer => {
+      changeState({ developer });
+      $('chart').querySelector('button')?.focus({ preventScroll: true });
+    },
+    onModel: id => {
+      const index = filtered.findIndex(model => model.id === id);
+      if (index < 0) return;
+      shown = Math.max(shown, Math.ceil((index + 1) / pageSize) * pageSize);
+      expanded.add(id);
+      renderRows();
+      const row = $(`release-${filtered[index].slug}`);
+      row.scrollIntoView({ behavior: 'auto', block: 'center' });
+      row.querySelector('button').focus({ preventScroll: true });
+    },
+  });
+}
+
+function changeChart(patch) {
+  chartState = { ...chartState, ...patch };
+  syncControls();
+  writeURL();
+  renderVisualization();
 }
 
 function addDetail(list, label, value) {
@@ -206,6 +225,7 @@ function renderRows() {
   for (const [index, model] of filtered.slice(0, shown).entries()) {
     const open = expanded.has(model.id);
     const row = element('tr', `model-row${open ? ' expanded' : ''}`);
+    row.id = `release-${model.slug}`;
     const modelCell = document.createElement('td');
     const toggle = element('button', 'model-toggle');
     toggle.type = 'button';
@@ -224,7 +244,7 @@ function renderRows() {
     if (model.parameters_b == null) size.title = 'Parameter count not recorded in this catalog';
     else if (model.parameters_source === 'model_name') size.title = 'Nominal parameter count from the model name';
     const weights = element('td');
-    weights.append(element('span', `weight-label${model.open_weights === true ? ' open' : model.open_weights == null ? ' unknown-value' : ''}`, model.open_weights === true ? 'Open' : model.open_weights === false ? 'Closed' : 'Unknown'));
+    weights.append(element('span', `weight-label${model.open_weights === true ? ' open' : model.open_weights == null ? ' unknown-value' : ''}`, model.open_weights === true ? 'Open' : model.open_weights === false ? 'Closed' : '—'));
     row.append(modelCell, element('td', 'developer-name', model.developer), date, type, size, weights);
     const details = detailRow(model, detailId);
     details.hidden = !open;
@@ -287,7 +307,9 @@ async function load() {
     const developers = [...new Map(catalog.models.map(model => [model.developer_id, model.developer])).entries()].sort((a, b) => a[1].localeCompare(b[1]));
     $('developer').replaceChildren(new Option('All developers', ''), ...developers.map(([id, name]) => new Option(name, id)));
     state = readState();
+    chartState = readChartState();
     syncControls();
+    writeURL(true);
     const note = $('data-note');
     note.replaceChildren(document.createTextNode(`Updated ${dateLabel(catalog.updated_at)} · ${number.format(catalog.models.length)} releases · ${number.format(developers.length)} developers · `));
     const coverage = element('a', '', 'Coverage & sources');
@@ -308,6 +330,10 @@ $('search').addEventListener('input', () => {
   searchTimer = setTimeout(() => changeState({ q: $('search').value }, true), 180);
 });
 for (const key of Object.keys(defaults).filter(key => key !== 'q')) $(key).addEventListener('change', () => changeState({ [key]: $(key).value, q: $('search').value }));
+for (const button of document.querySelectorAll('[data-chart-view]')) button.addEventListener('click', () => changeChart({ view: button.dataset.chartView }));
+for (const button of document.querySelectorAll('[data-range]')) button.addEventListener('click', () => { if (catalog) changeState(presetRange(button.dataset.range)); });
+$('chart-interval').addEventListener('change', () => changeChart({ interval: $('chart-interval').value }));
+$('chart-metric').addEventListener('change', () => changeChart({ metric: $('chart-metric').value }));
 $('reset').addEventListener('click', reset);
 $('empty-reset').addEventListener('click', reset);
 $('retry').addEventListener('click', load);
@@ -317,6 +343,8 @@ $('download-json').addEventListener('click', () => download('json'));
 window.addEventListener('popstate', () => {
   clearTimeout(searchTimer);
   state = readState();
+  chartState = readChartState();
+  writeURL(true);
   shown = pageSize;
   expanded.clear();
   syncControls();
@@ -329,5 +357,15 @@ document.addEventListener('click', event => {
 document.addEventListener('keydown', event => {
   if (event.key === 'Escape') document.querySelector('.download-menu').open = false;
 });
+
+let chartWidth = 0;
+let resizeFrame;
+new ResizeObserver(entries => {
+  const width = Math.round(entries[0].contentRect.width);
+  if (!width || width === chartWidth) return;
+  chartWidth = width;
+  cancelAnimationFrame(resizeFrame);
+  resizeFrame = requestAnimationFrame(renderVisualization);
+}).observe($('chart'));
 
 load();

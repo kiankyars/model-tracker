@@ -2,8 +2,9 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { ROOT } from '../scripts/build-data.mjs';
-import { csv, eligibleModel, isFuture, mergeCatalog, namedParameters, normalize, sha256, slugFor, statistics, validDate, validateModels } from '../scripts/data-lib.mjs';
+import { tmpdir } from 'node:os';
+import { ROOT, buildData } from '../scripts/build-data.mjs';
+import { catalogTimestamps, csv, eligibleModel, isFuture, mergeCatalog, namedParameters, normalize, sha256, slugFor, statistics, validDate, validateModels } from '../scripts/data-lib.mjs';
 
 const at = '2026-10-26T12:00:00.000Z';
 const upstream = (name = 'Test 7B') => ({ name, release_date: '2025-03-01', open_weights: true, reasoning: false, tool_call: false, modalities: { input: ['text'], output: ['text'] }, limit: { context: 8192 } });
@@ -95,6 +96,72 @@ test('corrections and exclusions survive refresh and offline regeneration is ide
   assert.equal(refreshed.models.find(model => model.id === 'lab/model').first_seen, at);
   assert.equal(refreshed.models.find(model => model.id === 'lab/model').last_seen, '2026-10-27T12:00:00.000Z');
   assert.equal(refreshed.models.find(model => model.id === 'lab/historical').upstream_present, false);
+});
+
+test('research admits confirmed releases after the source snapshot without admitting unverified future entries', () => {
+  const reviewedAt = '2026-11-02T09:00:00.000Z';
+  const proof = { source_type: 'primary', source_url: 'https://example.org/release', sources: [{ label: 'Release announcement', url: 'https://example.org/release', type: 'announcement' }] };
+  const options = {
+    upstream: {
+      'lab/existing': upstream(),
+      'lab/announced': { ...upstream(), release_date: '2026-10-30' },
+      'lab/confirmed': { ...upstream(), release_date: '2026-10-29' },
+    },
+    historical: [
+      { ...normalize('lab/researched', upstream(), at), ...proof, release_date: '2026-10-31' },
+      { ...normalize('lab/still-future', upstream(), at), ...proof, release_date: '2026-11-03' },
+    ],
+    corrections: { overrides: { 'lab/confirmed': { ...proof, release_date: '2026-10-29' } } },
+    retrievedAt: at, asOf: '2026-10-26', reviewedAt,
+  };
+  const first = mergeCatalog(options);
+  assert.deepEqual(first.models.map(model => model.id), ['lab/researched', 'lab/confirmed', 'lab/existing']);
+  assert.equal(first.models.find(model => model.id === 'lab/researched').first_seen, reviewedAt);
+  assert.equal(first.models.find(model => model.id === 'lab/confirmed').first_seen, reviewedAt);
+  assert.equal(first.models.find(model => model.id === 'lab/existing').first_seen, at);
+  assert.deepEqual(mergeCatalog({ ...options, previous: first.models }).models, first.models);
+  const retained = mergeCatalog({ ...options, historical: [], previous: first.models });
+  assert.ok(retained.models.some(model => model.id === 'lab/researched'));
+});
+
+test('research timestamps are validated and cannot replace newer source retrieval times', () => {
+  assert.equal(catalogTimestamps(at).updated, at);
+  assert.equal(catalogTimestamps(at, '2026-11-02T11:00:00+02:00').updated, '2026-11-02T09:00:00.000Z');
+  assert.equal(catalogTimestamps(at, '2026-10-20T09:00:00Z').updated, at);
+  assert.throws(() => catalogTimestamps(at, '2026-02-30T09:00:00Z'));
+  assert.throws(() => catalogTimestamps(at, '2026-11-02'));
+  const result = mergeCatalog({ upstream: {}, historical: [{ ...normalize('lab/researched', upstream(), at), release_date: '2026-10-25', source_type: 'primary', source_url: 'https://example.org/release', sources: [{ label: 'Launch', url: 'https://example.org/release', type: 'announcement' }] }], retrievedAt: at, reviewedAt: '2026-10-20T09:00:00Z' });
+  assert.equal(result.models.length, 0);
+});
+
+test('research-only builds update publication metadata while retaining the upstream timestamp and hash', async () => {
+  const root = await fs.mkdtemp(path.join(tmpdir(), 'model-tracker-research-'));
+  try {
+    await fs.mkdir(path.join(root, 'data/source'), { recursive: true });
+    const raw = JSON.stringify({ 'lab/existing': upstream(), 'lab/announced': { ...upstream(), release_date: '2026-10-30' } });
+    const metadata = { retrieved_at: at, sha256: sha256(raw) };
+    await fs.writeFile(path.join(root, 'data/source/models.dev.json'), raw);
+    await fs.writeFile(path.join(root, 'data/source/metadata.json'), JSON.stringify(metadata));
+    const original = await buildData({ root });
+    assert.equal(original.envelope.updated_at, at);
+    assert.equal(original.envelope.research, undefined);
+    const reviewedAt = '2026-11-02T09:00:00.000Z';
+    await fs.writeFile(path.join(root, 'data/research-metadata.json'), JSON.stringify({ reviewed_at: reviewedAt }));
+    const record = { ...normalize('lab/researched', upstream(), at), release_date: '2026-10-31', source_type: 'primary', source_url: 'https://example.org/release', sources: [{ label: 'Release announcement', url: 'https://example.org/release', type: 'announcement' }] };
+    await fs.writeFile(path.join(root, 'data/historical.json'), JSON.stringify([record]));
+    const result = await buildData({ root });
+    assert.equal(result.envelope.updated_at, reviewedAt);
+    assert.equal(result.envelope.research.reviewed_at, reviewedAt);
+    assert.equal(result.envelope.source.retrieved_at, at);
+    assert.equal(result.envelope.source.sha256, metadata.sha256);
+    assert.deepEqual(result.models.map(model => model.id), ['lab/researched', 'lab/existing']);
+    const single = JSON.parse(await fs.readFile(path.join(root, 'public/api/v1/models/lab--researched.json'), 'utf8'));
+    assert.equal(single.updated_at, reviewedAt);
+    assert.equal(single.model.first_seen, reviewedAt);
+    assert.deepEqual(await buildData({ root }), result);
+  } finally {
+    await fs.rm(root, { recursive: true, force: true });
+  }
 });
 
 test('missing information stays null and unsafe identifiers are rejected', () => {

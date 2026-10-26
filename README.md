@@ -1,10 +1,10 @@
 # Model releases
 
-A minimal timeline of open-weight and closed language model releases: filter by date, developer, modality, capability, and parameter size; inspect monthly statistics; download the data.
+Language model releases by date, developer, type, and parameter count. Charts show release counts, cumulative releases, developers, and model sizes. Filters apply to charts, the table, and downloads.
 
 **[Website](https://kiankyars.github.io/model-tracker/) · [API](https://kiankyars.github.io/model-tracker/api.html) · [Data](https://kiankyars.github.io/model-tracker/api/v1/models.json) · [llms.txt](https://kiankyars.github.io/model-tracker/llms.txt)**
 
-Built with HTML, CSS, and browser JavaScript. No frontend dependencies, analytics, account system, database, or API keys. GitHub Pages serves both the site and the static JSON API.
+HTML, CSS, and JavaScript, hosted on GitHub Pages with a static JSON API. No frontend dependencies or analytics.
 
 ## Run locally
 
@@ -30,6 +30,7 @@ The primary source is the MIT-licensed [Models.dev](https://github.com/anomalyco
 - `data/catalog.json`: Normalized catalog, including retained history.
 - `data/historical.json`: Primary-source historical additions.
 - `data/corrections.json`: Explicit corrections and aliases.
+- `data/research-metadata.json`: Research completion timestamp, created after the first research run.
 - `public/api/`: Generated, untracked API artifacts.
 - `public/api-schema.json`, `public/openapi.json`: Machine-readable contracts.
 - `public/api.md`, `public/about.md`: Human- and agent-readable documentation.
@@ -38,7 +39,11 @@ To contribute, include a primary source for dates, sizes, or licensing claims. D
 
 ## Publishing and updates
 
-Enable **Settings → Pages → Source → GitHub Actions**. The `Publish tracker` workflow builds and deploys pushes to `main`. Pull requests build and test without deployment. The daily 06:23 UTC schedule and manual workflow dispatch refresh upstream data, validate it, preserve changes in Git, and publish. Invalid or unavailable upstream data fails the run; the last successful site remains online.
+Enable **Settings → Pages → Source → GitHub Actions**. The `Publish tracker` workflow builds, tests, and deploys pushes to `main` and manual dispatches. Pull requests build and test. It does not fetch data, commit changes, or run on a schedule.
+
+A Codex automation in the project chat researches releases weekly on Monday at 09:00 Europe/Helsinki. It follows [RESEARCH.md](RESEARCH.md), searches developer announcements and model cards, adds verified records and corrections, and pushes after validation. The desktop app and computer need to be running. The automation is configured in Codex, outside this repository.
+
+`npm run refresh` remains an optional manual import from Models.dev. It supplements independent research. The SHA-256 in `data/source/metadata.json` covers the exact saved bytes of `data/source/models.dev.json` (formatted JSON with sorted top-level IDs). Builds check that these files match. This checksum detects snapshot changes; it does not verify the accuracy of the source's claims.
 
 The API consists of versioned static JSON resources, including complete and partitioned catalogs. It does not execute server-side query parameters. Browser filtering runs locally. See the [API reference](public/api.md) for examples and limitations.
 

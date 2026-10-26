@@ -47,7 +47,7 @@ for (const [page, title] of [['about', 'About the data'], ['api', 'Data API']]) 
 <link rel="alternate" type="text/markdown" href="./${page}.md"><link rel="describedby" href="./llms.txt">
 </head><body><main class="document"><nav aria-label="Main navigation"><a href="./">← Model releases</a><a href="./about.html">About the data</a><a href="./api.html">API</a><a href="https://github.com/kiankyars/model-tracker">GitHub ↗</a></nav>
 ${markdown(source)}
-<footer><a href="./">Explore releases</a> · <a href="./${page}.md">Read as Markdown</a> · <a href="./llms.txt">llms.txt</a></footer></main></body></html>\n`;
+<footer><a href="./">Releases</a> · <a href="./${page}.md">Markdown</a> · <a href="./llms.txt">llms.txt</a></footer></main></body></html>\n`;
   await writeFile(resolve(root, 'public', `${page}.html`), html);
 }
 await rm(out, { recursive: true, force: true });
