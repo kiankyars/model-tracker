@@ -1,0 +1,237 @@
+{
+  "index": 156,
+  "model_id": "cohere/north-small-translate-1-0",
+  "reviewed_at": "2026-10-26T18:30:34.221109Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://arxiv.org/html/2609.13916v1",
+      "title": "North Small Translate: Advanced Cost-Effective Translation (Cohere CAT+)",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "Table 1 labels North Small Translate itself as 218B total and 25B active. Sections 1 and 2.1 identify its decoder-only sparse MoE Transformer architecture. Sections 1 and 2.5 explicitly distinguish the non-reasoning model from an optional workflow that uses it for translation, evaluation, and post-editing."
+    },
+    {
+      "id": "s2",
+      "url": "https://docs.cohere.com/changelog/north-small-translate-1-0",
+      "title": "Announcing Cohere's North Small Translate",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "Dated September 9, 2026 release announcement identifies North Small Translate, API name north-small-translate-09-2026, 218B total/25B active, 16K context, and BF16/FP8/W4A16 open weights under CC BY-NC 4.0."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/CohereLabs/North-Small-Translate-1.0",
+      "title": "Model Card for North Small Translate (BF16)",
+      "publisher": "Cohere / Cohere Labs",
+      "accessed": true,
+      "evidence": "The exact 1.0 repository is the BF16 checkpoint and names Cohere and Cohere Labs as developers. It reports text input/output, 218B total/25B active, sparse decoder-only MoE, and CC BY-NC 4.0 with acceptable-use requirements. The card lists 16K input and 16K output; its vLLM example sets max-model-len 32768 and includes parser flags. Model-card text is public; checkpoint files require acceptance of repository conditions."
+    },
+    {
+      "id": "s4",
+      "url": "https://docs.cohere.com/docs/north-small-translate-1.0",
+      "title": "North Small Translate model documentation",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "The 1.0 documentation identifies API model north-small-translate-09-2026, advertises 16K context and 16K maximum output, and describes translation across more than 50 languages and locale variants. Navigation places this model under North. Flattened capability labels alone do not show enabled state."
+    },
+    {
+      "id": "s5",
+      "url": "https://github.com/cohere-ai/cohere-developer-experience/blob/main/fern/pages/models/north/north-small-translate-1.0.mdx",
+      "title": "North Small Translate ModelShowcase source",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "The exact model page sets id north-small-translate-09-2026, capabilities to only Capability.Multilingual, and endpoints to only ChatV2. Reasoning, ImageInputs, and ToolUse are absent from the enabled capability array."
+    },
+    {
+      "id": "s6",
+      "url": "https://raw.githubusercontent.com/cohere-ai/cohere-developer-experience/main/fern/components/model-showcase.tsx",
+      "title": "ModelShowcase capability renderer",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "getCapabilities emits all capability labels and sets disabled to the negation of inclusion in enabledCapabilities. Thus the exact model page explicitly renders Reasoning and Tool Use as disabled; flattened text is not evidence that they are enabled."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "North Small Translate",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "Exact product name; 1.0 identifies the linked weight release."
+    },
+    "developer": {
+      "value": "Cohere",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "Cohere develops the model with its Cohere Labs research organization."
+    },
+    "family": {
+      "value": "north",
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5"
+      ],
+      "note": "North is its documented product grouping; the technical foundation is Command A+."
+    },
+    "release_date": {
+      "value": "2026-09-09",
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Explicit dated release announcement, predating the September 12 technical report."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "Developer distributes the exact BF16 checkpoint and quantized variants for non-commercial use."
+    },
+    "license": {
+      "value": "CC-BY-NC-4.0",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "Named weight license; model card additionally requires the applicable acceptable-use terms."
+    },
+    "parameters_b": {
+      "value": 218,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Developer-reported nominal total in billions; exact model row, not a transferred sibling count or storage total."
+    },
+    "active_parameters_b": {
+      "value": 25,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Developer-reported nominal active count in billions for this sparse MoE model."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Decoder-only sparse mixture-of-experts Transformer; the exact card describes 128 experts, eight selected per token, plus shared experts."
+    },
+    "context_window": {
+      "value": 16000,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s3"
+      ],
+      "note": "Retains the advertised 16K input/context limit in the catalog convention. The card separately specifies 16K output and a 32768-token vLLM runtime example; that combined setting does not establish a 32K input limit."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s5",
+        "s6"
+      ],
+      "note": "Exact card explicitly specifies text-only input and generated text; ImageInputs is disabled in the documentation."
+    },
+    "reasoning": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5",
+        "s6"
+      ],
+      "note": "Explicitly trained as a non-reasoning model. Optional agentic translation orchestrates multiple calls; it is not native intermediate reasoning. The capability is also disabled."
+    },
+    "tool_call": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s6",
+        "s3"
+      ],
+      "note": "ToolUse is explicitly disabled for the documented API model. Generic vLLM parser flags in the weight card do not establish native trained tool-calling support."
+    },
+    "description": {
+      "value": "Open-weight translation model for more than 50 languages and locale variants",
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s2"
+      ],
+      "note": "Supported as written; language-plus-locale coverage avoids equating locales with distinct languages."
+    }
+  },
+  "patch": {
+    "parameters_b": 218,
+    "active_parameters_b": 25,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "source_url": "https://docs.cohere.com/docs/north-small-translate-1.0",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Cohere North Small Translate release announcement",
+        "url": "https://docs.cohere.com/changelog/north-small-translate-1-0",
+        "type": "primary"
+      },
+      {
+        "label": "Cohere North Small Translate technical report",
+        "url": "https://arxiv.org/html/2609.13916v1",
+        "type": "primary"
+      },
+      {
+        "label": "Cohere North Small Translate model documentation",
+        "url": "https://docs.cohere.com/docs/north-small-translate-1.0",
+        "type": "primary"
+      },
+      {
+        "label": "Cohere Labs exact BF16 model card",
+        "url": "https://huggingface.co/CohereLabs/North-Small-Translate-1.0",
+        "type": "weights"
+      },
+      {
+        "label": "Cohere exact capability configuration",
+        "url": "https://github.com/cohere-ai/cohere-developer-experience/blob/main/fern/pages/models/north/north-small-translate-1.0.mdx",
+        "type": "primary"
+      },
+      {
+        "label": "Cohere capability renderer",
+        "url": "https://raw.githubusercontent.com/cohere-ai/cohere-developer-experience/main/fern/components/model-showcase.tsx",
+        "type": "primary"
+      }
+    ],
+    "notes": "The provider API identifier is north-small-translate-09-2026; the matching weights are North-Small-Translate-1.0. The catalog ID is not a verified API alias. Total and active parameters are nominal developer-reported counts. Context uses the advertised 16K input limit; the card separately lists 16K output. Native reasoning and tool use are disabled in the exact documentation. The optional agentic translation workflow makes multiple calls to the same non-reasoning model."
+  },
+  "summary": "Filled previously missing total parameters (218B), active parameters (25B), and MoE architecture from exact primary sources. Confirmed the other eleven factual fields. Preserved the frozen model identity while documenting its current API identifier, non-reasoning base, disabled native tool-use capability, and input/output context distinction."
+}
