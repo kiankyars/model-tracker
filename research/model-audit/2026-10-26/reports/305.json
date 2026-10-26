@@ -1,0 +1,338 @@
+{
+  "index": 305,
+  "model_id": "minimax/MiniMax-M2.7",
+  "reviewed_at": "2026-10-26T22:33:23.486792Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://www.minimax.io/news/minimax-m27-en",
+      "title": "MiniMax M2.7: Early Echoes of Self-Evolution",
+      "publisher": "MiniMax",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Dated 2026-03-18. Announces M2.7 and describes coding agents, office workflows, complex tool environments and the model development process."
+    },
+    {
+      "id": "s2",
+      "url": "https://platform.minimax.io/docs/release-notes/models",
+      "title": "MiniMax model release notes",
+      "publisher": "MiniMax",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Explicit March 18, 2026 entry announces MiniMax-M2.7 and M2.7-highspeed. Establishes initial public model release rather than the later weight publication."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.7",
+      "title": "MiniMax-M2.7 official model card and weights",
+      "publisher": "MiniMax",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Exact text-generation checkpoint is publicly distributed by MiniMaxAI with local deployment guides. Repository API reports creation on April 9, 2026; this is later than the March API announcement."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.7/blob/0a6536713b0b03f3be97494e5cf8d22f668a3164/config.json",
+      "title": "MiniMax-M2.7 current released configuration",
+      "publisher": "MiniMax",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Revision 0a6536713b0b03f3be97494e5cf8d22f668a3164 specifies MiniMaxM2ForCausalLM, 62 layers, hidden width 3072, 256 experts, top-8 routing, 48 query heads and 8 KV heads, 200064 vocabulary entries, untied embeddings, FP8 quantization and max_position_embeddings 204800."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.7/blob/0a6536713b0b03f3be97494e5cf8d22f668a3164/modeling_minimax_m2.py",
+      "title": "MiniMax-M2.7 reference implementation",
+      "publisher": "MiniMax",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Exact causal decoder implements full grouped-query softmax attention, RoPE, QK normalization and sparse expert MLPs. Token embedding and vocabulary output head establish text input/output. Router correction bias is registered as a buffer; registration alone does not establish whether it was learned."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.7/blob/0a6536713b0b03f3be97494e5cf8d22f668a3164/LICENSE",
+      "title": "MiniMax-M2.7 Non-Commercial License",
+      "publisher": "MiniMax",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Distributed document is titled NON-COMMERCIAL LICENSE. It permits non-commercial use under MIT-style terms and requires prior written MiniMax authorization for commercial use; this is not an unmodified MIT license."
+    },
+    {
+      "id": "s7",
+      "url": "https://arxiv.org/html/2605.26494v2",
+      "title": "The MiniMax-M2 Series: Mini Activations Unleashing Max Real-World Intelligence",
+      "publisher": "MiniMax",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "July 30, 2026 report specifically labels M2.7 as approximately 10B activated parameters in Figure 1, introduction results and section 8.2. Section 8.1 evaluates M2.7 with thinking enabled. Precise 229.9B total/9.8B active statements label M2. Section 2.2.1 describes learned, jointly optimized routing biases for M2; exact M2.7 bias training status is not separately specified."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.7/blob/0a6536713b0b03f3be97494e5cf8d22f668a3164/model.safetensors.index.json",
+      "title": "MiniMax-M2.7 checkpoint index and bounded Safetensors header census",
+      "publisher": "MiniMax",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "All 125 indexed shards were read using bounded HTTP 206 header ranges; all 96103 tensor keys and shard mappings match the index. Headers contain 228689748992 .weight elements, 15872 routing-bias elements and 13880064 FP8 inverse-scale elements. No other tensor categories or MTP tensors occur. Raw storage elements total 228703644928; this is not a model-parameter count."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.7/blob/0a6536713b0b03f3be97494e5cf8d22f668a3164/docs/tool_calling_guide.md",
+      "title": "MiniMax-M2.7 Tool Calling Guide",
+      "publisher": "MiniMax",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Exact-model guide explicitly documents tool calling, XML function invocations, tool-result messages, and think-tag output."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.7/blob/0a6536713b0b03f3be97494e5cf8d22f668a3164/chat_template.jinja",
+      "title": "MiniMax-M2.7 chat template",
+      "publisher": "MiniMax",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Exact released template renders text content, interleaved reasoning_content and think tags, tool schemas, tool calls and tool results."
+    },
+    {
+      "id": "s11",
+      "url": "https://platform.minimax.io/docs/guides/models-intro",
+      "title": "Current MiniMax model introduction",
+      "publisher": "MiniMax",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Current language-model table no longer lists M2.7. It therefore cannot independently verify current M2.7 API context or operation; the current exact checkpoint config supplies the retained context specification."
+    },
+    {
+      "id": "s12",
+      "url": "https://developer.nvidia.com/blog/minimax-m2-7-advances-scalable-agentic-workflows-on-nvidia-platforms-for-complex-ai-applications/",
+      "title": "MiniMax M2.7 Advances Scalable Agentic Workflows on NVIDIA Platforms",
+      "publisher": "NVIDIA",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "April 11 deployment article Table 1 labels exact M2.7 as nominal 230B total, 10B active and language-only. Retained as a nominal deployment-source comparison, not substituted for the inspected checkpoint count."
+    },
+    {
+      "id": "s13",
+      "url": "https://platform.minimax.io/docs/faq/models",
+      "title": "MiniMax model retirement notice and model list",
+      "publisher": "MiniMax",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "As read October 27, the notice says new access ended October 19, existing pay-as-you-go access continues until November 18, and M Plan/Token Plan calls already route to M3.1 Flash. The same page already labels M2.7 retired in its table; these conflicting availability statements are recorded rather than resolved by assumption."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "MiniMax-M2.7",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Exact name in the developer announcement and checkpoint."
+    },
+    "developer": {
+      "value": "MiniMax",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "MiniMax announces and distributes this exact model."
+    },
+    "family": {
+      "value": "minimax",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s7"
+      ],
+      "note": "Retains the catalog broad MiniMax family identifier; the exact model is part of the MiniMax-M2 series."
+    },
+    "release_date": {
+      "value": "2026-03-18",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Explicit original announcement and release-note date. The official weights repository was created later, on April 9; weight publication does not move the first public release date."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s8"
+      ],
+      "note": "Official FP8 weights are publicly accessible in 125 Safetensors shards. Availability does not imply an unrestricted open-source license."
+    },
+    "license": {
+      "value": "MiniMax Non-Commercial License",
+      "status": "verified",
+      "source_ids": [
+        "s6"
+      ],
+      "note": "Custom NON-COMMERCIAL LICENSE; commercial use requires prior written authorization from MiniMax."
+    },
+    "parameters_b": {
+      "value": 228.69,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s7",
+        "s8",
+        "s12"
+      ],
+      "note": "Rounded complete released-checkpoint count in decimal billions, to 0.01B precision. The tensor census identifies 228689748992 .weight parameters and 15872 routing-bias values; including or excluding the latter gives 228.69B at this precision. FP8 inverse scales are quantization metadata and excluded. The M2 paper describes analogous biases as learned, so buffer registration is not used to exclude them categorically. No released MTP tensors occur despite configuration flags. NVIDIA nominal 230B and the report M2-only 229.9B are not treated as exact checkpoint totals."
+    },
+    "active_parameters_b": {
+      "value": 10,
+      "status": "verified",
+      "source_ids": [
+        "s7",
+        "s4"
+      ],
+      "note": "Developer nominal approximately 10B activated per token, explicitly attributed to M2.7 in the later report. This is not an exact tensor-derived count; the M2-only 9.8B value is not transferred. Top-8 of 256 experts per layer is independently verified."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5"
+      ],
+      "note": "Decoder-only Transformer MoE with 62 layers, 256 routed experts and 8 selected per token, full grouped-query attention (48 query/8 KV heads), RoPE and QK normalization. Exact code has no Lightning Attention implementation."
+    },
+    "context_window": {
+      "value": 204800,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s11",
+        "s13"
+      ],
+      "note": "Current released checkpoint max_position_embeddings is 204800. Earlier indexed config snapshots had 196608; current revision was read directly. This does not assert current native API availability or historical API limits. The FAQ schedules final retirement for November 18 while already labeling M2.7 retired; plan-based calls have routed to M3.1 Flash since October 19."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s5",
+        "s9",
+        "s10"
+      ],
+      "note": "Text-generation checkpoint consumes token IDs and emits vocabulary logits, with no image/audio encoder in the exact implementation. Office and environment interaction uses external tools."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s7",
+        "s9",
+        "s10"
+      ],
+      "note": "Exact M2.7 report evaluation uses thinking enabled; released template and guide implement interleaved think content."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s9",
+        "s10"
+      ],
+      "note": "Exact-model official tool guide and chat template explicitly support function invocations and tool results."
+    },
+    "description": {
+      "value": "MiniMax M2-series language model with publicly available weights, designed for coding agents, tool use, and office workflows.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s6",
+        "s9"
+      ],
+      "note": "Uses the documented task scope and weight availability; removes time-dependent flagship wording and avoids implying an unrestricted license."
+    }
+  },
+  "patch": {
+    "license": "MiniMax Non-Commercial License",
+    "parameters_b": 228.69,
+    "active_parameters_b": 10,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "description": "MiniMax M2-series language model with publicly available weights, designed for coding agents, tool use, and office workflows.",
+    "source_url": "https://www.minimax.io/news/minimax-m27-en",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "MiniMax M2.7: Early Echoes of Self-Evolution",
+        "url": "https://www.minimax.io/news/minimax-m27-en",
+        "type": "primary"
+      },
+      {
+        "label": "MiniMax model release notes",
+        "url": "https://platform.minimax.io/docs/release-notes/models",
+        "type": "primary"
+      },
+      {
+        "label": "MiniMax-M2.7 official model card and weights",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.7",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax-M2.7 current released configuration",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.7/blob/0a6536713b0b03f3be97494e5cf8d22f668a3164/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax-M2.7 reference implementation",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.7/blob/0a6536713b0b03f3be97494e5cf8d22f668a3164/modeling_minimax_m2.py",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax-M2.7 Non-Commercial License",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.7/blob/0a6536713b0b03f3be97494e5cf8d22f668a3164/LICENSE",
+        "type": "weights"
+      },
+      {
+        "label": "The MiniMax-M2 Series: Mini Activations Unleashing Max Real-World Intelligence",
+        "url": "https://arxiv.org/html/2605.26494v2",
+        "type": "primary"
+      },
+      {
+        "label": "MiniMax-M2.7 checkpoint index and bounded Safetensors header census",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.7/blob/0a6536713b0b03f3be97494e5cf8d22f668a3164/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax-M2.7 Tool Calling Guide",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.7/blob/0a6536713b0b03f3be97494e5cf8d22f668a3164/docs/tool_calling_guide.md",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax-M2.7 chat template",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.7/blob/0a6536713b0b03f3be97494e5cf8d22f668a3164/chat_template.jinja",
+        "type": "weights"
+      },
+      {
+        "label": "MiniMax model retirement notice and model list",
+        "url": "https://platform.minimax.io/docs/faq/models",
+        "type": "primary"
+      }
+    ],
+    "notes": "Total 228.69B is the complete released-checkpoint parameter count rounded to 0.01B, excluding FP8 scale metadata; the 15872 routing-bias values do not affect this precision. No MTP tensors are present in the release. Active approximately 10B is the developer nominal claim explicitly for M2.7, not the report M2-only 9.8B. Context 204800 is the current checkpoint configuration; current API operation was not established. Weights use the custom MiniMax Non-Commercial License, requiring prior authorization for commercial use. Current FAQ gives conflicting retirement timing (November 18 notice versus already-retired table); it says M Plan/Token Plan calls route to M3.1 Flash from October 19."
+  },
+  "summary": "Individually audited all 14 fields. Adds rounded complete checkpoint total 228.69B, exact-model developer nominal approximately 10B active, verified Transformer MoE architecture and the custom non-commercial license; rewrites the description. Confirms March 18 release, publicly available weights, current 204800-token checkpoint context, text input/output, reasoning and tools. All 125 shard headers were inspected without tensor-data downloads. Exact routing-bias training status and reconciliation to nominal 230B remain documented limitations that do not affect the selected 0.01B checkpoint precision; current hosted API operation was not verified. The current native API FAQ conflicts on retirement timing and says plan-based calls now route to M3.1 Flash."
+}
