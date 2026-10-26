@@ -1,0 +1,282 @@
+{
+  "index": 279,
+  "model_id": "meta/llama-guard-3-8b",
+  "reviewed_at": "2026-10-26T21:48:00.125032Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://raw.githubusercontent.com/meta-llama/PurpleLlama/main/Llama-Guard3/8B/MODEL_CARD.md",
+      "title": "Llama Guard 3-8B Model Card",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Identifies the exact model as a Llama-3.1-8B fine-tune for input/output content-safety classification. Documents text safety labels, eight languages, 13 MLCommons hazards plus Code Interpreter Abuse, and a separate INT8 variant."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/api/models/meta-llama/Llama-Guard-3-8B",
+      "title": "Meta Llama-Guard-3-8B repository metadata",
+      "publisher": "Meta / Hugging Face",
+      "accessed": true,
+      "evidence": "Exact repository revision 7327bd9f6efbbe6101dc6cc4736302b3cbb6e425 identifies LlamaForCausalLM, Llama 3.1 base model, Llama 3.1 license text, downloadable gated weights, and a safety-label chat template. BF16 safetensors element metadata totals 8,030,261,248; this is corroboration, not by itself a learned-parameter audit."
+    },
+    {
+      "id": "s3",
+      "url": "https://raw.githubusercontent.com/meta-llama/llama-models/main/models/sku_list.py",
+      "title": "Meta model registry: exact Llama Guard 3 8B architecture",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "The default Llama-Guard-3-8B entry targets meta-llama/Llama-Guard-3-8B and declares dimension 4096, 32 layers, 32 query heads, 8 KV heads, vocabulary 128256, FFN multiplier 1.3 and FFN rounding multiple 1024. It separately registers the INT8 checkpoint."
+    },
+    {
+      "id": "s4",
+      "url": "https://raw.githubusercontent.com/meta-llama/llama-models/main/models/llama3/model.py",
+      "title": "Meta Llama 3 reference Transformer implementation",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Defines bias-free attention and three-matrix gated FFN weights, two learned RMSNorm vectors per layer, separate vocabulary embedding/output matrices and final norm. Head dimension is dim/n_heads; FFN width is the rounded scaled two-thirds of 4*dim. RoPE frequencies and KV caches are computed non-parameter tensors."
+    },
+    {
+      "id": "s5",
+      "url": "https://raw.githubusercontent.com/meta-llama/llama-models/main/models/sku_types.py",
+      "title": "Meta model registry: context lengths and quantization defaults",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Explicitly returns max_seq_length 131072 for CoreModelId.llama_guard_3_8b. The unqualified model variant defaults to BF16; INT8 is distinct."
+    },
+    {
+      "id": "s6",
+      "url": "https://ai.meta.com/blog/meta-llama-3-1-ai-responsibility/",
+      "title": "Expanding our open source large language models responsibly",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Dated July 23, 2024; announces release of Llama Guard 3 as multilingual input/output moderation derived from Llama 3.1 and sharing of weights and safety tools."
+    },
+    {
+      "id": "s7",
+      "url": "https://dev.meta.ai/llama/docs/model-cards-and-prompt-formats/llama-guard-3",
+      "title": "Llama Guard 3 model cards and prompt formats",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Distinguishes text-only 8B and 1B models from 11B-Vision, identifies 8B as released with Llama 3.1, and documents safety classification with S14 support in the 8B model."
+    },
+    {
+      "id": "s8",
+      "url": "https://raw.githubusercontent.com/meta-llama/PurpleLlama/main/Llama-Guard3/8B/LICENSE",
+      "title": "Current PurpleLlama Llama Guard 3 8B license copy",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Current GitHub directory contains Llama 3.2 Community License text, conflicting with the Llama 3.1 text and metadata in the exact Hugging Face weight repository. This discrepancy is recorded rather than silently transferring the newer license."
+    },
+    {
+      "id": "s9",
+      "url": "https://arxiv.org/html/2407.21783v3",
+      "title": "The Llama 3 Herd of Models",
+      "publisher": "Llama Team, Meta",
+      "accessed": true,
+      "evidence": "Section 3.2 describes dense Transformer architecture; section 5.4.7 identifies Llama Guard 3 as an 8B safety-classification fine-tune and distinguishes its tool-conversation screening from general tool generation. Does not define a separate active-parameter count for this classifier."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/meta-llama/Llama-Guard-3-8B/raw/main/config.json",
+      "title": "Exact checkpoint config.json (gated)",
+      "publisher": "Meta",
+      "accessed": false,
+      "evidence": "Direct raw and rendered config requests returned HTTP 401 during this audit. No direct checkpoint tensor-header audit was possible without gated access."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Llama-Guard-3-8B",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Exact repository/SKU identifier; punctuation matches the frozen display name."
+    },
+    "developer": {
+      "value": "Meta",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s6"
+      ],
+      "note": "Published by Meta in its model repository and release announcement."
+    },
+    "family": {
+      "value": "llama",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Retains the broad Llama family; specifically the Llama Guard safety-classifier line, based on Llama 3.1 8B."
+    },
+    "release_date": {
+      "value": "2024-07-23",
+      "status": "verified",
+      "source_ids": [
+        "s6",
+        "s7"
+      ],
+      "note": "Dated first-party release announcement plus exact-variant documentation tying the 8B model to that Llama 3.1 release. The repository creation date is not used as public release evidence."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s6"
+      ],
+      "note": "Weights are distributed under gated license acceptance. Open weights does not imply an unrestricted license."
+    },
+    "license": {
+      "value": "Llama 3.1 Community License",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s8"
+      ],
+      "note": "Exact Hugging Face checkpoint metadata and displayed agreement say Llama 3.1. Current PurpleLlama/8B/LICENSE instead says Llama 3.2; prefer the repository-specific weight terms and retain the conflict."
+    },
+    "parameters_b": {
+      "value": 8.030261248,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s2"
+      ],
+      "note": "Derived full learned-parameter total, not checkpoint-header verified. s3 supplies h=4096, L=32, query heads=32, KV heads=8, vocab=128256, FFN multiplier=1.3 and rounding multiple=1024. s4 defines head_dim=h/32=128 and FFN width=1024*ceil(int(1.3*int(2*(4*h)/3))/1024)=14336. Formula: 2*128256*4096 + 32*(2*4096^2 + 2*4096*8*128 + 3*4096*14336 + 2*4096) + 4096 = 8,030,261,248. Includes untied input/output matrices and all norm weights; excludes KV caches, RoPE frequencies and quantization metadata. The exact BF16 repository storage total agrees independently; 8B remains the nominal size."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s9"
+      ],
+      "note": "No separately defined active-parameter count was found for this exact classifier in its card or technical report. Dense architecture is not used to equate active and total counts."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s9"
+      ],
+      "note": "Dense decoder-only Transformer: 32 layers, width 4096, GQA with 32 query/8 KV heads, gated FFN and RMSNorm. Exact model registry and LlamaForCausalLM metadata support the classification; there is no expert router."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "s5"
+      ],
+      "note": "Meta registry explicitly selects 131072 for llama_guard_3_8b; corrects decimal shorthand 128000. This is the model sequence limit, not a claim about every provider endpoint."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7"
+      ],
+      "note": "8B is explicitly text-only; generated outputs are safe/unsafe and hazard-category text. Vision support belongs to the separate 11B-Vision variant."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s7"
+      ],
+      "note": "The documented interface generates safety labels without a separately disclosed thinking mode; absence of that interface is not an explicit capability exclusion. Clear unsupported baseline false."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s9"
+      ],
+      "note": "The documented task screens conversations involving search/code-interpreter tools. Safety-label generation does not establish native tool-call generation or an absolute inability to do so; clear unsupported baseline false."
+    },
+    "description": {
+      "value": "Llama 3.1 8B-based text safety classifier for prompts and responses in eight languages, covering 14 hazard categories including code interpreter abuse.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7",
+        "s9"
+      ],
+      "note": "Concise description of the released classifier. The 14 labels comprise 13 MLCommons hazard categories plus Code Interpreter Abuse; no general assistant, reasoning-mode or tool-execution claim is transferred from Llama 3.1 Instruct."
+    }
+  },
+  "patch": {
+    "license": "Llama 3.1 Community License",
+    "parameters_b": 8.030261248,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "context_window": 131072,
+    "description": "Llama 3.1 8B-based text safety classifier for prompts and responses in eight languages, covering 14 hazard categories including code interpreter abuse.",
+    "source_url": "https://huggingface.co/meta-llama/Llama-Guard-3-8B",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Meta Llama Guard 3 8B model card",
+        "url": "https://raw.githubusercontent.com/meta-llama/PurpleLlama/main/Llama-Guard3/8B/MODEL_CARD.md",
+        "type": "primary"
+      },
+      {
+        "label": "Meta exact model architecture registry",
+        "url": "https://raw.githubusercontent.com/meta-llama/llama-models/main/models/sku_list.py",
+        "type": "primary"
+      },
+      {
+        "label": "Meta learned-weight implementation",
+        "url": "https://raw.githubusercontent.com/meta-llama/llama-models/main/models/llama3/model.py",
+        "type": "primary"
+      },
+      {
+        "label": "Meta exact context registry",
+        "url": "https://raw.githubusercontent.com/meta-llama/llama-models/main/models/sku_types.py",
+        "type": "primary"
+      },
+      {
+        "label": "Meta July 23 release announcement",
+        "url": "https://ai.meta.com/blog/meta-llama-3-1-ai-responsibility/",
+        "type": "primary"
+      },
+      {
+        "label": "Meta checkpoint metadata and license",
+        "url": "https://huggingface.co/api/models/meta-llama/Llama-Guard-3-8B",
+        "type": "weights"
+      },
+      {
+        "label": "Meta current GitHub license copy (conflicting)",
+        "url": "https://raw.githubusercontent.com/meta-llama/PurpleLlama/main/Llama-Guard3/8B/LICENSE",
+        "type": "primary"
+      }
+    ],
+    "notes": "8.030261248B is a complete learned-parameter total derived from Meta's exact model registry and reference weight definitions, corroborated by BF16 repository metadata; checkpoint headers were not accessed because the config/weights are gated. Nominal size is 8B. Active parameters are not separately disclosed. The exact Hugging Face weights carry Llama 3.1 terms, while the current PurpleLlama 8B GitHub license copy says Llama 3.2. Tool-use support here means safety classification of tool conversations, not tool-call generation. Dedicated reasoning and native tool-call generation are not separately disclosed.",
+    "reasoning": null,
+    "tool_call": null
+  },
+  "summary": "Verified all 14 fields for the non-quantized Llama Guard 3 8B safety classifier. Adds dense architecture and repository-specific Llama 3.1 license, corrects context to 131072, and refines nominal 8B to a derived 8.030261248B learned total. Active count remains undisclosed. Confirms July 23, 2024 release, text-only safety-label output, eight languages and 14 hazards. Records the conflicting newer GitHub license and gated checkpoint access; tool moderation does not imply native tool generation. Parent cleared categorical reasoning/tool_call flags because the cited classification interface does not explicitly establish their absence."
+}
