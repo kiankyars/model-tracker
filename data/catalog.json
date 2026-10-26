@@ -22617,46 +22617,85 @@
     "developer": "Google",
     "developer_id": "google",
     "family": "gemma",
-    "description": "Efficient on-device Gemma 3n model for text, image, and audio understanding",
+    "description": "Google’s instruction-tuned Gemma 3n E4B model accepts text, images, audio and video and generates text. It uses a nested MatFormer architecture designed for devices with limited memory.",
     "release_date": "2025-06-26",
     "date_precision": "day",
     "open_weights": true,
     "license": "Gemma Terms of Use",
-    "parameters_b": null,
+    "parameters_b": 8,
     "active_parameters_b": null,
-    "parameters_source": null,
-    "architecture": null,
+    "parameters_source": "primary_source",
+    "architecture": "transformer",
     "context_window": 32768,
     "modalities": {
       "input": [
         "text",
         "image",
-        "audio"
+        "audio",
+        "video"
       ],
       "output": [
         "text"
       ]
     },
-    "reasoning": false,
-    "tool_call": false,
-    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/google/gemma-3n-e4b-it.toml",
-    "source_type": "catalog",
+    "reasoning": null,
+    "tool_call": null,
+    "source_url": "https://developers.googleblog.com/en/introducing-gemma-3n-developer-guide/",
+    "source_type": "primary",
     "sources": [
-      {
-        "label": "Models.dev record",
-        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/google/gemma-3n-e4b-it.toml",
-        "type": "catalog"
-      },
       {
         "label": "Hugging Face",
         "url": "https://huggingface.co/google/gemma-3n-E4B-it",
         "type": "weights"
+      },
+      {
+        "label": "Google full release, June 26, 2025",
+        "url": "https://developers.googleblog.com/en/introducing-gemma-3n-developer-guide/",
+        "type": "primary"
+      },
+      {
+        "label": "Google parameter and effective-memory definitions",
+        "url": "https://ai.google.dev/gemma/docs/gemma-3n",
+        "type": "primary"
+      },
+      {
+        "label": "Google Gemma 3n model card",
+        "url": "https://ai.google.dev/gemma/docs/gemma-3n/model_card",
+        "type": "primary"
+      },
+      {
+        "label": "Official Hub parameter metadata",
+        "url": "https://huggingface.co/api/models/google/gemma-3n-E4B-it?blobs=true",
+        "type": "weights"
+      },
+      {
+        "label": "Google MatFormer Lab",
+        "url": "https://github.com/google-gemma/cookbook/blob/main/.archive/Gemma/%5BGemma_3n%5DMatFormer_Lab.ipynb",
+        "type": "primary"
+      },
+      {
+        "label": "Google AI Edge preview tool-calling announcement",
+        "url": "https://developers.googleblog.com/google-ai-edge-small-language-models-multimodality-rag-function-calling/",
+        "type": "primary"
+      },
+      {
+        "label": "Models.dev record",
+        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/google/gemma-3n-e4b-it.toml",
+        "type": "catalog"
       }
     ],
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
+    "upstream_present": true,
+    "notes": "8B is Google’s rounded complete E4B count. E4B and the 3.98B figure describe effective memory loading, not per-token active parameters. Public checkpoint metadata reports 7,849,978,192 BF16 elements; raw tensor access was gated, so an exact unique count is not asserted. June 26 dates this complete launch checkpoint; May offered a limited preview. Dedicated reasoning-mode and exact-checkpoint tool support remain unverified.",
+    "field_status": {
+      "active_parameters_b": "undisclosed",
+      "reasoning": "unverified",
+      "tool_call": "unverified"
+    },
+    "audited_at": "2026-10-26T20:16:17.685608+00:00",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/221.json"
   },
   {
     "id": "openai/o3-deep-research",

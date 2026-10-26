@@ -1,0 +1,344 @@
+{
+  "index": 221,
+  "model_id": "google/gemma-3n-e4b-it",
+  "reviewed_at": "2026-10-26T20:16:17.685608+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/google/gemma-3n-E4B-it",
+      "title": "Gemma 3n E4B IT launch model card",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Identifies this repository as the launch E4B instruction-tuned model for Transformers. Reports 8B raw parameters versus a 4B-comparable memory footprint and supports text, audio, image and video inputs.",
+      "type": "weights"
+    },
+    {
+      "id": "s2",
+      "url": "https://developers.googleblog.com/en/introducing-gemma-3n-developer-guide/",
+      "title": "Introducing Gemma 3n: The developer guide",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Dated June 26, 2025; announces the full release after the May preview. Reports E4B total 8B, nested MatFormer, PLE, LAuReL, AltUp, shared KV cache, audio and MobileNet-v5 vision encoders. Elastic switching was not part of launch implementations.",
+      "type": "primary"
+    },
+    {
+      "id": "s3",
+      "url": "https://ai.google.dev/gemma/docs/gemma-3n",
+      "title": "Gemma 3n model overview",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Defines effective parameters as reduced memory load obtained with PLE caching and conditional loading. Separates text, vision, audio and PLE groups. E4B contains an E2B submodel; audio/vision loading can be skipped. The linked parameter diagram describes E2B only.",
+      "type": "primary"
+    },
+    {
+      "id": "s4",
+      "url": "https://ai.google.dev/gemma/docs/gemma-3n/model_card",
+      "title": "Gemma 3n model card",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Names Google DeepMind as author and Gemma as family, confirms open pretrained and instruction-tuned weights, text/image/video/audio input, text output and a shared 32K-token input-plus-output budget. Links Gemma Terms of Use.",
+      "type": "primary"
+    },
+    {
+      "id": "s5",
+      "url": "https://ai.google.dev/gemma/terms",
+      "title": "Gemma Terms of Use",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "The current terms page retains Gemma Terms of Use for listed pre-Gemma-4 models; the Gemma 3n card directly links these terms.",
+      "type": "primary"
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/api/models/google/gemma-3n-E4B-it?blobs=true",
+      "title": "Public Hub metadata for Google Gemma 3n E4B IT",
+      "publisher": "Hugging Face / Google",
+      "accessed": true,
+      "evidence": "Revision c1221e9c62e34a43ab7ffacd1be0ea71f126ef10 reports safetensors parameters BF16=7,849,978,192 and four weight shards. Public architecture metadata names Gemma3nForConditionalGeneration. This is an aggregate, not an independently inspected tensor inventory.",
+      "type": "weights"
+    },
+    {
+      "id": "s7",
+      "url": "https://github.com/huggingface/transformers/blob/v4.53.0/src/transformers/models/gemma3n/modeling_gemma3n.py",
+      "title": "Released Transformers Gemma 3n implementation",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Defines the text Transformer, audio tower, vision tower and modality embedders, tied lm_head and nonpersistent registered buffers. Shared-KV paths bypass later-layer K/V calculation; PLE and activation sparsity prevent interpreting accelerator memory size as a uniform active-parameter count.",
+      "type": "primary"
+    },
+    {
+      "id": "s8",
+      "url": "https://github.com/huggingface/transformers/blob/v4.53.0/src/transformers/models/gemma3n/configuration_gemma3n.py",
+      "title": "Released Transformers Gemma 3n configuration",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "E4B-style configuration uses 35 text layers, hidden width 2048, FFN width 16384, maximum position embeddings 32768, 15 KV-sharing layers, and separate audio/vision configurations.",
+      "type": "primary"
+    },
+    {
+      "id": "s9",
+      "url": "https://github.com/google-gemma/cookbook/blob/main/.archive/Gemma/%5BGemma_3n%5DMatFormer_Lab.ipynb",
+      "title": "Gemma 3n MatFormer Lab",
+      "publisher": "Google Gemma",
+      "accessed": true,
+      "evidence": "Official notebook identifies E4B as 35 layers with 16384 FFN width. Its displayed main-model row labels 3.98B as Effective Params, while the nested E2B is 1.91B. These are not complete checkpoint totals or defined per-token active counts.",
+      "type": "primary"
+    },
+    {
+      "id": "s10",
+      "url": "https://developers.googleblog.com/en/introducing-gemma-3n",
+      "title": "Announcing Gemma 3n preview: powerful, efficient, mobile-first AI",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "May 20, 2025 announcement explicitly describes an early preview and staged modality availability; it does not identify the later launch Transformers checkpoint as an identical artifact.",
+      "type": "primary"
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/google/gemma-3n-E4B-it-litert-preview",
+      "title": "Gemma 3n E4B LiteRT preview model card",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Separate preview repository has a current-checkpoint restriction to text and vision. Its introductory E2B wording conflicts with the E4B repository title, so it is not used to transfer exact variant specifications to the June launch.",
+      "type": "weights"
+    },
+    {
+      "id": "s12",
+      "url": "https://developers.googleblog.com/google-ai-edge-small-language-models-multimodality-rag-function-calling/",
+      "title": "On-device small language models with multimodality, RAG, and Function Calling",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "May 20 article pairs Gemma 3n preview models with Google AI Edge function-calling libraries. It is positive family/preview evidence of prompted tool support, but does not explicitly identify the June E4B IT Transformers checkpoint.",
+      "type": "primary"
+    },
+    {
+      "id": "s13",
+      "url": "https://huggingface.co/google/gemma-3n-E4B-it/resolve/main/config.json",
+      "title": "Official launch configuration download",
+      "publisher": "Google / Hugging Face",
+      "accessed": false,
+      "evidence": "Returned HTTP 401. The official index and raw card downloads also returned 401; no gated files or weight shards were downloaded.",
+      "type": "weights"
+    },
+    {
+      "id": "s14",
+      "url": "https://huggingface.co/google/gemma-3n-E4B-it/resolve/main/model.safetensors.index.json",
+      "title": "Official launch Safetensors index",
+      "publisher": "Google / Hugging Face",
+      "accessed": false,
+      "evidence": "Returned HTTP 401. Exact stored tensor names/shapes and shared-weight omission could not be independently checked.",
+      "type": "weights"
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Gemma 3n E4B IT",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Exact launch repository identifies E4B IT (instruction tuned); distinct from the base E4B and LiteRT preview repositories."
+    },
+    "developer": {
+      "value": "Google",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4"
+      ],
+      "note": "Google publishes the weights; the card credits Google DeepMind."
+    },
+    "family": {
+      "value": "gemma",
+      "status": "verified",
+      "source_ids": [
+        "s4"
+      ],
+      "note": "Gemma 3n is a member of the Gemma family."
+    },
+    "release_date": {
+      "value": "2025-06-26",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s10",
+        "s11"
+      ],
+      "note": "June 26 is the explicit full-release date, bridged to this repository by its launch-version statement. May 20 is the earlier limited preview in separate artifacts. No exact-checkpoint identity bridge warrants backdating this record to May."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4"
+      ],
+      "note": "Official pretrained and instruction-tuned weights are distributed under an acceptance-gated open-weights license; the access gate does not make the model closed-weight."
+    },
+    "license": {
+      "value": "Gemma Terms of Use",
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5"
+      ],
+      "note": "Named terms are linked from the exact model card."
+    },
+    "parameters_b": {
+      "value": 8,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s6",
+        "s7",
+        "s13",
+        "s14"
+      ],
+      "note": "Google explicitly publishes 8B as the rounded complete E4B total, including PLE and multimodal components. Hub metadata reports 7,849,978,192 BF16 elements. The released implementation uses tied output embeddings and nonpersistent buffers, but gated config/index/headers prevent a full tensor reconciliation; the aggregate is therefore not promoted to an exact learned-parameter count. No packed-weight or quantization-scale counts are used."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s7",
+        "s9"
+      ],
+      "note": "No single exact active count is defined for this checkpoint. E4B (~4B; MatFormer Lab 3.98B) describes effective accelerator-memory loading after PLE offload and modality skipping. Nested model selection, conditional encoders, shared KV paths and activation sparsity vary which computation is performed; effective-memory load is not equivalent to per-token active learned weights."
+    },
+    "architecture": {
+      "value": "transformer",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s7",
+        "s8"
+      ],
+      "note": "MatFormer Transformer text backbone with nested submodels, PLE, AltUp, LAuReL and local/global attention with shared KV cache; separate audio and MobileNet-v5 vision encoders. The released implementation uses one gated feed-forward network per layer, not routed MoE experts. The broad transformer classification preserves the conditional and activation-sparse execution details without implying every stored weight participates in every token."
+    },
+    "context_window": {
+      "value": 32768,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s8"
+      ],
+      "note": "Google specifies 32K combined input/output tokens; the released E4B-style configuration resolves this as max_position_embeddings=32768. LiteRT deployment-specific 4096 limits are not the launch model limit."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "audio",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4"
+      ],
+      "note": "The exact launch card includes image and video vision inputs, audio and text; output is text. Add the omitted video modality."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4",
+        "s6"
+      ],
+      "note": "The sources report reasoning evaluations and permit chain-of-thought prompting, but do not establish a dedicated thinking/reasoning mode or a definitive model-wide negative for this exact variant. Clear the unsupported false flag."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s1",
+        "s6",
+        "s12"
+      ],
+      "note": "Google positively reports prompted function calling for the May Gemma 3n preview via AI Edge. No source inspected explicitly bridges that capability to this exact June launch checkpoint; the current generic function-calling URL redirects to Gemma 4. The native chat template lacking a tools argument does not establish lack of prompted support. Clear the unsupported false flag rather than asserting absence."
+    },
+    "description": {
+      "value": "Google\u2019s instruction-tuned Gemma 3n E4B model accepts text, images, audio and video and generates text. It uses a nested MatFormer architecture designed for devices with limited memory.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4"
+      ],
+      "note": "Plain summary of the exact launch model and its documented inputs/output and architecture."
+    }
+  },
+  "patch": {
+    "parameters_b": 8,
+    "parameters_source": "primary_source",
+    "architecture": "transformer",
+    "modalities": {
+      "input": [
+        "text",
+        "image",
+        "audio",
+        "video"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "reasoning": null,
+    "tool_call": null,
+    "description": "Google\u2019s instruction-tuned Gemma 3n E4B model accepts text, images, audio and video and generates text. It uses a nested MatFormer architecture designed for devices with limited memory.",
+    "source_url": "https://developers.googleblog.com/en/introducing-gemma-3n-developer-guide/",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Google launch model card",
+        "url": "https://huggingface.co/google/gemma-3n-E4B-it",
+        "type": "weights"
+      },
+      {
+        "label": "Google full release, June 26, 2025",
+        "url": "https://developers.googleblog.com/en/introducing-gemma-3n-developer-guide/",
+        "type": "primary"
+      },
+      {
+        "label": "Google parameter and effective-memory definitions",
+        "url": "https://ai.google.dev/gemma/docs/gemma-3n",
+        "type": "primary"
+      },
+      {
+        "label": "Google Gemma 3n model card",
+        "url": "https://ai.google.dev/gemma/docs/gemma-3n/model_card",
+        "type": "primary"
+      },
+      {
+        "label": "Official Hub parameter metadata",
+        "url": "https://huggingface.co/api/models/google/gemma-3n-E4B-it?blobs=true",
+        "type": "weights"
+      },
+      {
+        "label": "Google MatFormer Lab",
+        "url": "https://github.com/google-gemma/cookbook/blob/main/.archive/Gemma/%5BGemma_3n%5DMatFormer_Lab.ipynb",
+        "type": "primary"
+      },
+      {
+        "label": "Google AI Edge preview tool-calling announcement",
+        "url": "https://developers.googleblog.com/google-ai-edge-small-language-models-multimodality-rag-function-calling/",
+        "type": "primary"
+      }
+    ],
+    "notes": "8B is Google\u2019s rounded complete E4B count. E4B and the 3.98B figure describe effective memory loading, not per-token active parameters. Public checkpoint metadata reports 7,849,978,192 BF16 elements; raw tensor access was gated, so an exact unique count is not asserted. June 26 dates this complete launch checkpoint; May offered a limited preview. Dedicated reasoning-mode and exact-checkpoint tool support remain unverified."
+  },
+  "summary": "Verified nominal complete total of 8B and MatFormer architecture; kept active count null because effective-memory figures are not active-weight counts. Confirmed June 26 full-release identity, open weights, license and 32768 context; added video input and replaced unsupported capability negatives with null. The precise Hub aggregate could not be reconciled against gated tensor metadata; exact launch reasoning/tool capability evidence remains unresolved."
+}
