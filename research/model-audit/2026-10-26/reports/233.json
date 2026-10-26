@@ -1,0 +1,290 @@
+{
+  "index": 233,
+  "model_id": "google/t5-small",
+  "reviewed_at": "2026-10-26T20:43:56.184Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://github.com/google-research/text-to-text-transfer-transformer/blob/9fd7b14a769417be33bc6c850f9598764913c833/README.md",
+      "title": "Original T5 release README",
+      "publisher": "Google Research",
+      "accessed": true,
+      "evidence": "The original repository snapshot explicitly lists the released T5-Small checkpoint, its Google Cloud Storage location and a nominal 60 million parameters. It describes the text-to-text encoder-decoder framework and calls 512 a default sequence length."
+    },
+    {
+      "id": "s2",
+      "url": "https://api.github.com/repos/google-research/text-to-text-transfer-transformer/commits/9fd7b14a769417be33bc6c850f9598764913c833",
+      "title": "Original T5 release commit metadata",
+      "publisher": "Google Research / GitHub",
+      "accessed": true,
+      "evidence": "Author time 2019-10-23T23:34:41Z and committer time 2019-10-23T23:52:05Z date the snapshot that already links the released T5-Small weights. February 2020 publicity and later checkpoint conversions do not establish the first release."
+    },
+    {
+      "id": "s3",
+      "url": "https://storage.googleapis.com/t5-data/pretrained_models/small/model.ckpt-1000000.index",
+      "title": "Original Google T5-Small checkpoint tensor index",
+      "publisher": "Google Research",
+      "accessed": true,
+      "evidence": "Decoded the 5,974-byte TensorFlow SSTable index without downloading weight shards. Excluding Adafactor slot variables and global_step leaves 131 unique BF16 model tensors with 60,506,624 learned parameters: encoder 18,881,280, decoder 25,175,808, shared embedding 16,449,536. Retained tensor storage bytes equal twice their shape products; there are no partition slices or quantization metadata. Two self-attention relative-bias tables are present, with no cross-attention relative-bias table."
+    },
+    {
+      "id": "s4",
+      "url": "https://storage.googleapis.com/t5-data/pretrained_models/small/operative_config.gin",
+      "title": "Original T5-Small operative configuration",
+      "publisher": "Google Research",
+      "accessed": true,
+      "evidence": "Six encoder and six decoder blocks, d_model=512, d_ff=2048, d_kv=64 and eight heads. Uses dense ReLU feed-forward layers, shared encoder/decoder embedding and tied decoder embedding/softmax weights. Absolute positional embeddings are disabled. Input/target lengths and max_length are configured to 512; vocabulary padding divisor is 128."
+    },
+    {
+      "id": "s5",
+      "url": "https://jmlr.org/papers/volume21/20-074/20-074.pdf",
+      "title": "Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer",
+      "publisher": "T5 authors / Google Research",
+      "accessed": true,
+      "evidence": "Describes the original T5 Small dimensions and nominal 60M count, dense encoder-decoder architecture, scale-only layer normalization, relative-position bias, tied embedding/output weights, and text-to-text inputs/outputs. Original T5 uses span-corruption pretraining mixed with supervised tasks. Length 512 describes training/fine-tuning. No dedicated thinking mode, native tool-call interface or separately defined inference active-parameter count is specified."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/google-t5/t5-small/resolve/df1b051c49625cf57a3d0d8d3863ed4d13564fe4/config.json",
+      "title": "Pinned original T5-Small Transformers configuration",
+      "publisher": "T5 checkpoint / Hugging Face",
+      "accessed": true,
+      "evidence": "Confirms six blocks per stack, d_model=512, d_ff=2048, d_kv=64, eight heads, vocabulary 32128 and 32 relative-attention buckets. n_positions=512 is configuration metadata, not a learned absolute-position table or a verified universal serving maximum."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/google-t5/t5-small/resolve/df1b051c49625cf57a3d0d8d3863ed4d13564fe4/model.safetensors",
+      "title": "Pinned T5-Small converted safetensors header",
+      "publisher": "T5 checkpoint / Hugging Face",
+      "accessed": true,
+      "evidence": "Read only HTTP 206 byte ranges 0-7 and 8-15535, not the weight payload. Header contains 132 F32 tensors totaling 60,506,880 stored elements. A 256-element decoder cross-attention relative-bias tensor is absent from Google's original checkpoint and ignored by the model implementation. Excluding this unused conversion artifact gives the independently verified original total of 60,506,624."
+    },
+    {
+      "id": "s8",
+      "url": "https://github.com/huggingface/transformers/blob/a672eb5f474b8b30173e9f96eab66adf292da635/src/transformers/models/t5/modeling_t5.py",
+      "title": "T5 model implementation",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Defines dense attention and two-matrix ReLU feed-forward layers, scale-only layer normalization, and tied encoder/decoder/output embeddings. Cross-attention has no relative bias, and T5ForConditionalGeneration explicitly ignores the old converted decoder cross-attention relative-bias key on load. Only the first self-attention block of each stack owns a relative-bias table. Shape-based counting agrees with the original Google index."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/google-t5/t5-small/blob/df1b051c49625cf57a3d0d8d3863ed4d13564fe4/README.md",
+      "title": "T5 Small model card",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Heading is T5 Small. Identifies the original Google Research authors, Apache 2.0 license, text-to-text tasks, and C4 span-corruption plus supervised multitask pretraining. This card is authored by Hugging Face; original Google checkpoint metadata independently supplies the exact parameter count."
+    },
+    {
+      "id": "s10",
+      "url": "https://github.com/google-research/text-to-text-transfer-transformer/blob/9fd7b14a769417be33bc6c850f9598764913c833/LICENSE",
+      "title": "Original T5 Apache License 2.0",
+      "publisher": "Google Research",
+      "accessed": true,
+      "evidence": "Original released project carries Apache License 2.0, consistent with the exact checkpoint model card."
+    },
+    {
+      "id": "s11",
+      "url": "https://github.com/google-research/t5x/blob/main/docs/models.md",
+      "title": "T5X released-model documentation",
+      "publisher": "Google Research",
+      "accessed": true,
+      "evidence": "Later first-party documentation links the original T5 Small checkpoint at step 1000000 and distinguishes original T5 from T5 1.1, LM-adapted and Flan variants. Original T5 uses supervised multitask pretraining and shared embeddings; later variant dimensions and counts are not transferred. It does not give a separate inference active-parameter count for original T5 Small."
+    },
+    {
+      "id": "s12",
+      "url": "https://arxiv.org/pdf/2005.14165",
+      "title": "Language Models are Few-Shot Learners, Appendix D",
+      "publisher": "GPT-3 authors / OpenAI",
+      "accessed": true,
+      "evidence": "Table D.1 includes the exact T5-Small model with nominal 60M parameters and an active fraction of 0.5 for a simplified training-FLOP estimate. Appendix D explicitly omits attention-operation costs. This comparison is not an original-developer disclosure of a per-token inference active-parameter count and does not establish a 30M active catalog value."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "T5 Small",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s9"
+      ],
+      "note": "Original T5 Small, not T5 1.1 Small or Flan-T5 Small. Normalize capitalization to the exact checkpoint card heading."
+    },
+    "developer": {
+      "value": "Google",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5",
+        "s9"
+      ],
+      "note": "Google Research developed the original model; the report lists individual authors."
+    },
+    "family": {
+      "value": "t5",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Original Text-to-Text Transfer Transformer family."
+    },
+    "release_date": {
+      "value": "2019-10-23",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "The dated original repository snapshot explicitly links the released Small checkpoint. Retain this date rather than later publicity or conversion dates."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s7"
+      ],
+      "note": "Original Google weights are publicly linked; original tensor index and converted checkpoint header were accessible."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s9",
+        "s10"
+      ],
+      "note": "Exact checkpoint license metadata agrees with the original project license."
+    },
+    "parameters_b": {
+      "value": 0.060506624,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "note": "Exact complete learned count, 60,506,624 parameters divided by 1e9, not the rounded 60M label. Sum 131 unique BF16 Google model tensors; exclude optimizer slots and global_step. Encoder 18,881,280 + decoder 25,175,808 + shared embedding 16,449,536. Shared encoder/decoder/output embedding counted once. With D=512, I=8*64=512, F=2048, Le=Ld=6, V=32128, B=32, H=8, independent formula V*D + Le*(4*D*I+2*D*F+2*D) + Ld*(8*D*I+2*D*F+3*D) + 2*D + 2*B*H agrees. HF storage includes an extra unused 256-element cross-attention bias, excluded from the original model count."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s11",
+        "s12"
+      ],
+      "note": "Checked original architecture/training report, operative configuration and later first-party T5X documentation; no separately defined per-token inference active-parameter count. Encoder and decoder execute in different inference phases, so dense does not establish active equals total. GPT-3 Appendix D's 0.5 active fraction is simplified training-FLOP accounting, not a suitable inference parameter specification."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s5",
+        "s8"
+      ],
+      "note": "Six-block bidirectional encoder and six-block causal decoder with cross-attention; dense ReLU feed-forward layers, relative self-attention bias and scale-only normalization. No mixture-of-experts routing."
+    },
+    "context_window": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s5",
+        "s6",
+        "s8"
+      ],
+      "note": "The catalog field denotes maximum context. Sources establish 512 training/default input and target lengths, not a universal maximum for this relative-position encoder-decoder checkpoint. Configured max_length and n_positions metadata do not independently verify a universal serving or architectural cap. Relative-bias distance buckets are not a context limit; do not infer unlimited supported context either."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5",
+        "s9"
+      ],
+      "note": "Original text-to-text checkpoint consumes and generates tokenized text."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s5",
+        "s9",
+        "s11"
+      ],
+      "note": "No dedicated thinking mode or explicitly trained reasoning capability is established for this exact original checkpoint. Ordinary supervised NLP tasks and later Flan variants are insufficient evidence."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s5",
+        "s9",
+        "s11"
+      ],
+      "note": "No native tool/function-call interface or training is documented for this original checkpoint; arbitrary text generation does not establish it."
+    },
+    "description": {
+      "value": "Original T5 encoder-decoder model pretrained with span corruption and supervised text-to-text tasks.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5",
+        "s9",
+        "s11"
+      ],
+      "note": "Describes original multitask T5 without transferring T5 1.1 or Flan training or capabilities."
+    }
+  },
+  "patch": {
+    "name": "T5 Small",
+    "parameters_b": 0.060506624,
+    "parameters_source": "primary_source",
+    "description": "Original T5 encoder-decoder model pretrained with span corruption and supervised text-to-text tasks.",
+    "notes": "Released in the October 23, 2019 original repository snapshot. Original Google checkpoint contains 60,506,624 unique learned parameters, counting the shared encoder/decoder/output embedding once and excluding optimizer state. A converted HF checkpoint additionally stores an unused 256-element cross-attention relative-bias tensor, excluded here. Length 512 is the training/default sequence length; a maximum context and separate inference active-parameter count are not established.",
+    "sources": [
+      {
+        "label": "Original T5 release",
+        "url": "https://github.com/google-research/text-to-text-transfer-transformer/blob/9fd7b14a769417be33bc6c850f9598764913c833/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Original T5-Small tensor index",
+        "url": "https://storage.googleapis.com/t5-data/pretrained_models/small/model.ckpt-1000000.index",
+        "type": "weights"
+      },
+      {
+        "label": "Original T5-Small operative configuration",
+        "url": "https://storage.googleapis.com/t5-data/pretrained_models/small/operative_config.gin",
+        "type": "primary"
+      },
+      {
+        "label": "T5 research paper",
+        "url": "https://jmlr.org/papers/volume21/20-074/20-074.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "T5 Small model card",
+        "url": "https://huggingface.co/google-t5/t5-small/blob/df1b051c49625cf57a3d0d8d3863ed4d13564fe4/README.md",
+        "type": "weights"
+      }
+    ]
+  },
+  "summary": "Audited all 14 fields for original T5 Small. Corrected capitalization and replaced nominal 60M with the exact original-checkpoint total 60,506,624, independently matching a configuration formula and the converted checkpoint header after excluding an unused 256-element bias. Confirmed October 23, 2019 release, Google, Apache 2.0, open weights and dense text-to-text encoder-decoder architecture. Context maximum, separate inference active count, dedicated reasoning and native tool calls remain null; 512 is a training/default length. Clarified original multitask pretraining."
+}
