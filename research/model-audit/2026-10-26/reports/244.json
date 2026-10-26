@@ -1,0 +1,305 @@
+{
+  "index": 244,
+  "model_id": "inclusionai/ling-3.0-flash-sante",
+  "reviewed_at": "2026-10-26T21:00:26.273264Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash-Sante/blob/f74bd27bd26ffc71a50dd847805f8f7666ff0b43/README.md",
+      "title": "Ling-3.0-flash-Sante official model card",
+      "publisher": "inclusionAI",
+      "accessed": true,
+      "evidence": "Exact Sante card identifies a healthcare specialization of Ling-3.0-flash; publishes nominal 124B total and 5.1B active per token, MIT license, downloadable weights, hybrid KDA/gated-MLA sparse MoE, 256K training context, default thinking and tool use."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash-Sante/blob/f74bd27bd26ffc71a50dd847805f8f7666ff0b43/config.json",
+      "title": "Ling-3.0-flash-Sante checkpoint configuration",
+      "publisher": "inclusionAI",
+      "accessed": true,
+      "evidence": "BailingMoeV3ForCausalLM/bailing_hybrid: 42 main layers, group size 6, first 2 dense FFNs, 512 routed experts with 8 selected, one shared expert, hidden width 2560, one next-token prediction layer, 262144 positions, BF16, untied word embeddings; no quantization configuration."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash-Sante/blob/f74bd27bd26ffc71a50dd847805f8f7666ff0b43/modeling_bailing_moe_v3.py",
+      "title": "Ling-3.0-flash-Sante implementation",
+      "publisher": "inclusionAI",
+      "accessed": true,
+      "evidence": "Decoder uses KDA except every sixth layer using gated MLA: 35 KDA and 7 MLA main layers. Layer 42 is BailingMoeV3MTPLayer. expert_bias is registered as a non-parameter buffer; A_log and dt_bias are learned nn.Parameters. MTP reuses input embeddings and lm_head; the two matrices are separate with tie_word_embeddings=false."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash-Sante/tree/f74bd27bd26ffc71a50dd847805f8f7666ff0b43",
+      "title": "Exact Sante checkpoint: bounded safetensors header inventory",
+      "publisher": "inclusionAI",
+      "accessed": true,
+      "evidence": "Fetched only the eight-byte length and JSON header from each of model-00001-of-00027.safetensors through model-00027-of-00027.safetensors using HTTP 206 byte ranges. All 63783 indexed names match. Raw 127486405600 elements minus 20992 expert_bias buffer elements gives 127486384608 learned parameters: 124414191072 main plus 3072193536 MTP. BF16=127486240128 elements; F32=165472 (20992 buffers and 144480 learned KDA A_log/dt_bias). No packed quantization, scale tensors, duplicate offsets, or serialized tied aliases. No full weights were downloaded."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash-Sante/blob/f74bd27bd26ffc71a50dd847805f8f7666ff0b43/model.safetensors.index.json",
+      "title": "Sante checkpoint shard index",
+      "publisher": "inclusionAI",
+      "accessed": true,
+      "evidence": "Maps 63783 tensor names to 27 shards, including layer 42 MTP, one input-embedding matrix and one output-head matrix. Its total_size metadata is 254978385024 bytes; shape/offset-validated headers sum to 254973142144 tensor-data bytes, so parameter counts use actual tensor shapes rather than dividing this metadata size."
+    },
+    {
+      "id": "s6",
+      "url": "https://cdn.syndication.twimg.com/tweet-result?id=2095953758148853892&lang=en&token=0",
+      "title": "Ant Ling original Sante announcement, official X syndication response",
+      "publisher": "Ant Ling / X",
+      "accessed": true,
+      "evidence": "Official X response identifies AntLingAGI tweet 2095953758148853892, created_at 2026-09-04T19:14:51.000Z, introducing Ling-3.0-flash-Sante as a health/medicine MoE model built on Ling-3.0-flash. Canonical post https://x.com/AntLingAGI/status/2095953758148853892 was blocked by the browser fetch; the first-party syndication JSON was accessible."
+    },
+    {
+      "id": "s7",
+      "url": "https://vercel.com/changelog/ling-3-0-flash-sante-is-now-available-on-ai-gateway-for-free",
+      "title": "Ling 3.0 Flash Sante is now available on AI Gateway for free",
+      "publisher": "Vercel",
+      "accessed": true,
+      "evidence": "Dated September 4, 2026, explicitly announces availability of inclusionai/ling-3.0-flash-sante with healthcare specialization, 256K context and function calling. Establishes contemporaneous hosted public availability."
+    },
+    {
+      "id": "s8",
+      "url": "https://blogs.novita.ai/ling-3-0-flash-sante-on-novita-ai-launch-pricing/",
+      "title": "Ling 3.0 Flash Sante on Novita AI: Free API, Specs, and Pricing",
+      "publisher": "Novita AI",
+      "accessed": true,
+      "evidence": "September 4, 2026 provider article confirms the exact API identifier, text input/output, reasoning, function calling and 262144-token context. Says it was added to the provider catalog on September 3; this is a catalog date, without a demonstrated public availability timestamp before the September 4 launch."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/api/models/inclusionAI/Ling-3.0-flash-Sante",
+      "title": "Sante repository metadata",
+      "publisher": "inclusionAI / Hugging Face",
+      "accessed": true,
+      "evidence": "Public exact-model repository revision f74bd27bd26ffc71a50dd847805f8f7666ff0b43, created October 19, 2026 and last modified October 22; MIT card metadata. Automatic safetensors raw inventory is 127486405600 elements, agreeing with independent headers but including nonlearned expert_bias buffers."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash-Sante/blob/f74bd27bd26ffc71a50dd847805f8f7666ff0b43/chat_template.jinja",
+      "title": "Sante native chat template",
+      "publisher": "inclusionAI",
+      "accessed": true,
+      "evidence": "Text roles and generation prompt, enable_thinking defaults on, explicit reasoning tags, tools schema formatting, tool_call and tool_response serialization."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Ling 3.0 Flash Sante",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7"
+      ],
+      "note": "Display normalization of the exact official Ling-3.0-flash-Sante name; distinct from Flash, Fin and VL."
+    },
+    "developer": {
+      "value": "InclusionAI",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Published by inclusionAI and announced by its Ant Ling account; retain catalog display capitalization."
+    },
+    "family": {
+      "value": "ling",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Explicitly built on Ling-3.0-flash; normalized Ling family key."
+    },
+    "release_date": {
+      "value": "2026-09-04",
+      "status": "verified",
+      "source_ids": [
+        "s6",
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "note": "Original dated Ant Ling introduction and contemporaneous Vercel availability establish September 4. Novita says catalog addition September 3, which does not establish earlier public service. The October Hugging Face repository/weight publication is later and must not replace the original API release date."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s9"
+      ],
+      "note": "Exact Sante public weights are accessible as 27 shards; baseline false is stale."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s9"
+      ],
+      "note": "Exact Sante model-card YAML license is mit; not transferred from a sibling."
+    },
+    "parameters_b": {
+      "value": 127.486384608,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "note": "Complete learned checkpoint count in decimal billions: 127486405600 header elements minus 41 x 512 nonlearned expert_bias buffers. Main model is 124.414191072B, consistent with the nominal 124B card label; auxiliary layer-42 MTP adds 3.072193536B. Includes distinct input embeddings and output head once each. BF16/F32 tensors are unpacked, and learned KDA A_log/dt_bias remain included."
+    },
+    "active_parameters_b": {
+      "value": 5.1,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "note": "Exact Sante card explicitly reports 5.1B active parameters per token, retained as a nominal developer figure. Config verifies 8 of 512 routed experts plus one shared expert per MoE layer. The card does not precisely define embedding, output-head or MTP inclusion in its active-count convention; no exact phase-specific active count is inferred."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Hybrid linear-attention MoE: 42 main layers with 35 Kimi Delta Attention and 7 gated multi-head latent attention layers in a 5:1 pattern; two initial dense FFNs followed by 40 MoE layers, each with 512 routed experts, top-8 routing and one shared expert. One additional gated-MLA MoE MTP layer is auxiliary."
+    },
+    "context_window": {
+      "value": 262144,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s8"
+      ],
+      "note": "Exact config max_position_embeddings=262144, model card 256K and serving example 262144; no larger sibling context transferred."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s8",
+        "s10"
+      ],
+      "note": "Text-only causal language model and exact provider text-to-text endpoint; no vision module or image-input claim."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s10"
+      ],
+      "note": "Native thinking enabled by default and switchable per request in the exact chat template."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7",
+        "s10"
+      ],
+      "note": "Exact card and template explicitly support tool calls, with ling3 parser serving examples."
+    },
+    "description": {
+      "value": "Health and medicine specialization of Ling 3.0 Flash for medical reasoning and evidence-based retrieval",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Supported as intended healthcare reasoning and evidence-retrieval use; no clinical-accuracy or certification claim."
+    }
+  },
+  "patch": {
+    "open_weights": true,
+    "license": "MIT",
+    "parameters_b": 127.486384608,
+    "active_parameters_b": 5.1,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "source_url": "https://huggingface.co/inclusionAI/Ling-3.0-flash-Sante",
+    "source_type": "primary",
+    "notes": "Complete checkpoint: 127.486384608B learned parameters = 124.414191072B main model + 3.072193536B auxiliary MTP. The official 124B label rounds the main model; 5.1B active per token is the nominal developer figure, whose precise embedding, output-head and MTP inclusion convention is not specified. Header raw inventory includes 20,992 nonlearned expert_bias buffer elements, which are excluded. Main input embeddings and output head are untied; MTP reuses them. Hybrid MoE combines 35 KDA and 7 gated MLA main layers; two initial dense FFNs, then 40 layers selecting 8 of 512 routed experts plus one shared expert. Original API launch September 4, 2026 predates the October public-weight repository; Novita separately records a September 3 catalog addition.",
+    "sources": [
+      {
+        "label": "Ling-3.0-flash-Sante official model card",
+        "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash-Sante/blob/f74bd27bd26ffc71a50dd847805f8f7666ff0b43/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Ling-3.0-flash-Sante checkpoint configuration",
+        "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash-Sante/blob/f74bd27bd26ffc71a50dd847805f8f7666ff0b43/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Ling-3.0-flash-Sante implementation",
+        "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash-Sante/blob/f74bd27bd26ffc71a50dd847805f8f7666ff0b43/modeling_bailing_moe_v3.py",
+        "type": "primary"
+      },
+      {
+        "label": "Exact Sante checkpoint: bounded safetensors header inventory",
+        "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash-Sante/tree/f74bd27bd26ffc71a50dd847805f8f7666ff0b43",
+        "type": "primary"
+      },
+      {
+        "label": "Sante checkpoint shard index",
+        "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash-Sante/blob/f74bd27bd26ffc71a50dd847805f8f7666ff0b43/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Ant Ling original Sante announcement, official X syndication response",
+        "url": "https://cdn.syndication.twimg.com/tweet-result?id=2095953758148853892&lang=en&token=0",
+        "type": "primary"
+      },
+      {
+        "label": "Ling 3.0 Flash Sante is now available on AI Gateway for free",
+        "url": "https://vercel.com/changelog/ling-3-0-flash-sante-is-now-available-on-ai-gateway-for-free",
+        "type": "primary"
+      },
+      {
+        "label": "Ling 3.0 Flash Sante on Novita AI: Free API, Specs, and Pricing",
+        "url": "https://blogs.novita.ai/ling-3-0-flash-sante-on-novita-ai-launch-pricing/",
+        "type": "primary"
+      },
+      {
+        "label": "Sante repository metadata",
+        "url": "https://huggingface.co/api/models/inclusionAI/Ling-3.0-flash-Sante",
+        "type": "primary"
+      },
+      {
+        "label": "Sante native chat template",
+        "url": "https://huggingface.co/inclusionAI/Ling-3.0-flash-Sante/blob/f74bd27bd26ffc71a50dd847805f8f7666ff0b43/chat_template.jinja",
+        "type": "primary"
+      }
+    ]
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "main_model": 124.414191072,
+      "mtp": 3.072193536
+    }
+  },
+  "summary": "Correct stale closed-weight status to public MIT weights and supply the complete 127.486384608B learned checkpoint total, distinguishing nominal 124B main-model capacity from the 3.072193536B MTP module. Verify exact Sante 5.1B nominal active count, hybrid KDA/gated-MLA MoE architecture, 262144 context, text modalities, reasoning and tool use. Preserve September 4 original release while noting the September 3 provider catalog record and later October weights. All 14 fields verified from exact-model primary evidence; no sibling parameter transfer."
+}
