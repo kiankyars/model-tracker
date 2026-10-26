@@ -1,0 +1,298 @@
+{
+  "index": 189,
+  "model_id": "google/diffusiongemma-26b-a4b-it",
+  "reviewed_at": "2026-10-26T19:29:23.686866+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://blog.google/innovation-and-ai/technology/developers-tools/diffusion-gemma-faster-text-generation/",
+      "title": "DiffusionGemma: 4x faster text generation",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "June 10, 2026 announcement introduces the open experimental Gemma 4 based model under Apache 2.0, describes MoE and parallel text diffusion, and reports 3.8B active parameters."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/google/diffusiongemma-26B-A4B-it/blob/f7f5b7f5fa82ffc52addd066915886d497f5517b/README.md",
+      "title": "DiffusionGemma model card",
+      "publisher": "Google DeepMind",
+      "accessed": true,
+      "evidence": "Exact IT checkpoint card names Google DeepMind, Gemma 4 MoE, open weights and Apache 2.0. The table reports 25.2B total, 3.8B active and a separate approximately 550M vision encoder. Prose explicitly supports text, image and video input, text output, thinking mode and native function calling."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/google/diffusiongemma-26B-A4B-it/blob/f7f5b7f5fa82ffc52addd066915886d497f5517b/config.json",
+      "title": "Official checkpoint configuration",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "DiffusionGemmaForBlockDiffusion; BF16; 30 text layers; 128 routed experts with top_k_experts=8; tied word embeddings; max_position_embeddings=262144; distinct Gemma 4 vision configuration."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/google/diffusiongemma-26B-A4B-it/blob/f7f5b7f5fa82ffc52addd066915886d497f5517b/model.safetensors.index.json",
+      "title": "Official checkpoint tensor index",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Complete 11-shard index explicitly declares total_parameters=25823778864 and total_size=51647562456 bytes. The parameter total includes vision and projection weights and differs from the card table."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/google/diffusiongemma-26B-A4B-it/tree/f7f5b7f5fa82ffc52addd066915886d497f5517b",
+      "title": "Official BF16 checkpoint shard headers",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "HTTP byte-range reads of all 11 safetensors headers cover all 1,047 indexed tensors. BF16 storage elements total 25,823,781,228. Removing 60 layer scalars and two 1,152-element vision standardization buffers gives 25,823,778,864 learned parameters, matching the index. No weight payloads were downloaded."
+    },
+    {
+      "id": "s6",
+      "url": "https://github.com/huggingface/transformers/blob/6c5f8f4186c15f4bfbd67941a1736b2b347e0155/src/transformers/models/diffusion_gemma/modeling_diffusion_gemma.py",
+      "title": "Transformers DiffusionGemma implementation",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Defines layer_scalar as a buffer, router scales and expert matrices as parameters, ties encoder language weights to decoder weights and lm_head to decoder embeddings. The vision tower belongs to the prompt encoder; the denoising decoder processes text canvases."
+    },
+    {
+      "id": "s7",
+      "url": "https://github.com/huggingface/transformers/blob/6c5f8f4186c15f4bfbd67941a1736b2b347e0155/src/transformers/models/gemma4/modeling_gemma4.py",
+      "title": "Transformers Gemma 4 vision implementation",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Gemma4VisionModel defines std_bias and std_scale as buffers rather than learned parameters."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/api/models/google/diffusiongemma-26B-A4B-it/commits/main",
+      "title": "Official checkpoint commit history",
+      "publisher": "Google / Hugging Face",
+      "accessed": true,
+      "evidence": "Earliest exposed commit, Preparing for release!, is dated June 10, 2026 at 13:45 UTC. Repository API createdAt is June 9; repository creation is not evidence of public release."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "DiffusionGemma 26B A4B IT",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "Exact instruction-tuned checkpoint identity; 26B A4B is its nominal product name."
+    },
+    "developer": {
+      "value": "Google",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Google DeepMind is the named developing organization; Google preserves the catalog developer grouping."
+    },
+    "family": {
+      "value": "gemma",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Built from the Gemma 4 family."
+    },
+    "release_date": {
+      "value": "2026-06-10",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8"
+      ],
+      "note": "Primary launch announcement and earliest exposed release commit agree. June 9 is repository creation, not a documented launch."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4"
+      ],
+      "note": "Official checkpoint is publicly downloadable."
+    },
+    "license": {
+      "value": "Apache 2.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Explicit model license in announcement and model card."
+    },
+    "parameters_b": {
+      "value": 25.823778864,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "note": "Complete unique learned checkpoint count: 25,823,778,864, verified from every shard header and index metadata. All tensors are unquantized BF16. Subtract 2,364 buffer elements from 25,823,781,228 stored elements. Tied encoder language weights and output embeddings occur once. Components: shared text/diffusion 25,250,986,752; vision tower 569,548,080; vision projector 3,244,032. Card table 25.2B is not the complete checkpoint total; retain that discrepancy rather than silently equating it to the nominal 26B name."
+    },
+    "active_parameters_b": {
+      "value": 3.8,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s6"
+      ],
+      "note": "Developer-reported rounded active count for text generation with 8 of 128 routed experts plus the shared network. This is not the complete model size or a multimodal prefill total: the vision tower and projector run separately. As a consistency check, shared text/diffusion parameters minus 120 inactive expert matrices per layer gives approximately 3.8404B; this arithmetic is not substituted for the published active definition."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s6"
+      ],
+      "note": "Sparse MoE Transformer with shared text encoder/decoder weights; causal prompt encoding and bidirectional block-diffusion denoising."
+    },
+    "context_window": {
+      "value": 262144,
+      "status": "verified",
+      "source_ids": [
+        "s3"
+      ],
+      "note": "Exact max_position_embeddings in text configuration; card describes 256K."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s6"
+      ],
+      "note": "Video is processed as image frames. The card table abbreviates modalities to text/image, but its input description and video section explicitly support video."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Configurable thinking mode is documented."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Native function calling is documented for this checkpoint."
+    },
+    "description": {
+      "value": "Experimental Gemma 4 based MoE model using discrete text diffusion, with multimodal input, reasoning, and function calling.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s6"
+      ],
+      "note": "Replaces the loose speed claim with the release status, mechanism and documented capabilities."
+    }
+  },
+  "patch": {
+    "release_date": "2026-06-10",
+    "parameters_b": 25.823778864,
+    "active_parameters_b": 3.8,
+    "parameters_source": "primary_source",
+    "modalities": {
+      "input": [
+        "text",
+        "image",
+        "video"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "description": "Experimental Gemma 4 based MoE model using discrete text diffusion, with multimodal input, reasoning, and function calling.",
+    "notes": "Total includes the vision tower and projector. Google reports 3.8B active for text generation; image and video encoding runs separately.",
+    "source_url": "https://blog.google/innovation-and-ai/technology/developers-tools/diffusion-gemma-faster-text-generation/",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Google launch announcement",
+        "url": "https://blog.google/innovation-and-ai/technology/developers-tools/diffusion-gemma-faster-text-generation/",
+        "type": "primary"
+      },
+      {
+        "label": "Google model card",
+        "url": "https://huggingface.co/google/diffusiongemma-26B-A4B-it/blob/f7f5b7f5fa82ffc52addd066915886d497f5517b/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "Official checkpoint configuration",
+        "url": "https://huggingface.co/google/diffusiongemma-26B-A4B-it/blob/f7f5b7f5fa82ffc52addd066915886d497f5517b/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Official parameter-count metadata",
+        "url": "https://huggingface.co/google/diffusiongemma-26B-A4B-it/blob/f7f5b7f5fa82ffc52addd066915886d497f5517b/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Official checkpoint shards",
+        "url": "https://huggingface.co/google/diffusiongemma-26B-A4B-it/tree/f7f5b7f5fa82ffc52addd066915886d497f5517b",
+        "type": "weights"
+      },
+      {
+        "label": "DiffusionGemma implementation",
+        "url": "https://github.com/huggingface/transformers/blob/6c5f8f4186c15f4bfbd67941a1736b2b347e0155/src/transformers/models/diffusion_gemma/modeling_diffusion_gemma.py",
+        "type": "primary"
+      },
+      {
+        "label": "Gemma 4 vision implementation",
+        "url": "https://github.com/huggingface/transformers/blob/6c5f8f4186c15f4bfbd67941a1736b2b347e0155/src/transformers/models/gemma4/modeling_gemma4.py",
+        "type": "primary"
+      },
+      {
+        "label": "Models.dev record",
+        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/google/diffusiongemma-26b-a4b-it.toml",
+        "type": "catalog"
+      }
+    ]
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "language_model": 25.250986752,
+      "vision_encoder": 0.56954808,
+      "vision_projector": 0.003244032
+    },
+    "active_parameters_scope": "language_model"
+  },
+  "summary": "Correct release from repository creation day to June 10; replace nominal 26B with the complete 25.823778864B learned checkpoint count; correct active count to 3.8B and add video input. Architecture, open weights, license, context, reasoning and tool use confirmed. Complete-count reconciliation excludes buffers and counts shared weights once; card total is narrower than checkpoint metadata.",
+  "cache_paths": [
+    "/tmp/model-audit-189/README.md",
+    "/tmp/model-audit-189/config.json",
+    "/tmp/model-audit-189/model.safetensors.index.json",
+    "/tmp/model-audit-189/api.json",
+    "/tmp/model-audit-189/commits.json",
+    "/tmp/model-audit-189/header-summary.json",
+    "/tmp/model-audit-189/count_headers.py",
+    "/tmp/model-audit-189/modeling_diffusion_gemma.py",
+    "/tmp/model-audit-189/modeling_gemma4.py",
+    "/tmp/model-audit-189/model-00001-of-00011.safetensors.header.json through model-00011-of-00011.safetensors.header.json"
+  ]
+}
