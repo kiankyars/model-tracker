@@ -1,0 +1,280 @@
+{
+  "index": 274,
+  "model_id": "meta/llama-3.2-3b-instruct",
+  "reviewed_at": "2026-10-26T21:40:15.749453Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct",
+      "title": "Llama-3.2-3B-Instruct model card",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Exact original Instruct repository: Meta developer, multilingual text input/output, 3B (3.21B), GQA, shared embeddings, original 128k context, September 25, 2024 release and custom community license. The repository explicitly contains this Instruct model for Transformers and original llama implementations."
+    },
+    {
+      "id": "s2",
+      "url": "https://ai.meta.com/blog/llama-3-2-connect-2024-vision-edge-mobile-devices/",
+      "title": "Llama 3.2 launch announcement",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "September 25, 2024 announcement releases text-only 1B/3B pretrained and instruction-tuned models with 128K context and downloadable weights. It explicitly describes multilingual generation and tool calling for the lightweight models."
+    },
+    {
+      "id": "s3",
+      "url": "https://github.com/meta-llama/llama-models/blob/main/models/sku_list.py",
+      "title": "Official Llama model SKU definitions",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Exact meta-llama/Llama-3.2-3B-Instruct SKU uses arch_args_3b: dimension 3072, 28 layers, 24 attention heads, 8 KV heads, vocabulary 128256. INT4 QLoRA/SpinQuant are separately named variants."
+    },
+    {
+      "id": "s4",
+      "url": "https://github.com/meta-llama/llama-models/blob/main/models/sku_types.py",
+      "title": "Official model types and context limits",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "BF16 is the default checkpoint format. The Llama 3.2 max_seq_length property returns 131072 except INT4 variants, which return 8192."
+    },
+    {
+      "id": "s5",
+      "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3/model.py",
+      "title": "Official Llama Transformer implementation",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Causal Transformer blocks execute grouped-query attention and a three-projection SiLU-gated dense feedforward network in every layer; no expert router is present."
+    },
+    {
+      "id": "s6",
+      "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/text_prompt_format.md",
+      "title": "Llama 3.2 text prompt format",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Explicitly documents zero-shot function calling for Llama 3.2 1B and 3B Instruct, accepting functions in system or user messages and returning Python-style calls. Describes chat, function execution and code interpreter formats without a dedicated thinking/reasoning mode."
+    },
+    {
+      "id": "s7",
+      "url": "https://ai.meta.com/blog/meta-llama-quantized-lightweight-models/",
+      "title": "Introducing quantized Llama models",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "October 24, 2024 announcement releases QLoRA and SpinQuant variants of the previously released BF16 1B/3B models. These new variants prioritize applications up to 8K context."
+    },
+    {
+      "id": "s8",
+      "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/MODEL_CARD.md",
+      "title": "Shared Llama 3.2 model card updated for quantization",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Shared card reports 3B (3.21B), GQA/shared embeddings and separate original 128k versus quantized 8k rows. Its October 24, 2024 release date is the later quantized update; the exact original repository and launch announcement establish September 25."
+    },
+    {
+      "id": "s9",
+      "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/LICENSE",
+      "title": "Llama 3.2 Community License Agreement",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Custom Llama 3.2 Community License governs model weights and permits use, modification and redistribution subject to its terms; version release date is September 25, 2024."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct/resolve/main/config.json",
+      "title": "Exact checkpoint configuration access check",
+      "publisher": "Meta",
+      "accessed": false,
+      "evidence": "Unauthenticated request returned HTTP 401. No access-gate bypass or weight download was attempted; public Meta source code supplies architecture and exact context evidence."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Llama 3.2 3B Instruct",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Exact repository and official SKU identify this instruction-tuned 3B variant."
+    },
+    "developer": {
+      "value": "Meta",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Model card explicitly names Meta."
+    },
+    "family": {
+      "value": "llama",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Llama 3.2 belongs to the Llama family; retain catalog family key."
+    },
+    "release_date": {
+      "value": "2024-09-25",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "note": "Original release confirmed by exact card, dated launch and license. October 24 in the shared card corresponds to the later quantized release."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s9"
+      ],
+      "note": "Official announcement offers downloadable weights, with access governed by the custom license."
+    },
+    "license": {
+      "value": "Llama 3.2 Community License",
+      "status": "verified",
+      "source_ids": [
+        "s9"
+      ],
+      "note": "Named custom commercial license; preserve the existing descriptive label."
+    },
+    "parameters_b": {
+      "value": 3.21,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8"
+      ],
+      "note": "Meta reports 3B (3.21B), with shared embeddings. Use the published rounded total, not an independently counted checkpoint or an exact learned-parameter tally."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s8"
+      ],
+      "note": "Meta does not separately report an active-per-token count. Dense architecture alone is not a disclosure that active parameters equal the total."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s5"
+      ],
+      "note": "Dense causal Transformer classification follows Meta code: 28 layers, dimension 3072, 24 query/8 KV heads and ordinary SiLU-gated feedforward projections. The card confirms shared embeddings."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s7"
+      ],
+      "note": "Exact original SKU uses default BF16; official context logic returns 131072. Later INT4 variants return 8192 and do not change this original record."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "This is the text-only model; generated code is text, not an additional modality."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Accessible card and prompt documentation do not disclose a dedicated reasoning mode. General reasoning ability and benchmark results do not prove this boolean; clear baseline false."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s6"
+      ],
+      "note": "Meta explicitly documents zero-shot custom function calling for the 3B Instruct model."
+    },
+    "description": {
+      "value": "Small instruction-tuned Llama model for multilingual dialogue and agentic retrieval",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Existing description matches the exact card's stated intended uses."
+    }
+  },
+  "patch": {
+    "parameters_b": 3.21,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "reasoning": null,
+    "source_url": "https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Meta Llama 3.2 3B Instruct model card",
+        "url": "https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct",
+        "type": "weights"
+      },
+      {
+        "label": "Llama 3.2 launch announcement",
+        "url": "https://ai.meta.com/blog/llama-3-2-connect-2024-vision-edge-mobile-devices/",
+        "type": "primary"
+      },
+      {
+        "label": "Official Llama model SKU definitions",
+        "url": "https://github.com/meta-llama/llama-models/blob/main/models/sku_list.py",
+        "type": "primary"
+      },
+      {
+        "label": "Official model types and context limits",
+        "url": "https://github.com/meta-llama/llama-models/blob/main/models/sku_types.py",
+        "type": "primary"
+      },
+      {
+        "label": "Official Llama Transformer implementation",
+        "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3/model.py",
+        "type": "primary"
+      },
+      {
+        "label": "Llama 3.2 text prompt format",
+        "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/text_prompt_format.md",
+        "type": "primary"
+      },
+      {
+        "label": "Introducing quantized Llama models",
+        "url": "https://ai.meta.com/blog/meta-llama-quantized-lightweight-models/",
+        "type": "primary"
+      },
+      {
+        "label": "Shared Llama 3.2 model card updated for quantization",
+        "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/MODEL_CARD.md",
+        "type": "primary"
+      },
+      {
+        "label": "Llama 3.2 Community License Agreement",
+        "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/LICENSE",
+        "type": "primary"
+      }
+    ],
+    "notes": "Original BF16 Instruct model. Meta reports approximately 3.21B parameters with shared embeddings; no independent tensor count is asserted. Dense Transformer with GQA; active parameters are not separately disclosed. Original context is 131,072 tokens, while later official INT4 variants use 8,192. September 25, 2024 is the original release; October 24 is the quantized update. Custom function calling is documented; dedicated reasoning-mode support is undisclosed."
+  },
+  "summary": "Refine nominal 3B to Meta's published rounded 3.21B, establish dense GQA architecture and primary-source parameter provenance, and clear unsupported reasoning=false. Confirm original September 25 release, BF16 131072 context, shared embeddings, custom license and function calling. Active count and dedicated reasoning mode remain undisclosed; gated configuration was not bypassed."
+}
