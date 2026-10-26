@@ -1,0 +1,254 @@
+{
+  "index": 147,
+  "model_id": "cohere/command-a-plus-05-2026",
+  "reviewed_at": "2026-10-26T18:16:33Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://docs.cohere.com/docs/command-a-plus",
+      "title": "Cohere's Command A+ Model",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "Exact API ID; provider Cohere; release May 20, 2026; 128,000-token context; text/image input and text output; reasoning and tool use. Reports sparse MoE, 218B total and 25B active, with Apache 2.0 distribution."
+    },
+    {
+      "id": "s2",
+      "url": "https://cohere.com/blog/command-a-plus",
+      "title": "Introducing Command A+: Making sovereign agentic capabilities available to all",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "May 20, 2026 launch announcement identifies command-a-plus-05-2026 and publishes the 218B/25B sparse-MoE specifications, Apache 2.0 license and downloadable weights. Describes multilingual, multimodal, reasoning and agentic use."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/CohereLabs/command-a-plus-05-2026-bf16/raw/main/README.md",
+      "title": "Command A+ BF16 model card",
+      "publisher": "Cohere Labs",
+      "accessed": true,
+      "evidence": "Names the exact model and its BF16, FP8 and W4A4 releases. Reports 218B total and 25B active. Describes a decoder-only sparse MoE Transformer, 128 routed experts with eight selected per token, thinking tokens and trained conversational tool use."
+    },
+    {
+      "id": "s4",
+      "url": "https://docs.cohere.com/v2/changelog/command-a-plus-05-2026",
+      "title": "Announcing Cohere's Command A+",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "Dated May 20, 2026; announces this exact identifier as released and explicitly places it in the Command A family. Confirms total/active counts, MoE, reasoning, tool use, context and license."
+    },
+    {
+      "id": "s5",
+      "url": "https://arxiv.org/html/2609.13916v1",
+      "title": "North Small Translate: Advanced Cost-Effective Translation (Cohere CAT+)",
+      "publisher": "Cohere / arXiv",
+      "accessed": true,
+      "evidence": "September 2026 first-party report: Table 1 has an exact Command A+ row with 218B total and 25B active. Section 2.1 identifies Command A+ as a decoder-only sparse MoE Transformer and links its dated BF16 checkpoint."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/CohereLabs/command-a-plus-05-2026-bf16/raw/main/config.json",
+      "title": "Command A+ BF16 configuration",
+      "publisher": "Cohere Labs",
+      "accessed": true,
+      "evidence": "Multimodal wrapper contains cohere2_moe text and SigLIP vision configurations, with 128 routed experts, eight selected per token, num_shared_experts=4 and max_position_embeddings=200000. The implementation expands one shared MLP by that factor; the documented supported context remains 128K."
+    },
+    {
+      "id": "s7",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/main/src/transformers/models/cohere2_moe/modeling_cohere2_moe.py",
+      "title": "Cohere2 MoE shared-expert implementation",
+      "publisher": "Cohere / Hugging Face Transformers",
+      "accessed": true,
+      "evidence": "Cohere2MoeSparseMoeBlock constructs one Cohere2MoeMLP for shared experts with intermediate_size multiplied by num_shared_experts. Thus config num_shared_experts=4 denotes the width of one combined shared MLP and is compatible with the model card describing one shared expert block."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Command A+",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Use Cohere's canonical display spelling."
+    },
+    "developer": {
+      "value": "Cohere",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Cohere and its research lab developed the model."
+    },
+    "family": {
+      "value": "command-a",
+      "status": "verified",
+      "source_ids": [
+        "s4"
+      ],
+      "note": "The release note explicitly identifies the Command A family."
+    },
+    "release_date": {
+      "value": "2026-05-20",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4"
+      ],
+      "note": "Dated launch announcement and release note agree."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "First-party checkpoint releases are available in multiple precisions."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "note": "Published license for the released weights."
+    },
+    "parameters_b": {
+      "value": 218,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s5"
+      ],
+      "note": "Developer-reported nominal total in billions; not an independently enumerated exact learned-tensor count or component-only figure. The later report confirms the exact model row."
+    },
+    "active_parameters_b": {
+      "value": 25,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s5"
+      ],
+      "note": "Separately reported nominal active count in billions; not inferred from total or expert fraction. No modality/phase breakdown is established."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "note": "Sparse MoE Transformer language backbone with a vision encoder. The shared-expert implementation creates one shared MLP whose intermediate width is four times the routed-expert width, reconciling the card and configuration descriptions."
+    },
+    "context_window": {
+      "value": 128000,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Published context limit; config position capacity 200000 does not supersede the documented supported limit."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Explicit input/output specification."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Reasoning mode and thinking-token examples are documented."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4"
+      ],
+      "note": "Model card explicitly describes training and templates for conversational tool calls."
+    },
+    "description": {
+      "value": "Cohere's open-weight sparse MoE model for multilingual agents, reasoning, and enterprise tasks, with text and image inputs.",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "Replace the vague comparative stronger claim with concrete documented capabilities."
+    }
+  },
+  "patch": {
+    "name": "Command A+",
+    "license": "Apache-2.0",
+    "parameters_b": 218,
+    "active_parameters_b": 25,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "description": "Cohere's open-weight sparse MoE model for multilingual agents, reasoning, and enterprise tasks, with text and image inputs.",
+    "source_url": "https://docs.cohere.com/docs/command-a-plus",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Cohere model documentation",
+        "url": "https://docs.cohere.com/docs/command-a-plus",
+        "type": "primary"
+      },
+      {
+        "label": "Cohere launch announcement",
+        "url": "https://cohere.com/blog/command-a-plus",
+        "type": "primary"
+      },
+      {
+        "label": "Cohere model card",
+        "url": "https://huggingface.co/CohereLabs/command-a-plus-05-2026-bf16/raw/main/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Cohere release note",
+        "url": "https://docs.cohere.com/v2/changelog/command-a-plus-05-2026",
+        "type": "primary"
+      },
+      {
+        "label": "Later Cohere report, Table 1 and section 2.1",
+        "url": "https://arxiv.org/html/2609.13916v1",
+        "type": "primary"
+      },
+      {
+        "label": "Cohere checkpoint configuration",
+        "url": "https://huggingface.co/CohereLabs/command-a-plus-05-2026-bf16/raw/main/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Cohere2 MoE shared-expert implementation",
+        "url": "https://raw.githubusercontent.com/huggingface/transformers/main/src/transformers/models/cohere2_moe/modeling_cohere2_moe.py",
+        "type": "primary"
+      }
+    ],
+    "notes": "218B total and 25B active are developer-reported nominal counts, not exact learned-tensor enumerations. The model combines a sparse MoE language backbone with vision support. Active counts are not broken down by modality or execution phase. The documented 128,000-token context is retained despite a larger configuration position capacity."
+  },
+  "summary": "All 14 fields reviewed against primary evidence. Added the disclosed nominal 218B total / 25B active counts, MoE architecture and Apache-2.0 license; normalized display name and description. Release date and existing capabilities are confirmed. Later Cohere research confirms the exact model counts. The implementation reconciles shared-expert descriptions by combining their width into one shared MLP; no exact learned-tensor count is claimed."
+}
