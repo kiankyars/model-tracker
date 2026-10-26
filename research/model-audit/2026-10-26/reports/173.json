@@ -1,0 +1,288 @@
+{
+  "index": 173,
+  "model_id": "deepseek/deepseek-v3",
+  "reviewed_at": "2026-10-26T19:04:08.632215+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V3",
+      "title": "DeepSeek-V3 official model card",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Identifies the original DeepSeek-V3 chat model, MoE/MLA architecture, public weights, text generation, nominal 671B main / 37B active, and advertised 128K context. Explains ordinary LLM reasoning distillation. Its overview also says 685B files including a 14B MTP module; that does not establish unique learned total."
+    },
+    {
+      "id": "s2",
+      "url": "https://raw.githubusercontent.com/deepseek-ai/DeepSeek-V3/main/README_WEIGHTS.md",
+      "title": "DeepSeek-V3 Weight File Documentation",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Explicitly distinguishes 671B main parameters and 36.7B active including embedding/head; one MTP module has nominal 11.5B unique parameters and 2.4B active including its shared embedding/head. Describes shared weights and FP8 scales. The 11.5B unique statement is inconsistent with approximately 11.610B derived from tensor shapes."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V3/raw/e815299b0bcbac849fa540c768ef21845365c9eb/config.json",
+      "title": "DeepSeek-V3 original checkpoint configuration",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "61 main layers, one MTP layer, three initial dense layers, 256 routed experts plus one shared expert, eight selected per token, MLA dimensions and FP8 configuration. max_position_embeddings is 163840, greater than the advertised/trained 128K context."
+    },
+    {
+      "id": "s4",
+      "url": "https://arxiv.org/html/2412.19437v2",
+      "title": "DeepSeek-V3 Technical Report",
+      "publisher": "DeepSeek-AI",
+      "accessed": true,
+      "evidence": "Describes Transformer MoE/MLA, text language modeling, original chat evaluations and standard-LLM reasoning distillation; section 4.3 establishes 128K context extension. Section 2.2 shares MTP embedding/output head and permits discarding MTP at ordinary inference."
+    },
+    {
+      "id": "s5",
+      "url": "https://api-docs.deepseek.com/updates/",
+      "title": "DeepSeek API Change Log",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "2024-12-26 entry explicitly releases original V3 as deepseek-chat. 2025-03-24 entry identifies a later V3-0324 upgrade and function-call fixes for previous V3 versions. Current endpoint aliases have subsequently changed; this is historical release evidence, not current endpoint availability."
+    },
+    {
+      "id": "s6",
+      "url": "https://raw.githubusercontent.com/deepseek-ai/DeepSeek-V3/main/LICENSE-MODEL",
+      "title": "DeepSeek License Agreement, Version 1.0",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Original DeepSeek model license has use restrictions; the model card links this license for original V3 Base/Chat, separately from MIT code. Do not transfer a later V3 variant MIT license to this release."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V3/raw/e815299b0bcbac849fa540c768ef21845365c9eb/tokenizer_config.json",
+      "title": "DeepSeek-V3 tokenizer configuration and chat template",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Text-only chat template explicitly serializes assistant tool calls and tool responses. Normal generation starts the Assistant turn without a dedicated thinking mode."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V3/resolve/e815299b0bcbac849fa540c768ef21845365c9eb/model.safetensors.index.json",
+      "title": "DeepSeek-V3 checkpoint index and referenced tensor headers",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Independently read only bounded HTTP Range headers of all 163 indexed shards: 11,888,393 header bytes and 91,991 tensors. Non-scale main elements: 671,026,419,200; MTP elements: 13,463,426,304; FP8 scale elements excluded: 41,540,496. Shared embedding/head copies total 1,853,358,080 elements. Subtracting those yields 682,636,487,424, but possible sharing of the 7,168-element shared_head.norm is unresolved; no complete exact total is asserted."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V3/raw/e815299b0bcbac849fa540c768ef21845365c9eb/modeling_deepseek.py",
+      "title": "DeepSeek-V3 official model implementation",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Declares e_score_correction_bias as nn.Parameter. Header totals include 15,104 such routing entries; these should not silently be removed as storage buffers. Confirms text causal-language-model implementation."
+    },
+    {
+      "id": "s10",
+      "url": "https://api-docs.deepseek.com/news/news1226/",
+      "title": "Original DeepSeek-V3 release announcement",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "The historical announcement is accessible with a trailing slash and explicitly dates the V3 release to December 26, 2024. The slashless path can serve the current API landing page."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "DeepSeek-V3",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Exact original chat release, distinct from V3-0324, V3.1 and V3.2."
+    },
+    "developer": {
+      "value": "DeepSeek",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4"
+      ],
+      "note": "Official DeepSeek repository and developer-authored report."
+    },
+    "family": {
+      "value": "deepseek",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4"
+      ],
+      "note": "Catalog family key is consistent with the developer-named DeepSeek series."
+    },
+    "release_date": {
+      "value": "2024-12-26",
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s10"
+      ],
+      "note": "Explicit dated release entry; repository creation on December 25 is not the public launch."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8"
+      ],
+      "note": "Official public checkpoint, including main model and MTP tensors, remains available."
+    },
+    "license": {
+      "value": "DeepSeek Model License",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Original model weights use DeepSeek License Agreement v1.0; MIT applies to code."
+    },
+    "parameters_b": {
+      "value": 671,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s8"
+      ],
+      "note": "Verified nominal MAIN MODEL count only, requiring proposed parameters_scope=main. Not a complete unique checkpoint total. Main header non-scale count is 671.0264192B. MTP adds learned weights while duplicating shared embedding/head; overview 685B must not be treated as unique learned total. Detailed guide nominal 11.5B MTP disagrees with header-derived approximately 11.610B."
+    },
+    "active_parameters_b": {
+      "value": 36.7,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4"
+      ],
+      "note": "More precise first-party main-model active count than overview 37B; includes full approximately 0.9B embedding and 0.9B head in the publisher convention. Ordinary main inference excludes MTP. MTP active 2.4B includes shared layers and cannot simply be added as disjoint parameters."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4"
+      ],
+      "note": "Decoder Transformer with MLA, 256 routed experts and one shared expert in each MoE layer; eight routed experts activate per token."
+    },
+    "context_window": {
+      "value": 128000,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4"
+      ],
+      "note": "Advertised and evaluated 128K context from the exact V3 report, represented as nominal 128000. Configured max_position_embeddings163840 is a separate ceiling; no exact binary-normalized limit is asserted."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s7",
+        "s9"
+      ],
+      "note": "Official text-token causal LM and text chat/tool serialization; no image/audio encoder or output modality documented for original V3."
+    },
+    "reasoning": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s7"
+      ],
+      "note": "Interprets this boolean as dedicated extended-thinking mode. Original V3 is a standard chat LLM with reasoning ability distilled from R1 and no separate thinking-mode interface in its template; false does not mean no reasoning capability."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s7",
+        "s5"
+      ],
+      "note": "Exact checkpoint chat template supports tool calls/responses; later first-party changelog explicitly fixes function calling in previous V3 versions."
+    },
+    "description": {
+      "value": "Open DeepSeek MoE chat model for coding, math, and general reasoning",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4"
+      ],
+      "note": "Supported qualitative description of the original chat release; open means downloadable weights under its model license, and general reasoning does not imply extended-thinking mode."
+    }
+  },
+  "patch": {
+    "active_parameters_b": 36.7,
+    "parameters_source": "primary_source",
+    "notes": "671B is the nominal main-model parameter count; it excludes the MTP module. The detailed weight guide reports 36.7B main active parameters including embeddings/head, and 11.5B nominal unique MTP parameters with shared embedding/head. Its 685B/14B overview describes checkpoint size inconsistently with unique-weight accounting. Bounded headers show 671.0264192B main and 13.463426304B MTP non-scale elements, including 1.85335808B duplicated shared embedding/head; a further 7,168-element shared-head norm sharing question remains. The guide MTP figure disagrees with the approximately 11.610B unique tensor count. Context is the advertised 128K (nominal 128000 tokens); config max_position_embeddings is 163840. Original V3 is distinct from later API alias upgrades.",
+    "sources": [
+      {
+        "label": "Official model card",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V3",
+        "type": "weights"
+      },
+      {
+        "label": "Weight structure and active count",
+        "url": "https://raw.githubusercontent.com/deepseek-ai/DeepSeek-V3/main/README_WEIGHTS.md",
+        "type": "primary"
+      },
+      {
+        "label": "Original V3 configuration",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V3/raw/e815299b0bcbac849fa540c768ef21845365c9eb/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Technical report",
+        "url": "https://arxiv.org/html/2412.19437v2",
+        "type": "primary"
+      },
+      {
+        "label": "Dated official release changelog",
+        "url": "https://api-docs.deepseek.com/updates/",
+        "type": "primary"
+      },
+      {
+        "label": "Original model license",
+        "url": "https://raw.githubusercontent.com/deepseek-ai/DeepSeek-V3/main/LICENSE-MODEL",
+        "type": "primary"
+      },
+      {
+        "label": "Original chat and tool template",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V3/raw/e815299b0bcbac849fa540c768ef21845365c9eb/tokenizer_config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint tensor index",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V3/resolve/e815299b0bcbac849fa540c768ef21845365c9eb/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Original V3 release announcement",
+        "url": "https://api-docs.deepseek.com/news/news1226/",
+        "type": "primary"
+      }
+    ],
+    "context_window": 128000
+  },
+  "proposed_fields": {
+    "parameters_scope": "main",
+    "parameter_components_b": {
+      "main": 671
+    },
+    "active_parameters_scope": "main"
+  },
+  "summary": "All 14 fields reviewed against exact original V3 primary evidence. Correct active count 37B to the detailed guide's 36.7B and require main scope for nominal 671B. Complete unique total remains unresolved at exact precision: public overview counts shared MTP tensors, the detailed 11.5B MTP figure conflicts with headers, and shared-head norm identity is not fully documented. Independently read all 163 bounded shard headers without downloading weight bodies. Release, original custom license, text/tool behavior, MoE and advertised 128K confirmed."
+}
