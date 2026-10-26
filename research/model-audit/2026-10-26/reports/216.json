@@ -1,0 +1,326 @@
+{
+  "index": 216,
+  "model_id": "google/gemma-2-2b-it",
+  "reviewed_at": "2026-10-26T20:08:02.871152Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/google/gemma-2-2b-it",
+      "title": "google/gemma-2-2b-it model card",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Exact instruction-tuned repository identifies Google, Gemma license, open weights, decoder-only text-to-text models and native bfloat16 export. Includes the exact -it model identifier and user/model chat template.",
+      "type": "weights"
+    },
+    {
+      "id": "s2",
+      "url": "https://developers.googleblog.com/en/smaller-safer-more-transparent-advancing-responsible-ai-with-gemma/",
+      "title": "Smaller, Safer, More Transparent: Advancing Responsible AI with Gemma",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "July 31, 2024 announcement introduces Gemma 2 2B and states weights can be downloaded starting today. Its release-collection link includes the exact instruction-tuned variant.",
+      "type": "primary"
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/collections/google/gemma-2-2b-release-66a20f3796a2ff2a7c76f98f",
+      "title": "Official Gemma 2 2B Release collection",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Linked from the dated launch announcement; labels this the 2.6B-parameter version and lists google/gemma-2-2b-it in Transformers format separately from the base and original PyTorch variants.",
+      "type": "primary"
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/api/models/google/gemma-2-2b-it/revision/299a8560bedf22ed1c72a8a11e7dce4a7f9f51f8",
+      "title": "Pinned official instruction-tuned checkpoint metadata",
+      "publisher": "Hugging Face metadata for Google weights",
+      "accessed": true,
+      "evidence": "Revision 299a8560bedf22ed1c72a8a11e7dce4a7f9f51f8 reports safetensors.parameters.BF16 and safetensors.total both 2614341888. Identifies Gemma2ForCausalLM and the user/assistant chat template. This is repository tensor aggregation, not independently downloaded headers.",
+      "type": "weights"
+    },
+    {
+      "id": "s5",
+      "url": "https://github.com/google/gemma_pytorch/blob/014acb7ac4563a5f77c76d7ff98f31b568c16508/gemma/config.py",
+      "title": "Official Gemma 2 PyTorch configuration, pinned revision",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "get_config_for_2b_v2 uses 26 layers, width 2304, MLP intermediate size 9216, eight query and four KV heads of width 256, four RMSNorm vectors per layer and alternating local/global attention. Defaults include vocabulary 256000, maximum positions 8192, BF16 and quant=False.",
+      "type": "primary"
+    },
+    {
+      "id": "s6",
+      "url": "https://github.com/google/gemma_pytorch/blob/014acb7ac4563a5f77c76d7ff98f31b568c16508/gemma/model.py",
+      "title": "Official Gemma PyTorch model implementation, pinned revision",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Gemma 2 uses bias-free attention projections, three dense MLP matrices, four learned normalization vectors per layer and a final normalization. Sampling reuses the input embedding. Rotary frequencies are computed buffers; quantization scalers exist only when quant=True.",
+      "type": "primary"
+    },
+    {
+      "id": "s7",
+      "url": "https://storage.googleapis.com/deepmind-media/gemma/gemma-2-report.pdf",
+      "title": "Gemma 2: Improving Open Language Models at a Practical Size",
+      "publisher": "Google DeepMind / Gemma Team",
+      "accessed": true,
+      "evidence": "Describes a decoder-only Transformer, GQA, tied embeddings and 8192-token context. Its 2B table lists 590118912 embedding plus 2024517888 nonembedding parameters using vocabulary 256128, a different vocabulary size from the released implementation. It does not define an active count for this model.",
+      "type": "primary"
+    },
+    {
+      "id": "s8",
+      "url": "https://ai.google.dev/gemma/docs/gemma_chat",
+      "title": "Building a chatbot with Gemma",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Loads gemma2_instruct_2b_en, states it has 2.6 billion trainable parameters and explains that the 2B name excludes the embedding layer.",
+      "type": "primary"
+    },
+    {
+      "id": "s9",
+      "url": "https://ai.google.dev/gemma/terms",
+      "title": "Gemma Terms of Use",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "The official model card links these terms; the terms appendix explicitly includes Gemma 2.",
+      "type": "primary"
+    },
+    {
+      "id": "s10",
+      "url": "https://github.com/google-gemini/gemma-cookbook/blob/461e9f6fd44015171ca0efdbbfe7979427da8ea3/Gemma/%5BGemma_2%5DAgentic_AI.ipynb",
+      "title": "Agentic AI with Gemma 2, official pinned cookbook notebook",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Cell 7 selects gemma2_instruct_2b_en. Cell 10 says Gemma 2 lacks built-in function calling and presents few-shot prompting to approximate agentic behavior. Later examples generate textual Action requests for the application to interpret; the claim concerns built-in support, not inability to produce prompted calls.",
+      "type": "primary"
+    },
+    {
+      "id": "s11",
+      "url": "https://developers.googleblog.com/en/beyond-the-chatbot-agentic-ai-with-gemma/",
+      "title": "Beyond the Chatbot: Agentic AI with Gemma",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "February 13, 2025 article links the notebook, explicitly includes 2B, describes limited built-in function calling and demonstrates ReAct prompting to obtain textual function requests.",
+      "type": "primary"
+    },
+    {
+      "id": "s12",
+      "url": "https://huggingface.co/google/gemma-2-2b-it/resolve/299a8560bedf22ed1c72a8a11e7dce4a7f9f51f8/model-00001-of-00002.safetensors",
+      "title": "Official checkpoint first-shard header access attempt",
+      "publisher": "Google",
+      "accessed": false,
+      "evidence": "HTTP Range bytes=0-7 returned 401 Unauthorized. Raw config, index and tokenizer requests also returned 401. No weight payload or tensor header was downloaded; accessible repository metadata was reconciled with official implementation instead.",
+      "type": "weights"
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Gemma 2 2B IT",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "The exact repository is the instruction-tuned 2B variant, distinct from the base model and other Gemma generations."
+    },
+    "developer": {
+      "value": "Google",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Google is the named model author and release publisher."
+    },
+    "family": {
+      "value": "gemma",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Gemma 2 belongs to the Gemma model family."
+    },
+    "release_date": {
+      "value": "2024-07-31",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "Dated first-party announcement states weights are available starting today and links a collection containing this IT variant. Earlier repository creation/upload timestamps do not establish public availability."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Google releases downloadable instruction-tuned weights under Gemma terms; file downloads require acceptance of the usage terms."
+    },
+    "license": {
+      "value": "Gemma Terms of Use",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s9"
+      ],
+      "note": "The model card identifies the Gemma license and links the applicable terms."
+    },
+    "parameters_b": {
+      "value": 2.614341888,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "note": "Complete unique learned count: 256000*2304 + 26*(14155776 attention + 63700992 MLP + 9216 normalization) + 2304 final normalization = 2614341888. The tied output embedding is counted once; computed RoPE buffers and optional quantization scalers are excluded. This exactly matches official BF16 checkpoint metadata. The paper instead sums to 2614636800 using 256128 vocabulary rows, 294912 more (128*2304). Direct header inspection was blocked by gating; this is implementation-derived and metadata-cross-checked."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s7"
+      ],
+      "note": "No separately defined active-parameter count was found in the checked first-party documentation. Dense structure does not justify copying the total into this field."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "note": "Dense decoder-only Transformer with 26 layers, GQA and alternating 4096-token local and 8192-token global attention; the implementation has ordinary dense MLPs and no expert routing."
+    },
+    "context_window": {
+      "value": 8192,
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s7"
+      ],
+      "note": "Official configuration maximum positions and paper global attention span are 8192. The 4096 local sliding window is not the full context limit."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "The exact model card documents text input and generated text output."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s7"
+      ],
+      "note": "Sources discuss reasoning tasks and ordinary instruction tuning but do not establish a dedicated reasoning mode or an explicit negative capability declaration for this checkpoint. The unsupported baseline false is cleared."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s4",
+        "s10",
+        "s11"
+      ],
+      "note": "The exact 2B IT cookbook states that built-in function calling is absent, then demonstrates prompted ReAct calls interpreted by the application. The catalog flag is not defined solely as a native protocol, so this mixed evidence does not support a categorical false for its broader capability meaning. Retain the native-versus-prompted distinction and clear the baseline false."
+    },
+    "description": {
+      "value": "Instruction-tuned Gemma 2 text-generation model from Google, with open weights and an 8,192-token context window.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5",
+        "s7"
+      ],
+      "note": "Plain description identifies the IT variant, developer, release format and supported context without qualitative performance claims."
+    }
+  },
+  "patch": {
+    "parameters_b": 2.614341888,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "reasoning": null,
+    "description": "Instruction-tuned Gemma 2 text-generation model from Google, with open weights and an 8,192-token context window.",
+    "source_url": "https://developers.googleblog.com/en/smaller-safer-more-transparent-advancing-responsible-ai-with-gemma/",
+    "source_type": "primary",
+    "notes": "The 2B name excludes embeddings. Total counts 2,614,341,888 unique learned parameters, including tied embeddings once, from pinned BF16 metadata and Google\u2019s implementation. The paper uses 128 extra vocabulary rows and totals 2,614,636,800. Raw tensor headers were inaccessible. Active parameters are not separately defined. Google documents absent built-in function calling but demonstrates prompted ReAct calls; the broad tool capability flag remains unverified.",
+    "sources": [
+      {
+        "label": "google/gemma-2-2b-it model card",
+        "url": "https://huggingface.co/google/gemma-2-2b-it",
+        "type": "weights"
+      },
+      {
+        "label": "Smaller, Safer, More Transparent: Advancing Responsible AI with Gemma",
+        "url": "https://developers.googleblog.com/en/smaller-safer-more-transparent-advancing-responsible-ai-with-gemma/",
+        "type": "primary"
+      },
+      {
+        "label": "Official Gemma 2 2B Release collection",
+        "url": "https://huggingface.co/collections/google/gemma-2-2b-release-66a20f3796a2ff2a7c76f98f",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned official instruction-tuned checkpoint metadata",
+        "url": "https://huggingface.co/api/models/google/gemma-2-2b-it/revision/299a8560bedf22ed1c72a8a11e7dce4a7f9f51f8",
+        "type": "weights"
+      },
+      {
+        "label": "Official Gemma 2 PyTorch configuration, pinned revision",
+        "url": "https://github.com/google/gemma_pytorch/blob/014acb7ac4563a5f77c76d7ff98f31b568c16508/gemma/config.py",
+        "type": "primary"
+      },
+      {
+        "label": "Official Gemma PyTorch model implementation, pinned revision",
+        "url": "https://github.com/google/gemma_pytorch/blob/014acb7ac4563a5f77c76d7ff98f31b568c16508/gemma/model.py",
+        "type": "primary"
+      },
+      {
+        "label": "Gemma 2: Improving Open Language Models at a Practical Size",
+        "url": "https://storage.googleapis.com/deepmind-media/gemma/gemma-2-report.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Building a chatbot with Gemma",
+        "url": "https://ai.google.dev/gemma/docs/gemma_chat",
+        "type": "primary"
+      },
+      {
+        "label": "Gemma Terms of Use",
+        "url": "https://ai.google.dev/gemma/terms",
+        "type": "primary"
+      },
+      {
+        "label": "Agentic AI with Gemma 2, official pinned cookbook notebook",
+        "url": "https://github.com/google-gemini/gemma-cookbook/blob/461e9f6fd44015171ca0efdbbfe7979427da8ea3/Gemma/%5BGemma_2%5DAgentic_AI.ipynb",
+        "type": "primary"
+      },
+      {
+        "label": "Beyond the Chatbot: Agentic AI with Gemma",
+        "url": "https://developers.googleblog.com/en/beyond-the-chatbot-agentic-ai-with-gemma/",
+        "type": "primary"
+      }
+    ],
+    "tool_call": null
+  },
+  "summary": "Confirmed the exact Gemma 2 2B IT variant and July 31, 2024 release. Replaced nominal 2B with the complete 2.614341888B learned count reconciled against pinned checkpoint metadata and official implementation; documented the paper vocabulary discrepancy and gated headers. Added dense architecture and factual description. Active count remains undisclosed. Reasoning and broad tool-call flags are unverified; built-in function calling is absent but prompted ReAct calls are documented."
+}
