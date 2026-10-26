@@ -1,0 +1,277 @@
+{
+  "index": 270,
+  "model_id": "meta/llama-3.2-11b-vision-instruct",
+  "reviewed_at": "2026-10-26T21:34:53.683467Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/meta-llama/Llama-3.2-11B-Vision-Instruct",
+      "title": "Llama-3.2-11B-Vision-Instruct official checkpoint card",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Identifies the exact instruction-tuned vision checkpoint, Meta as developer, distributed weights, text/image inputs and text outputs, and the 11B (10.6) parameter entry. The public card is accessible; config.json returned HTTP 401 and was not accessed."
+    },
+    {
+      "id": "s2",
+      "url": "https://raw.githubusercontent.com/meta-llama/llama-models/main/models/llama3_2/MODEL_CARD_VISION.md",
+      "title": "Llama 3.2 Vision model card",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Covers pretrained and instruction-tuned vision models. The smaller model is listed as 11B (10.6), with text/image input, text output, cross-attention vision adaptation, 128k context, and September 25, 2024 release."
+    },
+    {
+      "id": "s3",
+      "url": "https://ai.meta.com/blog/llama-3-2-connect-2024-vision-edge-mobile-devices/",
+      "title": "Llama 3.2: Revolutionizing edge AI and vision with open, customizable models",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "September 25, 2024 announcement releases pretrained and instruction-tuned 11B/90B vision models for download. Describes an image encoder and trained cross-attention adapter added to a pretrained Llama 3.1 language model."
+    },
+    {
+      "id": "s4",
+      "url": "https://raw.githubusercontent.com/meta-llama/llama-models/main/models/llama3_2/LICENSE",
+      "title": "Llama 3.2 Community License Agreement",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Custom license for Llama 3.2 materials, dated September 25, 2024; permits limited use, modification and redistribution, incorporates the Acceptable Use Policy, and adds separate terms above 700 million monthly active users."
+    },
+    {
+      "id": "s5",
+      "url": "https://raw.githubusercontent.com/meta-llama/llama-models/main/models/llama3_2/USE_POLICY.md",
+      "title": "Llama 3.2 Acceptable Use Policy",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Multimodal rights under Section 1(a) are not granted to individuals domiciled in the EU or companies with a principal place of business there. This restriction excludes end users of incorporating products or services."
+    },
+    {
+      "id": "s6",
+      "url": "https://raw.githubusercontent.com/meta-llama/llama-models/main/models/llama3_2/vision_prompt_format.md",
+      "title": "Llama 3.2 vision prompt format",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Documents vision-model conversations and native built-in/zero-shot tool calls with text-only prompts. Explicitly says tool calling does not work with images in the prompt. Describes cross-attention rather than early fusion; no dedicated thinking mode is specified."
+    },
+    {
+      "id": "s7",
+      "url": "https://raw.githubusercontent.com/meta-llama/llama-models/main/models/sku_list.py",
+      "title": "Official model SKU definitions: Llama3.2-11B-Vision-Instruct",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Exact Instruct SKU maps to the assigned HF checkpoint and specifies 32 language layers, width 4096, 32 query heads, 8 KV heads, and 8 vision cross-attention layers. This is the default BF16 SKU, not a text-only or quantized sibling."
+    },
+    {
+      "id": "s8",
+      "url": "https://raw.githubusercontent.com/meta-llama/llama-models/main/models/sku_types.py",
+      "title": "Official model families and maximum sequence lengths",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Maps the exact 11B Vision Instruct ID to Llama 3.2 and multimodal status. max_seq_length returns 131072 for non-int4 Llama 3.2 models, including this default BF16 checkpoint."
+    },
+    {
+      "id": "s9",
+      "url": "https://raw.githubusercontent.com/meta-llama/llama-models/main/models/llama3/multimodal/model.py",
+      "title": "Official cross-attention multimodal Transformer implementation",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Defines dense image and language feed-forward networks, dense Transformer blocks, vision projection and gated cross-attention blocks without expert routing. Image encoding is skipped for inputs without images, and encoded visual features are cached; a single total-as-active count is not justified."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Llama-3.2-11B-Vision-Instruct",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7"
+      ],
+      "note": "Exact official checkpoint name; preserve spelling."
+    },
+    "developer": {
+      "value": "Meta",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "The exact checkpoint card names Meta."
+    },
+    "family": {
+      "value": "llama",
+      "status": "verified",
+      "source_ids": [
+        "s7",
+        "s8"
+      ],
+      "note": "Broad catalog family is Llama; official subfamily is Llama 3.2 Vision."
+    },
+    "release_date": {
+      "value": "2024-09-25",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "Explicit vision-model release date; the later text-only quantization release is not this checkpoint."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "note": "Weights are distributed under the custom license, subject to access and multimodal EU restrictions; this does not imply an unrestricted open-source license."
+    },
+    "license": {
+      "value": "Llama 3.2 Community License",
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5"
+      ],
+      "note": "Custom commercial license incorporating the AUP. Its multimodal EU restriction applies to this vision checkpoint, with an exception for end users of incorporating products/services."
+    },
+    "parameters_b": {
+      "value": 10.6,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Meta reports 11B (10.6) for the complete vision model. Use its reported 10.6-billion precision, not an exact learned-parameter census or text-backbone-only count. No HF aggregate tensor count is used."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s2",
+        "s9"
+      ],
+      "note": "No separate active count is reported. Dense topology does not establish total equals active, especially with image encoding, cached visual features and text-only inputs."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s7",
+        "s9"
+      ],
+      "note": "Verified from official implementation: dense Transformer language backbone and vision encoder, connected by eight gated cross-attention blocks. No routed experts; the scalar cross-attention gates are not MoE routing."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "s7",
+        "s8"
+      ],
+      "note": "The exact BF16 Vision Instruct SKU belongs to the non-int4 Llama 3.2 branch whose maximum sequence length is 131072; resolves the model card 128k notation."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Official vision card specifies text and image input, with text output."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s2",
+        "s6"
+      ],
+      "note": "Image reasoning is a documented capability, but the inspected card and vision prompt protocol do not disclose a separate thinking/reasoning mode. Clear the unsupported categorical false rather than conflate task reasoning with a dedicated mode."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s6"
+      ],
+      "note": "The vision-specific official protocol documents native tool calls for text-only inputs. It explicitly excludes tool calling when the prompt contains images."
+    },
+    "description": {
+      "value": "Meta instruction-tuned multimodal Llama 3.2 model for image understanding, captioning, visual question answering, and text generation.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Describes the exact instruction-tuned vision variant and its supported tasks; removes the ambiguous unqualified word Open."
+    }
+  },
+  "patch": {
+    "license": "Llama 3.2 Community License",
+    "parameters_b": 10.6,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "context_window": 131072,
+    "reasoning": null,
+    "description": "Meta instruction-tuned multimodal Llama 3.2 model for image understanding, captioning, visual question answering, and text generation.",
+    "source_url": "https://huggingface.co/meta-llama/Llama-3.2-11B-Vision-Instruct",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Llama-3.2-11B-Vision-Instruct official checkpoint card",
+        "url": "https://huggingface.co/meta-llama/Llama-3.2-11B-Vision-Instruct",
+        "type": "weights"
+      },
+      {
+        "label": "Llama 3.2 Vision model card",
+        "url": "https://raw.githubusercontent.com/meta-llama/llama-models/main/models/llama3_2/MODEL_CARD_VISION.md",
+        "type": "primary"
+      },
+      {
+        "label": "Llama 3.2: Revolutionizing edge AI and vision with open, customizable models",
+        "url": "https://ai.meta.com/blog/llama-3-2-connect-2024-vision-edge-mobile-devices/",
+        "type": "primary"
+      },
+      {
+        "label": "Llama 3.2 Community License Agreement",
+        "url": "https://raw.githubusercontent.com/meta-llama/llama-models/main/models/llama3_2/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "Llama 3.2 Acceptable Use Policy",
+        "url": "https://raw.githubusercontent.com/meta-llama/llama-models/main/models/llama3_2/USE_POLICY.md",
+        "type": "primary"
+      },
+      {
+        "label": "Llama 3.2 vision prompt format",
+        "url": "https://raw.githubusercontent.com/meta-llama/llama-models/main/models/llama3_2/vision_prompt_format.md",
+        "type": "primary"
+      },
+      {
+        "label": "Official model SKU definitions: Llama3.2-11B-Vision-Instruct",
+        "url": "https://raw.githubusercontent.com/meta-llama/llama-models/main/models/sku_list.py",
+        "type": "primary"
+      },
+      {
+        "label": "Official model families and maximum sequence lengths",
+        "url": "https://raw.githubusercontent.com/meta-llama/llama-models/main/models/sku_types.py",
+        "type": "primary"
+      },
+      {
+        "label": "Official cross-attention multimodal Transformer implementation",
+        "url": "https://raw.githubusercontent.com/meta-llama/llama-models/main/models/llama3/multimodal/model.py",
+        "type": "primary"
+      }
+    ],
+    "notes": "Meta reports the complete multimodal model as 11B (10.6), a rounded count; active parameters are not separately disclosed. Dense language and vision Transformers use eight cross-attention adapter blocks. Native tool calling is documented only for text-only prompts, not prompts containing images. A dedicated thinking mode is undisclosed. The Llama 3.2 license incorporates multimodal EU restrictions, with an exception for end users of incorporating products or services. The official 128k context is 131072 tokens."
+  },
+  "summary": "Audited all 14 fields. Add the original custom license and vision-specific restriction; replace the nominal 11B with Meta's reported rounded 10.6B total, classify dense multimodal architecture, correct context to 131072, and clear the unsupported reasoning=false assertion. Preserve native tool support with its text-only restriction. Active parameters remain undisclosed. Public card/code evidence was used; gated config access failed and no weights or tensor headers were downloaded."
+}
