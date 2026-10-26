@@ -1,0 +1,296 @@
+{
+  "index": 340,
+  "model_id": "mistral/mistral-nemo",
+  "reviewed_at": "2026-10-26T23:27:03.492548Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://mistral.ai/news/mistral-nemo/",
+      "title": "Mistral NeMo release announcement",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Dated July 18, 2024; announces the joint NVIDIA collaboration, nominal 12B size, 128k context, Apache 2.0 base/instruct releases, multilingual training and function calling. Links the instruction checkpoint and names its API open-mistral-nemo-2407."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/mistralai/Mistral-Nemo-Instruct-2407",
+      "title": "Mistral-Nemo-Instruct-2407 model card",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Identifies this checkpoint as the instruction fine-tune of Mistral-Nemo-Base-2407, jointly trained with NVIDIA. Documents Apache 2.0 distribution, 128k training context, 40-layer Transformer with GQA/SwiGLU, and runnable text chat and function-calling examples."
+    },
+    {
+      "id": "s3",
+      "url": "https://raw.githubusercontent.com/mistralai/platform-docs-public/cd2192ef7d0e96388a4261dbb6d417869e4bb965/src/schema/models/models/mistral-nemo-12b-24-07.ts",
+      "title": "Official Mistral NeMo 24.07 model definition, pinned revision",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Exact Instruct Weights entry links the audited checkpoint and separately sets parameters=12 and active=12. Defines both original API identifiers, text-only input/output, function calling, 128k context and July 18 release. Lists API retirement as July 31, 2026."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/mistralai/Mistral-Nemo-Instruct-2407/blob/04d8a90549d23fc6bd7f642064003592df51e9b3/config.json",
+      "title": "Mistral-Nemo-Instruct-2407 configuration, pinned revision",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "MistralForCausalLM configuration: 40 layers, width 5120, intermediate size 14336, 32 attention heads, 8 KV heads, head dimension 128, untied embeddings, BF16, and max_position_embeddings=131072."
+    },
+    {
+      "id": "s5",
+      "url": "https://developer.nvidia.com/blog/power-text-generation-applications-with-mistral-nemo-12b-running-on-a-single-gpu/",
+      "title": "Power Text-Generation Applications with Mistral NeMo 12B Running on a Single GPU",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "The authored technical article explicitly identifies Mistral NeMo as a text decoder-only dense Transformer. Describes joint development and local GPU deployment, including the instruction-tuned variant."
+    },
+    {
+      "id": "s6",
+      "url": "https://github.com/anomalyco/models.dev/blob/dev/models/mistral/mistral-nemo.toml",
+      "title": "Models.dev Mistral Nemo alias mapping",
+      "publisher": "Models.dev",
+      "accessed": true,
+      "evidence": "The upstream catalog alias mistral-nemo links directly to mistralai/Mistral-Nemo-Instruct-2407. Used only to resolve checkpoint identity, not to verify technical specifications or its conflicting July 1 date."
+    },
+    {
+      "id": "s7",
+      "url": "https://raw.githubusercontent.com/mistralai/platform-docs-public/cd2192ef7d0e96388a4261dbb6d417869e4bb965/src/app/%5Blocale%5D/(docs)/models/model-cards/%5Bslug%5D/components/weights-table.tsx",
+      "title": "Mistral model-card weights table units",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "The official renderer labels the separate parameters and active columns in billions, establishing the units used by the model definition."
+    },
+    {
+      "id": "s8",
+      "url": "https://raw.githubusercontent.com/mistralai/platform-docs-public/cd2192ef7d0e96388a4261dbb6d417869e4bb965/src/schema/models/schema.ts",
+      "title": "Mistral official model capability schema",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Defines reasoning as a distinct output modality, alongside text. NeMo lists text output only; this metadata omission does not itself establish absence of a dedicated reasoning capability."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/mistralai/Mistral-Nemo-Instruct-2407/blob/04d8a90549d23fc6bd7f642064003592df51e9b3/params.json",
+      "title": "Mistral-Nemo-Instruct-2407 native parameters, pinned revision",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Native mistral-inference parameters explicitly set max_position_embeddings=131072, agreeing with the Transformers configuration at the same checkpoint revision. The native dimensions also agree with the audited architecture."
+    },
+    {
+      "id": "s10",
+      "url": "https://docs.nvidia.com/nim/large-language-models/1.8.0/release-notes.html",
+      "title": "NVIDIA NIM 1.8 release notes and serving limitations",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Lists support for Mistral NeMo 12B Instruct. General runtime guidance says supported context may decrease with available memory, distinguishing deployment constraints from native checkpoint capacity."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Mistral Nemo",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Accepted display name for the original NeMo release; checkpoint identity is Mistral-Nemo-Instruct-2407."
+    },
+    "developer": {
+      "value": "Mistral AI and NVIDIA",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Both organizations jointly developed and trained the model."
+    },
+    "family": {
+      "value": "mistral-nemo",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Normalized NeMo family label; this record resolves to its instruction-tuned checkpoint."
+    },
+    "release_date": {
+      "value": "2024-07-18",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Explicit announcement date; supersedes the upstream catalog month-start placeholder."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Instruction-tuned checkpoint weights are publicly released."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Apache 2.0 applies to this released checkpoint."
+    },
+    "parameters_b": {
+      "value": 12,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s7"
+      ],
+      "note": "Developer-published nominal billions, not an exact tensor-element census."
+    },
+    "active_parameters_b": {
+      "value": 12,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s7"
+      ],
+      "note": "Separately disclosed Active (B) figure for Instruct Weights; not inferred from dense architecture."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s5"
+      ],
+      "note": "NVIDIA explicitly describes a dense decoder-only Transformer; exact checkpoint card and configuration corroborate its structure."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4",
+        "s9",
+        "s10"
+      ],
+      "note": "Exact native and Transformers configurations agree on 131072 positions, resolving the developer card's nominal 128k context. No explicit lower model limit was found in the checked primary documentation. Provider/runtime memory constraints may reduce a served limit."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s5"
+      ],
+      "note": "Exact model metadata specifies text input and output."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s8"
+      ],
+      "note": "Checked the announcement, model card, exact metadata and capability schema. No explicit NeMo-specific declaration establishes a dedicated reasoning mode or its absence; text-only output metadata is insufficient to verify false."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Developer states function-calling training and supplies executable tool-use examples for this checkpoint."
+    },
+    "description": {
+      "value": "Multilingual 12B instruction-tuned dense Transformer jointly developed by Mistral AI and NVIDIA, with Apache 2.0 open weights and function calling.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5"
+      ],
+      "note": "Replaces unqualified efficiency wording with evidenced identity and capabilities."
+    }
+  },
+  "patch": {
+    "developer": "Mistral AI and NVIDIA",
+    "license": "Apache-2.0",
+    "parameters_b": 12,
+    "active_parameters_b": 12,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "description": "Multilingual 12B instruction-tuned dense Transformer jointly developed by Mistral AI and NVIDIA, with Apache 2.0 open weights and function calling.",
+    "source_url": "https://mistral.ai/news/mistral-nemo/",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Mistral NeMo release announcement",
+        "url": "https://mistral.ai/news/mistral-nemo/",
+        "type": "primary"
+      },
+      {
+        "label": "Mistral NeMo official model metadata",
+        "url": "https://raw.githubusercontent.com/mistralai/platform-docs-public/cd2192ef7d0e96388a4261dbb6d417869e4bb965/src/schema/models/models/mistral-nemo-12b-24-07.ts",
+        "type": "primary"
+      },
+      {
+        "label": "NVIDIA technical architecture article",
+        "url": "https://developer.nvidia.com/blog/power-text-generation-applications-with-mistral-nemo-12b-running-on-a-single-gpu/",
+        "type": "primary"
+      },
+      {
+        "label": "Mistral-NeMo Instruct model card",
+        "url": "https://huggingface.co/mistralai/Mistral-Nemo-Instruct-2407",
+        "type": "weights"
+      },
+      {
+        "label": "Mistral-NeMo Instruct pinned configuration",
+        "url": "https://huggingface.co/mistralai/Mistral-Nemo-Instruct-2407/blob/04d8a90549d23fc6bd7f642064003592df51e9b3/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Mistral documentation parameter units",
+        "url": "https://raw.githubusercontent.com/mistralai/platform-docs-public/cd2192ef7d0e96388a4261dbb6d417869e4bb965/src/app/%5Blocale%5D/(docs)/models/model-cards/%5Bslug%5D/components/weights-table.tsx",
+        "type": "primary"
+      },
+      {
+        "label": "Mistral documentation capability schema",
+        "url": "https://raw.githubusercontent.com/mistralai/platform-docs-public/cd2192ef7d0e96388a4261dbb6d417869e4bb965/src/schema/models/schema.ts",
+        "type": "primary"
+      },
+      {
+        "label": "Models.dev alias mapping",
+        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/mistral/mistral-nemo.toml",
+        "type": "catalog"
+      },
+      {
+        "label": "Mistral-NeMo Instruct native parameters",
+        "url": "https://huggingface.co/mistralai/Mistral-Nemo-Instruct-2407/blob/04d8a90549d23fc6bd7f642064003592df51e9b3/params.json",
+        "type": "weights"
+      },
+      {
+        "label": "NVIDIA NIM serving limitations",
+        "url": "https://docs.nvidia.com/nim/large-language-models/1.8.0/release-notes.html",
+        "type": "primary"
+      }
+    ],
+    "notes": "Alias resolves to Mistral-Nemo-Instruct-2407. Total and active counts are separately published nominal 12B figures. Native params.json and Transformers config.json at revision 04d8a90549d23fc6bd7f642064003592df51e9b3 both specify 131072 positions, consistent with the nominal 128k context; deployment limits may be lower. Dedicated reasoning remains unverified. Official API metadata records retirement on 2026-07-31; this audit does not assert a currently operating endpoint.",
+    "reasoning": null,
+    "context_window": 131072
+  },
+  "summary": "Resolved the alias to the original July 2024 Instruct checkpoint. Adds jointly credited developer, Apache-2.0 license, separately documented nominal 12B total/12B active parameters and dense architecture. Confirms July 18 release, open weights, text modalities and function calling. Corrects native context to 131072 using matching pinned native and Transformers configurations. Clears the unsupported reasoning=false assertion; dedicated reasoning remains unverified."
+}
