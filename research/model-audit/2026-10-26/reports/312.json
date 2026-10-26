@@ -1,0 +1,319 @@
+{
+  "index": 312,
+  "model_id": "mistral/codestral-22b-v0.1",
+  "reviewed_at": "2026-10-26T22:45:55.188975Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://mistral.ai/news/codestral/",
+      "title": "Codestral launch announcement",
+      "publisher": "Mistral",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "May 29, 2024 launch identifies the original 22B open-weight code model, 32k context, instruction and fill-in-the-middle modes, and training on 80+ programming languages. Links the exact Hugging Face checkpoint and MNPL. Its LangChain integration account describes instruct tool use."
+    },
+    {
+      "id": "s2",
+      "url": "https://docs.mistral.ai/models/codestral-24-05",
+      "title": "Codestral 24.05 model documentation",
+      "publisher": "Mistral",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Exact codestral-2405 page links Codestral-22B-v0.1 weights and explicitly reports Parameters(B)=22 and Active(B)=22. Confirms May 29 release, MNPL, 32k context and June 16, 2025 API retirement. These are nominal developer counts, not an exact learned-tensor census."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/mistralai/Codestral-22B-v0.1/blob/28b1c1a51dabe9d86ca8c41420ada1984632498f/README.md",
+      "title": "Codestral-22B-v0.1 model card",
+      "publisher": "Mistral",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Exact model card documents text/code instruction and FIM generation, downloadable weights and mistral_common v3 as reference tokenizer. Card metadata links MNPL-0.1; its body has the transposed abbreviation MNLP-0.1. No dedicated thinking mode is described."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/mistralai/Codestral-22B-v0.1/blob/28b1c1a51dabe9d86ca8c41420ada1984632498f/config.json",
+      "title": "Codestral-22B-v0.1 Transformers configuration",
+      "publisher": "Mistral",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "MistralForCausalLM, 56 layers, hidden size 6144, FFN size 16384, 48 query heads and 8 KV heads, vocab 32768, untied embeddings, BF16 and max_position_embeddings=32768. No routed expert or multimodal modules."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/mistralai/Codestral-22B-v0.1/blob/28b1c1a51dabe9d86ca8c41420ada1984632498f/params.json",
+      "title": "Codestral-22B-v0.1 native parameters",
+      "publisher": "Mistral",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Native inference configuration independently confirms 56 layers, dim6144, head_dim128, 48 query/8 KV heads, hidden_dim16384 and vocab32768; no MoE configuration."
+    },
+    {
+      "id": "s6",
+      "url": "https://mistral.ai/licences/MNPL-0.1.md",
+      "title": "Mistral AI Non-Production License 0.1",
+      "publisher": "Mistral",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Linked actual license names the Mistral AI Non-Production License. Section3 restricts use to testing, research, personal or evaluation purposes in non-production environments; other uses require a separate license. Not Apache-2.0."
+    },
+    {
+      "id": "s7",
+      "url": "https://github.com/mistralai/mistral-inference/blob/main/README.md",
+      "title": "Mistral reference inference library README",
+      "publisher": "Mistral",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Official repository directly lists the original Codestral 22B v0.1 download and states that all models in that table support function calling. Documents native tool schemas through mistral_common and Codestral chat/FIM usage. The library is now archived; this is documented capability, not present hosted service verification."
+    },
+    {
+      "id": "s8",
+      "url": "https://github.com/mistralai/mistral-inference/blob/main/src/mistral_inference/transformer_layers.py",
+      "title": "Mistral reference Transformer layers",
+      "publisher": "Mistral",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Static inspection defines grouped-query causal attention, SwiGLU feed-forward blocks and RMSNorm. TransformerBlock selects the ordinary dense FeedForward path when the model has no MoE arguments, as in the Codestral params. No remote code was executed."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/mistralai/Codestral-22B-v0.1/blob/28b1c1a51dabe9d86ca8c41420ada1984632498f/tokenizer_config.json",
+      "title": "Codestral-22B-v0.1 tokenizer configuration",
+      "publisher": "Mistral",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Contains TOOL_CALLS, AVAILABLE_TOOLS and TOOL_RESULTS special tokens. Its bundled Jinja template only supports alternating user/assistant plus initial system messages, so that template alone does not implement native tool serialization; the card recommends mistral_common. No thinking-mode serialization is established."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/api/models/mistralai/Codestral-22B-v0.1",
+      "title": "Codestral official repository metadata and bounded access probe",
+      "publisher": "Mistral / Hugging Face",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Public ungated repository at revision 28b1c1a51dabe9d86ca8c41420ada1984632498f. A pinned model-00001-of-00009.safetensors bytes 0-7 request returned HTTP 206 with Content-Range bytes 0-7/4882298776 and exactly 8 bytes. Full weights were not downloaded."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/mistralai/Codestral-22B-v0.1/blob/28b1c1a51dabe9d86ca8c41420ada1984632498f/model.safetensors.index.json",
+      "title": "Codestral-22B-v0.1 checkpoint index",
+      "publisher": "Mistral",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Index contains 507 tensor keys in 9 shards, including ordinary dense attention/MLP/norm and embedding/output weights. No exact parameter total is derived from index byte size or Hugging Face aggregate metadata."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Codestral-22B-v0.1",
+      "status": "verified",
+      "source_ids": [
+        "s3"
+      ],
+      "note": "Exact original checkpoint identifier; distinct from later hosted Codestral2501/2508 versions and Codestral Mamba."
+    },
+    "developer": {
+      "value": "Mistral",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Developer-owned release and official mistralai checkpoint; retains normalized catalog name."
+    },
+    "family": {
+      "value": "codestral",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Original Codestral family release."
+    },
+    "release_date": {
+      "value": "2024-05-29",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Developer launch date and exact retrospective model page agree."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s10",
+        "s11"
+      ],
+      "note": "Official public weights and successful bounded unauthenticated shard probe. Open weights does not imply unrestricted commercial use."
+    },
+    "license": {
+      "value": "Mistral AI Non-Production License",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s6"
+      ],
+      "note": "MNPL 0.1 actual linked license; preserve its official full name, not the model-card body typo. Commercial licensing is separate."
+    },
+    "parameters_b": {
+      "value": 22,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Developer nominal total, explicitly reported rather than inferred from the model name. No exact checkpoint census is claimed."
+    },
+    "active_parameters_b": {
+      "value": 22,
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Developer explicitly publishes 22B in the Active(B) column for this exact original model. This is a nominal disclosure; equality to total is not inferred merely because the network is dense, and the counting convention is not separately defined."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s8",
+        "s11"
+      ],
+      "note": "Decoder-only dense Transformer with full grouped-query attention, 56 layers, 48 query/8 KV heads, SwiGLU feed-forward networks and RMSNorm. Not the later Codestral Mamba architecture."
+    },
+    "context_window": {
+      "value": 32768,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4"
+      ],
+      "note": "Exact released checkpoint max_position_embeddings 32768 resolves the advertised 32k shorthand. Does not assert current API operation; the original endpoint is retired."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4"
+      ],
+      "note": "Native code/text inputs and generated text; configuration has no vision/audio encoder or decoder."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s9"
+      ],
+      "note": "A dedicated thinking-mode contract could not be verified for this exact model. Ordinary code reasoning and instruction following do not establish such a mode; missing template markers alone do not prove incapability. Clear the unsupported categorical false."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s7",
+        "s9"
+      ],
+      "note": "Official reference-library supported-model table includes original Codestral 22B; launch integration also describes instruct tool use. Use the documented mistral_common v3 serialization: the limited bundled Hugging Face Jinja template alone omits tool handling. Current hosted endpoint operation was not tested."
+    },
+    "description": {
+      "value": "Dense code model trained on over 80 programming languages, supporting instruction following, fill-in-the-middle completion and native tool calls.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s7"
+      ],
+      "note": "Factual architecture/training/capabilities; avoids an ambiguous open-source label for MNPL weights."
+    }
+  },
+  "patch": {
+    "parameters_source": "primary_source",
+    "active_parameters_b": 22,
+    "architecture": "dense",
+    "reasoning": null,
+    "tool_call": true,
+    "description": "Dense code model trained on over 80 programming languages, supporting instruction following, fill-in-the-middle completion and native tool calls.",
+    "source_url": "https://mistral.ai/news/codestral/",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Codestral launch announcement",
+        "url": "https://mistral.ai/news/codestral/",
+        "type": "primary"
+      },
+      {
+        "label": "Codestral 24.05 model documentation",
+        "url": "https://docs.mistral.ai/models/codestral-24-05",
+        "type": "primary"
+      },
+      {
+        "label": "Codestral-22B-v0.1 model card",
+        "url": "https://huggingface.co/mistralai/Codestral-22B-v0.1/blob/28b1c1a51dabe9d86ca8c41420ada1984632498f/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "Codestral-22B-v0.1 Transformers configuration",
+        "url": "https://huggingface.co/mistralai/Codestral-22B-v0.1/blob/28b1c1a51dabe9d86ca8c41420ada1984632498f/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Codestral-22B-v0.1 native parameters",
+        "url": "https://huggingface.co/mistralai/Codestral-22B-v0.1/blob/28b1c1a51dabe9d86ca8c41420ada1984632498f/params.json",
+        "type": "weights"
+      },
+      {
+        "label": "Mistral AI Non-Production License 0.1",
+        "url": "https://mistral.ai/licences/MNPL-0.1.md",
+        "type": "primary"
+      },
+      {
+        "label": "Mistral reference inference library README",
+        "url": "https://github.com/mistralai/mistral-inference/blob/main/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Mistral reference Transformer layers",
+        "url": "https://github.com/mistralai/mistral-inference/blob/main/src/mistral_inference/transformer_layers.py",
+        "type": "primary"
+      },
+      {
+        "label": "Codestral-22B-v0.1 tokenizer configuration",
+        "url": "https://huggingface.co/mistralai/Codestral-22B-v0.1/blob/28b1c1a51dabe9d86ca8c41420ada1984632498f/tokenizer_config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Codestral official repository metadata and bounded access probe",
+        "url": "https://huggingface.co/api/models/mistralai/Codestral-22B-v0.1",
+        "type": "weights"
+      },
+      {
+        "label": "Codestral-22B-v0.1 checkpoint index",
+        "url": "https://huggingface.co/mistralai/Codestral-22B-v0.1/blob/28b1c1a51dabe9d86ca8c41420ada1984632498f/model.safetensors.index.json",
+        "type": "weights"
+      }
+    ],
+    "notes": "22B total and 22B active are developer nominal figures; the original model documentation explicitly gives both, without defining an exact tensor-count convention. The checkpoint is a dense GQA Transformer with 32768 positions. Weights use MNPL 0.1, with commercial licensing separate. Native tool calling is documented through mistral_common; the bundled Hugging Face Jinja template does not itself serialize tools. Dedicated thinking-mode status is unverified. Mistral marks codestral-2405 retired June 16, 2025; published weights remain accessible."
+  },
+  "summary": "Verified original Codestral 22B release, MNPL 0.1, public weights, 32768 context and text modalities. Adds dense Transformer architecture, directly disclosed nominal 22B active count and native function calling; changes parameter provenance from model name to primary evidence. Dedicated thinking-mode status remains unverified and the unsupported false is cleared. Distinguishes reference tokenizer tool support from the limited Hugging Face template and documents original API retirement."
+}
