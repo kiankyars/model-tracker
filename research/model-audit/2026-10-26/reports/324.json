@@ -1,0 +1,342 @@
+{
+  "index": 324,
+  "model_id": "mistral/ministral-3-8b-instruct-2512",
+  "reviewed_at": "2026-10-26T23:00:26.344447Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://mistral.ai/news/mistral-3/",
+      "title": "Introducing Mistral 3",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "December 2, 2025 public launch identifies the dense 3B, 8B and 14B Ministral 3 sizes, each in separate Base, Instruct and Reasoning variants, all released under Apache 2.0."
+    },
+    {
+      "id": "s2",
+      "url": "https://docs.mistral.ai/models/ministral-3-8b-25-12",
+      "title": "Ministral 3 8B v25.12 — model reference and Weights table",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "The delivered React payload separately links this exact Instruct checkpoint and labels Parameters (B)=8 and Active (B)=8. These are nominal size-class values. The page gives December 2 release, Apache 2.0, 256k and function calling."
+    },
+    {
+      "id": "s3",
+      "url": "https://docs.mistral.ai/models/ministral-3-8b-25-12.md",
+      "title": "Ministral 3 8B — official Markdown reference",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Exact dated API ID ministral-8b-2512 and latest alias; text/image input and text output. Links Instruct, Reasoning and Base checkpoints separately. The dataset record here corresponds to the Instruct weights, not the other variants."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/mistralai/Ministral-3-8B-Instruct-2512/blob/5b26027e7b19eeb4b7352e1fed3926375dd2cb4d/README.md",
+      "title": "Ministral 3 8B Instruct 2512 — pinned model card",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Exact FP8 instruction checkpoint, Apache 2.0, native vision and function calling. States rounded 8.4B language and 0.4B vision components. Serving notes explicitly give 262144 as default maximum context; family reasoning benchmark rows describe separate Reasoning variants."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/mistralai/Ministral-3-8B-Instruct-2512/blob/5b26027e7b19eeb4b7352e1fed3926375dd2cb4d/config.json",
+      "title": "Ministral 3 8B Instruct — pinned Transformers configuration",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Mistral3ForConditionalGeneration: dense 34-layer language decoder, hidden size 4096, FFN size 14336, 32 query/8 KV heads, 131072 vocabulary and untied embeddings. Context is 262144. A 24-layer Pixtral vision encoder and projector accompany FP8 language weights; vision/projector/output head are excluded from FP8 quantization."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/mistralai/Ministral-3-8B-Instruct-2512/blob/5b26027e7b19eeb4b7352e1fed3926375dd2cb4d/params.json",
+      "title": "Ministral 3 8B Instruct — pinned native configuration",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Native configuration independently agrees on decoder dimensions, untied embeddings, 262144 positions and dense FP8 structure. Vision configuration identifies the 24-layer encoder, patch-merge projector and pre-projector layer normalization."
+    },
+    {
+      "id": "s7",
+      "url": "https://arxiv.org/html/2601.08584v1",
+      "title": "Ministral 3 technical report",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Describes dense decoder-only Transformers and separates Instruct and Reasoning post-training. Table 1 gives exact 8B dimensions; image encoding uses a ViT and separately trained projector. Instruct long-context extension reaches 262144; the Reasoning model has a different limit."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/mistralai/Ministral-3-8B-Instruct-2512/discussions/8",
+      "title": "Exact Instruct maintainer correction of unused reasoning tokens",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Read through the Hugging Face discussion API. Mistral organization maintainer juliendenize explicitly identifies this checkpoint as non-reasoning and removes unused THINK tokens to prevent incorrect capability detection. The change was merged June 30, 2026."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/api/models/mistralai/Ministral-3-8B-Instruct-2512",
+      "title": "Official checkpoint repository metadata",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Repository is public and ungated at revision 5b26027e7b19eeb4b7352e1fed3926375dd2cb4d. Contains native weights and three Transformers shards; the pinned card, configurations and tensor index were retrieved. No separate LICENSE file is listed; the model card explicitly specifies Apache 2.0."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/mistralai/Ministral-3-8B-Instruct-2512/blob/5b26027e7b19eeb4b7352e1fed3926375dd2cb4d/model.safetensors.index.json",
+      "title": "Pinned complete Transformers tensor index",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Index lists 1007 distinct tensors across exactly three shards. All entries were matched against bounded safetensors headers. Learned weights are separated from 476 scalar activation/weight scales; both untied token embeddings and language output head are represented."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/mistralai/Ministral-3-8B-Instruct-2512/resolve/5b26027e7b19eeb4b7352e1fed3926375dd2cb4d/model-00001-of-00003.safetensors",
+      "title": "Pinned shard 1 of 3 — bounded tensor header",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Unauthenticated HTTP 206 probe returned bytes 0-7/4983094790. Retrieved only the eight-byte length and 40080-byte JSON header. All tensor shapes match BF16/F8_E4M3 byte lengths, and contiguous offsets account for the complete file. Combined three-shard count excludes scale metadata and yields 8,918,026,240 learned weight scalars."
+    },
+    {
+      "id": "s12",
+      "url": "https://huggingface.co/mistralai/Ministral-3-8B-Instruct-2512/resolve/5b26027e7b19eeb4b7352e1fed3926375dd2cb4d/model-00002-of-00003.safetensors",
+      "title": "Pinned shard 2 of 3 — bounded tensor header",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Unauthenticated HTTP 206 probe returned bytes 0-7/4992892530. Retrieved only the eight-byte length and 74784-byte JSON header. All tensor shapes match BF16/F8_E4M3 byte lengths, and contiguous offsets account for the complete file. Combined three-shard count excludes scale metadata and yields 8,918,026,240 learned weight scalars."
+    },
+    {
+      "id": "s13",
+      "url": "https://huggingface.co/mistralai/Ministral-3-8B-Instruct-2512/resolve/5b26027e7b19eeb4b7352e1fed3926375dd2cb4d/model-00003-of-00003.safetensors",
+      "title": "Pinned shard 3 of 3 — bounded tensor header",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Unauthenticated HTTP 206 probe returned bytes 0-7/444667504. Retrieved only the eight-byte length and 15976-byte JSON header. All tensor shapes match BF16/F8_E4M3 byte lengths, and contiguous offsets account for the complete file. Combined three-shard count excludes scale metadata and yields 8,918,026,240 learned weight scalars."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Ministral 3 8B Instruct 2512",
+      "status": "verified",
+      "source_ids": [
+        "s4"
+      ],
+      "note": "Use the exact checkpoint title, distinguishing the Instruct post-training from Base and Reasoning variants."
+    },
+    "developer": {
+      "value": "Mistral",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4"
+      ],
+      "note": "Mistral AI is the named developer and official repository publisher; retain the normalized catalog label."
+    },
+    "family": {
+      "value": "ministral",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4"
+      ],
+      "note": "Exact model belongs to the Ministral 3 line."
+    },
+    "release_date": {
+      "value": "2025-12-02",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Explicit dated public launch and exact model reference agree. The later technical-report publication does not change release chronology."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s9",
+        "s11",
+        "s12",
+        "s13"
+      ],
+      "note": "Official repository is public/ungated; all three weight shards are accessible without authentication using bounded byte ranges."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4"
+      ],
+      "note": "Explicit Apache 2.0 model license in the launch, Instruct weights row and exact model-card metadata/body; normalize spelling."
+    },
+    "parameters_b": {
+      "value": 8.91802624,
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s6",
+        "s10",
+        "s11",
+        "s12",
+        "s13"
+      ],
+      "note": "Derived complete checkpoint count: 531 learned-weight tensors contain 8,918,026,240 logical scalars. Excludes 476 scalar FP8 activation/weight scales. Includes 8,489,553,920 language, 403,305,472 vision and 25,166,848 projector parameters; untied embeddings counted separately. No packed tensors or additional buffers occur. Developer 8B is a nominal size class, not this exact whole-model count."
+    },
+    "active_parameters_b": {
+      "value": 8,
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Official exact Instruct row directly labels Active (B)=8. Retain that nominal disclosure, not an exact per-token count or an inference equating dense active and total. It is less precise than the complete checkpoint count."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5",
+        "s6",
+        "s7",
+        "s10"
+      ],
+      "note": "Dense Transformer language decoder with GQA, SwiGLU and RMSNorm plus Pixtral vision encoder/projector. All language layers have single feed-forward projections; no expert routing is present."
+    },
+    "context_window": {
+      "value": 262144,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "note": "Exact Instruct checkpoint and serving instructions explicitly specify 262144. Do not transfer the separate Reasoning variant’s shorter limit."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "note": "Exact documentation and native vision encoder establish text/image input; generated output is text. No native audio or image generation is claimed."
+    },
+    "reasoning": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s8"
+      ],
+      "note": "Exact-repository Mistral maintainer explicitly confirms non-reasoning status; family reasoning benchmark results and ordinary problem solving are not a native thinking mode."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "note": "Exact documentation lists function calling; checkpoint card supplies native Mistral tool parser, automatic tool choice and function schemas."
+    },
+    "description": {
+      "value": "Multimodal instruction model for local assistants and edge deployment, with native function calling.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4"
+      ],
+      "note": "Description restricted to documented instruction, deployment, vision and tool capabilities; omit subjective compactness or efficiency claims."
+    }
+  },
+  "patch": {
+    "name": "Ministral 3 8B Instruct 2512",
+    "license": "Apache-2.0",
+    "parameters_b": 8.91802624,
+    "active_parameters_b": 8,
+    "architecture": "dense",
+    "description": "Multimodal instruction model for local assistants and edge deployment, with native function calling.",
+    "parameters_source": "primary_source",
+    "source_url": "https://mistral.ai/news/mistral-3/",
+    "source_type": "primary",
+    "notes": "The full released checkpoint contains 8,918,026,240 learned parameters: 8,489,553,920 language, 403,305,472 vision and 25,166,848 projector parameters. This count excludes 476 scalar FP8 scales. Mistral’s 8B total/active labels are nominal size classes; the 8B active value is retained as published and is not an exact per-token count. The card separately gives rounded 8.4B language and 0.4B vision figures. This is the non-reasoning Instruct variant, with a 262,144-token context and native image input and tool calls.",
+    "sources": [
+      {
+        "label": "Introducing Mistral 3",
+        "url": "https://mistral.ai/news/mistral-3/",
+        "type": "primary"
+      },
+      {
+        "label": "Ministral 3 8B v25.12 — model reference and Weights table",
+        "url": "https://docs.mistral.ai/models/ministral-3-8b-25-12",
+        "type": "primary"
+      },
+      {
+        "label": "Ministral 3 8B — official Markdown reference",
+        "url": "https://docs.mistral.ai/models/ministral-3-8b-25-12.md",
+        "type": "primary"
+      },
+      {
+        "label": "Ministral 3 8B Instruct 2512 — pinned model card",
+        "url": "https://huggingface.co/mistralai/Ministral-3-8B-Instruct-2512/blob/5b26027e7b19eeb4b7352e1fed3926375dd2cb4d/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "Ministral 3 8B Instruct — pinned Transformers configuration",
+        "url": "https://huggingface.co/mistralai/Ministral-3-8B-Instruct-2512/blob/5b26027e7b19eeb4b7352e1fed3926375dd2cb4d/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Ministral 3 8B Instruct — pinned native configuration",
+        "url": "https://huggingface.co/mistralai/Ministral-3-8B-Instruct-2512/blob/5b26027e7b19eeb4b7352e1fed3926375dd2cb4d/params.json",
+        "type": "weights"
+      },
+      {
+        "label": "Ministral 3 technical report",
+        "url": "https://arxiv.org/html/2601.08584v1",
+        "type": "primary"
+      },
+      {
+        "label": "Exact Instruct maintainer correction of unused reasoning tokens",
+        "url": "https://huggingface.co/mistralai/Ministral-3-8B-Instruct-2512/discussions/8",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned complete Transformers tensor index",
+        "url": "https://huggingface.co/mistralai/Ministral-3-8B-Instruct-2512/blob/5b26027e7b19eeb4b7352e1fed3926375dd2cb4d/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Pinned shard 1 of 3 — bounded tensor header",
+        "url": "https://huggingface.co/mistralai/Ministral-3-8B-Instruct-2512/resolve/5b26027e7b19eeb4b7352e1fed3926375dd2cb4d/model-00001-of-00003.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Pinned shard 2 of 3 — bounded tensor header",
+        "url": "https://huggingface.co/mistralai/Ministral-3-8B-Instruct-2512/resolve/5b26027e7b19eeb4b7352e1fed3926375dd2cb4d/model-00002-of-00003.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Pinned shard 3 of 3 — bounded tensor header",
+        "url": "https://huggingface.co/mistralai/Ministral-3-8B-Instruct-2512/resolve/5b26027e7b19eeb4b7352e1fed3926375dd2cb4d/model-00003-of-00003.safetensors",
+        "type": "weights"
+      }
+    ]
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "language_model": 8.48955392,
+      "vision_encoder": 0.403305472,
+      "multimodal_projector": 0.025166848
+    }
+  },
+  "summary": "Audited all 14 fields for the exact Ministral 3 8B Instruct 2512 checkpoint. Replace nominal total 8B with complete independently derived 8.91802624B learned parameters using all three bounded tensor headers, excluding FP8 scales. Retain separately published nominal active 8B with precision caveat. Confirm dense multimodal architecture, Apache-2.0, December 2 release, downloadable public weights, 262144 context, native tools and explicit non-reasoning status. Offer exact component breakdown for parent review; no full weight downloads."
+}
