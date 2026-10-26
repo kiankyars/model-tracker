@@ -1,0 +1,318 @@
+{
+  "index": 183,
+  "model_id": "deepseek/deepseek-v4-pro-0813",
+  "reviewed_at": "2026-10-26T19:22:08.860479Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813",
+      "title": "DeepSeek-V4-Pro-0813 official model card",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Identifies the exact 0813 GA release, superseding the preview, and explicitly states that it retains the preview structure with an attached DSpark speculative-decoding module. Publishes weights under MIT and documents reasoning controls."
+    },
+    {
+      "id": "s2",
+      "url": "https://api-docs.deepseek.com/updates/",
+      "title": "DeepSeek API change log",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "The 2026-08-13 entry records the V4-Pro GA rollout to app, web and API. It documents low/high/max reasoning effort and Responses API support. The September entry explicitly continues V4-Pro service; retirement statements in secondary sources are stale."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813/resolve/72e1d3230f6c080a530b0a1d46f8eb4602340597/model.safetensors.index.json",
+      "title": "0813 checkpoint index and indexed safetensors headers",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Retrieved all 66 indexed shard headers with byte-range requests; all 149,782 tensor names match the index. Applying the official FP4 packing and sharing rules gives 1,650,495,609,866 logical parameters: main 1,572,997,201,763 plus DSpark 77,498,408,103. Excludes 50,735,763,136 quantization-scale elements and 2,327,040 integer routing-table entries."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813/blob/72e1d3230f6c080a530b0a1d46f8eb4602340597/inference/model.py",
+      "title": "0813 reference Transformer and DSpark implementation",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Defines the causal Transformer, MoE blocks and three DSpark stages under mtp.*. Draft stages share the main embedding and prediction head. Integer tid2eid routing lookup is non-trainable. Attention sinks, compressor position embeddings, router biases and hyper-connection tensors are model parameters; linear quantization scales serve packed-weight reconstruction."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813/blob/72e1d3230f6c080a530b0a1d46f8eb4602340597/inference/convert.py",
+      "title": "0813 checkpoint conversion and FP4 unpacking",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "The conversion code expands each packed I8 element into two FP4 weights and handles quantization scales separately. This prevents treating packed storage elements as the logical model count."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813/blob/72e1d3230f6c080a530b0a1d46f8eb4602340597/config.json",
+      "title": "0813 model configuration",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Specifies DeepseekV4ForCausalLM, 61 main layers, hidden size 7168, 384 routed experts, six selected experts per token and one shared expert. max_position_embeddings is 1,048,576; embeddings are untied. The legacy num_nextn_predict_layers=1 field does not describe the three DSpark checkpoint stages."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813/blob/72e1d3230f6c080a530b0a1d46f8eb4602340597/inference/config.json",
+      "title": "0813 reference inference configuration",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Explicitly configures n_mtp_layers=3 with DSpark enabled, matching checkpoint namespaces mtp.0 through mtp.2, and 61 main layers."
+    },
+    {
+      "id": "s8",
+      "url": "https://arxiv.org/html/2606.19348v1",
+      "title": "DeepSeek-V4 technical report",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Defines the Pro Transformer MoE architecture, hybrid Compressed Sparse Attention and Heavily Compressed Attention, and manifold-constrained hyper-connections. Reports nominal 1.6T total and 49B activated parameters for V4-Pro. The exact 0813 card establishes structural continuity of the main model; the added DSpark component must be counted separately."
+    },
+    {
+      "id": "s9",
+      "url": "https://api-docs.deepseek.com/quick_start/pricing/?model_version=DeepSeek-V4-Pro-0813",
+      "title": "DeepSeek API models and pricing",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "The current table explicitly maps deepseek-v4-pro to DeepSeek-V4-Pro-0813, advertises a 1M context, supports thinking/non-thinking and tool calls, and states that vision is unsupported. This verifies documented specifications, not a live endpoint invocation."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813/blob/72e1d3230f6c080a530b0a1d46f8eb4602340597/encoding/README.md",
+      "title": "0813 prompt and output encoding",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Documents text chat, interleaved reasoning, non-thinking chat mode, and DSML tool calls for this exact checkpoint."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813/blob/72e1d3230f6c080a530b0a1d46f8eb4602340597/LICENSE",
+      "title": "0813 MIT License",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "The repository license grants MIT terms; the model card explicitly applies them to repository and model weights."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "DeepSeek V4 Pro 0813",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Catalog display spelling of the exact DeepSeek-V4-Pro-0813 identifier."
+    },
+    "developer": {
+      "value": "DeepSeek",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Released and maintained by DeepSeek in its official repository and API documentation."
+    },
+    "family": {
+      "value": "deepseek-thinking",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s9"
+      ],
+      "note": "Retains the catalog reasoning-family grouping; the official model lineage is DeepSeek V4 and this model supports thinking mode."
+    },
+    "release_date": {
+      "value": "2026-08-13",
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Explicit dated GA release entry, distinguished from the April preview."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Official public repository contains the 0813 checkpoint shards and reference inference code."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s11"
+      ],
+      "note": "MIT applies explicitly to the repository and model weights."
+    },
+    "parameters_b": {
+      "value": 1650.495609866,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s5",
+        "s7"
+      ],
+      "note": "Complete logical checkpoint count in billions: 1,650,495,609,866 = 1,572,997,201,763 main + 77,498,408,103 DSpark. Counted every indexed shard header, unpacking I8 FP4 weights at two logical parameters per element; excluded .scale quantization metadata and integer tid2eid lookups. Shared embedding/head counted once. Includes learned hyper-connection scales, attention sinks and router biases. Evidence and reproducible count script are in /tmp/model-audit-183."
+    },
+    "active_parameters_b": {
+      "value": 49,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6",
+        "s8"
+      ],
+      "note": "Developer-reported nominal activated count for the main V4-Pro model; the exact 0813 card explicitly preserves its structure. This is not an aggregate DSpark-assisted inference count. Draft execution cost depends on speculative decoding; no complete per-output-token active figure is asserted."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "note": "Causal Transformer with DeepSeekMoE, CSA/HCA hybrid attention and mHC. Main model: 61 layers, 384 routed experts with six selected and one shared expert per layer. Three additional DSpark stages are explicitly present in the checkpoint and inference config."
+    },
+    "context_window": {
+      "value": 1000000,
+      "status": "verified",
+      "source_ids": [
+        "s6",
+        "s9"
+      ],
+      "note": "Retains the documented nominal 1M context. The exact checkpoint configuration ceiling is 1,048,576 positions; do not silently equate the rounded API label with an exact tokenizer limit."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s9",
+        "s10"
+      ],
+      "note": "Text causal language model and text conversation encoding; API table explicitly says vision is unsupported for this exact version."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s9",
+        "s10"
+      ],
+      "note": "Thinking and non-thinking modes; reasoning effort supports low, high and max."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s9",
+        "s10"
+      ],
+      "note": "Exact-version API table supports tool calls and checkpoint encoding documents DSML tool invocation and results."
+    },
+    "description": {
+      "value": "August 2026 general-availability DeepSeek V4 Pro MoE release with DSpark speculative decoding, million-token context, and thinking and non-thinking modes.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s8",
+        "s9"
+      ],
+      "note": "Replaces vague snapshot wording with the exact GA revision and attached DSpark component; avoids unqualified benchmark claims."
+    }
+  },
+  "patch": {
+    "parameters_b": 1650.495609866,
+    "active_parameters_b": 49,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "description": "August 2026 general-availability DeepSeek V4 Pro MoE release with DSpark speculative decoding, million-token context, and thinking and non-thinking modes.",
+    "source_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "DeepSeek-V4-Pro-0813 official model card",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813/blob/72e1d3230f6c080a530b0a1d46f8eb4602340597/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeek API change log",
+        "url": "https://api-docs.deepseek.com/updates/",
+        "type": "primary"
+      },
+      {
+        "label": "0813 checkpoint index and indexed safetensors headers",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813/resolve/72e1d3230f6c080a530b0a1d46f8eb4602340597/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "0813 reference Transformer and DSpark implementation",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813/blob/72e1d3230f6c080a530b0a1d46f8eb4602340597/inference/model.py",
+        "type": "primary"
+      },
+      {
+        "label": "0813 checkpoint conversion and FP4 unpacking",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813/blob/72e1d3230f6c080a530b0a1d46f8eb4602340597/inference/convert.py",
+        "type": "primary"
+      },
+      {
+        "label": "0813 model configuration",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813/blob/72e1d3230f6c080a530b0a1d46f8eb4602340597/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "0813 reference inference configuration",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813/blob/72e1d3230f6c080a530b0a1d46f8eb4602340597/inference/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "DeepSeek-V4 technical report",
+        "url": "https://arxiv.org/html/2606.19348v1",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeek API models and pricing",
+        "url": "https://api-docs.deepseek.com/quick_start/pricing/?model_version=DeepSeek-V4-Pro-0813",
+        "type": "primary"
+      },
+      {
+        "label": "0813 prompt and output encoding",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813/blob/72e1d3230f6c080a530b0a1d46f8eb4602340597/encoding/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "0813 MIT License",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813/blob/72e1d3230f6c080a530b0a1d46f8eb4602340597/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "August13 GA announcement",
+        "url": "https://api-docs.deepseek.com/news/news260813/",
+        "type": "primary"
+      }
+    ],
+    "notes": "Complete checkpoint total is 1,650.495609866B logical parameters, including 1,572.997201763B main model and 77.498408103B DSpark. Quantization scales and 2,327,040 integer hash-routing entries are excluded; FP4 packed weights are expanded logically and the shared main embedding/head are counted once. The published 49B activated count is nominal for the main model, not total DSpark-assisted execution. Advertised context is 1M; checkpoint configuration allows 1,048,576 positions."
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "main": 1572.997201763,
+      "dspark": 77.498408103
+    },
+    "active_parameters_scope": "main"
+  },
+  "summary": "Verified all 14 fields for the exact August 13 GA release. Added complete 1650.495609866B logical checkpoint count, nominal 49B main active count and MoE architecture; separated 77.498408103B DSpark. Preserved release date, MIT/open weights, reasoning family grouping, nominal 1M context, text modalities and reasoning/tool support. Clarified GA/DSpark description. No unresolved factual fields; DSpark aggregate active execution is intentionally not inferred."
+}
