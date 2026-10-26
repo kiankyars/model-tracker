@@ -1,0 +1,437 @@
+{
+  "index": 298,
+  "model_id": "mindlab/macaron-v1-tall",
+  "reviewed_at": "2026-10-26T22:25:48.032799Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/mindlab-research/Macaron-V1-Tall/raw/main/README.md",
+      "title": "Macaron-V1-Tall official model card",
+      "publisher": "MindLab Research",
+      "accessed": true,
+      "evidence": "Identifies the Macaron-V1 family, Qwen3.6-35B-A3B MoE base, four routed specialists, nominal 50B release footprint, 262K context, text-only specialist training with inherited vision, and MIT declaration subject to base terms. Raw card was accessible although the rendered page failed in the browser reader."
+    },
+    {
+      "id": "s2",
+      "url": "https://www.mindlab.im/updates/introducing-macaron-v1",
+      "title": "Introducing Macaron-V1",
+      "publisher": "Mind Lab",
+      "accessed": true,
+      "evidence": "Dated July 21, 2026 announcement releases Tall with open weights, describing a 50B model from a 35B Qwen base and four 3.7B specialists. Its short introductory summary calls Tall 35B, whereas the variant-specific body describes the complete 50B system."
+    },
+    {
+      "id": "s3",
+      "url": "https://arxiv.org/html/2608.09819v2",
+      "title": "Macaron-V1 technical report, revision 2",
+      "publisher": "Mind Lab",
+      "accessed": true,
+      "evidence": "August 24 revision, sections 2.2 and 6.1 and Tables 9/11, labels Tall 50B and explains approximately 50.1B using a nominal 35B base plus four 3,775,651,840-value adapters. Stored adapter values are explicitly distinguished from token-active parameters. Tall adapters use rank 64 and expert-specific projections."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/mindlab-research/Macaron-V1-Tall/raw/main/config.json",
+      "title": "Released Tall checkpoint configuration",
+      "publisher": "MindLab Research",
+      "accessed": true,
+      "evidence": "Exact checkpoint declares Qwen3_5MoeForConditionalGeneration, 40 text layers with a 3:1 linear/full-attention pattern, 256 routed experts with eight selected per token, vision configuration and image/video token IDs, and max_position_embeddings=262144."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/mindlab-research/Macaron-V1-Tall/raw/main/LICENSE",
+      "title": "Tall bundled license file",
+      "publisher": "MindLab Research / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Bundled license text is Apache-2.0 with Alibaba Cloud copyright, whereas the Macaron model card declares MIT and explicitly preserves base-model requirements."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/Qwen/Qwen3.6-35B-A3B/raw/main/README.md",
+      "title": "Qwen3.6-35B-A3B base-model card",
+      "publisher": "Qwen",
+      "accessed": true,
+      "evidence": "The exact declared base has Apache-2.0 licensing and nominal 35B total/3B active parameters. Includes image/video input examples and reasoning/tool-call serving support. These base counts do not include Macaron adapters."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/mindlab-research/Macaron-V1-Tall/raw/main/chat_template.jinja",
+      "title": "Tall native chat template",
+      "publisher": "MindLab Research",
+      "accessed": true,
+      "evidence": "Released template processes image and video input items, supports enable_thinking and think delimiters, and serializes native function calls and tool responses."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/mindlab-research/Macaron-V1-Tall/raw/main/video_preprocessor_config.json",
+      "title": "Tall video processor configuration",
+      "publisher": "MindLab Research",
+      "accessed": true,
+      "evidence": "Exact released checkpoint includes a Qwen3VLVideoProcessor with temporal patches, confirming its inherited video input processing alongside the image/video-aware template."
+    },
+    {
+      "id": "s9",
+      "url": "https://raw.githubusercontent.com/MindLab-Research/Mixture-of-LoRA-Harness/main/mol_harness/scripts/start_vllm_tall.sh",
+      "title": "Official Tall serving profile",
+      "publisher": "MindLab Research",
+      "accessed": true,
+      "evidence": "Loads the Tall base and L0-L3 rank-64 adapters, sets 262144 model length, and enables qwen3 reasoning and qwen3_coder automatic tool calling."
+    },
+    {
+      "id": "s10",
+      "url": "https://mint-doc.macaron.im/model-api/models/",
+      "title": "Official Macaron hosted-model lineup",
+      "publisher": "MindLab",
+      "accessed": true,
+      "evidence": "Lists macaron-v1-tall separately from Venti and V1.1, with 50B aggregate and Qwen3.6-35B-A3B base. Its four-times-1B adapter description conflicts with the Tall-specific card/report; the latter supply exact rank and adapter values."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/api/models/mindlab-research/Macaron-V1-Tall",
+      "title": "Official Tall repository metadata and file listing",
+      "publisher": "MindLab Research / Hugging Face",
+      "accessed": true,
+      "evidence": "Public repository lists 26 base safetensor shards plus four adapter files; metadata reports 35,951,822,704 BF16 base-checkpoint values, including auxiliary MTP, and July 22 creation. Independent bounded-header inspection reproduced that count. This excludes all adapters; repository creation is later than the July 21 announcement."
+    },
+    {
+      "id": "s12",
+      "url": "https://huggingface.co/mindlab-research/Macaron-V1-Tall/resolve/e64d7387f78f2bb20c729b836319b12db6a3a553/model.safetensors.index.json",
+      "title": "Tall pinned base checkpoint index and bounded shard headers",
+      "publisher": "MindLab Research",
+      "accessed": true,
+      "evidence": "At revision e64d7387f78f2bb20c729b836319b12db6a3a553, fetched only the 8-byte prefix and JSON header of each of the 26 indexed shards. All 1,045 keys match the index exactly; all are BF16. Shapes total 35,951,822,704 learned values: text including separate embedding/head 34,660,610,688; vision 446,571,248; auxiliary MTP 844,640,768. No quantization-scale, packed-integer, or rotary-frequency buffer tensors occur."
+    },
+    {
+      "id": "s13",
+      "url": "https://huggingface.co/mindlab-research/Macaron-V1-Tall/resolve/e64d7387f78f2bb20c729b836319b12db6a3a553/loras/L0/adapter_model.safetensors",
+      "title": "Tall pinned L0 adapter header",
+      "publisher": "MindLab Research",
+      "accessed": true,
+      "evidence": "Bounded HTTP 206 reads of the size prefix and JSON header only. All 780 tensors are LoRA A/B weight matrices totaling 3,775,651,840 learned coefficients; dtype is BF16. No saved full base modules, scales, or buffers occur."
+    },
+    {
+      "id": "s14",
+      "url": "https://huggingface.co/mindlab-research/Macaron-V1-Tall/resolve/e64d7387f78f2bb20c729b836319b12db6a3a553/loras/L1/adapter_model.safetensors",
+      "title": "Tall pinned L1 adapter header",
+      "publisher": "MindLab Research",
+      "accessed": true,
+      "evidence": "Bounded HTTP 206 reads of the size prefix and JSON header only. All 780 tensors are LoRA A/B weight matrices totaling 3,775,651,840 learned coefficients; dtype is BF16. No saved full base modules, scales, or buffers occur."
+    },
+    {
+      "id": "s15",
+      "url": "https://huggingface.co/mindlab-research/Macaron-V1-Tall/resolve/e64d7387f78f2bb20c729b836319b12db6a3a553/loras/L2/adapter_model.safetensors",
+      "title": "Tall pinned L2 adapter header",
+      "publisher": "MindLab Research",
+      "accessed": true,
+      "evidence": "Bounded HTTP 206 reads of the size prefix and JSON header only. All 780 tensors are LoRA A/B weight matrices totaling 3,775,651,840 learned coefficients; dtype is F32. No saved full base modules, scales, or buffers occur."
+    },
+    {
+      "id": "s16",
+      "url": "https://huggingface.co/mindlab-research/Macaron-V1-Tall/resolve/e64d7387f78f2bb20c729b836319b12db6a3a553/loras/L3/adapter_model.safetensors",
+      "title": "Tall pinned L3 adapter header",
+      "publisher": "MindLab Research",
+      "accessed": true,
+      "evidence": "Bounded HTTP 206 reads of the size prefix and JSON header only. All 780 tensors are LoRA A/B weight matrices totaling 3,775,651,840 learned coefficients; dtype is BF16. No saved full base modules, scales, or buffers occur."
+    },
+    {
+      "id": "s17",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/main/src/transformers/models/qwen3_5_moe/modeling_qwen3_5_moe.py",
+      "title": "Transformers implementation of the declared checkpoint architecture",
+      "publisher": "Hugging Face Transformers",
+      "accessed": true,
+      "evidence": "Defines A_log, dt_bias, expert gate/up/down projections, norm weights, vision positions and other checkpoint tensors as learned parameters/modules. Rotary inverse-frequency buffers are nonpersistent and absent from the checkpoint. Ordinary conditional-generation loading ignores auxiliary mtp keys. Exact Tall config has tie_word_embeddings=false at both levels, so separately stored token embedding and output head are counted once each."
+    },
+    {
+      "id": "s18",
+      "url": "https://raw.githubusercontent.com/vllm-project/vllm/main/vllm/model_executor/models/qwen3_5_mtp.py",
+      "title": "vLLM Qwen3.5 MoE multi-token predictor implementation",
+      "publisher": "vLLM",
+      "accessed": true,
+      "evidence": "Maps mtp-prefixed checkpoint keys into a learned predictor with a projection, decoder layer and normalization parameters. The predictor reuses checkpoint embedding/output-head keys, which are not duplicated under mtp in Tall. This confirms the 19 mtp tensors are auxiliary learned weights rather than metadata/buffers."
+    },
+    {
+      "id": "s19",
+      "url": "https://raw.githubusercontent.com/huggingface/peft/main/src/peft/tuners/lora/layer.py",
+      "title": "PEFT LoRA and parameter-wrapper implementation",
+      "publisher": "Hugging Face PEFT",
+      "accessed": true,
+      "evidence": "LoRA A/B tensors are trainable linear weights; the expert-parameter wrapper constructs rank times number-of-experts dimensions, explaining Tall adapter shapes such as 16384=64x256. These are learned adapter coefficients, not duplicate base parameters or storage scales."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Macaron V1 Tall",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Human-readable spelling of the official Macaron-V1-Tall identifier; this is the Tall release, not Venti, V1.1, or a merged single-specialist build."
+    },
+    "developer": {
+      "value": "MindLab",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Mind Lab / MindLab Research identifies itself as the release developer; retain the catalog organization spelling."
+    },
+    "family": {
+      "value": "macaron-v1",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Normalized lowercase family key for the model card release family Macaron-V1."
+    },
+    "release_date": {
+      "value": "2026-07-21",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s11"
+      ],
+      "note": "Dated first-party launch announcement explicitly releases Tall. The repository was created July 22; that later artifact timestamp does not replace the public announcement date."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s11"
+      ],
+      "note": "Developer announces public weights; the official repository contains base shards and all four specialist adapters."
+    },
+    "license": {
+      "value": "MIT + Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5",
+        "s6"
+      ],
+      "note": "Card declares MIT for Macaron while preserving base requirements; the exact Qwen base is Apache-2.0 and the bundled LICENSE is also Apache-2.0. Retain both declared layers rather than represent the whole package as MIT-only. The metadata/file mismatch is explicitly recorded."
+    },
+    "parameters_b": {
+      "value": 51.054430064,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s12",
+        "s13",
+        "s14",
+        "s15",
+        "s16",
+        "s17",
+        "s18",
+        "s19"
+      ],
+      "note": "Derived complete released learned-parameter count: 35,951,822,704 base-checkpoint parameters + 4 x 3,775,651,840 LoRA parameters = 51,054,430,064. Header-only scan covered all 30 files at pinned revision e64d7387f78f2bb20c729b836319b12db6a3a553, transferring 583,520 header bytes. All base/L0/L1/L3 tensors are BF16; L2 is F32, which changes bytes but not parameter count. Reference implementations identify non-weight-suffixed A_log, dt_bias and expert projections as learned; no persistent buffers or quantization storage tensors were counted. Untied input embedding and output head are separately stored and both count. Includes 844,640,768 auxiliary MTP parameters, with no duplicate embedding/head; excluding MTP gives 50,209,789,296. Developer 50B is a release label; report ~50.1B uses nominal 35B base rather than the measured checkpoint."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s3",
+        "s6",
+        "s10"
+      ],
+      "note": "Focused checks of the exact card, latest technical report including Tables 9/11, and hosted lineup found no whole-Tall token-active count. The base-only 3B activated figure excludes adapters; one selected specialist and stored adapter sizes do not establish active parameters."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4"
+      ],
+      "note": "Qwen3.6 sparse MoE base plus per-turn Mixture-of-LoRA routing. Configuration has hybrid linear/full attention and eight of 256 routed experts per text token; MoL adds four task specialists, not four full base copies. The qwen3_5 configuration class is implementation lineage, not evidence that the declared base is Qwen3.5."
+    },
+    "context_window": {
+      "value": 262144,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s9"
+      ],
+      "note": "Exact released max_position_embeddings and official Tall serving profile agree; no Venti-only million-token profile is transferred."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "note": "Image support is evaluated in the Tall card. Video is inherited from its frozen multimodal base and retained in the exact checkpoint configuration, chat template and video processor. Specialists were trained on text only; neither tuned video performance nor current hosted API video acceptance is claimed."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s7",
+        "s9"
+      ],
+      "note": "Native template supports thinking generation and reasoning content; the Tall serving profile enables the matching reasoning parser."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s7",
+        "s9"
+      ],
+      "note": "Native template formats function calls/tool responses; Tall deployment enables automatic tool choice with the matching parser."
+    },
+    "description": {
+      "value": "Qwen3.6-based Mixture-of-LoRA model with specialists for chat, personal agents, coding, and generative UI",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "The existing description accurately summarizes the exact Tall release and four specialist roles without transferring Venti claims."
+    }
+  },
+  "patch": {
+    "family": "macaron-v1",
+    "license": "MIT + Apache-2.0",
+    "parameters_b": 51.054430064,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "modalities": {
+      "input": [
+        "text",
+        "image",
+        "video"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "source_url": "https://huggingface.co/mindlab-research/Macaron-V1-Tall/raw/main/README.md",
+    "source_type": "primary",
+    "notes": "Complete released checkpoint has 51.054430064B learned parameters: 35.951822704B base-checkpoint parameters including 0.844640768B auxiliary MTP, plus four 3.775651840B LoRA adapters. Excluding auxiliary MTP gives 50.209789296B. These counts come from bounded tensor headers with parameter/buffer and tying checks, not file-byte division. The developer 50B release label and report ~50.1B calculation use a nominal 35B base. HF ~36B metadata excludes the adapters but includes MTP. Whole-model active parameters are undisclosed; 3B applies only to the base. Card declares MIT with inherited base requirements; bundled LICENSE and Qwen base are Apache-2.0. Vision/video is inherited; specialist training is text-only. Hosted docs incorrectly list Tall adapters as four times 1B.",
+    "sources": [
+      {
+        "label": "Macaron-V1-Tall official model card",
+        "url": "https://huggingface.co/mindlab-research/Macaron-V1-Tall/raw/main/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Introducing Macaron-V1",
+        "url": "https://www.mindlab.im/updates/introducing-macaron-v1",
+        "type": "primary"
+      },
+      {
+        "label": "Macaron-V1 technical report, revision 2",
+        "url": "https://arxiv.org/html/2608.09819v2",
+        "type": "primary"
+      },
+      {
+        "label": "Released Tall checkpoint configuration",
+        "url": "https://huggingface.co/mindlab-research/Macaron-V1-Tall/raw/main/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Tall bundled license file",
+        "url": "https://huggingface.co/mindlab-research/Macaron-V1-Tall/raw/main/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3.6-35B-A3B base-model card",
+        "url": "https://huggingface.co/Qwen/Qwen3.6-35B-A3B/raw/main/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Tall native chat template",
+        "url": "https://huggingface.co/mindlab-research/Macaron-V1-Tall/raw/main/chat_template.jinja",
+        "type": "weights"
+      },
+      {
+        "label": "Tall video processor configuration",
+        "url": "https://huggingface.co/mindlab-research/Macaron-V1-Tall/raw/main/video_preprocessor_config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Official Tall serving profile",
+        "url": "https://raw.githubusercontent.com/MindLab-Research/Mixture-of-LoRA-Harness/main/mol_harness/scripts/start_vllm_tall.sh",
+        "type": "primary"
+      },
+      {
+        "label": "Official Macaron hosted-model lineup",
+        "url": "https://mint-doc.macaron.im/model-api/models/",
+        "type": "primary"
+      },
+      {
+        "label": "Official Tall repository metadata and file listing",
+        "url": "https://huggingface.co/api/models/mindlab-research/Macaron-V1-Tall",
+        "type": "weights"
+      },
+      {
+        "label": "Tall pinned base checkpoint index and bounded shard headers",
+        "url": "https://huggingface.co/mindlab-research/Macaron-V1-Tall/resolve/e64d7387f78f2bb20c729b836319b12db6a3a553/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Tall pinned L0 adapter header",
+        "url": "https://huggingface.co/mindlab-research/Macaron-V1-Tall/resolve/e64d7387f78f2bb20c729b836319b12db6a3a553/loras/L0/adapter_model.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Tall pinned L1 adapter header",
+        "url": "https://huggingface.co/mindlab-research/Macaron-V1-Tall/resolve/e64d7387f78f2bb20c729b836319b12db6a3a553/loras/L1/adapter_model.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Tall pinned L2 adapter header",
+        "url": "https://huggingface.co/mindlab-research/Macaron-V1-Tall/resolve/e64d7387f78f2bb20c729b836319b12db6a3a553/loras/L2/adapter_model.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Tall pinned L3 adapter header",
+        "url": "https://huggingface.co/mindlab-research/Macaron-V1-Tall/resolve/e64d7387f78f2bb20c729b836319b12db6a3a553/loras/L3/adapter_model.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Transformers implementation of the declared checkpoint architecture",
+        "url": "https://raw.githubusercontent.com/huggingface/transformers/main/src/transformers/models/qwen3_5_moe/modeling_qwen3_5_moe.py",
+        "type": "primary"
+      },
+      {
+        "label": "vLLM Qwen3.5 MoE multi-token predictor implementation",
+        "url": "https://raw.githubusercontent.com/vllm-project/vllm/main/vllm/model_executor/models/qwen3_5_mtp.py",
+        "type": "primary"
+      },
+      {
+        "label": "PEFT LoRA and parameter-wrapper implementation",
+        "url": "https://raw.githubusercontent.com/huggingface/peft/main/src/peft/tuners/lora/layer.py",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "All 14 fields audited. Revised total to exact complete-checkpoint 51.054430064B after reading only 583,520 bytes of headers across all 26 base shards and four adapters and checking learned parameters, buffers, tying and auxiliary scope. Includes 0.844640768B MTP; without MTP the total is 50.209789296B. The developer 50B label is nominal, and the report ~50.1B uses a nominal base. Normalized family to macaron-v1. MoE, native inherited video and combined MIT/Apache-2.0 terms are supported. Whole-system active parameters remain undisclosed. No weight payloads were downloaded.",
+  "proposed_fields": {
+    "parameter_components_b": {
+      "language_model": 34.660610688,
+      "mtp": 0.844640768,
+      "lora_l0": 3.77565184,
+      "lora_l1": 3.77565184,
+      "lora_l2": 3.77565184,
+      "lora_l3": 3.77565184,
+      "vision_encoder_projector": 0.446571248
+    }
+  }
+}
