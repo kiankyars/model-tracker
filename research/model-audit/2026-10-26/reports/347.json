@@ -1,0 +1,253 @@
+{
+  "index": 347,
+  "model_id": "mistral/mixtral-8x22b-instruct",
+  "reviewed_at": "2026-10-26T23:36:53.435398Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://mistral.ai/news/mixtral-8x22b/",
+      "title": "Cheaper, Better, Faster, Stronger \u2014 Mixtral 8x22B release",
+      "publisher": "Mistral AI",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "April 17, 2024 announcement explicitly says the instructed version was released that day. Describes sparse MoE, 141B total and 39B active parameters, Apache 2.0, five supported languages, native function calling and 64K context. Reasoning benchmarks describe task performance rather than a dedicated reasoning mode."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/mistralai/Mixtral-8x22B-Instruct-v0.1/blob/cc88a6cc19fbd17d9f1c0ee0b0d70a748dce698d/README.md",
+      "title": "Mixtral-8x22B-Instruct-v0.1 official model card",
+      "publisher": "Mistral AI",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Exact Mistral Instruct checkpoint is an instruction fine-tune of Mixtral-8x22B-v0.1; metadata states Apache-2.0 and English, Spanish, Italian, German and French. Provides text generation, function-calling examples and tool tokens."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/mistralai/Mixtral-8x22B-Instruct-v0.1/blob/cc88a6cc19fbd17d9f1c0ee0b0d70a748dce698d/config.json",
+      "title": "Mixtral-8x22B-Instruct-v0.1 checkpoint configuration",
+      "publisher": "Mistral AI",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "MixtralForCausalLM with model_type mixtral, 56 layers, 48 attention heads, eight local experts and two experts per token. max_position_embeddings is 65536, sliding_window is null, and weights are BF16."
+    },
+    {
+      "id": "s4",
+      "url": "https://docs.mistral.ai/models/mixtral-8x22b-0-1-0-3",
+      "title": "Official Mixtral 8x22B model documentation",
+      "publisher": "Mistral AI",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "The Instruct Weights row links the exact v0.1 checkpoint and separately labels Parameters (B)=141 and Active (B)=39, with Apache 2.0 and 64k context. Marks this historical model retired; this does not establish current API availability."
+    },
+    {
+      "id": "s5",
+      "url": "https://github.com/mistralai/platform-docs-public/blob/cd2192ef7d0e96388a4261dbb6d417869e4bb965/src/schema/models/models/mixtral-8x22b-0-1-0-3.ts",
+      "title": "Pinned official Mixtral 8x22B model specification",
+      "publisher": "Mistral AI",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Source of the official model page explicitly sets text-only input and text-only output; releaseDate 2024-04-17; exact Instruct checkpoint link; nominal parameter values 141 and 39; and 64k context. Its empty features list is not treated as proof of absent reasoning or tool support."
+    },
+    {
+      "id": "s6",
+      "url": "https://github.com/mistralai/mistral-inference/blob/main/README.md",
+      "title": "Mistral inference model download and version notes",
+      "publisher": "Mistral AI",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Explicitly states that mixtral-8x22B-Instruct-v0.3.tar is the same model as Mixtral-8x22B-Instruct-v0.1, only stored in safetensors format. This resolves the documentation page version range for the audited Instruct variant."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Mixtral 8x22B Instruct",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s6"
+      ],
+      "note": "Display name identifies the exact Mixtral-8x22B-Instruct-v0.1 checkpoint; official v0.3 Instruct packaging contains the same model."
+    },
+    "developer": {
+      "value": "Mistral",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Released by the Mistral AI team and hosted in its mistralai organization; retains the catalog developer label."
+    },
+    "family": {
+      "value": "mixtral",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Normalized Mixtral lineage identified by the exact checkpoint name, base model and model_type mixtral; Mistral remains the developer."
+    },
+    "release_date": {
+      "value": "2024-04-17",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Dated launch explicitly says the instructed version was released that day; repository creation is not substituted for public release."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s6"
+      ],
+      "note": "Official Instruct checkpoint and downloadable weight distribution are publicly identified."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4"
+      ],
+      "note": "Exact checkpoint metadata and official Instruct weights row identify Apache 2.0."
+    },
+    "parameters_b": {
+      "value": 141,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s1"
+      ],
+      "note": "Published nominal total in billions, from the exact Instruct row labeled Parameters (B); not a computed storage-element count."
+    },
+    "active_parameters_b": {
+      "value": 39,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s1"
+      ],
+      "note": "Separately published nominal active count in billions from the exact Instruct row labeled Active (B); not inferred from total size."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Sparse mixture-of-experts Transformer; exact configuration specifies eight local experts and top-two routing, with attention layers."
+    },
+    "context_window": {
+      "value": 65536,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s1"
+      ],
+      "note": "Exact config gives 65536 positions, corroborated by the supported 64K context in the model documentation and launch."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s2",
+        "s3"
+      ],
+      "note": "Official model specification explicitly lists text input/output. PDF ingestion is not a native modality of this text checkpoint."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5"
+      ],
+      "note": "No explicit exact-model classification of dedicated reasoning mode was established. Generic reasoning performance and an empty feature list do not justify either boolean."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s1"
+      ],
+      "note": "Exact Instruct card supplies native function-calling examples and tool tokens, corroborating the announcement."
+    },
+    "description": {
+      "value": "Instruction-tuned multilingual text MoE model with native function calling, 141B total parameters, 39B active parameters, and a 64K-token context window.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4"
+      ],
+      "note": "Replaces generic catalog prose with the exact variant, native modalities, published nominal sizes, context and supported function calling."
+    }
+  },
+  "patch": {
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "reasoning": null,
+    "description": "Instruction-tuned multilingual text MoE model with native function calling, 141B total parameters, 39B active parameters, and a 64K-token context window.",
+    "parameters_source": "primary_source",
+    "sources": [
+      {
+        "label": "Cheaper, Better, Faster, Stronger \u2014 Mixtral 8x22B release",
+        "url": "https://mistral.ai/news/mixtral-8x22b/",
+        "type": "primary"
+      },
+      {
+        "label": "Mixtral-8x22B-Instruct-v0.1 official model card",
+        "url": "https://huggingface.co/mistralai/Mixtral-8x22B-Instruct-v0.1/blob/cc88a6cc19fbd17d9f1c0ee0b0d70a748dce698d/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "Mixtral-8x22B-Instruct-v0.1 checkpoint configuration",
+        "url": "https://huggingface.co/mistralai/Mixtral-8x22B-Instruct-v0.1/blob/cc88a6cc19fbd17d9f1c0ee0b0d70a748dce698d/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Official Mixtral 8x22B model documentation",
+        "url": "https://docs.mistral.ai/models/mixtral-8x22b-0-1-0-3",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned official Mixtral 8x22B model specification",
+        "url": "https://github.com/mistralai/platform-docs-public/blob/cd2192ef7d0e96388a4261dbb6d417869e4bb965/src/schema/models/models/mixtral-8x22b-0-1-0-3.ts",
+        "type": "primary"
+      },
+      {
+        "label": "Mistral inference model download and version notes",
+        "url": "https://github.com/mistralai/mistral-inference/blob/main/README.md",
+        "type": "primary"
+      }
+    ],
+    "notes": "Audited exact Mixtral-8x22B-Instruct-v0.1; Mistral states the v0.3 Instruct archive is the same model in safetensors format. Official Instruct weights table separately publishes nominal 141B total and 39B active parameters. Supported 64K context is corroborated by the 65536-position checkpoint configuration. Native input/output are text. Dedicated reasoning status remains unverified and is cleared to null; reasoning benchmark performance is not evidence of a dedicated mode. The historical API is documented as retired.",
+    "family": "mixtral"
+  },
+  "summary": "Confirmed exact Instruct identity, April 17 release, open Apache-2.0 weights, nominal 141B total / 39B active, sparse MoE, 65536 context and function calling. Removed unsupported PDF input, cleared unsupported reasoning=false to null, and made the description variant-specific. Dedicated reasoning classification remains unresolved. Normalize family to mixtral."
+}
