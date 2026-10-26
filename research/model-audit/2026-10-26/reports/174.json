@@ -1,0 +1,272 @@
+{
+  "index": 174,
+  "model_id": "deepseek/deepseek-v3-0324",
+  "reviewed_at": "2026-10-26T19:05:10.033568+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V3-0324",
+      "title": "DeepSeek-V3-0324 model card",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Exact checkpoint card identifies the developer, MIT weight release, reasoning/code benchmark improvements and function calling. It explicitly says the structure is identical to DeepSeek-V3 and links its implementation."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V3-0324/raw/main/config.json",
+      "title": "DeepSeek-V3-0324 checkpoint configuration",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "DeepseekV3ForCausalLM has 61 main layers, one next-token-prediction layer, 256 routed experts, eight selected experts per token and one shared expert. max_position_embeddings is 163840; the checkpoint uses block-scaled FP8 weights."
+    },
+    {
+      "id": "s3",
+      "url": "https://raw.githubusercontent.com/deepseek-ai/DeepSeek-V3/main/README_WEIGHTS.md",
+      "title": "DeepSeek-V3 Weight File Documentation",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Current guide reports main-model 671B total and 36.7B active; MTP has approximately 11.5B unique and 2.4B active. MTP shares its embedding and output head with the main model. FP8 weight_scale_inv tensors contain dequantization scales."
+    },
+    {
+      "id": "s4",
+      "url": "https://arxiv.org/html/2412.19437v2",
+      "title": "DeepSeek-V3 Technical Report",
+      "publisher": "DeepSeek-AI",
+      "accessed": true,
+      "evidence": "The report describes the Transformer using MLA and DeepSeekMoE, nominal 671B/37B counts, and MTP embedding/output-head sharing. MTP can be discarded for ordinary inference or used for speculative decoding. Applied here through the exact checkpoint card's explicit structural-equivalence statement."
+    },
+    {
+      "id": "s5",
+      "url": "https://api-docs.deepseek.com/updates/#date-2025-03-24",
+      "title": "DeepSeek API Change Log: March 24, 2025",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "The dated entry explicitly upgrades deepseek-chat to DeepSeek-V3-0324 on March 24, 2025, with improved reasoning, coding and function calling. This establishes the earlier release date independently of the March 25 news announcement."
+    },
+    {
+      "id": "s6",
+      "url": "https://api-docs.deepseek.com/news/news250325/",
+      "title": "DeepSeek-V3-0324 Release",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "March 25 announcement links the public weights and MIT license, confirms improved tool use, and directs users to disable DeepThink for V3."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V3-0324/blob/main/LICENSE",
+      "title": "DeepSeek-V3-0324 LICENSE",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "The exact checkpoint repository contains the MIT License, attributed to DeepSeek."
+    },
+    {
+      "id": "s8",
+      "url": "https://raw.githubusercontent.com/deepseek-ai/DeepSeek-V3/main/README.md",
+      "title": "DeepSeek-V3 repository README",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "The original V3 download table lists nominal 671B total, 37B active and 128K context. These are family architecture figures, qualified here by the exact 0324 configuration and the main/MTP weight guide."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V3-0324/commits/main",
+      "title": "DeepSeek-V3-0324 commit history",
+      "publisher": "DeepSeek via Hugging Face",
+      "accessed": true,
+      "evidence": "Official checkpoint uploads are dated March 24, 2025; a release-documentation commit followed on March 25. The changelog, rather than upload timestamps alone, establishes public availability."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "DeepSeek V3 0324",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Catalog display spacing normalizes the official name DeepSeek-V3-0324."
+    },
+    "developer": {
+      "value": "DeepSeek",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7"
+      ],
+      "note": "Released through the developer's official checkpoint repository."
+    },
+    "family": {
+      "value": "deepseek",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "The catalog's broad family key covers this explicitly named DeepSeek-V3 revision."
+    },
+    "release_date": {
+      "value": "2025-03-24",
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s6",
+        "s9"
+      ],
+      "note": "The first-party changelog dates deployment to March 24. The March 25 announcement and documentation commit are later events."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6",
+        "s9"
+      ],
+      "note": "Official public checkpoint weights are linked from the release announcement."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7"
+      ],
+      "note": "The exact 0324 card applies MIT to the repository and weights; the original December V3 model agreement is not this revision's license."
+    },
+    "parameters_b": {
+      "value": 671,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "note": "Nominal main-model billions, requiring proposed main_model scope. Complete unique checkpoint size is not asserted: MTP adds shared-weight complications, and the Hugging Face 685B display is not an independently verified unique learned-parameter total. No shard totals or scale tensors were counted."
+    },
+    "active_parameters_b": {
+      "value": 36.7,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4",
+        "s8"
+      ],
+      "note": "Guide's approximate main-model active count includes the embedding and output head; the paper/card round this to 37B. MTP activity is separately reported and overlaps shared weights, so it must not be added directly."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4"
+      ],
+      "note": "Decoder-only Transformer with MLA and DeepSeekMoE; exact configuration confirms expert routing and an auxiliary MTP layer."
+    },
+    "context_window": {
+      "value": 128000,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s8"
+      ],
+      "note": "Advertised128K context represented as nominal128000, supported by exact card structural equivalence and V3 documentation. Configured max_position_embeddings163840 is a separate ceiling, not the advertised supported window."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Text causal language model with text prompt templates. File-upload and search examples insert extracted text into prompts."
+    },
+    "reasoning": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s6"
+      ],
+      "note": "False denotes absence of the dedicated DeepThink reasoning mode: the release directs users to turn DeepThink off for V3. It does not deny ordinary reasoning ability or the reported benchmark improvements."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "The exact model card explicitly supports function calling and documents improved accuracy."
+    },
+    "description": {
+      "value": "March 2025 checkpoint of DeepSeek-V3 with improved reasoning and coding",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Concise paraphrase of the developer's dated update and benchmark comparison with original V3; improvements are developer-reported."
+    }
+  },
+  "patch": {
+    "license": "MIT",
+    "parameters_b": 671,
+    "active_parameters_b": 36.7,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "source_url": "https://huggingface.co/deepseek-ai/DeepSeek-V3-0324",
+    "source_type": "primary",
+    "notes": "Counts describe the main model: nominal 671B and approximately 36.7B active (37B rounded). The MTP module shares embedding and output weights; the 685B storage headline is not a unique learned total. The guide\u2019s nominal 11.5B MTP figure also differs from tensor-shape accounting, so no complete unique total is asserted. Advertised context is 128K, represented as nominal 128000; configured positions are 163840. Release was March 24; the news announcement followed March 25.",
+    "sources": [
+      {
+        "label": "DeepSeek-V3-0324 official model card",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V3-0324",
+        "type": "primary"
+      },
+      {
+        "label": "Exact checkpoint configuration",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V3-0324/raw/main/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Official main-model and MTP weight guide",
+        "url": "https://raw.githubusercontent.com/deepseek-ai/DeepSeek-V3/main/README_WEIGHTS.md",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeek-V3 technical report",
+        "url": "https://arxiv.org/html/2412.19437v2",
+        "type": "primary"
+      },
+      {
+        "label": "March 24 release changelog",
+        "url": "https://api-docs.deepseek.com/updates/#date-2025-03-24",
+        "type": "primary"
+      },
+      {
+        "label": "Exact checkpoint MIT license",
+        "url": "https://huggingface.co/deepseek-ai/DeepSeek-V3-0324/blob/main/LICENSE",
+        "type": "primary"
+      }
+    ],
+    "context_window": 128000
+  },
+  "proposed_fields": {
+    "parameters_scope": "main",
+    "active_parameters_scope": "main",
+    "parameter_components_b": {
+      "main": 671
+    },
+    "active_parameters_by_phase_b": {
+      "main": 36.7
+    }
+  },
+  "summary": "Audited all 14 fields for the March 24 checkpoint. Verified MIT, MoE and nominal main counts of 671B/36.7B with explicit scope. Shared MTP weights prevent an unqualified full-count assertion. Use advertised 128K context, separate from the configured 163840 positions."
+}
