@@ -1,0 +1,280 @@
+{
+  "index": 316,
+  "model_id": "mistral/devstral-small-2",
+  "reviewed_at": "2026-10-26T22:50:42.817601Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://mistral.ai/news/devstral-2-vibe-cli/",
+      "title": "Introducing: Devstral 2 and Mistral Vibe CLI.",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Dated December 9, 2025, the announcement releases the Devstral family in 123B and 24B sizes. It identifies Small 2 as the 24B Apache-2.0 model, with 256K context and image inputs for multimodal software agents."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/mistralai/Devstral-Small-2-24B-Instruct-2512/blob/55c5b41e98c2dbd21b0c8afffc540dcfc9eb5128/README.md",
+      "title": "Devstral Small 2 24B Instruct 2512 — official model card",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Exact FP8 instruction checkpoint: nominal 24 billion parameters, Apache-2.0 metadata and license statement, image and text understanding, repository exploration and file editing. Provides native function schemas/tool-call parser and text-generation examples. The vLLM serving example sets --max-model-len 262144."
+    },
+    {
+      "id": "s3",
+      "url": "https://docs.mistral.ai/models/devstral-small-2-25-12",
+      "title": "Devstral Small 2 v25.12 — official model reference and Weights table",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Read the exact page and its server-rendered React payload: the Weights row links this checkpoint and explicitly gives Parameters (B)=24, Active (B)=24, Apache 2.0, and Context Size=256k. Page identifies December 9, 2025, labs-devstral-small-2512, function calling and chat completions. It currently marks API deprecation February 27, 2026."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/mistralai/Devstral-Small-2-24B-Instruct-2512/blob/55c5b41e98c2dbd21b0c8afffc540dcfc9eb5128/config.json",
+      "title": "Devstral Small 2 — pinned Transformers configuration",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Exact checkpoint uses Mistral3ForConditionalGeneration with a 40-layer ministral3 language decoder (hidden size 5120, intermediate size 32768, 32 attention heads, 8 KV heads) and a 24-layer Pixtral vision encoder plus projector. FP8 quantization excludes vision tower, projector and lm_head. max_position_embeddings=393216 and YaRN factor=48 with original length=8192; this is not the published recommended serving context."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/mistralai/Devstral-Small-2-24B-Instruct-2512/blob/55c5b41e98c2dbd21b0c8afffc540dcfc9eb5128/params.json",
+      "title": "Devstral Small 2 — pinned native configuration",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Native configuration independently confirms 40 decoder layers, 32 query/8 KV heads, hidden dimension 5120, dense feed-forward dimension 32768, a 24-layer vision encoder, and FP8 weights. max_position_embeddings=393216, YaRN factor=48 and original maximum=8192 agree with Transformers configuration."
+    },
+    {
+      "id": "s6",
+      "url": "https://docs.mistral.ai/vibe/code/cli/offline-models",
+      "title": "Mistral Vibe — Using offline models",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Mistral explicitly calls Devstral Small 2 a dense 24B model and provides a vLLM command for this exact checkpoint with native Mistral tool parsing. The separate Small 4 MoE figures are not transferred."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/mistralai/Devstral-Small-2-24B-Instruct-2512/commit/b396b4d51e58a72dd77e3402994af04021b01e5b",
+      "title": "Maintainer correction: remove unused reasoning tokens from Devstral Small 2",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Exact-repository commit by Mistral maintainer juliendenize on June 30, 2026 explicitly identifies this as non-reasoning. It replaces unused THINK tokens with reserved slots so tooling does not incorrectly mark it reasoning-capable; only tokenizer files changed. The associated discussion #29 identifies the author as Mistral AI organization staff."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/mistralai/Devstral-Small-2-24B-Instruct-2512/discussions/20",
+      "title": "Devstral Small 2 — Actual context length?",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Exact-model discussion #20: Mistral maintainer juliendenize explains the 393216 YaRN-derived config value versus the recommended 256k setting. On December 19, 2025, the maintainer explicitly instructs serving with --max-model-len 262144 and reports updating the README/params. Retain that documented setting rather than treating the higher config ceiling as the advertised context."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/api/models/mistralai/Devstral-Small-2-24B-Instruct-2512",
+      "title": "Official checkpoint repository metadata",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Live repository metadata reports public and ungated access at revision 55c5b41e98c2dbd21b0c8afffc540dcfc9eb5128. The file list contains the model card, configurations, both native and Transformers safetensors indexes and weight shards; there is no standalone LICENSE file. The Transformers index references six shards."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/mistralai/Devstral-Small-2-24B-Instruct-2512/resolve/55c5b41e98c2dbd21b0c8afffc540dcfc9eb5128/model-00001-of-00006.safetensors",
+      "title": "Official Devstral Small 2 safetensors — bounded public-access probe",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Unauthenticated byte-range request returned HTTP 206, Content-Range bytes 0-7/4907440626, and exactly eight bytes containing the safetensors header length (12664 bytes). This verifies actual downloadable public weights without downloading a shard; it is not a learned-parameter count."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Devstral Small 2",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Official product name; this record maps to the December 2025 24B Instruct checkpoint, not the 123B sibling."
+    },
+    "developer": {
+      "value": "Mistral",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Mistral AI announcement and official mistralai checkpoint; preserve the catalog developer label."
+    },
+    "family": {
+      "value": "devstral",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Announcement explicitly introduces the two sizes as the Devstral 2 coding-model family; normalize to the existing family key."
+    },
+    "release_date": {
+      "value": "2025-12-09",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Explicit dated public release announcement corroborated by exact version reference; day precision."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s9",
+        "s10"
+      ],
+      "note": "Official checkpoint is public and ungated and an unauthenticated bounded shard request succeeded."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Apache 2.0 is explicit in launch, checkpoint card metadata/body and exact weights row. Repository has no standalone LICENSE file; do not transfer the 123B sibling’s Modified MIT license."
+    },
+    "parameters_b": {
+      "value": 24,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Nominal billions, explicitly stated for Small 2. This is the developer-published model size, not a sum of FP8 storage/scale elements or a claim of exactly 24,000,000,000 learned weights."
+    },
+    "active_parameters_b": {
+      "value": 24,
+      "status": "verified",
+      "source_ids": [
+        "s3"
+      ],
+      "note": "Official exact-model Weights table separately labels Active (B)=24. This is direct nominal disclosure, not an inference that dense total equals active."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s6",
+        "s4",
+        "s5"
+      ],
+      "note": "Official offline-model guide explicitly labels this exact model dense. The checkpoint independently shows the dense language decoder with Pixtral image encoder and projector; no MoE claim is transferred from another model."
+    },
+    "context_window": {
+      "value": 262144,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s8",
+        "s4",
+        "s5"
+      ],
+      "note": "Keep the explicitly recommended 262144-token serving context. Both configs currently contain the higher 393216 YaRN ceiling; the maintainer directly addresses that discrepancy and instructs --max-model-len 262144."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4",
+        "s5"
+      ],
+      "note": "Launch and exact card explicitly support image and text input; checkpoint includes the native vision encoder/projector and language-generation head. Documented chat generation produces text, not native image/audio output. This differs from the text-only 123B sibling."
+    },
+    "reasoning": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s7"
+      ],
+      "note": "Exact-model maintainer explicitly identifies it as non-reasoning and removes unused reasoning tokens. Agentic planning/tool use does not imply a dedicated reasoning mode."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s6"
+      ],
+      "note": "Exact checkpoint card supplies function definitions and native Mistral tool-call serving configuration; exact official model reference lists Function Calling."
+    },
+    "description": {
+      "value": "Compact multimodal coding model for repository exploration, file editing, and software agents",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Each clause is supported by the Small 2 announcement/card: compact 24B deployment, native vision, and code-agent repository/file tools. Preserve the existing description."
+    }
+  },
+  "patch": {
+    "parameters_b": 24,
+    "active_parameters_b": 24,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "source_url": "https://mistral.ai/news/devstral-2-vibe-cli/",
+    "source_type": "primary",
+    "notes": "Mistral explicitly reports nominal 24B total and 24B active parameters for Devstral Small 2. The FP8 checkpoint storage aggregate is not an exact learned-parameter count. Native text/image input and text output; explicitly non-reasoning with native tool calls. Use the documented 262144-token context: a maintainer explicitly recommends that serving limit despite the 393216 YaRN ceiling in configuration. Official model docs mark API deprecation on February 27, 2026; public weights remain downloadable.",
+    "sources": [
+      {
+        "label": "Mistral release announcement",
+        "url": "https://mistral.ai/news/devstral-2-vibe-cli/",
+        "type": "primary"
+      },
+      {
+        "label": "Official model reference and Weights table",
+        "url": "https://docs.mistral.ai/models/devstral-small-2-25-12",
+        "type": "primary"
+      },
+      {
+        "label": "Official checkpoint card",
+        "url": "https://huggingface.co/mistralai/Devstral-Small-2-24B-Instruct-2512/blob/55c5b41e98c2dbd21b0c8afffc540dcfc9eb5128/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "Official checkpoint configuration",
+        "url": "https://huggingface.co/mistralai/Devstral-Small-2-24B-Instruct-2512/blob/55c5b41e98c2dbd21b0c8afffc540dcfc9eb5128/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Mistral dense architecture documentation",
+        "url": "https://docs.mistral.ai/vibe/code/cli/offline-models",
+        "type": "primary"
+      },
+      {
+        "label": "Mistral maintainer reasoning correction",
+        "url": "https://huggingface.co/mistralai/Devstral-Small-2-24B-Instruct-2512/commit/b396b4d51e58a72dd77e3402994af04021b01e5b",
+        "type": "primary"
+      },
+      {
+        "label": "Mistral maintainer context clarification",
+        "url": "https://huggingface.co/mistralai/Devstral-Small-2-24B-Instruct-2512/discussions/20",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "Verified all 14 fields for the exact Devstral Small 2 December 2025 checkpoint. Fill nominal 24B total and separately disclosed 24B active parameters plus dense architecture, and replace the catalog release source with the dated primary announcement. Confirm Apache-2.0, public downloadable weights, text/image input and text output, native tools and explicitly non-reasoning status. Retain 262144 context using the maintainer clarification of the 393216 YaRN config discrepancy. No full weight shards downloaded or quantization storage totals misreported as parameters."
+}
