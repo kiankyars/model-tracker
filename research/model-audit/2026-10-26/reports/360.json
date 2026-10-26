@@ -1,0 +1,280 @@
+{
+  "index": 360,
+  "model_id": "moonshotai/kimi-k2.6",
+  "reviewed_at": "2026-10-26T23:58:42.622Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/moonshotai/Kimi-K2.6/blob/7eb5002f6aadc958aed6a9177b7ed26bb94011bb/README.md",
+      "title": "Kimi K2.6 official model card, pinned revision",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Exact K2.6 card identifies MoE, nominal 1T total and 32B activated parameters, and a separately listed 400M MoonViT encoder. It documents thinking/instant modes, image/video input, multi-step tool calls, and released weights."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/moonshotai/Kimi-K2.6/raw/7eb5002f6aadc958aed6a9177b7ed26bb94011bb/config.json",
+      "title": "Kimi K2.6 checkpoint configuration, pinned revision",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "KimiK25ForConditionalGeneration wraps a kimi_k2 text model with 61 layers, one initial dense layer, 384 routed experts, 8 selected per token, one shared expert, and 262144 positions. Vision configuration specifies a 27-layer encoder. Expert weights use packed symmetric INT4, with separately configured scale metadata."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/moonshotai/Kimi-K2.6/raw/7eb5002f6aadc958aed6a9177b7ed26bb94011bb/LICENSE",
+      "title": "Kimi K2.6 Modified MIT License, pinned revision",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Copyright 2026 Moonshot AI; Modified MIT permits use and redistribution with an additional Kimi K2.6 interface attribution requirement above stated monthly user or revenue thresholds."
+    },
+    {
+      "id": "s4",
+      "url": "https://www.kimi.com/en/help/agent/agent-overview",
+      "title": "Introducing Kimi Agent: model release history",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Explicitly states that Moonshot AI released and open-sourced Kimi K2.6 on April 20, 2026; this dates the public release rather than repository creation or a later forum post."
+    },
+    {
+      "id": "s5",
+      "url": "https://www.kimi.com/en/blog/kimi-k2-6",
+      "title": "Kimi K2.6: Advancing Open-Source Coding",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "First-party announcement identifies the Kimi K2.6 model, open-weight release, long-horizon coding, visual coding workflows, and tool-using agent applications."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/moonshotai/Kimi-K2.6/resolve/7eb5002f6aadc958aed6a9177b7ed26bb94011bb/model.safetensors.index.json",
+      "title": "Kimi K2.6 checkpoint tensor index, pinned revision",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Index enumerates 64 weight shards and 208550 tensors across language_model, vision_tower and mm_projector. All indexed names reconcile with the complete header census. It contains 69120 each of packed matrices, scales and shape metadata, plus 60 router correction-bias tensors; metadata total_size is storage bytes."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/moonshotai/Kimi-K2.6/raw/7eb5002f6aadc958aed6a9177b7ed26bb94011bb/modeling_deepseek.py",
+      "title": "Kimi K2.6 language-model implementation, pinned revision",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Defines router correction biases as nn.Parameter, not buffers, at lines 431\u2013433. The 61-layer MLA attention, dense/shared/routed expert matrices, embeddings, untied output head and normalization parameters independently reproduce the 1026408232448 language-model count."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/moonshotai/Kimi-K2.6/raw/7eb5002f6aadc958aed6a9177b7ed26bb94011bb/modeling_kimi_k25.py",
+      "title": "Kimi K2.6 vision and projector implementation, pinned revision",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Spatial position weights are nn.Parameter; time_weight and freqs_cis are nonpersistent buffers. Patch embedding, 27 vision blocks, final normalization and spatial positions reproduce 416866032 vision parameters; PatchMergerMLP reproduces 54277888 projector parameters. Nonpersistent buffers are absent from the index."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/moonshotai/Kimi-K2.6/resolve/7eb5002f6aadc958aed6a9177b7ed26bb94011bb/model-00001-of-000064.safetensors",
+      "title": "Kimi K2.6 checkpoint headers, all 64 indexed shards at pinned revision",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Complete bounded HTTP Range census of this shard and the remaining 63 enumerated in s6 reconciled all 208550 indexed names, tensor dtypes and byte spans. 69120 INT4 matrices are recovered as eight logical values per I32 element with exact config-shape checks. Excluding 69120 scales and 69120 shape tensors leaves 1026879376368 parameters, matching independent config/code arithmetic; no full shards downloaded."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Kimi K2.6",
+      "status": "verified",
+      "source_ids": [
+        "s5"
+      ],
+      "note": "Exact title used in the developer announcement."
+    },
+    "developer": {
+      "value": "Moonshot AI",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4"
+      ],
+      "note": "Copyright and public-release history explicitly identify the developer."
+    },
+    "family": {
+      "value": "kimi-k2",
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "The exact checkpoint text_config.model_type is kimi_k2; normalized catalog family retained."
+    },
+    "release_date": {
+      "value": "2026-04-20",
+      "status": "verified",
+      "source_ids": [
+        "s4"
+      ],
+      "note": "Explicit public-release date. The April 14 repository creation and April 21 forum announcement are different events."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Official weights are published as 64 indexed shards."
+    },
+    "license": {
+      "value": "Modified MIT",
+      "status": "verified",
+      "source_ids": [
+        "s3"
+      ],
+      "note": "Exact license title; do not normalize to unrestricted MIT."
+    },
+    "parameters_b": {
+      "value": 1026.879376368,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s6",
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "note": "Exact complete checkpoint count at pinned revision: 1026408232448 language-model + 416866032 vision-encoder + 54277888 projector = 1026879376368 parameters. All 64 headers reconcile with the index and independent config/implementation arithmetic. INT4 matrices use logical unpacked sizes; quantization scales and shape tensors are excluded. All 23040 router correction-bias elements are included because the implementation declares them nn.Parameter. The card rounds the model to 1T and vision encoder to 400M."
+    },
+    "active_parameters_b": {
+      "value": 32,
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Developer-reported nominal activated count. No exact phase-dependent or vision-inclusive active census is claimed."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "MoE Transformer with MLA attention and a MoonViT vision encoder; configuration directly corroborates routed and shared experts."
+    },
+    "context_window": {
+      "value": 262144,
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Exact text_config.max_position_embeddings value; consistent with the advertised 256K context."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Card examples explicitly support text, image and video inputs with textual responses. Video is marked experimental and official-API-only at this revision."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Explicit thinking, instant and preserve_thinking modes establish reasoning support."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Exact-model documentation explicitly describes interleaved thinking and multi-step tool calls."
+    },
+    "description": {
+      "value": "Open-weight multimodal MoE model with thinking and instant modes, image/video input, and multi-step tool calling.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5"
+      ],
+      "note": "Replaces the vague workhorse description with documented model capabilities."
+    }
+  },
+  "patch": {
+    "license": "Modified MIT",
+    "parameters_b": 1026.879376368,
+    "active_parameters_b": 32,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "description": "Open-weight multimodal MoE model with thinking and instant modes, image/video input, and multi-step tool calling.",
+    "source_url": "https://huggingface.co/moonshotai/Kimi-K2.6/blob/7eb5002f6aadc958aed6a9177b7ed26bb94011bb/README.md",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Kimi K2.6 official model card, pinned revision",
+        "url": "https://huggingface.co/moonshotai/Kimi-K2.6/blob/7eb5002f6aadc958aed6a9177b7ed26bb94011bb/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Kimi K2.6 checkpoint configuration, pinned revision",
+        "url": "https://huggingface.co/moonshotai/Kimi-K2.6/raw/7eb5002f6aadc958aed6a9177b7ed26bb94011bb/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Kimi K2.6 Modified MIT License, pinned revision",
+        "url": "https://huggingface.co/moonshotai/Kimi-K2.6/raw/7eb5002f6aadc958aed6a9177b7ed26bb94011bb/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "Introducing Kimi Agent: model release history",
+        "url": "https://www.kimi.com/en/help/agent/agent-overview",
+        "type": "primary"
+      },
+      {
+        "label": "Kimi K2.6: Advancing Open-Source Coding",
+        "url": "https://www.kimi.com/en/blog/kimi-k2-6",
+        "type": "primary"
+      },
+      {
+        "label": "Kimi K2.6 checkpoint tensor index, pinned revision",
+        "url": "https://huggingface.co/moonshotai/Kimi-K2.6/resolve/7eb5002f6aadc958aed6a9177b7ed26bb94011bb/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Kimi K2.6 language-model implementation, pinned revision",
+        "url": "https://huggingface.co/moonshotai/Kimi-K2.6/raw/7eb5002f6aadc958aed6a9177b7ed26bb94011bb/modeling_deepseek.py",
+        "type": "primary"
+      },
+      {
+        "label": "Kimi K2.6 vision and projector implementation, pinned revision",
+        "url": "https://huggingface.co/moonshotai/Kimi-K2.6/raw/7eb5002f6aadc958aed6a9177b7ed26bb94011bb/modeling_kimi_k25.py",
+        "type": "primary"
+      },
+      {
+        "label": "Kimi K2.6 checkpoint headers, all 64 indexed shards at pinned revision",
+        "url": "https://huggingface.co/moonshotai/Kimi-K2.6/resolve/7eb5002f6aadc958aed6a9177b7ed26bb94011bb/model-00001-of-000064.safetensors",
+        "type": "weights"
+      }
+    ],
+    "notes": "Exact complete count: 1026.408232448B language model + 0.416866032B MoonViT encoder + 0.054277888B projector = 1026.879376368B. All 64 pinned checkpoint headers reconcile with independent config/code arithmetic. Packed INT4 matrices are counted logically; scales and shape metadata are excluded. Router correction biases are declared parameters and included. The card\u2019s 1T total, 400M vision encoder and 32B active figures are nominal; active remains the developer-reported figure, without an exact vision-inclusive claim. Video input is documented as experimental and official-API-only at this revision."
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "language_backbone": 1026.408232448,
+      "vision_encoder": 0.416866032,
+      "vision_projector": 0.054277888
+    }
+  },
+  "summary": "Verified all 14 fields. Exact complete K2.6 checkpoint total is 1026.879376368B, with language/vision/projector components reconciled across all 64 shard headers and independent config/code arithmetic. Router correction biases are parameters and included; quantization metadata is excluded. Active parameters remain nominal 32B. Also established MoE, Modified MIT, April 20 release, 262144 context and documented multimodal, thinking and tool-call capabilities."
+}
