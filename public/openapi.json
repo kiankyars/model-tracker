@@ -1,0 +1,227 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Model releases API",
+    "version": "1.0.0",
+    "description": "Static read-only JSON resources. Query parameters do not filter responses. No authentication required. Coverage is incomplete; unknown data is null.",
+    "license": {
+      "name": "MIT",
+      "url": "https://kiankyars.github.io/model-tracker/LICENSE"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://kiankyars.github.io/model-tracker/api/v1"
+    }
+  ],
+  "paths": {
+    "/index.json": {
+      "get": {
+        "summary": "Discover available catalog endpoints and partitions",
+        "operationId": "index",
+        "responses": {
+          "200": {
+            "description": "Discover available catalog endpoints and partitions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Partition or record does not exist"
+          }
+        }
+      }
+    },
+    "/models.json": {
+      "get": {
+        "summary": "Read all catalogued model releases",
+        "operationId": "models",
+        "responses": {
+          "200": {
+            "description": "Read all catalogued model releases",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "schema_version",
+                    "updated_at",
+                    "models"
+                  ],
+                  "properties": {
+                    "schema_version": {
+                      "type": "string"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "models": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "./api-schema.json"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Partition or record does not exist"
+          }
+        }
+      }
+    },
+    "/stats.json": {
+      "get": {
+        "summary": "Read aggregate catalog statistics",
+        "operationId": "stats",
+        "responses": {
+          "200": {
+            "description": "Read aggregate catalog statistics",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Partition or record does not exist"
+          }
+        }
+      }
+    },
+    "/models.csv": {
+      "get": {
+        "summary": "Download all model releases as CSV",
+        "operationId": "modelsCsv",
+        "responses": {
+          "200": {
+            "description": "Download all model releases as CSV",
+            "content": {
+              "text/csv": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Partition or record does not exist"
+          }
+        }
+      }
+    },
+    "/months/{month}.json": {
+      "get": {
+        "summary": "Read releases in a published month partition",
+        "operationId": "getMonth",
+        "responses": {
+          "200": {
+            "description": "Read releases in a published month partition",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Partition or record does not exist"
+          }
+        },
+        "parameters": [
+          {
+            "name": "month",
+            "in": "path",
+            "required": true,
+            "description": "Use identifiers from index.json",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/developers/{developer}.json": {
+      "get": {
+        "summary": "Read releases from one developer",
+        "operationId": "getDeveloper",
+        "responses": {
+          "200": {
+            "description": "Read releases from one developer",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Partition or record does not exist"
+          }
+        },
+        "parameters": [
+          {
+            "name": "developer",
+            "in": "path",
+            "required": true,
+            "description": "Use identifiers from index.json",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/models/{slug}.json": {
+      "get": {
+        "summary": "Read one model release",
+        "operationId": "getSlug",
+        "responses": {
+          "200": {
+            "description": "Read one model release",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "model"
+                  ],
+                  "properties": {
+                    "model": {
+                      "$ref": "./api-schema.json"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Partition or record does not exist"
+          }
+        },
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "description": "Use identifiers from index.json",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    }
+  }
+}
