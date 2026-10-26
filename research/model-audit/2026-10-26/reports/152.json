@@ -1,0 +1,258 @@
+{
+  "index": 152,
+  "model_id": "cohere/command-r-plus-08-2024",
+  "reviewed_at": "2026-10-26T18:21:09Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/CohereLabs/c4ai-command-r-plus-08-2024",
+      "title": "Cohere Labs Command R+ 08-2024 model card",
+      "publisher": "Cohere Labs",
+      "accessed": true,
+      "evidence": "Exact August checkpoint: nominal 104 billion parameters; open research weights; CC-BY-NC-4.0 plus acceptable-use policy; text input/output; 128K context; autoregressive Transformer using GQA; RAG and multi-step tools."
+    },
+    {
+      "id": "s2",
+      "url": "https://docs.cohere.com/v1/changelog/command-gets-refreshed",
+      "title": "Command models get an August refresh",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "Release notes dated August 30, 2024 explicitly introduce command-r-plus-08-2024 alongside the Command R refresh."
+    },
+    {
+      "id": "s3",
+      "url": "https://docs.cohere.com/docs/command-r-plus",
+      "title": "Cohere's Command R+ Model",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "Names API ID command-r-plus-08-2024 and specifies 128,000-token context; recommends it for complex RAG and multi-step tool workflows. Plain-text capability extraction loses disabled-icon information."
+    },
+    {
+      "id": "s4",
+      "url": "https://github.com/cohere-ai/cohere-developer-experience/blob/main/fern/pages/models/the-command-family-of-models/command-r-plus.mdx",
+      "title": "Official Command R+ documentation source",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "Read through raw.githubusercontent.com. Exact ID command-r-plus-08-2024 has ToolUse enabled; enabled-capability data excludes Reasoning. This is interpreted with the renderer in s5."
+    },
+    {
+      "id": "s5",
+      "url": "https://github.com/cohere-ai/cohere-developer-experience/blob/main/fern/components/model-showcase.tsx",
+      "title": "Official model capability renderer",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "getCapabilities explicitly sets Reasoning disabled when absent from enabledCapabilities, and renders disabled icons crossed out. Together with s4 this establishes a disabled reasoning capability, rather than relying on textual omission."
+    },
+    {
+      "id": "s6",
+      "url": "https://cohere.com/research/papers/command-a-technical-report.pdf",
+      "title": "Command A: An Enterprise-Ready Large Language Model",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "Later first-party report, released March 28, 2025, compares Command R+ Refresh in benchmark tables. Its architecture section describes Command A; it does not establish a separate active-parameter count for the August R+ checkpoint."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/CohereLabs/c4ai-command-r-plus-08-2024/blob/main/config.json",
+      "title": "Exact checkpoint configuration",
+      "publisher": "Cohere Labs",
+      "accessed": false,
+      "evidence": "Configuration access returned HTTP 401 because the checkpoint files are gated. No tensor-level count or additional architecture detail is claimed from this file."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/api/models/CohereLabs/c4ai-command-r-plus-08-2024",
+      "title": "Exact checkpoint public architecture metadata",
+      "publisher": "Cohere Labs / Hugging Face",
+      "accessed": true,
+      "evidence": "At revision e808c1a2249354ca211c9f08d1338e5039f633f8, the exact dated checkpoint declares CohereForCausalLM and model_type cohere. Public aggregate tensor metadata is not used as an independently verified learned count."
+    },
+    {
+      "id": "s9",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.44.2/src/transformers/models/cohere/modeling_cohere.py",
+      "title": "CohereForCausalLM implementation, Transformers 4.44.2",
+      "publisher": "Cohere / Hugging Face",
+      "accessed": true,
+      "evidence": "The architecture selected by exact checkpoint metadata uses CohereMLP in every decoder layer, with dense gate, up and down projections and no expert router. This establishes dense decoder Transformer classification."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Command R+",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4"
+      ],
+      "note": "Official display name; the catalog ID distinguishes the August 2024 revision."
+    },
+    "developer": {
+      "value": "Cohere",
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Announced by Cohere."
+    },
+    "family": {
+      "value": "command-r",
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Catalog family key for the Command R / Command R+ series."
+    },
+    "release_date": {
+      "value": "2024-08-30",
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Dated release notes explicitly identify this API revision."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Research weights are published, subject to the repository's access conditions."
+    },
+    "license": {
+      "value": "CC-BY-NC-4.0",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Weight license; additional acceptable-use terms apply. Hosted API terms are separate."
+    },
+    "parameters_b": {
+      "value": 104,
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Developer's nominal total, in billions; not a claimed exact tensor count."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "No separately defined active count was located in the exact card or later report; total is not substituted."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8",
+        "s9"
+      ],
+      "note": "Autoregressive dense decoder Transformer with GQA. Exact checkpoint metadata names CohereForCausalLM, whose decoder layers each use dense gated MLP projections without expert routing."
+    },
+    "context_window": {
+      "value": 128000,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4"
+      ],
+      "note": "Exact API model's documented context; preserves API units rather than converting 128K to a binary count."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Card explicitly limits both input and output to text."
+    },
+    "reasoning": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5"
+      ],
+      "note": "Official exact-ID capability data and renderer disable Reasoning. This flag concerns dedicated reasoning support, not general problem-solving ability."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5"
+      ],
+      "note": "ToolUse is explicitly enabled for this revision; documentation describes sequential tool calls."
+    },
+    "description": {
+      "value": "Cohere's August 2024 Command R+ model for multilingual RAG, long-context text generation, and multi-step tool use",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "note": "Replaces subjective workhorse wording with the revision and documented use cases."
+    }
+  },
+  "patch": {
+    "license": "CC-BY-NC-4.0",
+    "parameters_b": 104,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "description": "Cohere's August 2024 Command R+ model for multilingual RAG, long-context text generation, and multi-step tool use",
+    "notes": "104B is Cohere's nominal total for the August 2024 research checkpoint. Active parameters are not separately reported. Research weights use CC-BY-NC-4.0 with additional acceptable-use terms; hosted API terms differ. Reasoning=false reflects Cohere's disabled dedicated reasoning capability, not inability to reason in ordinary text or tool workflows. Exact public architecture metadata and its CohereForCausalLM implementation establish dense decoder layers despite gated full configuration access.",
+    "sources": [
+      {
+        "label": "Cohere Labs exact model card",
+        "url": "https://huggingface.co/CohereLabs/c4ai-command-r-plus-08-2024",
+        "type": "primary"
+      },
+      {
+        "label": "Cohere August 30 release notes",
+        "url": "https://docs.cohere.com/v1/changelog/command-gets-refreshed",
+        "type": "primary"
+      },
+      {
+        "label": "Cohere Command R+ documentation",
+        "url": "https://docs.cohere.com/docs/command-r-plus",
+        "type": "primary"
+      },
+      {
+        "label": "Cohere exact-ID capability data",
+        "url": "https://github.com/cohere-ai/cohere-developer-experience/blob/main/fern/pages/models/the-command-family-of-models/command-r-plus.mdx",
+        "type": "primary"
+      },
+      {
+        "label": "Cohere capability renderer",
+        "url": "https://github.com/cohere-ai/cohere-developer-experience/blob/main/fern/components/model-showcase.tsx",
+        "type": "primary"
+      },
+      {
+        "label": "Exact checkpoint architecture metadata",
+        "url": "https://huggingface.co/api/models/CohereLabs/c4ai-command-r-plus-08-2024",
+        "type": "primary"
+      },
+      {
+        "label": "Cohere dense decoder implementation",
+        "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.44.2/src/transformers/models/cohere/modeling_cohere.py",
+        "type": "primary"
+      }
+    ],
+    "source_url": "https://docs.cohere.com/v1/changelog/command-gets-refreshed",
+    "source_type": "primary"
+  },
+  "summary": "All 14 fields assessed for the exact August revision. Add nominal 104B total, CC-BY-NC-4.0 license, and Transformer architecture; replace subjective description. Confirm August 30 release, 128,000-token API context, open weights, text modalities, tool use, and disabled dedicated reasoning support. Active count remains undisclosed; gated configuration was not accessible. Parent review verified dense classification from exact repository architecture metadata and the corresponding implementation.",
+  "notes": "The current developer model card was accessible. Direct configuration retrieval returned HTTP 401, while Cohere documentation HTML/Markdown returned HTTP 403 to urllib; indexed web content and the official raw GitHub documentation source were accessible. Later first-party Command A research and targeted searches yielded no separately defined August R+ active count. No aggregate storage metadata was used as an exact parameter count."
+}
