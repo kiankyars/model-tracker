@@ -1,0 +1,253 @@
+{
+  "index": 292,
+  "model_id": "meta/opt-6.7b",
+  "reviewed_at": "2026-10-26T22:04:52.612425Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://ai.meta.com/blog/democratizing-access-to-large-scale-language-models-with-opt-175b/",
+      "title": "Democratizing access to large-scale language models with OPT-175B",
+      "publisher": "Meta AI",
+      "accessed": true,
+      "evidence": "Dated May 3, 2022; explicitly announces full release of smaller OPT baselines including 6.7 billion parameters, and states that all pretrained models use the OPT license."
+    },
+    {
+      "id": "s2",
+      "url": "https://arxiv.org/html/2205.01068v4",
+      "title": "OPT: Open Pre-trained Transformer Language Models",
+      "publisher": "Meta AI / arXiv",
+      "accessed": true,
+      "evidence": "The original developer report describes decoder-only text language models. Table 1 gives the 6.7B variant 32 layers, 32 attention heads and width 4096; section 2.2 specifies ReLU and sequence length 2048. It supplies a rounded 6.7B label, not a separate active-parameter count."
+    },
+    {
+      "id": "s3",
+      "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/main/projects/OPT/README.md",
+      "title": "Official OPT pretrained model weights",
+      "publisher": "Meta AI",
+      "accessed": true,
+      "evidence": "Lists OPT-6.7B as 6.7B with a public checkpoint link and applies the model license. Current link is the v1_20230405 repackaged checkpoint; that path is not the original release date."
+    },
+    {
+      "id": "s4",
+      "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/main/projects/OPT/MODEL_LICENSE.md",
+      "title": "OPT-175B License Agreement",
+      "publisher": "Meta Platforms, Inc.",
+      "accessed": true,
+      "evidence": "The model-weight license permits reproduction, distribution and derivative works solely for non-commercial research. It is distinct from the metaseq code license."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/facebook/opt-6.7b/raw/a45aa65bbeb77c1558bc99bedc6779195462dab0/config.json",
+      "title": "OPT-6.7B pinned configuration",
+      "publisher": "Meta AI / Hugging Face",
+      "accessed": true,
+      "evidence": "Fetched over HTTPS at revision a45aa65bbeb77c1558bc99bedc6779195462dab0: OPTForCausalLM, 32 layers, hidden and embedding width 4096, FFN width 16384, 32 heads, vocabulary 50272, 2048 positions, pre-layer normalization, final normalization retained, and float16. No quantization configuration."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/facebook/opt-6.7b/raw/a45aa65bbeb77c1558bc99bedc6779195462dab0/pytorch_model.bin.index.json",
+      "title": "OPT-6.7B pinned PyTorch checkpoint index",
+      "publisher": "Meta AI / Hugging Face",
+      "accessed": true,
+      "evidence": "Fetched as JSON over HTTPS after the web renderer failed. All 516 weight-map names exactly match the configuration-derived learned tensors: 16 per layer plus token/position embeddings and final norm weight/bias. No independent LM head, buffer or quantization metadata keys. total_size is 13,316,947,968 bytes, matching twice the derived parameter count. No weight shards were downloaded or unpickled."
+    },
+    {
+      "id": "s7",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.21.0/src/transformers/models/opt/modeling_opt.py",
+      "title": "Transformers 4.21.0 OPT implementation",
+      "publisher": "Hugging Face / Fairseq authors",
+      "accessed": true,
+      "evidence": "Defines biased Q/K/V/output and FFN linears, affine layer norms, learned position embeddings with two extra rows, and tied token/LM-head weights. Equal embedding and hidden widths omit projection layers; configuration retains the final norm. These definitions explain every indexed tensor."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/api/models/facebook/opt-6.7b",
+      "title": "Official OPT-6.7B repository metadata",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Fetched as JSON over HTTPS: main revision a45aa65bbeb77c1558bc99bedc6779195462dab0, repository created May 11, 2022, last modified January 24, 2023. Contains two PyTorch .bin shards and their index, with no safetensors files. Repository creation is later than the original Meta release."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "OPT 6.7B",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Matches the official OPT-6.7B variant; spacing is a catalog display convention."
+    },
+    "developer": {
+      "value": "Meta",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Released and developed by Meta AI."
+    },
+    "family": {
+      "value": "opt",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "Member of the Open Pre-trained Transformers family."
+    },
+    "release_date": {
+      "value": "2022-05-03",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8"
+      ],
+      "note": "Original public model release is explicitly dated May 3, 2022 and includes 6.7B; May 11 is the later Hugging Face repository creation. The May 2 paper submission is not the release date."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s6"
+      ],
+      "note": "Public pretrained checkpoint distribution is confirmed; open_weights does not imply an unrestricted license."
+    },
+    "license": {
+      "value": "OPT non-commercial research license",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4"
+      ],
+      "note": "Descriptive baseline label accurately summarizes the model license applied to OPT-6.7B."
+    },
+    "parameters_b": {
+      "value": 6.658473984,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "note": "Configuration-derived complete learned-parameter count for pinned HF revision a45aa65bbeb77c1558bc99bedc6779195462dab0: 32*(4*4096^2 + 2*4096*16384 + 9*4096 + 16384) + 50272*4096 + (2048+2)*4096 + 2*4096 = 6,658,473,984. Includes all linear biases, two affine norms per block and final norm. The 50272x4096 token matrix is counted once because the bias-free LM head is tied; equal widths need no input/output projection. All 516 expected tensor names match the index and FP16 byte total. This is metadata/configuration reconciliation, not direct weight-header inspection. The developer label 6.7B is rounded; no buffers, packed storage or quantization scales enter the sum."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s2",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "note": "No separate active-parameter convention or count is supplied for this dense model. Total parameters are not copied into this field."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s5",
+        "s7"
+      ],
+      "note": "Dense decoder-only Transformer with 32 standard attention/FFN blocks; the exact configuration and implementation contain no expert routing."
+    },
+    "context_window": {
+      "value": 2048,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s5",
+        "s7"
+      ],
+      "note": "The report specifies training sequence length 2048 and the exact configuration sets max_position_embeddings=2048; the two extra learned position rows are an offset, not extra context."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s5",
+        "s7"
+      ],
+      "note": "Autoregressive text language model with token inputs and vocabulary logits; no image, audio or video components."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s2",
+        "s5"
+      ],
+      "note": "The checked primary documentation does not define a native reasoning mode for this pretrained checkpoint. General language-task performance does not establish this flag, and absence of documentation does not establish false."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s2",
+        "s5"
+      ],
+      "note": "Native structured tool calling is not specified for this base checkpoint in the checked primary sources. No false claim is inferred from that omission."
+    },
+    "description": {
+      "value": "Open Pretrained Transformer research checkpoint.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "The concise baseline accurately describes this pretrained research release without unsupported capability claims."
+    }
+  },
+  "patch": {
+    "parameters_b": 6.658473984,
+    "parameters_source": "primary_source",
+    "notes": "OPT-6.7B is the nominal size label. The pinned official Hugging Face checkpoint a45aa65bbeb77c1558bc99bedc6779195462dab0 reconciles to 6,658,473,984 learned parameters, including tied embeddings once, biases, layer norms and the 2050-row position table; configuration and all 516 index keys agree with the FP16 byte total. Active parameters are not separately reported. Research release with non-commercial terms; the 175B access application does not apply to this publicly downloadable 6.7B checkpoint.",
+    "sources": [
+      {
+        "label": "Original OPT release announcement",
+        "url": "https://ai.meta.com/blog/democratizing-access-to-large-scale-language-models-with-opt-175b/",
+        "type": "primary"
+      },
+      {
+        "label": "OPT technical report",
+        "url": "https://arxiv.org/html/2205.01068v4",
+        "type": "primary"
+      },
+      {
+        "label": "Official OPT checkpoint configuration",
+        "url": "https://huggingface.co/facebook/opt-6.7b/raw/a45aa65bbeb77c1558bc99bedc6779195462dab0/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Official OPT checkpoint index",
+        "url": "https://huggingface.co/facebook/opt-6.7b/raw/a45aa65bbeb77c1558bc99bedc6779195462dab0/pytorch_model.bin.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "OPT learned tensor definitions",
+        "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.21.0/src/transformers/models/opt/modeling_opt.py",
+        "type": "primary"
+      },
+      {
+        "label": "OPT model license",
+        "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/main/projects/OPT/MODEL_LICENSE.md",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "Correct nominal 6.7B to the configuration/index-reconciled full count 6.658473984B for the pinned official HF checkpoint. Confirm May 3, 2022 release, Meta/OPT identity, dense text architecture, 2048-token context, public weights and non-commercial research terms. Active parameters, native reasoning and tool calling remain undisclosed/null. No full weight download, unpickling or direct tensor-header inspection was performed; all indexed names and the FP16 byte total reconcile."
+}
