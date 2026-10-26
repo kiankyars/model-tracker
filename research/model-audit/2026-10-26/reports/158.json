@@ -1,0 +1,261 @@
+{
+  "index": 158,
+  "model_id": "cohere/tiny-aya-fire",
+  "reviewed_at": "2026-10-26T18:40:01.067221+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/CohereLabs/tiny-aya-fire",
+      "title": "Tiny Aya Fire model card",
+      "publisher": "Cohere Labs",
+      "accessed": true,
+      "evidence": "Exact Fire card identifies Cohere and Cohere Labs, South Asian specialization, open weights, CC-BY-NC-4.0 plus acceptable-use terms, nominal 3.35B size, and text input/output. Its isolated 111B terms paragraph conflicts with its explicit size and is a copy error, not a Fire count."
+    },
+    {
+      "id": "s2",
+      "url": "https://arxiv.org/html/2603.11510v1",
+      "title": "Tiny Aya: Bridging Scale and Multilingual Depth",
+      "publisher": "Cohere and Cohere Labs",
+      "accessed": true,
+      "evidence": "Fire is the South Asian regional release. Section 3.1/Table 2 give a dense decoder-only Transformer, 36 layers, 2048 hidden width, GQA, 3:1 sliding/full attention, 3.35B total parameters and 8192-token input/output. Section 3.3 states regional checkpoints share architecture; section 5 compares against non-thinking models."
+    },
+    {
+      "id": "s3",
+      "url": "https://cohere.com/blog/cohere-labs-tiny-aya",
+      "title": "Cohere Labs Launches Tiny Aya, Making Multilingual AI Accessible",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "Dated February 17, 2026; embedded article body announces immediate open-weight availability and explicitly names TinyAya-Fire as the South Asian variant. Page metadata gives datePublished 2026-02-17T04:00:07.000-05:00."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/api/models/CohereLabs/tiny-aya-fire",
+      "title": "Tiny Aya Fire repository metadata and published chat template",
+      "publisher": "Cohere Labs / Hugging Face",
+      "accessed": true,
+      "evidence": "Exact repository reports Cohere2ForCausalLM/cohere2, tiny-aya-base ancestry, gated BF16 weights and 3,349,227,520 safetensors elements. Its template handles system/user/assistant text with START_RESPONSE, without tools, tool_calls, tool-role rendering or thinking branches. Metadata is accessible although direct configuration/index downloads return HTTP 401."
+    },
+    {
+      "id": "s5",
+      "url": "https://github.com/huggingface/transformers/blob/main/src/transformers/models/cohere2/modeling_cohere2.py",
+      "title": "Transformers Cohere2 model implementation",
+      "publisher": "Cohere / Hugging Face",
+      "accessed": true,
+      "evidence": "The implementation selected by Fire metadata uses dense q/k/v/output projections and a three-projection gated MLP in each decoder layer, parallel attention/MLP residuals, and sliding or full causal attention. RoPE frequencies are nonpersistent buffers; implementation alone is not an exact Fire checkpoint count."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/CohereLabs/tiny-aya-fire/resolve/main/config.json",
+      "title": "Tiny Aya Fire checkpoint configuration",
+      "publisher": "Cohere Labs",
+      "accessed": false,
+      "evidence": "Direct raw, blob and resolve access returned HTTP 401. Exact class metadata was available through s4; numerical architecture/context evidence comes from s2."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/CohereLabs/tiny-aya-fire/resolve/main/model.safetensors.index.json",
+      "title": "Tiny Aya Fire tensor index",
+      "publisher": "Cohere Labs",
+      "accessed": false,
+      "evidence": "HTTP 401 prevented tensor-index/header inspection. No weight shards were downloaded; the nominal first-party count is retained instead of asserting an independently verified exact tensor count."
+    },
+    {
+      "id": "s8",
+      "url": "https://docs.cohere.com/docs/tiny-aya",
+      "title": "Tiny Aya documentation",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "Exact tiny-aya-fire row gives 3.35B, South Asian specialization and 8k input/output. Describes five Tiny Aya family members and identifies Fire as an instruction-tuned Chat model with downloadable open weights. No Fire-native tool-calling or dedicated thinking mode is documented."
+    },
+    {
+      "id": "s9",
+      "url": "https://docs.cohere.com/docs/tool-use-overview",
+      "title": "Basic usage of tool use (function calling)",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "Introduces native tool use for the Command family. This is not evidence that Tiny Aya Fire supports the same native interface."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Tiny Aya Fire",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Exact Fire variant name."
+    },
+    "developer": {
+      "value": "Cohere",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Cohere and its Cohere Labs research organization are the developers."
+    },
+    "family": {
+      "value": "tiny-aya",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s8"
+      ],
+      "note": "Tiny Aya is the named model family; Fire is its South Asian regional member."
+    },
+    "release_date": {
+      "value": "2026-02-17",
+      "status": "verified",
+      "source_ids": [
+        "s3"
+      ],
+      "note": "Primary launch announcement names Fire and immediate availability; earlier repository creation is not a public release date."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8"
+      ],
+      "note": "Weights are released with a terms-acceptance gate and noncommercial restrictions."
+    },
+    "license": {
+      "value": "CC-BY-NC-4.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4"
+      ],
+      "note": "Repository license identifier; Cohere acceptable-use addendum also applies."
+    },
+    "parameters_b": {
+      "value": 3.35,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4",
+        "s7"
+      ],
+      "note": "Nominal published total in billions. Repository BF16 metadata is consistent (3.349227520B), but gated headers prevent independent learned-tensor verification; do not substitute the card boilerplate 111B."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s2",
+        "s5"
+      ],
+      "note": "Dense architecture; a separately defined active-per-token parameter count is not reported. Total parameters are not copied into this field."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "note": "Dense decoder-only Transformer. Fire metadata selects Cohere2ForCausalLM; shared architecture is explicit in the report, and the implementation has dense MLPs rather than routed experts."
+    },
+    "context_window": {
+      "value": 8192,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s8"
+      ],
+      "note": "Table 2 specifies 8192 input tokens. The docs/card shorthand 8k does not establish 8000; output is separately 8192, not additive to this field."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Exact model card explicitly states text-only input and generated text output."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s2",
+        "s4"
+      ],
+      "note": "The report disables thinking in comparison models for fair evaluation; it does not explicitly classify Fire native/API mode support. The exact Fire template only opens response content and has no thinking branch. Dedicated reasoning capability remains unverified rather than treating absence as an explicit negative."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s4",
+        "s8",
+        "s9"
+      ],
+      "note": "No exact Fire-native tool interface verified. Its published template lacks tool rendering and its docs list ordinary Chat use; generic Command support cannot justify the baseline true. Clear to unknown rather than claiming a tested negative."
+    },
+    "description": {
+      "value": "Compact multilingual model specialized for South Asian languages",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8"
+      ],
+      "note": "Matches the explicitly named regional specialization; Fire is distinct from Global and Base."
+    }
+  },
+  "patch": {
+    "family": "tiny-aya",
+    "parameters_b": 3.35,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "context_window": 8192,
+    "tool_call": null,
+    "notes": "Tiny Aya Fire is the South Asian regional instruction-tuned model. Parameter count is Cohere's nominal 3.35B total; active parameters are not separately defined for this dense model. Technical-report input context is 8,192 tokens (output is separately 8,192). The native Fire template has no thinking or tool-call branches; dedicated reasoning and native tool calling remain unverified. Direct configuration and tensor-index access was gated, so the Hub BF16 element total was not promoted to an independently verified exact learned-parameter count. Model-card 111B boilerplate conflicts with its explicit 3.35B specification.",
+    "sources": [
+      {
+        "label": "Tiny Aya Fire model card",
+        "url": "https://huggingface.co/CohereLabs/tiny-aya-fire",
+        "type": "weights"
+      },
+      {
+        "label": "Tiny Aya technical report",
+        "url": "https://arxiv.org/html/2603.11510v1",
+        "type": "primary"
+      },
+      {
+        "label": "Tiny Aya launch announcement",
+        "url": "https://cohere.com/blog/cohere-labs-tiny-aya",
+        "type": "primary"
+      },
+      {
+        "label": "Tiny Aya Fire repository metadata",
+        "url": "https://huggingface.co/api/models/CohereLabs/tiny-aya-fire",
+        "type": "primary"
+      },
+      {
+        "label": "Cohere2 implementation",
+        "url": "https://github.com/huggingface/transformers/blob/main/src/transformers/models/cohere2/modeling_cohere2.py",
+        "type": "primary"
+      },
+      {
+        "label": "Tiny Aya documentation",
+        "url": "https://docs.cohere.com/docs/tiny-aya",
+        "type": "primary"
+      }
+    ],
+    "source_type": "primary",
+    "source_url": "https://cohere.com/blog/cohere-labs-tiny-aya",
+    "reasoning": null
+  },
+  "summary": "All 14 fields audited for Fire. Add tiny-aya family, nominal 3.35B parameters and dense architecture; correct input context from 8000 to 8192; clear unsupported native reasoning/tool flags to unknown. Confirm February 17 release, South Asian specialization, text-only modalities and CC-BY-NC-4.0 open weights. Active count remains null; configuration and tensor-header verification are access-limited."
+}
