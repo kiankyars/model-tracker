@@ -1,0 +1,274 @@
+{
+  "index": 345,
+  "model_id": "mistral/mistral-small-3.1-24b-instruct",
+  "reviewed_at": "2026-10-26T23:34:30.596239Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://mistral.ai/news/mistral-small-3-1/",
+      "title": "Mistral Small 3.1 release announcement",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Dated March 17, 2025; announces Small 3.1, Apache 2.0, text and image capabilities, function calling, 128k context, and separate downloadable Base and Instruct checkpoints."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/raw/68faf511d618ef198fef186659617cfd2eb8e33a/README.md",
+      "title": "Mistral-Small-3.1-24B-Instruct-2503 model card",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Exact instruction-finetuned March 2025 checkpoint; states 24 billion parameters, Apache-2.0, native function calling, text/image understanding and 128k context. Its system-prompt example describes image input and excludes image/audio/video generation or ingestion beyond images. Generic reasoning capability claims do not identify a dedicated thinking mode."
+    },
+    {
+      "id": "s3",
+      "url": "https://raw.githubusercontent.com/mistralai/platform-docs-public/cd2192ef7d0e96388a4261dbb6d417869e4bb965/src/schema/models/models/mistral-small-3-1-25-03.ts",
+      "title": "Official Small 3.1 model schema and weights rows",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "The exact Instruct Weights URL points to Mistral-Small-3.1-24B-Instruct-2503 and separately records parameters 24 and active 24. Also specifies Apache 2.0, release 2025-03-17, API identifier mistral-small-2503, text/image input, text output, and function calling. Hosted API retirement is recorded as 2025-11-30."
+    },
+    {
+      "id": "s4",
+      "url": "https://raw.githubusercontent.com/mistralai/platform-docs-public/cd2192ef7d0e96388a4261dbb6d417869e4bb965/src/app/%5Blocale%5D/(docs)/models/model-cards/%5Bslug%5D/components/weights-table.tsx",
+      "title": "Official weights table renderer and units",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Labels the schema parameters and active columns Parameters (B) and Active (B), establishing billion-parameter units for the separate 24 and 24 values."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/raw/68faf511d618ef198fef186659617cfd2eb8e33a/config.json",
+      "title": "Exact Instruct checkpoint Transformers configuration",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Mistral3ForConditionalGeneration combines a 40-layer Mistral text model (5120 hidden size, 32 attention heads, 8 KV heads, 32768 MLP size) with a 24-layer Pixtral vision encoder. Text max_position_embeddings is exactly 131072."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/raw/68faf511d618ef198fef186659617cfd2eb8e33a/params.json",
+      "title": "Exact Instruct checkpoint native Mistral parameters",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Native parameters agree on the 40-layer attention/MLP backbone and 24-layer vision encoder, contain no moe settings, and explicitly set max_position_embeddings to 131072. Retrieved directly over HTTPS after the browser text extractor failed for this file."
+    },
+    {
+      "id": "s7",
+      "url": "https://raw.githubusercontent.com/mistralai/mistral-inference/9eaeb91c17450e09021b6065a1d5cc69876507c8/src/mistral_inference/args.py",
+      "title": "Mistral native Transformer argument definitions",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "TransformerArgs defines moe as optional with default None and explicitly states that setting it switches dense layers to MoE layers; the exact checkpoint native parameters omit that setting."
+    },
+    {
+      "id": "s8",
+      "url": "https://raw.githubusercontent.com/mistralai/mistral-inference/9eaeb91c17450e09021b6065a1d5cc69876507c8/src/mistral_inference/transformer_layers.py",
+      "title": "Mistral native Transformer layer implementation",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "TransformerBlock uses attention plus FeedForward when moe is None, and constructs routed experts only when moe is supplied. This establishes the dense interpretation of the exact native checkpoint configuration."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Mistral Small 3.1 24B",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "Supported display name for the exact Mistral-Small-3.1-24B-Instruct-2503 checkpoint; the frozen ID and alias refer to this instruct release, not its Base checkpoint or Small 3.2."
+    },
+    "developer": {
+      "value": "Mistral",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Mistral AI is the first-party developer and publisher; retained catalog display name is Mistral."
+    },
+    "family": {
+      "value": "mistral-small",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Normalized catalog family follows the explicitly named Mistral Small 3.1 lineage."
+    },
+    "release_date": {
+      "value": "2025-03-17",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Day is explicitly given by the launch announcement and exact model schema; weights and API were announced that day."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Official announcement links the freely downloadable Instruct checkpoint, and official schema classifies the release Open."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Apache 2.0 is explicit for the exact Instruct weights."
+    },
+    "parameters_b": {
+      "value": 24,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "note": "Official nominal total of 24 billion; exact Instruct weights row supplies parameters separately from active. This is not a claim of an independently counted exact 24,000,000,000 tensors."
+    },
+    "active_parameters_b": {
+      "value": 24,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4"
+      ],
+      "note": "Official exact-checkpoint Instruct row explicitly gives Active (B) = 24. Retained as a nominal developer figure, not inferred by equating dense total and active or asserted as a modality-specific per-token tensor census."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "note": "Exact native config describes a 40-layer dense attention/MLP text Transformer and a 24-layer vision encoder, without MoE settings; first-party inference definitions select dense FeedForward for this configuration. Transformers config corroborates Mistral plus Pixtral components."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s5",
+        "s6"
+      ],
+      "note": "Card advertises 128k; both native params.json and Transformers text config explicitly resolve that checkpoint limit to 131072, not 128000. This is the released checkpoint context, not a claim that a retired hosted endpoint remains available."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "Exact model schema lists text/image input and text output, corroborated by multimodal examples and the card system prompt."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "The card claims general reasoning ability but does not establish a dedicated reasoning/thinking mode or its explicit absence for this exact 3.1 checkpoint. Omission from capability enums is insufficient to verify false; Small 3.2 or later model classifications do not transfer. Clear unsupported baseline false."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Launch, card and model schema explicitly support function calling; card includes native tool-calling setup and examples."
+    },
+    "description": {
+      "value": "Instruction-tuned 24B dense multimodal model for text generation, image understanding, and native function calling.",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "note": "Replace generic efficiency/extraction wording with directly documented instruction tuning, modalities, architecture and native function calling."
+    }
+  },
+  "patch": {
+    "license": "Apache-2.0",
+    "active_parameters_b": 24,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "context_window": 131072,
+    "reasoning": null,
+    "tool_call": true,
+    "description": "Instruction-tuned 24B dense multimodal model for text generation, image understanding, and native function calling.",
+    "source_url": "https://mistral.ai/news/mistral-small-3-1/",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Mistral Small 3.1 release announcement",
+        "url": "https://mistral.ai/news/mistral-small-3-1/",
+        "type": "primary"
+      },
+      {
+        "label": "Mistral-Small-3.1-24B-Instruct-2503 model card",
+        "url": "https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/raw/68faf511d618ef198fef186659617cfd2eb8e33a/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "Official Small 3.1 model schema and weights rows",
+        "url": "https://raw.githubusercontent.com/mistralai/platform-docs-public/cd2192ef7d0e96388a4261dbb6d417869e4bb965/src/schema/models/models/mistral-small-3-1-25-03.ts",
+        "type": "primary"
+      },
+      {
+        "label": "Official weights table renderer and units",
+        "url": "https://raw.githubusercontent.com/mistralai/platform-docs-public/cd2192ef7d0e96388a4261dbb6d417869e4bb965/src/app/%5Blocale%5D/(docs)/models/model-cards/%5Bslug%5D/components/weights-table.tsx",
+        "type": "primary"
+      },
+      {
+        "label": "Exact Instruct checkpoint Transformers configuration",
+        "url": "https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/raw/68faf511d618ef198fef186659617cfd2eb8e33a/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Exact Instruct checkpoint native Mistral parameters",
+        "url": "https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/raw/68faf511d618ef198fef186659617cfd2eb8e33a/params.json",
+        "type": "weights"
+      },
+      {
+        "label": "Mistral native Transformer argument definitions",
+        "url": "https://raw.githubusercontent.com/mistralai/mistral-inference/9eaeb91c17450e09021b6065a1d5cc69876507c8/src/mistral_inference/args.py",
+        "type": "primary"
+      },
+      {
+        "label": "Mistral native Transformer layer implementation",
+        "url": "https://raw.githubusercontent.com/mistralai/mistral-inference/9eaeb91c17450e09021b6065a1d5cc69876507c8/src/mistral_inference/transformer_layers.py",
+        "type": "primary"
+      }
+    ],
+    "notes": "Exact released checkpoint is Mistral-Small-3.1-24B-Instruct-2503. Total 24B and active 24B are separately published nominal developer figures in the official weights table, not an exact tensor census or a modality-specific active count. Native and Transformers configuration both resolve the advertised 128k context to 131072 tokens. Dedicated reasoning-mode support remains unverified; generic reasoning benchmarks do not establish it. The hosted mistral-small-2503 API was retired on 2025-11-30; this record describes the released weights."
+  },
+  "summary": "Confirmed exact March 2025 Instruct identity, release, open weights, modalities and nominal 24B total. Added explicitly published 24B active and Apache-2.0, established dense multimodal Transformer architecture, corrected context from 128000 to 131072 and tool calling from false to true, and replaced the generic description. Clear unsupported reasoning=false to null/unverified; no exact-checkpoint dedicated-mode classification was established."
+}

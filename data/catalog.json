@@ -28892,16 +28892,16 @@
     "developer": "Mistral",
     "developer_id": "mistral",
     "family": "mistral-small",
-    "description": "Efficient Mistral model for fast chat, extraction, and production assistants",
+    "description": "Instruction-tuned 24B dense multimodal model for text generation, image understanding, and native function calling.",
     "release_date": "2025-03-17",
     "date_precision": "day",
     "open_weights": true,
-    "license": null,
+    "license": "Apache-2.0",
     "parameters_b": 24,
-    "active_parameters_b": null,
-    "parameters_source": "model_name",
-    "architecture": null,
-    "context_window": 128000,
+    "active_parameters_b": 24,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "context_window": 131072,
     "modalities": {
       "input": [
         "text",
@@ -28911,11 +28911,51 @@
         "text"
       ]
     },
-    "reasoning": false,
-    "tool_call": false,
-    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/mistral/mistral-small-3.1-24b-instruct.toml",
-    "source_type": "catalog",
+    "reasoning": null,
+    "tool_call": true,
+    "source_url": "https://mistral.ai/news/mistral-small-3-1/",
+    "source_type": "primary",
     "sources": [
+      {
+        "label": "Mistral Small 3.1 release announcement",
+        "url": "https://mistral.ai/news/mistral-small-3-1/",
+        "type": "primary"
+      },
+      {
+        "label": "Mistral-Small-3.1-24B-Instruct-2503 model card",
+        "url": "https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/raw/68faf511d618ef198fef186659617cfd2eb8e33a/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "Official Small 3.1 model schema and weights rows",
+        "url": "https://raw.githubusercontent.com/mistralai/platform-docs-public/cd2192ef7d0e96388a4261dbb6d417869e4bb965/src/schema/models/models/mistral-small-3-1-25-03.ts",
+        "type": "primary"
+      },
+      {
+        "label": "Official weights table renderer and units",
+        "url": "https://raw.githubusercontent.com/mistralai/platform-docs-public/cd2192ef7d0e96388a4261dbb6d417869e4bb965/src/app/%5Blocale%5D/(docs)/models/model-cards/%5Bslug%5D/components/weights-table.tsx",
+        "type": "primary"
+      },
+      {
+        "label": "Exact Instruct checkpoint Transformers configuration",
+        "url": "https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/raw/68faf511d618ef198fef186659617cfd2eb8e33a/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Exact Instruct checkpoint native Mistral parameters",
+        "url": "https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/raw/68faf511d618ef198fef186659617cfd2eb8e33a/params.json",
+        "type": "weights"
+      },
+      {
+        "label": "Mistral native Transformer argument definitions",
+        "url": "https://raw.githubusercontent.com/mistralai/mistral-inference/9eaeb91c17450e09021b6065a1d5cc69876507c8/src/mistral_inference/args.py",
+        "type": "primary"
+      },
+      {
+        "label": "Mistral native Transformer layer implementation",
+        "url": "https://raw.githubusercontent.com/mistralai/mistral-inference/9eaeb91c17450e09021b6065a1d5cc69876507c8/src/mistral_inference/transformer_layers.py",
+        "type": "primary"
+      },
       {
         "label": "Models.dev record",
         "url": "https://github.com/anomalyco/models.dev/blob/dev/models/mistral/mistral-small-3.1-24b-instruct.toml",
@@ -28933,6 +28973,12 @@
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
     "upstream_present": true,
+    "notes": "Exact released checkpoint is Mistral-Small-3.1-24B-Instruct-2503. Total 24B and active 24B are separately published nominal developer figures in the official weights table, not an exact tensor census or a modality-specific active count. Native and Transformers configuration both resolve the advertised 128k context to 131072 tokens. Dedicated reasoning-mode support remains unverified; generic reasoning benchmarks do not establish it. The hosted mistral-small-2503 API was retired on 2025-11-30; this record describes the released weights.",
+    "field_status": {
+      "reasoning": "unverified"
+    },
+    "audited_at": "2026-10-26T23:34:30.596239Z",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/345.json",
     "alias_sources": {
       "mistral/mistral-small-3-1-24b-instruct-2503": {
         "url": "https://docs.mistral.ai/models/mistral-small-3-1-25-03",
