@@ -1,7 +1,7 @@
 {
   "index": 264,
   "model_id": "meta/llama-3-70b",
-  "reviewed_at": "2026-10-26T21:27:55.736056Z",
+  "reviewed_at": "2026-10-27T14:02:55.124696Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Meta Llama 3 model card",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "Original Llama 3 pretrained and instruction-tuned variants: 8B and 70B nominal sizes, text input and text/code output, GQA, 8K context, and April 18, 2024 release. The card distinguishes base models from instruction-tuned models."
+      "evidence": "Original Llama 3 pretrained and instruction-tuned variants: 8B and 70B nominal sizes, text input and text/code output, GQA, 8K context, and April 18, 2024 release. The card distinguishes base models from instruction-tuned models. Reopened for the October 27 parameter re-audit; the original card explicitly retains 70B parameters for the pretrained variant."
     },
     {
       "id": "s2",
@@ -49,7 +49,7 @@
       "title": "Meta-Llama-3-70B official base checkpoint",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "Exact base repository is distinct from the Instruct variant and links Llama-3.1-70B as a newer model. Its usage examples target Meta-Llama-3-70B and its original checkpoints. The card contains an apparent copied 8B-Instruct sentence under How to use; that sentence is not used to identify this variant."
+      "evidence": "Exact base repository is distinct from the Instruct variant and links Llama-3.1-70B as a newer model. Its usage examples target Meta-Llama-3-70B and its original checkpoints. The card contains an apparent copied 8B-Instruct sentence under How to use; that sentence is not used to identify this variant. Reopened for this parameter re-audit; the public card explicitly lists the original pretrained 70B parameter size."
     },
     {
       "id": "s7",
@@ -57,7 +57,7 @@
       "title": "Meta-Llama-3-70B configuration access attempt",
       "publisher": "Meta",
       "accessed": false,
-      "evidence": "Unauthenticated request returned HTTP 401 requiring authorized access. No credentials, gate bypass, or weight downloads were attempted; exact parameter accounting is not established."
+      "evidence": "Fresh unauthenticated request on October 27, 2026 again returned HTTP 401 requiring authorized access. No credentials, gate bypass, or weight downloads were attempted. This prevents an exact configuration-derived census but does not undermine Meta's published nominal 70B size."
     },
     {
       "id": "s8",
@@ -66,6 +66,38 @@
       "publisher": "Llama Team, Meta",
       "accessed": true,
       "evidence": "The exact Llama 3 70B base row marks native tool use absent; original April models are distinguished from later Llama 3.1 and its instruction-tuned tool support."
+    },
+    {
+      "id": "s9",
+      "url": "https://arxiv.org/html/2405.04434v1",
+      "title": "DeepSeek-V2 technical report, Table 2 and Figure 1(a)",
+      "publisher": "DeepSeek-AI",
+      "accessed": true,
+      "evidence": "Freshly read May 7, 2024 version. Section 3.2.2 Table 2 explicitly lists LLaMA 3 70B with 70B in both the separate Activated Params and Total Params rows. It appears in the pre-training evaluation section; Section 4/Table 3 separately names the 70B Instruct model. Figure 1(a), visually inspected, corroborates approximately 70B on its Activated Parameters axis. The explicit table supplies nominal precision; this is DeepSeek's comparison convention, not a Meta active-count disclosure or an exact per-token tensor census."
+    },
+    {
+      "id": "s10",
+      "url": "https://github.com/deepseek-ai/DeepSeek-V2",
+      "title": "DeepSeek-V2 official repository, Base Model evaluation",
+      "publisher": "DeepSeek-AI",
+      "accessed": true,
+      "evidence": "Freshly reopened official repository places LLaMA3 70B under Base Model / Standard Benchmark (Models larger than 67B). Its MMLU 78.9, BBH 81.0 and other scores match the Table 2 column, confirming the original pretrained comparator rather than the separately presented chat/instruct model."
+    },
+    {
+      "id": "s11",
+      "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3/MODEL_CARD.md",
+      "title": "Meta current repository copy of the original Llama 3 model card",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Fresh search and reading of Meta's maintained repository copy confirms original Llama 3 pretrained and instruction-tuned variants at nominal 8B and 70B parameters, with April 18, 2024 release. It does not separately specify activated parameters or an exact learned count."
+    },
+    {
+      "id": "s12",
+      "url": "https://arxiv.org/html/2405.04434v5",
+      "title": "DeepSeek-V2 June 19 revision, Table 2",
+      "publisher": "DeepSeek-AI",
+      "accessed": true,
+      "evidence": "The later June 19, 2024 revision retains the original LLaMA 3 70B column with 70B Activated Params and 70B Total Params in Table 2, while Table 3 separately identifies 70B Inst. The later revision corroborates the nominal active convention; it provides no exact component participation census."
     }
   ],
   "fields": {
@@ -130,18 +162,19 @@
         "s1",
         "s2",
         "s6",
-        "s7"
+        "s11"
       ],
-      "note": "70 billion is the nominal developer-published model size, not an exact learned-parameter count. Exact checkpoint configuration could not be retrieved because it requires authenticated access; no tensor count was inferred from another variant."
+      "note": "Freshly reopened original announcement, original card, exact base checkpoint and current repository card all support Meta's nominal 70B total. This is a published model size, not an exact tensor census; configuration access remains gated, and no weight shards were downloaded."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 70,
+      "status": "verified",
       "source_ids": [
-        "s1",
-        "s3"
+        "s9",
+        "s10",
+        "s12"
       ],
-      "note": "Meta does not separately define or report a per-token active count in these original sources. Dense architecture alone does not justify copying the nominal total into this field."
+      "note": "DeepSeek-V2 Table 2 explicitly reports 70B Activated Params for original LLaMA 3 70B. The official repository labels the matching benchmark column Base Model, and the paper treats 70B Instruct separately. Adopt 70B as DeepSeek-AI's nominal comparison convention, corroborated by the later paper revision and Figure 1(a), rather than infer active from dense architecture. Exact component scope and per-token participation are not established by this convention."
     },
     "architecture": {
       "value": "dense",
@@ -211,7 +244,7 @@
   "patch": {
     "parameters_source": "primary_source",
     "description": "Original Llama 3 70B pretrained text-generation model with a dense decoder-only Transformer, grouped-query attention, and an 8,192-token context.",
-    "notes": "70B is Meta's nominal model-size label; an exact learned-parameter count was not established. Active parameters are not separately reported. This is the original April 2024 base checkpoint with 8192-token context, distinct from Llama 3.1. A dedicated reasoning mode is not documented. Meta explicitly marks native tool use absent for this exact model in its later comparison table.",
+    "notes": "70B total is Meta's nominal size; 70B active follows DeepSeek-V2 Table 2's published comparison convention. Neither is an exact tensor or per-token census. Original April 2024 base checkpoint with 8192-token context, distinct from Llama 3.1. A dedicated reasoning mode is not documented; Meta marks native tool use absent.",
     "sources": [
       {
         "label": "Original release source",
@@ -247,9 +280,26 @@
         "label": "Meta comparison of original Llama 3 and 3.1",
         "url": "https://arxiv.org/html/2407.21783v3#S1.T1",
         "type": "primary"
+      },
+      {
+        "label": "DeepSeek-AI nominal active-parameter comparison, Table 2",
+        "url": "https://arxiv.org/html/2405.04434v1",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeek-AI original base-model comparator identity",
+        "url": "https://github.com/deepseek-ai/DeepSeek-V2",
+        "type": "primary"
+      },
+      {
+        "label": "Current Meta copy of original Llama 3 model card",
+        "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3/MODEL_CARD.md",
+        "type": "weights"
       }
     ],
-    "tool_call": false
+    "tool_call": false,
+    "parameters_b": 70,
+    "active_parameters_b": 70
   },
-  "summary": "Confirmed the original Llama 3 70B base identity, nominal 70B total, dense decoder-only/GQA architecture, 8192-token context, April 18, 2024 release, custom license, released weights and text modalities. Added variant-specific description and count qualification. Exact learned count was not established because official configuration access is gated; active count and dedicated reasoning remain null as undisclosed. Parent review added explicit tool_call=false from the exact-model row in Meta's later comparison table."
+  "summary": "October 27 parameter re-audit retained Meta's nominal 70B total and resolved active parameters to 70B using the explicit original LLaMA 3 70B column in DeepSeek-V2 Table 2. DeepSeek's official Base Model comparison confirms variant identity; the later June paper revision retains the count, and Figure 1(a) visually corroborates it. Fresh original and migrated Meta cards and announcement still support 70B total. The active value follows DeepSeek-AI's published benchmark convention, not a separate Meta disclosure or an exact per-token census. A fresh official configuration request still returns HTTP 401; no shards were downloaded. The twelve nonparameter assessments are preserved."
 }
