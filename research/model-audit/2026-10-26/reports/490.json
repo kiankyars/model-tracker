@@ -1,0 +1,308 @@
+{
+  "index": 490,
+  "model_id": "sarvam/sarvam-105b",
+  "reviewed_at": "2026-10-27T04:25:53.359871Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/sarvamai/sarvam-105b/blob/abe264bdb8fb2244daadaa59ebc2020b3c139e89/README.md",
+      "title": "Sarvam-105B model card",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "Official exact-model card identifies Sarvam-105B as a text-generating MoE reasoning model, gives nominal 10.3B active parameters, Apache-2.0 metadata, and top-8 routing among 128 experts with one shared expert."
+    },
+    {
+      "id": "s2",
+      "url": "https://www.sarvam.ai/blogs/introducing-indus",
+      "title": "Introducing Indus \u2014 February 20, 2026",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "Dated announcement explicitly opens Indus, powered by the 105B model, in limited beta with staged access and a possible waitlist."
+    },
+    {
+      "id": "s3",
+      "url": "https://www.sarvam.ai/blogs/sarvam-30b-105b",
+      "title": "Open-Sourcing Sarvam 30B and 105B \u2014 March 6, 2026",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "Dated weights release links the exact 105B Hugging Face checkpoint; specifies its MoE Transformer with MLA and describes model-generated tool calls in Indus. This is later than the February Indus beta."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/sarvamai/sarvam-105b/blob/abe264bdb8fb2244daadaa59ebc2020b3c139e89/config.json",
+      "title": "Sarvam-105B configuration",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "32 layers; one initial dense layer; 4096 hidden width; 262144 vocabulary; untied embeddings; 128 routed experts, top-8 and one shared expert; 131072 positions with YaRN scaling. Float32; no quantization configuration."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/sarvamai/sarvam-105b/blob/abe264bdb8fb2244daadaa59ebc2020b3c139e89/model.safetensors.index.json",
+      "title": "Sarvam-105B complete checkpoint index and all indexed headers",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "All 85 indexed shard headers were fetched using bounded HTTP 206 byte ranges at this revision; all 12289 keys, shapes, dtypes and shard assignments reconciled. F32 serialized elements total 106031767424, matching index metadata. No full weight payloads were downloaded."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/sarvamai/sarvam-105b/blob/abe264bdb8fb2244daadaa59ebc2020b3c139e89/modeling_sarvam_moe.py",
+      "title": "Sarvam-105B model implementation",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "Static inspection of enabled branches reconciles every header shape. There are 31 persistent 128-element router correction buffers, with no backpropagation gradient; subtract their 3968 elements. Embedding and LM head are separate; rotary caches are nonpersistent. No quantized packing, quantization scales, MTP or auxiliary heads occur."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/sarvamai/sarvam-105b/blob/abe264bdb8fb2244daadaa59ebc2020b3c139e89/configuration_sarvam_moe.py",
+      "title": "Sarvam-105B configuration implementation",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "Configuration defaults plus config.json select direct Q projection, MLA KV bottleneck, 32 blocks, 31 MoE layers, and untied input/output matrices. No additional enabled learned tensors are missing from the checkpoint."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/sarvamai/sarvam-105b/blob/abe264bdb8fb2244daadaa59ebc2020b3c139e89/chat_template.jinja",
+      "title": "Sarvam-105B chat template",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "Template supports text messages, optional thinking output, tool declarations, generated function calls and tool responses. It does not define image or audio inputs."
+    },
+    {
+      "id": "s9",
+      "url": "https://docs.sarvam.ai/api/getting-started/models/sarvam-105b",
+      "title": "Sarvam-105B API documentation",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "Current API documentation identifies sarvam-105b as the reasoning model, with 128K context and Apache 2.0 weights; separately identifies the 32K sarvam-105b-conversations variant. Describes total size as 105B+, not an exact 105 billion."
+    },
+    {
+      "id": "s10",
+      "url": "https://www.sarvam.ai/epoch/summary",
+      "title": "Everything we announced at Sarvam Epoch",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "Later first-party comparison research says the first Sarvam 105B checkpoint was released in February and distinguishes subsequent conversational/work-agent variants. It provides no replacement exact parameter count for the original checkpoint."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Sarvam 105B",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Developer names this model Sarvam-105B/Sarvam 105B; preserve the existing display spelling."
+    },
+    "developer": {
+      "value": "Sarvam AI",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Published and trained by Sarvam AI."
+    },
+    "family": {
+      "value": "sarvam",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Catalog family key for the developer\u2019s Sarvam model line."
+    },
+    "release_date": {
+      "value": "2026-02-20",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s10"
+      ],
+      "note": "Earliest explicit primary availability located: Indus limited beta on February 20. The baseline February 18 corresponds to the unveiling reported elsewhere; public usability on that day was not established. March 6 is the later weights release, not the first accessible model date. Repository creation is not release evidence."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s5"
+      ],
+      "note": "The original 105B checkpoint is publicly downloadable; March 6 announcement explicitly releases its weights."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s9"
+      ],
+      "note": "Exact-model card license metadata and official API documentation agree."
+    },
+    "parameters_b": {
+      "value": 106.031763456,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "note": "Complete learned-parameter count at the cited checkpoint revision: 106031767424 F32 serialized elements minus 3968 router correction buffer elements. Includes both untied vocabulary matrices and every enabled transformer/expert tensor. All indexed keys and shapes reconcile; no quantization, packing, MTP, auxiliary heads or shared-storage aliases. This is not the nominal model-name size."
+    },
+    "active_parameters_b": {
+      "value": 10.3,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "note": "Primary nominal active count, retained at the card\u2019s precision. Its convention is not explicitly defined. Top-8 routed experts plus all non-vocabulary parameters total 10267414528, consistent with rounding to 10.3B; counting both full vocabulary matrices instead yields 12414898176. Do not interpret 10.3B as a complete storage count or assume total equals active."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s6",
+        "s7"
+      ],
+      "note": "Decoder-only MoE Transformer with MLA, 32 blocks (one dense, 31 MoE), 128 routed experts per MoE block, eight selected and one always-on shared expert; RMSNorm and YaRN rotary positions."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s9"
+      ],
+      "note": "Exact checkpoint max_position_embeddings is 131072, agreeing with the API\u2019s 128K advertised context; the distinct conversations variant has 32K."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s6",
+        "s8"
+      ],
+      "note": "Causal text model with token embeddings and text/tool template. Speech or diagram handling in the surrounding Indus application does not establish native audio or vision for these weights."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8",
+        "s9"
+      ],
+      "note": "Developer documents reasoning and the template supports optional thinking traces."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s8"
+      ],
+      "note": "Developer examples and checkpoint template establish model-generated tool calls and observation handling."
+    },
+    "description": {
+      "value": "Multilingual text model with MoE routing, MLA attention, reasoning and tool calling, trained from scratch by Sarvam AI.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4",
+        "s8"
+      ],
+      "note": "Replaces promotional flagship/enterprise language with directly supported technical facts."
+    }
+  },
+  "patch": {
+    "release_date": "2026-02-20",
+    "date_precision": "day",
+    "license": "Apache-2.0",
+    "parameters_b": 106.031763456,
+    "active_parameters_b": 10.3,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "description": "Multilingual text model with MoE routing, MLA attention, reasoning and tool calling, trained from scratch by Sarvam AI.",
+    "source_url": "https://huggingface.co/sarvamai/sarvam-105b/blob/abe264bdb8fb2244daadaa59ebc2020b3c139e89/README.md",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Sarvam-105B model card",
+        "url": "https://huggingface.co/sarvamai/sarvam-105b/blob/abe264bdb8fb2244daadaa59ebc2020b3c139e89/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Introducing Indus \u2014 February 20, 2026",
+        "url": "https://www.sarvam.ai/blogs/introducing-indus",
+        "type": "primary"
+      },
+      {
+        "label": "Open-Sourcing Sarvam 30B and 105B \u2014 March 6, 2026",
+        "url": "https://www.sarvam.ai/blogs/sarvam-30b-105b",
+        "type": "primary"
+      },
+      {
+        "label": "Sarvam-105B configuration",
+        "url": "https://huggingface.co/sarvamai/sarvam-105b/blob/abe264bdb8fb2244daadaa59ebc2020b3c139e89/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Sarvam-105B complete checkpoint index and all indexed headers",
+        "url": "https://huggingface.co/sarvamai/sarvam-105b/blob/abe264bdb8fb2244daadaa59ebc2020b3c139e89/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Sarvam-105B model implementation",
+        "url": "https://huggingface.co/sarvamai/sarvam-105b/blob/abe264bdb8fb2244daadaa59ebc2020b3c139e89/modeling_sarvam_moe.py",
+        "type": "primary"
+      },
+      {
+        "label": "Sarvam-105B configuration implementation",
+        "url": "https://huggingface.co/sarvamai/sarvam-105b/blob/abe264bdb8fb2244daadaa59ebc2020b3c139e89/configuration_sarvam_moe.py",
+        "type": "primary"
+      },
+      {
+        "label": "Sarvam-105B chat template",
+        "url": "https://huggingface.co/sarvamai/sarvam-105b/blob/abe264bdb8fb2244daadaa59ebc2020b3c139e89/chat_template.jinja",
+        "type": "primary"
+      },
+      {
+        "label": "Sarvam-105B API documentation",
+        "url": "https://docs.sarvam.ai/api/getting-started/models/sarvam-105b",
+        "type": "primary"
+      }
+    ],
+    "notes": "First documented access was the Indus limited beta on 2026-02-20; open weights followed on 2026-03-06. Complete checkpoint learned-parameter count: 106.031763456B, excluding 3968 persistent router buffer elements from 106031767424 F32 stored elements. The developer\u2019s 10.3B active figure is nominal and its counting convention is unstated; it agrees with rounded non-vocabulary active capacity, rather than counting both full vocabulary matrices. Counts describe the original public checkpoint, not later conversational/work-agent revisions."
+  },
+  "proposed_fields": {
+    "parameter_accounting": {
+      "checkpoint_revision": "abe264bdb8fb2244daadaa59ebc2020b3c139e89",
+      "indexed_shards_read": 85,
+      "indexed_tensors_reconciled": 12289,
+      "serialized_elements": 106031767424,
+      "nonparameter_router_buffer_elements": 3968,
+      "learned_parameters": 106031763456,
+      "active_non_vocabulary_parameters": 10267414528,
+      "active_with_full_vocabulary_matrices": 12414898176,
+      "active_convention_note": "Both calculated active totals use eight routed experts per MoE layer plus shared experts and dense tensors. The developer reports only a nominal 10.3B; the non-vocabulary match is an inference, not an explicit provider convention."
+    }
+  },
+  "summary": "Corrected complete learned size to 106.031763456B after all 85 shard headers and enabled code reconciled; added primary nominal 10.3B active, MoE architecture and Apache-2.0 license. Corrected earliest documented access to February 20 limited beta and separated March 6 weights release. Replaced promotional description. Original text/reasoning/tool/131072-context fields confirmed; later variants were not substituted."
+}
