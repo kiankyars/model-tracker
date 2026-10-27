@@ -1,0 +1,307 @@
+{
+  "index": 398,
+  "model_id": "openai/gpt-2-124m",
+  "reviewed_at": "2026-10-27T01:18:56.449594Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://openai.com/index/better-language-models/",
+      "title": "Better language models and their implications",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "February 14, 2019 announcement releases the smaller GPT-2 model for researchers, with code and a technical paper. Larger versions were withheld at that stage."
+    },
+    {
+      "id": "s2",
+      "url": "https://github.com/openai/gpt-2/blob/9b63575ef42771a015060c964af2c3da4cf7c8ab/README.md",
+      "title": "GPT-2 repository README",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Identifies the repository as code and models for GPT-2. Explicitly corrects the earlier small-model 117M and medium-model 345M labels as counting errors. Links the Modified MIT license."
+    },
+    {
+      "id": "s3",
+      "url": "https://github.com/openai/gpt-2/blob/9b63575ef42771a015060c964af2c3da4cf7c8ab/LICENSE",
+      "title": "GPT-2 Modified MIT License",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "The current original-repository license is explicitly titled Modified MIT License. It includes GPT-2 output-ownership and labeling language in addition to the ordinary MIT permission and warranty provisions. This is the current published label, not a claim that the modified text existed at the February 2019 release."
+    },
+    {
+      "id": "s4",
+      "url": "https://github.com/openai/gpt-2/blob/9b63575ef42771a015060c964af2c3da4cf7c8ab/src/model.py",
+      "title": "Original GPT-2 TensorFlow implementation",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "The complete model defines learned token and position embeddings, 12 configurable dense causal Transformer blocks with affine layer norms, attention and feed-forward projections, and final affine normalization. Output logits reuse the token embedding matrix, so it is counted once. Attention masks are generated constants, not learned variables."
+    },
+    {
+      "id": "s5",
+      "url": "https://openaipublic.blob.core.windows.net/gpt-2/models/124M/hparams.json",
+      "title": "Original GPT-2 124M hyperparameters",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Exact 124M configuration: vocabulary 50257, context 1024, hidden width 768, 12 attention heads and 12 layers. Accessed directly from the public artifact location specified by the pinned official download script."
+    },
+    {
+      "id": "s6",
+      "url": "https://openaipublic.blob.core.windows.net/gpt-2/models/124M/model.ckpt.index",
+      "title": "Original GPT-2 124M checkpoint index",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Parsed the complete 5215-byte TensorFlow index. All 148 F32 learned-variable names and shapes match the original implementation and exact configuration, totaling 124439808 parameters. Indexed offsets and byte sizes cover the single 497759232-byte data shard exactly, confirmed by HEAD without downloading weight data. No optimizer slots, quantization scales, masks or duplicate output embedding appear."
+    },
+    {
+      "id": "s7",
+      "url": "https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf",
+      "title": "Language Models are Unsupervised Multitask Learners",
+      "publisher": "OpenAI authors",
+      "accessed": true,
+      "evidence": "Section 2.3 describes a Transformer with pre-block normalization, a final normalization, 50257 vocabulary entries and 1024-token context. Its smallest-model row has 12 layers and width 768. The obsolete 117M count is corrected by the repository README; it is not used as the learned total."
+    },
+    {
+      "id": "s8",
+      "url": "https://github.com/openai/gpt-2/blob/9b63575ef42771a015060c964af2c3da4cf7c8ab/model_card.md",
+      "title": "GPT-2 model card, November 2019 revision",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Identifies OpenAI as developer and the 124M variant as one of the released GPT-2 text language models. Describes WebText pretraining and intended text-generation uses; it does not specify dedicated reasoning or structured tool-calling modes."
+    },
+    {
+      "id": "s9",
+      "url": "https://openai.com/index/gpt-2-6-month-follow-up/",
+      "title": "GPT-2: 6-month follow-up",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "The opening explicitly says the small 124M model was released in February, corroborating the identity of the smaller model in the February 14 announcement. The page timeline has shifted month headings; the announcement date and narrative are used, not those headings."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/openai-community/gpt2/blob/607a30d783dfa663caf39e06633721c8d4cfcd7e/model.safetensors",
+      "title": "Converted GPT-2 checkpoint header",
+      "publisher": "Hugging Face OpenAI community",
+      "accessed": true,
+      "evidence": "Read only the 8-byte length prefix and 14283-byte safetensors header with HTTP 206 ranges. Its 148 learned tensor shapes match every original checkpoint variable after documented name mapping and removal of Conv1D singleton axes. Twelve additional 1024-by-1024 causal-mask buffers contain 12582912 non-learned elements and are excluded. This conversion corroborates the original primary index; it is not the basis for model identity or license."
+    },
+    {
+      "id": "s11",
+      "url": "https://github.com/openai/gpt-2/blob/aae26abd600ad32771fadf6284f339f07b9d8ea1/LICENSE",
+      "title": "First GPT-2 repository license, February 20, 2019",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "The first committed LICENSE contains the ordinary MIT text. The repository had no LICENSE file in its February 14 release-day tree. This earlier grant is distinguished from the subsequently modified text."
+    },
+    {
+      "id": "s12",
+      "url": "https://api.github.com/repos/openai/gpt-2/commits?path=LICENSE&per_page=100",
+      "title": "Original repository license history",
+      "publisher": "OpenAI repository via GitHub",
+      "accessed": true,
+      "evidence": "History dates the ordinary MIT addition to February 20, 2019, the Modified MIT change to January 3, 2020, and its final cleanup to January 4. Both revised license texts were accessed; the January 4 version matches the current file."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "GPT-2 124M",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s8",
+        "s9"
+      ],
+      "note": "The corrected released small-model label; 117M was an acknowledged original counting error, not a distinct checkpoint."
+    },
+    "developer": {
+      "value": "OpenAI",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8"
+      ],
+      "note": "The original announcement and model card identify OpenAI."
+    },
+    "family": {
+      "value": "gpt-2",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8"
+      ],
+      "note": "The 124M variant belongs to the original GPT-2 family."
+    },
+    "release_date": {
+      "value": "2019-02-14",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s9"
+      ],
+      "note": "The dated initial announcement releases the smaller model; the later official follow-up explicitly identifies it as the February 124M release. Do not substitute the later full-family release date."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5",
+        "s6"
+      ],
+      "note": "Official code and models were released, and original public checkpoint metadata and data-shard HEAD were accessed without authentication."
+    },
+    "license": {
+      "value": "Modified MIT",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s11",
+        "s12"
+      ],
+      "note": "Current published repository label is Modified MIT. The first LICENSE, added February 20, 2019, was ordinary MIT; the modified wording was introduced in January 2020. This records current terms without treating them as the original release-day license or asserting that earlier grants were revoked."
+    },
+    "parameters_b": {
+      "value": 0.124439808,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s5",
+        "s6",
+        "s10"
+      ],
+      "note": "Exact complete learned count: 50257\u00d7768 token embeddings + 1024\u00d7768 position embeddings + 12\u00d7(12\u00d7768\u00b2+13\u00d7768) block parameters + 2\u00d7768 final normalization = 124439808. All 148 original F32 variables match the reconstructed module shapes, with contiguous shard coverage. Tied output embeddings are counted once; converted causal-mask buffers are excluded. No full weight shard was downloaded."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s4",
+        "s7",
+        "s8"
+      ],
+      "note": "The primary sources do not define or report an active-per-token count. The dense total is not relabeled as active, and token/position lookup activity depends on the definition."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s7"
+      ],
+      "note": "Twelve decoder-only causal Transformer blocks, width 768, 12 attention heads, 3072-wide feed-forward layers and learned absolute positions. The original implementation contains no mixture-of-experts routing or state-space blocks."
+    },
+    "context_window": {
+      "value": 1024,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s7"
+      ],
+      "note": "Exact n_ctx=1024 in the original 124M artifact, with 1024 learned position rows and explicit 1024-token context in the paper."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s8"
+      ],
+      "note": "The released language model consumes tokenized text and predicts text-token logits. No audio, image or video input/output component exists in this checkpoint."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s7",
+        "s8"
+      ],
+      "note": "No dedicated reasoning mode is documented. General zero-shot tasks do not establish this feature flag or prove inability."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s4",
+        "s8"
+      ],
+      "note": "The released interface provides text continuation, with no documented structured tool-call protocol. Retain null rather than infer capability or incapability."
+    },
+    "description": {
+      "value": "Smallest GPT-2 model, a 12-layer causal Transformer pretrained on WebText for next-token prediction.",
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s7",
+        "s8"
+      ],
+      "note": "Replaces the generic staged-release description with the exact variant architecture and training objective."
+    }
+  },
+  "patch": {
+    "license": "Modified MIT",
+    "parameters_b": 0.124439808,
+    "parameters_source": "primary_source",
+    "description": "Smallest GPT-2 model, a 12-layer causal Transformer pretrained on WebText for next-token prediction.",
+    "notes": "Released in February 2019 as the small GPT-2 model. The original 117M label was a counting error later corrected to 124M; the complete checkpoint contains 124,439,808 learned parameters. The output projection shares token embeddings. No separate active-parameter count is disclosed. The repository first added an MIT license on February 20, 2019 and changed its published text to Modified MIT in January 2020.",
+    "sources": [
+      {
+        "label": "Original GPT-2 release",
+        "url": "https://openai.com/index/better-language-models/",
+        "type": "announcement"
+      },
+      {
+        "label": "GPT-2 count correction and release repository",
+        "url": "https://github.com/openai/gpt-2/blob/9b63575ef42771a015060c964af2c3da4cf7c8ab/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "GPT-2 Modified MIT license",
+        "url": "https://github.com/openai/gpt-2/blob/9b63575ef42771a015060c964af2c3da4cf7c8ab/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "Original GPT-2 implementation",
+        "url": "https://github.com/openai/gpt-2/blob/9b63575ef42771a015060c964af2c3da4cf7c8ab/src/model.py",
+        "type": "primary"
+      },
+      {
+        "label": "Original 124M hyperparameters",
+        "url": "https://openaipublic.blob.core.windows.net/gpt-2/models/124M/hparams.json",
+        "type": "primary"
+      },
+      {
+        "label": "Original 124M checkpoint index",
+        "url": "https://openaipublic.blob.core.windows.net/gpt-2/models/124M/model.ckpt.index",
+        "type": "weights"
+      },
+      {
+        "label": "GPT-2 technical paper",
+        "url": "https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf",
+        "type": "technical_report"
+      },
+      {
+        "label": "GPT-2 model card",
+        "url": "https://github.com/openai/gpt-2/blob/9b63575ef42771a015060c964af2c3da4cf7c8ab/model_card.md",
+        "type": "primary"
+      },
+      {
+        "label": "Original MIT license, February 2019",
+        "url": "https://github.com/openai/gpt-2/blob/aae26abd600ad32771fadf6284f339f07b9d8ea1/LICENSE",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "Verified all 14 fields for the original small GPT-2 release. Replaced nominal 124M with the exact complete 124439808-parameter count from the original TensorFlow checkpoint index and module/configuration reconstruction; confirmed it independently against the converted header after excluding causal-mask buffers. Recorded the current Modified MIT label while documenting the earlier ordinary MIT grant and made the description specific. February 14 release, dense architecture and 1024-token context are confirmed. Active count, dedicated reasoning and structured tool calling remain null."
+}
