@@ -1,7 +1,7 @@
 {
   "index": 58,
   "model_id": "alibaba/qwen3.6-27b",
-  "reviewed_at": "2026-10-26T15:04:43.319090Z",
+  "reviewed_at": "2026-10-27T09:47:39.638691Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Qwen3.6-27B official model card",
       "publisher": "Qwen / Alibaba",
       "accessed": true,
-      "evidence": "Identifies the open checkpoint, nominal 27B language model, hybrid attention layout, native context, image/video examples, thinking modes, tool calling, and visual/document/agent evaluations."
+      "evidence": "Identifies the open checkpoint, nominal 27B language model, hybrid attention layout, native context, image/video examples, thinking modes, tool calling, and visual/document/agent evaluations. Reopened October 27: Model Overview still lists 27B specifically under Language Model and no separately defined active count."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "Qwen3.6-27B checkpoint configuration",
       "publisher": "Qwen / Alibaba",
       "accessed": true,
-      "evidence": "Qwen3_5ForConditionalGeneration includes a 64-layer dense text stack with alternating linear/full attention, a 27-layer vision encoder and one MTP layer; max_position_embeddings is 262144."
+      "evidence": "Qwen3_5ForConditionalGeneration includes a 64-layer dense text stack with alternating linear/full attention, a 27-layer vision encoder and one MTP layer; max_position_embeddings is 262144. Reopened October 27: the same dense text/vision/MTP structure remains; the config does not define an active-parameter convention."
     },
     {
       "id": "s3",
@@ -25,7 +25,7 @@
       "title": "Official checkpoint tensor index and referenced safetensors headers",
       "publisher": "Qwen / Alibaba",
       "accessed": true,
-      "evidence": "Read headers of all 15 referenced shards by HTTP Range, multiplied each tensor shape, and matched all 1199 tensor names against this index. Exact BF16 count: 27781427952; text decoder including embeddings and LM head 26895998464, vision 460730096, MTP 424699392. Index byte total is 55562855904."
+      "evidence": "Read headers of all 15 referenced shards by HTTP Range, multiplied each tensor shape, and matched all 1199 tensor names against this index. Exact BF16 count: 27781427952; text decoder including embeddings and LM head 26895998464, vision 460730096, MTP 424699392. Index byte total is 55562855904. October 27 re-audit reopened the index and confirmed its unchanged 55562855904-byte total; the prior validated tensor/component counts are retained without recounting or downloading shards."
     },
     {
       "id": "s4",
@@ -33,7 +33,7 @@
       "title": "Hugging Face metadata for the official Qwen checkpoint",
       "publisher": "Hugging Face / Qwen",
       "accessed": true,
-      "evidence": "Safetensors metadata independently reports 27781427952 BF16 parameters. Repository creation is April 21, 2026, which is not public-release evidence."
+      "evidence": "Reopened October 27: safetensors metadata still reports 27781427952 BF16 parameters at revision 6a9e13bd6fc8f0983b9b99948120bc37f49c13e9. This independently reconfirms the exact full-checkpoint total. Repository creation is April 21, 2026, which is not public-release evidence."
     },
     {
       "id": "s5",
@@ -58,6 +58,30 @@
       "publisher": "Qwen / Alibaba",
       "accessed": true,
       "evidence": "Indexed official announcement is dated April 22, 2026 and identifies a dense multimodal open-weight model supporting thinking and non-thinking. Direct page extraction returned no body; indexed text is corroborated by the official repository news and model card."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B",
+      "title": "Later official Qwen3.8-27B model card and Qwen3.6-27B comparison tables",
+      "publisher": "Qwen / Alibaba",
+      "accessed": true,
+      "evidence": "Checked October 27 for a later activated-parameter disclosure. Text and vision-language benchmark tables explicitly include Qwen3.6-27B but contain no total/activated parameter row or column. No active count for Qwen3.6-27B is supplied."
+    },
+    {
+      "id": "s9",
+      "url": "https://www.alibabacloud.com/blog/603063",
+      "title": "Alibaba Cloud publication of Qwen3.6-27B launch announcement",
+      "publisher": "Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Directly read October 27. Repeats Qwen's dense 27-billion-parameter multimodal specification and identifies the same open weights and API model. Explicit active counts in the text apply to the comparison MoE models, not Qwen3.6-27B; no separate active count for this dense model is stated."
+    },
+    {
+      "id": "s10",
+      "url": "https://docs.modelstudio.console.alibabacloud.com/en/model-studio/qwen3-6-27b",
+      "title": "Current Alibaba Cloud Model Studio Qwen3.6-27B specification",
+      "publisher": "Alibaba Cloud",
+      "accessed": true,
+      "evidence": "October 27 indexed official page describes the Qwen3.6 27B native vision-language dense model as building on Qwen3.5-27B. Its displayed capabilities, context, pricing and rate-limit tables do not disclose active parameters. Direct open exceeded the extraction size limit; only indexed official text was available."
     }
   ],
   "fields": {
@@ -116,10 +140,12 @@
       "value": 27.781427952,
       "status": "verified",
       "source_ids": [
+        "s1",
         "s3",
-        "s4"
+        "s4",
+        "s9"
       ],
-      "note": "Exact full checkpoint count from tensor shapes, in billions, including vision and MTP. The card labels the language model nominally 27B."
+      "note": "Exact 27.781427952B full-checkpoint total, including vision and MTP, is reconfirmed by current official-repository metadata. Preserve the prior tensor-verified component precision; the developer separately advertises a nominal 27B language model."
     },
     "active_parameters_b": {
       "value": null,
@@ -127,9 +153,12 @@
       "source_ids": [
         "s1",
         "s2",
-        "s7"
+        "s7",
+        "s8",
+        "s9",
+        "s10"
       ],
-      "note": "No separately defined active-parameter count is disclosed; dense architecture does not justify equating active parameters with the complete multimodal checkpoint."
+      "note": "Fresh review of the exact card/config, launch announcement, current Model Studio specification and later Qwen3.8-27B comparison tables found no developer-defined active count for Qwen3.6-27B. Retain null; neither dense architecture nor the nominal language-model size alone defines active parameters for this multimodal checkpoint."
     },
     "architecture": {
       "value": "dense",
@@ -188,7 +217,7 @@
       "source_ids": [
         "s1"
       ],
-      "note": "Supported by the card\u2019s vision, document understanding and agent sections."
+      "note": "Supported by the card’s vision, document understanding and agent sections."
     }
   },
   "patch": {
@@ -228,9 +257,20 @@
         "label": "Official April 22 release announcement in Qwen news",
         "url": "https://github.com/QwenLM/Qwen3.8",
         "type": "primary"
+      },
+      {
+        "label": "Later official Qwen3.8 comparison tables",
+        "url": "https://huggingface.co/Qwen/Qwen3.8-27B",
+        "type": "primary"
+      },
+      {
+        "label": "Alibaba Cloud Qwen3.6-27B launch specification",
+        "url": "https://www.alibabacloud.com/blog/603063",
+        "type": "primary"
       }
     ],
-    "notes": "The complete BF16 checkpoint has 27.781427952B parameters: 26.895998464B text decoder including embeddings and LM head, 0.460730096B vision, and 0.424699392B MTP. The advertised 27B is a nominal language-model size. Active parameters are not separately reported. Dense FFNs coexist with hybrid linear/full attention."
+    "notes": "The full BF16 checkpoint contains 27.781427952B parameters: 26.895998464B text decoder including embeddings and LM head, 0.460730096B vision, and 0.424699392B MTP. Qwen advertises a nominal 27B language model. Active parameters are not separately disclosed. Dense FFNs coexist with hybrid linear/full attention.",
+    "active_parameters_b": null
   },
   "proposed_fields": {
     "parameter_components_b": {
@@ -239,5 +279,5 @@
       "mtp": 0.424699392
     }
   },
-  "summary": "Confirmed April 22, 2026 public release and all baseline capabilities. Corrected nominal 27B to the complete 27.781427952B checkpoint count; added verified Apache-2.0 license and dense architecture. Retained unknown active count. Exact decoder/vision/MTP breakdown is proposed separately."
+  "summary": "October 27 parameter re-audit reconfirmed the exact 27.781427952B checkpoint total using current repository metadata and retained the prior verified decoder/vision/MTP components. Reopened exact primary evidence and checked the current Model Studio specification, Alibaba launch publication and later Qwen3.8-27B comparison tables; no separate active count was found. Preserve active_parameters_b=null and all unrelated audit findings."
 }
