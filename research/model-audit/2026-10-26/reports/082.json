@@ -1,7 +1,7 @@
 {
   "index": 82,
   "model_id": "amazon/nova-premier",
-  "reviewed_at": "2026-10-26T16:04:29.536828Z",
+  "reviewed_at": "2026-10-27T10:07:17.017Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Amazon Nova Premier: Our most capable model for complex tasks and teacher for model distillation",
       "publisher": "AWS",
       "accessed": true,
-      "evidence": "Dated April 30, 2025 and announces general availability of Nova Premier, including us.amazon.nova-premier-v1:0. Specifies one-million-token context, text/image/video inputs excluding audio, tool workflows and distillation. Places Premier alongside non-reasoning models."
+      "evidence": "Dated April 30, 2025 and announces general availability of Nova Premier, including us.amazon.nova-premier-v1:0. Specifies one-million-token context, text/image/video inputs excluding audio, tool workflows and distillation. Places Premier alongside non-reasoning models. Reopened for the parameter re-audit: Premier is the teacher for smaller Pro/Lite/Micro students; this is not size-preserving named-base lineage and supplies no nominal count."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "Amazon Nova Premier: Technical Report and Model Card",
       "publisher": "Amazon Artificial General Intelligence",
       "accessed": true,
-      "evidence": "Exact eight-page Premier report establishes text/image/video processing, one-million-token context, function calling and distillation. It reports benchmarks, not total/active parameter counts or dense-versus-MoE topology. The older assets.amazon.science URL returned 404; the CDN PDF was accessible."
+      "evidence": "Reopened the exact eight-page April 30, 2025 report for the parameter re-audit. It establishes text/image/video processing, one-million-token context, function calling and Premier as the distillation teacher for Pro/Lite/Micro. It reports benchmarks but no nominal total or active parameter count or dense-versus-MoE topology. Its teacher/student relationship does not establish equal parameter sizes."
     },
     {
       "id": "s3",
@@ -25,7 +25,7 @@
       "title": "The Amazon Nova Family of Models: Technical Report and Model Card",
       "publisher": "Amazon Artificial General Intelligence",
       "accessed": true,
-      "evidence": "Original family report covers Pro, Lite, Micro, Canvas and Reel; Premier is not included. It describes the three understanding siblings as Transformer-based but gives no Premier parameter or topology disclosure. Sibling details are not transferred to Premier."
+      "evidence": "Original family report covers Pro, Lite, Micro, Canvas and Reel; Premier is not included. It describes the three understanding siblings as Transformer-based but gives no Premier parameter or topology disclosure. Sibling details are not transferred to Premier. Reopened for this pass; Premier is absent, so this report cannot supply its nominal size or a named base."
     },
     {
       "id": "s4",
@@ -33,7 +33,7 @@
       "title": "Amazon Nova 2: Multimodal Reasoning and Generation Models",
       "publisher": "Amazon Artificial General Intelligence",
       "accessed": true,
-      "evidence": "Later 26-page report explicitly compares Nova 1 Premier in benchmark tables and describes Nova 2 hybrid extended thinking. It does not disclose total/active counts or dense/MoE topology for Premier. Table 3 marks Premier audio capability unsupported."
+      "evidence": "Later 26-page report explicitly compares Nova 1 Premier in benchmark tables and describes Nova 2 hybrid extended thinking. It does not disclose total/active counts or dense/MoE topology for Premier. Table 3 marks Premier audio capability unsupported. Reopened for this pass: Premier appears in performance comparisons, but the tables have no total-parameter or activated-parameter column. API sampling parameters in the appendix are not model-size disclosures."
     },
     {
       "id": "s5",
@@ -90,6 +90,30 @@
       "publisher": "AWS",
       "accessed": false,
       "evidence": "Search-indexed first-party page says launch October 31, 2025, Reasoning Supported, 1M context, 25K output, and conflicting lifecycle dates. Opening the URL redirected to the Bedrock guide root, so its current content was not accessible. Indexed launch/reasoning claims conflict with the dated GA announcement and parameter-specific Nova v1 schema; no endpoint/lifecycle conclusion is drawn."
+    },
+    {
+      "id": "s12",
+      "url": "https://aclanthology.org/2025.findings-emnlp.1099.pdf",
+      "title": "MASSIVE-Agents: A Benchmark for Multilingual Function-Calling in 52 Languages",
+      "publisher": "Amazon AGI / Findings of EMNLP 2025",
+      "accessed": true,
+      "evidence": "Amazon AGI-authored first-party comparison paper. Table 1 on PDF page 6 (printed page 20198) explicitly gives Nova Premier Params = NP, alongside 1M context and April 2025 release. The table has no separate activated-parameter column. Its large-model grouping and comparison with Llama 3.1 405B do not assign Premier that size."
+    },
+    {
+      "id": "s13",
+      "url": "https://cdn.amazon.science/59/0e/fd60057640a4a02bcd3072029958/evaluating-the-critical-risks-of-amazons-nova-premier-under-the-frontier-model-safety-framework.pdf",
+      "title": "Evaluating the Critical Risks of Amazon’s Nova Premier under the Frontier Model Safety Framework",
+      "publisher": "Amazon Nova Responsible AI",
+      "accessed": true,
+      "evidence": "Exact-model ten-page 2025 safety report calls Premier frontier-scale and compares capabilities with its predecessor Nova Pro, but supplies no nominal total or active count or size-preserving lineage. The 480 M-parameter checkpoint on page 7 is the damaged model Premier is asked to repair in a RE-Bench task; it is not Premier’s parameter count."
+    },
+    {
+      "id": "s14",
+      "url": "https://aws.amazon.com/blogs/machine-learning/customize-amazon-nova-models-with-amazon-bedrock-fine-tuning/",
+      "title": "Customize Amazon Nova models with Amazon Bedrock fine-tuning",
+      "publisher": "AWS",
+      "accessed": true,
+      "evidence": "April 8, 2026 first-party comparison lists Premier as a distillation teacher. The article defines distillation as transferring knowledge from a larger teacher to a smaller student. Neither the comparison table nor the discussion supplies Premier’s total or active count, or identifies Premier as a size-preserving derivative of a named, sized base."
     }
   ],
   "fields": {
@@ -155,20 +179,27 @@
       "value": null,
       "status": "undisclosed",
       "source_ids": [
+        "s1",
         "s2",
         "s3",
-        "s4"
+        "s4",
+        "s12",
+        "s13",
+        "s14"
       ],
-      "note": "No total parameter count is reported for Premier in its exact report, original family report or later Nova 2 comparison tables. Do not infer a count from relative tier, price or benchmark performance."
+      "note": "No nominal total count was found in the reopened exact report or fresh first-party comparisons. Amazon AGI’s MASSIVE-Agents Table 1 explicitly records Premier’s Params as NP. Later Nova 2, safety and April 2026 customization sources add no count or size-preserving named-base lineage; the teacher/student relationship does not support inheriting a student size."
     },
     "active_parameters_b": {
       "value": null,
       "status": "undisclosed",
       "source_ids": [
         "s2",
-        "s4"
+        "s4",
+        "s12",
+        "s13",
+        "s14"
       ],
-      "note": "No per-token active parameter count is reported for Premier. Dense/MoE topology is also undisclosed, so no total-to-active equality is inferred."
+      "note": "Active parameters remain separately undisclosed. The later MASSIVE-Agents and Nova 2 comparisons contain no activated-parameter column for Premier, and its exact report and newer customization article give no active count. Dense/MoE topology is unknown, so no total-to-active equality is inferred."
     },
     "architecture": {
       "value": "transformer",
@@ -293,10 +324,28 @@
         "label": "AWS Service Terms",
         "url": "https://aws.amazon.com/service-terms/",
         "type": "primary"
+      },
+      {
+        "label": "MASSIVE-Agents: A Benchmark for Multilingual Function-Calling in 52 Languages",
+        "url": "https://aclanthology.org/2025.findings-emnlp.1099.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Evaluating the Critical Risks of Amazon’s Nova Premier under the Frontier Model Safety Framework",
+        "url": "https://cdn.amazon.science/59/0e/fd60057640a4a02bcd3072029958/evaluating-the-critical-risks-of-amazons-nova-premier-under-the-frontier-model-safety-framework.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Customize Amazon Nova models with Amazon Bedrock fine-tuning",
+        "url": "https://aws.amazon.com/blogs/machine-learning/customize-amazon-nova-models-with-amazon-bedrock-fine-tuning/",
+        "type": "primary"
       }
     ],
-    "notes": "Transformer-based; total and active parameter counts and dense/MoE topology are undisclosed. Dedicated extended-thinking support is unresolved: the current Nova v1 reasoningConfig description excludes Premier, but an exact-model Bedrock card preserved in the search index says Reasoning Supported; its live URL now redirects. General reasoning ability does not resolve the conflict. The explicit April 30, 2025 GA announcement establishes initial release, despite the indexed card claiming a later launch date. This audit verifies documented specifications, not current endpoint availability.",
-    "reasoning": null
+    "notes": "Transformer-based; total and active parameters remain undisclosed. Amazon AGI’s MASSIVE-Agents Table 1 lists Premier’s Params as NP; no separate active count is published. Dense/MoE topology is undisclosed. Dedicated extended-thinking support is unresolved: the current Nova v1 reasoningConfig description excludes Premier, but an exact-model Bedrock card preserved in the search index says Reasoning Supported; its live URL now redirects. General reasoning ability does not resolve the conflict. The explicit April 30, 2025 GA announcement establishes initial release, despite the indexed card claiming a later launch date. This audit verifies documented specifications, not current endpoint availability.",
+    "reasoning": null,
+    "parameters_b": null,
+    "active_parameters_b": null,
+    "parameters_source": null
   },
-  "summary": "Added primary-source provenance, Transformer architecture and proprietary license classification. Confirmed Apr 30, 2025 GA, 1M context, text/image/video/PDF inputs, text output, tools and description. Total/active counts and dense/MoE topology remain undisclosed after original, Premier and later Nova 2 report checks. Cleared reasoning to null because the indexed exact-model card and current parameter-specific schema conflict on dedicated extended-thinking support."
+  "summary": "Fresh parameter re-audit reopened the Premier launch/report, original family report and later Nova 2 report, and checked targeted first-party nominal/active-count searches. Added Amazon AGI’s MASSIVE-Agents Table 1 (Premier Params = NP), the exact-model safety report and April 2026 customization comparison. Total and active counts remain null/undisclosed: no supported nominal count, activated-count disclosure or size-preserving named-base lineage was found. The safety report’s 480M checkpoint is a benchmark task, not Premier. Other audited fields are preserved."
 }
