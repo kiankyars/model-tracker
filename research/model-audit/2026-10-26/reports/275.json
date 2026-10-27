@@ -1,7 +1,7 @@
 {
   "index": 275,
   "model_id": "meta/llama-3.2-90b-vision-instruct",
-  "reviewed_at": "2026-10-26T21:40:41.246431Z",
+  "reviewed_at": "2026-10-27T14:15:52.116303Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Llama-3.2-90B-Vision-Instruct model card",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "The exact instruction-tuned checkpoint card names Meta, reports 90B (88.8) parameters for the complete vision model, text/image input and text output, and visual question-answering/captioning use cases."
+      "evidence": "Reopened October 27: the exact instruction-tuned checkpoint card still reports 90B (88.8) in its Params table for Llama 3.2-Vision, with text/image input and text output. This is Meta's published nominal complete-model count; the card provides no separate active-parameter count."
     },
     {
       "id": "s2",
@@ -74,6 +74,62 @@
       "publisher": "Meta",
       "accessed": false,
       "evidence": "Unauthenticated request returned HTTP 401. No access gate was bypassed and no weight shards were downloaded; public Meta registry and implementation supply architecture/context evidence."
+    },
+    {
+      "id": "s10",
+      "url": "https://raw.githubusercontent.com/meta-llama/llama-models/main/models/llama3_2/MODEL_CARD_VISION.md",
+      "title": "Official Llama 3.2 Vision model card, fresh parameter check",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "The vision-specific card explicitly covers pretrained and instruction-tuned models, lists the 90B (88.8) parameter row, and describes a Llama 3.1 language model augmented with an image encoder and cross-attention adapter. It does not disclose an active count."
+    },
+    {
+      "id": "s11",
+      "url": "https://arxiv.org/html/2504.07491v3#S3.T3",
+      "title": "Kimi-VL Technical Report, Table 3 active-count comparison",
+      "publisher": "Kimi Team, Moonshot AI",
+      "accessed": true,
+      "evidence": "Table 3 explicitly labels active parameters as LLM+VT but identifies Llama3.2-11B-Inst., not the 90B model. Its 8B+2.6B convention cannot be transferred to the unlisted 90B checkpoint."
+    },
+    {
+      "id": "s12",
+      "url": "https://arxiv.org/html/2412.10302v1#S0.F1",
+      "title": "DeepSeek-VL2 Technical Report, activated-parameter plot and comparisons",
+      "publisher": "DeepSeek-AI",
+      "accessed": true,
+      "evidence": "Figure 1 explicitly plots activated parameters for small vision-language models, but does not include Llama 3.2 90B. The original SVG was visually inspected. Its active-count convention therefore does not establish the requested exact model."
+    },
+    {
+      "id": "s13",
+      "url": "https://arxiv.org/html/2504.10479v1#S1.F2",
+      "title": "InternVL3 Technical Report, Figure 2 model-size comparison",
+      "publisher": "InternVL Team, Shanghai AI Laboratory",
+      "accessed": true,
+      "evidence": "Figure 2 includes Llama-3.2-90B-Vision, but the visually inspected horizontal axis is Parameters (B), not active or activated parameters. It corroborates the nominal size tier without resolving active count."
+    },
+    {
+      "id": "s14",
+      "url": "https://arxiv.org/html/2508.18265v2",
+      "title": "InternVL3.5 Technical Report, fresh comparison search",
+      "publisher": "InternVL Team, Shanghai AI Laboratory",
+      "accessed": true,
+      "evidence": "The report includes a Llama-3.2-90B-Vision SVG benchmark row. Its explicit activated-parameter convention accompanies its own InternVL3.5 model architecture table; no active count for the Llama 90B comparator was found in the report or inspected introductory chart."
+    },
+    {
+      "id": "s15",
+      "url": "https://arxiv.org/html/2502.13923v1",
+      "title": "Qwen2.5-VL Technical Report, fresh comparison search",
+      "publisher": "Qwen Team, Alibaba",
+      "accessed": true,
+      "evidence": "Inspected architecture and benchmark tables for a missed Llama 3.2 90B active-count comparison. The report does not supply a separate active count for the target checkpoint."
+    },
+    {
+      "id": "s16",
+      "url": "https://arxiv.org/html/2507.01006v3",
+      "title": "GLM-4.1V-Thinking and GLM-4.5V Technical Report, fresh comparison search",
+      "publisher": "GLM-V Team, Zhipu AI and Tsinghua University",
+      "accessed": true,
+      "evidence": "The report explicitly states active parameters for GLM-4.5V itself, but its text and inspected introductory comparison chart do not provide a Llama 3.2 90B active count."
     }
   ],
   "fields": {
@@ -136,18 +192,26 @@
       "value": 88.8,
       "status": "verified",
       "source_ids": [
-        "s1"
+        "s1",
+        "s10"
       ],
-      "note": "Developer-reported complete multimodal count in billions: 90B is the nominal tier and 88.8B the parenthetical precision. Includes language, vision, and adapter components; not a tensor-exact count or a storage-size calculation."
+      "note": "Freshly reconfirmed Meta nominal complete-model specification: 90B tier, with 88.8B parenthetical precision. Retained as published; no tensor-exact census is required. The model includes language, vision and adapter components."
     },
     "active_parameters_b": {
       "value": null,
       "status": "undisclosed",
       "source_ids": [
         "s1",
-        "s5"
+        "s5",
+        "s10",
+        "s11",
+        "s12",
+        "s13",
+        "s14",
+        "s15",
+        "s16"
       ],
-      "note": "A separate active-parameter count is not reported. Dense architecture does not justify copying the total, particularly because image and text-only processing use different paths."
+      "note": "Meta does not separately report active parameters. Fresh original comparison checks did not establish an active count for this exact 90B checkpoint: Kimi-VL labels active parameters only for the 11B sibling, while InternVL3 labels the 90B plot axis only Parameters. Neither the 70B language backbone, dense topology nor the total establishes the whole-model active count; no phase values are inferred."
     },
     "architecture": {
       "value": "dense",
@@ -262,9 +326,15 @@
         "label": "Llama 3.2 Acceptable Use Policy",
         "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/USE_POLICY.md",
         "type": "primary"
+      },
+      {
+        "label": "Official Llama 3.2 Vision model card, fresh parameter check",
+        "url": "https://raw.githubusercontent.com/meta-llama/llama-models/main/models/llama3_2/MODEL_CARD_VISION.md",
+        "type": "primary"
       }
     ],
-    "notes": "Meta reports 88.8B complete multimodal parameters (nominal 90B), at developer-reported precision. Architecture combines 80 language Transformer layers with 20 vision cross-attention layers. Context is 131072 tokens. Native tool calling applies only to text-only prompts; image prompts are excluded. The custom license incorporates the AUP\u2019s EU multimodal restriction and end-user exception. Active parameter count and dedicated reasoning mode are not separately disclosed."
+    "notes": "Meta reports nominal 88.8B complete multimodal parameters (90B tier); a separate active count remains undisclosed. Architecture combines 80 language Transformer layers with 20 vision cross-attention layers. Context is 131072 tokens. Native tool calling applies only to text-only prompts; image prompts are excluded. The custom license incorporates the AUP\u2019s EU multimodal restriction and end-user exception. A dedicated reasoning mode is not separately disclosed.",
+    "active_parameters_b": null
   },
-  "summary": "Corrects the nominal 90B count to Meta\u2019s reported complete 88.8B, identifies dense vision-language architecture and 20 cross-attention layers, and corrects context to 131072. Clears unsupported reasoning=false; active count remains undisclosed. Confirms original September 25 release, weights, license and modalities, with explicit image-prompt tool-call and EU license limitations. Exact HF config access returned 401; public Meta source code independently verifies context and architecture."
+  "summary": "Fresh October 27 parameter re-audit reconfirms Meta\u2019s nominal 88.8B complete-model total and explicitly retains active_parameters_b=null/undisclosed. Reopened the exact checkpoint card, official vision card and multimodal implementation. Searched exact active-count terms and checked original Kimi-VL, DeepSeek-VL2, Qwen2.5-VL, InternVL3, InternVL3.5 and GLM-V reports. Kimi-VL\u2019s explicit 11B sibling active row cannot establish the 90B count; InternVL3\u2019s 90B plot labels only Parameters. Aggregator active values were not treated as developer disclosures. No tensor census, weight shards, backbone substitution or invented phase counts were used. All 12 unrelated assessments are preserved."
 }
