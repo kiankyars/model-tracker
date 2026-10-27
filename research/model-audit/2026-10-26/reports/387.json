@@ -1,0 +1,286 @@
+{
+  "index": 387,
+  "model_id": "nvidia/nemotron-3.5-super-120b-a12b",
+  "reviewed_at": "2026-10-27T00:51:37.846137+00:00",
+  "sources": [
+    {
+      "id": "provider",
+      "url": "https://docs.perplexity.ai/docs/agent-api/models",
+      "title": "Perplexity Agent API model reference",
+      "publisher": "Perplexity",
+      "accessed": true,
+      "evidence": "Lists the exact endpoint perplexity/nemotron-3.5-super-120b-a12b under NVIDIA. Explicitly documents reasoning, text-only input, 1048576 context and 131072 maximum output. Provides no checkpoint or architecture link, and cautions that third-party feature support varies by model."
+    },
+    {
+      "id": "changelog",
+      "url": "https://docs.perplexity.ai/docs/resources/changelog",
+      "title": "Perplexity API changelog",
+      "publisher": "Perplexity",
+      "accessed": true,
+      "evidence": "An October 2026 entry announces this exact endpoint and repeats its context, output and text-only limits. The entry does not identify a day or served checkpoint."
+    },
+    {
+      "id": "announcement",
+      "url": "https://www.perplexity.ai/changelog/ultrafast-computer-models-decisions-api-and-connector-controls",
+      "title": "October 19 Perplexity product changelog",
+      "publisher": "Perplexity",
+      "accessed": true,
+      "evidence": "Dated October 19, 2026. Distinguishes Super VL in Search from Super in Agent API and confirms the latter accepts text only. Establishes availability by that date, not the earliest release day. Browser extraction succeeded; direct raw request returned403."
+    },
+    {
+      "id": "catalog",
+      "url": "https://raw.githubusercontent.com/anomalyco/models.dev/dev/models/nvidia/nemotron-3.5-super-120b-a12b.toml",
+      "title": "Upstream record and identity comments",
+      "publisher": "Models.dev",
+      "accessed": true,
+      "evidence": "Comments identify this record as Perplexity text-only hosting and explicitly say its release day and open-weight flag were borrowed from the separately cataloged NVIDIA VL release. This is provenance of the disputed assertions, not independent technical verification."
+    },
+    {
+      "id": "nvidia_recipe",
+      "url": "https://docs.nvidia.com/nemotron/latest/nemotron/super35/README.html",
+      "title": "Nemotron 3.5 Super training recipe",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Identifies released Super 3.5 checkpoints as Super-VL. Describes text pretraining followed by multimodal post-training. Does not identify which weights Perplexity serves, so neither nominal counts nor architecture are transferred into this endpoint record."
+    },
+    {
+      "id": "vl_card",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-BF16/blob/fb0ee0bc6b3f70342afd8d84cb80dbadbaa8a1fe/README.md",
+      "title": "Separate Super VL BF16 model card",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Accessible official checkpoint is explicitly vision-language, under OpenMDW-1.1. It documents nominal120B/12B, hybrid architecture and text/image/video support. Those facts belong to the separately audited VL record; the card does not bind the Perplexity endpoint to this revision."
+    },
+    {
+      "id": "text_bridge",
+      "url": "https://docs.nvidia.com/nemo/megatron-bridge/nightly/models/nemotron/nemotron3.5-super-vl-text-only.html",
+      "title": "Super text-only conversion guide",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Describes extracting language and shared MTP weights from a VL checkpoint while omitting media components. It explicitly leaves the public revision unbound and does not mention Perplexity. This demonstrates a possible conversion, not evidence of the hosted endpoint configuration."
+    },
+    {
+      "id": "report",
+      "url": "https://research.nvidia.com/labs/nemotron/files/NVIDIA-Nemotron-3.5-Super-and-Lightning-Technical-Report.pdf",
+      "title": "Nemotron 3.5 Super and Lightning technical report, October 21 edition",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "The abstract identifies the120B/12B Super as multimodal. Checked this later primary report and the exact released card; neither establishes the weights, count convention or architecture of the separately named Perplexity text endpoint."
+    },
+    {
+      "id": "vllm",
+      "url": "https://vllm-project.github.io/2026/10/15/nemotron-3-5-super-vl-vllm.html",
+      "title": "Super VL release support article",
+      "publisher": "vLLM Project with NVIDIA contributors",
+      "accessed": true,
+      "evidence": "The article distinguishes a Super DGX Spark comparison from Super VL in its Figure3 discussion. It supplies no Perplexity checkpoint identity; this reinforces the need to avoid equating names without a binding source."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Nemotron 3.5 Super 120B A12B",
+      "status": "verified",
+      "source_ids": [
+        "provider",
+        "catalog"
+      ],
+      "note": "Preserve the catalog designation for Perplexity’s text-only endpoint, whose API id contains120b-a12b. The size suffix is not a verified parameter measurement."
+    },
+    "developer": {
+      "value": "NVIDIA",
+      "status": "verified",
+      "source_ids": [
+        "provider",
+        "changelog"
+      ],
+      "note": "The provider attributes the model to NVIDIA; Perplexity is the host."
+    },
+    "family": {
+      "value": "nemotron",
+      "status": "verified",
+      "source_ids": [
+        "provider",
+        "changelog"
+      ],
+      "note": "Named Nemotron 3.5 Super by the host; retain the existing family key."
+    },
+    "release_date": {
+      "value": "2026-10",
+      "status": "verified",
+      "source_ids": [
+        "changelog",
+        "announcement",
+        "catalog"
+      ],
+      "note": "Primary API changelog establishes October2026; public product changelog establishes availability by October19. The baseline October15 day was borrowed from the separate VL launch and is not verified for this endpoint."
+    },
+    "open_weights": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "provider",
+        "catalog",
+        "vl_card",
+        "text_bridge"
+      ],
+      "note": "The exact hosted checkpoint is unidentified. Public VL weights and a text-only conversion recipe do not establish that this endpoint’s weights are publicly released; do not claim either open or closed."
+    },
+    "license": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "provider",
+        "vl_card",
+        "text_bridge"
+      ],
+      "note": "No governing model-weight license is identified for this exact endpoint. OpenMDW-1.1 belongs to the accessible VL checkpoint; a provider binding would be needed to apply it here."
+    },
+    "parameters_b": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "provider",
+        "report",
+        "vl_card",
+        "text_bridge"
+      ],
+      "note": "Clear the name-derived120B. NVIDIA’s nominal120B describes the released multimodal Super; the provider does not bind its endpoint to those weights or a particular text-only extraction. A census of VL or extracted language/MTP tensors would not establish this hosted total."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "provider",
+        "report",
+        "vl_card",
+        "text_bridge"
+      ],
+      "note": "Clear the name-derived12B. No primary source located binds a nominal active count or embedding/MTP convention to this exact text endpoint. Do not transfer the separate VL report or infer from the API suffix."
+    },
+    "architecture": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "provider",
+        "nvidia_recipe",
+        "vl_card",
+        "text_bridge"
+      ],
+      "note": "The published VL model and text conversion use hybrid Nemotron-H, but the host does not identify its checkpoint or explicitly shared backbone. Clear the unsupported MoE assertion until that mapping is verified."
+    },
+    "context_window": {
+      "value": 1048576,
+      "status": "verified",
+      "source_ids": [
+        "provider",
+        "changelog"
+      ],
+      "note": "Exact provider-documented context limit;131072 is a separate output limit."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "provider",
+        "changelog",
+        "announcement"
+      ],
+      "note": "Text-only endpoint, preserved separately from Super VL. Provider documents generated text and no media inputs for this identifier."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "provider",
+        "announcement"
+      ],
+      "note": "The provider explicitly identifies this endpoint as a reasoning model."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "provider",
+        "catalog"
+      ],
+      "note": "Baseline support was inferred from the Nemotron family. The exact model documentation confirms reasoning but not custom function calling, and warns that generic Agent API tools are not supported by every model. No authenticated capability test was performed."
+    },
+    "description": {
+      "value": "NVIDIA reasoning model served through Perplexity’s Agent API with text-only input and a 1,048,576-token context window.",
+      "status": "verified",
+      "source_ids": [
+        "provider",
+        "announcement"
+      ],
+      "note": "Describes the documented hosted offering without unverified parameter counts or VL capabilities."
+    }
+  },
+  "patch": {
+    "release_date": "2026-10",
+    "open_weights": null,
+    "license": null,
+    "parameters_b": null,
+    "active_parameters_b": null,
+    "architecture": null,
+    "tool_call": null,
+    "description": "NVIDIA reasoning model served through Perplexity’s Agent API with text-only input and a 1,048,576-token context window.",
+    "date_precision": "month",
+    "parameters_source": null,
+    "source_url": "https://docs.perplexity.ai/docs/agent-api/models",
+    "source_type": "primary",
+    "notes": "This record is Perplexity’s text-only perplexity/nemotron-3.5-super-120b-a12b endpoint, separate from the Super VL release. The host does not identify the served checkpoint. Its parameter counts, architecture, weight availability, model license and custom-tool support remain unverified; 120B/A12B in the name is not measurement evidence. Primary sources establish an October 2026 release but not the day. Context and reasoning are explicitly documented.",
+    "sources": [
+      {
+        "label": "Perplexity Agent API model reference",
+        "url": "https://docs.perplexity.ai/docs/agent-api/models",
+        "type": "primary"
+      },
+      {
+        "label": "Perplexity API changelog",
+        "url": "https://docs.perplexity.ai/docs/resources/changelog",
+        "type": "primary"
+      },
+      {
+        "label": "October 19 Perplexity product changelog",
+        "url": "https://www.perplexity.ai/changelog/ultrafast-computer-models-decisions-api-and-connector-controls",
+        "type": "primary"
+      },
+      {
+        "label": "Upstream record and identity comments",
+        "url": "https://raw.githubusercontent.com/anomalyco/models.dev/dev/models/nvidia/nemotron-3.5-super-120b-a12b.toml",
+        "type": "catalog"
+      },
+      {
+        "label": "Nemotron 3.5 Super training recipe",
+        "url": "https://docs.nvidia.com/nemotron/latest/nemotron/super35/README.html",
+        "type": "primary"
+      },
+      {
+        "label": "Super text-only conversion guide",
+        "url": "https://docs.nvidia.com/nemo/megatron-bridge/nightly/models/nemotron/nemotron3.5-super-vl-text-only.html",
+        "type": "primary"
+      },
+      {
+        "label": "Nemotron 3.5 Super and Lightning technical report, October 21 edition",
+        "url": "https://research.nvidia.com/labs/nemotron/files/NVIDIA-Nemotron-3.5-Super-and-Lightning-Technical-Report.pdf",
+        "type": "primary"
+      }
+    ]
+  },
+  "identity_review": {
+    "frozen_record": "Perplexity text-only hosted endpoint",
+    "separate_vl_record": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+    "checkpoint_binding": "unverified",
+    "census": "Not performed for the endpoint: no bound checkpoint was identified. Downloaded only candidate VL metadata, configuration, code and card for identity review; no tensor payloads or headers were attributed to this endpoint.",
+    "access_limits": "Unauthenticated Perplexity /v1/models returned401. Non-VL guessed HF repositories returned401, which does not prove nonexistence. The old NVIDIA Build route returned genericHTML but its Markdown card returned404. Public provider documentation was accessible.",
+    "research_cache": "/tmp/model-audit-387"
+  },
+  "summary": "All 14 fields reviewed individually. Confirm the Perplexity text-only identity, NVIDIA attribution, reasoning and 1048576 context. Correct release precision to October 2026. Clear unsupported name-derived counts, architecture, weight availability and tool support; leave the model license unverified. The separately cataloged VL checkpoint and text-extraction recipe do not establish the hosted configuration."
+}
