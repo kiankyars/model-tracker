@@ -12104,15 +12104,15 @@
     "developer": "Poolside",
     "developer_id": "poolside",
     "family": "laguna",
-    "description": "Agentic coding model from Poolside in the XS size class for local deployment",
+    "description": "Poolside text model for agentic coding, with open weights, optional reasoning and tool calling.",
     "release_date": "2026-04-28",
     "date_precision": "day",
     "open_weights": true,
-    "license": null,
-    "parameters_b": null,
-    "active_parameters_b": null,
-    "parameters_source": null,
-    "architecture": null,
+    "license": "Apache-2.0",
+    "parameters_b": 33.4,
+    "active_parameters_b": 3,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
     "context_window": 262144,
     "modalities": {
       "input": [
@@ -12124,9 +12124,64 @@
     },
     "reasoning": true,
     "tool_call": true,
-    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/poolside/laguna-xs.2.toml",
-    "source_type": "catalog",
+    "source_url": "https://poolside.ai/blog/introducing-laguna-xs2-m1",
+    "source_type": "primary",
     "sources": [
+      {
+        "label": "Introducing Laguna XS.2 and Laguna M.1 — April 28, 2026",
+        "url": "https://poolside.ai/blog/introducing-laguna-xs2-m1",
+        "type": "primary"
+      },
+      {
+        "label": "Laguna M.1/XS.2 Technical Report — May 25, 2026",
+        "url": "https://poolside.ai/assets/laguna/laguna-m1-xs2-technical-report.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Laguna XS.2 canonical BF16 model card, pinned revision",
+        "url": "https://huggingface.co/poolside/Laguna-XS.2/blob/a397bde04501591d0ac3d74a5d9d0a4ec298ffb8/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Laguna XS.2 exact BF16 model configuration",
+        "url": "https://huggingface.co/poolside/Laguna-XS.2/blob/a397bde04501591d0ac3d74a5d9d0a4ec298ffb8/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Laguna XS.2 selected model implementation",
+        "url": "https://huggingface.co/poolside/Laguna-XS.2/blob/a397bde04501591d0ac3d74a5d9d0a4ec298ffb8/modeling_laguna.py",
+        "type": "primary"
+      },
+      {
+        "label": "Laguna XS.2 configuration defaults",
+        "url": "https://huggingface.co/poolside/Laguna-XS.2/blob/a397bde04501591d0ac3d74a5d9d0a4ec298ffb8/configuration_laguna.py",
+        "type": "primary"
+      },
+      {
+        "label": "Laguna XS.2 complete checkpoint index and all 14 pinned shard headers",
+        "url": "https://huggingface.co/poolside/Laguna-XS.2/blob/a397bde04501591d0ac3d74a5d9d0a4ec298ffb8/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Laguna XS.2 model-materials license",
+        "url": "https://huggingface.co/poolside/Laguna-XS.2/blob/a397bde04501591d0ac3d74a5d9d0a4ec298ffb8/LICENSE.md",
+        "type": "primary"
+      },
+      {
+        "label": "Laguna XS.2 native chat template",
+        "url": "https://huggingface.co/poolside/Laguna-XS.2/blob/a397bde04501591d0ac3d74a5d9d0a4ec298ffb8/chat_template.jinja",
+        "type": "primary"
+      },
+      {
+        "label": "Long context update: Laguna XS.2 and M.1 — May 26, 2026",
+        "url": "https://poolside.ai/blog/long-context-update-laguna-xs-2-and-m-1",
+        "type": "primary"
+      },
+      {
+        "label": "Introducing Laguna XS 2.1 — July 2, 2026",
+        "url": "https://poolside.ai/blog/introducing-laguna-xs-2-1",
+        "type": "primary"
+      },
       {
         "label": "Models.dev record",
         "url": "https://github.com/anomalyco/models.dev/blob/dev/models/poolside/laguna-xs.2.toml",
@@ -12136,7 +12191,11 @@
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
+    "upstream_present": true,
+    "notes": "Parameters are Poolside’s nominal 33.4B total and 3B active per token, including embeddings. At BF16 revision a397bde04501591d0ac3d74a5d9d0a4ec298ffb8, all 14 shard headers reconcile to 33,442,617,088 stored values; excluding 9,984 frozen routing-correction values leaves 33,442,607,104 learned-weight elements. Both untied vocabulary matrices are included; the optional separate DFlash draft is excluded. The 262,144-token limit was released in May 2026 using YaRN after training through 128K; it is not native 256K training. Reasoning is optional and the template defaults it off unless enabled. The July 2 successor announcement scheduled this original model’s API sunset after one week; open weights remain available.",
+    "field_status": {},
+    "audited_at": "2026-10-27T03:49:49.085706Z",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/473.json"
   },
   {
     "id": "deepseek/deepseek-v4-flash",
