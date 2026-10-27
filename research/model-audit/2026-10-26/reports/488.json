@@ -1,7 +1,7 @@
 {
   "index": 488,
   "model_id": "sao10k/l3.1-euryale-70b",
-  "reviewed_at": "2026-10-27T04:23:47.560246Z",
+  "reviewed_at": "2026-10-27T17:54:20.546338Z",
   "sources": [
     {
       "id": "card",
@@ -9,7 +9,7 @@
       "title": "Exact Euryale v2.2 model card",
       "publisher": "Sao10K",
       "accessed": true,
-      "evidence": "Names Llama 3.1 70B Euryale v2.2 and declares CC-BY-NC-4.0. Describes a two-epoch fine-tune for multi-turn conversation, creative writing and roleplay, with human and Claude data. The English language tag and specialized purpose do not support the baseline generic multilingual/coding description. Mentions reasoning/spatial-awareness training data, without documenting a dedicated reasoning mode or tool-calling protocol."
+      "evidence": "Names Llama 3.1 70B Euryale v2.2 and declares CC-BY-NC-4.0. Describes a two-epoch fine-tune for multi-turn conversation, creative writing and roleplay, with human and Claude data. The English language tag and specialized purpose do not support the baseline generic multilingual/coding description. Mentions reasoning/spatial-awareness training data, without documenting a dedicated reasoning mode or tool-calling protocol. Reopened the complete pinned original on October 27 for the parameter re-audit: explicitly identifies Llama-3.1-70B-Euryale-v2.2 and single-stage fine-tuning over two epochs. Its changes concern training data, with no pruning, distillation, expert expansion, vocabulary expansion or added modality described."
     },
     {
       "id": "config",
@@ -17,7 +17,7 @@
       "title": "Exact Euryale v2.2 configuration",
       "publisher": "Sao10K",
       "accessed": true,
-      "evidence": "LlamaForCausalLM, original path Meta-Llama-3.1-70B-Instruct, 80 layers, hidden size 8192, intermediate size 28672, 64 attention heads, 8 KV heads, vocabulary 128256, untied embeddings, no attention/MLP bias, FP16, max_position_embeddings 131072, Llama 3 RoPE scaling, Transformers 4.44.0. No quantization or custom-code configuration."
+      "evidence": "LlamaForCausalLM, original path Meta-Llama-3.1-70B-Instruct, 80 layers, hidden size 8192, intermediate size 28672, 64 attention heads, 8 KV heads, vocabulary 128256, untied embeddings, no attention/MLP bias, FP16, max_position_embeddings 131072, Llama 3 RoPE scaling, Transformers 4.44.0. No quantization or custom-code configuration. Reopened October 27: the exact named Meta-Llama-3.1-70B-Instruct lineage and standard 80-layer architecture corroborate unchanged nominal size after fine-tuning. The independent configuration formula again gives 70,553,706,496 learned parameters."
     },
     {
       "id": "tokenizer",
@@ -33,7 +33,7 @@
       "title": "Original 30-shard PyTorch checkpoint index",
       "publisher": "Sao10K",
       "accessed": true,
-      "evidence": "Indexes 723 tensors in 30 original PyTorch shards. metadata.total_size is 141107412992 bytes. All indexed names and shard assignments were checked against bounded ZIP directory and data.pkl metadata for every shard; all tensors are unquantized FP16 learned weights and their shapes match the configuration. Byte size alone was not used as proof of parameter count."
+      "evidence": "Indexes 723 tensors in 30 original PyTorch shards. metadata.total_size is 141107412992 bytes. All indexed names and shard assignments were checked against bounded ZIP directory and data.pkl metadata for every shard; all tensors are unquantized FP16 learned weights and their shapes match the configuration. Byte size alone was not used as proof of parameter count. The parameter re-audit reopened only this pinned index on October 27 and reconfirmed 723 entries, 30 shard names, the same byte total, and only standard layer, embedding, norm and output-head keys; the complete earlier shard census is retained without repeating any shard requests."
     },
     {
       "id": "implementation",
@@ -89,7 +89,7 @@
       "title": "Later first-party Euryale v2.3 comparison",
       "publisher": "Sao10K",
       "accessed": true,
-      "evidence": "Explicitly calls v2.3 a direct successor/replacement of Euryale v2.2, built on Llama 3.3 Instruct. It provides no separately labeled active-parameter count or new native-tool/thinking specification for v2.2. Its own base model, LoRA and training settings are not transferred to this checkpoint."
+      "evidence": "Explicitly calls v2.3 a direct successor/replacement of Euryale v2.2, built on Llama 3.3 Instruct. It provides no separately labeled active-parameter count or new native-tool/thinking specification for v2.2. Its own base model, LoRA and training settings are not transferred to this checkpoint. Complete current card reopened October 27; no retrospective v2.2 active-count disclosure found."
     },
     {
       "id": "later_hanami",
@@ -97,7 +97,7 @@
       "title": "Later first-party Hanami-x1 comparison",
       "publisher": "Sao10K",
       "accessed": true,
-      "evidence": "Describes Hanami-x1 as an experiment over Euryale v2.2 and compares settings. It does not disclose a v2.2 active-parameter count or resolve dedicated reasoning/tool support. Hanami-specific properties are not transferred."
+      "evidence": "Describes Hanami-x1 as an experiment over Euryale v2.2 and compares settings. It does not disclose a v2.2 active-parameter count or resolve dedicated reasoning/tool support. Hanami-specific properties are not transferred. Complete current card reopened October 27; no retrospective v2.2 active-count disclosure found."
     },
     {
       "id": "shard_01",
@@ -338,6 +338,24 @@
       "publisher": "Sao10K",
       "accessed": true,
       "evidence": "HTTP 206 reads of the ZIP64 tail, central directory, 30-byte data.pkl local header and data.pkl body only (741 metadata bytes). Static pickletools opcode inspection yielded 1 FP16 tensors and 1050673152 learned elements. All storage sizes, offsets, contiguous strides and names reconcile; no tensor payload downloaded and no unpickling or remote code executed."
+    },
+    {
+      "id": "reaudit_jamba",
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2025/file/a9ed43fa31dc8b4a7d7a673d713dcb5f-Paper-Conference.pdf",
+      "title": "AI21 Jamba original ICLR 2025 paper, Table 1",
+      "publisher": "AI21 Labs researchers / ICLR",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Independently downloaded the original paper on October 27 and inspected the complete rendered printed page 5 and extracted table. Table 1 has distinct Available params and Active params columns and gives Llama-3.1 70B as 70B in both. This supports AI21's published nominal active-parameter convention for the identified Llama 3.1 size. It is an original model-team comparison, not a Meta or Sao10K active-count disclosure or an exact per-token tensor count."
+    },
+    {
+      "id": "reaudit_meta_card",
+      "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3_1/MODEL_CARD.md",
+      "title": "Meta Llama 3.1 original model card and tuned-model lineage",
+      "publisher": "Meta",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Reopened the full original card on October 27. It identifies pretrained and instruction-tuned text-only Llama 3.1 in the same 8B, 70B and 405B size classes, with an autoregressive Transformer architecture and SFT/RLHF for tuned versions. This bridges the AI21 Llama-3.1 70B comparison row to the exact Meta-Llama-3.1-70B-Instruct named in Euryale's configuration. The card does not itself give a separate active count."
     }
   ],
   "fields": {
@@ -465,18 +483,21 @@
         "shard_29",
         "shard_30"
       ],
-      "note": "Complete exact original-checkpoint count: 70,553,706,496 learned scalar parameters across all 723 tensors in all 30 indexed FP16 shards. The independent configuration calculation gives the same total. Includes distinct input embeddings and output head, all layer norms and final norm; no omitted biases, experts, MTP, quantization scales or persistent rotary buffers."
+      "note": "Complete exact original-checkpoint count: 70,553,706,496 learned scalar parameters across all 723 tensors in all 30 indexed FP16 shards. The independent configuration calculation gives the same total. Includes distinct input embeddings and output head, all layer norms and final norm; no omitted biases, experts, MTP, quantization scales or persistent rotary buffers. October 27 re-audit retains that verified earlier complete census; the freshly reopened pinned configuration and index independently reconcile with it. The creator's nominal 70B label is consistent and does not replace this established precise total. No weight-shard requests were made in this pass."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 70,
+      "status": "verified",
       "source_ids": [
         "card",
         "config",
+        "index",
+        "reaudit_meta_card",
+        "reaudit_jamba",
         "later_euryale",
         "later_hanami"
       ],
-      "note": "No separately defined per-token active-parameter metric is published for this exact fine-tune in the checked original or later first-party comparison cards. Dense architecture does not by itself justify copying the total into this field."
+      "note": "Nominal 70B active parameters inferred through the explicitly documented, structurally unchanged Llama 3.1 70B Instruct fine-tuning lineage. AI21's original Jamba ICLR Table 1 explicitly assigns Llama-3.1 70B an active count of 70B; Meta identifies pretrained and instruction-tuned variants in that same size class. Euryale's creator describes a two-epoch single-stage fine-tune, and its named-base configuration plus complete original checkpoint census support unchanged architecture, with no pruning, distillation, added experts or modalities. This transfers AI21's published nominal comparison convention, not the precise checkpoint total and not a separately disclosed Sao10K per-token measurement. Fresh exact-model and later-card searches found no different supported active-count disclosure."
     },
     "architecture": {
       "value": "dense",
@@ -590,7 +611,7 @@
     "reasoning": null,
     "tool_call": null,
     "description": "Llama 3.1 70B Instruct fine-tune for multi-turn conversation, creative writing, and roleplay.",
-    "notes": "Exact v2.2 checkpoint: 70,553,706,496 parameters counted from bounded metadata for all 30 original FP16 PyTorch shards and reconciled with configuration. Release month is August 2024; the Aug 28 provider listing is later than documented public use, and the first-public day is unresolved. Card declares CC-BY-NC-4.0; underlying Llama 3.1 Community License terms also apply to the base materials. Active parameters are not separately reported. Dedicated reasoning and native tool support remain unverified for this fine-tune.",
+    "notes": "Complete original v2.2 checkpoint: 70,553,706,496 parameters. Nominal active count of 70B is inferred from its documented Llama 3.1 70B Instruct fine-tuning lineage using AI21's Jamba comparison convention; it is not an exact per-token census. Release month is August 2024; the first-public day is unresolved. The card declares CC-BY-NC-4.0, with underlying Llama 3.1 Community License obligations. Dedicated reasoning and native tool support remain unverified.",
     "sources": [
       {
         "label": "Exact Euryale v2.2 model card",
@@ -621,8 +642,19 @@
         "label": "Llama 3.1 Community License",
         "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3_1/LICENSE",
         "type": "primary"
+      },
+      {
+        "label": "AI21 Jamba original ICLR 2025 paper, Table 1",
+        "url": "https://proceedings.iclr.cc/paper_files/paper/2025/file/a9ed43fa31dc8b4a7d7a673d713dcb5f-Paper-Conference.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Meta Llama 3.1 original model card and tuned-model lineage",
+        "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3_1/MODEL_CARD.md",
+        "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": 70
   },
   "parameter_audit": {
     "revision": "62b47ff8c2c24d326a7b960773b9c853400150b6",
@@ -834,5 +866,22 @@
       }
     ]
   },
-  "summary": "Verified the exact Euryale v2.2 fine-tune and all 14 fields. Corrects nominal 70B to the complete 70.553706496B checkpoint count, adds dense architecture and published licensing, specializes the description, and changes release precision to August 2024 rather than treating a later provider listing as release day. Clears unsupported reasoning=false and tool_call=true; separately reported active parameters remain undisclosed. All 30 original FP16 shards were inspected through bounded metadata only."
+  "summary": "Parameter re-audit retains the verified complete 70.553706496B original-checkpoint total and resolves active parameters to nominal 70B through the explicit Llama 3.1 70B Instruct fine-tuning lineage and AI21's original Jamba Table 1 active-count convention. Fresh original card, configuration and index checks found no structural change defeating that inference; later Euryale and Hanami cards supply no different v2.2 active count. This pass downloaded no weight shards and preserves the prior complete metadata census and the other 12 field assessments.",
+  "parameter_reaudit": {
+    "agent": "/root/parameters_488",
+    "reviewed_at": "2026-10-27T17:54:20.546338Z",
+    "outcome": "Retain precise total 70.553706496B; resolve nominal active parameters to 70B by documented unchanged fine-tuning lineage and the attributed AI21 comparison convention.",
+    "fresh_search_queries": [
+      "\"Euryale-v2.2\" \"parameters\" \"active\"",
+      "\"L3.1-70B-Euryale-v2.2\" fine-tune parameters",
+      "\"Llama-3.1 70B\" \"Active params\" Jamba",
+      "site:huggingface.co/Sao10K \"Euryale\" \"prun\" OR \"distill\" OR \"active parameters\"",
+      "site:arxiv.org \"Euryale\" \"active\" parameters",
+      "\"Euryale v2.2\" \"parameters\" \"2025\" OR \"2026\""
+    ],
+    "search_findings": "Bounded fresh searches recovered the original creator card/configuration and the original AI21 Jamba comparison. Later creator cards were reopened in full. No later original source supplying a different active-count convention or evidence of a structural size change was found; secondary deployment and model catalogs were not used to establish counts.",
+    "access_limitations": "A direct request for the gated Meta Llama-3.1-70B-Instruct configuration returned HTTP 401 and its browser-view URL was inaccessible. Neither is counted as read evidence; the public Meta original model card and exact creator-published configuration support the named lineage.",
+    "remaining_uncertainty": "The 70B active value is a published nominal comparison convention inherited through the documented fine-tune, not an exact token-dependent participation measurement or a separate fine-tuner disclosure.",
+    "weight_shards_requested": false
+  }
 }
