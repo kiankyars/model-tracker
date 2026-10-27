@@ -1,7 +1,7 @@
 {
   "index": 166,
   "model_id": "deepseek/deepseek-chat",
-  "reviewed_at": "2026-10-26T18:55:48.252123+00:00",
+  "reviewed_at": "2026-10-27T19:33:39.244389Z",
   "sources": [
     {
       "id": "s1",
@@ -66,6 +66,38 @@
       "publisher": "DeepSeek",
       "accessed": true,
       "evidence": "The baseline weight link opens a V3.2 text-generation model card. It describes the earlier backing model, not the April 2026 alias mapping."
+    },
+    {
+      "id": "date_s1",
+      "url": "https://api-docs.deepseek.com/updates/",
+      "title": "Original DeepSeek API update chronology revisited",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Fresh full chronology retrieved. Earliest listed exact deepseek-chat event remains May 17, 2024 and explicitly calls it an upgrade, not first launch. Later V3/V3.2/V4 mapping changes cannot serve as initial release."
+    },
+    {
+      "id": "date_s2",
+      "url": "https://raw.githubusercontent.com/deepseek-ai/DeepSeek-V2/e23eeb51a8eaef96601f4074a0008c20c926d762/README.md",
+      "title": "Immutable May 6, 2024 DeepSeek-V2 launch README",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Original GitHub history identifies commit e23eeb51 at May 6, 2024 14:50Z. Immutable README advertises the native OpenAI-compatible API platform, but does not name the deepseek-chat alias or state that it is the platform's first launch."
+    },
+    {
+      "id": "date_s3",
+      "url": "https://www.deepseek.com/sitemap.xml",
+      "title": "Original DeepSeek news archive inventory",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Fresh original sitemap and linked news page checked. Available archived product entries start with July 2024 API upgrades; no January 2024 platform launch source was present."
+    },
+    {
+      "id": "date_s4",
+      "url": "https://raw.githubusercontent.com/deepseek-ai/DeepSeek-LLM/main/README.md",
+      "title": "Original DeepSeek-LLM repository README checked",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Original full README retrieved. Describes the initial 7B/67B weights and research; no dated initial deepseek-chat API alias launch resolves the catalog target."
     }
   ],
   "fields": {
@@ -97,10 +129,12 @@
       "value": null,
       "status": "unverified",
       "source_ids": [
-        "s1",
-        "s5"
+        "date_s1",
+        "date_s2",
+        "date_s3",
+        "date_s4"
       ],
-      "note": "Original alias launch was not established. It existed by May 17, 2024; December 1, 2025 is a backing-model upgrade and must not serve as first release."
+      "note": "Still unresolved: original API changelog starts with an existing-alias upgrade on May 17, 2024. A newly found January 30, 2024 platform-launch lead appears in later Chinese retrospectives, but no original dated announcement tying that launch to the exact deepseek-chat identifier was recovered. The immutable May 6 native README verifies API availability, not initial alias release."
     },
     "open_weights": {
       "value": true,
@@ -207,7 +241,7 @@
     "parameters_source": "primary_source",
     "architecture": "moe",
     "description": "Legacy DeepSeek chat API alias, last explicitly mapped to DeepSeek-V4-Flash preview in non-thinking mode; announced for retirement in July 2026.",
-    "notes": "Specifications describe the explicit April 24, 2026 V4-Flash preview mapping. The original alias launch remains unverified; the former December 1, 2025 date describes its V3.2 upgrade. DeepSeek announced inaccessibility after July 24, 2026, 15:59 UTC; no authenticated endpoint test was performed. Counts are developer nominal model parameters, not Hugging Face storage totals. MIT/open weights refer to the backing checkpoint.",
+    "notes": "Specifications describe the explicit April 24, 2026 V4-Flash preview mapping. The original alias launch remains unverified; the former December 1, 2025 date describes its V3.2 upgrade. DeepSeek announced inaccessibility after July 24, 2026, 15:59 UTC; no authenticated endpoint test was performed. Counts are developer nominal model parameters, not Hugging Face storage totals. MIT/open weights refer to the backing checkpoint. Release-date re-audit checked the original news archive and immutable May 6, 2024 V2 README. A January 30, 2024 API-platform launch appears in secondary retrospectives, but its original exact-alias launch evidence remains unverified.",
     "sources": [
       {
         "label": "DeepSeek alias history",
@@ -238,8 +272,61 @@
         "label": "DeepSeek alias function calling announcement",
         "url": "https://www.deepseek.com/en/news/api-upgrade/",
         "type": "primary"
+      },
+      {
+        "label": "Original DeepSeek API update chronology revisited",
+        "url": "https://api-docs.deepseek.com/updates/",
+        "type": "primary"
+      },
+      {
+        "label": "Immutable May 6, 2024 DeepSeek-V2 launch README",
+        "url": "https://raw.githubusercontent.com/deepseek-ai/DeepSeek-V2/e23eeb51a8eaef96601f4074a0008c20c926d762/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Original DeepSeek news archive inventory",
+        "url": "https://www.deepseek.com/sitemap.xml",
+        "type": "primary"
+      },
+      {
+        "label": "Original DeepSeek-LLM repository README checked",
+        "url": "https://raw.githubusercontent.com/deepseek-ai/DeepSeek-LLM/main/README.md",
+        "type": "primary"
       }
     ]
   },
-  "summary": "All 14 fields reviewed. Add primary-supported nominal 284B total/13B active and MoE architecture for the last explicit V4-Flash preview mapping, plus MIT weight license. Clear the upgrade date incorrectly presented as first release. Retain historically documented 1M/text/non-thinking/tool capabilities with retirement and mapping caveats. Original release date and current endpoint operation remain unresolved."
+  "summary": "All 14 fields reviewed. Add primary-supported nominal 284B total/13B active and MoE architecture for the last explicit V4-Flash preview mapping, plus MIT weight license. Clear the upgrade date incorrectly presented as first release. Retain historically documented 1M/text/non-thinking/tool capabilities with retirement and mapping caveats. Original release date and current endpoint operation remain unresolved. Fresh release-date review inspected the native news archive and immutable V2 launch README. It found a January 30, 2024 platform-launch lead in secondary histories but could not verify the original announcement or exact alias mapping; the date remains null.",
+  "release_date_reaudit": {
+    "reviewed_at": "2026-10-27T19:33:39.244389Z",
+    "agent": "/root/date_checkpoints",
+    "searches": [
+      "DeepSeek API launched January 2024 deepseek-chat",
+      "DeepSeek 开放平台 上线 2023 2024 API",
+      "\"DeepSeek\" \"2024年1月30日\" API",
+      "\"DeepSeek\" \"API 服务启动测试\"",
+      "\"DeepSeek\" \"开放平台正式上线\" site:zhihu.com",
+      "\"DeepSeek\" \"API 服务启动测试\" site:mp.weixin.qq.com",
+      "Native sitemap/news, API chronology, DeepSeek-LLM README/issues, immutable DeepSeek-V2 May 6 README"
+    ],
+    "accessed_originals": [
+      "https://api-docs.deepseek.com/updates/",
+      "https://raw.githubusercontent.com/deepseek-ai/DeepSeek-V2/e23eeb51a8eaef96601f4074a0008c20c926d762/README.md",
+      "https://www.deepseek.com/sitemap.xml",
+      "https://raw.githubusercontent.com/deepseek-ai/DeepSeek-LLM/main/README.md"
+    ],
+    "findings": [
+      "The current official chronology explicitly labels its first exact-alias entry an upgrade.",
+      "An immutable May 6 README verifies API availability earlier than the current changelog but does not establish when the alias first launched.",
+      "Chinese retrospective https://hub.baai.ac.cn/view/43089 and derivative reports claim January 30, 2024 platform launch with Chat/Coder; this is a lead, not primary proof, and was not promoted into the catalog."
+    ],
+    "outcome": {
+      "release_date": null,
+      "date_precision": null,
+      "status": "unverified"
+    },
+    "limitations": [
+      "No primary January 2024 announcement or archived original documentation identifying the rolling alias was recovered.",
+      "The original LLM checkpoint, web-chat launch, API-platform launch and later backing-model replacements are distinct events."
+    ]
+  }
 }
