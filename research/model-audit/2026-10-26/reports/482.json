@@ -1,0 +1,287 @@
+{
+  "index": 482,
+  "model_id": "sakana/fugu",
+  "reviewed_at": "2026-10-27T04:10:07.353487Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://sakana.ai/fugu-release/",
+      "title": "Sakana Fugu: One Model to Command Them All",
+      "publisher": "Sakana AI",
+      "accessed": true,
+      "evidence": "June 22, 2026 announcement explicitly makes Fugu and Fugu Ultra generally available through a commercial API. Fugu is the latency-focused variant with configurable worker exclusions. The post links the technical report."
+    },
+    {
+      "id": "s2",
+      "url": "https://arxiv.org/html/2606.21228v2",
+      "title": "Sakana Fugu Technical Report, v2, sections 3.1 and4",
+      "publisher": "Sakana AI / arXiv",
+      "accessed": true,
+      "evidence": "Exact Fugu uses a pretrained language-model backbone with a lightweight worker-selection head and singular-value-scale adaptation. It selects one worker per input without role assignment; training combines supervised fine-tuning and sep-CMA-ES. Total backbone/head and active counts are not reported."
+    },
+    {
+      "id": "s3",
+      "url": "https://sakana.ai/fugu-gemma4/",
+      "title": "Toward backbone-independent orchestration: validation of Gemma 4-based Sakana Fugu",
+      "publisher": "Sakana AI",
+      "accessed": true,
+      "evidence": "August 10, 2026 Japanese technical update identifies previous orchestrators as Qwen-based without version or size. A separate Gemma 4 E2B experiment demonstrates comparable routing results; it does not identify Gemma 4 E2B as the deployed bare fugu backend."
+    },
+    {
+      "id": "s4",
+      "url": "https://raw.githubusercontent.com/SakanaAI/fugu/8023e4dd279339ada5d0e6ac2ffe4416da62e030/configs/files/fugu.json",
+      "title": "Pinned official Fugu integration model catalog",
+      "publisher": "Sakana AI",
+      "accessed": true,
+      "evidence": "Exact slug fugu has display_name Fugu, context_window 1000000, text/image input, high/xhigh reasoning levels and parallel tool-call support. This is an API integration contract, not a neural checkpoint configuration. Its no-reasoning-summaries flag is distinct from reasoning support."
+    },
+    {
+      "id": "s5",
+      "url": "https://console.sakana.ai/models",
+      "title": "Sakana API models and supported endpoints",
+      "publisher": "Sakana AI",
+      "accessed": true,
+      "evidence": "Bare fugu is the default variant and routes to an appropriate worker. Documents reasoning effort controls, function tools/tool_choice, text formats, and a fugu web_search example. Ultra versions and Max are separate identifiers. Current underlying pool membership is not fully disclosed."
+    },
+    {
+      "id": "s6",
+      "url": "https://console.sakana.ai/terms-of-service",
+      "title": "Sakana AI API Platform Terms of Service",
+      "publisher": "Sakana AI",
+      "accessed": true,
+      "evidence": "Terms effective September 28, 2026 cover Fugu API use. Service and configuration IP remains with Sakana and relevant licensors; permission is limited to service use and does not grant model redistribution rights. This supports proprietary hosted access, not an open-weight license."
+    },
+    {
+      "id": "s7",
+      "url": "https://sakana.ai/fugu-beta/",
+      "title": "Sakana Fugu beta announcement",
+      "publisher": "Sakana AI",
+      "accessed": true,
+      "evidence": "April 24, 2026 announces beta applications and describes Fugu Mini and Fugu Ultra variants. It does not explicitly establish identity between that Mini revision and the later bare fugu offering. Earlier family beta is distinguished from the exact-name June 22 general release."
+    },
+    {
+      "id": "s8",
+      "url": "https://api.github.com/repos/SakanaAI/fugu/git/trees/8023e4dd279339ada5d0e6ac2ffe4416da62e030?recursive=1",
+      "title": "Official Fugu repository file inventory",
+      "publisher": "Sakana AI / GitHub",
+      "accessed": true,
+      "evidence": "Complete repository tree contains integration scripts/configuration, demos and a technical report; no checkpoint tensor files. Also checked SakanaAI HuggingFace fugu search, which returned no models. No published exact orchestrator weights or neural configuration were located."
+    },
+    {
+      "id": "s9",
+      "url": "https://raw.githubusercontent.com/SakanaAI/fugu/d1d3d0fb5609662d4c47d065c92d732c08154248/configs/files/fugu.json",
+      "title": "Initial official integration catalog, June 17, 2026 commit",
+      "publisher": "Sakana AI / GitHub",
+      "accessed": true,
+      "evidence": "June 17 initial deployment commit already configures bare fugu and 1M context. A client configuration commit is not evidence that public API access began that date. No June 15 release claim occurs here."
+    },
+    {
+      "id": "s10",
+      "url": "https://sakana.ai/fugu-max-release/",
+      "title": "Introducing Fugu Max and Fugu Ultra v2",
+      "publisher": "Sakana AI",
+      "accessed": true,
+      "evidence": "September 11 later announcement recounts April beta and June general availability, introduces separate Max and Ultra v2 variants, and stresses modular pools. It does not disclose bare fugu backbone size or dense/MoE topology."
+    },
+    {
+      "id": "s11",
+      "url": "https://arxiv.org/abs/2606.21228",
+      "title": "Sakana Fugu Technical Report submission history",
+      "publisher": "Sakana AI / arXiv",
+      "accessed": true,
+      "evidence": "Version 1 was submitted June 19, 2026 and version 2 June 23. Both full HTML versions were checked for an explicit Mini-to-Fugu rename or exact revision mapping; none was found. These are paper dates, not independently verified API availability dates."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Fugu",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s5"
+      ],
+      "note": "Exact bare fugu offering, distinct from Ultra and Max."
+    },
+    "developer": {
+      "value": "Sakana AI",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s6"
+      ],
+      "note": "Sakana develops the learned routing system; workers can be provided by other developers."
+    },
+    "family": {
+      "value": "fugu",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Normalized name for the Fugu product family."
+    },
+    "release_date": {
+      "value": "2026-06-22",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7",
+        "s9",
+        "s11"
+      ],
+      "note": "Explicit general release of the bare-name Fugu variant. Earlier April 24 beta is described as Fugu Mini, whose exact identity continuity is unconfirmed. June 17 configuration and June 19 paper submission are not service-launch evidence. Baseline June 15 is unsupported; the dated Ultra sibling ID cannot establish this date."
+    },
+    "open_weights": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6",
+        "s8"
+      ],
+      "note": "Commercial API offering; public integration code and demos do not distribute its learned orchestrator weights. Open workers do not make the combined service open-weight."
+    },
+    "license": {
+      "value": "Proprietary",
+      "status": "verified",
+      "source_ids": [
+        "s6"
+      ],
+      "note": "Descriptive classification of the hosted Fugu service. Neither a worker license nor the research paper copyright licenses this complete system."
+    },
+    "parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s8",
+        "s10"
+      ],
+      "note": "No exact deployed orchestrator or system total is published in the examined technical evidence. Qwen variant is unspecified; Gemma 4 E2B is a separate validation experiment. Trinity and Conductor research sizes do not establish Fugu size."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s5"
+      ],
+      "note": "No active learned-weight count or counting convention is published. One worker per request is a system routing rule, not a numeric per-token active parameter count."
+    },
+    "architecture": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s10"
+      ],
+      "note": "Learned LM-based routing and historical Qwen lineage are documented, but the exact deployed backbone neural topology is undisclosed. A pool of independently called models is not a neural MoE checkpoint."
+    },
+    "context_window": {
+      "value": 1000000,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s9"
+      ],
+      "note": "Official exact-slug client catalog advertises 1,000,000 tokens. This is the Fugu service interface allowance, not proof that its router or every selectable worker natively has that context."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5"
+      ],
+      "note": "Text/image API input and text output contract. This describes the composed service, without asserting a native vision encoder in the orchestrator."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5"
+      ],
+      "note": "Fugu exposes high/xhigh reasoning controls; max aliases xhigh. Capability belongs to the routed service, not evidence that the selection head emits a reasoning trace. Reasoning summaries are disabled in the integration catalog."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5"
+      ],
+      "note": "API supports model-selected function tools and tool_choice, plus documented built-in web_search; official fugu config supports parallel tool calls."
+    },
+    "description": {
+      "value": "Learned router that selects a worker model for each input, exposed through a text-and-image API.",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s5"
+      ],
+      "note": "Uses the exact variant's single-worker routing description rather than applying Ultra's deeper coordination mechanism."
+    }
+  },
+  "patch": {
+    "description": "Learned router that selects a worker model for each input, exposed through a text-and-image API.",
+    "release_date": "2026-06-22",
+    "date_precision": "day",
+    "license": "Proprietary",
+    "source_url": "https://sakana.ai/fugu-release/",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Sakana Fugu: One Model to Command Them All",
+        "url": "https://sakana.ai/fugu-release/",
+        "type": "announcement"
+      },
+      {
+        "label": "Sakana Fugu Technical Report, v2, sections 3.1 and4",
+        "url": "https://arxiv.org/html/2606.21228v2",
+        "type": "paper"
+      },
+      {
+        "label": "Toward backbone-independent orchestration: validation of Gemma 4-based Sakana Fugu",
+        "url": "https://sakana.ai/fugu-gemma4/",
+        "type": "docs"
+      },
+      {
+        "label": "Pinned official Fugu integration model catalog",
+        "url": "https://raw.githubusercontent.com/SakanaAI/fugu/8023e4dd279339ada5d0e6ac2ffe4416da62e030/configs/files/fugu.json",
+        "type": "docs"
+      },
+      {
+        "label": "Sakana API models and supported endpoints",
+        "url": "https://console.sakana.ai/models",
+        "type": "docs"
+      },
+      {
+        "label": "Sakana AI API Platform Terms of Service",
+        "url": "https://console.sakana.ai/terms-of-service",
+        "type": "docs"
+      },
+      {
+        "label": "Sakana Fugu beta announcement",
+        "url": "https://sakana.ai/fugu-beta/",
+        "type": "announcement"
+      }
+    ],
+    "notes": "June 22, 2026 is the explicitly documented general release of bare Fugu; the April 24 family beta used the Fugu Mini name. The earlier June 15 catalog date is unverified. Fugu is a learned router over independently supplied worker models. Its technical report describes one worker selected per input, a lightweight selection head and singular-value adaptation; an August update identifies earlier Qwen-based orchestrators without naming their size or version. The Gemma 4 E2B experiment does not identify the deployed backend. Total/active parameters and exact neural topology remain undisclosed. The 1M context, text/image input, reasoning and tools describe the service interface, not a single checkpoint. No authenticated API request was made."
+  },
+  "summary": "Corrects the unsupported June 15 date to the explicitly documented June 22 general release, records proprietary hosted access, and replaces the vague description with exact Fugu routing behavior. Preserves primary-verified 1M interface context, text/image input, reasoning controls and tool calls. Exact counts and neural topology remain undisclosed after original report, later Qwen/Gemma 4 research, successor announcement, API docs and public repository checks; earlier beta identity and current authenticated operation are not asserted."
+}
