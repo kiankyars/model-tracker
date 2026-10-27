@@ -1,7 +1,7 @@
 {
   "index": 141,
   "model_id": "cognitivecomputations/dolphin-mistral-24b-venice-edition",
-  "reviewed_at": "2026-10-26T18:06:24.984593Z",
+  "reviewed_at": "2026-10-27T11:10:13.851150Z",
   "sources": [
     {
       "id": "s1",
@@ -17,7 +17,8 @@
       "title": "Dolphin Mistral 24B Venice Edition original model card",
       "publisher": "Dolphin",
       "accessed": true,
-      "evidence": "The 2025 revision names the exact model, Apache-2.0 license, Mistral-Small-24B-Instruct-2501 base, Venice collaboration and Venice Uncensored alias. It documents general conversation, configurable system prompts and text-generation usage."
+      "evidence": "The 2025 revision names the exact model, Apache-2.0 license, Mistral-Small-24B-Instruct-2501 base, Venice collaboration and Venice Uncensored alias. It documents general conversation, configurable system prompts and text-generation usage.",
+      "accessed_at": "2026-10-27T11:10:13.851150Z"
     },
     {
       "id": "s3",
@@ -25,7 +26,8 @@
       "title": "Original text checkpoint configuration",
       "publisher": "Dolphin",
       "accessed": true,
-      "evidence": "MistralForCausalLM, model_type mistral, 40 layers, hidden size 5120, intermediate size 32768, 32 attention heads, 8 KV heads, untied embeddings, BF16 and max_position_embeddings 32768. No expert routing or vision component."
+      "evidence": "MistralForCausalLM, model_type mistral, 40 layers, hidden size 5120, intermediate size 32768, 32 attention heads, 8 KV heads, untied embeddings, BF16 and max_position_embeddings 32768. No expert routing or vision component.",
+      "accessed_at": "2026-10-27T11:10:13.851150Z"
     },
     {
       "id": "s4",
@@ -41,7 +43,8 @@
       "title": "Developer checkpoint revision history",
       "publisher": "Dolphin / Hugging Face",
       "accessed": true,
-      "evidence": "History shows the original weights uploaded June 12, 2025, and an April 16, 2026 replacement explicitly labeled version 1.2 with vision, 131K context and improved tool calling. Current revision is b23ff40b4a25e4f93de432bd896d4464479a9f79. The original cognitivecomputations repository URL redirects to this dphn repository."
+      "evidence": "History shows the original weights uploaded June 12, 2025, and an April 16, 2026 replacement explicitly labeled version 1.2 with vision, 131K context and improved tool calling. Current revision is b23ff40b4a25e4f93de432bd896d4464479a9f79. The original cognitivecomputations repository URL redirects to this dphn repository.",
+      "accessed_at": "2026-10-27T11:10:13.851150Z"
     },
     {
       "id": "s6",
@@ -49,7 +52,8 @@
       "title": "Version 1.2 checkpoint configuration",
       "publisher": "Dolphin",
       "accessed": true,
-      "evidence": "Current model is Mistral3ForConditionalGeneration: a 40-layer dense Mistral text decoder plus 24-layer Pixtral vision encoder and projector. Text max_position_embeddings is 131072. This differs from the original text-only configuration."
+      "evidence": "Freshly reopened v1.2 Mistral3ForConditionalGeneration configuration. Its dense language decoder preserves the named Mistral-Small-24B-Instruct-2501 base dimensions: 40 layers, hidden size 5120, intermediate size 32768, 32 attention heads, 8 KV heads, head dimension 128 and vocabulary 131072. The pinned index retains separate language embeddings and lm_head. Context and RoPE settings change to 131072 and 1e9, which do not change learned dimensions. It additionally has a 24-layer Pixtral encoder (1024 hidden, 4096 intermediate, 16 heads, patch size 14) and an unbiased multimodal projector with spatial_merge_size 2. Those added visual components prevent treating the whole current checkpoint as the text-only base.",
+      "accessed_at": "2026-10-27T11:10:13.851150Z"
     },
     {
       "id": "s7",
@@ -57,7 +61,8 @@
       "title": "Version 1.2 checkpoint index and indexed safetensors headers",
       "publisher": "Dolphin",
       "accessed": true,
-      "evidence": "All ten indexed shards were read with HTTP byte ranges 0-65535 only (206 responses). The 585 BF16 .weight tensors total 24,011,361,280 parameters: language model 23,572,403,200, vision 403,305,472, projector 35,652,608. No quantization metadata or non-weight tensors were counted. This is the current multimodal checkpoint total, not a verified precise total for the unpinned OpenRouter alias."
+      "evidence": "All ten indexed shards were read with HTTP byte ranges 0-65535 only (206 responses). The 585 BF16 .weight tensors total 24,011,361,280 parameters: language model 23,572,403,200, vision 403,305,472, projector 35,652,608. No quantization metadata or non-weight tensors were counted. This is the current multimodal checkpoint total, not a verified precise total for the unpinned OpenRouter alias. Reopened the same pinned index on October 27: 585 weight entries and total_size 48,022,722,560 bytes remain unchanged. The earlier complete header census is retained; no weight shards or shard ranges were downloaded during this re-audit.",
+      "accessed_at": "2026-10-27T11:10:13.851150Z"
     },
     {
       "id": "s8",
@@ -97,7 +102,35 @@
       "title": "Version 1.2 model card",
       "publisher": "Dolphin",
       "accessed": true,
-      "evidence": "Current card retains Apache-2.0 and the exact model name, with vLLM instructions enabling tools, a 131072 model limit and image inputs. Its retained 2501 base-model front matter conflicts with the changed multimodal configuration, so it is not used to infer an unchanged checkpoint."
+      "evidence": "Freshly reopened current card still explicitly names mistralai/Mistral-Small-24B-Instruct-2501 in base_model, alongside Apache-2.0 and the exact Dolphin model name. Its current vLLM example enables images, tools and 131072 context. The named-base relationship plus preserved decoder dimensions supports a nominal language-model inference; it does not establish that the full multimodal checkpoint is unchanged from the text-only base.",
+      "accessed_at": "2026-10-27T11:10:13.851150Z"
+    },
+    {
+      "id": "s13",
+      "url": "https://huggingface.co/mistralai/Mistral-Small-24B-Instruct-2501/blob/main/config.json",
+      "title": "Named Mistral Small 2501 base configuration",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "accessed_at": "2026-10-27T11:10:13.851150Z",
+      "evidence": "Freshly opened the developer configuration of the exact base named in both Dolphin cards. It specifies dense MistralForCausalLM, 40 layers, hidden size 5120, intermediate size 32768, 32 attention heads, 8 KV heads, head dimension 128, vocabulary 131072 and untied embeddings. These learned dimensions are preserved in the current Dolphin language model; the current visual encoder and projector are additional components."
+    },
+    {
+      "id": "s14",
+      "url": "https://docs.mistral.ai/models/mistral-small-3-0-25-01",
+      "title": "Mistral Small 3.0 weights and active-parameter table",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "accessed_at": "2026-10-27T11:10:13.851150Z",
+      "evidence": "Freshly read the current official documentation and its complete server-rendered page payload. The WEIGHTS table explicitly lists Parameters (B) 24 and Active (B) 24, with links to Mistral-Small-24B-Instruct-2501 and Mistral-Small-24B-Base-2501. This supplies the developer nominal active-count convention for the exact text-only base, rather than inferring an exact active count from dense architecture."
+    },
+    {
+      "id": "s15",
+      "url": "https://www.linkedin.com/posts/veniceai_venice-uncensored-12-is-now-live-developed-activity-7450602742793859075-II3o",
+      "title": "Venice Uncensored 1.2 developer release announcement",
+      "publisher": "Venice",
+      "accessed": true,
+      "accessed_at": "2026-10-27T11:10:13.851150Z",
+      "evidence": "Freshly read Venice's release post: the Dolphin collaboration adds vision, larger context and stronger tool use, and was trained through supervised fine-tuning followed by KTO reinforcement learning. It compares capability with Mistral 3.2 24B Instruct but does not explicitly identify 3.2 as the base or disclose a full multimodal active count. Fresh searches and the current Venice model datasheet corroborate nominal 24B total but supply no separate whole-model active count. Matching Small 3.1/3.2 configuration shapes was not treated as proof of that lineage."
     }
   ],
   "fields": {
@@ -166,17 +199,20 @@
         "s6",
         "s7"
       ],
-      "note": "Complete current v1.2 checkpoint count from all 585 BF16 learned .weight tensors: 24,011,361,280 parameters. Includes language model 23,572,403,200, vision encoder 403,305,472 and projector 35,652,608. Headers contain no packed quantization/scales or non-weight buffers; no whole shard bodies were downloaded. Developer 24B is nominal; the earlier text-only checkpoint differs."
+      "note": "Preserve the prior complete v1.2 census of 585 BF16 learned weight tensors: 24,011,361,280 total, comprising language model 23,572,403,200, vision encoder 403,305,472 and projector 35,652,608. Freshly reopened pinned configuration and index retain those components, 585 entries and 48,022,722,560 indexed bytes. The developer nominal 24B designation is consistent with the precise complete count; no shards were downloaded in this re-audit."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 24,
+      "status": "verified",
       "source_ids": [
-        "s1",
-        "s3",
-        "s6"
+        "s6",
+        "s7",
+        "s12",
+        "s13",
+        "s14",
+        "s15"
       ],
-      "note": "No separate active-parameter quantity or counting convention is disclosed for this model. Dense structure alone does not justify setting active equal to total."
+      "note": "Nominal 24B active for the language_model component, inferred from the explicitly named Mistral-Small-24B-Instruct-2501 base and its preserved learned decoder dimensions. Mistral's current developer weights table explicitly publishes 24B active for that base. This is its rounded counting convention, not an exact per-token tensor census or equality with the precise 23.5724032B language component. The added vision encoder/projector are excluded from this scope; a separate active count for the complete current multimodal model remains undisclosed."
     },
     "architecture": {
       "value": "dense",
@@ -255,7 +291,7 @@
     "description": "Instruction-tuned Mistral model for conversation and creative writing, with behavior guided by configurable system prompts.",
     "parameters_source": "primary_source",
     "date_precision": "day",
-    "notes": "Specifications describe the current developer checkpoint, v1.2, which adds vision and tools; the named model first launched April 28, 2025. Its 24.01136128B learned parameters include 23.5724032B language, 0.403305472B vision and 0.035652608B projector parameters. The original text-only checkpoint had 23.5724032B parameters. Current configured context is 131072; native Venice serves 128000. OpenRouter advertises a narrower text-only interface without tools and does not pin its backend revision. Active parameters are not separately defined.",
+    "notes": "Specifications describe the current developer checkpoint, v1.2, which adds vision and tools; the named model first launched April 28, 2025. Its 24.01136128B learned parameters comprise 23.5724032B language, 0.403305472B vision and 0.035652608B projector parameters. The nominal 24B active count applies to the language model, inferred from its named Mistral Small 2501 base, preserved decoder dimensions and Mistral's published active count; the complete multimodal active count is undisclosed. Current configured context is 131072; native Venice serves 128000. OpenRouter advertises a narrower text-only interface without tools and does not pin its backend revision.",
     "sources": [
       {
         "label": "Dolphin Mistral 24B Venice Edition launch",
@@ -316,6 +352,16 @@
         "label": "Version 1.2 model card",
         "url": "https://huggingface.co/dphn/Dolphin-Mistral-24B-Venice-Edition/blob/b23ff40b4a25e4f93de432bd896d4464479a9f79/README.md",
         "type": "primary"
+      },
+      {
+        "label": "Named Mistral Small 2501 base configuration",
+        "url": "https://huggingface.co/mistralai/Mistral-Small-24B-Instruct-2501/blob/main/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Mistral Small 3.0 weights and active-parameter table",
+        "url": "https://docs.mistral.ai/models/mistral-small-3-0-25-01",
+        "type": "primary"
       }
     ],
     "context_window": 131072,
@@ -328,7 +374,16 @@
         "text"
       ]
     },
-    "tool_call": true
+    "tool_call": true,
+    "active_parameters_b": 24
   },
-  "summary": "Audit uses the current canonical developer checkpoint, explicitly updated to v1.2. Correct name, joint developer attribution, initial release date, Apache-2.0 license, exact 24.01136128B complete learned parameter count, dense architecture, 131072 configured context, text/image input, tool calling and neutral description. Active count remains null; native Venice declares no reasoning mode. All ten shard headers were independently checked. Earlier 2025 text weights and OpenRouter's narrower published interface are distinguished in notes; exact OpenRouter backend execution remains unverified."
+  "summary": "Fresh parameter re-audit preserves the exact 24.01136128B complete v1.2 checkpoint count and adds a nominal 24B active count scoped to language_model. The current card explicitly names Mistral Small 2501, its learned decoder dimensions are preserved, and the later Mistral weights table explicitly publishes 24B active for that base. Vision and projector components are recorded separately; no complete multimodal active count is established. Original and current developer cards/configurations, pinned index/history, later Mistral documentation and Venice release statements were freshly checked. Matching later Mistral multimodal shapes and a capability comparison do not establish a different base lineage. All non-parameter field assessments are preserved; no shards were downloaded.",
+  "proposed_fields": {
+    "active_parameters_scope": "language_model",
+    "parameter_components_b": {
+      "language_model": 23.5724032,
+      "vision_encoder": 0.403305472,
+      "projector": 0.035652608
+    }
+  }
 }
