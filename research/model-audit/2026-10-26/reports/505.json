@@ -1,0 +1,261 @@
+{
+  "index": 505,
+  "model_id": "tencent/hy4-preview",
+  "reviewed_at": "2026-10-27T04:53:38.741962Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://www.tencent.com/tencent-releases-and-open-sources-tencent-hy4-preview/",
+      "title": "Tencent Releases and Open-Sources Tencent Hy4 preview",
+      "publisher": "Tencent",
+      "accessed": true,
+      "evidence": "Dated August 28, 2026; explicitly announces released open weights and availability through Tencent products, TokenHub and OpenRouter."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/tencent/Hy4-preview/blob/705d81ee51566a186d645b74c974d642ef2828fe/README.md",
+      "title": "Hy4 preview official model card (pinned)",
+      "publisher": "Tencent",
+      "accessed": true,
+      "evidence": "Labels 770B total and 49B active as backbone-only counts; separately reports one 10B-total/0.7B-active MTP layer. Documents MoE, Gated DSA, IndexCache, iHC, text generation, optional reasoning and tool parsers; separates original and FP8 variants."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/tencent/Hy4-preview/blob/705d81ee51566a186d645b74c974d642ef2828fe/config.json",
+      "title": "Hy4 preview checkpoint configuration (pinned)",
+      "publisher": "Tencent",
+      "accessed": true,
+      "evidence": "HYV4ForCausalLM, 78 layers, 256 routed and one shared expert, top-8 routing, one MTP layer, 1,048,576 maximum positions, BF16 and untied embeddings; no vision module is configured."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/tencent/Hy4-preview/blob/705d81ee51566a186d645b74c974d642ef2828fe/LICENSE",
+      "title": "Hy4 preview license (pinned)",
+      "publisher": "Tencent",
+      "accessed": true,
+      "evidence": "Tencent explicitly licenses Hy4 preview under Apache-2.0."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/tencent/Hy4-preview/blob/705d81ee51566a186d645b74c974d642ef2828fe/chat_template.jinja",
+      "title": "Hy4 preview chat template (pinned)",
+      "publisher": "Tencent",
+      "accessed": true,
+      "evidence": "Implements high/no_think modes, with high the default, text serialization, function signatures, assistant tool calls and tool responses."
+    },
+    {
+      "id": "s6",
+      "url": "https://adp.tencent.com/zh/blog/adp-hunyuan-hy4-preview-support",
+      "title": "Tencent Cloud ADP introduces Hy4 Preview",
+      "publisher": "Tencent Cloud ADP",
+      "accessed": true,
+      "evidence": "August 28, 2026 announcement says customers can immediately select the model; explicitly defines hosted 1M as 1,024,000 tokens and documents multi-round tools."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/tencent/Hy4-preview/blob/705d81ee51566a186d645b74c974d642ef2828fe/model.safetensors.index.json",
+      "title": "Hy4 preview checkpoint index (pinned)",
+      "publisher": "Tencent",
+      "accessed": true,
+      "evidence": "Index maps 2,006 tensors across 131 shards, including backbone, MTP and lm_head entries. Only the index was inspected; shapes, buffers and unique learned-parameter total were not reconciled."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Hy4 preview",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Exact public model name; preview is retained."
+    },
+    "developer": {
+      "value": "Tencent",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Released by Tencent and developed by its Hy team."
+    },
+    "family": {
+      "value": "Hy",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Retains the catalog family label for Tencent Hy; this is the early Hy4 variant."
+    },
+    "release_date": {
+      "value": "2026-08-28",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Explicit public availability announcement, not an upload or listing timestamp."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s7"
+      ],
+      "note": "Tencent explicitly releases original and separate FP8 weights; this audit uses the original checkpoint."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s4"
+      ],
+      "note": "Applies to the exact Hy4 preview release."
+    },
+    "parameters_b": {
+      "value": 770,
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Developer-reported rounded language-backbone count, excluding a separately reported 10B MTP layer. Not an exact complete-checkpoint count; header shapes, configured modules, tied tensors and buffers were not fully reconciled."
+    },
+    "active_parameters_b": {
+      "value": 49,
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Developer-reported rounded active backbone parameters per token. The MTP layer separately has 0.7B active parameters; these represent different decoding phases and are not combined."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "78-layer autoregressive Transformer: one dense FFN then 77 MoE layers, each with 256 routed plus one shared expert and top-8 routing; Gated DSA, IndexCache and iHC; separate native MTP."
+    },
+    "context_window": {
+      "value": 1048576,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s6"
+      ],
+      "note": "Original checkpoint max_position_embeddings is 1,048,576. Tencent ADP describes the hosted service as 1,024,000; these are distinct documented limits, so the model record uses configured checkpoint capacity."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s5"
+      ],
+      "note": "Official text-generation checkpoint and text template; no vision encoder or image/audio input processing is present in the reviewed configuration."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s5"
+      ],
+      "note": "Default high reasoning mode and optional no_think responses are explicitly supported."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s5",
+        "s6"
+      ],
+      "note": "Official template implements function calls/responses and deployment instructions enable tool-call parsers."
+    },
+    "description": {
+      "value": "Tencent Hy preview text-generation MoE model with optional reasoning and tool calling, designed for coding and productivity tasks.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5"
+      ],
+      "note": "Replaces unqualified comparative capability wording with documented model type, modes and intended tasks."
+    }
+  },
+  "patch": {
+    "license": "Apache-2.0",
+    "parameters_b": 770,
+    "active_parameters_b": 49,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "context_window": 1048576,
+    "description": "Tencent Hy preview text-generation MoE model with optional reasoning and tool calling, designed for coding and productivity tasks.",
+    "notes": "Tencent reports nominal backbone-only counts of 770B total and 49B active parameters. A separate native MTP layer is reported as 10B total and 0.7B active for speculative decoding; no exact complete-checkpoint count or combined active count is claimed. The original BF16 checkpoint is distinct from Hy4 preview-FP8 and has no configured vision module. Its configuration permits 1,048,576 positions; Tencent ADP advertises a hosted 1,024,000-token context. The August 28, 2026 release announcement explicitly establishes public availability.",
+    "source_url": "https://www.tencent.com/tencent-releases-and-open-sources-tencent-hy4-preview/",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Tencent Releases and Open-Sources Tencent Hy4 preview",
+        "url": "https://www.tencent.com/tencent-releases-and-open-sources-tencent-hy4-preview/",
+        "type": "primary"
+      },
+      {
+        "label": "Hy4 preview official model card (pinned)",
+        "url": "https://huggingface.co/tencent/Hy4-preview/blob/705d81ee51566a186d645b74c974d642ef2828fe/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Hy4 preview checkpoint configuration (pinned)",
+        "url": "https://huggingface.co/tencent/Hy4-preview/blob/705d81ee51566a186d645b74c974d642ef2828fe/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Hy4 preview license (pinned)",
+        "url": "https://huggingface.co/tencent/Hy4-preview/blob/705d81ee51566a186d645b74c974d642ef2828fe/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "Hy4 preview chat template (pinned)",
+        "url": "https://huggingface.co/tencent/Hy4-preview/blob/705d81ee51566a186d645b74c974d642ef2828fe/chat_template.jinja",
+        "type": "primary"
+      },
+      {
+        "label": "Tencent Cloud ADP introduces Hy4 Preview",
+        "url": "https://adp.tencent.com/zh/blog/adp-hunyuan-hy4-preview-support",
+        "type": "primary"
+      },
+      {
+        "label": "Hugging Face weights",
+        "url": "https://huggingface.co/tencent/Hy4-preview",
+        "type": "weights"
+      }
+    ]
+  },
+  "proposed_fields": {
+    "parameters_scope": "language_backbone",
+    "active_parameters_scope": "language_backbone",
+    "parameter_components_b": {
+      "language_backbone": 770,
+      "mtp": 10
+    },
+    "active_parameters_by_phase_b": {
+      "language_backbone": 49,
+      "mtp": 0.7
+    }
+  },
+  "summary": "Confirmed August 28, 2026 public release, open weights, text modalities, optional reasoning and tools. Add Apache-2.0, MoE, nominal 770B/49B backbone counts with separately scoped 10B/0.7B MTP, and configured 1,048,576 context with hosted-limit caveat. Targeted searches for later Hy4 technical reports did not locate a separate first-party report refining these figures. Original checkpoint metadata and current official card were reviewed; complete learned-parameter total remains unverified, and no weight shard or tensor header was downloaded."
+}
