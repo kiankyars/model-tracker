@@ -1,7 +1,7 @@
 {
   "index": 16,
   "model_id": "alibaba/qwen-plus",
-  "reviewed_at": "2026-10-26T14:03:34.471772Z",
+  "reviewed_at": "2026-10-27T07:34:39.106Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "qwen-plus Model Info (updated October 11, 2026)",
       "publisher": "Alibaba Cloud",
       "accessed": true,
-      "evidence": "Maps the alias to qwen-plus-2025-12-01; documents text I/O, thinking, 1,000,000-token context and regional tool support. No model-size or architecture disclosure."
+      "evidence": "Reopened for the October 27 parameter re-audit. The October 11 page still states that qwen-plus is functionally equivalent to qwen-plus-2025-12-01. It describes text I/O, thinking and a 1M-token context but gives neither total nor active parameters and identifies no named sized base model."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "Qwen Key Concepts (v2.5 documentation)",
       "publisher": "Qwen Team, Alibaba Group",
       "accessed": true,
-      "evidence": "Identifies Alibaba Group as the developer and explicitly lists Qwen Plus among proprietary models, separately from named open-weight releases."
+      "evidence": "Reopened for the parameter re-audit. The Qwen team identifies Qwen Plus as a proprietary language model, separately from open-weight releases. This establishes product identity, not a parameter count or lineage to a particular open model."
     },
     {
       "id": "s3",
@@ -34,6 +34,30 @@
       "publisher": "Alibaba Cloud",
       "accessed": true,
       "evidence": "Lists qwen-plus and its snapshots under Legacy Qwen, with 1M context, thinking and function calling support; distinct from qwen3.7-plus."
+    },
+    {
+      "id": "s5",
+      "url": "https://www.alibabacloud.com/help/en/model-studio/newly-released-models",
+      "title": "Model lifecycle and updates (updated October 27, 2026)",
+      "publisher": "Alibaba Cloud",
+      "accessed": true,
+      "evidence": "The December 1, 2025 Qwen Plus release entry describes better reasoning, agents, multi-turn tools and creative tasks relative to the July 28 snapshot. July 28 is described as a Qwen3-series Plus model. Neither entry identifies a sized base or reports total/active parameters. The September 11 Qwen Plus snapshot and Qwen3-Next-80B-A3B releases are separate entries; their shared date and similar capability descriptions do not establish model identity."
+    },
+    {
+      "id": "s6",
+      "url": "https://qwenlm.github.io/blog/qwen3/",
+      "title": "Qwen3: Think Deeper, Act Faster",
+      "publisher": "Qwen Team, Alibaba Group",
+      "accessed": true,
+      "evidence": "Publishes nominal counts of 235B total/22B active and 30B total/3B active for the named open-weight MoE models, alongside six dense models. It does not identify Qwen Plus or its December snapshot as a variant or post-trained version of any named sized release. These specifications cannot be transferred on family membership alone."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Instruct",
+      "title": "Qwen3-Next-80B-A3B-Instruct model card",
+      "publisher": "Qwen Team, Alibaba Group",
+      "accessed": true,
+      "evidence": "The developer specifies 80B total and 3B activated parameters, hybrid Gated DeltaNet/attention and high-sparsity MoE for this named model. It gives no Qwen Plus lineage. This is a materially distinct architecture from the original Qwen3 releases; long-context support and neighboring release dates cannot establish that qwen-plus-2025-12-01 shares its size or architecture."
     }
   ],
   "fields": {
@@ -94,18 +118,22 @@
       "status": "undisclosed",
       "source_ids": [
         "s1",
-        "s2"
+        "s5",
+        "s6",
+        "s7"
       ],
-      "note": "No total count disclosed for this hosted version; no mapping to open Qwen sizes."
+      "note": "Fresh primary-source review and English/Chinese disclosure searches found no nominal total count or explicit named sized-base lineage for the current qwen-plus-2025-12-01 target. The release history establishes Qwen3-series membership and capability updates, not identity with Qwen3-235B-A22B or Qwen3-Next-80B-A3B. No supported nominal size is being withheld for lack of a tensor census."
     },
     "active_parameters_b": {
       "value": null,
       "status": "undisclosed",
       "source_ids": [
         "s1",
-        "s2"
+        "s5",
+        "s6",
+        "s7"
       ],
-      "note": "No active count disclosed; cannot infer from another family member."
+      "note": "Rechecked independently from total parameters. The alias and December snapshot documentation give no activated count or expert configuration. The published 22B/3B active figures belong to distinct named open models, with no established lineage to this target; neither a total-to-active equality nor either MoE count is inferred."
     },
     "architecture": {
       "value": null,
@@ -173,7 +201,7 @@
     "date_precision": null,
     "license": "Proprietary",
     "description": "Proprietary Qwen text model for multilingual chat and thinking, with function calling availability varying by deployment region.",
-    "notes": "The undated qwen-plus alias is documented as equivalent to qwen-plus-2025-12-01 in the October 11, 2026 model page. This is not qwen3.7-plus. Total parameters, active parameters and exact architecture remain undisclosed; original alias launch date remains unverified. Function calling support depends on deployment region.",
+    "notes": "The qwen-plus alias maps to qwen-plus-2025-12-01. Total and active parameters remain undisclosed: no nominal size or named sized-base lineage was found. Architecture and original alias launch date remain unresolved. Function calling availability varies by deployment region.",
     "sources": [
       {
         "label": "Alibaba Cloud Qwen Plus model documentation",
@@ -189,8 +217,16 @@
         "label": "Alibaba Cloud text generation capability matrix",
         "url": "https://www.alibabacloud.com/help/en/model-studio/text-generation-model",
         "type": "documentation"
+      },
+      {
+        "label": "Alibaba Cloud Qwen Plus snapshot release history",
+        "url": "https://www.alibabacloud.com/help/en/model-studio/newly-released-models",
+        "type": "documentation"
       }
-    ]
+    ],
+    "parameters_b": null,
+    "active_parameters_b": null,
+    "parameters_source": null
   },
-  "summary": "Confirmed hosted proprietary Qwen identity and existing core capabilities. Added licensing category and regional tool caveat; removed unsupported launch date. Size and architecture stay null. Alias-to-snapshot mapping is documented, not inferred from open weights."
+  "summary": "October 27 parameter re-audit reconfirmed the December 1, 2025 alias target and checked its release history against primary Qwen3 and Qwen3-Next specifications. No developer nominal total/active count or explicit named sized-base lineage was found for that target. Both counts remain undisclosed with explicit null patches; distinct open-model sizes and architectures are not inherited from family membership or matching release dates. Other audited fields are preserved."
 }
