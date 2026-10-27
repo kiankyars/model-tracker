@@ -1,7 +1,7 @@
 {
   "index": 185,
   "model_id": "essentialai/rnj-1-instruct",
-  "reviewed_at": "2026-10-26T19:21:25.496493Z",
+  "reviewed_at": "2026-10-27T12:40:28.716685+00:00",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Rnj-1 Instruct official model card",
       "publisher": "Essential AI",
       "accessed": true,
-      "evidence": "Identifies the exact instruction-tuned release, Essential AI, dense architecture, 8.3B total parameters, tied embeddings, coding/STEM focus, tool use, open weights and Apache 2.0. Native context is 32K; optional 128K extrapolation requires configuration changes. Its later changelog labels the initial version December 8."
+      "evidence": "Identifies the exact instruction-tuned release, Essential AI, dense architecture, 8.3B total parameters, tied embeddings, coding/STEM focus, tool use, open weights and Apache 2.0. Native context is 32K; optional 128K extrapolation requires configuration changes. Its later changelog labels the initial version December 8. Fresh October 27 read of both pinned and current full cards confirms 8.3B total and tied embeddings. The explicit Instruct/Base training relationship describes SFT after the same base pretraining; neither card separately reports an active count."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "Announcing Rnj-1: Building Instruments of Intelligence",
       "publisher": "Essential AI",
       "accessed": true,
-      "evidence": "Dated December 5, 2025 and announces both Base and Instruct. Describes an 8B dense Transformer with global attention and YaRN, trained from scratch; discusses coding, mathematics, scientific problem solving and tools."
+      "evidence": "Dated December 5, 2025 and announces both Base and Instruct. Describes an 8B dense Transformer with global attention and YaRN, trained from scratch; discusses coding, mathematics, scientific problem solving and tools. Reopened October 27 and checked the original model comparison image: the table reports benchmark scores and pretraining FLOPs, not active parameters. The Gemma resemblance is architectural; the developer expressly says the model was trained from scratch."
     },
     {
       "id": "s3",
@@ -81,7 +81,7 @@
       "title": "Later official Rnj-1.5 Instruct card",
       "publisher": "Essential AI",
       "accessed": true,
-      "evidence": "Explicitly identifies Rnj-1.5 as a distinct follow-up to Rnj-1 Instruct, with changed local/global attention and a 160K context window. These newer specifications do not apply to the audited Rnj-1 Instruct."
+      "evidence": "Explicitly identifies Rnj-1.5 as a distinct follow-up to Rnj-1 Instruct, with changed local/global attention and a 160K context window. These newer specifications do not apply to the audited Rnj-1 Instruct. Reopened the complete card October 27 and visually inspected its linked benchmark table. It compares Rnj-1.5, Rnj-1, Qwen, Gemma and GPT-OSS benchmark scores and pretraining FLOPs, with no active-parameter row or convention for Rnj-1."
     },
     {
       "id": "s11",
@@ -138,6 +138,38 @@
       "publisher": "Essential AI",
       "accessed": true,
       "evidence": "HTTP 206 read of bytes 0-65535; parsed complete safetensors JSON header. Contains 1,040,274,432 learned F32 weight elements. No quantization scales, packed weights or non-weight buffers."
+    },
+    {
+      "id": "s18",
+      "url": "https://huggingface.co/EssentialAI/rnj-1",
+      "title": "Original Rnj-1 Base model card",
+      "publisher": "Essential AI",
+      "accessed": true,
+      "evidence": "Fresh October 27 read of the full named-base card. The architecture table explicitly labels 8.3B Total Parameters and tied embeddings; training dynamics identify the final SFT stage producing Rnj-1 Instruct. No separate active count or applicable convention is specified, so this explicit lineage does not resolve the missing active field."
+    },
+    {
+      "id": "s19",
+      "url": "https://huggingface.co/api/models/EssentialAI/rnj-1-instruct",
+      "title": "Current exact checkpoint metadata",
+      "publisher": "Essential AI via Hugging Face",
+      "accessed": true,
+      "evidence": "Fresh October 27 response remains at revision 5ef96d7a82b2bff8009192979432c9bc64e870cd and reports 8,310,501,376 F32 elements. This corroborates the already audited complete learned count without repeating tensor-header reads or downloading shards."
+    },
+    {
+      "id": "s20",
+      "url": "https://github.com/Essential-AI/rnj-1-assets/blob/main/assets/RNJ%201.5.png?raw=true",
+      "title": "Later official Rnj-1.5 comparison figure",
+      "publisher": "Essential AI",
+      "accessed": true,
+      "evidence": "Freshly downloaded and visually inspected October 27. The columns include the exact Rnj-1 Instruct and later Rnj-1.5 models; rows give pretraining FLOPs and benchmark scores, not active parameter counts. No active-count disclosure is hidden in the image-only table."
+    },
+    {
+      "id": "s21",
+      "url": "https://www.essential.ai/research",
+      "title": "Essential AI research index",
+      "publisher": "Essential AI",
+      "accessed": true,
+      "evidence": "Fresh October 27 exact-model and developer-domain searches plus the current research index yielded the original Rnj-1 announcement and later Rnj-1.5 card as relevant primary releases; the listed research index supplies no additional Rnj-1 active-count disclosure."
     }
   ],
   "fields": {
@@ -217,9 +249,10 @@
         "s14",
         "s15",
         "s16",
-        "s17"
+        "s17",
+        "s19"
       ],
-      "note": "Complete learned count: 8,310,501,376 = 525,336,576 tied embedding/head + 6,442,450,944 MLP + 1,342,177,280 attention-projection + 536,576 normalization parameters. All 418 indexed F32 tensors are included; no duplicate lm_head, packed storage, quantization scales or buffers. Publisher rounds to 8.3B (family label 8B)."
+      "note": "Complete learned count: 8,310,501,376 = 525,336,576 tied embedding/head + 6,442,450,944 MLP + 1,342,177,280 attention-projection + 536,576 normalization parameters. All 418 indexed F32 tensors are included; no duplicate lm_head, packed storage, quantization scales or buffers. Publisher rounds to 8.3B (family label 8B). Fresh October 27 exact-card and metadata checks confirm the same revision, nominal total and aggregate; retain the prior precise count without repeating the census."
     },
     "active_parameters_b": {
       "value": null,
@@ -227,10 +260,12 @@
       "source_ids": [
         "s1",
         "s2",
-        "s3",
-        "s10"
+        "s10",
+        "s18",
+        "s20",
+        "s21"
       ],
-      "note": "No separate per-token active count or accounting convention is reported for this dense model. Do not substitute the complete total."
+      "note": "Fresh exact-model total/active/activated and lineage searches, original/Base cards and later Rnj-1.5 comparisons found no separate active count or developer counting convention. Both original and later image tables were visually checked; their FLOPs and benchmark rows do not define active parameters. Named-base SFT lineage supplies no undisclosed count to inherit, and Gemma-like architecture is not Gemma weight ancestry. Dense total is not copied into this field."
     },
     "architecture": {
       "value": "dense",
@@ -314,7 +349,7 @@
     "architecture": "dense",
     "reasoning": null,
     "description": "Open-weight 8.31B dense instruction-tuned model trained by Essential AI for code, mathematics, science and tool use.",
-    "notes": "Complete checkpoint count is 8,310,501,376 learned parameters (publisher: 8.3B), with tied embeddings counted once. Active parameters are not separately disclosed. December 5 is the public announcement date; December 4 only created the repository. Context is 32,768 by default; optional 128K YaRN extrapolation requires configuration changes. No dedicated reasoning flag is established by primary evidence.",
+    "notes": "Complete checkpoint count: 8.310501376B learned parameters, with tied embeddings counted once; the publisher rounds to 8.3B. Active parameters are not separately disclosed. December 5 is the public announcement date; December 4 only created the repository. Context is 32,768 by default; optional 128K YaRN extrapolation requires configuration changes. No dedicated reasoning flag is established by primary evidence.",
     "sources": [
       {
         "label": "Official Rnj-1 announcement",
@@ -343,7 +378,8 @@
       }
     ],
     "source_type": "primary",
-    "source_url": "https://www.essential.ai/research/rnj-1"
+    "source_url": "https://www.essential.ai/research/rnj-1",
+    "active_parameters_b": null
   },
-  "summary": "Verified exact Instruct checkpoint and all 14 fields. Fill total with complete 8.310501376B learned parameters and architecture with dense; correct release from empty-repository creation on December 4 to the December 5 announcement. Clear unsupported reasoning=false. Keep active parameters undisclosed, confirm default 32768 context, text modalities, tools, open weights and Apache 2.0. Current model card and later Rnj-1.5 card were checked; the latter is a separate release."
+  "summary": "October 27 parameter re-audit retained the prior exact 8.310501376B total and an undisclosed active count. Fresh searches and reopened original/current cards, named-base evidence, metadata and later Rnj-1.5 comparisons yield no active-count convention. Visually checked original and later benchmark figures; they report scores and FLOPs, not active parameters. Added explicit parameter patches and refreshed evidence while preserving unrelated assessments; no weight shards or repeat census requested."
 }
