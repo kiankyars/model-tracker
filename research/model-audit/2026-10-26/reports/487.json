@@ -1,0 +1,355 @@
+{
+  "index": 487,
+  "model_id": "sao10k/l3-lunaris-8b",
+  "reviewed_at": "2026-10-27T04:21:26.237521Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/Sao10K/L3-8B-Lunaris-v1/blob/8479c2a7ee119c935b9a02c921cc2a85b698dfe8/README.md",
+      "title": "L3-8B-Lunaris-v1 model card and merge recipe",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "Exact Lunaris-v1 card calls it a Llama 3 generalist/roleplaying merge, declares llama3 license and English, and provides a TIES recipe using Meta-Llama-3-8B-Instruct, crestf411/L3-8B-sunfall-v0.1, Hastagaras/Jamet-8B-L3-MK1, maldv/badger-iota-llama-3-8b and Sao10K/Stheno-3.2-Beta (identified as Stheno v3.2’s initial name). Merge density/weight pairs are 0.4/0.25, 0.5/0.3, 0.6/0.35 and 0.7/0.4; final dtype is bfloat16. The int8_mask merge option does not describe deployed weight quantization."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/Sao10K/L3-8B-Lunaris-v1/blob/8479c2a7ee119c935b9a02c921cc2a85b698dfe8/config.json",
+      "title": "Lunaris-v1 checkpoint configuration",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "Pinned checkpoint selects Transformers 4.41.2 LlamaForCausalLM: 32 layers, hidden 4096, intermediate 14336, vocabulary 128256, 32 query and 8 KV heads, SiLU, 8192 positions, no RoPE scaling, attention_bias=false, mlp_bias=false and tie_word_embeddings=false. Dtype is bfloat16; no quantization configuration or auxiliary prediction branch is enabled."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/Sao10K/L3-8B-Lunaris-v1/blob/8479c2a7ee119c935b9a02c921cc2a85b698dfe8/tokenizer_config.json",
+      "title": "Lunaris-v1 tokenizer and chat template",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "Llama 3 role/content chat template renders ordinary messages and an assistant generation prefix. No tool schema, tool-call or dedicated reasoning-mode template is declared. The very large model_max_length is an unset-capacity sentinel; actual configured context is 8192."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/Sao10K/L3-8B-Lunaris-v1/blob/8479c2a7ee119c935b9a02c921cc2a85b698dfe8/model.safetensors.index.json",
+      "title": "Complete four-shard Lunaris-v1 tensor index",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "Index maps 291 tensors across four shards. Every name and shard assignment was reconciled to all four bounded headers and the configured Llama module inventory. Metadata total_size 16060522496 equals the full BF16 payload, not the parameter count itself."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/Sao10K/L3-8B-Lunaris-v1/resolve/8479c2a7ee119c935b9a02c921cc2a85b698dfe8/model-00001-of-00004.safetensors",
+      "title": "Lunaris-v1 shard 1 safetensors header",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "HTTP 206 bounded reads retrieved only the 8-byte length prefix and 6856-byte JSON header, not weight payloads. 59 BF16 learned tensors contain 2476789760 scalar parameters; all names, shapes and nonoverlapping contiguous payload offsets were checked against the index, configuration and enabled implementation. Response Content-Range was bytes 8-6863/4953586384."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/Sao10K/L3-8B-Lunaris-v1/resolve/8479c2a7ee119c935b9a02c921cc2a85b698dfe8/model-00002-of-00004.safetensors",
+      "title": "Lunaris-v1 shard 2 safetensors header",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "HTTP 206 bounded reads retrieved only the 8-byte length prefix and 12352-byte JSON header, not weight payloads. 106 BF16 learned tensors contain 2499903488 scalar parameters; all names, shapes and nonoverlapping contiguous payload offsets were checked against the index, configuration and enabled implementation. Response Content-Range was bytes 8-12359/4999819336."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/Sao10K/L3-8B-Lunaris-v1/resolve/8479c2a7ee119c935b9a02c921cc2a85b698dfe8/model-00003-of-00004.safetensors",
+      "title": "Lunaris-v1 shard 3 safetensors header",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "HTTP 206 bounded reads retrieved only the 8-byte length prefix and 11624-byte JSON header, not weight payloads. 100 BF16 learned tensors contain 2457952256 scalar parameters; all names, shapes and nonoverlapping contiguous payload offsets were checked against the index, configuration and enabled implementation. Response Content-Range was bytes 8-11631/4915916144."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/Sao10K/L3-8B-Lunaris-v1/resolve/8479c2a7ee119c935b9a02c921cc2a85b698dfe8/model-00004-of-00004.safetensors",
+      "title": "Lunaris-v1 shard 4 safetensors header",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "HTTP 206 bounded reads retrieved only the 8-byte length prefix and 2976-byte JSON header, not weight payloads. 26 BF16 learned tensors contain 595615744 scalar parameters; all names, shapes and nonoverlapping contiguous payload offsets were checked against the index, configuration and enabled implementation. Response Content-Range was bytes 8-2983/1191234472."
+    },
+    {
+      "id": "s9",
+      "url": "https://github.com/huggingface/transformers/blob/v4.41.2/src/transformers/models/llama/modeling_llama.py",
+      "title": "Transformers 4.41.2 enabled Llama implementation",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "LlamaForCausalLM contains input embeddings, 32 decoder blocks, final RMSNorm and a bias-free LM head. Each block contains Q/K/V/O linear projections, gate/up/down MLP projections and two learned RMSNorm scales. Config disables projection biases and embedding tying; rotary frequencies are nonpersistent buffers, not learned parameters. No MTP, adapter or modality branch is enabled in this class/configuration. Other task-head classes in the same file are not selected."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/Sao10K/L3-8B-Lunaris-v1/commits/main",
+      "title": "Lunaris-v1 developer commit history",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "Initial repository commit is June 26, 2024 00:40:12 UTC; full checkpoint upload bf048cdcc49b603ecadb54350157235300499f3d is June 26 00:42:10 UTC, followed by README publication that day. Current pinned revision changes README on June 29. Upload tree was checked to contain all four shards, index, config and tokenizer. Public availability is established separately by the developer’s same-day discussion, not inferred from repository creation alone."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/Sao10K/L3-8B-Lunaris-v1/discussions/1",
+      "title": "Developer announcement acknowledging Lunaris public release",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "Discussion 1 was created by Sao10K on June 26, 2024 at 01:17:12 UTC and edited that day. The author explains that Lunaris was intended for Chai leaderboard testing and acknowledges that it had become public unintentionally. The author distinguishes this checkpoint from Stheno v3.3. This establishes actual public availability on June 26, preceding the later August 13 provider listing."
+    },
+    {
+      "id": "s12",
+      "url": "https://github.com/meta-llama/llama3/blob/main/LICENSE",
+      "title": "Meta Llama 3 Community License Agreement",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Official Llama 3 license text identifies the named license referenced by Lunaris’s llama3 card declaration. The exact Lunaris repository has no standalone LICENSE file; classification records its developer’s declaration and does not independently certify compliance of every merge ingredient."
+    },
+    {
+      "id": "s13",
+      "url": "https://huggingface.co/Sao10K/L3-8B-Stheno-v3.3-32K/blob/main/README.md",
+      "title": "Later Stheno v3.3 32K card",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "Checked later first-party card for exact Lunaris comparisons or parameter disclosures. Its PoSE 32K context extension concerns a distinct Stheno checkpoint; no Lunaris-specific total/active count or capability comparison is supplied. Its longer context and license must not transfer to Lunaris."
+    },
+    {
+      "id": "s14",
+      "url": "https://huggingface.co/Sao10K/Llama-3.1-8B-Stheno-v3.4/blob/main/README.md",
+      "title": "Later Llama 3.1 Stheno v3.4 card",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "Checked later first-party card for exact Lunaris comparisons or active-parameter disclosures. This is a distinct Llama 3.1 model; its datasets and capabilities do not document Lunaris. Additional checked author cards for Tamamo, Chara v1 Alpha, Niitama v1 and Euryale v2.3 likewise provided no Lunaris-specific parameter disclosure."
+    },
+    {
+      "id": "s15",
+      "url": "https://openrouter.ai/api/v1/models/sao10k/l3-lunaris-8b/endpoints",
+      "title": "OpenRouter exact Lunaris alias and endpoint metadata",
+      "publisher": "OpenRouter",
+      "accessed": true,
+      "evidence": "Maps the exact catalog ID to Sao10K: Llama 3 8B Lunaris and describes the same generalist/roleplay merge. Creation timestamp 1723507200 is August 13, 2024, a provider listing date after developer publication. Endpoints report text input/output and 8192 context. supported_parameters omit tools while supports_tool_choice contains true entries; this inconsistent service metadata does not settle checkpoint-level tool capability."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Llama 3 8B Lunaris",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s15"
+      ],
+      "note": "Existing display name is the documented OpenRouter alias for Sao10K/L3-8B-Lunaris-v1; this audit is limited to that exact checkpoint."
+    },
+    "developer": {
+      "value": "Sao10K",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s11"
+      ],
+      "note": "Published by Sao10K; merge ancestry includes Meta and other fine-tune authors, without changing the variant’s developer attribution."
+    },
+    "family": {
+      "value": "llama",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Llama 3 merge with configured LlamaForCausalLM architecture."
+    },
+    "release_date": {
+      "value": "2024-06-26",
+      "status": "verified",
+      "source_ids": [
+        "s10",
+        "s11",
+        "s15"
+      ],
+      "note": "Full checkpoint upload and the developer’s same-day acknowledgment of public availability establish June 26. August 13 in the baseline is the later OpenRouter listing date."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "note": "Public exact checkpoint includes all four directly accessible weight shards and index. Restricted Llama licensing does not prevent classification as open weights."
+    },
+    "license": {
+      "value": "Llama 3 Community License",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s12"
+      ],
+      "note": "Exact model card declares llama3. Record the named license; no claim of OSI open-source licensing or independently audited merge-ingredient license compliance."
+    },
+    "parameters_b": {
+      "value": 8.030261248,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "note": "Complete exact checkpoint count is 8,030,261,248 learned parameters, derived from all 291 tensor shapes and reconciled to the enabled modules, not from nominal 8B naming or payload bytes. H=4096, I=14336, L=32, V=128256, Q=32, K=8, D=128: total=2VH+H+L[2H+2H(Q+K)D+3HI]. Per layer Q/O are [4096,4096], K/V [1024,4096], gate/up [14336,4096], down [4096,14336], and two norms [4096]. Untied input and output matrices are each [128256,4096], plus final norm [4096]. All indexed names/shapes and shard membership match exactly. All are BF16 learned tensors; 16,060,522,496 payload bytes equals 2 times this count, and every shard offset is contiguous. No packed weights, quantization scales, saved rotary buffers, biases, adapter tensors, MTP or auxiliary heads are present. The TIES merge method is unrelated to runtime embedding tying."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s9",
+        "s13",
+        "s14"
+      ],
+      "note": "No separately defined active-parameter count for exact Lunaris was located in its card/config or checked later first-party comparisons. Do not equate dense total parameters to an author-reported active count."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s9"
+      ],
+      "note": "Configured decoder-only dense Llama Transformer: grouped-query attention and gated SiLU MLPs, with no routed experts. Exact complete tensor inventory matches this implementation."
+    },
+    "context_window": {
+      "value": 8192,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s15"
+      ],
+      "note": "Exact config max_position_embeddings=8192 and rope_scaling=null. Provider agrees; tokenizer maximum-length sentinel and later Stheno 32K context are not Lunaris capacity evidence."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s9",
+        "s15"
+      ],
+      "note": "Text tokenizer and causal LM checkpoint have no vision, audio or other modality modules; exact provider alias also declares text-to-text."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s14"
+      ],
+      "note": "No exact-variant declaration verifies a dedicated reasoning mode or a categorical lack of reasoning support. Author’s subjective claim of improved logic is not evidence for a reasoning-mode flag; later siblings’ training does not transfer. Clear unsupported baseline false."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s15"
+      ],
+      "note": "No exact model-card or template claim verifies native tool calling or its categorical absence. Provider supported_parameters and supports_tool_choice conflict; service-level metadata cannot establish all uses of an open checkpoint. Clear unsupported baseline false."
+    },
+    "description": {
+      "value": "Llama 3 model merge for general conversation and roleplay, created with TIES merging.",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Replace generic multilingual/reasoning/coding claims with the exact developer-stated purpose and merge method; card identifies English and does not substantiate those broader claims."
+    }
+  },
+  "patch": {
+    "release_date": "2024-06-26",
+    "license": "Llama 3 Community License",
+    "parameters_b": 8.030261248,
+    "architecture": "dense",
+    "reasoning": null,
+    "tool_call": null,
+    "description": "Llama 3 model merge for general conversation and roleplay, created with TIES merging.",
+    "date_precision": "day",
+    "parameters_source": "primary_source",
+    "source_url": "https://huggingface.co/Sao10K/L3-8B-Lunaris-v1/blob/8479c2a7ee119c935b9a02c921cc2a85b698dfe8/README.md",
+    "source_type": "primary",
+    "notes": "Complete BF16 checkpoint: 8,030,261,248 learned parameters with untied input/output embeddings. Active parameters are not separately disclosed. First public release was June 26, 2024; August 13 is the later provider listing. Llama 3 license is declared by the model card. Native tool calling and a dedicated reasoning mode are unverified for this exact merge.",
+    "sources": [
+      {
+        "label": "L3-8B-Lunaris-v1 model card and merge recipe",
+        "url": "https://huggingface.co/Sao10K/L3-8B-Lunaris-v1/blob/8479c2a7ee119c935b9a02c921cc2a85b698dfe8/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Lunaris-v1 checkpoint configuration",
+        "url": "https://huggingface.co/Sao10K/L3-8B-Lunaris-v1/blob/8479c2a7ee119c935b9a02c921cc2a85b698dfe8/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Complete four-shard Lunaris-v1 tensor index",
+        "url": "https://huggingface.co/Sao10K/L3-8B-Lunaris-v1/blob/8479c2a7ee119c935b9a02c921cc2a85b698dfe8/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Lunaris-v1 shard 1 safetensors header",
+        "url": "https://huggingface.co/Sao10K/L3-8B-Lunaris-v1/resolve/8479c2a7ee119c935b9a02c921cc2a85b698dfe8/model-00001-of-00004.safetensors",
+        "type": "primary"
+      },
+      {
+        "label": "Lunaris-v1 shard 2 safetensors header",
+        "url": "https://huggingface.co/Sao10K/L3-8B-Lunaris-v1/resolve/8479c2a7ee119c935b9a02c921cc2a85b698dfe8/model-00002-of-00004.safetensors",
+        "type": "primary"
+      },
+      {
+        "label": "Lunaris-v1 shard 3 safetensors header",
+        "url": "https://huggingface.co/Sao10K/L3-8B-Lunaris-v1/resolve/8479c2a7ee119c935b9a02c921cc2a85b698dfe8/model-00003-of-00004.safetensors",
+        "type": "primary"
+      },
+      {
+        "label": "Lunaris-v1 shard 4 safetensors header",
+        "url": "https://huggingface.co/Sao10K/L3-8B-Lunaris-v1/resolve/8479c2a7ee119c935b9a02c921cc2a85b698dfe8/model-00004-of-00004.safetensors",
+        "type": "primary"
+      },
+      {
+        "label": "Transformers 4.41.2 enabled Llama implementation",
+        "url": "https://github.com/huggingface/transformers/blob/v4.41.2/src/transformers/models/llama/modeling_llama.py",
+        "type": "primary"
+      },
+      {
+        "label": "Developer announcement acknowledging Lunaris public release",
+        "url": "https://huggingface.co/Sao10K/L3-8B-Lunaris-v1/discussions/1",
+        "type": "primary"
+      },
+      {
+        "label": "Meta Llama 3 Community License Agreement",
+        "url": "https://github.com/meta-llama/llama3/blob/main/LICENSE",
+        "type": "primary"
+      }
+    ]
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "input_embeddings": 0.525336576,
+      "decoder_layers": 6.979584,
+      "final_norm": 4.096e-06,
+      "output_head": 0.525336576
+    }
+  },
+  "summary": "Correct release from later provider listing to June 26, 2024, supported by the developer’s public-release acknowledgment and full upload. Replace nominal 8B with exact 8.030261248B from every indexed tensor header plus enabled configuration/implementation reconciliation. Establish dense architecture and declared Llama 3 license; retain 8192 text context and open weights. Describe exact generalist/roleplay TIES merge and clear unsupported reasoning/tool flags. Active count is undisclosed; no later checked author card provided exact Lunaris disclosure. No full weights were downloaded."
+}
