@@ -1,0 +1,242 @@
+{
+  "index": 373,
+  "model_id": "nousresearch/hermes-4-405b",
+  "reviewed_at": "2026-10-27T00:20:41.802813Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/NousResearch/Hermes-4-405B/blob/88e3dce03c4a5535e2f4a2bcc08e939a2b302f82/README.md",
+      "title": "Hermes 4 405B model card",
+      "publisher": "Nous Research",
+      "accessed": true,
+      "evidence": "Identifies this Llama 3.1 405B fine-tune, developer, hybrid reasoning with thinking=True and think tags, interleaved function calls, BF16 weights, and llama3 license metadata."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/NousResearch/Hermes-4-405B/blob/88e3dce03c4a5535e2f4a2bcc08e939a2b302f82/config.json",
+      "title": "Hermes 4 405B configuration",
+      "publisher": "Nous Research",
+      "accessed": true,
+      "evidence": "LlamaForCausalLM; 126 layers; hidden size 16384; intermediate size 53248; 128 query and 8 key/value heads; 131072 positions; BF16; untied embeddings; no expert or multimodal configuration."
+    },
+    {
+      "id": "s3",
+      "url": "https://arxiv.org/pdf/2508.18255v2",
+      "title": "Hermes 4 Technical Report, version 2",
+      "publisher": "Nous Research",
+      "accessed": true,
+      "evidence": "Section 3 maps Hermes 4 405B to Llama 3.1 405B; Table 1 labels its model size 405B. Table 3 evaluates the exact 405B model in reasoning and non-reasoning modes. Active parameter counts are not stated."
+    },
+    {
+      "id": "s4",
+      "url": "https://nousresearch.com/releases",
+      "title": "Nous Research releases",
+      "publisher": "Nous Research",
+      "accessed": true,
+      "evidence": "Explicitly dates Hermes-4-Llama-3.1-405B to August 26, 2025."
+    },
+    {
+      "id": "s5",
+      "url": "https://ai.meta.com/blog/meta-llama-3-1/",
+      "title": "Introducing Llama 3.1: Our most capable models to date",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "The exact Llama 3.1 405B base uses a standard decoder-only Transformer rather than mixture of experts; applied only through the exact base mapping in s1 and s3 and corroborated by s2."
+    },
+    {
+      "id": "s6",
+      "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3_1/LICENSE",
+      "title": "Llama 3.1 405B Community License Agreement",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Names the Llama 3.1 Community License and explicitly covers redistribution of derivatives. This is the exact base named by Nous, not a sibling license assumption."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/NousResearch/Hermes-4-405B/blob/88e3dce03c4a5535e2f4a2bcc08e939a2b302f82/model.safetensors.index.json",
+      "title": "Hermes 4 405B BF16 checkpoint index",
+      "publisher": "Nous Research",
+      "accessed": true,
+      "evidence": "Public checkpoint index lists 1137 weight tensor names across 191 safetensors shards; names describe standard Llama attention, dense MLP, norms, embeddings and output head."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Hermes 4 405B",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Exact variant, with the longer Llama-3.1 qualifier in the card heading."
+    },
+    "developer": {
+      "value": "Nous Research",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Nous authors the post-training release; Meta developed its base."
+    },
+    "family": {
+      "value": "hermes",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Hermes fourth generation."
+    },
+    "release_date": {
+      "value": "2025-08-26",
+      "status": "verified",
+      "source_ids": [
+        "s4"
+      ],
+      "note": "Explicit first-party model release date. Earlier repository creation and August 25 report submission do not establish public weight release."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7"
+      ],
+      "note": "Original BF16 checkpoint is publicly distributed; separate FP8 and community quantizations are outside this record."
+    },
+    "license": {
+      "value": "Llama 3.1 Community License",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Exact base agreement applies to derivatives. Nous metadata instead says llama3; repository has no separate LICENSE file (404). Preserve this metadata discrepancy in notes."
+    },
+    "parameters_b": {
+      "value": 405,
+      "status": "verified",
+      "source_ids": [
+        "s3"
+      ],
+      "note": "Developer-published nominal billion-parameter size in training Table 1, not an exact tensor census or a count inferred solely from the model name."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "No separately defined active count found in the exact card, configuration or technical report. Dense architecture does not justify setting active equal to total."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5",
+        "s7"
+      ],
+      "note": "Dense decoder-only Llama Transformer with grouped-query attention, corroborated by exact configuration and checkpoint names. The exact mapped base announcement explicitly excludes MoE."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Exact max_position_embeddings; report training sequence length is not the inference context limit."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Text chat and causal token generation; no vision or audio component."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Dedicated hybrid reasoning training and format, plus exact-variant reasoning evaluation; stronger evidence than generic reasoning capability."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Card specifies tool_call objects interleaved with reasoning and tool responses. This is checkpoint capability, not a guarantee for every hosted endpoint."
+    },
+    "description": {
+      "value": "Open-weight Llama 3.1 405B fine-tune with hybrid reasoning and function calling.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Replace generic marketing with the verified base and supported behaviors."
+    }
+  },
+  "patch": {
+    "license": "Llama 3.1 Community License",
+    "architecture": "dense",
+    "parameters_source": "primary_source",
+    "description": "Open-weight Llama 3.1 405B fine-tune with hybrid reasoning and function calling.",
+    "source_url": "https://huggingface.co/NousResearch/Hermes-4-405B",
+    "source_type": "primary",
+    "notes": "405B is the developer-published nominal total; active parameters are not separately defined or reported. This record covers the original BF16 checkpoint. The exact Llama 3.1 base license covers derivatives; Nous retains a conflicting llama3 metadata tag and publishes no separate LICENSE file. Tool calling is a checkpoint capability and may depend on serving support.",
+    "sources": [
+      {
+        "label": "Hermes 4 405B model card",
+        "url": "https://huggingface.co/NousResearch/Hermes-4-405B/blob/88e3dce03c4a5535e2f4a2bcc08e939a2b302f82/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Hermes 4 405B configuration",
+        "url": "https://huggingface.co/NousResearch/Hermes-4-405B/blob/88e3dce03c4a5535e2f4a2bcc08e939a2b302f82/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Hermes 4 Technical Report, version 2",
+        "url": "https://arxiv.org/pdf/2508.18255v2",
+        "type": "primary"
+      },
+      {
+        "label": "Nous Research releases",
+        "url": "https://nousresearch.com/releases",
+        "type": "primary"
+      },
+      {
+        "label": "Introducing Llama 3.1: Our most capable models to date",
+        "url": "https://ai.meta.com/blog/meta-llama-3-1/",
+        "type": "primary"
+      },
+      {
+        "label": "Llama 3.1 405B Community License Agreement",
+        "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3_1/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "Hermes 4 405B BF16 checkpoint index",
+        "url": "https://huggingface.co/NousResearch/Hermes-4-405B/blob/88e3dce03c4a5535e2f4a2bcc08e939a2b302f82/model.safetensors.index.json",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "Assessed all fourteen fields. Promote nominal 405B count from model-name inference to primary report evidence; establish dense Llama architecture and the exact base license with the llama3 metadata discrepancy documented. Confirm August 26 launch, 131072 context, text modalities, hybrid reasoning and function calling. Active parameters remain undisclosed; no tensor census was used."
+}
