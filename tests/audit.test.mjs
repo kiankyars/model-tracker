@@ -9,6 +9,8 @@ test('an audit report cannot substitute another model or unsupported claims', ()
   const entry = { index: 1, id: 'lab/model', task_name: 'audit_001', agent: '/root/audit_001' };
   const report = { index: 1, model_id: entry.id, reviewed_at: '2026-10-26T14:00:00Z', sources: [{ id: 's1', url: 'https://example.org/model', title: 'Official model card', accessed: true, evidence: 'Technical information is not disclosed.' }], fields: Object.fromEntries(auditFields.map(field => [field, { value: null, status: 'undisclosed', source_ids: ['s1'], note: 'Not disclosed by the developer.' }])), patch: {}, summary: 'Reviewed.' };
   assert.equal(validateReport(report, entry), report);
+  assert.equal(validateReport({ ...report, patch: { remove_source_urls: ['https://example.org/wrong-model'] } }, entry).index, 1);
+  assert.throws(() => validateReport({ ...report, patch: { remove_source_urls: 'https://example.org/wrong-model' } }, entry), /source removals/);
   assert.throws(() => validateReport({ ...report, model_id: 'lab/other' }, entry), /identity/);
   assert.throws(() => validateReport(report, { ...entry, agent: null }), /dedicated agent/);
   const unsupported = structuredClone(report);

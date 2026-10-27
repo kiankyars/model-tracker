@@ -31,7 +31,8 @@ export function validateReport(report, entry) {
     if (assessment.status !== 'verified' && assessment.value !== null) fail(`${field} must remain null when not verified`);
   }
   if (!report.patch || Array.isArray(report.patch) || typeof report.patch !== 'object') fail('patch missing');
-  const extras = new Set(['parameters_source', 'date_precision', 'source_url', 'source_type', 'sources', 'notes']);
+  const extras = new Set(['parameters_source', 'date_precision', 'source_url', 'source_type', 'sources', 'remove_source_urls', 'notes']);
+  if (report.patch.remove_source_urls !== undefined && (!Array.isArray(report.patch.remove_source_urls) || report.patch.remove_source_urls.some(url => typeof url !== 'string' || !url.startsWith('https://')))) fail('invalid source removals');
   for (const [field, value] of Object.entries(report.patch)) {
     if (!auditFields.includes(field) && !extras.has(field)) fail(`unexpected patch field ${field}`);
     if (auditFields.includes(field) && !isDeepStrictEqual(value, report.fields[field].value)) fail(`patch disagrees with ${field} assessment`);

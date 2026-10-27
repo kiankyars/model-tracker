@@ -91,6 +91,18 @@ test('explicit alias corrections collapse aliases while preserving distinct vers
   assert.equal(result.models.find(model => model.id === 'lab/model').release_date, '2025-02-28');
 });
 
+test('an incorrect weights link stays removed after upstream refresh', () => {
+  const wrong = 'https://example.org/other-model';
+  const record = { ...upstream(), weights: [{ url: wrong }] };
+  const previous = [{ ...normalize('lab/model', record, at), sources: [{ label: 'Weights', url: wrong, type: 'weights' }] }];
+  const options = { upstream: { 'lab/model': record }, previous, corrections: { overrides: { 'lab/model': { remove_source_urls: [wrong] } } }, retrievedAt: at, asOf: '2026-10-26' };
+  const first = mergeCatalog(options);
+  const refreshed = mergeCatalog({ ...options, previous: first.models });
+  assert.equal(refreshed.models[0].sources.some(source => source.url === wrong), false);
+  assert.equal(Object.hasOwn(refreshed.models[0], 'remove_source_urls'), false);
+  assert.ok(refreshed.models[0].sources.length);
+});
+
 test('corrections and exclusions survive refresh and offline regeneration is idempotent', () => {
   const options = {
     upstream: { 'lab/model': upstream(), 'lab/alias': upstream(), 'lab/model-latest': upstream() },
