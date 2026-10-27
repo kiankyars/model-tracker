@@ -1,7 +1,7 @@
 {
   "index": 231,
   "model_id": "google/t5-base",
-  "reviewed_at": "2026-10-26T20:38:44.124850+00:00",
+  "reviewed_at": "2026-10-27T13:34:54.499708+00:00",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Original T5 release README",
       "publisher": "Google Research",
       "accessed": true,
-      "evidence": "October 23 repository state explicitly lists T5-Base, nominal 220M, and links the released original base checkpoint. The README describes text-to-text tasks, transfer learning and a default 512-token training sequence length."
+      "evidence": "October 23 repository state explicitly lists T5-Base, nominal 220M, and links the released original base checkpoint. The README describes text-to-text tasks, transfer learning and a default 512-token training sequence length. Freshly reopened the original pinned raw README October 27; it still explicitly names the original Base checkpoint and nominal 220M total."
     },
     {
       "id": "s2",
@@ -33,7 +33,7 @@
       "title": "Original T5-base operative configuration",
       "publisher": "Google Research",
       "accessed": true,
-      "evidence": "Exact original base checkpoint: 12 layers per stack, width 768, FFN 3072, 12 heads and key/value width 64. Inputs and targets length 512, all_mix training with denoising, shared encoder/decoder embeddings and tied decoder softmax. Vocabulary padded to a divisor of 128; this is the original stored shape, not added HF conversion rows."
+      "evidence": "Exact original base checkpoint: 12 layers per stack, width 768, FFN 3072, 12 heads and key/value width 64. Inputs and targets length 512, all_mix training with denoising, shared encoder/decoder embeddings and tied decoder softmax. Vocabulary padded to a divisor of 128; this is the original stored shape, not added HF conversion rows. Fresh October 27 retrieval reconfirmed these dimensions and the original checkpoint path; no tensor index or weights were downloaded in this pass."
     },
     {
       "id": "s5",
@@ -73,7 +73,7 @@
       "title": "T5 Base model card",
       "publisher": "Hugging Face",
       "accessed": true,
-      "evidence": "Card written by Hugging Face identifies original T5-Base, nominal 220M, Apache 2.0, text-to-text use and original mixed unsupervised/supervised training. It does not advertise a dedicated thinking mode or tool-calling interface. This is not T5-v1.1 or Flan-T5."
+      "evidence": "Card written by Hugging Face identifies original T5-Base, nominal 220M, Apache 2.0, text-to-text use and original mixed unsupervised/supervised training. It does not advertise a dedicated thinking mode or tool-calling interface. This is not T5-v1.1 or Flan-T5. Freshly reopened the complete pinned raw card October 27; its total remains nominal 220M and it supplies no separate active count."
     },
     {
       "id": "s10",
@@ -98,6 +98,70 @@
       "publisher": "TensorFlow",
       "accessed": true,
       "evidence": "BundleEntryProto maps fields 1/2/5 to dtype, tensor shape and storage bytes, with field 7 denoting slices. The original base index has no sliced model tensors. The companion DataType schema identifies 14 as BF16, validating the index-only shape accounting."
+    },
+    {
+      "id": "s13",
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2024/file/3d09a88c3372cdb79401fde592ca4db8-Paper-Conference.pdf",
+      "title": "Merge, Then Compress: Demystify Efficient SMoE with Hints from Its Routing Policy",
+      "publisher": "Pingzhi Li et al. / ICLR 2024",
+      "accessed": true,
+      "evidence": "Freshly read the original paper and visually inspected Table 1 on page 6. Its caption defines act-size as activated parameters for each token; the exact t5-base dense baseline row gives 220M act-size and 220M total. Section 4.1 describes their baseline fine-tuning/evaluation. This is the authors\u2019 nominal comparison convention, not an exact phase-resolved tensor measurement or a new Google disclosure."
+    },
+    {
+      "id": "s14",
+      "url": "https://github.com/UNITES-Lab/MC-SMoE/blob/99b400f0d5b3be0015ebec4a5a80a7821be1aebd/mcsmoe/t5-finetune-on-downstream.py",
+      "title": "MC-SMoE original T5 baseline implementation",
+      "publisher": "UNITES-Lab / MC-SMoE authors",
+      "accessed": true,
+      "evidence": "Freshly retrieved the pinned implementation linked by the ICLR paper. Lines 83\u201384 load T5ForConditionalGeneration.from_pretrained(\"t5-base\") and its tokenizer. Establishes the original T5 Base checkpoint identity, not Flan-T5 or the pruned/merged Switch model. No model weights were loaded or downloaded."
+    },
+    {
+      "id": "s15",
+      "url": "https://aclanthology.org/2020.emnlp-main.400.pdf",
+      "title": "Entities as Experts: Sparse Memory Access with Entity Supervision",
+      "publisher": "F\u00e9vry et al. / Google Research",
+      "accessed": true,
+      "evidence": "Freshly read full original paper. Table 3 identifies T5-Base at nominal 220M under a total-parameter column; Appendix A identifies T5 and its task fine-tuning. It does not give a Base activated-count row. Its original results support exact baseline identity but do not themselves supply the accepted active value."
+    },
+    {
+      "id": "s16",
+      "url": "https://tac.nist.gov/publications/2020/presentations/TAC2020.KEYNOTE.Bikel.presentation.pdf",
+      "title": "Entities: what are they, where are they and how do we model them?",
+      "publisher": "Daniel M. Bikel / Google Research",
+      "accessed": true,
+      "evidence": "Freshly opened the original TAC keynote. Slide 74 explicitly separates All and Activated counts for T5 3B and 11B, but does not list Base. Those sibling counts are not transferred to Base."
+    },
+    {
+      "id": "s17",
+      "url": "https://aclanthology.org/2024.acl-long.113.pdf",
+      "title": "SPARSEFIT: Few-shot Prompting with Sparse Fine-tuning for Jointly Generating Predictions and Natural Language Explanations",
+      "publisher": "Solano et al. / ACL 2024",
+      "accessed": true,
+      "evidence": "Freshly read the original paper after an active-parameters search hit. Section 3 and Appendix A use active for trainable subsets while all other parameters are frozen. This does not establish inference-time participation; its component percentages are not used for the catalog active count."
+    },
+    {
+      "id": "s18",
+      "url": "https://forum.openpecha.org/t/mixture-of-experts-architecture-for-machine-translation-on-edge-devices/202",
+      "title": "Mixture of Experts Architecture for Machine Translation on Edge Devices",
+      "publisher": "Billings Moore / OpenPecha Community Forum",
+      "accessed": true,
+      "evidence": "Freshly read the complete original Tibetan-translation experiment report. Its resource table claims Base 220M active/token, but gives no parameter-count source/method and justifies it with dense-equals-all prose; its FLOPs-per-token units are unexplained. Its measured translation scores are primary results, but the unsupported resource table is not the basis of the accepted count."
+    },
+    {
+      "id": "s19",
+      "url": "https://huggingface.co/google/flan-t5-base/raw/main/config.json",
+      "title": "Flan-T5 Base developer configuration",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Fresh configuration has gated-GELU FFNs of width 2048 and untied word embeddings, unlike original Base\u2019s ReLU width 3072 and shared/tied embeddings. A Flan-T5 active count cannot transfer through an unchanged-architecture assumption."
+    },
+    {
+      "id": "s20",
+      "url": "https://leaderboard.mteb.org/models/google/flan-t5-base",
+      "title": "MTEB Flan-T5 Base profile",
+      "publisher": "MTEB",
+      "accessed": true,
+      "evidence": "Freshly opened numeric lead listing 248M total and 223M active. It identifies google/flan-t5-base, a structurally distinct later model. Its active figure is not used for original T5 Base."
     }
   ],
   "fields": {
@@ -165,20 +229,27 @@
         "s5",
         "s6",
         "s7",
-        "s8"
+        "s8",
+        "s1",
+        "s9"
       ],
-      "note": "Exact complete original parameter count: 222,903,552. Sum encoder 84,954,240 + decoder 113,275,008 + shared embedding 24,674,304, counting tied embedding/output once. Includes 62 norm vectors (47,616 elements) and two relative-bias tables (768 elements). Independent base-dimension formula matches original index. Excludes optimizer slots/global_step and the HF-only unused 384-element cross-attention bias. Original BF16 and converted F32 are unpacked floating-point tensors; no quantization metadata is counted. Nominal 220M is rounded."
+      "note": "Exact complete original parameter count: 222,903,552. Sum encoder 84,954,240 + decoder 113,275,008 + shared embedding 24,674,304, counting tied embedding/output once. Includes 62 norm vectors (47,616 elements) and two relative-bias tables (768 elements). Independent base-dimension formula matches original index. Excludes optimizer slots/global_step and the HF-only unused 384-element cross-attention bias. Original BF16 and converted F32 are unpacked floating-point tensors; no quantization metadata is counted. Nominal 220M is rounded. October 27 re-audit freshly confirms the published nominal 220M total and original checkpoint identity through release README, operative config and pinned card. Retain the earlier independently established exact total without repeating its tensor census."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 0.22,
+      "status": "verified",
       "source_ids": [
-        "s3",
-        "s5",
-        "s8",
-        "s11"
+        "s13",
+        "s14",
+        "s11",
+        "s15",
+        "s16",
+        "s17",
+        "s18",
+        "s19",
+        "s20"
       ],
-      "note": "No separately defined inference active count is published for this exact original model. Encoder processing and cached decoder generation use different subsets; total is not copied into active. The later GPT-3 paper half-active fraction is an approximate training-FLOP convention that ignores attention, not a verified inference count."
+      "note": "Nominal 220M under Li et al.\u2019s original ICLR 2024 MC-SMoE comparison convention. Table 1 explicitly defines act-size as activated parameters per token and lists t5-base at 220M. The linked pinned code loads the original t5-base model, establishing exact identity rather than a compressed Switch or Flan variant. This is the research authors\u2019 published nominal convention, not the exact 222,903,552 checkpoint total or a measurement separately resolving encoder processing and cached decoding. Fresh exact-model total/active/activated and later-comparison searches also checked original release/config/card, the full T5 paper, EaE, Bikel\u2019s slides, SPARSEFIT, OpenPecha and the Flan lead. GPT-3\u2019s half-active training-FLOP approximation, trainable-only percentages, sibling counts and structurally different Flan counts are not substituted."
     },
     "architecture": {
       "value": "dense",
@@ -311,9 +382,20 @@
         "label": "TensorFlow checkpoint index schema",
         "url": "https://github.com/tensorflow/tensorflow/blob/v2.20.0/tensorflow/core/protobuf/tensor_bundle.proto",
         "type": "primary"
+      },
+      {
+        "label": "MC-SMoE paper: nominal activated-parameter comparison",
+        "url": "https://proceedings.iclr.cc/paper_files/paper/2024/file/3d09a88c3372cdb79401fde592ca4db8-Paper-Conference.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "MC-SMoE exact T5 baseline implementation",
+        "url": "https://github.com/UNITES-Lab/MC-SMoE/blob/99b400f0d5b3be0015ebec4a5a80a7821be1aebd/mcsmoe/t5-finetune-on-downstream.py",
+        "type": "primary"
       }
     ],
-    "notes": "The original checkpoint has 222,903,552 parameters across the encoder, decoder and shared embedding; tied input/output weights count once. The converted HF file includes an unused 384-value cross-attention bias excluded here. Training/default length is 512 tokens per input/target, not a fixed architectural maximum. A separate inference active count, thinking mode and tool-calling capability are not established. Original release: October 23, 2019."
+    "notes": "The original checkpoint has 222,903,552 parameters across encoder, decoder and shared embedding; tied input/output weights count once. Nominal 220M active follows Li et al.\u2019s MC-SMoE comparison convention, without separate encoder/decode-phase counts. The unused 384-value HF cross-attention bias is excluded from the total. Training/default length is 512 tokens per input/target, not a fixed maximum. Thinking mode and tool calling remain unverified. Original release: October 23, 2019.",
+    "active_parameters_b": 0.22
   },
-  "summary": "Replaces nominal 220M with the exact 222,903,552 original parameter count, corroborated by original TF index, converted header and configuration formula. Excludes optimizer state and one legacy unused HF bias. Verifies dense encoder-decoder architecture, Apache 2.0 and October 23, 2019 release. Maximum context, reasoning and tool calling remain unverified; 512 is training/default length. Active inference count remains undisclosed."
+  "summary": "October 27 parameter re-audit retains the verified 222,903,552 original total and recovers nominal 220M active from Li et al.\u2019s original ICLR 2024 MC-SMoE Table 1, with exact original T5 Base identity confirmed in linked baseline code. The count follows that research comparison convention rather than a phase-resolved inference census. Original sources and concrete alternative leads were freshly checked; all twelve unrelated field assessments remain unchanged. No weights or tensor census were downloaded or repeated."
 }
