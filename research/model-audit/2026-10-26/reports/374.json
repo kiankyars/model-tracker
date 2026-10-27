@@ -1,7 +1,7 @@
 {
   "index": 374,
   "model_id": "nvidia/llama-3.1-nemotron-70b-instruct",
-  "reviewed_at": "2026-10-27T00:24:46.029624Z",
+  "reviewed_at": "2026-10-27T15:49:48.547900Z",
   "sources": [
     {
       "id": "s1",
@@ -10,7 +10,7 @@
       "publisher": "NVIDIA",
       "type": "primary",
       "accessed": true,
-      "evidence": "Identifies the exact 70B Instruct model, NVIDIA customization of Llama 3.1 through REINFORCE RLHF for general instruction following, Transformer architecture, text input/output, 128k input, and the current NVIDIA plus Llama license notices."
+      "evidence": "Identifies the exact 70B Instruct model, NVIDIA customization of Llama 3.1 through REINFORCE RLHF for general instruction following, Transformer architecture, text input/output, 128k input, and the current NVIDIA plus Llama license notices. Reopened October 27: the base_model field and training description explicitly identify meta-llama/Llama-3.1-70B-Instruct as the initial REINFORCE policy; the network architecture remains Llama 3.1."
     },
     {
       "id": "s2",
@@ -19,7 +19,7 @@
       "publisher": "NVIDIA",
       "type": "primary",
       "accessed": true,
-      "evidence": "Explicitly identifies this checkpoint as NVIDIA’s format conversion of the original NeMo model, rather than a later Nemotron variant; provides downloadable Transformers inference instructions."
+      "evidence": "Explicitly identifies this checkpoint as NVIDIA’s format conversion of the original NeMo model, rather than a later Nemotron variant; provides downloadable Transformers inference instructions. Reopened October 27: repeats the exact Llama-3.1-70B-Instruct initial-policy lineage and describes only a format conversion, without a new modality or architecture."
     },
     {
       "id": "s3",
@@ -28,7 +28,7 @@
       "publisher": "NVIDIA",
       "type": "weights",
       "accessed": true,
-      "evidence": "LlamaForCausalLM with 80 layers, hidden size 8192, intermediate size 28672, 64 query heads, 8 KV heads, vocabulary 128256, untied embeddings, BF16, and 131072 maximum positions. No quantization or MoE configuration."
+      "evidence": "LlamaForCausalLM with 80 layers, hidden size 8192, intermediate size 28672, 64 query heads, 8 KV heads, vocabulary 128256, untied embeddings, BF16, and 131072 maximum positions. No quantization or MoE configuration. Reopened October 27; _name_or_path names meta-llama/Llama-3.1-70B-Instruct, corroborating the unchanged dense policy architecture described by the alignment paper."
     },
     {
       "id": "s4",
@@ -55,7 +55,7 @@
       "publisher": "NVIDIA / Hugging Face",
       "type": "weights",
       "accessed": true,
-      "evidence": "Identifies revision 031d4042f36adc1a52cca51b331d25cbe3cf1022 and independently reports 70553706496 BF16 safetensors parameters. Creation timestamp 2024-10-12 is repository metadata, not proof of public release."
+      "evidence": "Identifies revision 031d4042f36adc1a52cca51b331d25cbe3cf1022 and independently reports 70553706496 BF16 safetensors parameters. Creation timestamp 2024-10-12 is repository metadata, not proof of public release. Reopened October 27: the same revision and exact BF16 total are still reported; this independently corroborates the prior census without rereading any weight shard."
     },
     {
       "id": "s7",
@@ -100,7 +100,7 @@
       "publisher": "NVIDIA researchers / arXiv",
       "type": "primary",
       "accessed": true,
-      "evidence": "The 2025 revision explicitly links this Instruct model; sections 5.2–5.3 describe Llama 3.1-70B policy initialization and REINFORCE training. It does not separately define an active-per-token parameter count."
+      "evidence": "Reopened October 27, including sections 5.2–5.3 and Appendix E: the released Instruct policy starts from Llama-3.1-70B-Instruct and is aligned with REINFORCE, using a separate reward model. The documented policy training introduces no pruning, expert expansion, additional modality or structural distillation; the linear reward head described in section 3 belongs to the separate reward model, not this Instruct policy. No active-count column or separate active-count specification for Nemotron 70B is supplied."
     },
     {
       "id": "s12",
@@ -146,6 +146,24 @@
       "type": "primary",
       "accessed": true,
       "evidence": "The October 12 committed card describes the same model and gives October 1 benchmark timing, not a release declaration. The initial license notice references Llama 3.1; current cards additionally name the NVIDIA Open Model License."
+    },
+    {
+      "id": "s17",
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2025/file/a9ed43fa31dc8b4a7d7a673d713dcb5f-Paper-Conference.pdf",
+      "title": "AI21 Jamba-1.5 original ICLR 2025 paper, Table 1",
+      "publisher": "AI21 Labs researchers / ICLR",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Freshly downloaded October 27 and checked the complete Table 1 on printed page 5: its distinct Available params and Active params columns list Llama-3.1 70B as 70B and 70B. This is AI21’s nominal research-comparison convention for the named Llama 3.1 size, not a direct NVIDIA or Meta active-count disclosure and not an exact per-token tensor census."
+    },
+    {
+      "id": "s18",
+      "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3_1/MODEL_CARD.md",
+      "title": "Meta Llama 3.1 model card",
+      "publisher": "Meta",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Reopened October 27: identifies pretrained and instruction-tuned Llama 3.1 models in the same 8B, 70B and 405B size classes, with an autoregressive Transformer architecture and SFT/RLHF for the tuned versions. Supports matching the Llama-3.1 70B comparison row to the exact Llama-3.1-70B-Instruct initial policy named by NVIDIA; does not itself publish a separate active count."
     }
   ],
   "fields": {
@@ -216,18 +234,20 @@
         "s6",
         "s8"
       ],
-      "note": "Complete official HF conversion: 70553706496 learned BF16 parameters in 723 tensors across 30 shards, including untied input/output embeddings and norms; no buffers/scales. Reproduce by summing each header shape product. Independent configuration formula: 2*128256*8192+80*(2*8192**2+2*8192*1024+3*8192*28672+2*8192)+8192. Original NeMo stores 70566289408 elements because both vocab matrices are padded to 129024 rows; 12582912 extra padded elements are not added to this HF count. 70B is nominal."
+      "note": "Complete official HF conversion: 70553706496 learned BF16 parameters in 723 tensors across 30 shards, including untied input/output embeddings and norms; no buffers/scales. Reproduce by summing each header shape product. Independent configuration formula: 2*128256*8192+80*(2*8192**2+2*8192*1024+3*8192*28672+2*8192)+8192. Original NeMo stores 70566289408 elements because both vocab matrices are padded to 129024 rows; 12582912 extra padded elements are not added to this HF count. 70B is nominal. October 27 re-audit preserves this previously verified census and separately reopens the original/conversion cards, configuration and official repository metadata, which still reports the same revision and exact BF16 count; no weight shards were requested."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 70,
+      "status": "verified",
       "source_ids": [
         "s1",
+        "s2",
         "s3",
-        "s7",
-        "s11"
+        "s11",
+        "s17",
+        "s18"
       ],
-      "note": "Exact cards, configurations and the revised report do not separately report or define active-per-token parameters. The dense total is not automatically an active count."
+      "note": "Nominal lineage inference from AI21’s original Jamba-1.5 ICLR Table 1, which explicitly reports 70B active parameters for Llama-3.1 70B. Meta identifies the base and instruction-tuned releases in that same 70B class; NVIDIA’s exact cards and alignment paper identify Llama-3.1-70B-Instruct as this model’s initial REINFORCE policy. The reopened configuration and documented training retain the Llama 3.1 architecture, with no policy pruning, expert expansion, added modality or structural distillation. The reward model and its scoring head are separate training components. This transfers AI21’s published nominal active-count convention through documented post-training lineage; it does not equate the precise 70.553706496B HF total with active parameters or claim NVIDIA disclosed an exact per-token count. Fresh exact-card/paper and first-party searches found no separate NVIDIA active-count specification."
     },
     "architecture": {
       "value": "dense",
@@ -305,7 +325,7 @@
     "reasoning": null,
     "tool_call": null,
     "description": "NVIDIA’s RLHF-tuned Llama 3.1 70B Instruct model, trained with REINFORCE and HelpSteer2 preference data to improve helpfulness in general instruction following.",
-    "notes": "Total is the exact 70.553706496B complete BF16 NVIDIA Transformers conversion. The original NeMo checkpoint stores 70.566289408B elements, including 12,582,912 extra vocabulary-padding elements; 70B is nominal. Active parameters are not separately reported. Release is established to October 2024, with the day unresolved. Context is 131072 tokens in both configurations. NVIDIA NIM marks tool calling unsupported, while the checkpoint retains inherited Llama function-call syntax; capability for the fine-tune remains unverified. Dedicated reasoning support is also unverified.",
+    "notes": "Total is the exact 70.553706496B complete BF16 NVIDIA Transformers conversion. The original NeMo checkpoint stores 70.566289408B elements, including 12,582,912 extra vocabulary-padding elements; 70B is nominal. Active is a nominal 70B lineage inference from AI21’s Jamba comparison convention for Llama 3.1 70B and NVIDIA’s documented REINFORCE post-training of Llama-3.1-70B-Instruct; NVIDIA does not separately disclose an exact active count. Release is established to October 2024, with the day unresolved. Context is 131072 tokens in both configurations. NVIDIA NIM marks tool calling unsupported, while the checkpoint retains inherited Llama function-call syntax; capability for the fine-tune remains unverified. Dedicated reasoning support is also unverified.",
     "sources": [
       {
         "label": "Original NVIDIA NeMo model card",
@@ -371,8 +391,19 @@
         "label": "Llama 3.1 Community License Agreement",
         "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3_1/LICENSE",
         "type": "primary"
+      },
+      {
+        "label": "AI21 Jamba-1.5 original ICLR 2025 paper, Table 1",
+        "url": "https://proceedings.iclr.cc/paper_files/paper/2025/file/a9ed43fa31dc8b4a7d7a673d713dcb5f-Paper-Conference.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Meta Llama 3.1 model card",
+        "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3_1/MODEL_CARD.md",
+        "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": 70
   },
-  "summary": "Verified the original NVIDIA 70B Instruct model and exact 70.553706496B HF checkpoint census. Corrected release to October 2024 with day unresolved, dense architecture, 131072 context, combined named licenses, and documented instruction-following description. Active parameters remain undisclosed. Cleared unsupported reasoning and tool-calling assertions; preserved the NIM limitation and inherited-template distinction. Documented original NeMo vocabulary padding."
+  "summary": "October 27 parameter re-audit retains the verified 70.553706496B HF total, freshly corroborated by official metadata for the same revision. Sets active parameters to nominal 70B using AI21’s explicit Llama-3.1 70B comparison convention and NVIDIA’s documented, structurally unchanged REINFORCE policy lineage. NVIDIA still does not separately disclose an exact active count. Preserves all twelve other field assessments and the distinction between original NeMo vocabulary padding and the HF conversion; no weight shards were requested."
 }
