@@ -1,7 +1,7 @@
 {
   "index": 268,
   "model_id": "meta/llama-3.1-70b-instruct",
-  "reviewed_at": "2026-10-26T21:34:31.967337Z",
+  "reviewed_at": "2026-10-27T14:07:44.826Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Llama-3.1-70B-Instruct model card",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "Exact official Instruct repository. Its model information identifies Meta, nominal 70B size, text input/output, multilingual dialogue, July 23, 2024 release, downloadable checkpoints and Llama 3.1 license. Tool-use section documents structured calls."
+      "evidence": "Exact official Instruct repository. Its model information identifies Meta, nominal 70B size, text input/output, multilingual dialogue, July 23, 2024 release, downloadable checkpoints and Llama 3.1 license. Tool-use section documents structured calls. Reopened October 27: model information explicitly covers pretrained and instruction-tuned 70B models and describes SFT/RLHF post-training."
     },
     {
       "id": "s2",
@@ -57,7 +57,7 @@
       "title": "Meta Llama 3.1 Instruct model configurations",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "Exact 70B Instruct entry links its Hugging Face repository and specifies 80 layers, dimension 8192, 64 attention heads, 8 KV heads, and scaled RoPE."
+      "evidence": "Exact 70B Instruct entry links its Hugging Face repository and specifies 80 layers, dimension 8192, 64 attention heads, 8 KV heads, and scaled RoPE. Fresh comparison confirms the base and Instruct 70B entries use identical arch_args, including vocabulary and FFN settings, supporting unchanged structure through instruction tuning."
     },
     {
       "id": "s8",
@@ -66,6 +66,38 @@
       "publisher": "Meta via Hugging Face",
       "accessed": false,
       "evidence": "Public request returned HTTP 401. No gated access was bypassed and no weights were downloaded; this attempted source supports no technical claim."
+    },
+    {
+      "id": "s9",
+      "url": "https://aclanthology.org/2025.findings-emnlp.837.pdf",
+      "title": "Zipf’s and Heaps’ Laws for Tokens and LLM-generated Texts, Table 3",
+      "publisher": "Nikolay Mikhaylovskiy, NTR Labs / Tomsk State University; EMNLP Findings 2025",
+      "accessed": true,
+      "evidence": "Original empirical research lists Llama-3.1-70B at 70B total and 70B active parameters in Table 3 (PDF page 4). Section 4.1 uses base and original instruction-tuned models with NF4 quantization. Figures 10 and 13 show only smaller Instruct Llamas, so this is direct evidence for the named base model; applying its nominal active-count convention to 70B Instruct requires Meta’s documented lineage and matching architecture. The count is the researcher’s convention, not a Meta active-count disclosure."
+    },
+    {
+      "id": "s10",
+      "url": "https://arxiv.org/html/2412.19437v1",
+      "title": "DeepSeek-V3 Technical Report, original comparison tables",
+      "publisher": "DeepSeek-AI",
+      "accessed": true,
+      "evidence": "Fresh full-text search found no 70B comparison for the exact Llama 3.1 Instruct model. Its 405B comparisons do not establish this model’s active count."
+    },
+    {
+      "id": "s11",
+      "url": "https://arxiv.org/html/2412.15115v1",
+      "title": "Qwen2.5 Technical Report, instruction-model comparisons",
+      "publisher": "Qwen Team, Alibaba",
+      "accessed": true,
+      "evidence": "Table 6 and Section 5.2 identify Llama-3.1-70B-Instruct as a comparison model, but the inspected tables do not give it a separately labeled active-parameter count."
+    },
+    {
+      "id": "s12",
+      "url": "https://arxiv.org/html/2505.09388v1",
+      "title": "Qwen3 Technical Report, activated-parameter comparisons",
+      "publisher": "Qwen Team, Alibaba",
+      "accessed": true,
+      "evidence": "The inspected activated-parameter tables include other Llama releases and DeepSeek-R1-Distill-Llama-70B, not an exact Llama-3.1-70B-Instruct row. Those distinct models do not directly establish this count."
     }
   ],
   "fields": {
@@ -128,16 +160,17 @@
         "s1",
         "s2"
       ],
-      "note": "Published nominal total in billions, independently stated in the model information and paper. Not a tensor-derived exact learned-parameter count; no storage aggregate is substituted."
+      "note": "Freshly confirmed Meta-published nominal total of 70 billion parameters for the exact Instruct release. Retains the developer’s stated precision without requiring a tensor census."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 70,
+      "status": "verified",
       "source_ids": [
+        "s9",
         "s1",
-        "s2"
+        "s7"
       ],
-      "note": "No separately defined active-parameter count is reported. Dense topology alone does not justify copying the nominal total into this field."
+      "note": "Labeled lineage inference: Mikhaylovskiy’s Table 3 reports 70B active for Llama-3.1-70B. Meta identifies its Instruct counterpart as an SFT/RLHF-tuned model and publishes identical base/Instruct architecture settings, with no structural change indicated. Apply that researcher’s nominal convention to Instruct; this is neither a separate Meta disclosure nor an exact per-token census."
     },
     "architecture": {
       "value": "dense",
@@ -245,9 +278,16 @@
         "label": "Meta exact Instruct architecture configuration",
         "url": "https://github.com/meta-llama/llama-models/blob/0e0b8c519242d5833d8c11bffc1232b77ad7f301/models/sku_list.py",
         "type": "primary"
+      },
+      {
+        "label": "Mikhaylovskiy active-parameter convention, Table 3",
+        "url": "https://aclanthology.org/2025.findings-emnlp.837.pdf",
+        "type": "primary"
       }
     ],
-    "notes": "70B is the developer-published nominal total. Active parameters are not separately defined. Native context is 131072 tokens including generation. Dedicated reasoning mode is undisclosed; this does not deny ordinary reasoning ability."
+    "notes": "70B total is Meta’s nominal specification. Nominal 70B active is inferred from Mikhaylovskiy’s base-model convention through Meta’s documented Instruct lineage and matching architecture, not a separate Meta active-count disclosure. Native context is 131072 tokens including generation. Dedicated reasoning mode is undisclosed; this does not deny ordinary reasoning ability.",
+    "parameters_b": 70,
+    "active_parameters_b": 70
   },
-  "summary": "Confirmed the exact July 23, 2024 Llama 3.1 70B Instruct release, nominal 70B size, open weights, text modalities and native tool calling. Added the original 3.1 license and dense GQA architecture; corrected context from 128000 to 131072. Cleared unsupported reasoning=false to null/undisclosed and retained active count null/undisclosed. Exact gated config was inaccessible; public Meta code and report provide the required evidence without bypass or weight downloads."
+  "summary": "Fresh parameter re-audit retains Meta’s nominal 70B total and establishes nominal 70B active by an explicitly labeled lineage inference from Mikhaylovskiy’s Table 3 and Meta’s matching base/Instruct configurations. DeepSeek-V3 and Qwen2.5/3 comparisons supplied no more direct active-count evidence for this exact Instruct model. Exact per-token participation remains unspecified. The other twelve assessments are preserved, including the original 3.1 license, 131072-token context, native tools and undisclosed dedicated reasoning mode. No weights downloaded."
 }
