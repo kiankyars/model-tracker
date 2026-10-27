@@ -1,7 +1,7 @@
 {
   "index": 85,
   "model_id": "anthracite-org/magnum-v4-72b",
-  "reviewed_at": "2026-10-26T16:09:21.943284Z",
+  "reviewed_at": "2026-10-27T10:10:03.311222Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Magnum v4 72B model card",
       "publisher": "Anthracite",
       "accessed": true,
-      "evidence": "Identifies the model as a full-parameter fine-tune of Qwen2.5-72B-Instruct, part of Magnum v4, aimed at Claude-like prose. Publishes Apache-2.0 metadata, text chat examples, and sequence_len 32768 training configuration."
+      "evidence": "Reopened 2026-10-27: identifies Qwen2.5-72B-Instruct as the exact base and explicitly describes full-parameter fine-tuning. The card documents no pruning, distillation, expert expansion or added modalities. It retains Apache-2.0 metadata, text chat examples, and sequence_len 32768 training configuration."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "Magnum v4 72B checkpoint configuration",
       "publisher": "Anthracite",
       "accessed": true,
-      "evidence": "Qwen2ForCausalLM; 80 layers, hidden size 8192, intermediate size 29568, 64 query and 8 KV heads, vocabulary 152064, untied embeddings, BF16, max_position_embeddings 32768; no expert routing or quantization configuration."
+      "evidence": "Reopened 2026-10-27: Qwen2ForCausalLM; 80 layers, hidden size 8192, intermediate size 29568, 64 query and 8 KV heads, vocabulary 152064, untied embeddings, BF16, max_position_embeddings 32768. Parameter dimensions match the exact Qwen2.5-72B-Instruct base and Qwen2.5-72B configs; no expert routing, multimodal expansion or quantization configuration."
     },
     {
       "id": "s3",
@@ -25,7 +25,7 @@
       "title": "Hugging Face metadata for the Anthracite checkpoint",
       "publisher": "Hugging Face / Anthracite",
       "accessed": true,
-      "evidence": "Hub safetensors metadata reports exactly 72706203648 BF16 parameters, with the same total. Revision 3ea7aecd096b6323fcc4c01c6cef11364c75e6b5; repository created 2024-09-20, last modified 2024-11-25."
+      "evidence": "Rechecked 2026-10-27: Hub safetensors metadata still reports exactly 72706203648 BF16 parameters, with the same total. Revision remains 3ea7aecd096b6323fcc4c01c6cef11364c75e6b5; repository last modified 2024-11-25. The previously verified complete total is preserved without a new weight census."
     },
     {
       "id": "s4",
@@ -82,6 +82,38 @@
       "publisher": "Anthracite contributor lucyknada / Reddit",
       "accessed": true,
       "evidence": "The original post metadata identifies lucyknada and created_utc 1729394828, corresponding to 2024-10-20 03:27:08 UTC. The post announces v4 and links the official weight collection, including the 72B Qwen2.5 variant."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/Qwen/Qwen2.5-72B-Instruct",
+      "title": "Qwen2.5-72B-Instruct model card",
+      "publisher": "Qwen",
+      "accessed": true,
+      "evidence": "The exact named base is the instruction-tuned 72B Qwen2.5 model. Its developer reports 72.7B total parameters, 70.0B non-embedding parameters, 80 layers, and 64 query / 8 KV heads. The non-embedding count is not used as an active count."
+    },
+    {
+      "id": "s12",
+      "url": "https://huggingface.co/Qwen/Qwen2.5-72B-Instruct/raw/main/config.json",
+      "title": "Qwen2.5-72B-Instruct checkpoint configuration",
+      "publisher": "Qwen",
+      "accessed": true,
+      "evidence": "The exact base uses Qwen2ForCausalLM, 80 layers, hidden size 8192, intermediate size 29568, 64 query and 8 KV heads, vocabulary 152064, untied embeddings and SiLU. All checked parameter dimensions match Magnum v4 72B; differing cache/sliding-window settings do not add or remove learned parameter dimensions."
+    },
+    {
+      "id": "s13",
+      "url": "https://huggingface.co/Qwen/Qwen2.5-72B/raw/main/config.json",
+      "title": "Qwen2.5-72B base checkpoint configuration",
+      "publisher": "Qwen",
+      "accessed": true,
+      "evidence": "Directly fetched configuration matches the same Qwen2ForCausalLM architecture and parameter dimensions as both Qwen2.5-72B-Instruct and Magnum v4 72B. No expert/router or multimodal configuration keys appear in these three checkpoints."
+    },
+    {
+      "id": "s14",
+      "url": "https://arxiv.org/html/2505.09388v1",
+      "title": "Qwen3 Technical Report, Tables 3, 4 and 14",
+      "publisher": "Qwen Team",
+      "accessed": true,
+      "evidence": "May 14, 2025 first-party report: Tables 3 and 4 list Qwen2.5-72B Base as dense with 72B total and 72B activated parameters. More directly, Table 14 lists Qwen2.5-72B-Instruct, Magnum v4 72B's exact named base, as dense with 72B activated and 72B total parameters. These are nominal published figures, separate from the exact checkpoint total."
     }
   ],
   "fields": {
@@ -146,20 +178,21 @@
       "source_ids": [
         "s2",
         "s3",
-        "s4"
+        "s4",
+        "s11"
       ],
-      "note": "Complete checkpoint count: 72,706,203,648 learned parameters. Hub BF16 metadata, dense configuration arithmetic, and index byte total agree. The marketed 72B name is nominal; this is not a quantized storage-element count."
+      "note": "Preserved complete checkpoint count: 72,706,203,648 learned parameters. Fresh Hub BF16 metadata matches the previously verified configuration/index count. Qwen describes the exact base as 72.7B and the model name uses nominal 72B; neither replaces this precise total."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 72,
+      "status": "verified",
       "source_ids": [
         "s1",
         "s2",
-        "s3",
-        "s9"
+        "s12",
+        "s14"
       ],
-      "note": "No separately defined active-parameter count is disclosed. Dense architecture does not justify filling this field with the complete count, which includes embeddings."
+      "note": "Nominal 72B active parameters inferred from the explicitly named Qwen2.5-72B-Instruct full-parameter fine-tune lineage. Qwen's later technical report Table 14 publishes 72B activated for that exact base; the released parameter dimensions match, with no documented structural change. This follows the developer's nominal convention, not an exact per-token tensor census or the 70.0B non-embedding count. Anthracite does not separately publish an exact active count."
     },
     "architecture": {
       "value": "dense",
@@ -278,9 +311,30 @@
         "label": "OpenRouter Magnum v4 72B endpoint listing",
         "url": "https://openrouter.ai/anthracite-org/magnum-v4-72b/apps",
         "type": "provider"
+      },
+      {
+        "label": "Qwen2.5-72B-Instruct model card",
+        "url": "https://huggingface.co/Qwen/Qwen2.5-72B-Instruct",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen2.5-72B-Instruct checkpoint configuration",
+        "url": "https://huggingface.co/Qwen/Qwen2.5-72B-Instruct/raw/main/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen2.5-72B base checkpoint configuration",
+        "url": "https://huggingface.co/Qwen/Qwen2.5-72B/raw/main/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3 Technical Report, Tables 3, 4 and 14",
+        "url": "https://arxiv.org/html/2505.09388v1",
+        "type": "primary"
       }
     ],
-    "notes": "72B is nominal; the complete BF16 checkpoint contains 72.706203648B learned parameters. Active parameters are not separately disclosed. The public v4 announcement is dated 2024-10-20; repository uploads on 2024-09-20 do not establish public release, and OpenRouter lists 2024-10-22. Native configuration and training support 32768 tokens despite a 131072 tokenizer limit. Tool serialization is present, but native tool capability is unverified and the listed OpenRouter endpoint rejects tools."
+    "notes": "The complete BF16 checkpoint contains 72.706203648B learned parameters. Nominal active 72B is inferred from the documented Qwen2.5-72B-Instruct full fine-tune lineage and matching parameter dimensions; Qwen publishes 72B activated for that exact base. The public v4 announcement is dated 2024-10-20; repository uploads on 2024-09-20 do not establish public release, and OpenRouter lists 2024-10-22. Native configuration and training support 32768 tokens despite a 131072 tokenizer limit. Tool serialization is present, but native tool capability is unverified and the listed OpenRouter endpoint rejects tools.",
+    "active_parameters_b": 72
   },
-  "summary": "Confirmed 72.706203648B total parameters from BF16 metadata, index and configuration; filled dense architecture, Apache-2.0 license and Magnum family. Corrected release to the October 20 developer announcement and replaced generic description with exact Instruct lineage and writing focus. Active count remains undisclosed; reasoning mode and underlying tool capability are not established. Tokenizer/context and endpoint/tool discrepancies are documented."
+  "summary": "Fresh parameter re-audit preserved the verified 72.706203648B total and resolved nominal active parameters to 72B through the explicit full-parameter Qwen2.5-72B-Instruct lineage, matching configuration dimensions, and Qwen3 Technical Report Table 14. Reopened the exact card/config and Hub metadata, compared both Qwen base configurations, and searched for later exact-model/activated-parameter disclosures. No separate Anthracite exact active count was found; 72B follows Qwen's published nominal convention. Other field assessments are unchanged."
 }
