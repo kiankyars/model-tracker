@@ -1,7 +1,7 @@
 {
   "index": 290,
   "model_id": "meta/opt-13b",
-  "reviewed_at": "2026-10-26T22:00:33.224628Z",
+  "reviewed_at": "2026-10-27T14:34:09.143Z",
   "sources": [
     {
       "id": "s1",
@@ -17,7 +17,7 @@
       "title": "OPT: Open Pre-trained Transformer Language Models, technical report",
       "publisher": "Meta AI authors / arXiv",
       "accessed": true,
-      "evidence": "Section 2 and Table 1 give the 13B variant 40 decoder Transformer layers, 40 attention heads and width 5120. All variants use ReLU and 2048-token training sequences. Appendix D says the smaller baselines share the noncommercial weight license. The report describes text pretraining and zero/few-shot evaluation, not dedicated reasoning or tool-call features."
+      "evidence": "Section 2 and Table 1 give the 13B variant 40 decoder Transformer layers, 40 attention heads and width 5120. All variants use ReLU and 2048-token training sequences. Appendix D says the smaller baselines share the noncommercial weight license. The report describes text pretraining and zero/few-shot evaluation, not dedicated reasoning or tool-call features. Reopened October 27, 2026: Table 1 retains the nominal 13B model size; the full report does not define a separate active-parameter count."
     },
     {
       "id": "s3",
@@ -25,7 +25,7 @@
       "title": "Meta metaseq: OPT pretrained weights",
       "publisher": "Meta / facebookresearch",
       "accessed": true,
-      "evidence": "Official release table names OPT-13B, gives nominal 13B parameters and downloadable pretrained weight shards. Directs weight use to MODEL_LICENSE.md; current shard paths are later repackagings, not evidence of initial release date."
+      "evidence": "Official release table names OPT-13B, gives nominal 13B parameters and downloadable pretrained weight shards. Directs weight use to MODEL_LICENSE.md; current shard paths are later repackagings, not evidence of initial release date. Reopened October 27, 2026: the official table still explicitly lists OPT-13B with 13B parameters, supporting the nominal size independently of an exact tensor count."
     },
     {
       "id": "s4",
@@ -33,7 +33,7 @@
       "title": "facebook/opt-13b configuration at e515202d",
       "publisher": "Meta / facebook model repository",
       "accessed": true,
-      "evidence": "Exact checkpoint specifies OPTForCausalLM, 40 layers, hidden and embedding widths 5120, FFN width 20480, 40 heads, vocabulary 50272, 2048 positions, ReLU, float16 and enabled final layer norm. No separate embedding projection is required because embedding and hidden widths match."
+      "evidence": "Exact checkpoint specifies OPTForCausalLM, 40 layers, hidden and embedding widths 5120, FFN width 20480, 40 heads, vocabulary 50272, 2048 positions, ReLU, float16 and enabled final layer norm. No separate embedding projection is required because embedding and hidden widths match. Reopened the exact revision configuration on October 27, 2026; these dimensions and final-normalization setting are unchanged."
     },
     {
       "id": "s5",
@@ -90,6 +90,30 @@
       "publisher": "Hugging Face",
       "accessed": true,
       "evidence": "Repository revision e515202d1e7750da62d245fbccb2723b9c1790f5; repository created May 11, 2022. This later hosting date is distinct from Meta's explicit May 3 model release."
+    },
+    {
+      "id": "s12",
+      "url": "https://www.merl.com/publications/docs/TR2025-112.pdf",
+      "title": "μ-MoE: Test-Time Pruning as Micro-Grained Mixture-of-Experts",
+      "publisher": "Toshiaki Koike-Akino, Jing Liu and Ye Wang / Mitsubishi Electric Research Laboratories",
+      "accessed": true,
+      "evidence": "Reopened October 27, 2026. Table 1 includes OPT-13B and reports 60%, 50% and 40% active weights for compressed variants. Section 2 defines the fraction within a pruned linear weight matrix, and Section 3 says the experiment compresses Transformer linear layers. Original-model perplexities appear beside the model names. Appendix C Table 5 identifies facebook/opt-13b. These percentages are not an absolute active-parameter count for the unchanged checkpoint; they cannot establish 13B active by multiplying a model name or transferring the LLaVA 100% baseline."
+    },
+    {
+      "id": "s13",
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2025/file/7efe88bb4138d602e56637cfcf713654-Paper-Conference.pdf",
+      "title": "MoE++: Accelerating Mixture-of-Experts Methods with Zero-Computation Experts",
+      "publisher": "Peng Jin et al. / ICLR 2025",
+      "accessed": true,
+      "evidence": "Reopened October 27, 2026. Table 4 explicitly reports activated/total counts for OPT-1.3B (1.3B/1.3B) and OPT-2.7B (2.7B/2.7B), but does not list OPT-13B. The comparison convention is original research evidence for those exact smaller variants and cannot be transferred to OPT-13B."
+    },
+    {
+      "id": "s14",
+      "url": "https://arxiv.org/html/2404.01365v3",
+      "title": "Prompt-prompted Adaptive Structured Pruning for Efficient LLM Generation",
+      "publisher": "Harry Dong, Beidi Chen and Yuejie Chi / Carnegie Mellon University",
+      "accessed": true,
+      "evidence": "Reopened October 27, 2026 after targeted active-count searches. Tables 1 and 2 evaluate OPT 13B and pruned alternatives at 50% feedforward sparsity, without an active-parameter column. The explicit 13B-to-8.8B active-count example in Section 4.2 identifies Llama 2 13B, not OPT 13B. This supplies no absolute active count for the unchanged OPT checkpoint."
     }
   ],
   "fields": {
@@ -163,18 +187,20 @@
         "s7",
         "s8"
       ],
-      "note": "Complete configuration-derived unique parameter-tensor count: 12,853,473,280 (decimal billions); 13B is the official rounded label. For L=40,d=5120,f=20480,V=50272,P=2048: L*(4*d*d+2*d*f+9*d+f)+V*d+(P+2)*d+2*d. This includes all attention/FFN biases, both affine norms per block, final decoder norm and two positional-offset rows; tied token/output weights count once and equal embedding/hidden widths require no project_in/project_out matrices. All 644 expected parameter names match the index, with no buffer or quantization keys. The FP16 byte total corroborates the result but is not the counting method. No weight shards were downloaded or unpickled."
+      "note": "Retain the previously reconciled 12,853,473,280 unique parameter elements (12.85347328 decimal billions), which is consistent with Meta's nominal 13B size freshly confirmed in the official release table and technical report on October 27, 2026. The exact checkpoint configuration was reopened and retains the audited dimensions. The prior derivation is L*(4*d*d+2*d*f+9*d+f)+V*d+(P+2)*d+2*d for L=40,d=5120,f=20480,V=50272,P=2048: tied token/output embeddings count once; positional offsets, attention/FFN biases and affine norms are included. That derivation was reconciled to 644 index entries, with FP16 storage only corroborative. No new tensor census or weight download was performed in this pass."
     },
     "active_parameters_b": {
       "value": null,
       "status": "undisclosed",
       "source_ids": [
         "s2",
+        "s3",
         "s4",
-        "s6",
-        "s8"
+        "s12",
+        "s13",
+        "s14"
       ],
-      "note": "No separately defined active-parameter count is reported in the examined primary materials. Dense architecture alone does not justify setting active equal to total, particularly with embedding lookups and positional rows."
+      "note": "Fresh October 27, 2026 review of Meta's report, release table and exact configuration found no separate active count. Targeted searches for OPT-13B active/activated parameters and active weights led to original comparison papers: μ-MoE reports pruning ratios for linear layers rather than an absolute unchanged-model count; MoE++ explicitly lists only the 1.3B and 2.7B OPT variants; GRIFFIN's absolute 13B active example is Llama 2 13B. Retain null for OPT-13B; neither dense architecture, a pruning percentage nor a sibling model establishes its active count."
     },
     "architecture": {
       "value": "dense",
@@ -250,7 +276,7 @@
   "patch": {
     "parameters_b": 12.85347328,
     "parameters_source": "primary_source",
-    "notes": "OPT-13B is the nominal 13B base checkpoint. Exact configuration and implementation reconcile 12,853,473,280 unique parameter elements, including tied token/output embeddings once, positional offset rows, biases and layer norms; the checkpoint index corroborates the count. Active parameters and dedicated reasoning/tool-call capabilities are not separately documented. Weights are downloadable under the OPT non-commercial research license.",
+    "notes": "Meta publishes OPT-13B as nominally 13B parameters; the audited configuration and implementation reconcile 12.85347328B unique parameters, counting tied embeddings once. A separate active-parameter count remains unestablished; published pruning ratios concern modified linear layers. Dedicated reasoning and tool-call capabilities are not separately documented. Weights use the OPT non-commercial research license.",
     "sources": [
       {
         "label": "Meta OPT release announcement",
@@ -296,8 +322,24 @@
         "label": "OPT-13B weight license",
         "url": "https://huggingface.co/facebook/opt-13b/blob/e515202d1e7750da62d245fbccb2723b9c1790f5/LICENSE.md",
         "type": "primary"
+      },
+      {
+        "label": "μ-MoE OPT pruning comparison",
+        "url": "https://www.merl.com/publications/docs/TR2025-112.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "MoE++ activated-parameter comparison",
+        "url": "https://proceedings.iclr.cc/paper_files/paper/2025/file/7efe88bb4138d602e56637cfcf713654-Paper-Conference.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "GRIFFIN OPT pruning comparison",
+        "url": "https://arxiv.org/html/2404.01365v3",
+        "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": null
   },
-  "summary": "Correct nominal 13B to the complete configuration-derived 12.85347328B unique parameter count, reconciled with all 644 checkpoint tensor names and FP16 metadata without downloading weights. Confirm Meta OPT base identity, May 3, 2022 release, downloadable research-licensed weights, dense decoder-only architecture, 2048-token context and text-only modality. Retain null active parameters and dedicated reasoning/tool-call features because they are not separately documented."
+  "summary": "Fresh October 27 parameter re-audit confirms Meta's nominal 13B specification and retains the previously reconciled 12.85347328B unique total. Active parameters remain undisclosed after reopening primary model documents and original comparison papers: μ-MoE supplies pruning percentages, MoE++ omits OPT-13B, and GRIFFIN's absolute 13B active example concerns Llama 2. Explicitly patch the total and null active count, refresh the evidence and public notes, and preserve the other 12 field assessments."
 }
