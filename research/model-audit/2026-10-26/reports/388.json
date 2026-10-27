@@ -1,0 +1,415 @@
+{
+  "index": 388,
+  "model_id": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+  "reviewed_at": "2026-10-27T00:56:03.868222+00:00",
+  "sources": [
+    {
+      "id": "card",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-BF16/blob/fb0ee0bc6b3f70342afd8d84cb80dbadbaa8a1fe/README.md",
+      "title": "Pinned Nemotron 3.5 Super VL BF16 model card",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Exact post-trained VL reference checkpoint. Identifies NVIDIA, Nemotron family, October 15, 2026 Hugging Face release, OpenMDW-1.1, 1M context, text/image/video inputs and text outputs. Nominal 120B total/12B active. Documents reasoning controls, tool training and serving examples."
+    },
+    {
+      "id": "config",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-BF16/blob/fb0ee0bc6b3f70342afd8d84cb80dbadbaa8a1fe/config.json",
+      "title": "Pinned Super VL model configuration",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "88 language blocks: 40 Mamba, 40 MoE, eight attention. Width 4096; vocabulary 131072; untied embeddings; 512 routed experts/top 22; latent width 1024; routed/shared widths 2688/5376. One MTP attention-plus-MoE unit. Vision width 1280, 32 layers, image and temporal video projections. Context 1048576; sound_config=null."
+    },
+    {
+      "id": "index",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-BF16/blob/fb0ee0bc6b3f70342afd8d84cb80dbadbaa8a1fe/model.safetensors.index.json",
+      "title": "Complete BF16 checkpoint tensor index",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Maps all 43079 tensors to 64 shards. Index total_size=248906833960 equals independently reconciled tensor payload bytes. No parameter total is supplied in index metadata."
+    },
+    {
+      "id": "headers",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-BF16/resolve/fb0ee0bc6b3f70342afd8d84cb80dbadbaa8a1fe/model-00001-of-00064.safetensors",
+      "title": "Bounded safetensors headers, first of all 64 indexed shards",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Read all 64 eight-byte prefixes and JSON headers using checked HTTP 206 ranges, 6227456 bytes total. All indexed names, shapes, dtypes, contiguous offsets and physical shard lengths reconcile. 43035 BF16 learned tensors contain 124453374976 parameters. Exclude 44 buffers: 20998 F32 and two I64 elements. No weight payloads downloaded."
+    },
+    {
+      "id": "omni",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-BF16/blob/fb0ee0bc6b3f70342afd8d84cb80dbadbaa8a1fe/modeling_nemotron_h_omni.py",
+      "title": "Pinned vision-language composition and connector",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Combines Nemotron-H decoder, C-RADIO, pixel shuffle and RMSNorm/two-linear ReLU-squared connector. Lines 196–208 require a learned final vision LayerNorm when MTP is configured; its 2560 parameters are present and counted. Audio is conditional and disabled by this config. Lines 326–328 explain the ordinary Transformers composition does not build the released MTP weights."
+    },
+    {
+      "id": "radio",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-BF16/blob/fb0ee0bc6b3f70342afd8d84cb80dbadbaa8a1fe/modeling_radio.py",
+      "title": "Pinned C-RADIO implementation and checkpoint conversion",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Defines image/video projections, learned positions and class/register tokens, 32 transformer blocks, input-statistics buffers and summary-index buffer. Conversion maps fused checkpoint QKV into separate linear layers. Lines 195–201, 370–381, 412 and 435–436 define unit-initialized LayerScale wrappers and ignore their missing checkpoint keys; 64 such vectors are absent from every shard and are not trained released weights."
+    },
+    {
+      "id": "transformers",
+      "url": "https://github.com/huggingface/transformers/blob/v5.12.1/src/transformers/models/nemotron_h/modeling_nemotron_h.py",
+      "title": "Nemotron-H implementation at configured Transformers version",
+      "publisher": "Hugging Face / NVIDIA architecture",
+      "accessed": true,
+      "evidence": "Independently establishes main language module dimensions, Mamba learned A_log/D/dt_bias, convolution and projections, norms, attention, latent projections, shared/routed up/down expert matrices and router weights. e_score_correction_bias is explicitly a buffer. Fused expert tensors in implementation are equivalent to per-expert checkpoint matrices."
+    },
+    {
+      "id": "gated_norm",
+      "url": "https://github.com/huggingface/transformers/blob/v5.12.1/src/transformers/models/zamba2/modeling_zamba2.py",
+      "title": "Imported Mamba gated RMSNorm implementation",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Zamba2RMSNormGated used by Nemotron-H has exactly one learned vector of the provided hidden_size; gating and grouping add no parameters. Confirms no hidden norm parameters omitted from the constructor reconstruction."
+    },
+    {
+      "id": "mtp",
+      "url": "https://github.com/vllm-project/vllm/blob/3f1bcfd82bb2e93fcd364fc7a5491718453a77e2/vllm/model_executor/models/nemotron_h_mtp.py",
+      "title": "MTP implementation at the card-recommended vLLM revision",
+      "publisher": "vLLM / NVIDIA architecture",
+      "accessed": true,
+      "evidence": "One recursively reused attention-plus-MoE unit; start embedding/hidden norms and 2D-to-D fusion, final norm. Loader strips language_model prefix and reads target backbone embeddings/lm_head for drafting. These may be separate runtime objects, but are the same checkpoint matrices, counted once; no unique MTP embedding/head matrices occur in the release."
+    },
+    {
+      "id": "report",
+      "url": "https://research.nvidia.com/labs/nemotron/files/NVIDIA-Nemotron-3.5-Super-and-Lightning-Technical-Report.pdf",
+      "title": "Nemotron 3.5 Super and Lightning technical report, October 21, 2026",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Section 4.1 explicitly gives 124.453 billion original parameters including vision encoder, projector, MTP and unquantized modules, corroborating the independently counted BF16 checkpoint. Describes shared recursive MTP and Super vision-language post-training. Its rounded total does not replace the exact header/config census."
+    },
+    {
+      "id": "training",
+      "url": "https://docs.nvidia.com/nemotron/latest/nemotron/super35/README.html",
+      "title": "Nemotron 3.5 Super training recipe and architecture",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Explicitly maps released Super 3.5 checkpoints to Super-VL. Architecture diagram labels the language decoder 120B total/12B active and shows vision/connector and MTP separately. Specifications distinguish nominal 120B from 124.453B complete with those components. Confirms image/video inputs, no audio encoder, one shared MTP and 1M context."
+    },
+    {
+      "id": "announcement",
+      "url": "https://blogs.nvidia.com/blog/nemotron-3-5-super-vl/",
+      "title": "October 15 Super VL launch announcement",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Contemporary October 15, 2026 announcement says NVIDIA released Super VL that day and that it is available now. Independently corroborates the exact model-card release date."
+    },
+    {
+      "id": "research_landing",
+      "url": "https://research.nvidia.com/labs/nemotron/Nemotron-3.5-Super-and-Lightning/",
+      "title": "Super and Lightning research landing page",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Research page is dated October 14, 2026 and links the Super VL release. Record this one-day publication discrepancy: explicit checkpoint release date and contemporary launch announcement both say October 15; the landing-page date alone does not establish earlier public weight availability."
+    },
+    {
+      "id": "license",
+      "url": "https://openmdw.ai/license/1-1/",
+      "title": "OpenMDW License Agreement version 1.1",
+      "publisher": "OpenMDW",
+      "accessed": true,
+      "evidence": "The governing license URL linked by this exact pinned card opens the OpenMDW License Agreement version 1.1. This supports OpenMDW-1.1 rather than inheriting an older Nemotron license name."
+    },
+    {
+      "id": "chat",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-BF16/blob/fb0ee0bc6b3f70342afd8d84cb80dbadbaa8a1fe/chat_template.jinja",
+      "title": "Pinned reasoning and tool-call template",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "enable_thinking defaults true and changes the assistant reasoning prefix. Serializes tool definitions, function calls and tool responses in the specified XML-like format. Supports the card’s trained reasoning/tool-use claims."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Nemotron 3.5 Super VL 120B A12B",
+      "status": "verified",
+      "source_ids": [
+        "card"
+      ],
+      "note": "Exact released VL model; BF16 is the full-precision reference for this model, not the separately indexed text-only Perplexity endpoint."
+    },
+    "developer": {
+      "value": "NVIDIA",
+      "status": "verified",
+      "source_ids": [
+        "card"
+      ],
+      "note": "Model Developer explicitly identifies NVIDIA Corporation."
+    },
+    "family": {
+      "value": "nemotron",
+      "status": "verified",
+      "source_ids": [
+        "card"
+      ],
+      "note": "Canonical catalog family key for the explicitly named NVIDIA Nemotron family."
+    },
+    "release_date": {
+      "value": "2026-10-15",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "announcement",
+        "research_landing"
+      ],
+      "note": "Exact checkpoint release date and dated launch announcement agree on October 15. Research landing-page publication is October 14; that discrepancy is documented rather than treating page publication as earlier public weights availability."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "index",
+        "headers"
+      ],
+      "note": "Official BF16 checkpoint and all indexed shard headers are publicly accessible without authentication; this is actual released weight availability."
+    },
+    "license": {
+      "value": "OpenMDW-1.1",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "license"
+      ],
+      "note": "Exact card’s Governing Download Terms names version 1.1 and links the same agreement."
+    },
+    "parameters_b": {
+      "value": 124.453374976,
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "index",
+        "headers",
+        "omni",
+        "radio",
+        "transformers",
+        "gated_norm",
+        "mtp",
+        "report"
+      ],
+      "note": "Complete learned released-checkpoint count: 124453374976 BF16 elements, independently reconciled against every config/code-derived tensor shape. Includes 120668687360 language-backbone, 2942324736 unique MTP, 653611520 vision-encoder and 188751360 connector parameters; final vision LayerNorm is included. Excludes 21000 persistent buffer elements and 81920 unit-initialized runtime LayerScale elements absent from the checkpoint. Neither nominal 120B nor serialized storage bytes is used as the exact total."
+    },
+    "active_parameters_b": {
+      "value": 12,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "training",
+        "config"
+      ],
+      "note": "Publisher nominal 12B language-decoder active count, not an exact complete multimodal or speculative-pass count. Architecture diagram labels the decoder separately from vision/connector/MTP. Independent selected-expert inventory is 12.77021696B including both complete input/output matrices, or 12.233346048B excluding input embeddings; these accounting conventions do not establish a more precise publisher-defined activity count. Preserve 12B with proposed language_backbone scope."
+    },
+    "architecture": {
+      "value": "hybrid-ssm-transformer-moe",
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "omni",
+        "radio",
+        "transformers",
+        "report"
+      ],
+      "note": "40 Mamba-2, 40 LatentMoE and eight attention blocks in the main decoder; 512 routed experts with 22 selected and a shared expert. C-RADIO vision transformer plus connector and one recursively reused MTP unit are additional components."
+    },
+    "context_window": {
+      "value": 1048576,
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "card",
+        "training"
+      ],
+      "note": "Exact llm_config.max_position_embeddings=1048576 corroborates documented 1M context. Text, visual tokens, history, tool results and generation share the window; smaller deployment settings do not define the model maximum."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "config",
+        "omni",
+        "training"
+      ],
+      "note": "Explicit VL inputs and text output, image/video projections and forward paths present. sound_config=null and training documentation excludes audio; generic audio symbols in shared code do not establish audio support."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "chat",
+        "training"
+      ],
+      "note": "Reasoning training and configurable thinking are explicitly documented; pinned template defaults enable_thinking to true."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "chat"
+      ],
+      "note": "Card documents tool training, auto-tool-choice serving and client calls. Template explicitly handles tools, calls and results; this is supported capability rather than an inference from an agentic label."
+    },
+    "description": {
+      "value": "NVIDIA vision-language model with a C-RADIO encoder and hybrid Mamba-2, attention and LatentMoE decoder, trained for reasoning and tool use over text, images and video.",
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "omni",
+        "radio",
+        "training"
+      ],
+      "note": "Concrete verified architecture and supported inputs/capabilities, without speed or benchmark marketing claims."
+    }
+  },
+  "patch": {
+    "license": "OpenMDW-1.1",
+    "parameters_b": 124.453374976,
+    "parameters_source": "primary_source",
+    "architecture": "hybrid-ssm-transformer-moe",
+    "description": "NVIDIA vision-language model with a C-RADIO encoder and hybrid Mamba-2, attention and LatentMoE decoder, trained for reasoning and tool use over text, images and video.",
+    "notes": "Complete BF16 checkpoint: 124.453374976B learned parameters, including vision, connector and one shared MTP module. Publisher 12B active is nominal for the language decoder; vision encoding and speculative drafting are separate phases. Excludes persistent buffers and identity LayerScale vectors initialized by the loader but absent from released weights.",
+    "source_url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-BF16/blob/fb0ee0bc6b3f70342afd8d84cb80dbadbaa8a1fe/README.md",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Pinned Nemotron 3.5 Super VL BF16 model card",
+        "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-BF16/blob/fb0ee0bc6b3f70342afd8d84cb80dbadbaa8a1fe/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned Super VL model configuration",
+        "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-BF16/blob/fb0ee0bc6b3f70342afd8d84cb80dbadbaa8a1fe/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Complete BF16 checkpoint tensor index",
+        "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-BF16/blob/fb0ee0bc6b3f70342afd8d84cb80dbadbaa8a1fe/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned vision-language composition and connector",
+        "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-BF16/blob/fb0ee0bc6b3f70342afd8d84cb80dbadbaa8a1fe/modeling_nemotron_h_omni.py",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned C-RADIO implementation and checkpoint conversion",
+        "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-BF16/blob/fb0ee0bc6b3f70342afd8d84cb80dbadbaa8a1fe/modeling_radio.py",
+        "type": "primary"
+      },
+      {
+        "label": "Nemotron 3.5 Super and Lightning technical report, October 21, 2026",
+        "url": "https://research.nvidia.com/labs/nemotron/files/NVIDIA-Nemotron-3.5-Super-and-Lightning-Technical-Report.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Nemotron 3.5 Super training recipe and architecture",
+        "url": "https://docs.nvidia.com/nemotron/latest/nemotron/super35/README.html",
+        "type": "primary"
+      },
+      {
+        "label": "October 15 Super VL launch announcement",
+        "url": "https://blogs.nvidia.com/blog/nemotron-3-5-super-vl/",
+        "type": "primary"
+      }
+    ]
+  },
+  "proposed_fields": {
+    "active_parameters_scope": "language_backbone",
+    "parameter_components_b": {
+      "language_backbone": 120.66868736,
+      "mtp": 2.942324736,
+      "vision_encoder": 0.65361152,
+      "vision_connector": 0.18875136
+    }
+  },
+  "checkpoint_audit": {
+    "repository": "nvidia/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-BF16",
+    "revision": "fb0ee0bc6b3f70342afd8d84cb80dbadbaa8a1fe",
+    "definition": "All unique learned parameter values saved in the complete released BF16 checkpoint. This is not the number of nn.Parameter elements allocated by any particular inference loader. Shared input/output matrices are counted once; the two untied main matrices are each counted.",
+    "method": "HTTP 206 bounded reads of every 8-byte length prefix and exactly its JSON header. Validate Content-Range, all indexed names, contiguous dtype-specific offsets and physical shard lengths. Independently reconstruct all 43079 names, shapes and dtypes from the pinned model configuration and module definitions. No full weight payload downloads.",
+    "headers": {
+      "shards": 64,
+      "tensors": 43079,
+      "types": {
+        "BF16": 124453374976,
+        "F32": 20998,
+        "I64": 2
+      },
+      "payload_bytes": 248906833960,
+      "index_metadata": {
+        "total_size": 248906833960
+      },
+      "header_bytes_read": 6227456
+    },
+    "counts": {
+      "learned_parameters": 124453374976,
+      "learned_tensors": 43035,
+      "buffer_elements": 21000,
+      "buffer_tensors": 44,
+      "all_shapes_verified": 43079,
+      "components": {
+        "language_backbone": 120668687360,
+        "mtp": 2942324736,
+        "vision_encoder": 653611520,
+        "vision_connector": 188751360
+      },
+      "main_layer_mix": {
+        "mamba": 40,
+        "moe": 40,
+        "attention": 8
+      },
+      "main_selected_expert_inventory_both_embedding_matrices": 12770216960,
+      "main_selected_expert_inventory_excluding_input_embedding": 12233346048,
+      "note": "Selected-expert inventory is an accounting check, not a new exact runtime activity claim. MTP embeddings/output shared with main model. Vision connector includes learned final vision LayerNorm. Remote RADIO implementation adds unit-initialized LayerScale wrappers missing from the trained checkpoint and ignored on load; those are not counted as released learned parameters."
+    },
+    "buffer_exclusions": {
+      "router_correction": {
+        "tensors": 41,
+        "elements": 20992,
+        "basis": "40 main MoE plus one MTP MoE, each with 512 e_score_correction_bias entries; explicitly registered buffer."
+      },
+      "vision_normalization": {
+        "tensors": 2,
+        "elements": 6,
+        "basis": "Input mean and standard-deviation buffers, each shape [3,1,1]."
+      },
+      "vision_summary_indices": {
+        "tensors": 1,
+        "elements": 2,
+        "basis": "Persistent integer summary_idxs buffer, not learned weights."
+      }
+    },
+    "runtime_parameter_audit": {
+      "method": "Static inspection of all enabled constructors and conversion mappings; not a runtime model instantiation.",
+      "uncheckpointed_layerscale_elements": 81920,
+      "uncheckpointed_layerscale_tensors": 64,
+      "basis": "Pinned modeling_radio.py lines 195–201 creates lambda1=nn.Parameter(config.layerscale_value*torch.ones(config.hidden_size)); lines 370–381 creates two per 32 vision layers; exact config hidden_size=1280 and layerscale_value=1.0. Line 412 ignores missing layer_scale\\d+\\.lambda1; lines 435–436 explicitly initializes them to that constant. No such vectors or alternate LayerScale keys exist in any checkpoint header. They therefore start as identity multipliers added by this implementation, without released learned values. They could be trainable in subsequent fine-tuning but are not included in the released-checkpoint count.",
+      "other_missing_learned_tensors": "No other uncheckpointed learned module weights found in the enabled constructors after checkpoint conversion. Verified every main attention/Mamba/MoE/embedding/norm, including imported gated RMSNorm; all RADIO projections, two norms and MLP per layer, positions and class/register tokens; connector and final vision LayerNorm. use_swiglu_ffn=false and sound_config=null disable those branches. The ordinary Transformers composition omits checkpoint MTP by design (omni lines 326–328); its saved tensors are independently counted using the MTP implementation. vLLM may allocate embedding/head objects for drafting but loads the main checkpoint values, so runtime copies are not additional unique released parameters."
+    },
+    "reproduction": {
+      "cache_directory": "/tmp/model-audit-388",
+      "commands": [
+        "python3 /tmp/model-audit-388/headers.py",
+        "python3 /tmp/model-audit-388/count.py"
+      ]
+    },
+    "formula": "D=4096,V=131072,L=1024,E=2688,S=5376,N=512. Main embeddings/head=2*D*V and final norm=D. Each block has norm D. Each of 40 Mamba blocks has in_proj D*(8192+10240+128), out_proj D*8192, conv 10240*4+10240, gated norm 8192 and 3*128 state/time vectors. Each of 40 MoE blocks has N*(2*L*E)+2*D*S+N*D+2*D*L. Each of eight attention blocks has 2*D*4096+2*D*256. Main=120668687360. MTP adds one attention and one MoE with block norms, two input norms, final norm and 2*D*D fusion=2942324736. Vision width W=1280: 32*(4*W*W+4*W+2*W*5120+5120+W+4*W), image/video projections W*(768+1536), positions 16384*W and 10*W tokens=653611520. Connector=5120+5120*20480+20480*4096+2*1280=188751360."
+  },
+  "summary": "All fourteen fields verified for the explicit Super VL model. Correct nominal 120B to complete exact 124.453374976B, license to OpenMDW-1.1 and architecture to hybrid Mamba/attention/MoE. Preserve nominal language-decoder 12B active with proposed component scope. Confirm October 15 release despite earlier research-page publication, 1048576 context, open weights, text/image/video input, reasoning and tools. Complete checkpoint count includes MTP, vision and connector, excludes buffers and loader-added identity LayerScale vectors."
+}
