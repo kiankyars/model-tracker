@@ -1,0 +1,259 @@
+{
+  "index": 552,
+  "model_id": "zhipuai/glm-4.6v",
+  "reviewed_at": "2026-10-27T06:10:36.118481Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/zai-org/GLM-4.6V/blob/4e2d47eb0b41c5280d8294b17cef9e94fdcfff46/README.md",
+      "title": "GLM-4.6V official model card at pinned revision",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Exact GLM-4.6V card declares MIT licensing, the nominal 106B model, 128K training context and native multimodal function calling; it provides a runnable image-to-text example and a video-evaluation discussion."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/zai-org/GLM-4.6V/blob/4e2d47eb0b41c5280d8294b17cef9e94fdcfff46/config.json",
+      "title": "GLM-4.6V checkpoint configuration",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Glm4vMoeForConditionalGeneration: 46 language layers, one initial dense layer, 128 routed experts with eight selected per token and one shared expert, 4096 language width, 96 query/eight KV heads, 24 vision blocks, untied embeddings, no next-token-prediction layers, and max_position_embeddings 131072."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/zai-org/GLM-4.6V/blob/4e2d47eb0b41c5280d8294b17cef9e94fdcfff46/model.safetensors.index.json",
+      "title": "GLM-4.6V complete checkpoint index and all 41 indexed tensor headers",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Read only each indexed shard\u2019s eight-byte header-length prefix and bounded JSON header at the same pinned revision, with HTTP 206/Content-Range checks. All 18,106 unique indexed tensors were present once: 18,061 BF16 learned tensors totaling 107,710,927,360 elements, and 45 F32 router correction buffers totaling 5,760 excluded elements. Every tensor shape and dtype matched the configured modules; byte spans were contiguous and matched dtype sizes. The metadata total_size value was not treated as a parameter count."
+    },
+    {
+      "id": "s4",
+      "url": "https://github.com/huggingface/transformers/blob/v5.0.0rc0/src/transformers/models/glm4v_moe/modeling_glm4v_moe.py",
+      "title": "GLM-4V-MoE implementation referenced by the developer",
+      "publisher": "Hugging Face Transformers / GLM contributors",
+      "accessed": true,
+      "evidence": "Defines causal grouped-query attention, dense and sparse MoE MLPs, learned embeddings/output head, vision patch/position embeddings, 24 configured vision blocks, convolutional downsampling and MLP merger. Explicitly registers e_score_correction_bias as a buffer; rotary frequencies and position IDs are nonpersistent buffers. The expert packing preserves the three projection matrices\u2019 coefficient count. The model has no image-generation decoder."
+    },
+    {
+      "id": "s5",
+      "url": "https://arxiv.org/html/2507.01006v6",
+      "title": "GLM-4.5V and GLM-4.1V-Thinking technical report, revision 6 including GLM-4.6V",
+      "publisher": "GLM-V Team, Zhipu AI and Tsinghua University",
+      "accessed": true,
+      "evidence": "Introduction explicitly names GLM-4.6V as 106B-A12B and confirms thinking/non-thinking modes. Architecture section explicitly includes GLM-4.6V: AIMv2-Huge-initialized vision encoder, MLP adapter and GLM-4.5-Air language decoder. These are exact-model statements in the revised report, not a transfer from GLM-4.5V."
+    },
+    {
+      "id": "s6",
+      "url": "https://github.com/zai-org/GLM-V/blob/f093b70998bec336acbc00d1a545e05893e3c9fa/README.md",
+      "title": "Original GLM-4.6V release announcement in official README",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Project Updates explicitly announces the release of GLM-4.6V 106B-A12B and GLM-4.6V-Flash 9B on 2025/12/08. It states 128K training context and native function calling; the exact GLM-4.6V download row is labeled Hybrid Reasoning. The date comes from announcement text, not the commit timestamp."
+    },
+    {
+      "id": "s7",
+      "url": "https://docs.z.ai/guides/vlm/glm-4.6v",
+      "title": "GLM-4.6V official API documentation",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Exact GLM-4.6V row documents video/image/text/file input, text output and 128K context. Native multimodal tool use, visual reasoning, document analysis and video understanding are described. Tool-returned or referenced images in generated reports do not establish native image synthesis."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "GLM-4.6V",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Exact published name; distinct from GLM-4.6V-Flash and FP8 packaging."
+    },
+    "developer": {
+      "value": "Z.ai",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6",
+        "s7"
+      ],
+      "note": "Official Z.ai model repository and API documentation."
+    },
+    "family": {
+      "value": "glm",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Official card identifies the GLM-V series within GLM."
+    },
+    "release_date": {
+      "value": "2025-12-08",
+      "status": "verified",
+      "source_ids": [
+        "s6"
+      ],
+      "note": "The original official README has an explicit dated release announcement."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s6"
+      ],
+      "note": "All 41 shards are publicly accessible in the exact official checkpoint."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "The exact model card declares license: mit; the separate code repository license is not substituted."
+    },
+    "parameters_b": {
+      "value": 107.71092736,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "note": "Complete learned checkpoint count, not the rounded 106B author label: 106,852,245,504 language/output parameters plus 858,681,856 vision/adapter parameters. Includes separate 620,756,992-element input and output embeddings, all routed/shared experts, norms and biases. Excludes 5,760 router-buffer elements. No MTP tensors or quantization scales are present. All indexed tensor shapes were reconciled with module definitions."
+    },
+    "active_parameters_b": {
+      "value": 12,
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s6"
+      ],
+      "note": "Author-reported nominal 12B activated count for the exact GLM-4.6V 106B-A12B model. The sources do not give an exact convention covering embeddings, vision encoding, prefill and token decoding; this is not asserted to be a complete multimodal per-phase count. Configuration confirms top-eight routed experts plus a shared expert per MoE layer."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s5"
+      ],
+      "note": "Vision encoder and MLP adapter feed a causal MoE language Transformer: one dense layer followed by 45 MoE layers, 128 routed experts/top-eight selection and one shared expert; grouped-query attention with 96 query and eight KV heads. The model is multimodal, not a text-only decoder."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s7"
+      ],
+      "note": "Official card and API docs use 128K shorthand; the exact checkpoint max_position_embeddings resolves this to 131072, correcting the baseline 128000. This establishes checkpoint capacity, not a fresh live endpoint test."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4",
+        "s7"
+      ],
+      "note": "API explicitly supports these inputs and text output. File/document support is a container for text and visual content. Interleaved image-text reports reference/crop/retrieve images through tools rather than establish native image synthesis."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s6"
+      ],
+      "note": "Exact-model report confirms thinking and non-thinking modes; official download table labels Hybrid Reasoning."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6",
+        "s7"
+      ],
+      "note": "Native multimodal function calling is explicitly documented for the exact GLM-4.6V release."
+    },
+    "description": {
+      "value": "Vision-language MoE model with native function calling and optional reasoning",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5",
+        "s7"
+      ],
+      "note": "Describes verified architecture and capabilities without benchmark superlatives."
+    }
+  },
+  "patch": {
+    "license": "MIT",
+    "parameters_b": 107.71092736,
+    "active_parameters_b": 12,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "context_window": 131072,
+    "description": "Vision-language MoE model with native function calling and optional reasoning",
+    "source_url": "https://github.com/zai-org/GLM-V/blob/f093b70998bec336acbc00d1a545e05893e3c9fa/README.md",
+    "source_type": "primary",
+    "notes": "The full BF16 checkpoint contains 107.71092736B learned parameters: 106.852245504B language/output and 0.858681856B vision/adapter. The developer labels the model 106B-A12B; 12B is a nominal active count whose exact multimodal phase convention is unspecified. The total includes untied input/output embeddings and excludes router correction buffers; there are no MTP layers. Context is 131072 tokens in the checkpoint, advertised as 128K.",
+    "sources": [
+      {
+        "label": "GLM-4.6V official model card at pinned revision",
+        "url": "https://huggingface.co/zai-org/GLM-4.6V/blob/4e2d47eb0b41c5280d8294b17cef9e94fdcfff46/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "GLM-4.6V checkpoint configuration",
+        "url": "https://huggingface.co/zai-org/GLM-4.6V/blob/4e2d47eb0b41c5280d8294b17cef9e94fdcfff46/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "GLM-4.6V complete checkpoint index and all 41 indexed tensor headers",
+        "url": "https://huggingface.co/zai-org/GLM-4.6V/blob/4e2d47eb0b41c5280d8294b17cef9e94fdcfff46/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "GLM-4V-MoE implementation referenced by the developer",
+        "url": "https://github.com/huggingface/transformers/blob/v5.0.0rc0/src/transformers/models/glm4v_moe/modeling_glm4v_moe.py",
+        "type": "primary"
+      },
+      {
+        "label": "GLM-4.5V and GLM-4.1V-Thinking technical report, revision6 including GLM-4.6V",
+        "url": "https://arxiv.org/html/2507.01006v6",
+        "type": "primary"
+      },
+      {
+        "label": "Original GLM-4.6V release announcement in official README",
+        "url": "https://github.com/zai-org/GLM-V/blob/f093b70998bec336acbc00d1a545e05893e3c9fa/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "GLM-4.6V official API documentation",
+        "url": "https://docs.z.ai/guides/vlm/glm-4.6v",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "Verified all 14 fields. Added MIT, exact full 107.71092736B learned parameters, published nominal 12B active parameters and MoE architecture; corrected context from 128000 to 131072 and replaced the description. Original official release announcement confirms 2025-12-08. Full count independently reconciles all 41 shard headers and excludes non-parameter router buffers; no weights were downloaded. The published active count remains nominal because no exact multimodal phase convention is stated."
+}

@@ -23943,16 +23943,16 @@
     "developer": "Z.ai",
     "developer_id": "zhipuai",
     "family": "glm",
-    "description": "GLM vision model for visual reasoning, documents, and multimodal agents",
+    "description": "Vision-language MoE model with native function calling and optional reasoning",
     "release_date": "2025-12-08",
     "date_precision": "day",
     "open_weights": true,
-    "license": null,
-    "parameters_b": null,
-    "active_parameters_b": null,
-    "parameters_source": null,
-    "architecture": null,
-    "context_window": 128000,
+    "license": "MIT",
+    "parameters_b": 107.71092736,
+    "active_parameters_b": 12,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "context_window": 131072,
     "modalities": {
       "input": [
         "text",
@@ -23965,9 +23965,44 @@
     },
     "reasoning": true,
     "tool_call": true,
-    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/zhipuai/glm-4.6v.toml",
-    "source_type": "catalog",
+    "source_url": "https://github.com/zai-org/GLM-V/blob/f093b70998bec336acbc00d1a545e05893e3c9fa/README.md",
+    "source_type": "primary",
     "sources": [
+      {
+        "label": "GLM-4.6V official model card at pinned revision",
+        "url": "https://huggingface.co/zai-org/GLM-4.6V/blob/4e2d47eb0b41c5280d8294b17cef9e94fdcfff46/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "GLM-4.6V checkpoint configuration",
+        "url": "https://huggingface.co/zai-org/GLM-4.6V/blob/4e2d47eb0b41c5280d8294b17cef9e94fdcfff46/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "GLM-4.6V complete checkpoint index and all 41 indexed tensor headers",
+        "url": "https://huggingface.co/zai-org/GLM-4.6V/blob/4e2d47eb0b41c5280d8294b17cef9e94fdcfff46/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "GLM-4V-MoE implementation referenced by the developer",
+        "url": "https://github.com/huggingface/transformers/blob/v5.0.0rc0/src/transformers/models/glm4v_moe/modeling_glm4v_moe.py",
+        "type": "primary"
+      },
+      {
+        "label": "GLM-4.5V and GLM-4.1V-Thinking technical report, revision6 including GLM-4.6V",
+        "url": "https://arxiv.org/html/2507.01006v6",
+        "type": "primary"
+      },
+      {
+        "label": "Original GLM-4.6V release announcement in official README",
+        "url": "https://github.com/zai-org/GLM-V/blob/f093b70998bec336acbc00d1a545e05893e3c9fa/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "GLM-4.6V official API documentation",
+        "url": "https://docs.z.ai/guides/vlm/glm-4.6v",
+        "type": "primary"
+      },
       {
         "label": "Models.dev record",
         "url": "https://github.com/anomalyco/models.dev/blob/dev/models/zhipuai/glm-4.6v.toml",
@@ -23982,7 +24017,11 @@
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
+    "upstream_present": true,
+    "notes": "The full BF16 checkpoint contains 107.71092736B learned parameters: 106.852245504B language/output and 0.858681856B vision/adapter. The developer labels the model 106B-A12B; 12B is a nominal active count whose exact multimodal phase convention is unspecified. The total includes untied input/output embeddings and excludes router correction buffers; there are no MTP layers. Context is 131072 tokens in the checkpoint, advertised as 128K.",
+    "field_status": {},
+    "audited_at": "2026-10-27T06:10:36.118481Z",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/552.json"
   },
   {
     "id": "zhipuai/glm-4.6v-flash",
