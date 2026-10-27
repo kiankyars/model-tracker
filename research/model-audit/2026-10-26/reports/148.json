@@ -1,7 +1,7 @@
 {
   "index": 148,
   "model_id": "cohere/command-a-reasoning-08-2025",
-  "reviewed_at": "2026-10-26T18:19:02.854680Z",
+  "reviewed_at": "2026-10-27T12:26:23.900655+00:00",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Announcing Cohere's Command A Reasoning Model",
       "publisher": "Cohere",
       "accessed": true,
-      "evidence": "Dated August 21, 2025 announcement names command-a-reasoning-08-2025, 111 billion parameters, 256K context, 23 languages, reasoning controls and tool use."
+      "evidence": "Dated August 21, 2025 announcement names command-a-reasoning-08-2025, 111 billion parameters, 256K context, 23 languages, reasoning controls and tool use. Reopened October 27, 2026: the original exact-model launch still explicitly states 111 billion parameters and supplies no separate active count."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "Model Card for Cohere Labs Command A Reasoning",
       "publisher": "Cohere / Cohere Labs",
       "accessed": true,
-      "evidence": "Exact checkpoint card identifies Cohere and Cohere Labs, open weights, 111B size, CC-BY-NC with acceptable-use requirements, text-only input and text output, reasoning, conversational tools, and an autoregressive Transformer combining sliding-window/RoPE and global attention."
+      "evidence": "Exact checkpoint card identifies Cohere and Cohere Labs, open weights, 111B size, CC-BY-NC with acceptable-use requirements, text-only input and text output, reasoning, conversational tools, and an autoregressive Transformer combining sliding-window/RoPE and global attention. Reopened October 27: both the summary and Model Size still state 111 billion parameters; no separately defined active count is present."
     },
     {
       "id": "s3",
@@ -41,7 +41,7 @@
       "title": "Introducing Command A+: Making sovereign agentic capabilities available to all",
       "publisher": "Cohere",
       "accessed": true,
-      "evidence": "May 20, 2026 comparison explicitly includes Command A Reasoning in the Command A family: size 111B, reasoning and tools supported, multimodal absent, 23 languages. The 218B total / 25B active figures belong to Command A+, not this model."
+      "evidence": "May 20, 2026 comparison explicitly includes Command A Reasoning in the Command A family: size 111B, reasoning and tools supported, multimodal absent, 23 languages. The 218B total / 25B active figures belong to Command A+, not this model. Fresh October 27 review of the full comparison checks the Size row (218B A25B versus 111B) and efficiency paragraph. The latter contrasts A+ total/active counts with Reasoning's 111B dense architecture, but does not label Reasoning's 111B as active or establish a dense-model counting convention. Speed/latency comparisons likewise do not provide an active-count column."
     },
     {
       "id": "s6",
@@ -49,7 +49,7 @@
       "title": "Official checkpoint public repository metadata",
       "publisher": "Hugging Face metadata for Cohere Labs checkpoint",
       "accessed": true,
-      "evidence": "Metadata for revision bd39aafe2c5e71a044d2f1674accfd9b384d3dbb identifies Cohere2ForCausalLM, model_type cohere2, Command A 03-2025 base, cc-by-nc-4.0, and a safetensors aggregate of 111,057,580,032 BF16 elements. Repository creation was August 12, 2025; this alone does not establish public release."
+      "evidence": "Metadata for revision bd39aafe2c5e71a044d2f1674accfd9b384d3dbb identifies Cohere2ForCausalLM, model_type cohere2, Command A 03-2025 base, cc-by-nc-4.0, and a safetensors aggregate of 111,057,580,032 BF16 elements. Repository creation was August 12, 2025; this alone does not establish public release. Fresh October 27 API fetch returns the same revision, named Command A base and 111,057,580,032 BF16 aggregate; this is supporting total metadata, not an active count."
     },
     {
       "id": "s7",
@@ -90,6 +90,38 @@
       "publisher": "Oracle",
       "accessed": true,
       "evidence": "Provider page claims image inputs and a four-layer architecture. These conflict with Cohere's explicit text-only card and its attention-pattern description; provider statements are not adopted for the Cohere checkpoint."
+    },
+    {
+      "id": "s12",
+      "url": "https://arxiv.org/pdf/2504.00698v2",
+      "title": "Command A: An Enterprise-Ready Large Language Model",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "Independently searched and inspected model-size, parameter and comparison contexts in the complete PDF text from the fresh October 27 primary-source fetch. The base Command A report gives a nominal 111B size and describes dense Transformer blocks, but no explicit activated-parameter comparison column or transferable active-count convention. No active count is inferred through Reasoning's named-base relationship."
+    },
+    {
+      "id": "s13",
+      "url": "https://arxiv.org/html/2603.11510v1",
+      "title": "Tiny Aya: Bridging Scale and Multilingual Depth",
+      "publisher": "Cohere Labs and Cohere",
+      "accessed": true,
+      "evidence": "Independently inspected parameter terminology, model references and table headings in the complete later report fetched October 27. It names Command-A-Reasoning as an extractor in benchmark preparation but gives no active count for it. Table 2 distinguishes Tiny Aya embedding, non-embedding and total counts; those fields are not a definition of Reasoning active parameters."
+    },
+    {
+      "id": "s14",
+      "url": "https://cohere.com/blog/hardware-aware-dynamic-speculative-decoding",
+      "title": "Hardware-aware dynamic speculative decoding",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "Fresh search and reading of the July 10, 2026 inference study found comparisons of Command A (dense) and Command A+ (MoE), with draft-token, concurrency, throughput and latency results. It does not supply a Command A Reasoning active-parameter count or define total equals active for dense models."
+    },
+    {
+      "id": "s15",
+      "url": "https://docs.cohere.com/v1/changelog/command-a-plus-05-2026",
+      "title": "Announcing Cohere's Command A+",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "Fresh October 27 check of the May 20, 2026 launch notes confirms the 218B total and 25B active counts refer to A+, which is called Cohere's first MoE. Reasoning appears in the throughput/latency comparison without its own active count."
     }
   ],
   "fields": {
@@ -151,10 +183,9 @@
         "s1",
         "s2",
         "s5",
-        "s6",
-        "s8"
+        "s6"
       ],
-      "note": "Published nominal whole-model count in billions. Hub reports 111,057,580,032 BF16 elements, but gated configuration/tensor access prevents independently validating that aggregate as an exact learned-parameter count."
+      "note": "Fresh October 27 checks confirm Cohere's nominal 111B whole-model total in the exact release, model card and later A+ family comparison. Public Hub metadata corroborates the scale at 111.057580032B; retain the published nominal precision without requiring a tensor census."
     },
     "active_parameters_b": {
       "value": null,
@@ -162,9 +193,12 @@
       "source_ids": [
         "s2",
         "s5",
-        "s7"
+        "s12",
+        "s13",
+        "s14",
+        "s15"
       ],
-      "note": "No separately defined active count in the reviewed model card or later comparison. Dense architecture does not justify copying the total."
+      "note": "Fresh exact-model searches, original card and later developer comparisons did not identify a separately defined active count. The A+ efficiency paragraph contrasts 218B total/25B active with Reasoning's 111B dense architecture, and its table labels Reasoning's 111B only as Size. Neither supplies an explicit active count or convention; the base Command A report, later Tiny Aya report and inference study add none. Dense classification and a named dense base alone do not justify copying the total."
     },
     "architecture": {
       "value": "dense",
@@ -237,7 +271,7 @@
     "architecture": "dense",
     "source_url": "https://docs.cohere.com/changelog/2025-08-21-command-a-reasoning",
     "source_type": "primary",
-    "notes": "111B is Cohere's nominal whole-model parameter count. A separate active-parameter count is not reported. The exact checkpoint is a dense autoregressive Transformer with interleaved sliding-window and global attention. Open weights use CC-BY-NC 4.0 with an Acceptable Use Addendum. The correct checkpoint repository omits the c4ai- prefix.",
+    "notes": "111B is Cohere's nominal whole-model parameter count. Active parameters are not separately disclosed, including in the later Command A+ comparison. The exact checkpoint is a dense autoregressive Transformer with interleaved sliding-window and global attention. Open weights use CC-BY-NC 4.0 with an Acceptable Use Addendum. The correct checkpoint repository omits the c4ai- prefix.",
     "sources": [
       {
         "label": "Cohere release announcement",
@@ -269,7 +303,8 @@
         "url": "https://cohere.com/blog/command-a-plus",
         "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": null
   },
-  "summary": "Adds the nominal 111B total, dense Transformer architecture, and CC-BY-NC 4.0 license with Acceptable Use Addendum; replaces the main catalog citation with the explicit primary release announcement and supplies the correct weights URL. Confirms the other factual fields. Active count remains undisclosed. Records provider modality/architecture conflicts and gated configuration access; does not promote Hub storage metadata to an exact learned count."
+  "summary": "October 27 parameter re-audit confirms the published nominal 111B total. Fresh exact-model searches, reopened original card and launch, current metadata, later Command A+ comparisons, Command A and Tiny Aya technical reports, and the developer inference study yielded no separately defined active count. The A+ total/active comparison does not relabel Reasoning's dense size as active. Retained active_parameters_b as undisclosed with explicit parameter patches and preserved unrelated assessments."
 }
