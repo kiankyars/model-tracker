@@ -1,0 +1,485 @@
+{
+  "index": 448,
+  "model_id": "openai/gpt-oss-safeguard-120b",
+  "reviewed_at": "2026-10-27T02:54:15.013776Z",
+  "sources": [
+    {
+      "id": "launch",
+      "url": "https://openai.com/index/introducing-gpt-oss-safeguard/",
+      "title": "Introducing gpt-oss-safeguard — October 29, 2025",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Announces both Safeguard research-preview models as downloadable that day, fine-tuned from gpt-oss under Apache 2.0. They generate policy classifications and reasoning for developer-provided text policies, rather than requiring fixed label taxonomies."
+    },
+    {
+      "id": "card",
+      "url": "https://huggingface.co/openai/gpt-oss-safeguard-120b/blob/3c7391182603991a904031244e7822488c67796d/README.md",
+      "title": "Pinned gpt-oss-safeguard-120b model card",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Exact 120B safety model: nominal 117 B total and 5.1 B active, fine-tuned from openai/gpt-oss-120b, Apache-2.0, low/medium/high reasoning, Harmony format required. Text generation and safety classification are explicit; general applications are directed to the base models."
+    },
+    {
+      "id": "report",
+      "url": "https://cdn.openai.com/pdf/08b7dee4-8bc6-4955-a219-7793fb69090c/Technical_report__Research_Preview_of_gpt_oss_safeguard.pdf",
+      "title": "Safeguard technical report — October 29, 2025",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Original exact-variant report describes text-only reasoning fine-tunes, structured outputs and Responses-compatible deployment. Tables separately evaluate Safeguard 120B; these are performance scores, not parameter counts. It refers architecture to the original gpt-oss report and does not claim function-calling training."
+    },
+    {
+      "id": "help",
+      "url": "https://help.openai.com/en/articles/11870455-openai-open-weight-models-gpt-oss",
+      "title": "OpenAI open-weight models — Safeguard specifications",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Current exact Safeguard 120B row reports 117 B total and approximately 5.1 B active. Explicitly says the Safeguard models have no architecture change from their corresponding gpt-oss models. Weights are self/third-party hosted, not OpenAI API or ChatGPT models; API compatibility does not mean OpenAI hosts them."
+    },
+    {
+      "id": "config",
+      "url": "https://huggingface.co/openai/gpt-oss-safeguard-120b/blob/3c7391182603991a904031244e7822488c67796d/config.json",
+      "title": "Pinned exact Safeguard120b configuration",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "GptOssForCausalLM; 36 layers, hidden/intermediate 2880, vocabulary 201088, 128 experts/top 4, 64 query and 8 KV heads of width 64, attention biases, untied embeddings, alternating 128-token sliding/full attention, YaRN RoPE and 131072 maximum positions. Expert weights use MXFP4."
+    },
+    {
+      "id": "index",
+      "url": "https://huggingface.co/openai/gpt-oss-safeguard-120b/blob/3c7391182603991a904031244e7822488c67796d/model.safetensors.index.json",
+      "title": "Pinned complete Safeguard120b weight index",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "All 687 stored tensors in 15 root shards were independently reconciled with bounded HTTP 206 header reads and every enabled model module. Shapes, dtype-byte lengths and contiguous data offsets match; 65248815744 tensor-data bytes match index metadata. The 687 stored tensors encode 615 logical learned tensors plus 72 quantization scales. No full weight payloads were downloaded."
+    },
+    {
+      "id": "model_code",
+      "url": "https://github.com/openai/gpt-oss/blob/5681a6b6552635e7b29cde94a61ca6a7aee90ebd/gpt_oss/torch/model.py",
+      "title": "Pinned OpenAI inference modules",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Reference implementation defines the complete unchanged architecture: separate embedding/output head, attention projections/biases and learned sinks, two RMSNorm vectors per layer, router weights/biases, SwiGLU expert weights/biases and final norm. Fixed rotary/activation constants are not parameters."
+    },
+    {
+      "id": "hf_code",
+      "url": "https://github.com/huggingface/transformers/blob/v4.57.1/src/transformers/models/gpt_oss/modeling_gpt_oss.py",
+      "title": "Transformers 4.57.1 GptOssForCausalLM implementation",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Enabled module classes map exact checkpoint key names to all learned parameters. Q/K/V are separate projections; input/output embeddings are untied by exact config. RoPE inverse frequencies are nonpersistent buffers; no additional classification head is instantiated."
+    },
+    {
+      "id": "packing",
+      "url": "https://github.com/huggingface/transformers/blob/v4.57.1/src/transformers/integrations/mxfp4.py",
+      "title": "Transformers 4.57.1 MXFP4 implementation",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Mxfp4GptOssExperts stores two FP4 weights per U8 block element, with 32 weights sharing each exponent scale. Dequantization expands low/high nibbles; scales encode weights and do not add learned parameters. Expert biases remain model parameters."
+    },
+    {
+      "id": "base_paper",
+      "url": "https://arxiv.org/html/2508.10925v1",
+      "title": "gpt-oss original architecture report",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Table 1 reports 116.83 B total/5.13 B active for the 120B base. Active includes unembedding and excludes input embedding. Exact Safeguard sources explicitly establish unchanged architecture; the base report is used for that convention, not to assume retained function-calling competence after safety fine-tuning."
+    },
+    {
+      "id": "license",
+      "url": "https://huggingface.co/openai/gpt-oss-safeguard-120b/blob/3c7391182603991a904031244e7822488c67796d/LICENSE",
+      "title": "Pinned Safeguard120b license",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Exact checkpoint license is Apache License 2.0; corroborates the model card and launch."
+    },
+    {
+      "id": "template",
+      "url": "https://huggingface.co/openai/gpt-oss-safeguard-120b/blob/3c7391182603991a904031244e7822488c67796d/chat_template.jinja",
+      "title": "Pinned Safeguard120b Harmony chat template",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Ships support for tools, builtin_tools and function-call serialization, commentary tool messages and responses. Medium reasoning effort is the default. Template compatibility alone does not prove post-training tool competence; exact provider support supplies the positive capability evidence."
+    },
+    {
+      "id": "guide",
+      "url": "https://developers.openai.com/cookbook/articles/gpt-oss-safeguard-guide",
+      "title": "OpenAI/ROOST Safeguard usage guide",
+      "publisher": "OpenAI and ROOST",
+      "accessed": true,
+      "evidence": "Describes self-hosted Harmony inference and text policy decisions; low/medium/high reasoning with medium default. It supplies no specialized function-calling evaluation. Policy-length recommendations are not model context limits."
+    },
+    {
+      "id": "bedrock",
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-openai-gpt-oss-safeguard-120b.html",
+      "title": "Amazon Bedrock exact Safeguard120b model card",
+      "publisher": "Amazon Web Services",
+      "accessed": true,
+      "evidence": "Exact model ID openai.gpt-oss-safeguard-120b is documented with client-side and server-side tool calling on bedrock-mantle. This verifies a supported hosted tool interface, not standalone execution. Provider limits and name-rounded 120 B are not substituted for the native pinned checkpoint configuration/count."
+    },
+    {
+      "id": "header0",
+      "url": "https://huggingface.co/openai/gpt-oss-safeguard-120b/resolve/3c7391182603991a904031244e7822488c67796d/model-00000-of-00014.safetensors",
+      "title": "Pinned Safeguard120b shard 0 header",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Fetched only bytes 0–7 and 8–2495, requiring HTTP 206 and matching Content-Range. Header contains 22 stored tensors. All keys, logical shapes, dtype sizes and contiguous offsets reconcile with the index and enabled modules."
+    },
+    {
+      "id": "header1",
+      "url": "https://huggingface.co/openai/gpt-oss-safeguard-120b/resolve/3c7391182603991a904031244e7822488c67796d/model-00001-of-00014.safetensors",
+      "title": "Pinned Safeguard120b shard 1 header",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Fetched only bytes 0–7 and 8–4647, requiring HTTP 206 and matching Content-Range. Header contains 41 stored tensors. All keys, logical shapes, dtype sizes and contiguous offsets reconcile with the index and enabled modules."
+    },
+    {
+      "id": "header2",
+      "url": "https://huggingface.co/openai/gpt-oss-safeguard-120b/resolve/3c7391182603991a904031244e7822488c67796d/model-00002-of-00014.safetensors",
+      "title": "Pinned Safeguard120b shard 2 header",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Fetched only bytes 0–7 and 8–6079, requiring HTTP 206 and matching Content-Range. Header contains 54 stored tensors. All keys, logical shapes, dtype sizes and contiguous offsets reconcile with the index and enabled modules."
+    },
+    {
+      "id": "header3",
+      "url": "https://huggingface.co/openai/gpt-oss-safeguard-120b/resolve/3c7391182603991a904031244e7822488c67796d/model-00003-of-00014.safetensors",
+      "title": "Pinned Safeguard120b shard 3 header",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Fetched only bytes 0–7 and 8–4647, requiring HTTP 206 and matching Content-Range. Header contains 41 stored tensors. All keys, logical shapes, dtype sizes and contiguous offsets reconcile with the index and enabled modules."
+    },
+    {
+      "id": "header4",
+      "url": "https://huggingface.co/openai/gpt-oss-safeguard-120b/resolve/3c7391182603991a904031244e7822488c67796d/model-00004-of-00014.safetensors",
+      "title": "Pinned Safeguard120b shard 4 header",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Fetched only bytes 0–7 and 8–6079, requiring HTTP 206 and matching Content-Range. Header contains 54 stored tensors. All keys, logical shapes, dtype sizes and contiguous offsets reconcile with the index and enabled modules."
+    },
+    {
+      "id": "header5",
+      "url": "https://huggingface.co/openai/gpt-oss-safeguard-120b/resolve/3c7391182603991a904031244e7822488c67796d/model-00005-of-00014.safetensors",
+      "title": "Pinned Safeguard120b shard 5 header",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Fetched only bytes 0–7 and 8–4639, requiring HTTP 206 and matching Content-Range. Header contains 41 stored tensors. All keys, logical shapes, dtype sizes and contiguous offsets reconcile with the index and enabled modules."
+    },
+    {
+      "id": "header6",
+      "url": "https://huggingface.co/openai/gpt-oss-safeguard-120b/resolve/3c7391182603991a904031244e7822488c67796d/model-00006-of-00014.safetensors",
+      "title": "Pinned Safeguard120b shard 6 header",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Fetched only bytes 0–7 and 8–6079, requiring HTTP 206 and matching Content-Range. Header contains 54 stored tensors. All keys, logical shapes, dtype sizes and contiguous offsets reconcile with the index and enabled modules."
+    },
+    {
+      "id": "header7",
+      "url": "https://huggingface.co/openai/gpt-oss-safeguard-120b/resolve/3c7391182603991a904031244e7822488c67796d/model-00007-of-00014.safetensors",
+      "title": "Pinned Safeguard120b shard 7 header",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Fetched only bytes 0–7 and 8–4639, requiring HTTP 206 and matching Content-Range. Header contains 41 stored tensors. All keys, logical shapes, dtype sizes and contiguous offsets reconcile with the index and enabled modules."
+    },
+    {
+      "id": "header8",
+      "url": "https://huggingface.co/openai/gpt-oss-safeguard-120b/resolve/3c7391182603991a904031244e7822488c67796d/model-00008-of-00014.safetensors",
+      "title": "Pinned Safeguard120b shard 8 header",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Fetched only bytes 0–7 and 8–6079, requiring HTTP 206 and matching Content-Range. Header contains 54 stored tensors. All keys, logical shapes, dtype sizes and contiguous offsets reconcile with the index and enabled modules."
+    },
+    {
+      "id": "header9",
+      "url": "https://huggingface.co/openai/gpt-oss-safeguard-120b/resolve/3c7391182603991a904031244e7822488c67796d/model-00009-of-00014.safetensors",
+      "title": "Pinned Safeguard120b shard 9 header",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Fetched only bytes 0–7 and 8–4647, requiring HTTP 206 and matching Content-Range. Header contains 41 stored tensors. All keys, logical shapes, dtype sizes and contiguous offsets reconcile with the index and enabled modules."
+    },
+    {
+      "id": "header10",
+      "url": "https://huggingface.co/openai/gpt-oss-safeguard-120b/resolve/3c7391182603991a904031244e7822488c67796d/model-00010-of-00014.safetensors",
+      "title": "Pinned Safeguard120b shard 10 header",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Fetched only bytes 0–7 and 8–7479, requiring HTTP 206 and matching Content-Range. Header contains 67 stored tensors. All keys, logical shapes, dtype sizes and contiguous offsets reconcile with the index and enabled modules."
+    },
+    {
+      "id": "header11",
+      "url": "https://huggingface.co/openai/gpt-oss-safeguard-120b/resolve/3c7391182603991a904031244e7822488c67796d/model-00011-of-00014.safetensors",
+      "title": "Pinned Safeguard120b shard 11 header",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Fetched only bytes 0–7 and 8–4647, requiring HTTP 206 and matching Content-Range. Header contains 41 stored tensors. All keys, logical shapes, dtype sizes and contiguous offsets reconcile with the index and enabled modules."
+    },
+    {
+      "id": "header12",
+      "url": "https://huggingface.co/openai/gpt-oss-safeguard-120b/resolve/3c7391182603991a904031244e7822488c67796d/model-00012-of-00014.safetensors",
+      "title": "Pinned Safeguard120b shard 12 header",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Fetched only bytes 0–7 and 8–6063, requiring HTTP 206 and matching Content-Range. Header contains 54 stored tensors. All keys, logical shapes, dtype sizes and contiguous offsets reconcile with the index and enabled modules."
+    },
+    {
+      "id": "header13",
+      "url": "https://huggingface.co/openai/gpt-oss-safeguard-120b/resolve/3c7391182603991a904031244e7822488c67796d/model-00013-of-00014.safetensors",
+      "title": "Pinned Safeguard120b shard 13 header",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Fetched only bytes 0–7 and 8–4607, requiring HTTP 206 and matching Content-Range. Header contains 41 stored tensors. All keys, logical shapes, dtype sizes and contiguous offsets reconcile with the index and enabled modules."
+    },
+    {
+      "id": "header14",
+      "url": "https://huggingface.co/openai/gpt-oss-safeguard-120b/resolve/3c7391182603991a904031244e7822488c67796d/model-00014-of-00014.safetensors",
+      "title": "Pinned Safeguard120b shard 14 header",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Fetched only bytes 0–7 and 8–4599, requiring HTTP 206 and matching Content-Range. Header contains 41 stored tensors. All keys, logical shapes, dtype sizes and contiguous offsets reconcile with the index and enabled modules."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "gpt-oss-safeguard-120b",
+      "status": "verified",
+      "source_ids": [
+        "launch",
+        "card"
+      ],
+      "note": "Use the exact developer model name, including its safety fine-tune identity."
+    },
+    "developer": {
+      "value": "OpenAI",
+      "status": "verified",
+      "source_ids": [
+        "launch",
+        "card"
+      ],
+      "note": "Original developer announcement and official checkpoint owner agree."
+    },
+    "family": {
+      "value": "gpt-oss",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "report"
+      ],
+      "note": "The Safeguard variant is explicitly fine-tuned from the gpt-oss family; the exact variant remains identified in its name and ID."
+    },
+    "release_date": {
+      "value": "2025-10-29",
+      "status": "verified",
+      "source_ids": [
+        "launch",
+        "report"
+      ],
+      "note": "First public research-preview weight release, not the August 5 release of its base model."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "index"
+      ],
+      "note": "Complete public checkpoint and metadata are accessible under the official OpenAI namespace."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "license",
+        "card",
+        "launch"
+      ],
+      "note": "License verified from this exact model artifact, with the accompanying gpt-oss usage policy separately referenced by OpenAI."
+    },
+    "parameters_b": {
+      "value": 116.829156672,
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "index",
+        "model_code",
+        "hf_code",
+        "packing",
+        "header0",
+        "header1",
+        "header2",
+        "header3",
+        "header4",
+        "header5",
+        "header6",
+        "header7",
+        "header8",
+        "header9",
+        "header10",
+        "header11",
+        "header12",
+        "header13",
+        "header14"
+      ],
+      "note": "Complete logical checkpoint count 116,829,156,672. All 687 stored tensors across 15 shards exactly match 615 logical parameter tensors and 72 scale tensors. Components: input embedding 579,133,440; untied output head 579,133,440; all RMSNorm vectors 210,240; attention weights/biases/learned sinks 955,805,184; routers 13,275,648; expert weights/biases 114,701,598,720. Packed 57,330,892,800 U8 elements expand to 114,661,785,600 FP4 weights; 3,583,180,800 scale elements are excluded. Remaining 2,167,371,072 elements are learned parameters. No learned tensor is omitted; fixed RoPE/activation values and scale metadata add none. Replaces name-derived 120 B; agrees with exact card rounded 117 B."
+    },
+    "active_parameters_b": {
+      "value": 5.1,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "help",
+        "base_paper",
+        "config",
+        "model_code",
+        "index"
+      ],
+      "note": "Exact Safeguard 120B card reports nominal 5.1 B active. OpenAI explicitly confirms unchanged base architecture: top 4 of 128 experts per layer. Base report defines active to include output unembedding and exclude input embeddings. Independent reconstruction under that convention gives 5,132,849,472 = 116,829,156,672−579,133,440−(124/128×114,701,598,720); retained value 5.1 B uses the exact Safeguard publication precision rather than presenting this derived count as an official exact disclosure. This is per-token activity, not all experts touched across a batch."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "help",
+        "model_code",
+        "hf_code",
+        "base_paper"
+      ],
+      "note": "Autoregressive decoder-only MoE Transformer: 36 layers, 128 experts with 4 selected per token, 64 query/8 KV heads, 2880 hidden width, alternating 128-token sliding/full attention, learned attention sinks, SwiGLU experts, RMSNorm and YaRN RoPE. Verified exact checkpoint config/modules; safety fine-tuning does not add an encoder or classification head."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "base_paper",
+        "help"
+      ],
+      "note": "Exact max_position_embeddings of the native checkpoint; initial 4096 RoPE length is scaled 32×. Provider output caps and guide policy-length advice are separate limits."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "report",
+        "card",
+        "config"
+      ],
+      "note": "Explicit text-only policy reasoning and generated textual decisions. The released module graph contains token input/output modules without native image/audio encoders or decoders."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "report",
+        "card",
+        "template",
+        "guide"
+      ],
+      "note": "Safety reasoning with visible analysis and final channels; low/medium/high effort, medium by default. Harmony formatting is required."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "bedrock",
+        "template"
+      ],
+      "note": "Independently verified for this exact 120B variant: AWS documents client-side/server-side tool calling on bedrock-mantle. Its own Harmony template also serializes tools/calls/responses. This is an interface/capability claim with a supporting provider, not an assertion of base-model-equivalent tool quality, safety-training objectives, or local tool execution. OpenAI recommends specialized policy classification; its report does not establish tool-training performance."
+    },
+    "description": {
+      "value": "Open-weight text model fine-tuned from gpt-oss-120b to reason over supplied policies and generate content classifications.",
+      "status": "verified",
+      "source_ids": [
+        "launch",
+        "card",
+        "report"
+      ],
+      "note": "Describes the supported safety task and generative model lineage without speculative routing claims."
+    }
+  },
+  "patch": {
+    "name": "gpt-oss-safeguard-120b",
+    "license": "Apache-2.0",
+    "parameters_b": 116.829156672,
+    "active_parameters_b": 5.1,
+    "architecture": "moe",
+    "description": "Open-weight text model fine-tuned from gpt-oss-120b to reason over supplied policies and generate content classifications.",
+    "parameters_source": "primary_source",
+    "source_url": "https://openai.com/index/introducing-gpt-oss-safeguard/",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Introducing gpt-oss-safeguard — October 29, 2025",
+        "url": "https://openai.com/index/introducing-gpt-oss-safeguard/",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned gpt-oss-safeguard-120b model card",
+        "url": "https://huggingface.co/openai/gpt-oss-safeguard-120b/blob/3c7391182603991a904031244e7822488c67796d/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "Safeguard technical report — October 29, 2025",
+        "url": "https://cdn.openai.com/pdf/08b7dee4-8bc6-4955-a219-7793fb69090c/Technical_report__Research_Preview_of_gpt_oss_safeguard.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "OpenAI open-weight models — Safeguard specifications",
+        "url": "https://help.openai.com/en/articles/11870455-openai-open-weight-models-gpt-oss",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned exact Safeguard120b configuration",
+        "url": "https://huggingface.co/openai/gpt-oss-safeguard-120b/blob/3c7391182603991a904031244e7822488c67796d/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned complete Safeguard120b weight index",
+        "url": "https://huggingface.co/openai/gpt-oss-safeguard-120b/blob/3c7391182603991a904031244e7822488c67796d/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Pinned OpenAI inference modules",
+        "url": "https://github.com/openai/gpt-oss/blob/5681a6b6552635e7b29cde94a61ca6a7aee90ebd/gpt_oss/torch/model.py",
+        "type": "primary"
+      },
+      {
+        "label": "Transformers 4.57.1 GptOssForCausalLM implementation",
+        "url": "https://github.com/huggingface/transformers/blob/v4.57.1/src/transformers/models/gpt_oss/modeling_gpt_oss.py",
+        "type": "primary"
+      },
+      {
+        "label": "Transformers 4.57.1 MXFP4 implementation",
+        "url": "https://github.com/huggingface/transformers/blob/v4.57.1/src/transformers/integrations/mxfp4.py",
+        "type": "primary"
+      },
+      {
+        "label": "gpt-oss original architecture report",
+        "url": "https://arxiv.org/html/2508.10925v1",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned Safeguard120b license",
+        "url": "https://huggingface.co/openai/gpt-oss-safeguard-120b/blob/3c7391182603991a904031244e7822488c67796d/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned Safeguard120b Harmony chat template",
+        "url": "https://huggingface.co/openai/gpt-oss-safeguard-120b/blob/3c7391182603991a904031244e7822488c67796d/chat_template.jinja",
+        "type": "primary"
+      },
+      {
+        "label": "Amazon Bedrock exact Safeguard120b model card",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-openai-gpt-oss-safeguard-120b.html",
+        "type": "primary"
+      }
+    ],
+    "notes": "Total is the complete logical pinned-checkpoint count, including both untied embedding matrices, norms, biases, routers and learned sinks; MXFP4 exponent scales are excluded and packed weights expanded. Exact Safeguard documentation rounds active parameters to 5.1 B; the unchanged architecture uses four experts per layer, with output head included and input embeddings excluded in OpenAI’s convention. Harmony is required. Tool calling is documented for this exact variant on AWS bedrock-mantle; tool execution depends on the hosting interface. These open weights are not served by OpenAI’s own API."
+  },
+  "summary": "Audited all 14 fields for the exact Safeguard 120B safety fine-tune. Corrected name-derived 120 B to complete 116.829156672 B, added exact-variant nominal 5.1 B active, MoE architecture and Apache-2.0, and made the description factual. Independently verified every indexed tensor in all 15 shards. Retained tool calling using exact AWS provider support with endpoint qualification, without transferring base-model training claims. Confirmed original October 29 release, 131072 context, text modalities and reasoning. No exclusion: this is a distinct generative language-model fine-tune."
+}
