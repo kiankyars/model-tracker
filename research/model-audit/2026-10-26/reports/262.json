@@ -1,7 +1,7 @@
 {
   "index": 262,
   "model_id": "meta/llama-2-7b",
-  "reviewed_at": "2026-10-26T21:26:04.676702Z",
+  "reviewed_at": "2026-10-27T13:56:57.781886Z",
   "sources": [
     {
       "id": "s1",
@@ -17,7 +17,7 @@
       "title": "Llama-2-7b-hf official model card",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "Identifies this exact repository as the 7B pretrained model converted to Transformers format; names Meta, text-only inputs/outputs, autoregressive Transformer, nominal 7B, 4k context and no GQA for 7B. Download access requires license acceptance."
+      "evidence": "Reopened October 27, 2026. Identifies this exact repository as the 7B pretrained model converted to Transformers format; its model-details table explicitly gives 7B parameters, 4k context and no GQA. Names Meta and text-only inputs/outputs. Download access requires license acceptance. No separate active count appears in the card."
     },
     {
       "id": "s3",
@@ -25,7 +25,7 @@
       "title": "Llama 2: Open Foundation and Fine-Tuned Chat Models",
       "publisher": "Meta authors / arXiv",
       "accessed": true,
-      "evidence": "Table 1 explicitly gives Llama 2 7B, 4k trained context and no GQA; Section 2.2 describes Transformer, RMSNorm, SwiGLU and RoPE. Section 5.1 tool-use experiment concerns Llama 2-Chat. Does not define an active-parameter count."
+      "evidence": "Reopened October 27, 2026. Table 1 explicitly gives Llama 2 7B, 4k trained context and no GQA, distinct from the original Llama 1 7B row. Section 2.2 describes Transformer, RMSNorm, SwiGLU and RoPE. Section 5.1 tool-use experiment concerns Llama 2-Chat. The Meta report does not define an active-parameter count."
     },
     {
       "id": "s4",
@@ -65,7 +65,7 @@
       "title": "Original Llama 2 model card",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "Lists Meta, nominal 7B pretrained/fine-tuned variants, text-only inputs/outputs, autoregressive Transformer and 4k/no-GQA row for 7B; distinguishes tuned variants and calls the license custom commercial."
+      "evidence": "Reopened October 27, 2026. Lists Meta, nominal 7B pretrained/fine-tuned variants, text-only inputs/outputs, autoregressive Transformer and 4k/no-GQA row for 7B; distinguishes tuned variants and calls the license custom commercial. Its parameter table does not separately report active parameters."
     },
     {
       "id": "s9",
@@ -74,6 +74,30 @@
       "publisher": "Meta / Hugging Face",
       "accessed": false,
       "evidence": "Unauthenticated request returned HTTP 401 requiring permission and authentication. No configuration content or tensor headers were obtained; no gate bypass or weight download was attempted."
+    },
+    {
+      "id": "s10",
+      "url": "https://arxiv.org/html/2401.04088v1",
+      "title": "Mixtral of Experts \u2014 Table 2 active-parameter comparison",
+      "publisher": "Mistral AI research team / arXiv",
+      "accessed": true,
+      "evidence": "Reopened October 27, 2026. Table 2 explicitly labels the column Active Params and assigns 7B to the exact LLaMA 2 7B comparison row. Section 3 evaluates base models; instruction fine-tuning is handled separately in Section 4. This is Mistral's published nominal active-count convention for Meta's model, not a direct Meta active-count disclosure or an exact per-token tensor inventory."
+    },
+    {
+      "id": "s11",
+      "url": "https://research.myshell.ai/jetmoe",
+      "title": "JetMoE original project page \u2014 benchmark active-parameter table",
+      "publisher": "JetMoE research team / MyShell",
+      "accessed": true,
+      "evidence": "Reopened October 27, 2026. The original benchmark table explicitly gives LLaMA2-7B Active Params 7B and Training Tokens 2T. Its separate LLaMA-13B row uses 1T, and chat models appear in a separate MT-Bench table, establishing the Llama 2 base identity. Corroborates Mistral's whole-billion nominal active-count convention."
+    },
+    {
+      "id": "s12",
+      "url": "https://aclanthology.org/2024.acl-long.70.pdf",
+      "title": "DeepSeekMoE: Towards Ultimate Expert Specialization in Mixture-of-Experts Language Models \u2014 Figure 7",
+      "publisher": "DeepSeek-AI research team / ACL Anthology",
+      "accessed": true,
+      "evidence": "Reopened October 27, 2026 and visually inspected Figure 7 on PDF page 18. The horizontal axis is Number of Activated Parameters (Billions); the exact LLaMA2 7B point is near 6.7B, with the original LLaMA 7B separately labeled. This approximate plotted value is compatible with the coarser nominal 7B in Mistral's and JetMoE's explicit tables; the chart supplies neither an exact scalar count nor a component breakdown."
     }
   ],
   "fields": {
@@ -138,20 +162,19 @@
       "source_ids": [
         "s2",
         "s3",
-        "s8",
-        "s9"
-      ],
-      "note": "Retains Meta's explicit nominal 7B total, in billions. This is not a claim of exactly 7,000,000,000 learned scalars. Exact official config was access restricted, so no independent complete checkpoint count is asserted."
-    },
-    "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
-      "source_ids": [
-        "s3",
-        "s6",
         "s8"
       ],
-      "note": "Primary sources do not separately define or report an active-parameter total for this dense checkpoint. Dense structure alone does not justify copying nominal total into this field."
+      "note": "Freshly rechecked Meta's exact pretrained model card, original model card and technical-report Table 1. Retains the explicitly published nominal 7B total, in billions, without claiming exactly 7,000,000,000 learned scalars. This is the Llama 2 base checkpoint, not the original LLaMA 7B or Llama 2-Chat."
+    },
+    "active_parameters_b": {
+      "value": 7,
+      "status": "verified",
+      "source_ids": [
+        "s10",
+        "s11",
+        "s12"
+      ],
+      "note": "Mistral's Mixtral Table 2 explicitly assigns Active Params 7B to LLaMA 2 7B; JetMoE's original base-model comparison independently lists 7B. Adopt their whole-billion nominal active-count convention, attributed to those research teams rather than to Meta. DeepSeekMoE Figure 7 places the separately identified LLaMA2 7B point at approximately 6.7B, compatible at the selected precision. No exact per-token scalar count or component scope is inferred, and the value is not obtained merely by equating dense total and active counts."
     },
     "architecture": {
       "value": "dense",
@@ -222,7 +245,7 @@
   },
   "patch": {
     "parameters_source": "primary_source",
-    "notes": "7B is Meta's nominal model size, not a complete tensor-count claim. Llama 2 7B is a dense pretrained text Transformer with multi-head attention and a 4096-token trained context. Active parameters and native thinking/tool-call support are not separately documented for this base checkpoint. Weights use the custom Llama 2 Community License.",
+    "notes": "7B is Meta's nominal total size. Nominal active 7B follows Mistral's and JetMoE's explicit comparison tables; DeepSeek plots approximately 6.7B. These research-team conventions do not establish an exact per-token count or a direct Meta active-count disclosure. This dense pretrained text model uses multi-head attention, 4096-token context and the custom Llama 2 Community License. Native thinking/tool-call support is not separately documented.",
     "sources": [
       {
         "label": "Original Meta release announcement",
@@ -258,14 +281,32 @@
         "label": "Reference generation implementation",
         "url": "https://raw.githubusercontent.com/meta-llama/llama/7565eb6fee2175b2d4fe2cfb45067a61b35d7f5e/llama/generation.py",
         "type": "primary"
+      },
+      {
+        "label": "Mistral original active-parameter comparison (Table 2)",
+        "url": "https://arxiv.org/html/2401.04088v1",
+        "type": "primary"
+      },
+      {
+        "label": "JetMoE original active-parameter comparison",
+        "url": "https://research.myshell.ai/jetmoe",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeekMoE activated-parameter plot (Figure 7)",
+        "url": "https://aclanthology.org/2024.acl-long.70.pdf",
+        "type": "primary"
       }
-    ]
+    ],
+    "parameters_b": 7,
+    "active_parameters_b": 7
   },
   "conflicts": [
     "The paper introduction broadly mentions adopting GQA, but Table 1 limits it to larger variants; the exact 7B row is no-GQA.",
     "Reference ModelArgs defaults max_seq_len to 2048, while the README explicitly supports 4096 and generation builds ModelArgs with a supplied max_seq_len. The default is an allocation/inference choice, not the trained context.",
     "Model-card family prose includes Chat fine-tuning and benchmarks. Repository identity explicitly identifies this checkpoint as pretrained; Chat-specific tool emergence is not evidence of base-model native tool calls.",
-    "The public exact model card was accessible, but the exact config download returned 401. Third-party config mirrors surfaced in search were not used as first-party verification."
+    "The public exact model card was accessible, but the exact config download returned 401. Third-party config mirrors surfaced in search were not used as first-party verification.",
+    "Active-count precision differs across original comparisons: Mistral Table 2 and JetMoE explicitly give nominal 7B, while DeepSeekMoE Figure 7 plots LLaMA2 7B near 6.7B. Retain the explicit whole-billion table convention; these values are compatible at that precision. Neither the approximate plot nor the nominal tables establish an exact per-token tensor inventory, and none is a direct Meta active-count disclosure."
   ],
-  "summary": "All 14 fields reviewed. Core baseline values are confirmed, including nominal 7B, dense/MHA architecture, 4096 context, July 18 release, text-only base identity and custom license. Active parameters, native thinking and native tool calling remain null/undisclosed. Added source-backed notes/provenance only; exact configuration and a complete learned-parameter count were not independently accessible."
+  "summary": "Fresh parameter re-audit on October 27, 2026 retains Meta's verified nominal 7B total and resolves active parameters from null/undisclosed to verified nominal 7B using Mistral Table 2 and JetMoE's original comparison table. DeepSeekMoE Figure 7 independently supplies an approximately 6.7B plotted convention, compatible with the selected whole-billion precision. Reopened Meta's exact base card, original model card and technical report; searched exact active/activated-parameter terms and later original comparisons. No separate Meta active-count disclosure or exact scalar count was established. The other twelve assessments are unchanged, including native thinking/tool calling remaining null/undisclosed."
 }
