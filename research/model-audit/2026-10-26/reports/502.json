@@ -1,7 +1,7 @@
 {
   "index": 502,
   "model_id": "tencent/hy-mt2-7b",
-  "reviewed_at": "2026-10-27T04:51:44.965620Z",
+  "reviewed_at": "2026-10-27T18:01:10.264592Z",
   "sources": [
     {
       "id": "s1",
@@ -10,7 +10,8 @@
       "publisher": "Tencent",
       "accessed": true,
       "evidence": "Identifies the exact 7B translation model, Hy-MT2 family, text translation instructions, nominal 7B model size, and explicitly announces open-sourcing the 7B checkpoint on 2026-05-21. The paper/card call the family fast-thinking; no native tool-calling or separate reasoning-mode capability is specified.",
-      "evidence_cache_path": "/tmp/model-audit-502-hy-mt2-7b/readme.md"
+      "evidence_cache_path": "/tmp/model-audit-502-hy-mt2-7b/readme.md",
+      "reaudit_evidence_cache_path": "/tmp/remaining-parameter-card-cache/45.txt"
     },
     {
       "id": "s2",
@@ -28,7 +29,8 @@
       "publisher": "Tencent",
       "accessed": true,
       "evidence": "HunYuanDenseV1ForCausalLM / hunyuan_v1_dense; 32 layers, width 4096, MLP width 14336, 32 query heads and 8 KV heads, head dimension 128, RMS/QK normalization, BF16, no attention/MLP biases or quantization config. max_position_embeddings is 262144 and tie_word_embeddings is true.",
-      "evidence_cache_path": "/tmp/model-audit-502-hy-mt2-7b/config.json"
+      "evidence_cache_path": "/tmp/model-audit-502-hy-mt2-7b/config.json",
+      "reaudit_evidence_cache_path": "/tmp/remaining-parameter-card-cache/46.txt"
     },
     {
       "id": "s4",
@@ -64,7 +66,8 @@
       "publisher": "Tencent",
       "accessed": true,
       "evidence": "Indexes 355 tensor names in four shards and reports total_parameters 8029540352 and total_size 16059080704. Both model.embed_tokens.weight and lm_head.weight are separately present despite the configured weight tie. This metadata total is not accepted as an independent unique-parameter total.",
-      "evidence_cache_path": "/tmp/model-audit-502-hy-mt2-7b/index.json"
+      "evidence_cache_path": "/tmp/model-audit-502-hy-mt2-7b/index.json",
+      "reaudit_evidence_cache_path": "/tmp/parameter-reaudit-502/index.json"
     },
     {
       "id": "s8",
@@ -144,7 +147,71 @@
       "title": "Hy-MT2 technical report, revised May 25, 2026",
       "publisher": "Tencent Hunyuan Team",
       "accessed": true,
-      "evidence": "Parent additionally reviewed the later v2 report: it identifies the nominal 7B translation variant but does not separately define its active-parameter count or establish a distinct reasoning/tool-calling capability."
+      "evidence": "Reopened the complete latest v2 report on October 27; the arXiv revision history still ends at May 25 v2. Abstract and experimental model labels retain nominal 7B. Sections 2.1-2.2 describe an unspecified Hy-series pretraining model, mid-training and distillation; Hy3-Preview is a teacher, not an identified unchanged 7B base. No active-parameter count or active-count comparison column is supplied for the 7B student. The prior reasoning/tool-capability finding is unchanged.",
+      "evidence_cache_path": "/tmp/parameter-reaudit-502/report-v2.html"
+    },
+    {
+      "id": "s17",
+      "url": "https://huggingface.co/tencent/Hy-MT2-7B/blob/main/README.md",
+      "title": "Current Tencent Hy-MT2-7B model card, parameter re-audit",
+      "publisher": "Tencent",
+      "accessed": true,
+      "evidence": "Fresh October 27 current card matches the pinned card: the introduction specifies model sizes 1.8B, 7B and 30B-A3B, and Model Links identifies the exact checkpoint as the Hy 7B translation model. No separate active count is stated for 7B.",
+      "evidence_cache_path": "/tmp/parameter-reaudit-502/hf-current.md"
+    },
+    {
+      "id": "s18",
+      "url": "https://github.com/Tencent-Hunyuan/Hy-MT2/blob/main/README.md",
+      "title": "Current Hy-MT2 release README, parameter re-audit",
+      "publisher": "Tencent Hunyuan",
+      "accessed": true,
+      "evidence": "Fresh current release README again identifies the exact Hy-MT2-7B nominal model size. The separate 30B-A3B MoE sibling and low-bit variants do not supply a 7B active-count convention.",
+      "evidence_cache_path": "/tmp/parameter-reaudit-502/github-current.md"
+    },
+    {
+      "id": "s19",
+      "url": "https://github.com/Tencent-Hunyuan/Hy-MT2/blob/main/train/README.md",
+      "title": "Current Hy-MT2 training guide, parameter re-audit",
+      "publisher": "Tencent Hunyuan",
+      "accessed": true,
+      "evidence": "Fresh guide explicitly labels Hy-MT2-7B Dense and names full and LoRA fine-tuning recipes. It gives no separately defined inference active-parameter count.",
+      "evidence_cache_path": "/tmp/parameter-reaudit-502/github-train-current.md"
+    },
+    {
+      "id": "s20",
+      "url": "https://flex.ai/models/hy-mt2-7b",
+      "title": "FlexAI Hy-MT2 7B deployment catalog: insufficient active-count lead",
+      "publisher": "FlexAI",
+      "accessed": true,
+      "evidence": "The provider lists exact weights tencent/Hy-MT2-7B and active parameters 8B of 8.02954B. No original measurement, benchmark or counting methodology accompanies the value. The displayed total matches rounded serialized-element metadata, which includes two embedding matrices despite configured tying; rounding that storage total would yield 8B. This is an unvalidated catalog claim, not an original model/research-team active-count convention.",
+      "evidence_cache_path": "/tmp/parameter-reaudit-502/flex.html"
+    },
+    {
+      "id": "s21",
+      "url": "https://aclanthology.org/2026.wmt-main.207.pdf",
+      "title": "Full-Video Context and Anonymous Candidate Selection for WMT26 Video Subtitle Translation",
+      "publisher": "Jianfeng Wu / ReopenAI; ACL Anthology",
+      "accessed": true,
+      "evidence": "Original October 2026 system paper identifies tencent/Hy-MT2-7B and unchanged Gemma-4-12B-it. Abstract and Section 4.3 describe approximately 19B unique weights for the combined system and Section 4.2 gives 28B if Qwen3.5-9B is added. These are nominal ensemble-budget totals, not an active count for Hy-MT2-7B. Complete text contains no explicit active-parameter convention.",
+      "evidence_cache_path": "/tmp/parameter-reaudit-502/wmt-207.txt"
+    },
+    {
+      "id": "s22",
+      "url": "https://aclanthology.org/2026.wmt-main.66.pdf",
+      "title": "HW-TSC submission to the WMT 2026 General Machine Translation Track",
+      "publisher": "Huawei Translation Service Center; ACL Anthology",
+      "accessed": true,
+      "evidence": "Original October 2026 Huawei system research uses HY-MT2-7B for candidate generation alongside fine-tuned openPangu-Embedded-7B and DeepSeek-V4-Flash. Its method and result comparisons do not give an active-parameter column or count for the Tencent model.",
+      "evidence_cache_path": "/tmp/parameter-reaudit-502/wmt-66.txt"
+    },
+    {
+      "id": "s23",
+      "url": "https://aclanthology.org/2026.wmt-main.203.pdf",
+      "title": "SubVision at WMT26: QLoRA Fine-Tuning of Hy-MT2-1.8B for Chinese to English Video Subtitle Translation",
+      "publisher": "Prajwal Ghimire and Aashish Mahato; ACL Anthology",
+      "accessed": true,
+      "evidence": "Original October 2026 study explicitly compares the exact tencent/Hy-MT2-7B in Section 6.5 and Table 6. It supplies no inference active count for that baseline. The trainable/total parameter numbers in Table 1 describe the separate 1.8B QLoRA setup, so they cannot establish the target 7B count.",
+      "evidence_cache_path": "/tmp/parameter-reaudit-502/wmt-203.txt"
     }
   ],
   "fields": {
@@ -222,9 +289,11 @@
         "s10",
         "s11",
         "s12",
-        "s16"
+        "s16",
+        "s17",
+        "s18"
       ],
-      "note": "7B is Tencent's nominal model-size label, not an exact count. All four indexed headers cover 355 BF16 tensors and sum to 8,029,540,352 stored elements. This includes two 524,972,032-element input/output matrices, while config and Transformers declare them tied. Honoring that tie gives 7,504,568,320 unique configured parameters; equality of the separately serialized matrices is not established from headers. All module shapes reconcile, no quantization tensors occur, and RoPE buffers are nonpersistent. Retain the author nominal count rather than mislabeling the storage sum as exact unique parameters."
+      "note": "7B is Tencent's nominal model-size label, not an exact count. All four indexed headers cover 355 BF16 tensors and sum to 8,029,540,352 stored elements. This includes two 524,972,032-element input/output matrices, while config and Transformers declare them tied. Honoring that tie gives 7,504,568,320 unique configured parameters; equality of the separately serialized matrices is not established from headers. All module shapes reconcile, no quantization tensors occur, and RoPE buffers are nonpersistent. Retain the author nominal count rather than mislabeling the storage sum as exact unique parameters. Fresh current card, release README and latest v2 report reconfirm the nominal 7B size; the pinned index still reports the same storage total. The later ensemble-budget paper is consistent with nominal size but is not a new exact census."
     },
     "active_parameters_b": {
       "value": null,
@@ -234,9 +303,16 @@
         "s3",
         "s5",
         "s8",
-        "s16"
+        "s16",
+        "s17",
+        "s18",
+        "s19",
+        "s20",
+        "s21",
+        "s22",
+        "s23"
       ],
-      "note": "No separate active-per-token parameter count is published for this exact dense model. Dense architecture does not justify copying either nominal or storage total into active parameters."
+      "note": "No supported active count was found in the reopened Tencent sources or later original WMT comparisons. The report names only an unspecified Hy-series pretraining base and a Hy3-Preview teacher, so their active counts cannot be inherited by the 7B student. FlexAI lists 8B active without a measurement or counting method; its 8.02954B total matches serialized storage with unresolved duplicated-versus-tied embeddings. Neither that listing nor dense architecture establishes an active count. Retain null."
     },
     "architecture": {
       "value": "dense",
@@ -323,7 +399,7 @@
     "description": "Tencent multilingual translation model using a dense decoder-only Transformer, with instructions for terminology, style, contextual translation and structured text.",
     "source_url": "https://huggingface.co/tencent/Hy-MT2-7B",
     "source_type": "primary",
-    "notes": "7B is Tencent's nominal size. All four headers total 8.029540352B stored BF16 elements, but both embeddings are serialized despite configured weight tying; 7.50456832B is the unique configured count if that tie is honored, not a verified payload count. Active parameters are not separately reported. Supported inference context is 8192; configuration values of 262144 are not a validated context claim. Native reasoning-mode and tool-calling support remain unverified.",
+    "notes": "7B is Tencent's nominal size. The 8.029540352B stored-element sum includes separately serialized input/output embeddings despite configured tying; 7.50456832B is the configured unique count if tied, with payload equality unverified. Active parameters remain undisclosed. Supported inference context is 8192; the 262144 configuration ceiling is not a validated context claim. Native reasoning-mode and tool-calling support remain unverified.",
     "sources": [
       {
         "label": "Tencent Hy-MT2-7B model card",
@@ -374,8 +450,15 @@
         "label": "Later Hy-MT2 technical report revision",
         "url": "https://arxiv.org/html/2605.22064v2",
         "type": "paper"
+      },
+      {
+        "label": "Current Tencent Hy-MT2-7B nominal-size specification",
+        "url": "https://huggingface.co/tencent/Hy-MT2-7B/blob/main/README.md",
+        "type": "primary"
       }
-    ]
+    ],
+    "parameters_b": 7,
+    "active_parameters_b": null
   },
   "evidence_cache": {
     "directory": "/tmp/model-audit-502-hy-mt2-7b",
@@ -383,5 +466,25 @@
     "module_reconciliation": "/tmp/model-audit-502-hy-mt2-7b/module-reconciliation.json",
     "header_fetches": "/tmp/model-audit-502-hy-mt2-7b/header-fetches.json"
   },
-  "summary": "Correct family to hy-mt2, add Apache-2.0 and dense architecture, and replace generic reasoning/coding/agent wording with translation-specific description. Confirm May 21 public release and 8192 supported inference context. Retain author-nominal 7B with primary provenance; complete bounded header inspection finds 8.029540352B stored elements but unresolved duplicated-versus-tied embedding payloads, so no exact unique checkpoint count is asserted. Active count is undisclosed. Reasoning-mode and native tool support remain unverified and their baseline false values are cleared."
+  "summary": "Parameter re-audit retains Tencent's nominal 7B total with primary provenance and leaves active parameters undisclosed. Fresh developer sources and three later original WMT studies supply no supported active count; the FlexAI 8B active listing has no counting methodology and matches rounded storage metadata. Preserve the prior complete 355-tensor census and its unresolved separately serialized versus configured-tied embeddings, plus all 12 non-parameter assessments.",
+  "parameter_reaudit": {
+    "agent": "/root/parameters_502",
+    "reviewed_at": "2026-10-27T18:01:10.264592Z",
+    "outcome": "Retain verified developer-nominal total 7B; active count remains undisclosed after fresh first-party, lineage and later original-research searches.",
+    "fresh_search_queries": [
+      "\"Hy-MT2-7B\" \"active\" parameters",
+      "\"Hy-MT2-7B\" \"activated\" parameters",
+      "\"Hy-MT2-7B\" \"parameters\" Tencent report",
+      "\"Hy-MT2\" \"parameters\" site:arxiv.org/html -2605.22064",
+      "\"Hy-MT2\" \"7B\" site:aclanthology.org",
+      "\"HY-MT2-7B\" \"parameters\" site:arxiv.org",
+      "\"HY-MT2-7B\" \"激活\""
+    ],
+    "search_findings": "Current Tencent card/release/training documentation and complete latest v2 paper retain nominal 7B without an active convention. Generic pretraining-family lineage and a separately named distillation teacher do not supply one. Original October WMT papers 207, 66 and 203 identify this model but report ensemble budget, performance or a different QLoRA model rather than its active parameters. FlexAI is only an unsupported catalog lead.",
+    "fresh_source_manifest": "/tmp/parameter-reaudit-502/manifest.json",
+    "fresh_pinned_card_manifest": "/tmp/remaining-parameter-card-cache/manifest.json",
+    "remaining_uncertainty": "Exact unique learned checkpoint total remains conditional on the configured embedding tie because the separately serialized matrices were not compared. No supported original active-parameter counting convention was found.",
+    "access_limitations": "Web reader could not open the WMT PDFs; direct original ACL downloads succeeded with HTTP 200 and full text was extracted locally.",
+    "weight_shards_requested": false
+  }
 }
