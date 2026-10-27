@@ -1,7 +1,7 @@
 {
   "index": 376,
   "model_id": "nvidia/llama-3.1-nemotron-ultra-253b",
-  "reviewed_at": "2026-10-27T00:26:19.399117Z",
+  "reviewed_at": "2026-10-27T15:54:48.843293Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Llama-3.1-Nemotron-Ultra-253B-v1 model card",
       "publisher": "NVIDIA",
       "accessed": true,
-      "evidence": "Names the exact v1 model, NVIDIA developer, Nemotron family, April 7, 2025 release, nominal 253B size, dense architecture, text input/output, 131,072-token limit, reasoning toggle, tool calling and license."
+      "evidence": "Names the exact v1 model, NVIDIA developer, Nemotron family, April 7, 2025 release, nominal 253B size, dense architecture, text input/output, 131,072-token limit, reasoning toggle, tool calling and license. Reopened October 27, 2026: current repository remains at this pinned revision; the architecture section explicitly states 253B model parameters and describes NAS/FFN structural changes. No active count is stated."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "Ultra 253B v1 checkpoint configuration",
       "publisher": "NVIDIA",
       "accessed": true,
-      "evidence": "DeciLMForCausalLM/nemotron-nas, hidden size 16,384, vocabulary 128,256, untied embeddings, BF16, 162 configured slots, 64 attention blocks and 81 FFNs; context 131,072. All retained attention uses 128 query heads with groups of 16; all sparsify/linear-replacement settings are disabled."
+      "evidence": "DeciLMForCausalLM/nemotron-nas, hidden size 16,384, vocabulary 128,256, untied embeddings, BF16, 162 configured slots, 64 attention blocks and 81 FFNs; context 131,072. All retained attention uses 128 query heads with groups of 16; all sparsify/linear-replacement settings are disabled. Reopened October 27, 2026; hidden_size=16384, num_attention_heads=128 and num_hidden_layers=162 are unchanged."
     },
     {
       "id": "s3",
@@ -33,7 +33,7 @@
       "title": "Ultra 253B v1 BF16 checkpoint index and referenced shard headers",
       "publisher": "NVIDIA",
       "accessed": true,
-      "evidence": "Index maps 647 named weight tensors to 49 shards and records 506,802,536,448 data bytes. Bounded HTTP Range reads of every referenced shard header independently found 253,401,268,224 BF16 elements, all learned weights; no quantization scales or persistent buffers."
+      "evidence": "Index maps 647 named weight tensors to 49 shards and records 506,802,536,448 data bytes. Bounded HTTP Range reads of every referenced shard header independently found 253,401,268,224 BF16 elements, all learned weights; no quantization scales or persistent buffers. October 27 parameter re-audit reopened only the index and reconfirmed total_size=506802536448; the earlier header census is preserved, not repeated."
     },
     {
       "id": "s5",
@@ -41,7 +41,7 @@
       "title": "Llama-Nemotron: Efficient Reasoning Models, revision 5",
       "publisher": "NVIDIA",
       "accessed": true,
-      "evidence": "September 2025 revision explicitly identifies Ultra 253B v1. Section 2 describes Puzzle NAS with attention removal and variable FFNs; Ultra additionally uses FFN fusion. Sections 7.4 and Table 5 cover this Ultra release. The inspected report gives no separate active-parameter count."
+      "evidence": "Reopened October 27, 2026, including full fresh cached text. The September 2025 revision explicitly identifies Ultra 253B v1. Section 2 documents attention removal, variable FFN widths and additional Ultra FFN fusion, so a 405B base active count cannot transfer. Section 5.2.2 uses nominal 253B for BF16 memory accounting; Section 7.4 and Table 5 evaluate Ultra. No separate active-parameter count or activated-parameter comparison column was found."
     },
     {
       "id": "s6",
@@ -57,7 +57,39 @@
       "title": "Hugging Face metadata for NVIDIA Ultra 253B v1 repository",
       "publisher": "NVIDIA / Hugging Face",
       "accessed": true,
-      "evidence": "Corroborates BF16 tensor total of 253,401,268,224 and repository creation on April 7, 2025; used as a cross-check, not as the sole parameter-count basis."
+      "evidence": "Reopened October 27, 2026: SHA remains 5b47def5b8957142d82faeb44bfad9349d02840d; safetensors.parameters.BF16 and safetensors.total both report 253401268224. This corroborates the prior independent learned-parameter reproduction and preserves its precision. Repository creation is April 7, 2025."
+    },
+    {
+      "id": "s8",
+      "url": "https://developer.nvidia.com/blog/build-enterprise-ai-agents-with-advanced-open-nvidia-llama-nemotron-reasoning-models/",
+      "title": "Build Enterprise AI Agents with Advanced Open NVIDIA Llama Nemotron Reasoning Models",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Reopened October 27, 2026. The April 8, 2025 update explicitly calls Llama Nemotron Ultra 253B total parameters and compares its throughput with DeepSeek-R1. It does not separately state an active count for Ultra."
+    },
+    {
+      "id": "s9",
+      "url": "https://research.nvidia.com/labs/nemotron/files/NVFP4-QAD-Report.pdf",
+      "title": "Quantization-Aware Distillation for NVFP4 Inference Accuracy Recovery",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Read October 27, 2026. March 5, 2026 report, Appendix C Table 12 on PDF page 16, explicitly labels Llama Nemotron Ultra V1 (253B) and compares BF16 with NVFP4 PTQ. It reports benchmark accuracy rather than an activated-parameter column; DeepSeek R1 is labeled 671B total in the same table. This later original comparison corroborates nominal total only."
+    },
+    {
+      "id": "s10",
+      "url": "https://inferencebench.io/blog/nemotron-super-120b-vs-ultra-253b-nvidia-showdown/",
+      "title": "Nemotron Super 120B vs Ultra 253B: NVIDIA’s Best Open-Weight Models Benchmarked",
+      "publisher": "InferenceBench Team",
+      "accessed": true,
+      "evidence": "Read October 27, 2026 as a later original benchmark lead. The April 14, 2026 What We Tested table lists exact nvidia/Llama-3_1-Nemotron-Ultra-253B-v1 BF16 and FP8 rows with Active Params 253B. Not adopted: the publisher’s companion model specification contradicts the original checkpoint dimensions and release date, weakening confidence in its parameter convention; no reliable NVIDIA or model-research comparison independently establishing the claim was found in the inspected sources."
+    },
+    {
+      "id": "s11",
+      "url": "https://inferencebench.io/models/nvidia/nemotron-ultra-253b/",
+      "title": "InferenceBench Nemotron Ultra 253B specification, rejected corroboration",
+      "publisher": "InferenceBench",
+      "accessed": true,
+      "evidence": "Read October 27, 2026 to check the s10 lead. Lists active 253B but also 96 layers, hidden size 12288, 96 query heads and March 18, 2025 release. NVIDIA’s pinned config instead has 162 configured slots, hidden size 16384 and 128 query heads, and its card identifies April 7 release. The active claim is therefore not accepted as reliable specification evidence."
     }
   ],
   "fields": {
@@ -117,21 +149,29 @@
       "value": 253.401268224,
       "status": "verified",
       "source_ids": [
+        "s1",
         "s2",
         "s3",
         "s4",
-        "s7"
+        "s7",
+        "s8",
+        "s9"
       ],
-      "note": "Exact learned checkpoint count in decimal billions; nominal size is 253B. Independent config/implementation calculation and all 49 tensor headers agree."
+      "note": "Retain the supported exact learned checkpoint total in decimal billions. Fresh repository metadata reports 253401268224 BF16 parameters at the unchanged revision, and the reopened index reconfirms 506802536448 bytes; these corroborate the preserved earlier independent reproduction. NVIDIA’s card, release post and March 2026 comparison table consistently use nominal 253B. No new shard reads or tensor census were performed."
     },
     "active_parameters_b": {
       "value": null,
       "status": "undisclosed",
       "source_ids": [
         "s1",
-        "s5"
+        "s2",
+        "s5",
+        "s8",
+        "s9",
+        "s10",
+        "s11"
       ],
-      "note": "No separately defined active count found in the exact card, revised technical report or targeted later first-party comparison searches. Dense architecture alone does not justify copying the total."
+      "note": "Fresh exact-card, revised-report, release-post and later NVIDIA QAD comparison checks found no separately defined active count for Ultra v1. Targeted active/activated-parameter searches found an InferenceBench 253B claim, rejected because the same publisher’s exact-model specifications conflict with NVIDIA’s config. Dense architecture does not establish a counting convention, and NAS/FFN fusion prevents transferring the Llama 3.1 405B base active count. Retain null pending reliable exact-model evidence."
     },
     "architecture": {
       "value": "dense",
@@ -206,7 +246,7 @@
     "description": "NVIDIA reasoning and chat model derived from Llama 3.1 405B Instruct through neural architecture search and FFN fusion, with a reasoning toggle and tool-calling support.",
     "source_url": "https://huggingface.co/nvidia/Llama-3_1-Nemotron-Ultra-253B-v1/blob/5b47def5b8957142d82faeb44bfad9349d02840d/README.md",
     "source_type": "primary",
-    "notes": "253B is the nominal published size; the BF16 checkpoint contains exactly 253,401,268,224 learned parameters. This is a heterogeneous dense decoder-only Transformer using NAS and FFN fusion, with 64 attention blocks and 81 FFNs across 162 configured slots. Active parameters are not separately reported and are not equated to total parameters. The card names the NVIDIA Open Model License as governing terms and additionally references the Llama 3.1 Community License. This entry is Ultra v1, not the CPT checkpoint, FP8 storage variant, or later Nemotron 3 Ultra.",
+    "notes": "Ultra v1 has exactly 253,401,268,224 learned checkpoint parameters; NVIDIA publishes the nominal size as 253B. Its dense architecture uses NAS and FFN fusion, so the Llama 3.1 405B base count does not transfer. No reliable separate active count was found. The card names NVIDIA Open Model License and Llama 3.1 Community License. This entry covers Ultra v1, not CPT, FP8 storage, or Nemotron 3 Ultra.",
     "sources": [
       {
         "label": "Llama-3.1-Nemotron-Ultra-253B-v1 model card",
@@ -237,8 +277,19 @@
         "label": "NVIDIA Open Models License",
         "url": "https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-open-model-license/",
         "type": "primary"
+      },
+      {
+        "label": "Build Enterprise AI Agents with Advanced Open NVIDIA Llama Nemotron Reasoning Models",
+        "url": "https://developer.nvidia.com/blog/build-enterprise-ai-agents-with-advanced-open-nvidia-llama-nemotron-reasoning-models/",
+        "type": "primary"
+      },
+      {
+        "label": "Quantization-Aware Distillation for NVFP4 Inference Accuracy Recovery",
+        "url": "https://research.nvidia.com/labs/nemotron/files/NVFP4-QAD-Report.pdf",
+        "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": null
   },
   "parameter_count_reproduction": {
     "method": "Reconstruct all parameter shapes from pinned config.json and modeling_decilm.py, compare their names with the complete checkpoint index, then sum shape products from HTTP 206 Range bytes=0-65535 responses for all 49 safetensors shards. Only headers were read; no full weight shards were downloaded.",
@@ -263,5 +314,5 @@
     },
     "non_parameter_accounting": "All 647 indexed tensors are .weight parameters instantiated by the implementation. There are no scale tensors or packed quantized elements in this BF16 checkpoint. RoPE inv_freq is a nonpersistent buffer and is absent from the checkpoint and learned-parameter sum."
   },
-  "summary": "Verified all 14 fields for Ultra v1. Corrected context to 131,072, supplied dense NAS/FFN-fusion architecture and governing license, and replaced nominal 253B with the reproduced exact 253.401268224B checkpoint total. Release date, text modalities, open weights, reasoning and tool calling are confirmed. Active parameters remain undisclosed; no dense active=total assumption is made."
+  "summary": "October 27 parameter re-audit retains the precise 253.401268224B learned checkpoint total, freshly corroborated by unchanged repository metadata and index bytes, alongside NVIDIA’s nominal 253B specification. Reopened the exact card/config, revised technical report, release post and March 2026 NVIDIA QAD comparison; targeted later active-count searches yielded no reliable separate count. Rejected InferenceBench’s explicit 253B-active lead because its companion model specifications contradict NVIDIA’s configuration. Active parameters remain undisclosed, with no dense-equals-total or structurally changed base inference. All 12 unrelated field assessments and the prior parameter reproduction are preserved."
 }
