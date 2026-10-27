@@ -1,7 +1,7 @@
 {
   "index": 291,
   "model_id": "meta/opt-175b",
-  "reviewed_at": "2026-10-26T22:06:53.532174Z",
+  "reviewed_at": "2026-10-27T14:34:39.709654Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Democratizing access to large-scale language models with OPT-175B",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "May 3, 2022 announcement names OPT-175B, 175 billion parameters, and a noncommercial research release; access to 175B requires a request, unlike the smaller downloadable models."
+      "evidence": "Reopened October 27, 2026. The May 3, 2022 announcement explicitly identifies OPT-175B as a language model with 175 billion parameters and a noncommercial research release; access to 175B requires a request, unlike the smaller downloadable models. It does not separately specify active parameters."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "OPT: Open Pre-trained Transformer Language Models",
       "publisher": "Meta AI",
       "accessed": true,
-      "evidence": "Table 1 specifies 96 layers, 96 heads and width 12288 for 175B; section 2.2 specifies 2048-token sequences. Appendix D identifies Meta AI, version 1.0.0, a decoder-only language model, and May 3, 2022 release. Section 2.4 distinguishes FP16 model weights from FP32 optimizer state."
+      "evidence": "Reopened October 27, 2026. Section 2.1 explicitly describes models up to 175 billion parameters; Table 1 identifies the 175B model with 96 layers, 96 heads and width 12288. Section 2.2 specifies 2048-token sequences; section 2.4 distinguishes FP16 model weights from FP32 optimizer state. Appendix D identifies Meta AI, version 1.0.0, a decoder-only language model and May 3, 2022 release. The full paper supplies no separately labeled active-parameter count."
     },
     {
       "id": "s3",
@@ -41,7 +41,7 @@
       "title": "OPT pretrained model weights",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "Lists OPT-175B as a 175B member of Open Pre-trained Transformers and links to an access request; direct download links apply to smaller variants."
+      "evidence": "Reopened October 27, 2026. The pretrained-weights table explicitly lists OPT-175B with Parameters 175B and an access-request link; direct downloads apply to smaller variants. The table has no active-parameter column."
     },
     {
       "id": "s6",
@@ -129,7 +129,7 @@
       "title": "175B Training Run Completed",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "The OPT-175B training chronicle explicitly calls this a dense model, independently supporting dense architecture rather than an inference from its name."
+      "evidence": "Reopened October 27, 2026. The OPT-175B training chronicle explicitly calls this a dense model and reports completion of the 175B training run. It supplies no separate active-parameter count; dense architecture alone is not used to fill that field."
     },
     {
       "id": "s17",
@@ -146,6 +146,30 @@
       "publisher": "Meta",
       "accessed": true,
       "evidence": "Implements the two FFN matrices through column/row parallel linear layers with biases and no extra learned projection component."
+    },
+    {
+      "id": "s19",
+      "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/main/projects/OPT/model_card.md",
+      "title": "OPT model card, version 1.0.0",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Checked October 27, 2026. The official repository model card points readers to Appendix D of the original OPT paper; it contains no separate active-parameter specification."
+    },
+    {
+      "id": "s20",
+      "url": "https://proceedings.mlr.press/v202/liu23am/liu23am.pdf",
+      "title": "Deja Vu: Contextual Sparsity for Efficient LLMs at Inference Time",
+      "publisher": "Zichang Liu et al. / ICML 2023",
+      "accessed": true,
+      "evidence": "Checked October 27, 2026. Sections 2.3, 3.1 and 5.1 distinguish full computation from an input-dependent sparse approximation. Section 5.1 and Figure 6 report DEJAVU-OPT-175B at imposed sparsity levels; Table 4 separates original OPT-175B from sparsified MLP/attention variants and gives task scores. These are compression/inference-method results, not a separately stated nominal active-parameter count for unchanged OPT-175B."
+    },
+    {
+      "id": "s21",
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2025/file/7efe88bb4138d602e56637cfcf713654-Paper-Conference.pdf",
+      "title": "MoE++: Accelerating Mixture-of-Experts Methods with Zero-Computation Experts",
+      "publisher": "Peng Jin et al. / ICLR 2025",
+      "accessed": true,
+      "evidence": "Checked October 27, 2026. Table 4 explicitly reports activated/total counts for OPT-1.3B and OPT-2.7B. It does not list OPT-175B, so its nominal active-count convention cannot establish the value for this different checkpoint."
     }
   ],
   "fields": {
@@ -208,29 +232,24 @@
       "status": "verified",
       "source_ids": [
         "s1",
-        "s5",
-        "s6",
-        "s7",
-        "s8",
-        "s9",
-        "s10",
-        "s11",
-        "s12",
-        "s13",
-        "s14",
-        "s15",
-        "s18"
+        "s2",
+        "s5"
       ],
-      "note": "175B is the primary-source nominal size. Complete unique parameter-element reconciliation of the release-day reference configuration gives 174604468224 (174.604468224B): attention matrices 57982058496; FFN matrices 115964116992; projection biases 10616832; all affine norm weights/biases 4743168; tied token/output embedding 617742336; learned position tensor 25190400. Formula: 96*(4*h*h+2*h*f+9*h+f)+50272*h+2050*h+2*h, with h=12288 and f=49152. Count the shared embedding once, include the two reserved positional rows and padded vocabulary rows, and count tensor-parallel duplicates once. No optimizer state, masks, KV cache, quantization scales or storage padding are included; the original model uses FP16, not a quantized weight format. This is a reference-implementation reconstruction, not a checkpoint-header count: original loading uses external dict.txt and serialized checkpoint configuration, which were not inspected. Retain nominal 175 rather than substituting unjustified checkpoint-level precision. No full weight files were downloaded or unpickled."
+      "note": "Fresh October 27 re-audit confirms Meta explicitly publishes 175 billion parameters in the announcement, paper and official pretrained-weights table. Retain that nominal total at its published precision. The earlier reference-implementation reconstruction (174.604468224B) was not a checkpoint-level measurement because the gated checkpoint dictionary/configuration was not independently inspected; exact tensor precision is not required to establish the developer-published 175B specification."
     },
     "active_parameters_b": {
       "value": null,
       "status": "undisclosed",
       "source_ids": [
+        "s1",
         "s2",
-        "s16"
+        "s5",
+        "s16",
+        "s19",
+        "s20",
+        "s21"
       ],
-      "note": "No separately defined active-parameter count was found in the inspected primary sources. Dense architecture does not justify equating active and total parameters."
+      "note": "Fresh October 27 searches for OPT-175B with active/activated-parameter terminology and later comparison tables found no supported separately stated count for this exact model. Reopened Meta sources report the nominal total and dense architecture only. Deja Vu reports imposed contextual sparsity for a modified inference method, not a nominal active count for unchanged OPT-175B; MoE++ lists active counts only for OPT-1.3B/2.7B. Neither those sibling values nor the dense label is extrapolated to 175B. Active parameters remain unresolved."
     },
     "architecture": {
       "value": "dense",
@@ -298,7 +317,7 @@
   },
   "patch": {
     "parameters_source": "primary_source",
-    "notes": "Meta documents May 3, 2022 as the request-based OPT-175B research release; the first individual access-grant date is not established. Weights were distributed to approved researchers under non-commercial terms, with actual grants confirmed by July 26. The 175B size is nominal. Release-day reference code reconciles to 174.604468224B unique parameter elements, including tied embeddings, all biases/norms and 2050 position rows, but the original checkpoint-associated dictionary/configuration was not independently inspected; this is not an exact checkpoint-header count. Active parameters, native reasoning mode and native tool calling are not separately disclosed.",
+    "notes": "Meta publishes a nominal total of 175B parameters; a separate active-parameter count for OPT-175B was not established. Meta documents May 3, 2022 as the request-based research release, with the first individual access-grant date unresolved and actual grants confirmed by July 26. Weights were distributed to approved researchers under non-commercial terms. Native reasoning mode and tool calling are not separately disclosed.",
     "sources": [
       {
         "label": "Democratizing access to large-scale language models with OPT-175B",
@@ -384,8 +403,25 @@
         "label": "Release-day model-parallel FFN implementation",
         "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/3591201ebc1c668d34aef6679a1792a07b5edf35/metaseq/model_parallel/modules/transformer_layer.py",
         "type": "primary"
+      },
+      {
+        "label": "OPT model card, version 1.0.0",
+        "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/main/projects/OPT/model_card.md",
+        "type": "primary"
+      },
+      {
+        "label": "Deja Vu: Contextual Sparsity for Efficient LLMs at Inference Time",
+        "url": "https://proceedings.mlr.press/v202/liu23am/liu23am.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "MoE++: Accelerating Mixture-of-Experts Methods with Zero-Computation Experts",
+        "url": "https://proceedings.iclr.cc/paper_files/paper/2025/file/7efe88bb4138d602e56637cfcf713654-Paper-Conference.pdf",
+        "type": "primary"
       }
-    ]
+    ],
+    "parameters_b": 175,
+    "active_parameters_b": null
   },
-  "summary": "Confirmed all supported baseline specifications and retained the primary nominal 175B total. Reconciled the original reference implementation to 174.604468224B unique parameter elements without claiming a verified gated-checkpoint count. Clarified May 3 as Meta\u2019s documented request-based research release, with the first approval date unresolved and actual weight grants established by July. Active parameters and native reasoning/tool-calling flags remain undisclosed nulls."
+  "summary": "Fresh October 27 parameter re-audit retained Meta\u2019s explicitly published nominal 175B total. Reopened the original announcement, paper, model card, pretrained-weights table and training chronicle, and searched for later active-count disclosures and comparison tables. Deja Vu contextual-sparsity results describe a modified inference method, and MoE++ active-count rows cover only smaller OPT checkpoints; neither establishes active parameters for unchanged OPT-175B. Active parameters remain undisclosed. The other 12 field assessments are unchanged."
 }
