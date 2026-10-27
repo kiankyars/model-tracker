@@ -1,7 +1,7 @@
 {
   "index": 303,
   "model_id": "minimax/MiniMax-M2.5",
-  "reviewed_at": "2026-10-26T22:29:15.149084Z",
+  "reviewed_at": "2026-10-27T10:54:20.476345Z",
   "sources": [
     {
       "id": "s1",
@@ -10,7 +10,8 @@
       "publisher": "MiniMax",
       "type": "primary",
       "accessed": true,
-      "evidence": "Dated 2026.2.12 and announces MiniMax-M2.5; describes reasoning, coding, search, tool calling and office workflows. Places M2.5 in the M2 series."
+      "evidence": "Reopened October 27, 2026. The dated February 12 release describes M2.5 as an M2-series model extensively trained with reinforcement learning, without announcing pruning, expert expansion or a new modality. It adds no separate active-count scalar.",
+      "accessed_at": "2026-10-27T10:54:20.476345Z"
     },
     {
       "id": "s2",
@@ -28,7 +29,8 @@
       "publisher": "MiniMax",
       "type": "weights",
       "accessed": true,
-      "evidence": "Exact config specifies MiniMaxM2ForCausalLM, 62 layers, hidden size 3072, 256 experts, top-8 routing, 48 attention query heads, 8 KV heads, head dimension 128, untied embeddings, vocabulary 200064 and max_position_embeddings 196608. FP8 quantization uses 128x128 blocks."
+      "evidence": "Freshly read the pinned and current M2.5 configs on October 27; they are identical. Compared with official M2: both have 62 layers, hidden size 3072, expert FFN 1536, 256 experts with top-8 routing, 48 Q/8 KV heads of dimension 128, vocabulary 200064, no shared expert and matching MTP flags. No size-changing configuration difference was found.",
+      "accessed_at": "2026-10-27T10:54:20.476345Z"
     },
     {
       "id": "s4",
@@ -55,7 +57,8 @@
       "publisher": "MiniMax",
       "type": "primary",
       "accessed": true,
-      "evidence": "On February 15, ryanlee-dev, visibly identified as a MiniMax organization member, states that all M2-series models have 230B parameters in the exact M2.5 repository. Supports a nominal total; the user-authored title mentions 10B active but the staff reply does not confirm that count."
+      "evidence": "On February 15, ryanlee-dev, visibly identified as a MiniMax organization member, states that all M2-series models have 230B parameters in the exact M2.5 repository. Supports a nominal total; the user-authored title mentions 10B active but the staff reply does not confirm that count.",
+      "accessed_at": "2026-10-27T10:54:20.476345Z"
     },
     {
       "id": "s7",
@@ -82,7 +85,8 @@
       "publisher": "MiniMax",
       "type": "primary",
       "accessed": true,
-      "evidence": "Later first-party report includes exact M2.5 benchmark and thinking-mode results. Its 229.9B total and 9.8B activated statement names flagship M2, not a separate M2.5 count. It describes expert-routing biases as learnable and optimized jointly, so buffer registration is not sufficient to exclude analogous M2.5 biases from learned counts."
+      "evidence": "Reopened October 27. Sections 1 and 9 describe the pretrained M2 backbone and post-training progression through M2.5 to M2.7; section 2 reports 9.8B activated parameters. Combined with matching official M2/M2.5 dimensions and routing, this supports a labeled nominal active-count inference. Table 4 contains exact M2.5 benchmark scores, not a separate active-count column. No pruning, expert expansion or modality change for M2.5 is described.",
+      "accessed_at": "2026-10-27T10:54:20.476345Z"
     },
     {
       "id": "s10",
@@ -110,6 +114,56 @@
       "type": "primary",
       "accessed": true,
       "evidence": "MiniMax organization member ryanlee-dev explains that Lightning uses more inference resources and the model parameters remain exactly the same. This clarifies serving variants but does not independently state an activated-parameter count."
+    },
+    {
+      "id": "s13",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2/raw/main/config.json",
+      "title": "MiniMax-M2 official base configuration",
+      "publisher": "MiniMax",
+      "type": "primary",
+      "accessed": true,
+      "accessed_at": "2026-10-27T10:54:20.476345Z",
+      "evidence": "Freshly retrieved October 27. Compared with the official M2.5 config: all parameter-bearing hidden/expert/head/layer/vocabulary dimensions and top-8-of-256 routing match, with no shared expert. Confirms unchanged nominal activation geometry for the report\u2019s named post-training progression."
+    },
+    {
+      "id": "s14",
+      "url": "https://www.minimax.io/news/forge-scalable-agent-rl-framework-and-algorithm",
+      "title": "Forge: Scalable Agent RL Framework and Algorithm",
+      "publisher": "MiniMax",
+      "type": "primary",
+      "accessed": true,
+      "accessed_at": "2026-10-27T10:54:20.476345Z",
+      "evidence": "Reopened October 27. The February 13 developer article attributes M2.5 gains to agent-native reinforcement learning and training-inference infrastructure; it describes no pruning, distillation, expert expansion or modality change. Provides training context, not an independent numeric count."
+    },
+    {
+      "id": "s15",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.7/raw/main/README.md",
+      "title": "MiniMax-M2.7 later model card and comparison figure",
+      "publisher": "MiniMax",
+      "type": "primary",
+      "accessed": true,
+      "accessed_at": "2026-10-27T10:54:20.476345Z",
+      "evidence": "Read October 27, including visual inspection of benchmark_overview.png. M2.5 bars report benchmark scores only; no total/active parameter comparison column is present. The series report supplies the count and lineage basis."
+    },
+    {
+      "id": "s16",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M3/raw/main/README.md",
+      "title": "MiniMax-M3 later model card and comparison table",
+      "publisher": "MiniMax",
+      "type": "primary",
+      "accessed": true,
+      "accessed_at": "2026-10-27T10:54:20.476345Z",
+      "evidence": "Read October 27, including visual inspection of benchmark.jpeg. Its approximately 428B/23B disclosure describes M3; the comparison image reports benchmark results, with no M2.5 activated-parameter column. These later-model counts are not transferred."
+    },
+    {
+      "id": "s17",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M3.1-Flash/raw/main/README.md",
+      "title": "MiniMax-M3.1-Flash later model card",
+      "publisher": "MiniMax",
+      "type": "primary",
+      "accessed": true,
+      "accessed_at": "2026-10-27T10:54:20.476345Z",
+      "evidence": "Retrieved directly October 27 after the web reader failed. Read its model specifications and complete HTML comparison table: approximately 428B/23B applies to M3.1-Flash; no M2.5 count is supplied. Its documented sparse-attention and draft-head changes concern the separate M3 lineage."
     }
   ],
   "fields": {
@@ -174,23 +228,26 @@
       "source_ids": [
         "s6",
         "s3",
-        "s4",
         "s9",
-        "s10"
+        "s10",
+        "s13"
       ],
-      "note": "Developer nominal total in billions. The complete header census separates weights, routing biases and quantization scales, but no exact learned-total replacement is asserted because the training-status and scope reconciliation is not exact-model explicit. The M2 report 229.9B is not transferred."
+      "note": "Fresh October 27 re-audit reconfirms the developer\u2019s nominal 230B total for all M2-series models, stated by MiniMax staff in the M2.5 repository. Preserve this published precision; neither the earlier tensor census nor the base report\u2019s 229.9B is substituted as an exact M2.5 total."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "unverified",
+      "value": 9.8,
+      "status": "verified",
       "source_ids": [
-        "s1",
-        "s3",
-        "s4",
         "s9",
-        "s12"
+        "s3",
+        "s13",
+        "s1",
+        "s14",
+        "s15",
+        "s16",
+        "s17"
       ],
-      "note": "Unverified for exact M2.5: inspected announcement, later report, config, implementation and staff replies do not provide an unambiguous exact-variant activated count. Top-8/256 routing is verified. A config-derived non-embedding path is approximately 9.801B, while including full embedding/output matrices gives approximately 11.031B, so neither is silently substituted for the widely repeated 10B claim."
+      "note": "Nominal 9.8B activated per token, inferred from the developer\u2019s explicit M2-backbone post-training progression through M2.5 and the freshly matched M2/M2.5 configuration dimensions and top-8-of-256 routing. No size-changing training or modality change is described. This follows the report\u2019s main-model activation convention, not a new exact tensor sum or total-equals-active assumption. Later first-party comparisons add no conflicting exact-M2.5 active count."
     },
     "architecture": {
       "value": "moe",
@@ -313,9 +370,20 @@
         "label": "MiniMax-M2.5 checkpoint index and bounded Safetensors headers",
         "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2.5/blob/2515a3ea0afec1dd22d0c7794b3a91557804d195/model.safetensors.index.json",
         "type": "weights"
+      },
+      {
+        "label": "MiniMax-M2 official base configuration",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2/raw/main/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Forge: Scalable Agent RL Framework and Algorithm",
+        "url": "https://www.minimax.io/news/forge-scalable-agent-rl-framework-and-algorithm",
+        "type": "primary"
       }
     ],
-    "notes": "230B is a developer nominal total. Exact M2.5 activated parameters remain unverified; the M2 report count is not transferred. Context 196608 is the released checkpoint limit; historical 204800-token native API context was not independently recovered. Current license is the custom MiniMax Model License, despite the model card metadata label modified-mit."
+    "notes": "230B is the developer\u2019s nominal total. The 9.8B active count is a nominal inference from the documented M2 post-training lineage and matching backbone dimensions/routing, following the report\u2019s main-model convention. Context 196608 is the released checkpoint limit; historical 204800-token native API context was not independently recovered. Current license is the custom MiniMax Model License, despite the model card metadata label modified-mit.",
+    "active_parameters_b": 9.8
   },
-  "summary": "All 14 fields individually audited. Adds developer nominal 230B total, custom MiniMax Model License and verified Transformer MoE architecture, changes context to the documented 196608-token checkpoint limit, and rewrites the description. Release remains February 12, 2026; open weights, text-only I/O, reasoning and tool use are verified. Exact M2.5 activated count remains unresolved. Complete bounded-header census distinguishes quantization metadata and routing biases without presenting a storage total as a learned count. Historical native-API context versus checkpoint context remains a documented limitation."
+  "summary": "October 27 parameter re-audit retains developer nominal 230B total and recovers 9.8B active as an explicit nominal lineage inference. The later M2-series report describes the sized base and post-training progression through M2.5; fresh official configurations confirm matching dimensions and routing. Original release, Forge training details and later comparison cards reveal no conflicting structural change or active count. All unrelated assessments and prior checkpoint/context/license qualifications are preserved; no weight shards were downloaded."
 }
