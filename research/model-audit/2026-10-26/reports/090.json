@@ -1,7 +1,7 @@
 {
   "index": 90,
   "model_id": "anthropic/claude-3-5-sonnet-20240620",
-  "reviewed_at": "2026-10-26T16:16:54Z",
+  "reviewed_at": "2026-10-27T10:17:00Z",
   "sources": [
     {
       "id": "s1",
@@ -17,7 +17,7 @@
       "title": "Introducing Claude 3.5 Sonnet",
       "publisher": "Anthropic",
       "accessed": true,
-      "evidence": "Original-release announcement identifies Anthropic's first Claude 3.5 model, a 200K context window, vision capability, and writing/editing/executing code with provided tools. The current page displays June 21, 2024, conflicting with the June 20 release-note entry."
+      "evidence": "Original-release announcement identifies Anthropic's first Claude 3.5 model, a 200K context window, vision capability, and writing/editing/executing code with provided tools. The current page displays June 21, 2024, conflicting with the June 20 release-note entry. Reopened October 27, 2026: the launch supplies no nominal parameter count, active count, or named size-disclosed base model."
     },
     {
       "id": "s3",
@@ -41,7 +41,7 @@
       "title": "Claude 3.7 Sonnet System Card",
       "publisher": "Anthropic",
       "accessed": true,
-      "evidence": "Section 1.2 says Claude 3.7 Sonnet introduces extended thinking, with a separate reasoning section and configurable thinking budget. The inspected later family card does not disclose the June Claude 3.5 Sonnet's total/active parameters or architecture; newer-model specifications are not transferred."
+      "evidence": "Section 1.2 says Claude 3.7 Sonnet introduces extended thinking, with a separate reasoning section and configurable thinking budget. The inspected later family card does not disclose the June Claude 3.5 Sonnet's total/active parameters or architecture; newer-model specifications are not transferred. Freshly retrieved official PDF (2026-10-27T10:08:59Z) was independently searched in full for parameter disclosures; the later-model comparison tables contain evaluation metrics, with no nominal total or activated-parameter column for the June revision."
     },
     {
       "id": "s6",
@@ -73,7 +73,7 @@
       "title": "The Claude 3 Model Family: Opus, Sonnet, Haiku \u2014 combined card",
       "publisher": "Anthropic",
       "accessed": false,
-      "evidence": "The web fetch failed because the 46,824,360-byte document exceeded its content-length limit. No technical conclusions rely on this inaccessible combined copy; the original June and October standalone addenda were accessible."
+      "evidence": "The prior web fetch of this assets URL failed because the 46,824,360-byte document exceeded its content-length limit. The October 27 re-audit successfully inspected the freshly retrieved official CDN copy recorded as s12, including both June and October addenda."
     },
     {
       "id": "s10",
@@ -90,6 +90,30 @@
       "publisher": "Anthropic",
       "accessed": true,
       "evidence": "Parent reviewed page3: the May12,2026 API pricing table lists 200K and 1M rows for Claude 3.5 Sonnet (without specifying June or October revision). These rows postdate Anthropic API retirement and conflict with retained exact-model context specifications; no corroborating availability announcement was found."
+    },
+    {
+      "id": "s12",
+      "url": "https://www-cdn.anthropic.com/c6a80a657af445f40e31afac050f3bf76d3b1404.pdf",
+      "title": "The Claude 3 Model Family: Opus, Sonnet, Haiku, with June and October 2024 addenda",
+      "publisher": "Anthropic",
+      "accessed": true,
+      "evidence": "Official 46,824,360-byte PDF retrieved 2026-10-27T10:09:00Z; independently inspected the June addendum and subsequent comparison tables and searched the complete extracted text for nominal/active counts and sized lineage. June addendum section 1 calls Claude 3.5 Sonnet an evolution of the Claude 3 model family, without identifying a base of published size. Its Tables 1-5 and October Tables 2-5 contain evaluation results, not total or activated parameter counts. The numeric 400B in the June comparison is the Llama 3 competitor label, not a Claude specification. No supported count or sized-base inference was found."
+    },
+    {
+      "id": "s13",
+      "url": "https://www.anthropic.com/claude-4-system-card",
+      "title": "System Card: Claude Opus 4 & Claude Sonnet 4",
+      "publisher": "Anthropic",
+      "accessed": true,
+      "evidence": "Official PDF retrieved 2026-10-27T10:11:47Z. Independently inspected training section 1.1.1 and searched full extracted text for parameter counts and Claude 3.5 comparisons. Later safety/performance comparisons do not disclose June Claude 3.5 Sonnet total or active parameters or identify it with a named size-disclosed base. Occurrences of parameter in tool transcripts and evaluation settings are unrelated to model size."
+    },
+    {
+      "id": "s14",
+      "url": "https://epoch.ai/gradient-updates/frontier-language-models-have-become-much-smaller",
+      "title": "Frontier language models have become much smaller",
+      "publisher": "Epoch AI / Ege Erdil",
+      "accessed": true,
+      "evidence": "Reopened October 27, 2026. The December 13, 2024 article labels its roughly 400-billion-parameter Sonnet 3.5 figure a speculative estimate based on inference speed, pricing and assumed margins. It is not an Anthropic nominal specification, does not identify the June snapshot, and supplies no separately documented active count. Recorded only to resolve the numerical lead, not as verified count evidence."
     }
   ],
   "fields": {
@@ -152,11 +176,15 @@
       "value": null,
       "status": "undisclosed",
       "source_ids": [
+        "s2",
         "s3",
         "s4",
-        "s5"
+        "s5",
+        "s12",
+        "s13",
+        "s14"
       ],
-      "note": "No exact-model count is disclosed in the original addendum or the inspected later family cards. The October card's separately labeled original-model comparison columns contain evaluation scores, not parameter counts."
+      "note": "Fresh October 27 review found no developer-published nominal total in the launch, June addendum, or inspected later first-party comparisons. The named relationship is only an evolution of the Claude 3 family; no size-disclosed base supports an inference. The comparison table's 400B is Llama 3, and Epoch's separate roughly 400B Sonnet estimate is speculative and revision-unspecific."
     },
     "active_parameters_b": {
       "value": null,
@@ -164,9 +192,11 @@
       "source_ids": [
         "s3",
         "s4",
-        "s5"
+        "s5",
+        "s12",
+        "s13"
       ],
-      "note": "No active-parameter count or routing structure is disclosed for the June revision. Do not infer equality with a total count or transfer a sibling model's specification."
+      "note": "Rechecked separately on October 27. June and October addendum comparisons and later Claude 3.7/4 cards provide no activated-parameter count for the June snapshot. Evaluation percentages, training-compute thresholds and model-family relationships do not establish a per-token count; neither equality with a total nor a sibling count is inferred."
     },
     "architecture": {
       "value": null,
@@ -240,7 +270,7 @@
     "description": "Original June 2024 Claude 3.5 Sonnet release, with a 200,000-token context window, text and image inputs, text output, and tool calling.",
     "reasoning": false,
     "tool_call": true,
-    "notes": "Total and active parameter counts and detailed architecture are undisclosed in the inspected first-party cards. This is the June snapshot, distinct from claude-3-5-sonnet-20241022. Anthropic's release notes establish June 20, 2024 despite the current announcement page displaying June 21. Anthropic documents Claude API retirement on October 28, 2025. PDF support was added November 13, 2024 for all Sonnet 3.5 models. A May 12, 2026 pricing PDF lists a conflicting 1M API tier after retirement; retained exact-model specifications support 200K.",
+    "notes": "Total and active parameter counts remain undisclosed; no published nominal count or size-disclosed base lineage was found. Detailed architecture is also undisclosed. This is the June snapshot, distinct from claude-3-5-sonnet-20241022. Anthropic's release notes establish June 20, 2024 despite the current announcement page displaying June 21. Anthropic documents Claude API retirement on October 28, 2025. PDF support was added November 13, 2024 for all Sonnet 3.5 models. A May 12, 2026 pricing PDF lists a conflicting 1M API tier after retirement; retained exact-model specifications support 200K.",
     "sources": [
       {
         "label": "Original API release date",
@@ -286,6 +316,16 @@
         "label": "Anthropic later pricing table with conflicting context tier",
         "url": "https://www-cdn.anthropic.com/files/4zrzovbb/website/5678bc2f5978e5bcd4f1fe7c14b2c72284dcf9f8.pdf",
         "type": "documentation"
+      },
+      {
+        "label": "Combined Claude 3 card and original/upgraded Sonnet addenda",
+        "url": "https://www-cdn.anthropic.com/c6a80a657af445f40e31afac050f3bf76d3b1404.pdf",
+        "type": "model_card"
+      },
+      {
+        "label": "Later Claude 4 system-card parameter recheck",
+        "url": "https://www.anthropic.com/claude-4-system-card",
+        "type": "model_card"
       }
     ],
     "modalities": {
@@ -297,7 +337,10 @@
       "output": [
         "text"
       ]
-    }
+    },
+    "parameters_b": null,
+    "active_parameters_b": null,
+    "parameters_source": null
   },
-  "summary": "Reviewed all 14 fields for the June 20 revision. Confirmed identity, developer/family, earliest release date, proprietary hosted status, 200K context and text/image-to-text modalities. Added tool calling and absence of dedicated extended thinking, and replaced the generic description. Total/active parameters and architecture remain undisclosed after inspecting original and later first-party cards, including separate original-model comparison columns. Recorded the announcement-date discrepancy and exact Claude API retirement; no October-revision specifications were transferred. Parent confirmed ASL-2 weight restrictions and added the later documented PDF support."
+  "summary": "Fresh October 27 parameter-only re-audit retains null/undisclosed total and active counts. Reopened the launch, independently inspected the freshly retrieved combined Claude 3 card with June/October addenda and later Claude 3.7/4 cards, and searched for nominal counts, activated-parameter columns and size-disclosed lineage. No supported count was found: the June family-evolution wording gives no sized base, Llama 3 400B is a competitor, and Epoch's roughly 400B Sonnet estimate is speculative and revision-unspecific. Explicitly patch both counts and parameters_source to null. Preserve all prior nonparameter assessments and corrections."
 }
