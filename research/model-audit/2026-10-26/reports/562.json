@@ -1,0 +1,299 @@
+{
+  "index": 562,
+  "model_id": "zhipuai/glm-5.3-flash",
+  "reviewed_at": "2026-10-27T06:22:38.631501+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-Flash/blob/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/README.md",
+      "title": "GLM-5.3-Flash exact official model card",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Explicit nominal 320B total and 18B active parameters. Introduces a newly trained multimodal base with sparse/linear attention and manifold-constrained hyper-connections; declares MIT and local serving support. Thinking effort supports low/high/max. Does not define embedding, vision or MTP counting boundaries."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-Flash/blob/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/config.json",
+      "title": "GLM-5.3-Flash pinned checkpoint configuration",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Glm5NextForConditionalGeneration: 45 language layers, 3 dense and 42 MoE, 288 routed experts with top 8 plus one shared expert. Attention uses 34 linear and 11 DeepSeek sparse layers, MLA projections without rotary head dimensions, mHC, and one MTP module. Vision config has 24 blocks, width 1024. max_position_embeddings=1048576. FP8 quantization applies selectively with high-precision modules retained."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-Flash/blob/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/tokenizer_config.json",
+      "title": "GLM-5.3-Flash tokenizer configuration",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "model_max_length=1048576. Generic audio special tokens are present but do not establish a working audio encoder or native audio capability."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-Flash/blob/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/LICENSE",
+      "title": "GLM-5.3-Flash checkpoint MIT license",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Exact repository LICENSE explicitly states MIT, copyright 2026 Z.AI Co., Ltd."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/zai-org/GLM-5.3-Flash/blob/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/chat_template.jinja",
+      "title": "GLM-5.3-Flash exact chat template",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Implements reasoning effort low/high/max, persistent thinking blocks, tool signatures and tool-call/result serialization, plus image/video content handling. An audio placeholder alone is not proof of native audio support."
+    },
+    {
+      "id": "s6",
+      "url": "https://docs.z.ai/guides/vlm/glm-5.3-flash",
+      "title": "GLM-5.3-Flash native API guide",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Complete native Markdown accessed. Confirms 320B/18B, sparse/linear hybrid architecture, image/video/text/file input and text output, 1M context, function calling and mandatory thinking with configurable effort. Key Advancements explicitly says GLM-5.3-Flash was anonymously tested as ox-alpha on OpenCode and OpenRouter before release."
+    },
+    {
+      "id": "s7",
+      "url": "https://openrouter.ai/stealth/ox-alpha",
+      "title": "Ox Alpha historical public preview page",
+      "publisher": "OpenRouter",
+      "accessed": true,
+      "evidence": "Original host explicitly identifies Ox Alpha as Z.ai GLM-5.3-Flash and states it was released August 20, 2026. It documents text/image/video input and text output. This proves preview availability and mapping, not byte-identical final checkpoint weights."
+    },
+    {
+      "id": "s8",
+      "url": "https://docs.z.ai/release-notes/new-released.md",
+      "title": "Z.ai dated GLM-5.3-Flash release notes",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "The August 26, 2026 release entry explicitly names GLM-5.3-Flash and nominal 320B/18B hybrid attention; this is the named launch after the earlier public preview."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/api/models/zai-org/GLM-5.3-Flash/revision/46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
+      "title": "Pinned official checkpoint metadata",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Public repository lists checkpoint weight shards, index, config and MIT card. Automated safetensors storage totals are not used as exact learned parameter counts; selective FP8 scales, buffers, MTP and vision accounting were not fully reconciled."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "GLM-5.3-Flash",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Exact released Flash name; the earlier preview was Ox Alpha."
+    },
+    "developer": {
+      "value": "Z.ai",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s6"
+      ],
+      "note": "Official model publisher, native guide and copyright holder."
+    },
+    "family": {
+      "value": "glm-flash",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Retain the catalog GLM Flash grouping; it does not imply a shared checkpoint with older Flash models."
+    },
+    "release_date": {
+      "value": "2026-08-20",
+      "status": "verified",
+      "source_ids": [
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "note": "Earliest directly mapped public preview. Native developer guide confirms Ox Alpha identity and original host explicitly dates August 20; named launch was August 26. Final checkpoint specifications are not claims of identical preview weights."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s9"
+      ],
+      "note": "Official downloadable checkpoint and local-serving instructions; describes the named open release, not preview access conditions."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4"
+      ],
+      "note": "Exact checkpoint license file and model-card declaration agree."
+    },
+    "parameters_b": {
+      "value": 320,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s6"
+      ],
+      "note": "Author-reported nominal total, not a complete reconciled tensor count. Primary Flash sources do not define whether vision, input/output embeddings or MTP are included. Do not transfer GLM-5 counting conventions or use automated FP8 storage totals."
+    },
+    "active_parameters_b": {
+      "value": 18,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s6"
+      ],
+      "note": "Author-reported nominal active figure. Eight routed experts plus one shared expert are configured; the exact multimodal phase and embedding/MTP accounting convention is unspecified."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s6"
+      ],
+      "note": "Multimodal MoE with hybrid attention: 3 dense and 42 MoE language layers, top 8 of 288 routed experts plus one shared expert, 34 linear-attention and 11 DeepSeek sparse-attention layers, mHC, a configured MTP module, and a 24-block vision encoder."
+    },
+    "context_window": {
+      "value": 1048576,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s6"
+      ],
+      "note": "Exact checkpoint and tokenizer capacity, replacing baseline 1000000. Native guide rounds to 1M; its separate 128K output limit is not total context."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s5",
+        "s6"
+      ],
+      "note": "Exact native modalities. Remove PDF as a separate modality: file/document inputs contain text or visual content. Tool-created documents/images are not native image output, and generic audio template tokens do not establish native audio input."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5",
+        "s6"
+      ],
+      "note": "Thinking is mandatory in native API; effort is selectable as low/high/max. Do not describe it as switchable off."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s6"
+      ],
+      "note": "Native function calling and exact checkpoint schema/call/result serialization."
+    },
+    "description": {
+      "value": "Multimodal MoE model combining linear and sparse attention, with reasoning and tool calling.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5",
+        "s6"
+      ],
+      "note": "Neutral description of directly supported architecture and interfaces."
+    }
+  },
+  "patch": {
+    "release_date": "2026-08-20",
+    "date_precision": "day",
+    "license": "MIT",
+    "parameters_b": 320,
+    "active_parameters_b": 18,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "context_window": 1048576,
+    "modalities": {
+      "input": [
+        "text",
+        "image",
+        "video"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "description": "Multimodal MoE model combining linear and sparse attention, with reasoning and tool calling.",
+    "source_url": "https://docs.z.ai/guides/vlm/glm-5.3-flash",
+    "source_type": "primary",
+    "notes": "First public preview: Ox Alpha on August 20, 2026, directly mapped by Z.ai and the original host. Named release followed August 26; final checkpoint specifications do not imply identical preview weights. Published 320B total and 18B active counts are nominal, with vision, embedding/output and MTP inclusion unspecified. The checkpoint combines MoE with 34 linear and 11 sparse-attention layers, mHC and a vision encoder. Exact model/tokenizer context is 1048576, advertised as 1M. Native thinking is always enabled with low/high/max effort. PDF is treated as a file container for text and visual content, not a separate modality.",
+    "sources": [
+      {
+        "label": "GLM-5.3-Flash exact official model card",
+        "url": "https://huggingface.co/zai-org/GLM-5.3-Flash/blob/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "GLM-5.3-Flash pinned checkpoint configuration",
+        "url": "https://huggingface.co/zai-org/GLM-5.3-Flash/blob/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "GLM-5.3-Flash tokenizer configuration",
+        "url": "https://huggingface.co/zai-org/GLM-5.3-Flash/blob/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/tokenizer_config.json",
+        "type": "docs"
+      },
+      {
+        "label": "GLM-5.3-Flash checkpoint MIT license",
+        "url": "https://huggingface.co/zai-org/GLM-5.3-Flash/blob/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/LICENSE",
+        "type": "weights"
+      },
+      {
+        "label": "GLM-5.3-Flash exact chat template",
+        "url": "https://huggingface.co/zai-org/GLM-5.3-Flash/blob/46a050bec13002ad29ee795c16e61cf4fa3c4a9c/chat_template.jinja",
+        "type": "docs"
+      },
+      {
+        "label": "GLM-5.3-Flash native API guide",
+        "url": "https://docs.z.ai/guides/vlm/glm-5.3-flash",
+        "type": "docs"
+      },
+      {
+        "label": "Ox Alpha historical public preview page",
+        "url": "https://openrouter.ai/stealth/ox-alpha",
+        "type": "announcement"
+      },
+      {
+        "label": "Z.ai dated GLM-5.3-Flash release notes",
+        "url": "https://docs.z.ai/release-notes/new-released.md",
+        "type": "announcement"
+      },
+      {
+        "label": "Pinned official checkpoint metadata",
+        "url": "https://huggingface.co/api/models/zai-org/GLM-5.3-Flash/revision/46a050bec13002ad29ee795c16e61cf4fa3c4a9c",
+        "type": "weights"
+      }
+    ]
+  },
+  "summary": "Verified all 14 fields. Added MIT, nominal 320B/18B and exact hybrid-attention MoE topology. Corrected earliest public release to August 20 Ox Alpha preview, context to 1048576, and removed PDF as a separate modality. No sibling count scope or unreconciled storage total promoted to exact learned parameters."
+}
