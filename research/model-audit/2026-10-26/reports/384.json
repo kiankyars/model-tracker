@@ -1,0 +1,323 @@
+{
+  "index": 384,
+  "model_id": "nvidia/nemotron-3-ultra-550b-a55b",
+  "reviewed_at": "2026-10-27T00:45:52.782418Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16/blob/77df655d5e9f8362164ed14dd8b48f8bce657498/README.md",
+      "title": "NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16 model card",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Names the post-trained Ultra checkpoint, developer, Nemotron family, June 4, 2026 release, OpenMDW-1.1 license, text input/output, reasoning toggle and tool use. Calls its size 550B total/55B active; describes hybrid Mamba-2, attention, LatentMoE and MTP. Deployment instructions explicitly permit 1,048,576-token context, overriding the 262,144-token default."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16/blob/77df655d5e9f8362164ed14dd8b48f8bce657498/config.json",
+      "title": "Pinned Ultra BF16 configuration",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Defines 108 main blocks: 48 Mamba, 48 MoE and 12 attention; width 8192, vocabulary 131072, 512 experts with top-22 routing, latent width 2048 and expert width 5120. Input embedding and output head are untied. One MTP module has an attention block and a MoE block."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16/blob/77df655d5e9f8362164ed14dd8b48f8bce657498/model.safetensors.index.json",
+      "title": "Pinned Ultra BF16 index and 225 shard headers",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "The index declares 560,524,578,816 parameters. Bounded HTTP Range reads of all 225 shards independently reproduce that count from 50,974 BF16 learned tensors. Another 49 F32 routing buffers contain 25,088 elements and are excluded. Full storage payload is 1,121,049,257,984 bytes, exactly matching index metadata."
+    },
+    {
+      "id": "s4",
+      "url": "https://arxiv.org/html/2606.15007v1",
+      "title": "Nemotron 3 Ultra technical report, sections 2.1, 2.5 and 3",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Describes Ultra as a 550B/55B nominal hybrid Mamba-attention language model. Table 1 confirms dimensions and two shared-weight MTP blocks; long-context training uses 1,048,576 tokens. Post-training covers reasoning and tool-use tasks. The June 12 arXiv submission is later than the model release."
+    },
+    {
+      "id": "s5",
+      "url": "https://github.com/huggingface/transformers/blob/8979c57d98a0c43ea8278d8a8e93a48e9a3b6ccb/src/transformers/models/nemotron_h/modeling_nemotron_h.py",
+      "title": "Transformers Nemotron-H parameter and buffer definitions",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Implementation declares e_score_correction_bias as a buffer and Mamba A_log, D and dt_bias as learned parameters. Experts use two projections with ReLU-squared, not a three-matrix gated MLP. Provides an independent check of configuration-derived tensor shapes."
+    },
+    {
+      "id": "s6",
+      "url": "https://github.com/vllm-project/vllm/blob/ed1a7307950ab5e6593d25123579ed7ca998b350/vllm/model_executor/models/nemotron_h_mtp.py",
+      "title": "vLLM Nemotron-H MTP implementation",
+      "publisher": "vLLM Project",
+      "accessed": true,
+      "evidence": "MTP fuses normalized token embeddings and main-model hidden states, runs the attention/MoE module repeatedly for drafting, and shares input embeddings and output head with the target. There is no separate MTP embedding or language-model head to add to the unique checkpoint total."
+    },
+    {
+      "id": "s7",
+      "url": "https://research.nvidia.com/labs/nemotron/Nemotron-3-Ultra/",
+      "title": "NVIDIA Nemotron 3 Ultra release",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Dated June 4, 2026. Explicitly links this BF16 repository as the post-trained model, alongside distinct base, NVFP4 and GenRM variants. Confirms nominal 55B active, hybrid architecture, reasoning control and MTP."
+    },
+    {
+      "id": "s8",
+      "url": "https://www.nvidia.com/en-us/ai-data-science/foundation-models/nemotron/llm-info/",
+      "title": "NVIDIA Nemotron LLM information, updated August 2026",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Later first-party overview separately identifies Ultra and states its exact full total as 560,524,578,816, corroborating the direct checkpoint audit."
+    },
+    {
+      "id": "s9",
+      "url": "https://openmdw.ai/license/1-1/",
+      "title": "OpenMDW License Agreement version 1.1",
+      "publisher": "OpenMDW",
+      "accessed": true,
+      "evidence": "Parent opened the exact agreement linked by the Ultra model card and confirmed its title and version."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Nemotron 3 Ultra 550B A55B",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7"
+      ],
+      "note": "Retain the public model name; 550B/A55B are rounded size labels, not exact checkpoint counts."
+    },
+    "developer": {
+      "value": "NVIDIA",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7"
+      ],
+      "note": "NVIDIA Corporation is the model developer."
+    },
+    "family": {
+      "value": "nemotron",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7"
+      ],
+      "note": "Member of the Nemotron 3 family, normalized to the existing nemotron family key."
+    },
+    "release_date": {
+      "value": "2026-06-04",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7"
+      ],
+      "note": "Explicit model-card date and dated NVIDIA release; do not substitute the later arXiv submission date."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s7"
+      ],
+      "note": "NVIDIA distributes the post-trained BF16 weights publicly."
+    },
+    "license": {
+      "value": "OpenMDW-1.1",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s9"
+      ],
+      "note": "The exact Ultra card specifies OpenMDW License Agreement version 1.1."
+    },
+    "parameters_b": {
+      "value": 560.524578816,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s5",
+        "s6",
+        "s8"
+      ],
+      "note": "Exact complete learned checkpoint total: 549,308,968,960 main-model plus 11,215,609,856 unique MTP parameters. All 51,023 indexed tensor names/shapes were independently reconstructed; 49 routing buffers excluded. No quantization scales or packed tensors are present in this BF16 count. Shared embeddings/output and reused MTP blocks are counted once."
+    },
+    "active_parameters_b": {
+      "value": 55,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s7"
+      ],
+      "note": "Retain NVIDIA's approximate per-token main-model figure, not an exact scalar count or the sum of main and speculative-draft execution. Top-22-of-512 routing is explicit. Main active-module arithmetic is 54.985076736B excluding the input embedding matrix, 56.058818560B including both embedding matrices; the source does not define an exact embedding-count convention. MTP is a separate optional drafting path."
+    },
+    "architecture": {
+      "value": "hybrid-ssm-transformer-moe",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4"
+      ],
+      "note": "Hybrid Mamba-2 state-space and Transformer attention with latent MoE: 48 Mamba, 12 attention and 48 MoE main blocks. Each MoE routes to 22 of 512 experts and has one shared expert; an additional attention/MoE MTP module is included."
+    },
+    "context_window": {
+      "value": 1048576,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4"
+      ],
+      "note": "The card explicitly sets 1,048,576 for maximum-length serving, corroborated by long-context training. Configuration default is 262,144; the documented override is required for the maximum."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "The exact post-trained card identifies text as both input and output."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4"
+      ],
+      "note": "Configurable thinking and inference-time reasoning budget control are documented."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4"
+      ],
+      "note": "The card and report describe tool-call post-training and conversational tool-use evaluation."
+    },
+    "description": {
+      "value": "Text model with hybrid Mamba-2, attention and latent MoE layers, configurable reasoning, tool calling and multi-token prediction.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4"
+      ],
+      "note": "Replace the unsupported maximum-accuracy claim with the verified architecture and capabilities."
+    }
+  },
+  "patch": {
+    "license": "OpenMDW-1.1",
+    "parameters_b": 560.524578816,
+    "parameters_source": "primary_source",
+    "architecture": "hybrid-ssm-transformer-moe",
+    "context_window": 1048576,
+    "description": "Text model with hybrid Mamba-2, attention and latent MoE layers, configurable reasoning, tool calling and multi-token prediction.",
+    "source_url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16/blob/77df655d5e9f8362164ed14dd8b48f8bce657498/README.md",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16 model card",
+        "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16/blob/77df655d5e9f8362164ed14dd8b48f8bce657498/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned Ultra BF16 configuration",
+        "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16/blob/77df655d5e9f8362164ed14dd8b48f8bce657498/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Pinned Ultra BF16 index and 225 shard headers",
+        "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16/blob/77df655d5e9f8362164ed14dd8b48f8bce657498/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Nemotron 3 Ultra technical report, sections 2.1, 2.5 and 3",
+        "url": "https://arxiv.org/html/2606.15007v1",
+        "type": "primary"
+      },
+      {
+        "label": "Transformers Nemotron-H parameter and buffer definitions",
+        "url": "https://github.com/huggingface/transformers/blob/8979c57d98a0c43ea8278d8a8e93a48e9a3b6ccb/src/transformers/models/nemotron_h/modeling_nemotron_h.py",
+        "type": "primary"
+      },
+      {
+        "label": "vLLM Nemotron-H MTP implementation",
+        "url": "https://github.com/vllm-project/vllm/blob/ed1a7307950ab5e6593d25123579ed7ca998b350/vllm/model_executor/models/nemotron_h_mtp.py",
+        "type": "primary"
+      },
+      {
+        "label": "NVIDIA Nemotron 3 Ultra release",
+        "url": "https://research.nvidia.com/labs/nemotron/Nemotron-3-Ultra/",
+        "type": "primary"
+      },
+      {
+        "label": "NVIDIA Nemotron LLM information, updated August 2026",
+        "url": "https://www.nvidia.com/en-us/ai-data-science/foundation-models/nemotron/llm-info/",
+        "type": "primary"
+      }
+    ],
+    "notes": "Complete checkpoint: 560,524,578,816 learned parameters, comprising 549,308,968,960 in the main model and 11,215,609,856 in the shared MTP module. The 550B name is nominal; NVIDIA reports about 55B active for the main model. MTP drafting reuses the main embedding/output weights and adds separate optional execution. Maximum context is 1,048,576 tokens with the documented override; the default configuration is 262,144."
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "main_model": 549.30896896,
+      "mtp": 11.215609856
+    },
+    "active_parameters_scope": "main_model"
+  },
+  "checkpoint_audit": {
+    "repository": "nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16",
+    "revision": "77df655d5e9f8362164ed14dd8b48f8bce657498",
+    "shards": 225,
+    "all_tensors": 51023,
+    "learned_tensors": 50974,
+    "parameter_count": 560524578816,
+    "main_model_parameters": 549308968960,
+    "mtp_parameters": 11215609856,
+    "learned_by_dtype": {
+      "BF16": 560524578816
+    },
+    "tensors_by_dtype": {
+      "BF16": 50974
+    },
+    "excluded_router_buffers": 49,
+    "excluded_buffer_elements": 25088,
+    "storage_bytes": 1121049257984,
+    "index_metadata": {
+      "total_parameters": 560524578816,
+      "total_size": 1121049257984
+    },
+    "verification": "Two methods agree: sum products of learned tensor dimensions in all 225 bounded safetensors headers, and independently regenerate every tensor name/shape from config and source definitions. Neither method loads weights. Input embedding and output head are distinct; both are included once. MTP shares these weights and its two blocks across prediction offsets.",
+    "mamba_state_parameters": "A_log, D and dt_bias remain included; dtype does not determine whether a tensor is learned. Only e_score_correction_bias routing buffers are excluded.",
+    "reproduction_scripts": [
+      "/tmp/model-audit-384/count_headers.py",
+      "/tmp/model-audit-384/derive_shapes.py"
+    ],
+    "cache_directory": "/tmp/model-audit-384",
+    "active_count_conventions": {
+      "matched_tensor_shapes": 51023,
+      "main_model_parameters": 549308968960,
+      "mtp_parameters": 11215609856,
+      "complete_parameters": 560524578816,
+      "main_routed_expert_parameters": 515396075520,
+      "main_active_module_parameters_including_both_embedding_matrices": 56058818560,
+      "main_active_module_parameters_excluding_input_embedding_matrix": 54985076736,
+      "main_active_module_parameters_excluding_both_embedding_matrices": 53911334912,
+      "note": "Derived module-size conventions are diagnostic. They do not redefine the developer-reported approximate 55B active count. Input embedding lookup touches one row, not the complete matrix. MTP reuses embedding/output and its own two-block module across prediction offsets; neither is multiplied by draft length."
+    }
+  },
+  "summary": "All fourteen fields verified against exact primary evidence. Correct total to 560.524578816B including MTP, license to OpenMDW-1.1, architecture to hybrid state-space/Transformer MoE, and context to 1,048,576. Keep June 4 release and nominal 55B active; clarify separate main-model/MTP scopes and remove the maximum-accuracy claim."
+}
