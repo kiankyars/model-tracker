@@ -8709,16 +8709,16 @@
     "developer": "Tencent",
     "developer_id": "tencent",
     "family": "Hy",
-    "description": "Tencent Hy reasoning model for coding, instruction following, and agent tasks",
+    "description": "Tencent Hy text-generation MoE model with optional reasoning and tool calling, released as the successor to Hy3 preview.",
     "release_date": "2026-07-06",
     "date_precision": "day",
     "open_weights": true,
-    "license": null,
-    "parameters_b": null,
-    "active_parameters_b": null,
-    "parameters_source": null,
-    "architecture": null,
-    "context_window": 256000,
+    "license": "Apache-2.0",
+    "parameters_b": 295,
+    "active_parameters_b": 21,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "context_window": 262144,
     "modalities": {
       "input": [
         "text"
@@ -8729,24 +8729,67 @@
     },
     "reasoning": true,
     "tool_call": true,
-    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/tencent/hy3.toml",
-    "source_type": "catalog",
+    "source_url": "https://www.tencent.com/tencent-hunyuan-officially-releases-hy3-advancing-agent-capabilities-and-deeper-product-integration/",
+    "source_type": "primary",
     "sources": [
       {
-        "label": "Models.dev record",
-        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/tencent/hy3.toml",
-        "type": "catalog"
+        "label": "Tencent Hy3 release announcement",
+        "url": "https://www.tencent.com/tencent-hunyuan-officially-releases-hy3-advancing-agent-capabilities-and-deeper-product-integration/",
+        "type": "primary"
+      },
+      {
+        "label": "Hy3 official model card (pinned)",
+        "url": "https://huggingface.co/tencent/Hy3/blob/a960ebc3da325ba167f069f76c41eb62c9280d22/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Hy3 checkpoint configuration (pinned)",
+        "url": "https://huggingface.co/tencent/Hy3/blob/a960ebc3da325ba167f069f76c41eb62c9280d22/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Hy3 Apache-2.0 license (pinned)",
+        "url": "https://huggingface.co/tencent/Hy3/blob/a960ebc3da325ba167f069f76c41eb62c9280d22/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "Hy3 chat template (pinned)",
+        "url": "https://huggingface.co/tencent/Hy3/blob/a960ebc3da325ba167f069f76c41eb62c9280d22/chat_template.jinja",
+        "type": "primary"
+      },
+      {
+        "label": "Tencent TokenHub model list",
+        "url": "https://intl.cloud.tencent.com/zh/document/product/1300/78934",
+        "type": "primary"
       },
       {
         "label": "Hugging Face",
         "url": "https://huggingface.co/tencent/Hy3",
         "type": "weights"
+      },
+      {
+        "label": "Models.dev record",
+        "url": "https://github.com/anomalyco/models.dev/blob/dev/models/tencent/hy3.toml",
+        "type": "catalog"
       }
     ],
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
+    "upstream_present": true,
+    "notes": "Tencent reports nominal 295B model/backbone parameters and 21B active parameters; the official card separately lists a 3.8B MTP layer. These are author-reported rounded counts, not an exact complete-checkpoint sum; MTP active parameters are not disclosed. The checkpoint config specifies 262,144 context positions, while TokenHub advertises 256k with separate input/output limits. Hy3 was publicly released on 2026-07-06; the earlier repository creation and later config revision are not release dates.",
+    "parameters_scope": "language_backbone",
+    "active_parameters_scope": "language_backbone",
+    "parameter_components_b": {
+      "language_backbone": 295,
+      "mtp": 3.8
+    },
+    "active_parameters_by_phase_b": {
+      "language_backbone": 21
+    },
+    "field_status": {},
+    "audited_at": "2026-10-27T04:50:47.379392Z",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/503.json"
   },
   {
     "id": "poolside/laguna-xs-2.1",
