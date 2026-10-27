@@ -1,7 +1,7 @@
 {
   "index": 390,
   "model_id": "nvidia/nemotron-content-safety-reasoning-4b",
-  "reviewed_at": "2026-10-27T01:01:28.649881+00:00",
+  "reviewed_at": "2026-10-27T16:03:26.637Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Pinned Content Safety Reasoning 4B model card",
       "publisher": "NVIDIA",
       "accessed": true,
-      "evidence": "Identifies NVIDIA Gemma-3-4B-it fine-tune for text safety/topic moderation with user-provided policies. Explicit Hugging Face release November 2025; nominal 4B, 128K context, text input/output, trained reasoning on/off. Names NVIDIA Open Model License plus Gemma Terms and Prohibited Use Policy."
+      "evidence": "Identifies NVIDIA Gemma-3-4B-it fine-tune for text safety/topic moderation with user-provided policies. Explicit Hugging Face release November 2025; nominal 4B, 128K context, text input/output, trained reasoning on/off. Names NVIDIA Open Model License plus Gemma Terms and Prohibited Use Policy. Reopened October 27: unchanged pinned card explicitly names google/gemma-3-4b-it in YAML and prose, and describes training on Qwen3-32B-generated reasoning traces; this is training-data distillation, not a resized Qwen checkpoint."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "Pinned checkpoint configuration",
       "publisher": "NVIDIA",
       "accessed": true,
-      "evidence": "Gemma 3ForConditionalGeneration, Transformers 4.57.1, BF16; 34 dense text layers, width2560, FFN10240, vocabulary262208, eight query/four KV heads of256dimensions, 29 sliding/five full attention layers. max_position_embeddings131072. Retains27-layer SigLIP vision tower, width1152, FFN4304, image896/patch14, vision_use_head=false."
+      "evidence": "Gemma 3ForConditionalGeneration, Transformers 4.57.1, BF16; 34 dense text layers, width2560, FFN10240, vocabulary262208, eight query/four KV heads of256dimensions, 29 sliding/five full attention layers. max_position_embeddings131072. Retains27-layer SigLIP vision tower, width1152, FFN4304, image896/patch14, vision_use_head=false. Reopened October 27: text and vision dimensions match the original Gemma 3 4B converter (s25); retained vision configuration and unchanged total support the named fine-tune lineage without a new modality or structural resizing."
     },
     {
       "id": "s3",
@@ -25,7 +25,7 @@
       "title": "Pinned checkpoint index",
       "publisher": "NVIDIA",
       "accessed": true,
-      "evidence": "Maps884 tensor keys to two shards. metadata.total_parameters4300079472 and total_size9942663904. Stored embedding and lm_head keys are both present; stored elements are therefore larger than the unique tied parameter count."
+      "evidence": "Maps884 tensor keys to two shards. metadata.total_parameters4300079472 and total_size9942663904. Stored embedding and lm_head keys are both present; stored elements are therefore larger than the unique tied parameter count. Re-fetched October 27; metadata.total_parameters remains 4300079472. No shard or tensor-header requests were made in this re-audit."
     },
     {
       "id": "s4",
@@ -146,6 +146,69 @@
       "publisher": "NVIDIA",
       "accessed": true,
       "evidence": "May 26, 2025 empirical reasoning-guardrail study precedes November checkpoint release; investigates Gemma 3-4B among research models, dual-mode training and reasoning budgets. No separately defined active-parameter count for this subsequently released named checkpoint; not treated as its release announcement. Abstract page lists only v1."
+    },
+    {
+      "id": "s19",
+      "url": "https://huggingface.co/api/models/nvidia/Nemotron-Content-Safety-Reasoning-4B/revision/29da6ec41d9c710d937afcd41f65e241ab822792",
+      "title": "Exact NVIDIA checkpoint aggregate metadata, October 27 recheck",
+      "publisher": "NVIDIA via Hugging Face",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Fresh current-model API returns this exact revision, safetensors.total=4300079472 and stored BF16 elements=4971331952, corroborating the previously established tied-weight total. cardData.base_model explicitly names google/gemma-3-4b-it. Aggregate metadata only; no weights downloaded."
+    },
+    {
+      "id": "s20",
+      "url": "https://arxiv.org/html/2505.09388v1",
+      "title": "Qwen3 Technical Report, Table 7",
+      "publisher": "Qwen Team",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Freshly read original Table 7: the Gemma-3-4B Base column is Dense, with Total Params 4B and Activated Params 4B. This is Qwen Team's nominal research-comparison convention, not a Google or NVIDIA active-count disclosure. The explicit Google PT-to-IT and NVIDIA fine-tune lineage supports applying that nominal convention; the table does not define Gemma-specific component scope or per-token participation."
+    },
+    {
+      "id": "s21",
+      "url": "https://arxiv.org/html/2503.19786v1",
+      "title": "Google Gemma 3 Technical Report, architecture and instruction-tuning",
+      "publisher": "Google DeepMind",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Freshly read Sections 2 and 3: Gemma 3 4B retains a SigLIP vision encoder; pretrained models are turned into instruction-tuned models by post-training with teacher knowledge distillation and RL. This describes training the named student, not pruning or resizing it to a new structure. Table 1 reports rounded component totals, not active counts. Matching exact PT and IT metadata (s22-s23) corroborates unchanged size."
+    },
+    {
+      "id": "s22",
+      "url": "https://huggingface.co/api/models/google/gemma-3-4b-it/revision/093f9f388b31de276ce2de164bdc2081324b9767",
+      "title": "Pinned Google Gemma 3 4B IT base metadata",
+      "publisher": "Google via Hugging Face",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Freshly fetched exact named NVIDIA base: Gemma3ForConditionalGeneration, 4300079472 total BF16 parameters, and cardData.base_model=google/gemma-3-4b-pt. The precise total matches both the PT base and NVIDIA fine-tune. Aggregate metadata only."
+    },
+    {
+      "id": "s23",
+      "url": "https://huggingface.co/api/models/google/gemma-3-4b-pt/revision/cc012e0a6d0787b4adcc0fa2c4da74402494554d",
+      "title": "Pinned Google Gemma 3 4B PT metadata",
+      "publisher": "Google via Hugging Face",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Freshly fetched the explicitly named PT base of Gemma 3 4B IT: Gemma3ForConditionalGeneration and 4300079472 total BF16 parameters. This directly checks the PT-to-IT lineage used with Qwen Table 7 rather than transferring an unexamined sibling count."
+    },
+    {
+      "id": "s24",
+      "url": "https://arxiv.org/html/2504.07491v1",
+      "title": "Kimi-VL Technical Report, Figure 1",
+      "publisher": "Kimi Team",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Freshly opened original paper and visually inspected its original fig1_0409_v1.svg. Figure 1 explicitly labels Gemma-3-4B-IT at roughly 4B on an Activated Parameters (B) axis, corroborating the nominal convention for NVIDIA's exact named base. Plot precision is approximate; neither Gemma-specific component scope nor exact per-token participation is established. The caption's LLM qualification for Kimi-VL is not transferred to Gemma."
+    },
+    {
+      "id": "s25",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/6c5f8f4186c15f4bfbd67941a1736b2b347e0155/src/transformers/models/gemma3/convert_gemma3_weights.py",
+      "title": "Official Gemma 3 converter architecture comparison",
+      "publisher": "Google and Hugging Face",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Freshly read gemma3_4b configuration: 34 text layers, width 2560, intermediate 10240, 8 query/4 KV heads of width 256; SigLIP has 27 layers, width 1152, intermediate 4304, 16 heads, image 896, patch 14, no pooling head. These match NVIDIA's pinned configuration. Converter adds 64 embedding rows to vocabulary 262144, matching NVIDIA's 262208. Architecture comparison only, not a new parameter census."
     }
   ],
   "fields": {
@@ -214,6 +277,7 @@
       "value": 4.300079472,
       "status": "verified",
       "source_ids": [
+        "s1",
         "s2",
         "s3",
         "s4",
@@ -221,21 +285,32 @@
         "s6",
         "s7",
         "s8",
-        "s9"
+        "s9",
+        "s19",
+        "s22",
+        "s25"
       ],
-      "note": "Complete unique learned count4300079472:3880263168language, 416866032vision, 2950272projector. All 884stored tensors are BF16 learned tensors but lm_head duplicates671252480embedding parameters by configured loader tying, leaving883unique tensors. Stored4971331952elements reconcile9942663904bytes. Every name/shape/offset reconstructed; no quantization, buffers, unmerged adapters or extra MTP. Three 64-byte paired samples agree but full duplicate equality was not asserted from sampling."
+      "note": "Retain the previously established 4.300079472B unique checkpoint total. Fresh NVIDIA index metadata and aggregate API total independently remain 4300079472 at the same revision; the named Google Gemma 3 4B IT base has the same precise total. This includes retained vision/projector modules and counts tied input/output embeddings once. NVIDIA also publishes nominal 4B. This pass read metadata and configuration, without downloading shards or repeating the earlier tensor census."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 4,
+      "status": "verified",
       "source_ids": [
         "s1",
         "s2",
         "s11",
+        "s12",
         "s17",
-        "s18"
+        "s18",
+        "s19",
+        "s20",
+        "s21",
+        "s22",
+        "s23",
+        "s24",
+        "s25"
       ],
-      "note": "Reviewed model card, API reference, deployment guide and linked research do not separately define active parameters. Dense total is not automatically per-token activity; complete count includes retained vision modules not used for documented text moderation."
+      "note": "Nominal 4B inferred through the explicit NVIDIA Gemma-3-4B-it fine-tune lineage. Qwen Team Table 7 reports Gemma-3-4B Base at 4B activated; Google identifies PT-to-IT post-training, and exact PT/IT/NVIDIA aggregate totals plus the checked NVIDIA/base architecture match. No structural resizing, pruning, expert expansion or added modality was found. Teacher-generated reasoning traces train the named Gemma student and do not transfer Qwen3-32B size. Kimi Team Figure 1 independently corroborates roughly 4B for exact Gemma-3-4B-IT. This is an attributed nominal research-comparison convention, not a direct NVIDIA/Google active disclosure or exact per-token census. NVIDIA documents text moderation while retaining vision weights; the comparisons do not establish Gemma-specific component or phase counts. Fresh card, Build/API, deployment, linked research and targeted primary searches found no more precise exact-fine-tune active definition."
     },
     "architecture": {
       "value": "dense",
@@ -321,7 +396,7 @@
     "description": "NVIDIA fine-tune of Gemma 3 4B for classifying text safety and topic-policy violations, with optional reasoning traces.",
     "source_url": "https://huggingface.co/nvidia/Nemotron-Content-Safety-Reasoning-4B/blob/29da6ec41d9c710d937afcd41f65e241ab822792/README.md",
     "source_type": "primary",
-    "notes": "Released on Hugging Face in November 2025; January 2026 is a later NVIDIA endpoint launch. Complete checkpoint has 4.300079472B unique learned parameters, including retained vision modules; duplicate tied embedding/output-head storage is counted once. Documented moderation inputs are text. Active parameters and model-wide tool-calling capability are not separately verified. Context is 131072 tokens. NVIDIA Open Model License applies together with Gemma Terms of Use and Gemma Prohibited Use Policy.",
+    "notes": "Released on Hugging Face in November 2025; January 2026 is a later NVIDIA endpoint launch. Total 4.300079472B includes retained vision modules and counts tied embeddings once. Nominal 4B active is inferred through the explicit Gemma 3 4B IT fine-tune lineage, using Qwen's activated-parameter table and Kimi's corroborating plot; it is not an exact per-token or component count. Documented moderation inputs are text. Tool-calling capability remains unverified. Context is 131072 tokens. NVIDIA Open Model License, Gemma Terms of Use and Gemma Prohibited Use Policy apply.",
     "sources": [
       {
         "label": "Pinned Content Safety Reasoning 4B model card",
@@ -407,8 +482,44 @@
         "label": "NVIDIA deployment guide",
         "url": "https://docs.nvidia.com/nemo/guardrails/latest/get-started/tutorials/nemotron-content-safety-reasoning-deployment",
         "type": "primary"
+      },
+      {
+        "label": "Exact NVIDIA checkpoint aggregate metadata, October 27 recheck",
+        "url": "https://huggingface.co/api/models/nvidia/Nemotron-Content-Safety-Reasoning-4B/revision/29da6ec41d9c710d937afcd41f65e241ab822792",
+        "type": "weights"
+      },
+      {
+        "label": "Qwen3 Technical Report, Table 7",
+        "url": "https://arxiv.org/html/2505.09388v1",
+        "type": "primary"
+      },
+      {
+        "label": "Google Gemma 3 Technical Report, architecture and instruction-tuning",
+        "url": "https://arxiv.org/html/2503.19786v1",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned Google Gemma 3 4B IT base metadata",
+        "url": "https://huggingface.co/api/models/google/gemma-3-4b-it/revision/093f9f388b31de276ce2de164bdc2081324b9767",
+        "type": "weights"
+      },
+      {
+        "label": "Pinned Google Gemma 3 4B PT metadata",
+        "url": "https://huggingface.co/api/models/google/gemma-3-4b-pt/revision/cc012e0a6d0787b4adcc0fa2c4da74402494554d",
+        "type": "weights"
+      },
+      {
+        "label": "Kimi-VL Technical Report, Figure 1",
+        "url": "https://arxiv.org/html/2504.07491v1",
+        "type": "primary"
+      },
+      {
+        "label": "Official Gemma 3 converter architecture comparison",
+        "url": "https://raw.githubusercontent.com/huggingface/transformers/6c5f8f4186c15f4bfbd67941a1736b2b347e0155/src/transformers/models/gemma3/convert_gemma3_weights.py",
+        "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": 4
   },
   "parameter_count_reproduction": {
     "stored_tensors": 884,
@@ -433,5 +544,5 @@
     ],
     "buffer_handling": "Gemma embedding scale/rotary frequencies and SigLIP position IDs are nonpersistent and absent. All 884saved keys map to nn.Parameter; no quantization scales or packed storage. Tied duplicate is learned storage but adds no independent parameters."
   },
-  "summary": "All 14 fields audited independently for exact Content Safety Reasoning 4B. Correct first release to November 2025 month precision, complete unique count to 4.300079472B, architecture to dense Gemma 3/SigLIP, context to 131072, and license to NVIDIA Open Model License plus Gemma Terms. Confirm text moderation and reasoning; active count remains undisclosed and unsupported tool false is cleared. All 884 stored tensor shapes across 2 shards verified, with tied embedding/output storage counted once."
+  "summary": "Parameter re-audit retains the precise 4.300079472B total, freshly confirmed by NVIDIA index and aggregate metadata, and establishes nominal 4B active through explicit Gemma 3 4B PT-to-IT-to-NVIDIA fine-tune lineage under Qwen Team's comparison convention, corroborated by Kimi Team's exact IT plot. Matching architecture and totals support unchanged model structure. Text-only documented moderation and retained vision weights remain distinct; exact component/phase activity is unresolved. Other 12 field assessments and prior tensor-reproduction evidence are preserved; no shards were requested in this pass."
 }
