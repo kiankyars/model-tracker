@@ -1,0 +1,359 @@
+{
+  "index": 493,
+  "model_id": "sdaia/allam-2-7b",
+  "reviewed_at": "2026-10-27T04:32:30.805155Z",
+  "sources": [
+    {
+      "id": "launch",
+      "url": "https://techcommunity.microsoft.com/blog/azure-ai-foundry-blog/introducing-sdaia-and-their-latest-arabic-llm-on-azure-ai-model-catalog/4240241/",
+      "title": "September 10, 2024 ALLaM-2-7B availability announcement",
+      "publisher": "Microsoft",
+      "accessed": true,
+      "evidence": "Dated September 10, 2024, names the exact ALLaM-2-7B model and gives immediate deployment instructions through Azure AI Studio. Identifies SDAIA/NCAI, autoregressive Transformer architecture, Arabic/English and a nominal 7 billion parameters. This predates the baseline January 23, 2025 provider date."
+    },
+    {
+      "id": "azure_card",
+      "url": "https://ai.azure.com/catalog/models/ALLaM-2-7b-instruct?publisher=SDAIA",
+      "title": "SDAIA ALLaM-2-7b-instruct model card on Microsoft Foundry",
+      "publisher": "SDAIA / Microsoft",
+      "accessed": true,
+      "evidence": "Exact instruct model, developed at NCAI/SDAIA, trained from scratch; nominal 7B, 4096 context, text input/output. Explains ALLaM-2 as the from-scratch branch. The training table gives 4T English plus 1.2T mixed tokens, although a separate prose sentence says 4T total; the description avoids resolving that internal inconsistency."
+    },
+    {
+      "id": "groq",
+      "url": "https://console.groq.com/docs/model/allam-2-7b",
+      "title": "Exact allam-2-7b serving documentation",
+      "publisher": "Groq",
+      "accessed": true,
+      "evidence": "Current exact provider documentation identifies SDAIA/NCAI, nominal 7B, text-only, context and maximum output 4096. Only JSON Object Mode is listed as a capability. It links Humain service terms. Accessed indexed full page with web tool; direct urllib fetch returned 403. No inference request was made and the serving checkpoint revision is not disclosed."
+    },
+    {
+      "id": "original_card",
+      "url": "https://huggingface.co/humain-ai/ALLaM-7B-Instruct-preview/blob/4cb5169d0b3c95e468aa92185a6f7c57f8499f91/README.md",
+      "title": "Original published checkpoint model card",
+      "publisher": "SDAIA / ALLaM team, now hosted by HUMAIN",
+      "accessed": true,
+      "evidence": "Original February 2025 card titles the repository ALLaM-7B-Instruct-preview but explicitly identifies the model as ALLaM-2-7b-instruct and the usage example as ALLaM-2-7B-SFT. Declares Apache-2.0, nominal 7B, Arabic/English, 4096 context, from-scratch training and downloadable Transformers weights. Supports this lineage and published-weight license, but does not prove byte-identical weights to September 2024 Azure or current Groq deployments."
+    },
+    {
+      "id": "original_config",
+      "url": "https://huggingface.co/humain-ai/ALLaM-7B-Instruct-preview/blob/4cb5169d0b3c95e468aa92185a6f7c57f8499f91/config.json",
+      "title": "Original checkpoint configuration, internal v1.27.2.25",
+      "publisher": "SDAIA / ALLaM team, now hosted by HUMAIN",
+      "accessed": true,
+      "evidence": "LlamaForCausalLM; 32 layers, hidden size 4096, intermediate size 11008, 32 query and 32 KV heads, vocabulary 64000, untied embedding/output matrices, no attention bias, BF16, RoPE theta 10000, no RoPE scaling and max positions 4096. Transformers 4.39.3 is recorded. No quantization, adapters or custom-code modules."
+    },
+    {
+      "id": "original_index",
+      "url": "https://huggingface.co/humain-ai/ALLaM-7B-Instruct-preview/blob/4cb5169d0b3c95e468aa92185a6f7c57f8499f91/model.safetensors.index.json",
+      "title": "Original three-shard checkpoint index",
+      "publisher": "SDAIA / ALLaM team, now hosted by HUMAIN",
+      "accessed": true,
+      "evidence": "291 tensors in three shards. All names and shard assignments were checked against all bounded safetensors headers. All are unpacked BF16, with contiguous nonoverlapping offsets and shape bytes consistent with dtype. Complete checkpoint sum is 7,000,559,616 learned parameters; this is scoped to the original published checkpoint, not asserted as an exact hosted API count."
+    },
+    {
+      "id": "implementation",
+      "url": "https://github.com/huggingface/transformers/blob/v4.39.3/src/transformers/models/llama/modeling_llama.py",
+      "title": "Llama implementation at the configured Transformers version",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Enabled configuration selects a dense decoder-only Transformer with multi-head causal self-attention, SwiGLU MLPs, RMSNorm, embeddings and a bias-free output head. RoPE inv_freq and cos/sin caches are nonpersistent buffers. No expert router, MTP or auxiliary modules are selected. Full indexed tensor names/shapes match all enabled learned modules."
+    },
+    {
+      "id": "original_tokenizer",
+      "url": "https://huggingface.co/humain-ai/ALLaM-7B-Instruct-preview/blob/4cb5169d0b3c95e468aa92185a6f7c57f8499f91/tokenizer_config.json",
+      "title": "Original checkpoint chat template",
+      "publisher": "SDAIA / ALLaM team, now hosted by HUMAIN",
+      "accessed": true,
+      "evidence": "Llama-style INST template accepts optional system text and alternating user/assistant messages. It does not serialize tools, tool_calls, tool-result roles or a dedicated thinking mode. model_max_length is an unset huge sentinel, not a context-capacity claim."
+    },
+    {
+      "id": "later_card",
+      "url": "https://huggingface.co/humain-ai/ALLaM-7B-Instruct-preview/blob/a28dd1e67420cde72d3629c8633a974cf7d9c366/README.md",
+      "title": "Later preview card and revision distinction",
+      "publisher": "SDAIA / ALLaM team, now hosted by HUMAIN",
+      "accessed": true,
+      "evidence": "Later card explicitly distinguishes old v1.27.2.25 and newer v2.33.0.30. Keeps nominal 7B, 4096 context and Apache-2.0 metadata. Does not disclose separately defined active parameters or establish current provider revision equivalence. Its updated evaluation data are not transferred to the earlier model."
+    },
+    {
+      "id": "later_config",
+      "url": "https://huggingface.co/humain-ai/ALLaM-7B-Instruct-preview/blob/a28dd1e67420cde72d3629c8633a974cf7d9c366/config.json",
+      "title": "Later preview configuration",
+      "publisher": "SDAIA / ALLaM team, now hosted by HUMAIN",
+      "accessed": true,
+      "evidence": "Internal version v2.33.0.30 has RoPE theta 1000000 versus original 10000, while dimensions and 4096 maximum positions remain the same. This July 2025 updated checkpoint is not silently substituted for the September 2024 hosted identity."
+    },
+    {
+      "id": "history",
+      "url": "https://huggingface.co/api/models/humain-ai/ALLaM-7B-Instruct-preview/commits/main",
+      "title": "Creator repository revision history",
+      "publisher": "HUMAIN / Hugging Face",
+      "accessed": true,
+      "evidence": "Original weight uploads and initial card date to February 13, 2025. July 14, 2025 commit explicitly updates model and tokenizer to version2. Upload timestamps alone do not prove first public availability; the earlier explicit Azure release establishes the model availability date."
+    },
+    {
+      "id": "paper",
+      "url": "https://arxiv.org/html/2407.15390v1",
+      "title": "ALLaM: Large Language Models for Arabic and English",
+      "publisher": "SDAIA researchers",
+      "accessed": true,
+      "evidence": "July 2024 research distinguishes a from-scratch 7B model from Llama-2 continued-pretraining 7B/13B/70B models. Section 2.3 says the from-scratch model follows Llama-2 architecture/hyperparameters. Supports the dense decoder lineage; does not define a separately measured active-parameter figure. Continued-pretraining counts and larger sibling specifications are not transferred."
+    },
+    {
+      "id": "tool_docs",
+      "url": "https://console.groq.com/docs/tool-use/overview",
+      "title": "Groq tool-use capability documentation",
+      "publisher": "Groq",
+      "accessed": true,
+      "evidence": "Page broadly says all hosted models support tool use, but its explicit supported-model table omits ALLaM and the exact ALLaM page advertises only JSON Object Mode. Generic tools API support and JSON output are insufficient to resolve this exact model capability; report records the conflict instead of treating omission or generic wording as decisive."
+    },
+    {
+      "id": "reasoning_docs",
+      "url": "https://console.groq.com/docs/reasoning",
+      "title": "Groq reasoning capability documentation",
+      "publisher": "Groq",
+      "accessed": true,
+      "evidence": "The supported reasoning-model table does not include ALLaM. No dedicated ALLaM reasoning mode is documented in its exact model card or original chat template. General problem-solving or reasoning benchmark performance is not evidence for a separate thinking mode."
+    },
+    {
+      "id": "stale_url",
+      "url": "https://huggingface.co/ALLaM-AI/ALLaM-2.0-7B-Instruct",
+      "title": "Frozen catalog weight link",
+      "publisher": "ALLaM-AI",
+      "accessed": false,
+      "evidence": "Direct page/API/raw requests returned HTTP 401, not a verified redirect. The accessible creator preview history was independently inspected instead; this inaccessible URL was not used as factual evidence."
+    },
+    {
+      "id": "shard_00001",
+      "url": "https://huggingface.co/humain-ai/ALLaM-7B-Instruct-preview/resolve/4cb5169d0b3c95e468aa92185a6f7c57f8499f91/model-00001-of-00003.safetensors",
+      "title": "model-00001-of-00003.safetensors bounded header",
+      "publisher": "SDAIA / ALLaM team, now hosted by HUMAIN",
+      "accessed": true,
+      "evidence": "Read HTTP 206 prefix/header only, 11592 bytes; 100 BF16 learned tensors and 2488360960 elements. Indexed names, shard assignment, shapes and byte offsets reconciled. No full weights downloaded."
+    },
+    {
+      "id": "shard_00002",
+      "url": "https://huggingface.co/humain-ai/ALLaM-7B-Instruct-preview/resolve/4cb5169d0b3c95e468aa92185a6f7c57f8499f91/model-00002-of-00003.safetensors",
+      "title": "model-00002-of-00003.safetensors bounded header",
+      "publisher": "SDAIA / ALLaM team, now hosted by HUMAIN",
+      "accessed": true,
+      "evidence": "Read HTTP 206 prefix/header only, 13064 bytes; 112 BF16 learned tensors and 2495709184 elements. Indexed names, shard assignment, shapes and byte offsets reconciled. No full weights downloaded."
+    },
+    {
+      "id": "shard_00003",
+      "url": "https://huggingface.co/humain-ai/ALLaM-7B-Instruct-preview/resolve/4cb5169d0b3c95e468aa92185a6f7c57f8499f91/model-00003-of-00003.safetensors",
+      "title": "model-00003-of-00003.safetensors bounded header",
+      "publisher": "SDAIA / ALLaM team, now hosted by HUMAIN",
+      "accessed": true,
+      "evidence": "Read HTTP 206 prefix/header only, 9192 bytes; 79 BF16 learned tensors and 2016489472 elements. Indexed names, shard assignment, shapes and byte offsets reconciled. No full weights downloaded."
+    },
+    {
+      "id": "iclr2025",
+      "url": "https://openreview.net/pdf?id=MscdsFVZrN",
+      "title": "ICLR 2025 version linked by the later creator card",
+      "publisher": "SDAIA researchers / OpenReview",
+      "accessed": false,
+      "evidence": "Direct fetch returned 403; web access reached a browser-verification challenge. No unseen claims from this later version were used; the accessible arXiv v1 and exact later model card were inspected."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "ALLaM-2-7B Instruct",
+      "status": "verified",
+      "source_ids": [
+        "launch",
+        "azure_card"
+      ],
+      "note": "Normalizes capitalization and identifies the instruction-tuned variant, distinct from the ALLaM-1 continued-pretraining branch."
+    },
+    "developer": {
+      "value": "SDAIA",
+      "status": "verified",
+      "source_ids": [
+        "azure_card",
+        "original_card"
+      ],
+      "note": "National Center for Artificial Intelligence at the Saudi Data and AI Authority. Later HUMAIN repository hosting does not change original developer attribution."
+    },
+    "family": {
+      "value": "allam",
+      "status": "verified",
+      "source_ids": [
+        "azure_card"
+      ],
+      "note": "Official ALLaM family; ALLaM-2 labels the from-scratch branch."
+    },
+    "release_date": {
+      "value": "2024-09-10",
+      "status": "verified",
+      "source_ids": [
+        "launch"
+      ],
+      "note": "Earliest explicit availability found for exact ALLaM-2-7B: Microsoft announces deployment on September 10, 2024. January 23, 2025 is a later provider/catalog date; February 2025 published-weight history is separately documented."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "original_card",
+        "original_index"
+      ],
+      "note": "Original public checkpoint is available under ALLaM-7B-Instruct-preview, whose original card explicitly names ALLaM-2-7b-instruct. This does not establish that every hosted revision matches those weights."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "original_card",
+        "later_card",
+        "groq"
+      ],
+      "note": "Apache-2.0 is declared for the published original checkpoint and later preview. No standalone LICENSE file is present in those inspected snapshots. Hosted Azure/Groq use is governed by separate service terms; this is not a claim that the Apache grant governs the API service."
+    },
+    "parameters_b": {
+      "value": 7,
+      "status": "verified",
+      "source_ids": [
+        "launch",
+        "azure_card",
+        "original_index",
+        "implementation"
+      ],
+      "note": "Official nominal total retained for the generic hosted model identity. Original published checkpoint has an independently reconciled exact total of 7,000,559,616 learned parameters (291 tensors, all three bounded headers; formula 2VH+H+L*(4H^2+3HI+2H), V=64000,H=4096,I=11008,L=32). Untied input and output matrices are both included; no quant scales, learned biases, MTP or persistent RoPE buffers occur. Hosted checkpoint equivalence is unresolved, so the checkpoint precision is not forced into this generic field."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "azure_card",
+        "original_card",
+        "later_card",
+        "paper"
+      ],
+      "note": "No separately defined active-parameter count is disclosed in the exact model cards or family research inspected. Dense total is not automatically copied to active count."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "paper",
+        "original_config",
+        "implementation"
+      ],
+      "note": "Dense decoder-only autoregressive Transformer. Original checkpoint uses 32 layers, standard MHA (32 query/KV heads), SwiGLU and RMSNorm with no routed experts; from-scratch training is distinct from inheriting Llama-2 weights."
+    },
+    "context_window": {
+      "value": 4096,
+      "status": "verified",
+      "source_ids": [
+        "azure_card",
+        "groq",
+        "original_config"
+      ],
+      "note": "4096 tokens confirmed independently by exact hosted documentation and original checkpoint max positions. Later RoPE theta changes are not treated as a context extension; tokenizer sentinel ignored."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "azure_card",
+        "groq"
+      ],
+      "note": "Exact model and hosted docs specify text input and output; no image/audio modules or capability claims."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "original_tokenizer",
+        "groq",
+        "reasoning_docs"
+      ],
+      "note": "Dedicated thinking mode is unverified. General reasoning ability or evaluation scores do not establish such a mode; clear unsupported baseline false instead of claiming an affirmative prohibition."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "original_tokenizer",
+        "groq",
+        "tool_docs"
+      ],
+      "note": "Exact ALLaM docs do not establish native tool calls; Groq generic all-model wording conflicts with omission from its explicit table and exact model capability list. Clear baseline false rather than infer a universal denial or assume generic SDK tools work."
+    },
+    "description": {
+      "value": "SDAIA's instruction-tuned Arabic-English language model, pretrained from scratch.",
+      "status": "verified",
+      "source_ids": [
+        "azure_card",
+        "original_card"
+      ],
+      "note": "Factual description of exact variant; avoids benchmark superiority, unsupported capabilities and conflation with adapted ALLaM-1 models."
+    }
+  },
+  "patch": {
+    "name": "ALLaM-2-7B Instruct",
+    "family": "allam",
+    "release_date": "2024-09-10",
+    "license": "Apache-2.0",
+    "architecture": "dense",
+    "reasoning": null,
+    "tool_call": null,
+    "description": "SDAIA's instruction-tuned Arabic-English language model, pretrained from scratch.",
+    "parameters_source": "primary_source",
+    "date_precision": "day",
+    "source_type": "primary",
+    "source_url": "https://techcommunity.microsoft.com/blog/azure-ai-foundry-blog/introducing-sdaia-and-their-latest-arabic-llm-on-azure-ai-model-catalog/4240241/",
+    "sources": [
+      {
+        "label": "September 10, 2024 ALLaM-2-7B availability announcement",
+        "url": "https://techcommunity.microsoft.com/blog/azure-ai-foundry-blog/introducing-sdaia-and-their-latest-arabic-llm-on-azure-ai-model-catalog/4240241/",
+        "type": "primary"
+      },
+      {
+        "label": "SDAIA ALLaM-2-7b-instruct model card on Microsoft Foundry",
+        "url": "https://ai.azure.com/catalog/models/ALLaM-2-7b-instruct?publisher=SDAIA",
+        "type": "primary"
+      },
+      {
+        "label": "Exact allam-2-7b serving documentation",
+        "url": "https://console.groq.com/docs/model/allam-2-7b",
+        "type": "primary"
+      },
+      {
+        "label": "Original published checkpoint model card",
+        "url": "https://huggingface.co/humain-ai/ALLaM-7B-Instruct-preview/blob/4cb5169d0b3c95e468aa92185a6f7c57f8499f91/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Original checkpoint configuration, internal v1.27.2.25",
+        "url": "https://huggingface.co/humain-ai/ALLaM-7B-Instruct-preview/blob/4cb5169d0b3c95e468aa92185a6f7c57f8499f91/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Original three-shard checkpoint index",
+        "url": "https://huggingface.co/humain-ai/ALLaM-7B-Instruct-preview/blob/4cb5169d0b3c95e468aa92185a6f7c57f8499f91/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Later preview card and revision distinction",
+        "url": "https://huggingface.co/humain-ai/ALLaM-7B-Instruct-preview/blob/a28dd1e67420cde72d3629c8633a974cf7d9c366/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "ALLaM: Large Language Models for Arabic and English",
+        "url": "https://arxiv.org/html/2407.15390v1",
+        "type": "primary"
+      }
+    ],
+    "notes": "7B is the official nominal total for ALLaM-2-7B. The original published checkpoint has 7.000559616B learned parameters, but its exact equivalence to hosted revisions is not documented. Microsoft announced availability on September 10, 2024; published preview weights appeared in February 2025 and were updated in July. Apache-2.0 describes the published checkpoint; API service terms are separate. Active count is undisclosed, and dedicated reasoning/tool support remains unverified."
+  },
+  "summary": "Replaced later provider date with exact September 10, 2024 Azure availability; confirmed primary nominal 7B, dense architecture, Apache-2.0 published weights, 4096 text context and original SDAIA attribution. Counted the original public checkpoint independently but retained nominal hosted count because revision equivalence is unresolved. Kept active count undisclosed and cleared unsupported reasoning/tool assertions. Original and July 2025 preview revisions are distinguished."
+}
