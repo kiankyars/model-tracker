@@ -1,7 +1,7 @@
 {
   "index": 373,
   "model_id": "nousresearch/hermes-4-405b",
-  "reviewed_at": "2026-10-27T00:20:41.802813Z",
+  "reviewed_at": "2026-10-27T15:48:41.844294Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Hermes 4 405B model card",
       "publisher": "Nous Research",
       "accessed": true,
-      "evidence": "Identifies this Llama 3.1 405B fine-tune, developer, hybrid reasoning with thinking=True and think tags, interleaved function calls, BF16 weights, and llama3 license metadata."
+      "evidence": "Freshly reopened October 27: metadata still resolves to this pinned revision. The exact card names meta-llama/Meta-Llama-3.1-405B as its base and describes post-training on a reasoning/instruction corpus, hybrid reasoning, interleaved tool calls and original BF16 weights."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "Hermes 4 405B configuration",
       "publisher": "Nous Research",
       "accessed": true,
-      "evidence": "LlamaForCausalLM; 126 layers; hidden size 16384; intermediate size 53248; 128 query and 8 key/value heads; 131072 positions; BF16; untied embeddings; no expert or multimodal configuration."
+      "evidence": "Freshly reopened October 27: LlamaForCausalLM with 126 layers, hidden size 16384, intermediate size 53248, 128 query and 8 key/value heads, vocabulary 128256, 131072 positions, BF16 and untied embeddings. No expert routing, reduced-depth or multimodal configuration is present."
     },
     {
       "id": "s3",
@@ -25,7 +25,7 @@
       "title": "Hermes 4 Technical Report, version 2",
       "publisher": "Nous Research",
       "accessed": true,
-      "evidence": "Section 3 maps Hermes 4 405B to Llama 3.1 405B; Table 1 labels its model size 405B. Table 3 evaluates the exact 405B model in reasoning and non-reasoning modes. Active parameter counts are not stated."
+      "evidence": "Freshly downloaded version 2 October 27. Section 3 explicitly starts the 405B model from Llama 3.1 405B and describes supervised training, sample packing and loss masking; Table 1 publishes model size 405B. No pruning, structural distillation, expert expansion or added modality is described. Table 2 excludes 405B from the extra 14B length-truncation stage. The report does not separately state active parameters."
     },
     {
       "id": "s4",
@@ -58,6 +58,14 @@
       "publisher": "Nous Research",
       "accessed": true,
       "evidence": "Public checkpoint index lists 1137 weight tensor names across 191 safetensors shards; names describe standard Llama attention, dense MLP, norms, embeddings and output head."
+    },
+    {
+      "id": "s8",
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2025/file/a9ed43fa31dc8b4a7d7a673d713dcb5f-Paper-Conference.pdf",
+      "title": "Jamba: Hybrid Transformer-Mamba Language Models, ICLR 2025",
+      "publisher": "AI21 Labs / Jamba Team",
+      "accessed": true,
+      "evidence": "Freshly downloaded original proceedings PDF October 27. Table 1 on page 5 separately labels Available params and Active params and lists the exact Llama-3.1 405B base at 405B in each column. This is AI21's nominal research comparison convention, not a Meta or Nous disclosure about exact per-token tensor participation; transfer to Hermes 4 uses its explicitly documented base and post-training lineage."
     }
   ],
   "fields": {
@@ -116,19 +124,21 @@
       "value": 405,
       "status": "verified",
       "source_ids": [
+        "s1",
         "s3"
       ],
-      "note": "Developer-published nominal billion-parameter size in training Table 1, not an exact tensor census or a count inferred solely from the model name."
+      "note": "Freshly reconfirmed developer-published nominal 405B total in Hermes 4 training Table 1 and the exact card. Retains the published precision; no weight download or tensor census is needed."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 405,
+      "status": "verified",
       "source_ids": [
         "s1",
         "s2",
-        "s3"
+        "s3",
+        "s8"
       ],
-      "note": "No separately defined active count found in the exact card, configuration or technical report. Dense architecture does not justify setting active equal to total."
+      "note": "Nominal lineage inference: AI21's original Jamba ICLR Table 1 explicitly gives Llama-3.1 405B 405B active parameters. Nous identifies that exact base and describes supervised post-training; fresh report/configuration inspection found no pruning, structural distillation, expert expansion or new modality that defeats transfer at this nominal precision. This adopts AI21's comparison convention, not an independent Nous active-count disclosure or an exact per-token tensor count."
     },
     "architecture": {
       "value": "dense",
@@ -199,7 +209,7 @@
     "description": "Open-weight Llama 3.1 405B fine-tune with hybrid reasoning and function calling.",
     "source_url": "https://huggingface.co/NousResearch/Hermes-4-405B",
     "source_type": "primary",
-    "notes": "405B is the developer-published nominal total; active parameters are not separately defined or reported. This record covers the original BF16 checkpoint. The exact Llama 3.1 base license covers derivatives; Nous retains a conflicting llama3 metadata tag and publishes no separate LICENSE file. Tool calling is a checkpoint capability and may depend on serving support.",
+    "notes": "405B total is Nous's published nominal size. Nominal 405B active is inferred through the documented Llama 3.1 405B post-training lineage from AI21's explicit Jamba comparison-table convention; Nous does not separately report an exact active count. This record covers the original BF16 checkpoint. The exact Llama 3.1 base license covers derivatives; Nous retains a conflicting llama3 metadata tag and publishes no separate LICENSE file. Tool calling is a checkpoint capability and may depend on serving support.",
     "sources": [
       {
         "label": "Hermes 4 405B model card",
@@ -235,8 +245,15 @@
         "label": "Hermes 4 405B BF16 checkpoint index",
         "url": "https://huggingface.co/NousResearch/Hermes-4-405B/blob/88e3dce03c4a5535e2f4a2bcc08e939a2b302f82/model.safetensors.index.json",
         "type": "primary"
+      },
+      {
+        "label": "Jamba: Hybrid Transformer-Mamba Language Models, ICLR 2025",
+        "url": "https://proceedings.iclr.cc/paper_files/paper/2025/file/a9ed43fa31dc8b4a7d7a673d713dcb5f-Paper-Conference.pdf",
+        "type": "primary"
       }
-    ]
+    ],
+    "parameters_b": 405,
+    "active_parameters_b": 405
   },
-  "summary": "Assessed all fourteen fields. Promote nominal 405B count from model-name inference to primary report evidence; establish dense Llama architecture and the exact base license with the llama3 metadata discrepancy documented. Confirm August 26 launch, 131072 context, text modalities, hybrid reasoning and function calling. Active parameters remain undisclosed; no tensor census was used."
+  "summary": "October 27 parameter re-audit: freshly reopened the exact Nous card/configuration and Hermes 4 report v2, searched for newer count disclosures, and independently downloaded AI21's original Jamba ICLR paper. Retain Nous's nominal 405B total; establish nominal 405B active by the exact Llama 3.1 405B post-training lineage and AI21 Table 1's separate active column. Training/configuration inspection found no structural change defeating that inference. Exact active tensor participation remains unreported; no weight shards or tensor census were used. Preserve the other twelve assessments."
 }
