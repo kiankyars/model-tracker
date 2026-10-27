@@ -1,7 +1,7 @@
 {
   "index": 398,
   "model_id": "openai/gpt-2-124m",
-  "reviewed_at": "2026-10-27T01:18:56.449594Z",
+  "reviewed_at": "2026-10-27T16:14:22.811236Z",
   "sources": [
     {
       "id": "s1",
@@ -98,6 +98,46 @@
       "publisher": "OpenAI repository via GitHub",
       "accessed": true,
       "evidence": "History dates the ordinary MIT addition to February 20, 2019, the Modified MIT change to January 3, 2020, and its final cleanup to January 4. Both revised license texts were accessed; the January 4 version matches the current file."
+    },
+    {
+      "id": "s13",
+      "url": "https://huggingface.co/aungkomyint/tara1.4-base/blob/346c354dce56e32922479fee40494d8a6ef1a4a7/README.md",
+      "title": "Tara 1.4 Base: original GPT-2 Small comparison",
+      "publisher": "Aung Ko Myint, Tara developer",
+      "accessed": true,
+      "evidence": "Freshly read the developer-owned card at its current pinned revision. Its Benchmarking vs GPT-2 Small section describes the author's own standard-PyTorch single-GPU comparison with classic GPT-2 Small (124M), and the table explicitly gives 124.4M total and 124.4M Active Parameters / Token. This identifies the original small size class rather than an altered GPT-2 architecture, and the nominal total agrees with the original checkpoint. The card publishes neither a GPT-2 checkpoint revision nor the benchmark script; use only its stated nominal research-comparison convention, not an OpenAI disclosure or an exact count of weights participating at every token."
+    },
+    {
+      "id": "s14",
+      "url": "https://huggingface.co/api/models/aungkomyint/tara1.4-base",
+      "title": "Tara 1.4 Base repository metadata and file inventory",
+      "publisher": "Hugging Face repository metadata for Aung Ko Myint",
+      "accessed": true,
+      "evidence": "Fresh metadata identifies aungkomyint as the repository author and revision 346c354dce56e32922479fee40494d8a6ef1a4a7. The developer publishes the Tara checkpoint, configuration and custom model/MoE code alongside the original comparison card. No benchmark script or GPT-2 baseline configuration is listed. This supports original-research provenance while limiting reproducibility claims; no model weight file was requested."
+    },
+    {
+      "id": "s15",
+      "url": "https://proceedings.neurips.cc/paper_files/paper/2025/file/dabfbf500318462382aa70a95466ad85-Paper-Conference.pdf",
+      "title": "Small Batch Size Training for Language Models: When Vanilla SGD Works, and Why Gradient Accumulation Is Wasteful",
+      "publisher": "Martin Marek et al., NeurIPS 2025",
+      "accessed": true,
+      "evidence": "Freshly read Appendix A.1 and its model table on PDF page 24. The GPT-2 (124M) experimental configuration has 124M active but 162M total trainable parameters, with untied embeddings, RMSNorm, RoPE, QK normalization and changed head dimension. It is a modernized model pretrained by these authors, not the original OpenAI checkpoint; its active count is not transferred."
+    },
+    {
+      "id": "s16",
+      "url": "https://aclanthology.org/2026.eacl-short.33.pdf",
+      "title": "Infinity-MoE: Generalizing Mixture of Experts to Infinite Experts",
+      "publisher": "Shota Takashiro et al., University of Tokyo, EACL 2026",
+      "accessed": true,
+      "evidence": "Freshly read Table 1 and sections 4.1 and 5.1. Table 1 explicitly reports Active/Total Param for dense and MoE GPT-2-sized experimental models; the setup describes pretraining on 10B FineWeb tokens. Figure 2's K=2 active-count statement concerns expert models. Neither that statement nor these newly trained baselines independently identifies the released OpenAI checkpoint, so they are not used for its active count."
+    },
+    {
+      "id": "s17",
+      "url": "https://huggingface.co/aungkomyint/tara1.4.1/blob/2a2b0aede7ccd19a484347c71638c4f96847b6b4/README.md",
+      "title": "Tara 1.4.1: GPT-2 Small continuation comparison",
+      "publisher": "Aung Ko Myint, Tara developer",
+      "accessed": true,
+      "evidence": "Freshly read the successor card and repository file inventory. It describes a local comparison against the mature GPT-2 Small dense baseline at 124.4M, using continuation prompts and reference texts, and reports that GPT-2 remains stronger overall. This corroborates the author's use of the classic baseline and provenance of the original Tara comparison. It does not separately report an active count for GPT-2, and its named local JSON comparison artifacts are not included in the public repository inventory."
     }
   ],
   "fields": {
@@ -168,19 +208,20 @@
         "s4",
         "s5",
         "s6",
+        "s8",
         "s10"
       ],
-      "note": "Exact complete learned count: 50257\u00d7768 token embeddings + 1024\u00d7768 position embeddings + 12\u00d7(12\u00d7768\u00b2+13\u00d7768) block parameters + 2\u00d7768 final normalization = 124439808. All 148 original F32 variables match the reconstructed module shapes, with contiguous shard coverage. Tied output embeddings are counted once; converted causal-mask buffers are excluded. No full weight shard was downloaded."
+      "note": "Retain the previously verified complete learned count of 124439808 (0.124439808B), supported by the original TensorFlow checkpoint index and the tied-embedding implementation. This re-audit reopened OpenAI's corrected-count README, original model card, full model.py, exact 124M hparams and technical paper; the card still gives nominal 124M and the original configuration is unchanged. The prior exact index/header verification remains valid evidence; no new tensor census or weight-shard download was performed."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 0.1244,
+      "status": "verified",
       "source_ids": [
-        "s4",
-        "s7",
-        "s8"
+        "s13",
+        "s14",
+        "s17"
       ],
-      "note": "The primary sources do not define or report an active-per-token count. The dense total is not relabeled as active, and token/position lookup activity depends on the definition."
+      "note": "Nominal 124.4M (0.1244B) under Aung Ko Myint's original Tara 1.4 single-GPU PyTorch benchmark convention: its explicitly labeled Active Parameters / Token row identifies classic GPT-2 Small and matches the original 124.4M total size. The developer-owned checkpoint/code repository and subsequent mature-baseline comparison support provenance and model identity. Exact checkpoint revision and benchmark script are not published, so this is an attributed nominal research-comparison count, not an OpenAI specification or exact per-token participation census. OpenAI's reopened sources do not separately report active parameters. The modernized 162M-total NeurIPS model and newly trained Infinity-MoE baselines are excluded; no automatic dense-equals-active inference is used."
     },
     "architecture": {
       "value": "dense",
@@ -254,7 +295,7 @@
     "parameters_b": 0.124439808,
     "parameters_source": "primary_source",
     "description": "Smallest GPT-2 model, a 12-layer causal Transformer pretrained on WebText for next-token prediction.",
-    "notes": "Released in February 2019 as the small GPT-2 model. The original 117M label was a counting error later corrected to 124M; the complete checkpoint contains 124,439,808 learned parameters. The output projection shares token embeddings. No separate active-parameter count is disclosed. The repository first added an MIT license on February 20, 2019 and changed its published text to Modified MIT in January 2020.",
+    "notes": "Released in February 2019 as the small GPT-2 model. The original 117M label was a counting error later corrected to 124M; the complete checkpoint contains 124,439,808 learned parameters, with tied token/output embeddings. Aung Ko Myint's Tara 1.4 comparison reports nominal 124.4M active parameters; this is its research benchmark convention, not a separate OpenAI disclosure. The repository first added an MIT license on February 20, 2019 and changed its published text to Modified MIT in January 2020.",
     "sources": [
       {
         "label": "Original GPT-2 release",
@@ -300,8 +341,14 @@
         "label": "Original MIT license, February 2019",
         "url": "https://github.com/openai/gpt-2/blob/aae26abd600ad32771fadf6284f339f07b9d8ea1/LICENSE",
         "type": "primary"
+      },
+      {
+        "label": "Tara 1.4 original GPT-2 Small active-parameter comparison",
+        "url": "https://huggingface.co/aungkomyint/tara1.4-base/blob/346c354dce56e32922479fee40494d8a6ef1a4a7/README.md",
+        "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": 0.1244
   },
-  "summary": "Verified all 14 fields for the original small GPT-2 release. Replaced nominal 124M with the exact complete 124439808-parameter count from the original TensorFlow checkpoint index and module/configuration reconstruction; confirmed it independently against the converted header after excluding causal-mask buffers. Recorded the current Modified MIT label while documenting the earlier ordinary MIT grant and made the description specific. February 14 release, dense architecture and 1024-token context are confirmed. Active count, dedicated reasoning and structured tool calling remain null."
+  "summary": "Fresh parameter re-audit preserves the original checkpoint's exact 0.124439808B total after reopening OpenAI's README, model card, implementation, hyperparameters and complete technical paper. Adds nominal 0.1244B active parameters from Aung Ko Myint's explicit original Tara 1.4 benchmark table for classic GPT-2 Small, with researcher attribution and reproducibility limits. Independently checked the developer-owned repository inventory and successor comparison. Bounded later-source searches also opened NeurIPS Small Batch Size Training and EACL Infinity-MoE; their modernized or newly trained GPT-2-based models do not establish counts for the original checkpoint. OpenAI still gives no separate active-parameter disclosure. Preserves all twelve non-parameter field assessments and prior license/release findings."
 }
