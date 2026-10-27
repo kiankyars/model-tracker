@@ -1,7 +1,7 @@
 {
   "index": 406,
   "model_id": "openai/gpt-4.1-mini",
-  "reviewed_at": "2026-10-27T01:35:24.080891Z",
+  "reviewed_at": "2026-10-27T16:24:58.276913Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "GPT-4.1 Mini model documentation",
       "publisher": "OpenAI",
       "accessed": true,
-      "evidence": "Exact-model documentation gives ID gpt-4.1-mini, default snapshot gpt-4.1-mini-2025-04-14, 1,047,576-token context, text and image inputs, text output, file uploads and function calling. It explicitly describes operation without a reasoning step and marks the model deprecated. It discloses no parameter count or architecture."
+      "evidence": "Exact-model documentation gives ID gpt-4.1-mini, default snapshot gpt-4.1-mini-2025-04-14, 1,047,576-token context, text and image inputs, text output, file uploads and function calling. It explicitly describes operation without a reasoning step and marks the model deprecated. It discloses no parameter count or architecture. Fresh October 27 parameter recheck of the exact model page again found no total or active count; smaller/faster is a qualitative description, not an explicit same-size base-model lineage."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "Introducing GPT-4.1 in the API",
       "publisher": "OpenAI",
       "accessed": true,
-      "evidence": "Dated April 14, 2025; explicitly launches GPT-4.1, GPT-4.1 mini and GPT-4.1 nano in the API that day. Groups mini within the GPT-4.1 family and supplies mini-specific vision and function-calling benchmark columns. The article calls mini a small model but supplies no parameter count or architecture."
+      "evidence": "Dated April 14, 2025; explicitly launches GPT-4.1, GPT-4.1 mini and GPT-4.1 nano in the API that day. Groups mini within the GPT-4.1 family and supplies mini-specific vision and function-calling benchmark columns. The article calls mini a small model but supplies no parameter count or architecture. Reopened for the October 27 parameter re-audit: the mini-specific performance, latency and pricing comparisons do not supply a nominal total or active count or a named same-size base."
     },
     {
       "id": "s3",
@@ -57,7 +57,7 @@
       "title": "GPT-5 System Card",
       "publisher": "OpenAI",
       "accessed": true,
-      "evidence": "Later system card downloaded and text searched as a cross-model disclosure check. Its text references GPT-4.1 and GPT-4.1-nano, but does not disclose GPT-4.1 mini parameter counts, active counts, or architecture. No GPT-5 or nano specifications are transferred to mini."
+      "evidence": "Fresh original PDF fetched October 27, 2026 and full text searched; Introduction/Table 1 and Model Data and Training inspected. The comparison names GPT-4.1-nano and later text mentions GPT-4.1, but no GPT-4.1 mini total or active count is supplied. Successor naming and GPT-5 system descriptions do not establish mini specifications."
     },
     {
       "id": "s8",
@@ -73,7 +73,23 @@
       "title": "Training Agents to Self-Report Misbehavior",
       "publisher": "Bruce W. Lee, Yueh-Han Chen and Tomek Korbak; linked by OpenAI Alignment",
       "accessed": true,
-      "evidence": "Later training paper linked from OpenAI Alignment names GPT-4.1 mini among models trained through public fine-tuning APIs. Its model setup and comparison sections do not disclose mini parameter counts or architecture. Prompted scratchpad usage is separate from dedicated internal reasoning-mode support."
+      "evidence": "Fresh full original HTML fetched October 27, 2026; model setup, conservative training setup and Appendix J.9 training-data tables inspected. GPT-4.1 mini is trained through OpenAI\u2019s public fine-tuning API, but neither its total nor active parameter count is given. Appendix table quantities are trajectory pairs, samples and tokens, not model weights. Prompted scratchpad usage is separate from dedicated internal reasoning-mode support."
+    },
+    {
+      "id": "s10",
+      "url": "https://arxiv.org/html/2604.24827v2",
+      "title": "Incompressible Knowledge Probes: Estimating Black-Box LLM Parameter Counts via Factual Capacity (v2)",
+      "publisher": "Bojie Li, Pine AI",
+      "accessed": true,
+      "evidence": "Original July 5, 2026 revision reopened October 27; Sections 6.3 and 7.5 and Appendix E/Table 15 checked in full original HTML and PDF text. The exact gpt-4.1-mini row has dashes for Params, IKP Pred. and Arch. The paper calibrates effective knowledge capacity against open-model sizes; its prediction bands are not nominal deployed model counts. It supplies no mini active-count convention or developer-confirmed base lineage."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/amityco/amity-sigma-thinking-v3r/raw/main/README.md",
+      "title": "Amity Sigma Thinking v3r model card: performance comparison",
+      "publisher": "Amity",
+      "accessed": true,
+      "evidence": "Original model-team card reopened October 27, 2026. Its Tau2-Bench comparison lists GPT-4.1-mini with Size ~8-20B, but supplies no attribution or measurement method for that range and no total-versus-active definition. References cover Amity training and task benchmarks, not an OpenAI count disclosure. Rejected as an unattributed size estimate, not accepted as a nominal benchmark active-count convention."
     }
   ],
   "fields": {
@@ -138,9 +154,11 @@
         "s1",
         "s2",
         "s7",
-        "s9"
+        "s9",
+        "s10",
+        "s11"
       ],
-      "note": "No mini-specific total count was found in the official launch/model documentation or later system-card check. Exact-model searches for later first-party parameter disclosures yielded no supporting count. Small/mini labels and price do not quantify parameters."
+      "note": "Fresh October 27 re-audit found no mini-specific nominal total count or explicit lineage to a base with a published count in exact OpenAI documentation, launch and later original research. IKP v2 Table 15 leaves mini Params blank; its effective-capacity calibration is not a deployed count. Amity\u2019s ~8-20B comparison range has no count source or method and is not adopted. No exact tensor census is required to accept a supported nominal disclosure."
     },
     "active_parameters_b": {
       "value": null,
@@ -149,9 +167,11 @@
         "s1",
         "s2",
         "s7",
-        "s9"
+        "s9",
+        "s10",
+        "s11"
       ],
-      "note": "No mini-specific active-parameter count was found in the reviewed primary sources or later-report search. Do not equate total with active or infer expert routing."
+      "note": "Rechecked separately through October 27 exact-model active/activated-parameter searches and later original research/comparison tables. No mini-specific active count or defined active-count convention was found. Amity labels only Size; IKP models effective knowledge capacity and reports no mini active count. Qualitative mini branding, API prices and a presumed dense architecture do not establish active parameters."
     },
     "architecture": {
       "value": null,
@@ -258,9 +278,22 @@
         "label": "Training Agents to Self-Report Misbehavior",
         "url": "https://arxiv.org/html/2602.22303v1",
         "type": "primary"
+      },
+      {
+        "label": "GPT-5 System Card",
+        "url": "https://cdn.openai.com/gpt-5-system-card.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Incompressible Knowledge Probes: Estimating Black-Box LLM Parameter Counts via Factual Capacity (v2)",
+        "url": "https://arxiv.org/html/2604.24827v2",
+        "type": "primary"
       }
     ],
-    "notes": "The unpinned gpt-4.1-mini name currently documents gpt-4.1-mini-2025-04-14 as its default snapshot. The first API release was April 14, 2025. As reviewed October 27, 2026, OpenAI marks the model deprecated and schedules API removal for January 14, 2027; no live endpoint request was made. PDF inputs are processed into text and page images. Parameter counts remain undisclosed and exact-mini architecture remains unverified in the reviewed primary sources, including later self-report training research."
+    "notes": "The unpinned gpt-4.1-mini name documents gpt-4.1-mini-2025-04-14 as its default snapshot, first released April 14, 2025. The October 27, 2026 review records announced API removal on January 14, 2027; no live endpoint request was made. PDF inputs become text and page images. Total and active parameter counts remain undisclosed; effective-capacity estimates and unattributed comparison ranges do not establish nominal counts. Exact-mini architecture remains unverified.",
+    "parameters_b": null,
+    "active_parameters_b": null,
+    "parameters_source": null
   },
-  "summary": "Correct family to GPT-4.1, add proprietary license classification and primary sources, and replace promotional description. Confirm April 14, 2025 release, exact 1,047,576 context, text/image plus API PDF input, text output, no dedicated reasoning step, and function calling. Total/active counts and architecture remain null after exact-model and later-report checks. Document the current snapshot and announced deprecation without conflating them with release timing."
+  "summary": "Fresh October 27 parameter re-audit retains total and active counts as undisclosed, with explicit null patches. Reopened exact OpenAI documentation, launch, GPT-5 system card and self-report training paper; added IKP v2 and the rejected Amity comparison range. No supported nominal count, active-count convention or named-base size inference was found. Preserve the other twelve field assessments, including corrected GPT-4.1 family, proprietary classification, documented capabilities and release/lifecycle distinction."
 }
