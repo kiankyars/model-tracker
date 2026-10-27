@@ -1,7 +1,7 @@
 {
   "index": 511,
   "model_id": "trendyol/asure-12b",
-  "reviewed_at": "2026-10-27T05:03:22.992007Z",
+  "reviewed_at": "2026-10-27T18:08:52.175970+00:00",
   "sources": [
     {
       "id": "card",
@@ -9,7 +9,7 @@
       "title": "Asure 12B original model card, pinned",
       "publisher": "Trendyol",
       "accessed": true,
-      "evidence": "Names this exact 12B multimodal instruct release, trained for Turkish and English e-commerce tasks, based on Gemma 3 12B. Explicitly declares license: gemma. The 12B figure is nominal, and no separate active count or reasoning/tool mode is defined."
+      "evidence": "Names this exact 12B multimodal instruct release, trained for Turkish and English e-commerce tasks, based on Gemma 3 12B. Explicitly declares license: gemma. The 12B figure is nominal, and no separate active count or reasoning/tool mode is defined. Fresh October 27 re-read confirms metadata base_model=google/gemma-3-12b, explicit Gemma 3-12B ancestry, instruction-format training and native use of Gemma 3 multimodal capabilities. Lower token consumption is described as reduced verbosity, not structural compression."
     },
     {
       "id": "config",
@@ -17,7 +17,7 @@
       "title": "Asure 12B released configuration, pinned",
       "publisher": "Trendyol",
       "accessed": true,
-      "evidence": "Gemma3ForConditionalGeneration, Transformers 4.57.3; dense 48-layer Gemma3 text decoder, hidden size 3840, intermediate size 15360, 16 query/8 KV heads of dimension 256, vocabulary 262208, 131072 context. SigLIP vision tower: width 1152, 27 layers, intermediate 4304, 896x896 input with 14x14 patches; vision_use_head=false. No quantization configuration."
+      "evidence": "Gemma3ForConditionalGeneration, Transformers 4.57.3; dense 48-layer Gemma3 text decoder, hidden size 3840, intermediate size 15360, 16 query/8 KV heads of dimension 256, vocabulary 262208, 131072 context. SigLIP vision tower: width 1152, 27 layers, intermediate 4304, 896x896 input with 14x14 patches; vision_use_head=false. No quantization configuration. Fresh pinned October 27 request confirms the same released text/vision dimensions, without pruning, expert-routing or extra-modality configuration."
     },
     {
       "id": "index",
@@ -81,7 +81,7 @@
       "title": "Asure public-release announcement",
       "publisher": "Yusuf \u00c7akmak / Trendyol",
       "accessed": true,
-      "evidence": "The author announces that their new Asure model is now available to everyone and links the exact Hugging Face repository. Accessed page structured SocialMediaPosting datePublished is 2026-02-19T15:09:27.935Z. This directly supports February 19 availability, independently of the repository upload date."
+      "evidence": "The author announces that their new Asure model is now available to everyone and links the exact Hugging Face repository. Accessed page structured SocialMediaPosting datePublished is 2026-02-19T15:09:27.935Z. This directly supports February 19 availability, independently of the repository upload date. Fresh October 27 re-read also finds the author describing a linear combination of multiple trained models. This describes a weight merge, not an inference-time multi-model ensemble or expert expansion; the released single dense checkpoint corroborates that interpretation."
     },
     {
       "id": "author",
@@ -121,7 +121,117 @@
       "title": "Later Asure relevance model card checked for exact parent references",
       "publisher": "Trendyol",
       "accessed": true,
-      "evidence": "Explicitly identifies this exact Asure 12B as the distillation source. The later classifier 311.3M parameters and Apache license describe that distinct model, and are not transferred. No active count for Asure 12B is supplied."
+      "evidence": "Explicitly identifies this exact Asure 12B as the distillation source. The later classifier 311.3M parameters and Apache license describe that distinct model, and are not transferred. No active count for Asure 12B is supplied. Fresh October 27 re-read confirms the separate classifier still names Asure as its distillation source and supplies no new Asure total or active figure."
+    },
+    {
+      "id": "reaudit_api",
+      "url": "https://huggingface.co/api/models/Trendyol/Trendyol-LLM-Asure-12B/revision/df1164d37f47080ba5fbc1ff4defa0c7a1a218a5",
+      "title": "Asure exact revision metadata, October 27 recheck",
+      "publisher": "Trendyol / Hugging Face",
+      "type": "primary",
+      "accessed": true,
+      "accessed_at": "2026-10-27T18:08:52.175970+00:00",
+      "evidence": "Fresh HTTP 200 response returns exact revision df1164d37f47080ba5fbc1ff4defa0c7a1a218a5, Gemma3ForConditionalGeneration, safetensors.parameters.BF16=12187325040 and safetensors.total=12187325040. This corroborates the prior complete learned-module/header reconciliation; metadata is not substituted for that census. No weight shards or headers were downloaded in this pass."
+    },
+    {
+      "id": "qwen3_base",
+      "url": "https://arxiv.org/html/2505.09388v1#S3.T5",
+      "title": "Qwen3 Technical Report, Table 5: Gemma 3 12B Base",
+      "publisher": "Qwen Team",
+      "type": "primary",
+      "accessed": true,
+      "accessed_at": "2026-10-27T18:08:52.175970+00:00",
+      "evidence": "Original Table 5 explicitly identifies the Gemma-3-12B Base column, Architecture Dense, Total Params 12B and Activated Params 12B. This is the Qwen team's rounded comparison convention for its original text evaluation, not a Google active-count disclosure. It directly covers the named Gemma 3 12B base lineage; its active value is not derived here by equating dense total and active parameters. No component scope or exact per-token participation is established."
+    },
+    {
+      "id": "qwen3_it",
+      "url": "https://arxiv.org/html/2505.09388v1#S4.T18",
+      "title": "Qwen3 Technical Report, Table 18: Gemma 3 12B IT",
+      "publisher": "Qwen Team",
+      "type": "primary",
+      "accessed": true,
+      "accessed_at": "2026-10-27T18:08:52.175970+00:00",
+      "evidence": "Original Table 18 explicitly identifies Gemma-3-12B-IT and gives Activated Params 12B and Total Params 12B. This independently establishes the same nominal comparison convention for the instruction-tuned variant. Asure is not a row in this paper: applying this value to Asure is a documented lineage inference, not a direct Qwen or Trendyol measurement of Asure."
+    },
+    {
+      "id": "gemma3_report",
+      "url": "https://storage.googleapis.com/deepmind-media/gemma/Gemma3Report.pdf",
+      "title": "Gemma 3 Technical Report, architecture and instruction tuning",
+      "publisher": "Google DeepMind",
+      "type": "primary",
+      "accessed": true,
+      "accessed_at": "2026-10-27T18:08:52.175970+00:00",
+      "evidence": "Fresh original report read: Table 1 gives rounded 12B component sizes of 417M vision, 1012M embedding and 10759M non-embedding. Section 2 describes the shared frozen SigLIP vision tower. Section 3 says pretrained models become instruction-tuned through post-training, including teacher distillation and reinforcement-learning fine-tuning; it does not describe a different 12B student architecture. These component counts are not active-parameter counts. Combined with exact PT/IT metadata and Asure config, the report supports retention of nominal size through tuning."
+    },
+    {
+      "id": "gemma3_pt_api",
+      "url": "https://huggingface.co/api/models/google/gemma-3-12b-pt",
+      "title": "Google Gemma 3 12B PT metadata and named base",
+      "publisher": "Google / Hugging Face",
+      "type": "primary",
+      "accessed": true,
+      "accessed_at": "2026-10-27T18:08:52.175970+00:00",
+      "evidence": "Fresh October 27 response at revision 295efb63d01a7017928f273a94ebb86105c9526f identifies Gemma3ForConditionalGeneration, card base_model=google/gemma-3-12b, and BF16/total=12187325040. It supports the exact pretrained lineage and corroborates unchanged checkpoint size, not an active count."
+    },
+    {
+      "id": "gemma3_it_api",
+      "url": "https://huggingface.co/api/models/google/gemma-3-12b-it",
+      "title": "Google Gemma 3 12B IT metadata and PT ancestry",
+      "publisher": "Google / Hugging Face",
+      "type": "primary",
+      "accessed": true,
+      "accessed_at": "2026-10-27T18:08:52.175970+00:00",
+      "evidence": "Fresh October 27 response at revision 96b6f1eccf38110c56df3a15bffe176da04bfd80 explicitly sets base_model=google/gemma-3-12b-pt and reports Gemma3ForConditionalGeneration, BF16/total=12187325040, matching PT and Asure. This corroborates the explicit PT-to-IT post-training relationship, without inventing an exact every-token active count."
+    },
+    {
+      "id": "gemma3_google_config",
+      "url": "https://github.com/google/gemma_pytorch/blob/014acb7ac4563a5f77c76d7ff98f31b568c16508/gemma/config.py",
+      "title": "Google Gemma 3 12B architecture configuration",
+      "publisher": "Google",
+      "type": "primary",
+      "accessed": true,
+      "accessed_at": "2026-10-27T18:08:52.175970+00:00",
+      "evidence": "Fresh source read: get_config_for_12b sets 48 layers, width 3840, MLP width 15360, 16 query/8 KV heads, head dimension 256 and a SigLIP tower, matching Asure's core dimensions. Google's native vocabulary has 262144 entries; the Hugging Face release uses padded 262208 entries, already reconciled in the prior exact total. Matching dimensions corroborate the developer-named ancestry and absence of structural resizing; they do not independently prove an active count."
+    },
+    {
+      "id": "gemma3_google_vision",
+      "url": "https://github.com/google/gemma_pytorch/blob/014acb7ac4563a5f77c76d7ff98f31b568c16508/gemma/siglip_vision/config.py",
+      "title": "Google Gemma SigLIP vision configuration",
+      "publisher": "Google",
+      "type": "primary",
+      "accessed": true,
+      "accessed_at": "2026-10-27T18:08:52.175970+00:00",
+      "evidence": "Fresh source read: 27 vision layers, width 1152, MLP width 4304, 16 heads and patch size 14 match the retained Asure vision tower. Asure's multimodal ancestry is supported by both its explicit card and its actual configuration, not text-only model-name resemblance."
+    },
+    {
+      "id": "kimi_vl",
+      "url": "https://arxiv.org/html/2504.07491v1#S3.T3",
+      "title": "Kimi-VL Technical Report, Table 3: alternative counting convention",
+      "publisher": "Moonshot AI / Kimi Team",
+      "type": "primary",
+      "accessed": true,
+      "accessed_at": "2026-10-27T18:08:52.175970+00:00",
+      "evidence": "Fresh original Table 3 identifies Gemma3-12B-IT with Act. Params (LLM+VT)=12B+0.4B and Total Params=12B. This is an explicitly component-summed, rounded comparison convention different from Qwen's nominal 12B. It is recorded rather than summed into an allegedly precise 12.4B Asure active count; that rounded sum would even exceed the preserved exact complete checkpoint total. Neither table defines phase-dependent execution or an exact per-token count."
+    },
+    {
+      "id": "gemma4_later",
+      "url": "https://arxiv.org/html/2607.02770v1",
+      "title": "Gemma 4 Technical Report, later original comparison check",
+      "publisher": "Google DeepMind",
+      "type": "primary",
+      "accessed": true,
+      "accessed_at": "2026-10-27T18:08:52.175970+00:00",
+      "evidence": "Fresh October 27 read of Table 1, model architecture and Tables 4-6: active figures are explicitly given for Gemma 4 26B-A4B; the Gemma 3 comparisons concern 27B. No new active specification for Gemma 3 12B or Asure is established. The successor's architecture, modalities and parameter counts are not transferred."
+    },
+    {
+      "id": "llmtr_provider",
+      "url": "https://llmtr.com/docs/en/gateway/llmtr-trendyol/",
+      "title": "LLMTR hosted Asure documentation, later search result",
+      "publisher": "LLMTR",
+      "type": "secondary",
+      "accessed": true,
+      "accessed_at": "2026-10-27T18:08:52.175970+00:00",
+      "evidence": "Fresh exact-model search and page read identifies the deployed model as Trendyol Asure 12B and repeats the nominal 12B size. It gives service limits but no separately labeled active count or original count methodology; this corroborates identity only and does not replace developer/checkpoint evidence."
     }
   ],
   "fields": {
@@ -190,19 +300,31 @@
         "gemma_impl",
         "gemma_config",
         "loader",
-        "siglip_impl"
+        "siglip_impl",
+        "reaudit_api"
       ],
-      "note": "Exact complete learned count: 12187325040 = 11766034176 language +416866032 vision +4424832 multimodal projector. All five bounded shard headers and 1065 configured names/shapes/dtypes reconcile. Text embedding/output is tied and stored once; no duplicate LM-head tensor. All tensors are unpacked BF16 learned weights and biases; nonpersistent position IDs, rotary frequencies and embedding scale are not counted. The card 12B value is nominal."
+      "note": "Exact complete learned count: 12187325040 = 11766034176 language +416866032 vision +4424832 multimodal projector. All five bounded shard headers and 1065 configured names/shapes/dtypes reconcile. Text embedding/output is tied and stored once; no duplicate LM-head tensor. All tensors are unpacked BF16 learned weights and biases; nonpersistent position IDs, rotary frequencies and embedding scale are not counted. The card 12B value is nominal. October 27 parameter re-audit preserves this exact result and freshly corroborates it with the pinned API aggregate; the prior tensor census was not repeated."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 12,
+      "status": "verified",
       "source_ids": [
         "card",
         "config",
-        "later"
+        "announcement",
+        "qwen3_base",
+        "qwen3_it",
+        "gemma3_report",
+        "gemma3_pt_api",
+        "gemma3_it_api",
+        "gemma3_google_config",
+        "gemma3_google_vision",
+        "kimi_vl",
+        "reaudit_api",
+        "later",
+        "gemma4_later"
       ],
-      "note": "No exact-model first-party source separately reports or defines active parameters. Dense architecture is not used to equate active and total; vision execution also differs from text-only generation."
+      "note": "Nominal 12B active is a lineage inference from Qwen's explicit Activated Params rows for Gemma 3 12B Base (Table 5) and IT (Table 18). Trendyol names Gemma 3-12B as the base, retains its native vision capabilities and describes instruction training; the release author describes a linear weight merge. The released dimensions and unchanged precise checkpoint total corroborate no pruning, added experts or removed vision tower. Google documents PT-to-IT post-training and names the exact PT base in IT metadata, with the same checkpoint total. This is the Qwen team's nominal comparison convention inherited through the documented lineage, not a direct Trendyol/Google active disclosure or an exact every-token census. Dense architecture alone is not used to equate total and active; neither the precise total nor non-embedding subtotal is copied. Kimi-VL's 12B+0.4B LLM+VT row is a different rounded convention, not a more precise replacement. No active component/phase scope is invented; exact modality-dependent participation remains unspecified."
     },
     "architecture": {
       "value": "dense",
@@ -280,7 +402,7 @@
     "parameters_source": "primary_source",
     "source_url": "https://huggingface.co/Trendyol/Trendyol-LLM-Asure-12B/blob/df1164d37f47080ba5fbc1ff4defa0c7a1a218a5/README.md",
     "source_type": "primary",
-    "notes": "Complete original checkpoint: 12.18732504B learned parameters, including 11.766034176B language, 0.416866032B vision and 0.004424832B projector weights. Verified all five bounded headers against configured modules; shared text input/output embedding counted once. Active count is undisclosed. February 19, 2026 is supported by the developer public-availability announcement; February 20 is a README update. Configured context is 131072 tokens. Reasoning and tool-calling flags are unverified.",
+    "notes": "Complete checkpoint: 12.18732504B learned parameters, including 11.766034176B language, 0.416866032B vision and 0.004424832B projector. Nominal 12B active is inferred from documented Gemma 3-12B ancestry under Qwen's published comparison convention; it is not an exact per-token count. February 19, 2026 is supported by the developer public-availability announcement; February 20 is a README update. Configured context is 131072 tokens. Reasoning and tool-calling flags are unverified.",
     "sources": [
       {
         "label": "Asure 12B original model card, pinned",
@@ -341,8 +463,34 @@
         "label": "Trendyol official model collections",
         "url": "https://huggingface.co/Trendyol/collections",
         "type": "primary"
+      },
+      {
+        "label": "Asure exact revision metadata, October 27 recheck",
+        "url": "https://huggingface.co/api/models/Trendyol/Trendyol-LLM-Asure-12B/revision/df1164d37f47080ba5fbc1ff4defa0c7a1a218a5",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3 Technical Report, Table 5: Gemma 3 12B Base",
+        "url": "https://arxiv.org/html/2505.09388v1#S3.T5",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3 Technical Report, Table 18: Gemma 3 12B IT",
+        "url": "https://arxiv.org/html/2505.09388v1#S4.T18",
+        "type": "primary"
+      },
+      {
+        "label": "Gemma 3 Technical Report, architecture and instruction tuning",
+        "url": "https://storage.googleapis.com/deepmind-media/gemma/Gemma3Report.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Kimi-VL Technical Report, Table 3: alternative counting convention",
+        "url": "https://arxiv.org/html/2504.07491v1#S3.T3",
+        "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": 12
   },
   "proposed_fields": {
     "parameter_components_b": {
@@ -351,5 +499,21 @@
       "multimodal_projector": 0.004424832
     }
   },
-  "summary": "Verifies the complete 12.18732504B multimodal checkpoint and dense architecture, corrects family to Asure, and confirms February 19 public release from the dated developer announcement. Confirms Gemma license, native text/image input and 131072 configured context. Clears unsupported reasoning/tool-call false flags; active parameters remain undisclosed."
+  "summary": "October 27 parameter re-audit preserves the exact 12.18732504B total, freshly corroborated by pinned repository metadata, and establishes nominal 12B active through the documented Gemma 3-12B lineage. Qwen's original Tables 5 and 18 explicitly give 12B activated for Base and IT; the attribution and inference are explicit. Retained text/vision dimensions and Google PT/IT lineage corroborate unchanged nominal architecture. Kimi-VL's separate 12B+0.4B convention is recorded without replacing the chosen nominal value or precise total. Fresh later developer/comparison checks provide no finer active definition. All twelve unrelated assessments and the accepted component breakdown are preserved; no weight shards were downloaded.",
+  "parameter_reaudit": {
+    "agent": "/root/parameters_511",
+    "reviewed_at": "2026-10-27T18:08:52.175970+00:00",
+    "search_queries": [
+      "\"Trendyol-LLM-Asure-12B\" \"parameters\"",
+      "\"Asure\" \"active parameters\"",
+      "\"Gemma-3-12B\" \"Activated Params\"",
+      "site:trendyol.com \"Asure\" \"12\"",
+      "\"Trendyol-LLM-Asure-12B\" (\"active\" OR \"parameter count\" OR \"pruned\")",
+      "\"Trendyol\" \"Asure\" (\"parameters\" OR \"parametre\")",
+      "\"Gemma-3-12B\" \"active\" \"2026\""
+    ],
+    "method": "Re-read the previous report and original pinned card/config; freshly fetched exact API metadata and original Qwen, Kimi-VL and Google reports. Checked the exact later Trendyol distilled-model card, current hosted-provider documentation and the later Gemma 4 original report. Compared Google core/vision architecture definitions and public PT/IT metadata with the released Asure configuration. Preserved the earlier exact tensor reconciliation without repeating it or downloading weights.",
+    "access_limitations": "Google Hugging Face PT/IT config blob pages were unavailable through the web reader; public official API metadata, original Google implementation and technical report supplied the lineage/architecture corroboration. No gated-weight access was attempted.",
+    "outcome": "Exact total retained; nominal active 12B recovered as an explicitly attributed lineage inference. No direct Trendyol active disclosure or exact modality/phase-dependent active census was located. Provider/model catalog repeats were not treated as original active-count measurements."
+  }
 }
