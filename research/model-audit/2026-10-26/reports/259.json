@@ -1,7 +1,7 @@
 {
   "index": 259,
   "model_id": "meta/llama-2-13b-chat",
-  "reviewed_at": "2026-10-26T21:23:15.613898Z",
+  "reviewed_at": "2026-10-27T13:53:47.517823Z",
   "sources": [
     {
       "id": "s1",
@@ -17,7 +17,7 @@
       "title": "Llama-2-13b-chat-hf model card",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "Identifies this repository as the 13B dialogue fine-tune converted to Transformers. Names Meta, text input/output, SFT/RLHF, and 4k context. Its 13B row explicitly excludes GQA. License acceptance is required for downloading weights."
+      "evidence": "Identifies this repository as the 13B dialogue fine-tune converted to Transformers. Names Meta, text input/output, SFT/RLHF, and 4k context. Its 13B row explicitly excludes GQA. License acceptance is required for downloading weights. Reopened October 27: the exact repository still identifies the 13B dialogue fine-tune, with pretrained and fine-tuned variations and SFT/RLHF training."
     },
     {
       "id": "s3",
@@ -25,7 +25,7 @@
       "title": "Llama 2: Open Foundation and Fine-Tuned Chat Models",
       "publisher": "Meta research authors / arXiv",
       "accessed": true,
-      "evidence": "Table 1 lists the Llama 2 13B model with 4k context and no GQA. Sections 2.2 and 3 describe Transformer architecture and Chat fine-tuning. Appendix A.2.1 explicitly gives 4096 tokens. Section 5.1 reports emergent tool use without tool-use training."
+      "evidence": "Table 1 lists the Llama 2 13B model with 4k context and no GQA. Sections 2.2 and 3 describe Transformer architecture and Chat fine-tuning. Appendix A.2.1 explicitly gives 4096 tokens. Section 5.1 reports emergent tool use without tool-use training. Reopened October 27: Section 1 explicitly calls Llama 2-Chat a fine-tuned Llama 2 version and releases 13B variants of each; Figure 4 shows base pretraining followed by SFT and RLHF. Section 3.2.3 describes smaller models learning from 70B rejection-sampled responses, a training-data distillation step rather than structural compression of the 13B base. No pruning, expert expansion, added modality or Chat vocabulary change is described."
     },
     {
       "id": "s4",
@@ -33,7 +33,7 @@
       "title": "Llama 2 reference model implementation",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "Original llama_v2 reference code implements causal attention, dense SwiGLU feed-forward layers, RMSNorm and RoPE; each Transformer block executes sequentially, without expert routing. Read from the branch resolved to this commit."
+      "evidence": "Original llama_v2 reference code implements causal attention, dense SwiGLU feed-forward layers, RMSNorm and RoPE; each Transformer block executes sequentially, without expert routing. Read from the branch resolved to this commit. Reopened October 27: the shared Transformer implementation contains dense attention and SwiGLU blocks, with no expert routing or Chat-specific structural branch."
     },
     {
       "id": "s5",
@@ -41,7 +41,7 @@
       "title": "Llama 2 reference chat generation",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "Chat messages have system, user and assistant roles and string content. The reference chat_completion interface generates assistant text; it does not declare a reasoning mode or structured native function-call interface."
+      "evidence": "Chat messages have system, user and assistant roles and string content. The reference chat_completion interface generates assistant text; it does not declare a reasoning mode or structured native function-call interface. Reopened October 27: Llama.build constructs the shared Transformer from checkpoint parameters and sets its vocabulary size from the supplied tokenizer; text and chat completion use the same model generation path."
     },
     {
       "id": "s6",
@@ -57,7 +57,7 @@
       "title": "Llama 2 reference repository README",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "Separates pretrained models from fine-tuned dialogue models, documents release of model weights and a maximum supported sequence length of 4096 tokens. Llama 1 is assigned a separate branch."
+      "evidence": "Separates pretrained models from fine-tuned dialogue models, documents release of model weights and a maximum supported sequence length of 4096 tokens. Llama 1 is assigned a separate branch. Reopened October 27: both pretrained and Chat examples use the same tokenizer.model path."
     },
     {
       "id": "s8",
@@ -65,7 +65,7 @@
       "title": "Original Llama-2-13b-chat-hf configuration (gated)",
       "publisher": "Meta",
       "accessed": false,
-      "evidence": "Direct public retrieval returned HTTP 401 Unauthorized. No gated configuration or weight tensors were accessed; no exact learned-parameter count is claimed."
+      "evidence": "Direct public config retrieval again returned HTTP 401 Unauthorized on October 27, 2026. No gated configuration or weight tensors were accessed; no exact learned-parameter count is claimed."
     },
     {
       "id": "s9",
@@ -74,6 +74,22 @@
       "publisher": "Meta",
       "accessed": true,
       "evidence": "The later llama2_13b_chat entry lists n_heads=40 and n_kv_heads=8, conflicting with the original 13B model card and paper, which explicitly exclude GQA. This later utility is not used to infer the released checkpoint topology or exact count."
+    },
+    {
+      "id": "s10",
+      "url": "https://arxiv.org/html/2401.04088v1",
+      "title": "Mixtral of Experts — Table 2 active-parameter comparison",
+      "publisher": "Mistral AI research authors / arXiv",
+      "accessed": true,
+      "evidence": "Reopened October 27, 2026. Table 2 explicitly reports LLaMA 2 13B at 13B in the Active Params column. This is Mistral’s nominal inference-comparison convention for the base model, not a direct Meta active-count disclosure or an explicit 13B Chat row. Section 3 discusses active count in relation to inference compute. Table 3 has no active-count column and compares 70B, not 13B Chat; it is not used to establish this count."
+    },
+    {
+      "id": "s11",
+      "url": "https://github.com/meta-llama/llama/blob/7565eb6fee2175b2d4fe2cfb45067a61b35d7f5e/download.sh",
+      "title": "Original Llama 2 download manifest and shared tokenizer",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Read as source on October 27, 2026; script was not executed. The release script lists both 13B and 13B-chat and retrieves one shared tokenizer.model before selecting any model. Together with the common loader and Meta’s explicit fine-tuning lineage, this supports unchanged vocabulary and a nominal base-to-Chat count inference. No weights were downloaded."
     }
   ],
   "fields": {
@@ -136,20 +152,23 @@
       "status": "verified",
       "source_ids": [
         "s2",
-        "s3",
-        "s8"
+        "s3"
       ],
-      "note": "Meta explicitly labels this variant 13B. Retain that nominal billions figure, not an exact tensor-derived count. The original HF config is gated; no complete checkpoint count was established."
+      "note": "Fresh check retains Meta’s explicit nominal 13B size for this exact Chat checkpoint. The model card and paper both publish 13B Chat; this is a nominal developer specification, not a tensor-derived exact count."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 13,
+      "status": "verified",
       "source_ids": [
+        "s10",
         "s2",
         "s3",
-        "s4"
+        "s4",
+        "s5",
+        "s7",
+        "s11"
       ],
-      "note": "The reviewed primary materials do not define a separate active-parameter count. Dense architecture alone is not used to set active parameters equal to total."
+      "note": "Nominal lineage inference: Mistral’s Mixtral Table 2 explicitly assigns the Llama 2 13B base model 13B Active Params. Meta identifies 13B Chat as the corresponding SFT/RLHF fine-tune; the shared dense implementation and tokenizer support retaining that nominal convention. The paper’s distillation uses 70B-generated training responses to fine-tune the existing smaller models and does not describe pruning or structural compression. No expert expansion, vocabulary change or new modality is documented. This is attributed to Mistral’s base-model comparison plus Meta’s Chat lineage, not a direct Meta disclosure of Chat active parameters or an exact per-token tensor census."
     },
     "architecture": {
       "value": "dense",
@@ -218,7 +237,7 @@
   "patch": {
     "parameters_source": "primary_source",
     "description": "Meta's nominal 13B-parameter Llama 2 dialogue model, fine-tuned with supervised learning and RLHF, with text input/output and a 4,096-token context.",
-    "notes": "13B is Meta's nominal parameter label; the original HF configuration is gated, so an exact complete count was not established. The original 13B release uses MHA, despite a conflicting GQA setting in a later Meta SKU utility. Active parameters and dedicated reasoning/tool-call features are not separately disclosed.",
+    "notes": "Total 13B is Meta’s nominal Chat specification. Active 13B is a nominal inference from Mistral’s published Llama 2 13B base comparison and Meta’s documented Chat fine-tuning lineage with shared dense architecture and tokenizer. Neither is an exact tensor count. The original 13B release uses MHA despite a conflicting later Meta SKU utility. Dedicated reasoning/tool-call features are not separately disclosed.",
     "sources": [
       {
         "label": "Meta Llama 2 release announcement",
@@ -259,8 +278,20 @@
         "label": "Later Meta SKU utility (conflicts with original 13B attention specification)",
         "url": "https://github.com/meta-llama/llama-models/blob/main/models/sku_list.py",
         "type": "primary"
+      },
+      {
+        "label": "Mistral Mixtral paper: nominal active-count comparison for Llama 2 13B base",
+        "url": "https://arxiv.org/html/2401.04088v1",
+        "type": "primary"
+      },
+      {
+        "label": "Meta Llama 2 release manifest: shared tokenizer for base and Chat",
+        "url": "https://github.com/meta-llama/llama/blob/7565eb6fee2175b2d4fe2cfb45067a61b35d7f5e/download.sh",
+        "type": "primary"
       }
-    ]
+    ],
+    "parameters_b": 13,
+    "active_parameters_b": 13
   },
-  "summary": "Confirmed the original Meta Llama 2 13B Chat release, custom license, nominal 13B size, dense MHA architecture, 4096-token context and text-only modalities. Expanded the sparse description and documented parameter precision. Active parameters and dedicated reasoning/tool-call features remain undisclosed. Original HF configuration was inaccessible (401); no exact count or weights download was attempted. Original card/paper evidence takes precedence over a conflicting later SKU utility."
+  "summary": "Fresh October 27 parameter re-audit preserves Meta’s nominal 13B total and resolves active parameters to a nominal 13B lineage inference. Mistral’s original Mixtral Table 2 explicitly lists 13B Active Params for Llama 2 13B base; Meta’s explicit 13B base-to-Chat SFT/RLHF lineage, shared dense implementation and shared tokenizer support carrying that convention to Chat. The paper’s response-data distillation does not describe structural compression. Table 3 supplies no 13B Chat active-count evidence, and the fresh search found no direct Meta active-count disclosure. The public configuration remains gated (401); exact tensor participation is not claimed and no weights were downloaded. The other twelve field assessments remain unchanged."
 }
