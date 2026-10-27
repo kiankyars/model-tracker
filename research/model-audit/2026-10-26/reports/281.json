@@ -1,7 +1,7 @@
 {
   "index": 281,
   "model_id": "meta/muse-glimmer-30b",
-  "reviewed_at": "2026-10-26T21:48:18.464Z",
+  "reviewed_at": "2026-10-27T14:23:31.080Z",
   "sources": [
     {
       "id": "s1",
@@ -17,7 +17,7 @@
       "title": "Introducing Muse Glimmer: An Open Agentic Model That Runs on Your Device",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "Dated August 10, 2026, with explicit same-day introduction and weight release. Identifies Meta Superintelligence Labs, Apache 2.0, distillation from Muse Spark, local agent/coding use, tool calling, reasoning and text/image input."
+      "evidence": "Reopened October 27, 2026. Meta's August 10 launch explicitly calls Muse Glimmer a 30-billion-parameter model and releases its weights. Distillation from Muse Spark is a compressed student relationship, not unchanged-model lineage; the teacher's parameter counts do not transfer."
     },
     {
       "id": "s3",
@@ -25,7 +25,7 @@
       "title": "Muse Glimmer Model Card",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "Official exact-model card states approximately 29.6B total including vision, dense causal Transformer with perception encoder, text/image input and text output, 131,072+ context, and controllable reasoning. BF16 weights and a separate optional DFlash drafter are listed."
+      "evidence": "Reopened October 27, 2026. The exact model's official architecture table still reports approximately 29.6B total including vision, with a dense causal Transformer and perception encoder. No separately labeled active or activated parameter count is given. The optional DFlash drafter is a separate release."
     },
     {
       "id": "s4",
@@ -33,7 +33,7 @@
       "title": "Muse Glimmer 30B: An On-Device Agentic Model, v3 (October 23, 2026)",
       "publisher": "Meta Superintelligence Labs",
       "accessed": true,
-      "evidence": "Table 1 reports approximately 29.6B total, approximately 25.16B Transformer blocks, separate untied 1.34B input/output embeddings and approximately 1.8B perception encoder. Section 2 establishes dense causal Transformer, 52 layers, local/global GQA, and vision adapter/projection. No separate active-parameter count is stated."
+      "evidence": "Reopened October 27, 2026 and searched the complete October 23 v3 text. Table 1 reports approximately 29.6B total, approximately 25.16B Transformer blocks, separate untied 1.34B input/output embeddings and approximately 1.8B perception encoder. Section 2 describes the vision adapter/projection. No active-parameter specification or exact-model active-count comparison is present; active experts describe discarded MoE architecture experiments, not the released dense model."
     },
     {
       "id": "s5",
@@ -41,7 +41,7 @@
       "title": "Muse Glimmer developer documentation",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "Describes dense decoder-only multimodal Transformer, open weights under Apache 2.0, Muse Spark distillation, and default 128K context with longer contexts supported."
+      "evidence": "Reopened October 27, 2026. The Model variants table specifies nominal 30B, dense multimodal architecture and default 128K context with longer contexts supported. It does not define an active-parameter count. The documentation identifies Muse Spark distillation and Apache 2.0 open weights."
     },
     {
       "id": "s6",
@@ -57,7 +57,7 @@
       "title": "Muse Glimmer 30B BF16 checkpoint index",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "Pinned index metadata explicitly reports total_parameters 29,776,626,688 and total_size 59,553,253,376 bytes across 1,436 tensors in two shards. Browser access to the /raw/ form failed; direct HTTPS access to this /resolve/ URL succeeded."
+      "evidence": "Direct HTTPS reopened the pinned JSON index successfully on October 27, 2026. Published metadata still explicitly reports total_parameters 29,776,626,688 and total_size 59,553,253,376 bytes, with 1,436 weight-map entries. This re-audit reads metadata only; no weight shards or tensor headers were requested."
     },
     {
       "id": "s8",
@@ -98,6 +98,14 @@
       "publisher": "Meta",
       "accessed": true,
       "evidence": "The web browsing tool could not access this original URL. Direct HTTPS succeeded and redirected to https://dev.meta.ai/models/muse-glimmer, whose content links the official model card and documentation."
+    },
+    {
+      "id": "s13",
+      "url": "https://huggingface.co/blog/muse-glimmer",
+      "title": "Meta is back with Muse Glimmer: local, agentic, multimodal, and open source",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Reopened October 27, 2026. The launch integration team's architecture discussion describes a nominal 30B model as a 28B text decoder plus a 2B vision encoder, and explicitly separates the optional DFlash drafter. These rounded component sizes corroborate scope but are not an active-parameter convention; no active count is stated."
     }
   ],
   "fields": {
@@ -162,24 +170,24 @@
       "status": "verified",
       "source_ids": [
         "s7",
-        "s8",
-        "s9",
-        "s6",
-        "s11",
         "s3",
-        "s4"
+        "s4",
+        "s5",
+        "s13"
       ],
-      "note": "Complete pinned BF16 checkpoint count: 29,776,626,688 parameters / 1e9. Both shard headers reproduce the explicitly published index count; all 1,436 tensors are weights/biases and there are no packed or scale tensors. Includes vision encoder, adapter and projection; excludes the separately distributed DFlash assistant. Card/paper ~29.6B is approximate, not the exact checkpoint count."
+      "note": "Retain 29.776626688B: the pinned official BF16 index explicitly publishes 29,776,626,688 total parameters, independently reopened October 27. This includes vision encoder, adapter and projection and excludes the separately distributed DFlash drafter. Meta's card/paper specify approximately 29.6B and the launch/docs use nominal 30B; those supported nominal figures are not erased by the checkpoint discrepancy. The original audit's header verification and component breakdown are preserved; no weights or tensor census were needed in this pass."
     },
     "active_parameters_b": {
       "value": null,
       "status": "undisclosed",
       "source_ids": [
+        "s2",
         "s3",
         "s4",
-        "s5"
+        "s5",
+        "s13"
       ],
-      "note": "No separately defined active-parameter count in the current card, October 23 report or developer docs. Dense architecture does not establish an all-components per-token count: the vision branch is input-dependent. Targeted exact-name searches did not identify a later primary disclosure; Muse Spark counts are inapplicable."
+      "note": "Fresh October 27 review of the exact card, full v3 technical report, launch and current documentation found no separately defined active count. Exact-name active/activated searches and later Meta Spark 1.3, Wonder and Spark Open reports/cards found no qualifying Glimmer comparison convention. The paper's active experts concern experimental MoE candidates, not Glimmer. Dense architecture, total size and rounded text/vision component sizes do not establish per-token participation; vision use depends on the input. Teacher and sibling model counts do not transfer."
     },
     "architecture": {
       "value": "dense",
@@ -296,7 +304,8 @@
         "type": "primary"
       }
     ],
-    "notes": "The full BF16 checkpoint contains 29,776,626,688 parameters, including the perception encoder and vision adapter/projection; the separate DFlash assistant is excluded. Meta's model card and October 23 technical report instead give approximately 29.6B; the saved checkpoint count differs. 30B is the nominal model name. Active parameters are not separately specified and are not inferred from the dense architecture. The configured default context is 131,072 tokens; Meta also advertises longer contexts without an exact upper limit. Meta lists text/image inputs; the report also describes video ingestion as a sequence of frames, without explicit video optimization."
+    "notes": "The published BF16 checkpoint index reports 29.776626688B parameters, including the perception encoder and vision adapter/projection; the separate DFlash drafter is excluded. Meta's card and report give approximately 29.6B, while 30B is the nominal model designation. Active parameters are not separately specified; dense architecture does not establish an all-components per-token count. The configured default context is 131,072 tokens; Meta also advertises longer contexts without an exact upper limit. Meta lists text/image inputs; the report also describes video ingestion as a sequence of frames, without explicit video optimization.",
+    "active_parameters_b": null
   },
   "proposed_fields": {
     "parameter_components_b": {
@@ -306,5 +315,5 @@
       "vision_projection": 0.027262976
     }
   },
-  "summary": "Verified all 14 fields against the exact model's primary sources. Correct total from nominal 30B to the complete BF16 checkpoint's 29.776626688B parameters; add dense architecture and primary provenance. The card/paper's ~29.6B is recorded as approximate. August 10 release, Apache 2.0, open weights, 131072 default context, modalities, reasoning and tool calling are confirmed. Active parameters remain null because no separately defined count is disclosed. Initial browser failures for legacy docs/raw index were recovered through direct HTTPS; source bodies and both tensor headers are cached in /tmp/model-audit-281."
+  "summary": "October 27 parameter re-audit: retained 29.776626688B total from freshly reopened official pinned index metadata, with Meta's approximate 29.6B and nominal 30B specifications distinguished. Reopened the launch, exact card, full October 23 report, current developer docs and Hugging Face's integration article; checked later Meta source caches and fresh exact-name active/activated searches. No qualifying active-count disclosure or research-team comparison convention was found, so active remains explicitly null/undisclosed. No weight shards or tensor census were requested. Preserved all 12 unrelated field assessments and the previously accepted component breakdown."
 }
