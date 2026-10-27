@@ -1,7 +1,7 @@
 {
   "index": 14,
   "model_id": "alibaba/qwen-mt-plus",
-  "reviewed_at": "2026-10-26T14:00:17.574758Z",
+  "reviewed_at": "2026-10-27T07:31:25.737Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "qwen-mt-plus Model Info",
       "publisher": "Alibaba Cloud",
       "accessed": true,
-      "evidence": "Exact Plus model page identifies the Qwen3-derived flagship translation model, 92 languages, terminology control, text input/output, function calling unsupported, and a 16,384-token context with 8,192 input and output limits. It does not disclose parameter counts or dense versus MoE structure."
+      "evidence": "Reopened October 27: the exact Plus page identifies a Qwen3-derived flagship translation model, 92 languages, terminology control, text input/output, function calling unsupported, and a 16,384-token context with 8,192 input and output limits. It supplies no nominal total or active parameter count, size-specific Qwen3 base model, or dense-versus-MoE structure."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "Machine translation (Qwen-MT)",
       "publisher": "Alibaba Cloud",
       "accessed": true,
-      "evidence": "Describes Qwen-MT as fine-tuned from Qwen3 and explicitly lists Plus as a 92-language translation offering. Documents hosted API usage, terminology intervention, domain prompts and translation memory; no Plus weight release or weight license is identified."
+      "evidence": "Reopened October 27; page dated October 11, 2026. Describes Qwen-MT as fine-tuned from Qwen3 and explicitly lists Plus as a 92-language offering. The named lineage is the Qwen3 family, without a size-specific base or any nominal total/active count for Plus. Documents hosted API usage, terminology intervention, domain prompts and translation memory; no Plus checkpoint or weight license is identified."
     },
     {
       "id": "s3",
@@ -25,7 +25,7 @@
       "title": "Model lifecycle and updates",
       "publisher": "Alibaba Cloud",
       "accessed": true,
-      "evidence": "Lists the Qwen3-upgraded qwen-mt-plus on 2025-07-22 in Beijing and 2025-07-24 for international/global deployment. These are region-specific upgrade/availability dates, not proof of the first historical release of the unversioned alias."
+      "evidence": "Reopened October 27: the July 22, 2025 Beijing and July 24 international/global entries describe a Qwen3 upgrade for qwen-mt-plus. They identify no size-specific base, total count or active count. These are regional upgrade/availability dates, not proof of the initial historical release of the unversioned alias."
     },
     {
       "id": "s4",
@@ -41,7 +41,7 @@
       "title": "Qwen-MT: Where Speed Meets Smart Translation",
       "publisher": "Qwen Team",
       "accessed": true,
-      "evidence": "July 24, 2025 announcement explicitly introduces the qwen-mt-turbo update. It is not exact-variant evidence for Plus parameter counts or its dense-versus-MoE architecture."
+      "evidence": "Reopened October 27: the July 24, 2025 announcement explicitly introduces qwen-mt-turbo. Its lightweight MoE statement therefore does not establish Plus topology or counts. Qwen3-8B and Qwen3-235B-A22B appear as benchmark comparators, not named base models for Plus."
     },
     {
       "id": "s6",
@@ -50,6 +50,14 @@
       "publisher": "Models.dev",
       "accessed": true,
       "evidence": "Baseline catalog source was followed; its claims were checked against developer documentation rather than treated as primary technical evidence."
+    },
+    {
+      "id": "s7",
+      "url": "https://help.aliyun.com/zh/model-studio/qwen-mt-plus",
+      "title": "qwen-mt-plus model information (Chinese)",
+      "publisher": "Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Checked October 27: the Chinese exact-model page likewise describes Plus as upgraded from Qwen3, without naming a size-specific checkpoint. Its numerical tables describe context limits, prices and rate limits, not model parameter counts. No nominal total/active count or dense-versus-MoE designation is published here."
     }
   ],
   "fields": {
@@ -111,18 +119,23 @@
       "status": "undisclosed",
       "source_ids": [
         "s1",
-        "s2"
+        "s2",
+        "s3",
+        "s5",
+        "s7"
       ],
-      "note": "No total parameter count is disclosed for the exact hosted Plus model. Qwen3 lineage does not identify a particular open model size."
+      "note": "Fresh review found no developer-published nominal total for Plus. Qwen3 fine-tuning is explicit, but no size-specific base is identified, so nominal size cannot be inherited. The launch post concerns Turbo; its named Qwen3 sizes are benchmark comparators."
     },
     "active_parameters_b": {
       "value": null,
       "status": "undisclosed",
       "source_ids": [
         "s1",
-        "s2"
+        "s2",
+        "s5",
+        "s7"
       ],
-      "note": "No active parameter count is disclosed. Do not equate it with a total count or copy an open Qwen3 count."
+      "note": "No developer-published active count or size-specific base supports inheritance for Plus. The Turbo-only MoE description does not establish Plus routing or active size; neither a sibling count nor equality with an unknown total is justified."
     },
     "architecture": {
       "value": null,
@@ -211,11 +224,19 @@
         "label": "Models.dev record",
         "url": "https://github.com/anomalyco/models.dev/blob/dev/models/alibaba/qwen-mt-plus.toml",
         "type": "catalog"
+      },
+      {
+        "label": "Alibaba Chinese exact-model documentation",
+        "url": "https://help.aliyun.com/zh/model-studio/qwen-mt-plus",
+        "type": "primary"
       }
     ],
-    "notes": "July 22 (Beijing) and July 24 (international/global), 2025 describe the Qwen3 upgrade; initial release of the alias remains unverified. Exact parameter counts, dense/MoE architecture and weight availability are not established for Plus.",
+    "notes": "Total and active parameter counts are undisclosed. Qwen3 lineage is documented without a size-specific base; Plus dense/MoE architecture and weight availability remain unestablished. July 22 (Beijing) and July 24 (international/global), 2025 describe the Qwen3 upgrade; initial alias release remains unverified.",
     "release_date": null,
-    "date_precision": null
+    "date_precision": null,
+    "parameters_b": null,
+    "active_parameters_b": null,
+    "parameters_source": null
   },
-  "summary": "Verified exact translation capabilities and context. Parameter counts, topology and weight availability remain unknown. Parent review cleared the alias release date because the cited dates refer to an upgrade."
+  "summary": "October 27 parameter re-audit reopened English/Chinese Plus documentation, the updated translation guide, lifecycle entries and the Qwen-MT launch post, then searched for nominal counts and named-base lineage. Neither total nor active count is supported: Qwen3 names a family, and the launch post covers Turbo with Qwen3 sizes used only as comparators. Explicit null parameter patches retained; all other field assessments preserved."
 }
