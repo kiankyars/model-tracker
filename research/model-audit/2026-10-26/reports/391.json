@@ -1,0 +1,338 @@
+{
+  "index": 391,
+  "model_id": "nvidia/nemotron-mini-4b-instruct",
+  "reviewed_at": "2026-10-27T01:02:37.022600Z",
+  "sources": [
+    {
+      "id": "card",
+      "url": "https://huggingface.co/nvidia/Nemotron-Mini-4B-Instruct/blob/791833e92ebddb0bc2c1007f6d2b6764f886a2ae/README.md",
+      "title": "Pinned Nemotron Mini 4B Instruct model card",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Names NVIDIA, exact model, Minitron-4B-Base fine-tune, English roleplay/RAG/function-calling training, text generation and 4,096 context. Body says32 attention heads; exact configuration and all stored tensors instead agree on 24. Current metadata names NVIDIA Open Model License while older body links Community license."
+    },
+    {
+      "id": "config",
+      "url": "https://huggingface.co/nvidia/Nemotron-Mini-4B-Instruct/blob/791833e92ebddb0bc2c1007f6d2b6764f886a2ae/config.json",
+      "title": "Pinned Nemotron Mini configuration",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "NemotronForCausalLM;32 dense decoder layers, hidden 3,072, intermediate 9,216,24 query heads,8 KV heads, head width 128, vocabulary 256,000, untied embeddings, ReLU2 and 4,096 maximum positions. BF16 and no quantization config."
+    },
+    {
+      "id": "checkpoint",
+      "url": "https://huggingface.co/nvidia/Nemotron-Mini-4B-Instruct/resolve/791833e92ebddb0bc2c1007f6d2b6764f886a2ae/pytorch_model.bin",
+      "title": "Complete PyTorch checkpoint metadata",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Original checkpoint is a single unquantized PyTorch ZIP archive, not safetensors. Bounded HTTP 206 reads obtained central directory and data.pkl metadata only (69,307 bytes of8,381,129,342-byte archive). Restricted metadata parser confirms 324 distinct contiguous BF16 tensor storages,4,190,509,056 learned elements; all names/shapes independently reconstructed from config and model code, and each ZIP storage size matches element count times 2. No weight payload downloaded."
+    },
+    {
+      "id": "implementation",
+      "url": "https://github.com/huggingface/transformers/blob/v4.44.2/src/transformers/models/nemotron/modeling_nemotron.py",
+      "title": "Transformers Nemotron implementation v4.44.2",
+      "publisher": "Hugging Face / NVIDIA architecture",
+      "accessed": true,
+      "evidence": "Compatible public module implementation: four biasless GQA projections, two biasless ReLU2 MLP matrices, two LayerNorm1P modules per decoder block with learned scale and bias, final LayerNorm and untied token embedding/output head. Rotary inverse frequencies are nonpersistent buffers. No routed experts, MTP or multimodal encoders. This is a compatible public release; checkpoint recorded 4.32.0.dev0 metadata is not represented as an obtainable exact source revision."
+    },
+    {
+      "id": "configuration_code",
+      "url": "https://github.com/huggingface/transformers/blob/v4.44.2/src/transformers/models/nemotron/configuration_nemotron.py",
+      "title": "Transformers Nemotron configuration v4.44.2",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Default attention_bias=false and mlp_bias=false; default head_dim=hidden_size/num_attention_heads=128; other dimensions derive from checkpoint config."
+    },
+    {
+      "id": "template",
+      "url": "https://huggingface.co/nvidia/Nemotron-Mini-4B-Instruct/blob/791833e92ebddb0bc2c1007f6d2b6764f886a2ae/tokenizer_config.json",
+      "title": "Pinned chat and tool template",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Complete template emits System/User/Assistant/Tool roles and serializes tool definitions and contexts. No separate thinking toggle/channel is defined; that absence alone is not used to assert that the model cannot reason."
+    },
+    {
+      "id": "announcement",
+      "url": "https://blogs.nvidia.com/blog/digital-human-technology-mecha-break/",
+      "title": "August 20, 2024 NVIDIA Mini launch announcement",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Explicitly names Nemotron Mini 4B Instruct and says the model is available as a NIM for cloud and on-device deployment. Earlier than baselineAugust 21 and later HF distribution; establishes earliest documented release found."
+    },
+    {
+      "id": "technical_launch",
+      "url": "https://developer.nvidia.com/blog/deploy-the-first-on-device-small-language-model-for-improved-game-character-roleplay/",
+      "title": "August 20, 2024 technical launch and deployment article",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Card-linked launch article uses historical Nemotron-4 4B Instruct name and says NIM is available. Describes instruction tuning, distillation/pruning and function calling; INT4 reference is on-device package, not the unquantized BF16 HF checkpoint counted here."
+    },
+    {
+      "id": "license_change",
+      "url": "https://huggingface.co/nvidia/Nemotron-Mini-4B-Instruct/commit/791833e92ebddb0bc2c1007f6d2b6764f886a2ae",
+      "title": "NVIDIA February 14, 2025 license metadata update",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Owner commit explicitly changes license_name from nvidia-community-model-license to nvidia-open-model-license and replaces license_link with the June 2024 Open Model agreement. Body Community link remains unchanged; root LICENSE is empty. Chronology supports current intended Open Model license rather than treating old body PDF as newest declaration."
+    },
+    {
+      "id": "license",
+      "url": "https://developer.download.nvidia.com/licenses/nvidia-open-model-license-agreement-june-2024.pdf",
+      "title": "NVIDIA Open Model License Agreement, June 14, 2024",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Agreement directly linked by updated exact-model metadata; title and version date verified. Model and derivative-model usage/distribution are governed by its conditions."
+    },
+    {
+      "id": "history",
+      "url": "https://huggingface.co/nvidia/Nemotron-Mini-4B-Instruct/commits/main",
+      "title": "Official checkpoint commit history",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Repository createdSeptember 10,2024; initial model uploadSeptember 11; metadata license changedFebruary 14,2025. HF distribution occurs after August 20 NIM launch and is not substituted as earliest model release."
+    },
+    {
+      "id": "paper",
+      "url": "https://arxiv.org/html/2407.14679v2",
+      "title": "Compact Language Models via Pruning and Knowledge Distillation",
+      "publisher": "NVIDIA authors / arXiv",
+      "accessed": true,
+      "evidence": "Card-linked NVIDIA report describes Minitron ancestry and instruction tuning. Table 5 lists the base architecture32 layers / 3,072 hidden / 24 heads / 8 query groups / 9,216 MLP and 4.19B. This corroborates architectural reconstruction, but no unsupported sibling active count or reasoning mode is transferred."
+    },
+    {
+      "id": "build_access",
+      "url": "https://build.nvidia.com/nvidia/nemotron-mini-4b-instruct/modelcard",
+      "title": "NVIDIA Build exact-model page access check",
+      "publisher": "NVIDIA",
+      "accessed": false,
+      "evidence": "Browser text extraction and a fresh direct HTML request returned only the application shell, not the model card. No factual capability claim is taken from this unavailable body."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Nemotron Mini 4B Instruct",
+      "status": "verified",
+      "source_ids": [
+        "card"
+      ],
+      "note": "Readable exact-model name retained. Historical launch also calls it Nemotron-4 4B Instruct; current official identity is Mini."
+    },
+    "developer": {
+      "value": "NVIDIA",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "announcement"
+      ],
+      "note": "Exact card identifies NVIDIA as model developer."
+    },
+    "family": {
+      "value": "nemotron",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "config"
+      ],
+      "note": "Nemotron family and Nemotron decoder architecture; Minitron is its explicitly named base, not a different developer."
+    },
+    "release_date": {
+      "value": "2024-08-20",
+      "status": "verified",
+      "source_ids": [
+        "announcement",
+        "technical_launch",
+        "history"
+      ],
+      "note": "Contemporary August 20 primary announcement explicitly states availability as NIM. August 21 follow-up and September HF repository publication are later distribution/publicity dates."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "checkpoint",
+        "card"
+      ],
+      "note": "Public unauthenticated access to original BF16 checkpoint metadata succeeded; official downloadable weights exist."
+    },
+    "license": {
+      "value": "NVIDIA Open Model License",
+      "status": "verified",
+      "source_ids": [
+        "license_change",
+        "license",
+        "card"
+      ],
+      "note": "Current exact-model owner update replaces Community license metadata with Open Model agreement. Stale Community body/PDF and empty root LICENSE are recorded; no claim that a blank LICENSE is governing text."
+    },
+    "parameters_b": {
+      "value": 4.190509056,
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "checkpoint",
+        "implementation",
+        "configuration_code"
+      ],
+      "note": "Complete unique learned checkpoint count4,190,509,056. All 324 stored BF16 tensors match independently generated expected shapes and byte sizes, including both untied embeddings and LayerNorm biases. No persisted buffers, scale tensors, packed weights or alias storages; runtime rotary buffers are excluded automatically because nonpersistent and nonlearned."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "config",
+        "implementation",
+        "paper"
+      ],
+      "note": "Dense model with no expert routing; no separately defined exact-model active-parameter figure found. Do not copy total into active or use non-embedding count as activity."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "checkpoint",
+        "implementation",
+        "configuration_code"
+      ],
+      "note": "Dense autoregressive Transformer:32 decoder blocks,24 query heads and8 KV heads, ReLU2 two-matrix MLP and LayerNorm1P. Card prose 32-head claim conflicts with config and weights; reconstruction uses 24 verified heads."
+    },
+    "context_window": {
+      "value": 4096,
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "card"
+      ],
+      "note": "Exact config maximum 4,096 and card explicitly states 4,096 tokens. Baseline 128,000 has no support in these exact-model sources."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "config",
+        "implementation"
+      ],
+      "note": "Text-generation model with token embedding / LM head and no visual/audio components. Speech and animation in ACE are separate models, not Mini modalities."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "card",
+        "template",
+        "technical_launch",
+        "build_access"
+      ],
+      "note": "Exact model is documented for roleplay, RAG and function calling; no explicit dedicated reasoning mode assertion or explicit model-wide denial located. Full template has no thinking controls, but absence does not verify false; clear baseline false."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "template",
+        "announcement"
+      ],
+      "note": "Exact card explicitly says function-calling fine-tuning and supplies tool-call prompt format; tokenizer serializes tools and tool responses."
+    },
+    "description": {
+      "value": "Dense Transformer fine-tuned from Minitron-4B-Base for English roleplay, retrieval-augmented question answering and function calling.",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "config",
+        "implementation"
+      ],
+      "note": "Concrete supported lineage and tasks; removes unsupported efficient-reasoning/agent marketing."
+    }
+  },
+  "patch": {
+    "release_date": "2024-08-20",
+    "date_precision": "day",
+    "license": "NVIDIA Open Model License",
+    "parameters_b": 4.190509056,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "context_window": 4096,
+    "reasoning": null,
+    "description": "Dense Transformer fine-tuned from Minitron-4B-Base for English roleplay, retrieval-augmented question answering and function calling.",
+    "source_url": "https://huggingface.co/nvidia/Nemotron-Mini-4B-Instruct/blob/791833e92ebddb0bc2c1007f6d2b6764f886a2ae/README.md",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Pinned Nemotron Mini 4B Instruct model card",
+        "url": "https://huggingface.co/nvidia/Nemotron-Mini-4B-Instruct/blob/791833e92ebddb0bc2c1007f6d2b6764f886a2ae/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned Nemotron Mini configuration",
+        "url": "https://huggingface.co/nvidia/Nemotron-Mini-4B-Instruct/blob/791833e92ebddb0bc2c1007f6d2b6764f886a2ae/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Complete PyTorch checkpoint metadata",
+        "url": "https://huggingface.co/nvidia/Nemotron-Mini-4B-Instruct/resolve/791833e92ebddb0bc2c1007f6d2b6764f886a2ae/pytorch_model.bin",
+        "type": "primary"
+      },
+      {
+        "label": "Transformers Nemotron implementation v4.44.2",
+        "url": "https://github.com/huggingface/transformers/blob/v4.44.2/src/transformers/models/nemotron/modeling_nemotron.py",
+        "type": "primary"
+      },
+      {
+        "label": "August 20, 2024 NVIDIA Mini launch announcement",
+        "url": "https://blogs.nvidia.com/blog/digital-human-technology-mecha-break/",
+        "type": "primary"
+      },
+      {
+        "label": "NVIDIA February 14, 2025 license metadata update",
+        "url": "https://huggingface.co/nvidia/Nemotron-Mini-4B-Instruct/commit/791833e92ebddb0bc2c1007f6d2b6764f886a2ae",
+        "type": "primary"
+      },
+      {
+        "label": "NVIDIA Open Model License Agreement, June 14, 2024",
+        "url": "https://developer.download.nvidia.com/licenses/nvidia-open-model-license-agreement-june-2024.pdf",
+        "type": "primary"
+      }
+    ],
+    "notes": "The complete BF16 checkpoint has 4.190509056B learned parameters; active parameters are not separately specified. Context is 4,096 tokens. August 20, 2024 marks documented NIM availability; Hugging Face distribution followed in September. NVIDIA changed the model license metadata to the Open Model License in February 2025; the card body retains an older Community license link."
+  },
+  "checkpoint_audit": {
+    "repository": "nvidia/Nemotron-Mini-4B-Instruct",
+    "revision": "791833e92ebddb0bc2c1007f6d2b6764f886a2ae",
+    "format": "PyTorch ZIP state_dict, unquantized BF16",
+    "learned_parameters": 4190509056,
+    "learned_tensors": 324,
+    "buffers": 0,
+    "shards": 1,
+    "components": {
+      "input_embedding": 786432000,
+      "output_head": 786432000,
+      "attention": 805306368,
+      "feed_forward": 1811939328,
+      "layer_norms": 399360
+    },
+    "all_shapes_reconstructed": true,
+    "all_storage_sizes_checked": true,
+    "all_storages_unique": true,
+    "bytes_fetched": 69307,
+    "archive_bytes": 8381129342,
+    "parameter_bytes": 8381018112,
+    "heads": 24,
+    "kv_heads": 8,
+    "head_dim": 128,
+    "no_weight_payload_downloaded": true,
+    "method": "Read only eight bounded HTTP 206 ranges for ZIP directories and pickle tensor metadata; restricted find_class allows only OrderedDict, dummy storage descriptors and a metadata-only tensor builder. No torch.load or imported remote code. Independently generate all 324 expected names/shapes from pinned config plus compatible public constructors, check contiguous strides/zero offsets, unique storage IDs and every ZIP storage byte count.",
+    "reproduction_script": "/tmp/model-audit-391/count.py",
+    "formula": "2*256000*3072 + 32*(2*3072*3072 + 2*8*128*3072 + 2*3072*9216 + 4*3072) + 2*3072 = 4190509056."
+  },
+  "summary": "Audited all 14 fields. Correct total to 4.190509056B from complete bounded PyTorch metadata reconstruction; set dense architecture, 4,096 context, August 20 release and current NVIDIA Open Model License. Retain explicit tool support and text modalities; clear unsupported reasoning=false; active remains null for this dense model. Record stale 32-head card, license body and later HF distribution discrepancies."
+}
