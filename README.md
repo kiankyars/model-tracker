@@ -24,7 +24,7 @@ npm run check
 
 ## Frontend design tools
 
-[Impeccable](https://github.com/pbakaus/impeccable) 4.7.1 is installed for this project in `.agents/skills/impeccable`. Its shell launcher keeps engine downloads in the ignored `.impeccable/runtime/` directory and disables telemetry. No global skill installation or automatic hooks are configured. The skill and its engine are development tools; neither is shipped to the website.
+[Impeccable](https://github.com/pbakaus/impeccable) 4.8.0 is installed for this project in `.agents/skills/impeccable`. Its shell launcher keeps engine downloads in the ignored `.impeccable/runtime/` directory and disables telemetry. No global skill installation or automatic hooks are configured. The skill and its engine are development tools; neither is shipped to the website.
 
 ```sh
 .agents/skills/impeccable/scripts/impeccable detect --json index.html app.js styles.css
