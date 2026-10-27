@@ -1,7 +1,7 @@
 {
   "index": 226,
   "model_id": "google/gemma-4-E4B-it",
-  "reviewed_at": "2026-10-26T20:32:21.207775+00:00",
+  "reviewed_at": "2026-10-27T13:28:58.521403+00:00",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Exact Gemma 4 E4B IT model card",
       "publisher": "Google",
       "accessed": true,
-      "evidence": "Official instruction-tuned E4B checkpoint under Apache-2.0. The E4B column reports dense architecture, 42 layers, 128K context, 4.5B effective and 8B with embeddings. Text, image, audio and video input produce text output; configurable thinking and native function calling are documented."
+      "evidence": "Official instruction-tuned E4B checkpoint under Apache-2.0. The E4B column reports dense architecture, 42 layers, 128K context, 4.5B effective and 8B with embeddings. Text, image, audio and video input produce text output; configurable thinking and native function calling are documented. Fresh October 27 retrieval of the pinned raw card confirms explicit base_model: google/gemma-4-E4B. Its 4.5B figure remains labeled effective and its 8B figure includes embeddings; only the separate 26B-A4B column explicitly reports active parameters."
     },
     {
       "id": "s2",
@@ -73,7 +73,7 @@
       "title": "Gemma 4 Technical Report",
       "publisher": "Google DeepMind",
       "accessed": true,
-      "evidence": "The July 2026 report identifies E4B as a dense decoder-only Transformer with PLE, nominal 4.5B effective and 8B total. Its rounded component table separates token embedding, PLE, einsums, vision, audio and optional drafter. It confirms 18/42 KV sharing. Effective size is not a separately defined active-parameter count; scalar scales stabilize fp16 inference."
+      "evidence": "The July 2026 report identifies E4B as a dense decoder-only Transformer with PLE, nominal 4.5B effective and 8B total. Its rounded component table separates token embedding, PLE, einsums, vision, audio and optional drafter. It confirms 18/42 KV sharing. Effective size is not a separately defined active-parameter count; scalar scales stabilize fp16 inference. Freshly reopened the complete original report on October 27. Section 2.1 again distinguishes E4B 4.5B effective/8B total from the MoE activated count; it does not redefine the E4B effective value as an exact active total."
     },
     {
       "id": "s10",
@@ -114,6 +114,54 @@
       "publisher": "Google",
       "accessed": true,
       "evidence": "Explains that E4B effective size reflects PLE tables used for lookups and differs from static weight memory. Separately defines per-token expert activation for the MoE model. The E4B effective label cannot be silently substituted for a reported active count."
+    },
+    {
+      "id": "s15",
+      "url": "https://ai.google.dev/gemma/docs/core/model_card_4",
+      "title": "Current official Gemma 4 model card",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Freshly opened October 27. Dense-model table gives E4B 4.5B effective and 8B with embeddings, 42 layers and audio/vision components. Explains that PLE tables are used for lookups; its separately labeled active row belongs only to 26B A4B. This reconfirms nominal total without supplying an exact E4B active count."
+    },
+    {
+      "id": "s16",
+      "url": "https://huggingface.co/google/gemma-4-E4B/blob/main/README.md",
+      "title": "Official named Gemma 4 E4B base card",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Freshly retrieved complete raw base card on October 27 after following explicit base_model metadata in the exact IT card. Repeats nominal 8B total and 4.5B effective, with PLE, 42 layers and multimodal components. This explicit base-to-IT relationship supports nominal total inheritance, but neither source labels 4.5B as an active count."
+    },
+    {
+      "id": "s17",
+      "url": "https://arxiv.org/html/2606.08340v1",
+      "title": "ALEM: Benchmarking Open-Ended Multi-Agent Coordination in Language Agents",
+      "publisher": "Kale-ab Abebe Tessera et al. / Edinburgh, Oxford and UCL",
+      "accessed": true,
+      "evidence": "Freshly read original June 6 paper and visually inspected Figure 11 on PDF page 24. The horizontal axis explicitly reads Active parameters (billions, log scale), and its Gemma 4 E4B point lies at approximately 4B. Section 4.1 and Table 1 identify the tested model as gemma-4-e4b-it, served with vLLM. This establishes the authors' approximate nominal active-size benchmark convention for the exact IT model, not a Google disclosure or an exact per-token/component tensor census. Figure coordinates are not tabulated, so precision beyond approximately 4B is not claimed."
+    },
+    {
+      "id": "s18",
+      "url": "https://huggingface.co/IFM/K2-Horizon-3.7B/blob/22dda97e42fce58ba402717f06e619d54bba66de/README.md",
+      "title": "Archived IFM K2 Horizon 3.7B comparison table",
+      "publisher": "Institute of Foundation Models",
+      "accessed": true,
+      "evidence": "Freshly retrieved the complete pinned raw card. The reference column Gemma 4-E4B explicitly reports 8B total and 4.5B Activated params. This is another model-team nominal convention, but the table does not resolve an IT checkpoint ID and differs from ALEM's coarser approximately 4B plot. The current card removes this comparison. Retained as context, not used to silently replace the exact-model ALEM convention or rename Google's effective-size metric."
+    },
+    {
+      "id": "s19",
+      "url": "https://huggingface.co/IFM/K2-Horizon-3.7B/blob/9d280ff742235796925c9fe3cf243dc1beea5c08/README.md",
+      "title": "Current IFM K2 Horizon 3.7B comparison card",
+      "publisher": "Institute of Foundation Models",
+      "accessed": true,
+      "evidence": "Fresh API metadata pinned current revision 9d280ff742235796925c9fe3cf243dc1beea5c08 on October 27. Full README and linked APPENDIX.md were retrieved; the current comparison no longer includes Gemma E4B and the appendix does not resolve the removed comparison's exact checkpoint. No reason for removal is inferred."
+    },
+    {
+      "id": "s20",
+      "url": "https://huggingface.co/inception42/Jais-3-3.7B/blob/351b5ad88efe27531926621931a069b4a9e0d09d/README.md",
+      "title": "Jais 3 3.7B original comparison card",
+      "publisher": "Inception / Institute of Foundation Models",
+      "accessed": true,
+      "evidence": "Fresh pinned raw card checked as a new active-count lead. Its Gemma reference column is E2B, not E4B, and gives 2.3B activated. It supplies no E4B value and is not transferred across sibling variants."
     }
   ],
   "fields": {
@@ -186,21 +234,26 @@
         "s7",
         "s8",
         "s9",
-        "s13"
+        "s13",
+        "s15",
+        "s16"
       ],
-      "note": "Rounded complete usable-model total under the pinned Transformers implementation, including all PLE, audio/vision encoders and both projections. Starting with 7,996,157,418 BF16 stored elements, remove 928 clipping-threshold buffers, 42 layer-scalar buffers and 55,055,616 redundant K/V projection and K-norm elements in shared layers 24\u201341: 7,941,100,832 instantiated parameter elements, published as 7.9411B. Runtime buffer classification does not establish original scalar training history; no exact learned count is asserted. The 54 redundant tensors are explicitly omitted and ignored on load by Transformers; Google JAX retains their computation but replaces the results with shared KV, with a TODO to remove them from checkpoints. This is a full model count, not a text-only component. The tied 671,088,640-element token/output matrix is counted once; PLE contributes 2,818,572,288 elements. Complete stored checkpoint after buffer exclusion is about 7.9962B; Google nominal total is 8B. No packed quantized weights or vocabulary padding; separate MTP assistant excluded."
+      "note": "Rounded complete usable-model total under the pinned Transformers implementation, including all PLE, audio/vision encoders and both projections. Starting with 7,996,157,418 BF16 stored elements, remove 928 clipping-threshold buffers, 42 layer-scalar buffers and 55,055,616 redundant K/V projection and K-norm elements in shared layers 24–41: 7,941,100,832 instantiated parameter elements, published as 7.9411B. Runtime buffer classification does not establish original scalar training history; no exact learned count is asserted. The 54 redundant tensors are explicitly omitted and ignored on load by Transformers; Google JAX retains their computation but replaces the results with shared KV, with a TODO to remove them from checkpoints. This is a full model count, not a text-only component. The tied 671,088,640-element token/output matrix is counted once; PLE contributes 2,818,572,288 elements. Complete stored checkpoint after buffer exclusion is about 7.9962B; Google nominal total is 8B. No packed quantized weights or vocabulary padding; separate MTP assistant excluded. October 27 re-audit freshly confirms Google's nominal 8B total and explicit E4B base-to-IT lineage; the existing supported rounded usable-model total is retained without another tensor census."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 4,
+      "status": "verified",
       "source_ids": [
         "s1",
-        "s2",
-        "s5",
         "s9",
-        "s14"
+        "s15",
+        "s16",
+        "s17",
+        "s18",
+        "s19",
+        "s20"
       ],
-      "note": "No separately defined per-token active count is reported for exact E4B. The nominal 4.5B effective figure concerns PLE lookup/memory efficiency and is not copied into this field. Text decoding, multimodal prefill and runtime elimination of redundant KV tensors have different parameter participation. Dense total is not assumed active."
+      "note": "Approximately 4B under Tessera et al.'s original ALEM benchmark convention: Figure 11 explicitly plots active parameters and places Gemma 4 E4B at approximately 4B; Section 4.1 and Table 1 identify the exact E4B IT variant. This is an attributed nominal research comparison, not a Google-published exact active total. Google separately reports 4.5B effective, concerning PLE lookup/memory efficiency. An archived IFM reference table labels 4.5B activated but does not resolve the IT checkpoint and its current revision omits E4B; do not add that precision to ALEM. No component scope or exact participation across modalities is inferred. Fresh exact-model searches also checked original Google report/current card, pinned IT card/configuration, explicit named base, newer model-team comparison tables and the Jais E2B-only lead. No exact Google active count was found."
     },
     "architecture": {
       "value": "dense",
@@ -344,9 +397,25 @@
         "label": "Gemma 4 model overview and memory planning",
         "url": "https://ai.google.dev/gemma/docs/core.md",
         "type": "primary"
+      },
+      {
+        "label": "Current official Gemma 4 model card",
+        "url": "https://ai.google.dev/gemma/docs/core/model_card_4",
+        "type": "primary"
+      },
+      {
+        "label": "Official named Gemma 4 E4B base card",
+        "url": "https://huggingface.co/google/gemma-4-E4B/blob/main/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "ALEM: Benchmarking Open-Ended Multi-Agent Coordination in Language Agents",
+        "url": "https://arxiv.org/html/2606.08340v1",
+        "type": "primary"
       }
     ],
-    "notes": "Approximately 7.9411B parameters in the complete usable model under the pinned Transformers implementation, including all per-layer embeddings and audio/vision components; tied input/output embedding counted once. The stored checkpoint contains approximately 7.9962B weight elements before removing 55.06M redundant shared-layer KV weights; Google reports a nominal 8B total. The 4.5B effective-size label is not a separately reported active count. Separate MTP assistant excluded. Video is processed as image frames. April 2 public launch retained; current release chronology instead lists March 31."
+    "notes": "Approximately 7.9411B parameters in the complete usable model under the pinned Transformers implementation, including per-layer embeddings and audio/vision components. Google reports a nominal 8B total; stored weights are approximately 7.9962B before removing redundant shared-layer KV weights. Approximately 4B active follows Tessera et al.'s ALEM benchmark convention for E4B IT; Google separately reports 4.5B effective. Separate MTP assistant excluded. Video uses image frames. April 2 public launch retained; current release chronology lists March 31.",
+    "active_parameters_b": 4
   },
-  "summary": "Fill complete usable-model total (~7.9411B), dense architecture and Apache-2.0; add video and replace generic description. The published total follows the pinned Transformers model after excluding buffers and 55.06M redundant shared-layer KV weights, while retaining all PLE and multimodal components. Preserve ~7.9962B stored checkpoint and Google nominal 8B as distinct evidence; 4.5B effective is not an independently defined active count. All 14 fields checked; April 2 retained with conflicting March 31 chronology documented."
+  "summary": "October 27 parameter re-audit retains the supported 7.9411B usable-model total and Google's nominal 8B basis. Recovers approximately 4B active from the original ALEM Figure 11 for exact E4B IT, explicitly attributed to that research team and distinguished from Google's 4.5B effective size. Checked newer comparison leads and named-base lineage; no exact per-token/component count inferred. Unrelated assessments preserved."
 }
