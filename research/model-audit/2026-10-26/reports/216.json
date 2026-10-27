@@ -1,7 +1,7 @@
 {
   "index": 216,
   "model_id": "google/gemma-2-2b-it",
-  "reviewed_at": "2026-10-26T20:08:02.871152Z",
+  "reviewed_at": "2026-10-27T13:12:18.498742+00:00",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "google/gemma-2-2b-it model card",
       "publisher": "Google",
       "accessed": true,
-      "evidence": "Exact instruction-tuned repository identifies Google, Gemma license, open weights, decoder-only text-to-text models and native bfloat16 export. Includes the exact -it model identifier and user/model chat template.",
+      "evidence": "Exact instruction-tuned repository identifies Google, Gemma license, open weights, decoder-only text-to-text models and native bfloat16 export. Includes the exact -it model identifier and user/model chat template. Reopened October 27, 2026: no separately defined numerical active count is supplied.",
       "type": "weights"
     },
     {
@@ -36,7 +36,7 @@
       "title": "Pinned official instruction-tuned checkpoint metadata",
       "publisher": "Hugging Face metadata for Google weights",
       "accessed": true,
-      "evidence": "Revision 299a8560bedf22ed1c72a8a11e7dce4a7f9f51f8 reports safetensors.parameters.BF16 and safetensors.total both 2614341888. Identifies Gemma2ForCausalLM and the user/assistant chat template. This is repository tensor aggregation, not independently downloaded headers.",
+      "evidence": "Revision 299a8560bedf22ed1c72a8a11e7dce4a7f9f51f8 reports safetensors.parameters.BF16 and safetensors.total both 2614341888. Identifies Gemma2ForCausalLM and the user/assistant chat template. This is repository tensor aggregation, not independently downloaded headers. Fresh direct metadata retrieval October 27, 2026 reconfirmed the same revision and exact BF16 total; no new tensor census or weight download was performed.",
       "type": "weights"
     },
     {
@@ -63,7 +63,7 @@
       "title": "Gemma 2: Improving Open Language Models at a Practical Size",
       "publisher": "Google DeepMind / Gemma Team",
       "accessed": true,
-      "evidence": "Describes a decoder-only Transformer, GQA, tied embeddings and 8192-token context. Its 2B table lists 590118912 embedding plus 2024517888 nonembedding parameters using vocabulary 256128, a different vocabulary size from the released implementation. It does not define an active count for this model.",
+      "evidence": "Describes a decoder-only Transformer, GQA, tied embeddings and 8192-token context. Its 2B table lists 590118912 embedding plus 2024517888 nonembedding parameters using vocabulary 256128, a different vocabulary size from the released implementation. It does not define an active count for this model. Fresh October 27 complete-report parameter review: section 6 explicitly states comparisons use total rather than active parameters. Its instruction-tuning procedure preserves the model architecture; teacher-output distillation does not supply an active-count convention or justify inheriting the larger teacher size.",
       "type": "primary"
     },
     {
@@ -72,7 +72,7 @@
       "title": "Building a chatbot with Gemma",
       "publisher": "Google",
       "accessed": true,
-      "evidence": "Loads gemma2_instruct_2b_en, states it has 2.6 billion trainable parameters and explains that the 2B name excludes the embedding layer.",
+      "evidence": "Loads gemma2_instruct_2b_en, states it has 2.6 billion trainable parameters and explains that the 2B name excludes the embedding layer. Reopened October 27, 2026; the 2.6B figure remains a trainable total and 2B a non-embedding naming convention, not a separately stated active count.",
       "type": "primary"
     },
     {
@@ -110,6 +110,51 @@
       "accessed": false,
       "evidence": "HTTP Range bytes=0-7 returned 401 Unauthorized. Raw config, index and tokenizer requests also returned 401. No weight payload or tensor header was downloaded; accessible repository metadata was reconciled with official implementation instead.",
       "type": "weights"
+    },
+    {
+      "id": "s13",
+      "url": "https://ai.google.dev/gemma/docs/core/model_card_2",
+      "title": "Gemma 2 model card",
+      "publisher": "Google",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Fresh October 27 current-card check includes the exact 2B variant and its pre-trained/instruction-tuned family. It gives nominal model sizes and benchmark comparisons, with no independently labeled numerical active-parameter specification."
+    },
+    {
+      "id": "s14",
+      "url": "https://storage.googleapis.com/deepmind-media/gemma/Gemma3Report.pdf",
+      "title": "Gemma 3 Technical Report",
+      "publisher": "Google DeepMind / Gemma Team",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Fresh October 27 full-text later-disclosure check, including Gemma 2 2B comparison tables. The report provides nominal total sizes and performance comparisons, not a numerical active count for the older 2B instruction-tuned model. No Gemma 3 sibling size is transferred."
+    },
+    {
+      "id": "s15",
+      "url": "https://arxiv.org/html/2607.02770v1",
+      "title": "Gemma 4 Technical Report",
+      "publisher": "Google DeepMind / Gemma Team",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Fresh October 27 full-text later-disclosure review. The report separately defines activated parameters for its new MoE model and effective sizes for PLE models; neither applies to Gemma 2 2B IT. No retrospective active count for this exact model appears."
+    },
+    {
+      "id": "s16",
+      "url": "https://journals.plos.org/digitalhealth/article?id=10.1371/journal.pdig.0001363",
+      "title": "Generalist large language models in a specialized world: Evidence from the Italian national medical education pathway",
+      "publisher": "Buonocore et al., PLOS Digital Health",
+      "type": "secondary",
+      "accessed": true,
+      "evidence": "Fresh exact-model active-count search found Table 2 listing Gemma 2 2B IT as 2 under Active Params. Read the publisher article, PDF tables and reference 19. Table 1 explicitly switches to active counting for MoE, while the Gemma citation is the original Google report that specifies total-based comparisons. The paper supplies no Gemma-specific active convention or measurement; it also lists Mixtral 8x7B as 7 active despite citing the 13B-active Mixtral report. This nominal-size reuse is not accepted as a separately verified Google active count."
+    },
+    {
+      "id": "s17",
+      "url": "https://arxiv.org/html/2505.09388v1",
+      "title": "Qwen3 Technical Report \u2014 activated-parameter comparisons",
+      "publisher": "Qwen Team",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Fresh October 27 review of later comparison tables with explicit activated-parameter rows. They include other Gemma generations and sizes, but no exact Gemma 2 2B IT row. Neither those rows nor a generic dense-model convention is transferred to this model."
     }
   ],
   "fields": {
@@ -176,17 +221,24 @@
         "s5",
         "s6",
         "s7",
-        "s8"
+        "s8",
+        "s13"
       ],
-      "note": "Complete unique learned count: 256000*2304 + 26*(14155776 attention + 63700992 MLP + 9216 normalization) + 2304 final normalization = 2614341888. The tied output embedding is counted once; computed RoPE buffers and optional quantization scalers are excluded. This exactly matches official BF16 checkpoint metadata. The paper instead sums to 2614636800 using 256128 vocabulary rows, 294912 more (128*2304). Direct header inspection was blocked by gating; this is implementation-derived and metadata-cross-checked."
+      "note": "Complete unique learned count: 256000*2304 + 26*(14155776 attention + 63700992 MLP + 9216 normalization) + 2304 final normalization = 2614341888. The tied output embedding is counted once; computed RoPE buffers and optional quantization scalers are excluded. This exactly matches official BF16 checkpoint metadata. The paper instead sums to 2614636800 using 256128 vocabulary rows, 294912 more (128*2304). Direct header inspection was blocked by gating; this is implementation-derived and metadata-cross-checked. Fresh October 27 re-audit reconfirmed the pinned metadata and original published conventions; retain this supported exact released-checkpoint total rather than replacing it with the nominal 2B name or the teacher size."
     },
     "active_parameters_b": {
       "value": null,
       "status": "undisclosed",
       "source_ids": [
-        "s7"
+        "s7",
+        "s8",
+        "s13",
+        "s14",
+        "s15",
+        "s16",
+        "s17"
       ],
-      "note": "No separately defined active-parameter count was found in the checked first-party documentation. Dense structure does not justify copying the total into this field."
+      "note": "Fresh October 27 exact-model active/activated-count searches and original/later comparison checks found no supported separate active count. Google explicitly identifies 2B as excluding embeddings and states its original comparisons use total parameters. The PLOS 2B active-column lead reuses nominal sizes and gives no Gemma-specific active convention; its cited Google source does not substantiate that label. Later activated-parameter tables contain no exact row. Neither total nor non-embedding size is copied into active."
     },
     "architecture": {
       "value": "dense",
@@ -262,7 +314,7 @@
     "description": "Instruction-tuned Gemma 2 text-generation model from Google, with open weights and an 8,192-token context window.",
     "source_url": "https://developers.googleblog.com/en/smaller-safer-more-transparent-advancing-responsible-ai-with-gemma/",
     "source_type": "primary",
-    "notes": "The 2B name excludes embeddings. Total counts 2,614,341,888 unique learned parameters, including tied embeddings once, from pinned BF16 metadata and Google\u2019s implementation. The paper uses 128 extra vocabulary rows and totals 2,614,636,800. Raw tensor headers were inaccessible. Active parameters are not separately defined. Google documents absent built-in function calling but demonstrates prompted ReAct calls; the broad tool capability flag remains unverified.",
+    "notes": "The 2B name excludes embeddings; the released BF16 checkpoint contains 2.614341888B unique learned parameters. Google does not separately publish an active count in the reviewed sources. Google documents no built-in function calling but demonstrates prompted ReAct calls; the broader tool capability remains unverified.",
     "sources": [
       {
         "label": "google/gemma-2-2b-it model card",
@@ -318,9 +370,15 @@
         "label": "Beyond the Chatbot: Agentic AI with Gemma",
         "url": "https://developers.googleblog.com/en/beyond-the-chatbot-agentic-ai-with-gemma/",
         "type": "primary"
+      },
+      {
+        "label": "Gemma 2 model card",
+        "url": "https://ai.google.dev/gemma/docs/core/model_card_2",
+        "type": "primary"
       }
     ],
-    "tool_call": null
+    "tool_call": null,
+    "active_parameters_b": null
   },
-  "summary": "Confirmed the exact Gemma 2 2B IT variant and July 31, 2024 release. Replaced nominal 2B with the complete 2.614341888B learned count reconciled against pinned checkpoint metadata and official implementation; documented the paper vocabulary discrepancy and gated headers. Added dense architecture and factual description. Active count remains undisclosed. Reasoning and broad tool-call flags are unverified; built-in function calling is absent but prompted ReAct calls are documented."
+  "summary": "October 27 parameter re-audit reconfirms the released-checkpoint total of 2.614341888B from freshly retrieved pinned BF16 metadata, consistent with the existing implementation reconciliation. Active parameters remain explicitly null after exact-model searches, original Google documentation and later Gemma/Qwen comparison checks. Traced a 2B active-column claim in independent medical-evaluation research to nominal-size reuse rather than a separately supported active specification. No weight shards or repeated tensor census; unrelated field assessments and corrections preserved."
 }
