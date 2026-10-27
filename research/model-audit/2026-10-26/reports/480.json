@@ -1,0 +1,265 @@
+{
+  "index": 480,
+  "model_id": "relace/relace-apply-3",
+  "reviewed_at": "2026-10-27T04:03:21.148458Z",
+  "sources": [
+    {
+      "id": "training",
+      "url": "https://relace.ai/old/blog/relace-apply-3",
+      "title": "A Year of Fast Apply \u2014 The Path to 10k Tokens per Second",
+      "publisher": "Relace",
+      "accessed": true,
+      "evidence": "October 29, 2025 training retrospective identifies Apply 3 and its 256k native context. Apply-series backbones are described only as open-source coding models in the 3\u20138B range. Apply 3 uses LoRA SFT on approximately 145k examples; rank 128, alpha 32, BF16 training and FP8 deployment are disclosed. Speculative decoding reuses code spans. No exact Apply 3 total, active count, backbone identity or dense/MoE architecture is given; LoRA and library choice do not resolve these."
+    },
+    {
+      "id": "apply",
+      "url": "https://docs.relace.ai/api-reference/instant-apply/apply.md",
+      "title": "Apply Code API reference and complete request/response schema",
+      "publisher": "Relace",
+      "accessed": true,
+      "evidence": "Names relace-apply-3 as the replacement for earlier Apply versions. Table specifies 128k maximum input and 128k maximum output. API consumes initial_code, edit_snippet and optional instruction, and returns mergedCode. OpenAI-compatible calls still require code/update tags. The full Apply schema contains no caller-defined tools, tool results or reasoning channel. MIT in OpenAPI info licenses the API specification, not model weights."
+    },
+    {
+      "id": "agent",
+      "url": "https://docs.relace.ai/docs/instant-apply/agent.md",
+      "title": "Agent Tool Definition",
+      "publisher": "Relace",
+      "accessed": true,
+      "evidence": "Shows an external coding agent calling edit_file, whose implementation sends existing code and edits to the Apply API, receives mergedCode, writes the file and returns a diff. Apply is the implementation behind a tool; the example does not show Apply choosing or invoking tools itself."
+    },
+    {
+      "id": "terms",
+      "url": "https://relace.ai/legal/terms-of-use",
+      "title": "Relace Terms of Use",
+      "publisher": "Relace / Squack Inc.",
+      "accessed": true,
+      "evidence": "Describes the core service as API access to company code-generation models; inference occurs in company systems. Grants limited, nontransferable, revocable service access, reserves intellectual-property rights and prohibits unauthorized distribution and reverse engineering. Supports proprietary hosted-service classification, not an open model-weight license."
+    },
+    {
+      "id": "open-models",
+      "url": "https://docs.relace.ai/docs/open-models/quickstart",
+      "title": "Open models quickstart",
+      "publisher": "Relace",
+      "accessed": true,
+      "evidence": "Separates purpose-built Relace code models from third-party open-weight models that Relace also hosts. Current table lists DeepSeek, GLM and Kimi variants, not Apply 3. Their extended-thinking/tool-calling instructions and weight licenses cannot be transferred to Apply 3."
+    },
+    {
+      "id": "archive",
+      "url": "https://relace.ai/blog",
+      "title": "Relace blog archive",
+      "publisher": "Relace",
+      "accessed": true,
+      "evidence": "Inspected archive and the linked May 25 2025 Instant Apply article, October 8 2025 Series A article, October 29 Apply 3 retrospective and later Search/Compact technical articles. The earlier two articles do not name Apply 3. No original Apply 3 release-day announcement was recovered."
+    },
+    {
+      "id": "later-search",
+      "url": "https://relace.ai/old/blog/fast-agentic-search",
+      "title": "Exploiting parallel tool calls to make agentic search 4x faster",
+      "publisher": "Relace",
+      "accessed": true,
+      "evidence": "December 8 2025 training article distinguishes earlier SFT-trained Fast Apply from the new RL-trained search agent. Its discussion of parallel tools, reasoning and search-model training does not identify Apply 3 parameter counts or architecture; no exact Apply 3 comparison column supplies them."
+    },
+    {
+      "id": "later-compact",
+      "url": "https://relace.ai/old/blog/compact",
+      "title": "Relace Compact: 50k TPS for 50% cost savings",
+      "publisher": "Relace",
+      "accessed": true,
+      "evidence": "July 13 2026 article mentions earlier Fast Apply as reducing edit-output costs. Its compaction/caching analysis supplies no exact Apply 3 total/active count, architecture or release date."
+    },
+    {
+      "id": "provider",
+      "url": "https://openrouter.ai/api/v1/models/relace/relace-apply-3/endpoints",
+      "title": "OpenRouter exact Apply 3 endpoint metadata",
+      "publisher": "OpenRouter",
+      "accessed": true,
+      "evidence": "Returns Relace as endpoint provider, 256000 total context, 128000 maximum completion, text input/output and FP8. created=1758891572 is September 26 2025 12:59:32 UTC, establishing a provider record timestamp rather than earliest developer release. supported_parameters contains stop, seed, max_tokens; generic supports_tool_choice flags are nevertheless all true, a metadata inconsistency that cannot override Relace\u2019s task-specific contract."
+    },
+    {
+      "id": "repos",
+      "url": "https://api.github.com/orgs/relace-ai/repos?per_page=100",
+      "title": "Relace public GitHub repository inventory",
+      "publisher": "Relace / GitHub",
+      "accessed": true,
+      "evidence": "Public relace-ai organization inventory contained vite-template and claude-plugins, with no Apply 3 checkpoint, configuration or model card. A separate Hugging Face model search for relace returned no models. These negative discovery checks supplement, rather than establish alone, the documented proprietary API distribution."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Relace Apply 3",
+      "status": "verified",
+      "source_ids": [
+        "training",
+        "apply"
+      ],
+      "note": "Official model name; relace-apply-3 is the documented API identifier."
+    },
+    "developer": {
+      "value": "Relace",
+      "status": "verified",
+      "source_ids": [
+        "training",
+        "apply",
+        "terms"
+      ],
+      "note": "Relace develops the specialized model; Squack Inc. is the service\u2019s legal company name."
+    },
+    "family": {
+      "value": "relace-apply",
+      "status": "verified",
+      "source_ids": [
+        "apply"
+      ],
+      "note": "Lowercase identifier for the explicitly documented Apply model series."
+    },
+    "release_date": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "archive",
+        "training",
+        "provider"
+      ],
+      "note": "September 26 2025 is the OpenRouter record creation/listing date. October 29 is a retrospective, not an explicit first release. Neither establishes the earliest developer launch, and even its month remains unverified; clear the baseline date."
+    },
+    "open_weights": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "apply",
+        "terms",
+        "open-models",
+        "repos"
+      ],
+      "note": "Distributed through proprietary model API access. The public service terms reserve its rights; hosted third-party open models and open training-method descriptions are separate. No public Apply 3 weight release was located."
+    },
+    "license": {
+      "value": "Proprietary",
+      "status": "verified",
+      "source_ids": [
+        "terms",
+        "apply"
+      ],
+      "note": "Descriptive classification for the model service. Do not mistake the OpenAPI document\u2019s MIT metadata for a model-weight license, or inherit an unidentified backbone\u2019s license."
+    },
+    "parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "training",
+        "later-search",
+        "later-compact"
+      ],
+      "note": "The 3\u20138B range covers Apply-series backbones, not one exact Apply 3 total. Neither an endpoint of that range nor a midpoint is justified. No public checkpoint supports an exact reconstruction."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "training",
+        "later-search",
+        "later-compact"
+      ],
+      "note": "No separately defined per-token active count. LoRA trainable parameters are not active inference parameters."
+    },
+    "architecture": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "training",
+        "later-search",
+        "later-compact"
+      ],
+      "note": "LoRA SFT, FP8 and the Transformers library are disclosed methods, not an exact architecture. No named backbone or dense/MoE claim was recovered."
+    },
+    "context_window": {
+      "value": 256000,
+      "status": "verified",
+      "source_ids": [
+        "training",
+        "apply",
+        "provider"
+      ],
+      "note": "Advertised 256k total capacity; provider gives the decimal integer. Direct Apply API separately caps input and output at 128k each. The 64k SFT training length is not the serving limit."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "apply"
+      ],
+      "note": "Initial code, edit snippet and instruction are strings; response is merged-code text. No image, audio or video contract is exposed."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "apply",
+        "open-models"
+      ],
+      "note": "The Apply endpoint exposes direct merged code without a reasoning channel/control, but no explicit model-level non-reasoning declaration was recovered. Clear the baseline false instead of borrowing the capabilities of separately hosted open models."
+    },
+    "tool_call": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "apply",
+        "agent"
+      ],
+      "note": "For the documented Apply service, request/response schemas implement a code merge, with no model-selected function calls or tool-result loop. The edit_file integration is another agent calling Apply as a tool, not Apply calling tools."
+    },
+    "description": {
+      "value": "Specialized code-editing model that merges an edit snippet into an existing source file and returns the updated code.",
+      "status": "verified",
+      "source_ids": [
+        "apply",
+        "agent"
+      ],
+      "note": "Replaces the unsupported general-purpose chat, writing and analysis description with the documented code-merge task."
+    }
+  },
+  "patch": {
+    "family": "relace-apply",
+    "release_date": null,
+    "date_precision": null,
+    "license": "Proprietary",
+    "reasoning": null,
+    "description": "Specialized code-editing model that merges an edit snippet into an existing source file and returns the updated code.",
+    "sources": [
+      {
+        "label": "Apply 3 training details",
+        "url": "https://relace.ai/old/blog/relace-apply-3",
+        "type": "primary"
+      },
+      {
+        "label": "Apply API reference",
+        "url": "https://docs.relace.ai/api-reference/instant-apply/apply.md",
+        "type": "primary"
+      },
+      {
+        "label": "Agent tool integration",
+        "url": "https://docs.relace.ai/docs/instant-apply/agent.md",
+        "type": "primary"
+      },
+      {
+        "label": "Relace service terms",
+        "url": "https://relace.ai/legal/terms-of-use",
+        "type": "primary"
+      },
+      {
+        "label": "OpenRouter endpoint metadata",
+        "url": "https://openrouter.ai/api/v1/models/relace/relace-apply-3/endpoints",
+        "type": "catalog"
+      }
+    ],
+    "notes": "Relace Apply 3 merges code edits; OpenAI-compatible transport does not make it a general-purpose chat model. The documented total context is 256k, with 128k input and 128k output API limits. Exact model size, active parameters and architecture remain undisclosed; the developer gives only a 3\u20138B range for Apply-series backbones. September 26 2025 is an OpenRouter listing timestamp, while October 29 is a training retrospective; earliest release remains unverified. Apply can be invoked by an agent\u2019s edit tool, but its own API returns merged code rather than tool calls. A model-level reasoning declaration was not found."
+  },
+  "summary": "Corrected the generic chat description to code-edit merging, added lowercase Apply family and proprietary service classification, cleared an unverified original release date and unsupported reasoning=false. Confirmed documented text I/O, 256000 context and no native tool-call contract. Exact total/active counts and architecture remain undisclosed despite checking the detailed Apply 3 LoRA training retrospective and later first-party research. The disclosed 3\u20138B series range is retained only as a qualified note, not converted into a scalar."
+}
