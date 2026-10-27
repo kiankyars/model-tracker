@@ -1,7 +1,7 @@
 {
   "index": 140,
   "model_id": "bytedance-seed/seed-oss-36b-instruct",
-  "reviewed_at": "2026-10-26T18:02:46.259623Z",
+  "reviewed_at": "2026-10-27T11:10:21.021337Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Seed-OSS-36B-Instruct official README",
       "publisher": "ByteDance Seed",
       "accessed": true,
-      "evidence": "Names the exact Instruct release on 2025-08-20; reports nominal 36B, 64-layer causal architecture with GQA, RoPE, RMSNorm and SwiGLU; documents thinking budgets and a Seed-OSS tool-call parser."
+      "evidence": "Names the exact Instruct release on 2025-08-20; reports nominal 36B, 64-layer causal architecture with GQA, RoPE, RMSNorm and SwiGLU; documents thinking budgets and a Seed-OSS tool-call parser. Reopened for the parameter re-audit; the model summary still gives nominal 36B and no separately labeled active count."
     },
     {
       "id": "s2",
@@ -33,7 +33,7 @@
       "title": "Seed-OSS-36B-Instruct checkpoint tensor index and indexed shard headers",
       "publisher": "ByteDance Seed",
       "accessed": true,
-      "evidence": "Index explicitly reports total_parameters=36151104512 and total_size=72302209024. HTTP 206 byte-range reads of all 15 indexed shard headers independently sum 771 BF16 weight/bias tensors to exactly 36151104512 elements. Tensor names exactly match the index; no packed tensors, scales or other buffers occur."
+      "evidence": "Index explicitly reports total_parameters=36151104512 and total_size=72302209024. HTTP 206 byte-range reads of all 15 indexed shard headers independently sum 771 BF16 weight/bias tensors to exactly 36151104512 elements. Tensor names exactly match the index; no packed tensors, scales or other buffers occur. On October 27, the index metadata and its 771-entry weight map were rechecked; the prior shard-header census is preserved and no weight shards were downloaded in this pass."
     },
     {
       "id": "s5",
@@ -58,6 +58,62 @@
       "publisher": "ByteDance Seed",
       "accessed": true,
       "evidence": "Template read through the repository API serializes tool definitions, assistant tool_calls and tool results; supports thinking_budget and explicit reasoning delimiters."
+    },
+    {
+      "id": "s8",
+      "url": "https://seed.bytedance.com/en/blog/seed-oss-open-source-models-release",
+      "title": "Seed-OSS Open-Source Models Release",
+      "publisher": "ByteDance Seed",
+      "accessed": true,
+      "evidence": "The original developer release identifies Instruct as a post-trained version of Seed-OSS-36B-Base. It gives no separate activated-parameter count or convention."
+    },
+    {
+      "id": "s9",
+      "url": "https://github.com/ByteDance-Seed/seed-oss/blob/master/README.md",
+      "title": "Current Seed-OSS official repository README",
+      "publisher": "ByteDance Seed",
+      "accessed": true,
+      "evidence": "Freshly read the model summary and Base/Instruct comparison tables. The size is nominal 36B; Activation Function means SwiGLU, not an activated-parameter count. No activated-parameter column or counting convention appears."
+    },
+    {
+      "id": "s10",
+      "url": "https://lf3-static.bytednsdoc.com/obj/eden-cn/lapzild-tss/ljhwZthlaukjlkulzlp/research/Seed-1.8-Modelcard.pdf",
+      "title": "Seed1.8 Model Card",
+      "publisher": "ByteDance Seed",
+      "accessed": true,
+      "evidence": "Independently searched the complete 48-page text extracted from a fresh October 27 download for Seed-OSS and active/activated parameter references. No Seed-OSS occurrence or activated-parameter comparison was found."
+    },
+    {
+      "id": "s11",
+      "url": "https://lf3-static.bytednsdoc.com/obj/eden-cn/lapzild-tss/ljhwZthlaukjlkulzlp/seed2/0214/Seed2.0%20Model%20Card.pdf",
+      "title": "Seed2.0 Model Card",
+      "publisher": "ByteDance Seed",
+      "accessed": true,
+      "evidence": "Independently searched the complete 78-page text extracted from a fresh October 27 download. Seed-OSS occurs only in the introductory list of prior models; no active/activated-parameter comparison or convention was found."
+    },
+    {
+      "id": "s12",
+      "url": "https://arxiv.org/abs/2607.00248",
+      "title": "Seed2.0 Model Card, June 2026 revision",
+      "publisher": "ByteDance Seed",
+      "accessed": true,
+      "evidence": "Independently searched the complete 87-page text extracted from a fresh October 27 download. Seed-OSS occurs in the introduction and the bibliography link to its original release. No active/activated-parameter comparison or convention was found."
+    },
+    {
+      "id": "s13",
+      "url": "https://lf3-static.bytednsdoc.com/obj/eden-cn/lapzild-tss/ljhwZthlaukjlkulzlp/seed2.1/Seed2_1_Model_Card.pdf",
+      "title": "Seed2.1 Model Card",
+      "publisher": "ByteDance Seed",
+      "accessed": true,
+      "evidence": "Independently searched the complete 73-page text extracted from a fresh October 27 download for Seed-OSS and active/activated parameter references. No Seed-OSS occurrence or activated-parameter comparison was found."
+    },
+    {
+      "id": "s14",
+      "url": "https://www.siliconflow.com/models/seed-oss-36b-instruct",
+      "title": "SiliconFlow Seed-OSS-36B-Instruct served-model specification",
+      "publisher": "SiliconFlow",
+      "accessed": true,
+      "evidence": "The exact served-model page lists 36B total and 36B activated parameters. It supplies no count provenance, ByteDance attribution or counting convention; searches of the provider site and documentation found none. This is a provider claim, not a verified developer specification, and was not adopted."
     }
   ],
   "fields": {
@@ -121,7 +177,7 @@
         "s4",
         "s3"
       ],
-      "note": "Exact complete checkpoint count in decimal billions: 36,151,104,512. Header shape products equal explicit index metadata, including untied input/output embeddings, all dense-layer weights, norms and attention biases. All tensors are BF16 learned weights/biases, with no quantization buffers. The marketed 36B figure is rounded."
+      "note": "Retained exact complete checkpoint count in decimal billions: 36,151,104,512. Freshly reopened index metadata reports this count and 771 tensors, matching the previous full shard-header census of learned weights and biases. This includes untied embeddings, dense-layer weights, norms and attention biases; the developer label 36B is nominal."
     },
     "active_parameters_b": {
       "value": null,
@@ -130,9 +186,16 @@
         "s1",
         "s3",
         "s4",
-        "s6"
+        "s6",
+        "s8",
+        "s9",
+        "s10",
+        "s11",
+        "s12",
+        "s13",
+        "s14"
       ],
-      "note": "No separately defined active-parameter count or counting convention is reported in the inspected primary sources. Dense architecture alone does not establish an active count equal to the complete checkpoint total."
+      "note": "The original cards, current official model summary and later Seed1.8/2.0/2.1 texts disclose no separate Seed-OSS activated count or convention. SiliconFlow explicitly lists nominal 36B activated for the exact served model, but does not attribute or define that count; it remains an unverified provider claim. Dense architecture alone is not used to equate active and total parameters. Retain null pending a supported published convention or developer count, not an exact per-token census."
     },
     "architecture": {
       "value": "dense",
@@ -233,7 +296,7 @@
         "type": "primary"
       }
     ],
-    "notes": "36B is the nominal model label. The original BF16 checkpoint has exactly 36,151,104,512 learned parameters, confirmed by all 15 safetensors headers and the explicit index metadata. It is a dense causal Transformer; active parameters are not separately reported under a defined convention and remain null. The release date is explicit in the official model card and release news."
+    "notes": "36B is the nominal label; the original BF16 checkpoint contains exactly 36,151,104,512 learned parameters, confirmed by its index metadata and the prior complete header census. ByteDance does not separately specify active parameters in the checked sources; SiliconFlow lists 36B activated without a source or counting convention, so that claim remains unverified."
   },
-  "summary": "Verified all 14 requested fields against exact-model primary material. Replaced nominal 36B with the complete 36.151104512B checkpoint count, verified dense Transformer architecture, and simplified the capability description. Kept active parameters null because no separate primary counting convention is disclosed. Confirmed the original 2025-08-20 release, Apache 2.0, open weights, text modalities, 524288-token context, reasoning and tool calling."
+  "summary": "Fresh parameter re-audit retained the verified 36.151104512B total after reopening the official index and original cards. Checked the current official repository, original release, and later Seed1.8/2.0/2.1 model cards for an activated count or convention. SiliconFlow lists 36B activated without count provenance; no developer-backed active specification was found, so active parameters remain null. Prior tensor evidence and all other field assessments are preserved."
 }
