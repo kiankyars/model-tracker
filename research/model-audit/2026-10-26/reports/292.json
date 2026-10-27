@@ -1,7 +1,7 @@
 {
   "index": 292,
   "model_id": "meta/opt-6.7b",
-  "reviewed_at": "2026-10-26T22:04:52.612425Z",
+  "reviewed_at": "2026-10-27T15:23:03.163066Z",
   "sources": [
     {
       "id": "s1",
@@ -17,7 +17,7 @@
       "title": "OPT: Open Pre-trained Transformer Language Models",
       "publisher": "Meta AI / arXiv",
       "accessed": true,
-      "evidence": "The original developer report describes decoder-only text language models. Table 1 gives the 6.7B variant 32 layers, 32 attention heads and width 4096; section 2.2 specifies ReLU and sequence length 2048. It supplies a rounded 6.7B label, not a separate active-parameter count."
+      "evidence": "The original developer report describes decoder-only text language models. Table 1 gives the 6.7B variant 32 layers, 32 attention heads and width 4096; section 2.2 specifies ReLU and sequence length 2048. It supplies a rounded 6.7B label, not a separate active-parameter count. Reopened October 27, 2026: Table 1 still identifies the 6.7B variant; no separate active count is stated."
     },
     {
       "id": "s3",
@@ -25,7 +25,7 @@
       "title": "Official OPT pretrained model weights",
       "publisher": "Meta AI",
       "accessed": true,
-      "evidence": "Lists OPT-6.7B as 6.7B with a public checkpoint link and applies the model license. Current link is the v1_20230405 repackaged checkpoint; that path is not the original release date."
+      "evidence": "Lists OPT-6.7B as 6.7B with a public checkpoint link and applies the model license. Current link is the v1_20230405 repackaged checkpoint; that path is not the original release date. Fresh HTTPS retrieval on October 27, 2026 again confirms the explicit 6.7B Parameters column."
     },
     {
       "id": "s4",
@@ -41,7 +41,7 @@
       "title": "OPT-6.7B pinned configuration",
       "publisher": "Meta AI / Hugging Face",
       "accessed": true,
-      "evidence": "Fetched over HTTPS at revision a45aa65bbeb77c1558bc99bedc6779195462dab0: OPTForCausalLM, 32 layers, hidden and embedding width 4096, FFN width 16384, 32 heads, vocabulary 50272, 2048 positions, pre-layer normalization, final normalization retained, and float16. No quantization configuration."
+      "evidence": "Fetched over HTTPS at revision a45aa65bbeb77c1558bc99bedc6779195462dab0: OPTForCausalLM, 32 layers, hidden and embedding width 4096, FFN width 16384, 32 heads, vocabulary 50272, 2048 positions, pre-layer normalization, final normalization retained, and float16. No quantization configuration. Reopened the same pinned configuration on October 27, 2026."
     },
     {
       "id": "s6",
@@ -49,7 +49,7 @@
       "title": "OPT-6.7B pinned PyTorch checkpoint index",
       "publisher": "Meta AI / Hugging Face",
       "accessed": true,
-      "evidence": "Fetched as JSON over HTTPS after the web renderer failed. All 516 weight-map names exactly match the configuration-derived learned tensors: 16 per layer plus token/position embeddings and final norm weight/bias. No independent LM head, buffer or quantization metadata keys. total_size is 13,316,947,968 bytes, matching twice the derived parameter count. No weight shards were downloaded or unpickled."
+      "evidence": "Fetched as JSON over HTTPS after the web renderer failed. All 516 weight-map names exactly match the configuration-derived learned tensors: 16 per layer plus token/position embeddings and final norm weight/bias. No independent LM head, buffer or quantization metadata keys. total_size is 13,316,947,968 bytes, matching twice the derived parameter count. No weight shards were downloaded or unpickled. Reopened the same pinned index on October 27, 2026; retained the prior reconciliation without a new tensor census or shard download."
     },
     {
       "id": "s7",
@@ -66,6 +66,14 @@
       "publisher": "Hugging Face",
       "accessed": true,
       "evidence": "Fetched as JSON over HTTPS: main revision a45aa65bbeb77c1558bc99bedc6779195462dab0, repository created May 11, 2022, last modified January 24, 2023. Contains two PyTorch .bin shards and their index, with no safetensors files. Repository creation is later than the original Meta release."
+    },
+    {
+      "id": "s9",
+      "url": "https://openreview.net/pdf?id=O0BRg90v1Y",
+      "title": "From Compression to Specialization: An Information-Preserving Approach for Dense to Mixture-of-Experts Construction — Table 8",
+      "publisher": "MIDAS research authors / OpenReview, ICLR 2026 submission",
+      "accessed": true,
+      "evidence": "October 27, 2026: read the original paper’s search-indexed Table 8 caption, headers and rows. OPT-6.7B (Zhang et al., 2022a) is a dense baseline: non-embedding activated 6.44B, activated 6.66B, total 6.66B. This is the MIDAS authors’ comparison convention. Direct PDF/forum/hash requests and browser access hit OpenReview verification; the full PDF was not downloaded or visually inspected."
     }
   ],
   "fields": {
@@ -129,22 +137,20 @@
       "status": "verified",
       "source_ids": [
         "s2",
+        "s3",
         "s5",
         "s6",
         "s7"
       ],
-      "note": "Configuration-derived complete learned-parameter count for pinned HF revision a45aa65bbeb77c1558bc99bedc6779195462dab0: 32*(4*4096^2 + 2*4096*16384 + 9*4096 + 16384) + 50272*4096 + (2048+2)*4096 + 2*4096 = 6,658,473,984. Includes all linear biases, two affine norms per block and final norm. The 50272x4096 token matrix is counted once because the bias-free LM head is tied; equal widths need no input/output projection. All 516 expected tensor names match the index and FP16 byte total. This is metadata/configuration reconciliation, not direct weight-header inspection. The developer label 6.7B is rounded; no buffers, packed storage or quantization scales enter the sum."
+      "note": "Configuration-derived complete learned-parameter count for pinned HF revision a45aa65bbeb77c1558bc99bedc6779195462dab0: 32*(4*4096^2 + 2*4096*16384 + 9*4096 + 16384) + 50272*4096 + (2048+2)*4096 + 2*4096 = 6,658,473,984. Includes all linear biases, two affine norms per block and final norm. The 50272x4096 token matrix is counted once because the bias-free LM head is tied; equal widths need no input/output projection. All 516 expected tensor names match the index and FP16 byte total. This is metadata/configuration reconciliation, not direct weight-header inspection. The developer label 6.7B is rounded; no buffers, packed storage or quantization scales enter the sum. October 27 re-audit retains this previously established precise total after reopening the original report, official nominal-size table and pinned configuration/index; no new tensor census was performed."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 6.66,
+      "status": "verified",
       "source_ids": [
-        "s2",
-        "s5",
-        "s6",
-        "s7"
+        "s9"
       ],
-      "note": "No separate active-parameter convention or count is supplied for this dense model. Total parameters are not copied into this field."
+      "note": "Table 8 explicitly reports 6.66B activated for the unchanged OPT-6.7B dense baseline, distinct from its 6.44B non-embedding column. Retain the research authors’ two-decimal nominal convention, which agrees with the precise total at that precision. This is not a Meta active-count disclosure or an exact per-token participation claim. The complete table text was retrieved through the search index; direct PDF access remained challenged."
     },
     "architecture": {
       "value": "dense",
@@ -215,7 +221,7 @@
   "patch": {
     "parameters_b": 6.658473984,
     "parameters_source": "primary_source",
-    "notes": "OPT-6.7B is the nominal size label. The pinned official Hugging Face checkpoint a45aa65bbeb77c1558bc99bedc6779195462dab0 reconciles to 6,658,473,984 learned parameters, including tied embeddings once, biases, layer norms and the 2050-row position table; configuration and all 516 index keys agree with the FP16 byte total. Active parameters are not separately reported. Research release with non-commercial terms; the 175B access application does not apply to this publicly downloadable 6.7B checkpoint.",
+    "notes": "OPT-6.7B is Meta’s nominal size label; the pinned official checkpoint reconciles to 6.658473984B learned parameters, counting tied embeddings once. MIDAS Table 8 reports 6.66B activated under its research comparison convention, including embeddings; this is rounded and is not a separate Meta disclosure. Public research weights use non-commercial terms.",
     "sources": [
       {
         "label": "Original OPT release announcement",
@@ -246,8 +252,14 @@
         "label": "OPT model license",
         "url": "https://raw.githubusercontent.com/facebookresearch/metaseq/main/projects/OPT/MODEL_LICENSE.md",
         "type": "primary"
+      },
+      {
+        "label": "MIDAS original comparison: OPT-6.7B activated parameters, Table 8",
+        "url": "https://openreview.net/pdf?id=O0BRg90v1Y",
+        "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": 6.66
   },
-  "summary": "Correct nominal 6.7B to the configuration/index-reconciled full count 6.658473984B for the pinned official HF checkpoint. Confirm May 3, 2022 release, Meta/OPT identity, dense text architecture, 2048-token context, public weights and non-commercial research terms. Active parameters, native reasoning and tool calling remain undisclosed/null. No full weight download, unpickling or direct tensor-header inspection was performed; all indexed names and the FP16 byte total reconcile."
+  "summary": "October 27 parameter re-audit retains the previously reconciled total of 6.658473984B and adds nominal active parameters of 6.66B from MIDAS Table 8. The original table text was search-index accessible; full PDF access was challenged. All 12 unrelated assessments are preserved. No weight shards or new tensor census."
 }
