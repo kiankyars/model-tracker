@@ -1,7 +1,7 @@
 {
   "index": 217,
   "model_id": "google/gemma-3-12b-it",
-  "reviewed_at": "2026-10-26T20:09:16.309413Z",
+  "reviewed_at": "2026-10-27T13:12:53.956498+00:00",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Gemma 3 12B IT official model repository",
       "publisher": "Google",
       "accessed": true,
-      "evidence": "Exact instruction-tuned repository google/gemma-3-12b-it, Gemma license, text/image-to-text model, and downloadable weights subject to accepting Google terms. The public card is accessible; raw files require authenticated acceptance.",
+      "evidence": "Exact instruction-tuned repository google/gemma-3-12b-it, Gemma license, text/image-to-text model, and downloadable weights subject to accepting Google terms. The public card is accessible; raw files require authenticated acceptance. Reopened October 27, 2026: the exact IT card remains accessible and identifies the same multimodal 12B model; it does not separately define an active count.",
       "type": "weights"
     },
     {
@@ -27,7 +27,7 @@
       "title": "Gemma 3 model card",
       "publisher": "Google DeepMind",
       "accessed": true,
-      "evidence": "Identifies Google authorship and open pretrained/instruction-tuned weights. Explicitly assigns text/image input, text output, and a shared 128K input-plus-output context to the 12B model; describes general reasoning ability without classifying a dedicated reasoning mode.",
+      "evidence": "Identifies Google authorship and open pretrained/instruction-tuned weights. Explicitly assigns text/image input, text output, and a shared 128K input-plus-output context to the 12B model; describes general reasoning ability without classifying a dedicated reasoning mode. Fresh October 27 full-card review confirms exact 12B IT/PT comparison columns without an activated-parameter count.",
       "type": "primary"
     },
     {
@@ -36,7 +36,7 @@
       "title": "Gemma 3 Technical Report",
       "publisher": "Google DeepMind",
       "accessed": true,
-      "evidence": "Dated March 12, 2025. Section 2 establishes decoder-only Transformer, GQA, RMSNorm and QK-norm, with five local attention layers per global layer. Table 1 labels 12B components at rounded precision: 417M vision, 1,012M embedding and 10,759M non-embedding. Vision encoder is a pretrained SigLIP ViT frozen during Gemma training; it remains part of the model parameter total.",
+      "evidence": "Dated March 12, 2025. Section 2 establishes decoder-only Transformer, GQA, RMSNorm and QK-norm, with five local attention layers per global layer. Table 1 labels 12B components at rounded precision: 417M vision, 1,012M embedding and 10,759M non-embedding. Vision encoder is a pretrained SigLIP ViT frozen during Gemma training; it remains part of the model parameter total. Fresh October 27 review of the original complete report and parameter table confirms those are component sizes, not an active-per-token definition. Teacher distillation is a training method and does not replace the released student size with a teacher count.",
       "type": "primary"
     },
     {
@@ -45,7 +45,7 @@
       "title": "Pinned official repository metadata",
       "publisher": "Google / Hugging Face",
       "accessed": true,
-      "evidence": "For the exact IT checkpoint revision, safetensors.parameters.BF16 and safetensors.total both equal 12,187,325,040. Architecture is Gemma3ForConditionalGeneration. This is repository metadata, not a direct tensor-header inspection; all reported stored values are BF16.",
+      "evidence": "For the exact IT checkpoint revision, safetensors.parameters.BF16 and safetensors.total both equal 12,187,325,040. Architecture is Gemma3ForConditionalGeneration. This is repository metadata, not a direct tensor-header inspection; all reported stored values are BF16. Fresh October 27 request to the same pinned revision again returned BF16 and total 12,187,325,040; no weights were downloaded or tensor census repeated.",
       "type": "weights"
     },
     {
@@ -146,6 +146,33 @@
       "type": "primary",
       "accessed": true,
       "evidence": "The exact 12B conversion configuration defines 3840 width, 48 layers, 16 query/8 KV heads, and a 27-layer SigLIP tower with pooling head disabled. Conversion appends 64 statistically initialized embedding rows and increments vocabulary from 262144 to 262208. These add 245760 checkpoint parameters; they are conversion-created entries, not original trained embedding rows."
+    },
+    {
+      "id": "s17",
+      "url": "https://arxiv.org/html/2505.09388v1#S4.T18",
+      "title": "Qwen3 Technical Report, Table 18",
+      "publisher": "Qwen Team",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Fresh October 27 inspection of the original report and exact HTML table S4.T18. The Gemma-3-12B-IT column explicitly labels architecture Dense, Activated Params 12B and Total Params 12B. Section 4.6 identifies this exact instruction-tuned model as a non-reasoning baseline in the authors’ text evaluations. This is the Qwen team’s original rounded comparative counting convention, not a Google disclosure, a tensor-level census, or a claim that all multimodal weights execute for every generated token. The table does not separately assign its rounded active count to a named component."
+    },
+    {
+      "id": "s18",
+      "url": "https://arxiv.org/html/2607.02770v1",
+      "title": "Gemma 4 Technical Report",
+      "publisher": "Google DeepMind",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Fresh October 27 later-disclosure check of model architecture, parameter tables and Gemma 3 comparisons. The explicit active counts concern the new 26B-A4B MoE model; dense figures and Gemma 3 27B comparisons do not supply a new active count for Gemma 3 12B IT. No successor-model number is transferred to this record."
+    },
+    {
+      "id": "s19",
+      "url": "https://modelrigs.com/models/gemma-3-12b",
+      "title": "Gemma 3 12B hardware and model specifications",
+      "publisher": "ModelRigs",
+      "type": "secondary",
+      "accessed": true,
+      "evidence": "Fresh exact-model search led to a page assigning both total and active 12.187B and linking the general official Hub page. Opened October 27; the linked Google card and pinned metadata establish total size, not that precise active count. This aggregate is not used to replace the separately labeled nominal Qwen benchmark count."
     }
   ],
   "fields": {
@@ -220,17 +247,19 @@
         "s15",
         "s16"
       ],
-      "note": "Exact official Hub BF16 aggregate reconciles to 12,187,325,040 unique model parameter elements: language 11,766,034,176 + vision 416,866,032 + projector/norm 4,424,832. Language count = 262208*3840 + 48*(2*3840*16*256 + 2*3840*8*256 + 3*3840*15360 + 4*3840 + 2*256) + 3840. Tied embedding/output weight counted once; includes pretrained frozen vision weights. The analytical count excludes nonpersistent RoPE/position buffers; BF16 aggregation contains no quantized packing or scale category. Direct official config/index/header access was gated, so tensor names/shapes were not independently enumerated. Padded HF vocabulary and omission of the SigLIP pooling head are reconciled with the aggregate using implementation code; no assertion of header-level verification is made. The 12B name and report component table are nominal/rounded. The exact pinned converter confirms the padded vocabulary and no-pooling vision configuration. The count includes 245760 conversion-created embedding entries; the original pre-conversion implementation total is 12187079280."
+      "note": "Exact official Hub BF16 aggregate reconciles to 12,187,325,040 unique model parameter elements: language 11,766,034,176 + vision 416,866,032 + projector/norm 4,424,832. Language count = 262208*3840 + 48*(2*3840*16*256 + 2*3840*8*256 + 3*3840*15360 + 4*3840 + 2*256) + 3840. Tied embedding/output weight counted once; includes pretrained frozen vision weights. The analytical count excludes nonpersistent RoPE/position buffers; BF16 aggregation contains no quantized packing or scale category. Direct official config/index/header access was gated, so tensor names/shapes were not independently enumerated. Padded HF vocabulary and omission of the SigLIP pooling head are reconciled with the aggregate using implementation code; no assertion of header-level verification is made. The 12B name and report component table are nominal/rounded. The exact pinned converter confirms the padded vocabulary and no-pooling vision configuration. The count includes 245760 conversion-created embedding entries; the original pre-conversion implementation total is 12187079280. Fresh October 27 metadata recheck confirms the same exact total. The original nominal 12B remains supported; no new weight download or repeated tensor census was needed."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 12,
+      "status": "verified",
       "source_ids": [
+        "s17",
         "s3",
         "s4",
-        "s9"
+        "s18",
+        "s19"
       ],
-      "note": "No separate active-per-token count or counting convention is reported. Dense language architecture does not establish equality with the full multimodal total; the vision tower is used when encoding images."
+      "note": "Nominal 12B activated parameters under the Qwen team’s original text-benchmark convention, explicitly labeled for the exact Gemma-3-12B-IT column in Table 18. This verifies that published comparative value, not a Google disclosure or an exact modality-dependent per-token census. It is not obtained by copying the precise 12.18732504B total or the non-embedding subtotal. The source does not decompose its rounded active figure by component, so no language-only scope is invented; vision participation varies with image input. Fresh original/later Google checks supply no finer active definition. The secondary 12.187B active claim is not adopted."
     },
     "architecture": {
       "value": "dense",
@@ -307,7 +336,7 @@
     "description": "Google's instruction-tuned Gemma 3 model for multilingual text generation and image understanding.",
     "source_url": "https://developers.googleblog.com/en/introducing-gemma3/",
     "source_type": "primary",
-    "notes": "Total includes 11,766,034,176 language, 416,866,032 vision and 4,424,832 projector parameters, with tied embeddings counted once. The language count includes 245,760 entries added during Hugging Face conversion. Pinned metadata and implementation agree; raw tensor headers were inaccessible. Active parameters are not separately defined. Function calling uses prompting and output parsing. The March 12 launch announcement conflicts with a later release log saying March 10.",
+    "notes": "Total comprises 11.766034176B language, 0.416866032B vision and 0.004424832B projector parameters, including 245,760 Hugging Face conversion entries. Active 12B follows the Qwen team’s nominal text-benchmark convention, not a Google per-token specification; vision participation depends on image input. Pinned metadata and implementation agree; raw headers were gated. Function calling uses prompting and output parsing. The March 12 launch conflicts with a later release log saying March 10.",
     "sources": [
       {
         "label": "Gemma 3 12B IT official model repository",
@@ -383,8 +412,14 @@
         "label": "Pinned Gemma 3 checkpoint conversion implementation",
         "url": "https://github.com/huggingface/transformers/blob/6c5f8f4186c15f4bfbd67941a1736b2b347e0155/src/transformers/models/gemma3/convert_gemma3_weights.py",
         "type": "primary"
+      },
+      {
+        "label": "Qwen3 technical report — exact Gemma 3 12B IT active-size comparison",
+        "url": "https://arxiv.org/html/2505.09388v1#S4.T18",
+        "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": 12
   },
   "proposed_fields": {
     "parameter_components_b": {
@@ -393,5 +428,5 @@
       "multimodal_projector": 0.004424832
     }
   },
-  "summary": "Audited all 14 fields. Confirmed the exact 12B IT variant and March 12, 2025 public launch, open Gemma-licensed weights, dense multimodal architecture, 131072-token context and prompted function calling. Replaced nominal 12B with the official 12.18732504B BF16 aggregate, independently reconciled analytically with language, vision and projector parameters while disclosing gated raw headers. Active parameters remain undisclosed; cleared unsupported reasoning=false. Recorded the March 10 release-log conflict and clarified tool-calling support."
+  "summary": "October 27 parameter re-audit preserves the freshly reconfirmed exact 12.18732504B total and recovers nominal 12B active from Qwen’s original Table 18 for the exact Gemma 3 12B IT model. The counting convention is explicitly attributed to the Qwen research team; Google’s original report and later comparisons do not define a finer per-token count. No component scope is invented, no weights are downloaded and no tensor census is repeated. All unrelated assessments and the accepted component breakdown are preserved."
 }
