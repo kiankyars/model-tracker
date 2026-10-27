@@ -1,7 +1,7 @@
 {
   "index": 411,
   "model_id": "openai/gpt-4o-mini",
-  "reviewed_at": "2026-10-27T01:41:05.019331Z",
+  "reviewed_at": "2026-10-27T16:29:26.316771Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "GPT-4o mini: advancing cost-efficient intelligence",
       "publisher": "OpenAI",
       "accessed": true,
-      "evidence": "Dated July 18, 2024; explicitly launches mini in the API for text and vision, documents function calling and nominal 128K context. Audio/video support is stated as future work, not a capability of this API model. No parameter count or detailed architecture is disclosed."
+      "evidence": "Dated July 18, 2024; explicitly launches mini in the API for text and vision, documents function calling and nominal 128K context. Audio/video support is stated as future work, not a capability of this API model. No parameter count or detailed architecture is disclosed. Reopened October 27, 2026: no nominal total or active count; sharing GPT-4o tokenizer and safety mitigations does not identify an equal-size base model."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "GPT-4o Mini model documentation",
       "publisher": "OpenAI",
       "accessed": true,
-      "evidence": "Complete Markdown fetched directly. Exact alias defaults to gpt-4o-mini-2024-07-18, with 128,000 context, 16,384 maximum output tokens, text/image inputs, text output, function calling and file uploads. Marks the model deprecated, not shut down."
+      "evidence": "Complete Markdown fetched directly. Exact alias defaults to gpt-4o-mini-2024-07-18, with 128,000 context, 16,384 maximum output tokens, text/image inputs, text output, function calling and file uploads. Marks the model deprecated, not shut down. Rechecked the complete October 27, 2026 HTTP-200 Markdown: neither total nor active parameters is specified. Its discussion of distilling larger-model outputs into mini supplies no count or unchanged-architecture lineage."
     },
     {
       "id": "s3",
@@ -81,7 +81,7 @@
       "title": "OpenAI o1 System Card",
       "publisher": "OpenAI",
       "accessed": true,
-      "evidence": "Full PDF downloaded and text-extracted. Mini-specific comparison columns cover hallucination, bias and multilingual evaluations. All parameter, architecture and Transformer matches were checked; no production count or routing structure for GPT-4o mini is disclosed."
+      "evidence": "Full PDF downloaded and text-extracted. Mini-specific comparison columns cover hallucination, bias and multilingual evaluations. All parameter, architecture and Transformer matches were checked; no production count or routing structure for GPT-4o mini is disclosed. Rechecked the October 27, 2026 fresh full-PDF text, including mini matches and parameter/count terms; no nominal total or activated count for mini was found."
     },
     {
       "id": "s11",
@@ -89,7 +89,7 @@
       "title": "GPT-5 System Card",
       "publisher": "OpenAI",
       "accessed": true,
-      "evidence": "Full PDF downloaded and text-extracted. The model-progression table explicitly identifies GPT-4o-mini as the predecessor of gpt-5-main-mini. No mini parameter count or architecture disclosure was found; GPT-5 characteristics are not transferred."
+      "evidence": "Full PDF downloaded and text-extracted. The model-progression table explicitly identifies GPT-4o-mini as the predecessor of gpt-5-main-mini. No mini parameter count or architecture disclosure was found; GPT-5 characteristics are not transferred. Rechecked the October 27, 2026 fresh full-PDF text, including mini matches and parameter/count terms; no nominal total or activated count for mini was found."
     },
     {
       "id": "s12",
@@ -98,6 +98,30 @@
       "publisher": "OpenAI",
       "accessed": true,
       "evidence": "Training research linked by the mini launch was checked as an architecture lead. This April 2024 research page explicitly applies its method to GPT-3.5; it does not disclose mini structure or size. The mini launch confirms later adoption of the technique without implying shared architecture."
+    },
+    {
+      "id": "s13",
+      "url": "https://arxiv.org/html/2505.09388v1",
+      "title": "Qwen3 Technical Report, Table 14",
+      "publisher": "Qwen Team / Alibaba",
+      "accessed": true,
+      "evidence": "Fresh original HTML read October 27, 2026. Table 14 identifies GPT-4o-mini-2024-07-18 exactly and explicitly leaves both # Activated Params and # Total Params as dashes. This is original comparative research, not an OpenAI disclosure; it supplies neither count."
+    },
+    {
+      "id": "s14",
+      "url": "https://arxiv.org/html/2504.07491v1",
+      "title": "Kimi-VL Technical Report, Table 3",
+      "publisher": "Kimi Team / Moonshot AI",
+      "accessed": true,
+      "evidence": "Fresh original HTML read October 27, 2026. The GPT-4o-mini comparison column has dashes for both # Act. Params (LLM+VT) and # Total Params. The paper explicitly publishes counts for other VLMs, but gives no mini count or model-size lineage."
+    },
+    {
+      "id": "s15",
+      "url": "https://arxiv.org/html/2509.02372v3",
+      "title": "Scam2Prompt: A Scalable Framework for Auditing Malicious Scam Endpoints in Production LLMs, Table 3",
+      "publisher": "Zhiyang Chen et al. / University of Toronto",
+      "accessed": true,
+      "evidence": "Fresh original May 8, 2026 revision read October 27, including Appendix B.3 and Table 3. Exact openai/gpt-4o-mini is listed with approximately 40B total and 8B active, but the dagger footnote expressly calls these unofficial estimates based on public speculation and technical analysis, with no official release. Rejected as production specifications; this research studies generated scam URLs and does not measure model size. The September 2025 v1 Table 2 has the same caveat. OpenReview copies were challenge-blocked; arXiv versions were accessible."
     }
   ],
   "fields": {
@@ -164,9 +188,11 @@
         "s2",
         "s10",
         "s11",
-        "s12"
+        "s13",
+        "s14",
+        "s15"
       ],
-      "note": "No exact total production count found in launch, model specifications, later model-card comparison tables or linked training research. The mini label and price do not quantify size."
+      "note": "Fresh October 27 search and rereading of the exact OpenAI launch, model specification and later system cards found no nominal total count or count-bearing named lineage. Qwen3 Table 14 and Kimi-VL Table 3 leave total parameters blank. The later Scam2Prompt ~40B figure is expressly unofficial speculation, so it is not adopted."
     },
     "active_parameters_b": {
       "value": null,
@@ -175,9 +201,12 @@
         "s1",
         "s2",
         "s10",
-        "s11"
+        "s11",
+        "s13",
+        "s14",
+        "s15"
       ],
-      "note": "No per-token active parameter count is disclosed for this exact mini model. Do not equate active and total counts or infer routing."
+      "note": "Rechecked independently of total. Qwen3 Table 14 identifies the exact dated mini snapshot but leaves activated parameters blank; Kimi-VL Table 3 likewise reports no active count. Scam2Prompt ~8B is explicitly speculative, and no supported nominal active-count convention was found in the bounded later-research search. No active/total equality or MoE structure is inferred."
     },
     "architecture": {
       "value": "transformer",
@@ -312,9 +341,27 @@
         "label": "The Instruction Hierarchy: Training LLMs to Prioritize Privileged Instructions",
         "url": "https://openai.com/index/the-instruction-hierarchy/",
         "type": "primary"
+      },
+      {
+        "label": "Qwen3 Technical Report, Table 14",
+        "url": "https://arxiv.org/html/2505.09388v1",
+        "type": "primary"
+      },
+      {
+        "label": "Kimi-VL Technical Report, Table 3",
+        "url": "https://arxiv.org/html/2504.07491v1",
+        "type": "primary"
+      },
+      {
+        "label": "Scam2Prompt: A Scalable Framework for Auditing Malicious Scam Endpoints in Production LLMs, Table 3",
+        "url": "https://arxiv.org/html/2509.02372v3",
+        "type": "primary"
       }
     ],
-    "notes": "The gpt-4o-mini alias defaults to gpt-4o-mini-2024-07-18, released in the API on July 18, 2024. PDF input is processed into text and page images. Broad Transformer attention is inferred from the documented prompt-caching mechanism and exact-snapshot support; complete block structure, dense/MoE routing and total/active parameter counts remain undisclosed. This text/vision model is separate from later audio and realtime variants. OpenAI deprecated the API model on October 14, 2026 and schedules shutdown for January 14, 2027; no live endpoint request was made."
+    "notes": "The gpt-4o-mini alias defaults to gpt-4o-mini-2024-07-18, released July 18, 2024. PDF input is processed into text and page images. Broad Transformer attention is inferred from documented prompt caching; full structure and routing remain undisclosed. Total and active parameter counts remain undisclosed: original comparison tables omit them, while published 40B/8B figures are expressly speculative. This text/vision model is separate from audio and realtime variants. API shutdown is scheduled for January 14, 2027 following October 14, 2026 deprecation; no live endpoint request was made.",
+    "parameters_b": null,
+    "active_parameters_b": null,
+    "parameters_source": null
   },
-  "summary": "Reviewed all 14 fields. Correct family and proprietary classification, replace promotional copy, and record broad Transformer attention with explicit operational-evidence scope. Confirm July release, precise context, text/image/PDF inputs, text output, function calling and non-reasoning classification. Counts and routing remain undisclosed after later model-card and training research checks; API retirement is scheduled for January 2027."
+  "summary": "Fresh parameter re-audit leaves total and active counts explicitly null/undisclosed. Reopened OpenAI launch, exact model docs and full later system cards; checked Qwen3 and Kimi-VL total/active comparison rows and the May 2026 Scam2Prompt revision. Rejected its expressly speculative 40B/8B figures. Preserved the other 12 field assessments."
 }
