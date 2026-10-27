@@ -14205,29 +14205,100 @@
     "developer": "NVIDIA",
     "developer_id": "nvidia",
     "family": "nemotron",
-    "description": "Safety model for policy screening, moderation, and risk-aware routing workflows",
+    "description": "NVIDIA’s Gemma 3 safety fine-tune for classifying text and image inputs and model responses, with optional labels for 23 safety categories.",
     "release_date": "2026-03-16",
     "date_precision": "day",
     "open_weights": true,
-    "license": null,
-    "parameters_b": null,
+    "license": "NVIDIA Nemotron Open Model License + Gemma Terms of Use",
+    "parameters_b": 4.300079472,
     "active_parameters_b": null,
-    "parameters_source": null,
-    "architecture": null,
-    "context_window": 128000,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "context_window": 131072,
     "modalities": {
       "input": [
-        "text"
+        "text",
+        "image"
       ],
       "output": [
         "text"
       ]
     },
-    "reasoning": false,
-    "tool_call": false,
-    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/nvidia/nemotron-3-content-safety.toml",
-    "source_type": "catalog",
+    "reasoning": null,
+    "tool_call": null,
+    "source_url": "https://huggingface.co/nvidia/Nemotron-3-Content-Safety/blob/b47f6f6c18dc7d11a786abbbca2510cba58ede20/README.md",
+    "source_type": "primary",
     "sources": [
+      {
+        "label": "Nemotron 3 Content Safety model card",
+        "url": "https://huggingface.co/nvidia/Nemotron-3-Content-Safety/blob/b47f6f6c18dc7d11a786abbbca2510cba58ede20/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Exact checkpoint configuration",
+        "url": "https://huggingface.co/nvidia/Nemotron-3-Content-Safety/blob/b47f6f6c18dc7d11a786abbbca2510cba58ede20/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Complete BF16 checkpoint index",
+        "url": "https://huggingface.co/nvidia/Nemotron-3-Content-Safety/blob/b47f6f6c18dc7d11a786abbbca2510cba58ede20/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Official safetensors headers, first of five indexed shards",
+        "url": "https://huggingface.co/nvidia/Nemotron-3-Content-Safety/resolve/b47f6f6c18dc7d11a786abbbca2510cba58ede20/model-00001-of-00005.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Gemma 3 implementation matching checkpoint Transformers version",
+        "url": "https://github.com/huggingface/transformers/blob/v4.57.6/src/transformers/models/gemma3/modeling_gemma3.py",
+        "type": "primary"
+      },
+      {
+        "label": "SigLIP vision implementation",
+        "url": "https://github.com/huggingface/transformers/blob/v4.57.6/src/transformers/models/siglip/modeling_siglip.py",
+        "type": "primary"
+      },
+      {
+        "label": "Exact safety-classification chat template",
+        "url": "https://huggingface.co/nvidia/Nemotron-3-Content-Safety/blob/b47f6f6c18dc7d11a786abbbca2510cba58ede20/chat_template.jinja",
+        "type": "weights"
+      },
+      {
+        "label": "Exact model API documentation",
+        "url": "https://docs.api.nvidia.com/nim/reference/nvidia-nemotron-3-content-safety",
+        "type": "primary"
+      },
+      {
+        "label": "Nemotron 3 Content Safety introduction",
+        "url": "https://huggingface.co/blog/nvidia/nemotron-3-content-safety",
+        "type": "primary"
+      },
+      {
+        "label": "Later model comparison introducing version 3.5",
+        "url": "https://huggingface.co/blog/nvidia/nemotron-3-5-content-safety",
+        "type": "primary"
+      },
+      {
+        "label": "NVIDIA Nemotron Open Model License",
+        "url": "https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-nemotron-open-model-license/",
+        "type": "primary"
+      },
+      {
+        "label": "Gemma Terms of Use",
+        "url": "https://ai.google.dev/gemma/terms",
+        "type": "primary"
+      },
+      {
+        "label": "Gemma Prohibited Use Policy",
+        "url": "https://ai.google.dev/gemma/prohibited_use_policy",
+        "type": "primary"
+      },
+      {
+        "label": "Exact NVIDIA Build page and embedded capability metadata",
+        "url": "https://build.nvidia.com/nvidia/nemotron-3-content-safety",
+        "type": "primary"
+      },
       {
         "label": "Models.dev record",
         "url": "https://github.com/anomalyco/models.dev/blob/dev/models/nvidia/nemotron-3-content-safety.toml",
@@ -14237,7 +14308,15 @@
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
+    "upstream_present": true,
+    "notes": "4B is nominal; the complete merged BF16 checkpoint has exactly 4.300079472B learned parameters, including the SigLIP vision encoder and multimodal projector. Shared input/output embeddings are counted once; LoRA is already merged. Active parameters are not separately disclosed. This model accepts text and an optional single image. The March 16, 2026 model release predates later NIM/container dates. NVIDIA’s Build capability flags conflict with the safety-only checkpoint template and documented modes, leaving dedicated reasoning and tool calling unresolved. License terms also include the Gemma Prohibited Use Policy. The hosted endpoint is marked deprecated, while downloadable weights remain available.",
+    "field_status": {
+      "active_parameters_b": "undisclosed",
+      "reasoning": "unverified",
+      "tool_call": "unverified"
+    },
+    "audited_at": "2026-10-27T00:36:01.244274+00:00",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/380.json"
   },
   {
     "id": "nvidia/nemotron-voicechat",
