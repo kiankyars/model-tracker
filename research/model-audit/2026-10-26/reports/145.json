@@ -1,7 +1,7 @@
 {
   "index": 145,
   "model_id": "cohere/c4ai-aya-vision-8b",
-  "reviewed_at": "2026-10-26T18:12:33.178Z",
+  "reviewed_at": "2026-10-27T12:26:13.903333+00:00",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Aya Vision 8B model card",
       "publisher": "Cohere Labs",
       "accessed": true,
-      "evidence": "Exact model card identifies the developer, open-weight research release, 23-language coverage, 16K context, text/image inputs, text output, license, and Command R7B-derived language model with SigLIP2 vision encoder."
+      "evidence": "Exact model card identifies the developer, open-weight research release, 23-language coverage, 16K context, text/image inputs, text output, license, and Command R7B-derived language model with SigLIP2 vision encoder. Reopened October 27, 2026: the card still advertises the nominal 8B size and explicitly identifies a Command R7B-based language model further post-trained with the Aya Expanse recipe. It does not state a separate active-parameter count."
     },
     {
       "id": "s2",
@@ -25,7 +25,7 @@
       "title": "Aya Vision: Advancing the Frontier of Multilingual Multimodality",
       "publisher": "Cohere Labs and Cohere",
       "accessed": true,
-      "evidence": "Section 4 describes late fusion of a SigLIP2 encoder, a two-layer SwiGLU connector, and the Command R7B-derived LLM. Table 6 separately gives the 8B variant's LLM as 8B, vision encoder as 400M, and connector as 190M, with 32 LLM layers and grouped-query attention."
+      "evidence": "Section 4 describes late fusion of a SigLIP2 encoder, a two-layer SwiGLU connector, and the Command R7B-derived LLM. Table 6 separately gives the 8B variant's LLM as 8B, vision encoder as 400M, and connector as 190M, with 32 LLM layers and grouped-query attention. Independently rechecked the full report freshly fetched October 27, including Section 4, Table 6 and the comparison tables. The rounded components sum to 8.59B, retained as approximately 8.6B complete parameters. Neither full-model nor language-only active parameters are defined."
     },
     {
       "id": "s4",
@@ -57,7 +57,7 @@
       "title": "Aya Vision 8B public repository metadata",
       "publisher": "Hugging Face metadata for Cohere Labs repository",
       "accessed": true,
-      "evidence": "Public API reports automatic gating, AyaVisionForConditionalGeneration, and an aggregate 8,631,842,032 F16 safetensors elements. It exposes the default text/image chat template. Aggregate storage metadata alone does not establish an exact learned-parameter total."
+      "evidence": "Public API reports automatic gating, AyaVisionForConditionalGeneration, and an aggregate 8,631,842,032 F16 safetensors elements. It exposes the default text/image chat template. Aggregate storage metadata alone does not establish an exact learned-parameter total. Fresh October 27 metadata at revision d7601ac8fd3baf6f59c5fc9514c618ef0f24268f reports the same 8,631,842,032 F16 total, corroborating the approximate complete size without establishing an active count."
     },
     {
       "id": "s8",
@@ -73,7 +73,7 @@
       "title": "Command R7B December 2024 model card",
       "publisher": "Cohere Labs",
       "accessed": true,
-      "evidence": "The exact language-model ancestor named by Aya Vision's authors is an autoregressive Transformer with alternating sliding-window and global attention. Used only to corroborate architectural lineage, not to transfer its counts, context or capabilities."
+      "evidence": "The exact language-model ancestor named by Aya Vision's authors is an autoregressive Transformer with alternating sliding-window and global attention. Used only to corroborate architectural lineage, not to transfer its counts, context or capabilities. Reopened October 27: the base card advertises nominal 7B parameters but provides no separately defined active count; the Aya report gives its own modified language component as 8B."
     },
     {
       "id": "s10",
@@ -90,6 +90,54 @@
       "publisher": "Cohere",
       "accessed": true,
       "evidence": "Describes function calling for the Command family, without an explicit Aya Vision 8B support or exclusion statement."
+    },
+    {
+      "id": "s12",
+      "url": "https://arxiv.org/html/2412.04261v1",
+      "title": "Aya Expanse: Combining Research Breakthroughs for a New Multilingual Frontier",
+      "publisher": "Cohere For AI and Cohere",
+      "accessed": true,
+      "evidence": "Independently inspected the complete report from the fresh October 27 primary-source cache. It describes the post-training recipe referenced by Aya Vision but provides no active-count convention for Aya Vision or its R7B-derived backbone. The explicit 39B active count belongs to the Mixtral comparator."
+    },
+    {
+      "id": "s13",
+      "url": "https://arxiv.org/html/2603.11510v1",
+      "title": "Tiny Aya: Bridging Scale and Multilingual Depth",
+      "publisher": "Cohere Labs and Cohere",
+      "accessed": true,
+      "evidence": "Independently inspected the full later report from the fresh October 27 cache. Its parameter table distinguishes Tiny Aya embedding, non-embedding and total counts; it provides no Aya Vision 8B active count, and its 2.8B non-embedding figure is not a transferable active-count convention."
+    },
+    {
+      "id": "s14",
+      "url": "https://arxiv.org/pdf/2504.00698v2",
+      "title": "Command A: An Enterprise-Ready Large Language Model",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "Independently inspected the full report from the fresh October 27 cache, including comparison headings and Command R7B rows. It provides benchmark comparisons but no separate active-parameter count for Aya Vision 8B or its R7B language ancestor."
+    },
+    {
+      "id": "s15",
+      "url": "https://arxiv.org/html/2503.14603v1",
+      "title": "Command R7B Arabic: A Small but Mighty Arabic LLM",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "Independently inspected the full report from the fresh October 27 cache for R7B parameter definitions and comparisons. It provides no applicable active-count disclosure for Aya Vision 8B or its named language ancestor."
+    },
+    {
+      "id": "s16",
+      "url": "https://cohere.com/blog/command-a-plus",
+      "title": "Introducing Command A+: Making sovereign agentic capabilities available to all",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "Reopened October 27. The May 2026 page explicitly distinguishes 218B total and 25B active for Command A+; the family comparison table covers Command A variants and gives no Aya Vision 8B or R7B active count. A separate model's MoE figures are not transferred."
+    },
+    {
+      "id": "s17",
+      "url": "https://appz.com/ai-models/command-r7b",
+      "title": "Command R7B model directory entry",
+      "publisher": "appz.com",
+      "accessed": true,
+      "evidence": "Fresh active-count search surfaced a 7B-active claim for the R7B ancestor. The web reader failed, then direct retrieval of the full HTML succeeded. Its sole Official source link is Cohere's generic model list, with no separate field-level count derivation. The referenced primary list does not state an activated-parameter convention. This uncorroborated directory claim does not establish an Aya Vision count; the Aya paper separately gives its language component as 8B."
     }
   ],
   "fields": {
@@ -149,20 +197,27 @@
       "value": 8.6,
       "status": "verified",
       "source_ids": [
+        "s1",
         "s3",
-        "s5",
-        "s6",
         "s7"
       ],
-      "note": "Approximately 8.6B full-model parameters, calculated from the developer technical report's rounded component counts: 8B language model, 0.4B vision encoder and 0.19B connector. This includes the learned vision encoder even when frozen during multimodal training. The sum is approximate, not an exact checkpoint tensor count; gated files prevent independent verification."
+      "note": "Fresh October 27 checks retain approximately 8.6B complete multimodal parameters from the developer report's rounded 8B language model, 0.4B vision encoder and 0.19B connector. The sum includes the learned encoder despite freezing during multimodal training. Hub metadata corroborates the scale; the published component counts support this approximate total without a tensor census."
     },
     "active_parameters_b": {
       "value": null,
       "status": "undisclosed",
       "source_ids": [
-        "s3"
+        "s1",
+        "s3",
+        "s9",
+        "s12",
+        "s13",
+        "s14",
+        "s15",
+        "s16",
+        "s17"
       ],
-      "note": "Authors give component sizes but no active-parameter definition or count. Dense architecture does not justify equating active and total, particularly across image encoding and text decoding."
+      "note": "Fresh exact-model and ancestry searches plus original and later first-party reports found no separate complete-model or language-only active count. Dense architecture and rounded component totals do not define activation across image encoding and text decoding. The appz R7B 7B-active lead has no supporting developer count convention and is not transferred to Aya's separately specified 8B language component."
     },
     "architecture": {
       "value": "dense",
@@ -232,7 +287,7 @@
     "reasoning": null,
     "tool_call": null,
     "description": "Multilingual vision-language model for OCR, image captioning and visual question answering across 23 languages.",
-    "notes": "Approximately 8.6B full-model parameters, calculated from the developer technical report's rounded component counts: 8B language model, 0.4B vision encoder and 0.19B connector. This includes the learned vision encoder even when frozen during multimodal training. The sum is approximate, not an exact checkpoint tensor count; gated files prevent independent verification. Exact complete learned-parameter count was not verified because config and tensor index access returned HTTP 401; public F16 storage metadata is not a validated learned count. Active parameters are not separately disclosed. CC-BY-NC-4.0 includes Cohere's Acceptable Use Addendum. The Cohere API identifier was retired April 4, 2026.",
+    "notes": "Approximately 8.6B complete parameters from the developer report's rounded components: 8B language model, 0.4B vision encoder and 0.19B connector. Active parameters are not separately disclosed. CC-BY-NC-4.0 includes Cohere's Acceptable Use Addendum. The Cohere API identifier was retired April 4, 2026.",
     "sources": [
       {
         "label": "Aya Vision 8B model card",
@@ -265,7 +320,8 @@
         "type": "primary"
       }
     ],
-    "parameters_b": 8.6
+    "parameters_b": 8.6,
+    "active_parameters_b": null
   },
   "proposed_fields": {
     "parameter_components_b": {
@@ -274,5 +330,5 @@
       "vision_language_connector": 0.19
     }
   },
-  "summary": "Confirmed release, open weights, licensing, modalities, dense architecture and nominal context. Replaced the advertised size label with an approximate full total of 8.6B from the developer's rounded component breakdown. Exact checkpoint and active counts remain unverified or undisclosed. Cleared unsupported reasoning/tool-call negatives."
+  "summary": "October 27 parameter re-audit retained the approximate 8.6B complete multimodal total and component breakdown. Reopened the exact model card, metadata and R7B ancestor; performed fresh count searches and inspected original and later Cohere reports and comparisons. No supported complete-model or language-only active count was found. Recorded the uncorroborated third-party R7B active-count lead, kept active explicitly null and preserved unrelated assessments. No weight shards were requested."
 }
