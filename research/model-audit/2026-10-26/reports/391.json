@@ -1,7 +1,7 @@
 {
   "index": 391,
   "model_id": "nvidia/nemotron-mini-4b-instruct",
-  "reviewed_at": "2026-10-27T01:02:37.022600Z",
+  "reviewed_at": "2026-10-27T16:04:06.253545Z",
   "sources": [
     {
       "id": "card",
@@ -106,6 +106,46 @@
       "publisher": "NVIDIA",
       "accessed": false,
       "evidence": "Browser text extraction and a fresh direct HTML request returned only the application shell, not the model card. No factual capability claim is taken from this unavailable body."
+    },
+    {
+      "id": "parameter_reaudit_revision",
+      "url": "https://huggingface.co/api/models/nvidia/Nemotron-Mini-4B-Instruct",
+      "title": "Fresh official repository revision and model-card check",
+      "publisher": "NVIDIA / Hugging Face repository metadata",
+      "accessed": true,
+      "evidence": "October 27 recheck returns revision 791833e92ebddb0bc2c1007f6d2b6764f886a2ae, the same revision as the prior bounded checkpoint audit. Fresh complete README and config reads retain the exact Minitron-4B-Base fine-tune relationship and the same BF16 architecture dimensions. No active-parameter figure is declared. No checkpoint or tensor census was rerun."
+    },
+    {
+      "id": "parameter_reaudit_base",
+      "url": "https://huggingface.co/nvidia/Minitron-4B-Base",
+      "title": "Exact Minitron-4B-Base model card",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Freshly read exact named base card: Minitron-4B-Base is obtained by pruning Nemotron-4 15B embedding width, attention heads and MLP width, then continued training with distillation. This is the explicitly named base of Nemotron Mini, not an unmodified 15B model or a Llama-3.1-Minitron 4B variant. The card supplies no separate active count."
+    },
+    {
+      "id": "parameter_reaudit_minitron_comparison",
+      "url": "https://arxiv.org/html/2408.11796v1",
+      "title": "LLM Pruning and Distillation in Practice: The Minitron Approach, Tables 1 and 2",
+      "publisher": "NVIDIA authors / arXiv",
+      "accessed": true,
+      "evidence": "Later original NVIDIA tables explicitly list the previous-generation Minitron 4B at 4.2B Total Params and 2.6B Non-Emb. Params, including its aligned comparison. These are total and non-embedding counts, not active counts. The separately identified Llama-3.1-Minitron-4B depth/width models are 4.5B and do not describe the exact named base here."
+    },
+    {
+      "id": "parameter_reaudit_qwen3",
+      "url": "https://arxiv.org/html/2505.09388v1",
+      "title": "Qwen3 Technical Report active-parameter comparison check",
+      "publisher": "Qwen Team / arXiv",
+      "accessed": true,
+      "evidence": "Freshly checked original report and small-model comparison tables, including Table 7 with explicitly labeled Activated Params. Its entries include Gemma-3-4B and Qwen models, but full-text search finds neither Minitron nor Nemotron. No active count can be transferred from these other dense models."
+    },
+    {
+      "id": "parameter_reaudit_olmoe",
+      "url": "https://arxiv.org/html/2409.02060v1",
+      "title": "OLMoE: Open Mixture-of-Experts Language Models, Table 4 active-parameter comparison check",
+      "publisher": "Allen Institute for AI authors / arXiv",
+      "accessed": true,
+      "evidence": "Freshly checked original Table 4 and the report text: Active params is an explicit comparison column, but it does not list Minitron-4B or Nemotron Mini. No Minitron match appears in the full text; the Nemotron reference concerns Nemotron-4 340B, a different model. This supplies search coverage, not an active count for the present model."
     }
   ],
   "fields": {
@@ -171,19 +211,29 @@
         "config",
         "checkpoint",
         "implementation",
-        "configuration_code"
+        "configuration_code",
+        "card",
+        "paper",
+        "parameter_reaudit_revision",
+        "parameter_reaudit_base",
+        "parameter_reaudit_minitron_comparison"
       ],
-      "note": "Complete unique learned checkpoint count4,190,509,056. All 324 stored BF16 tensors match independently generated expected shapes and byte sizes, including both untied embeddings and LayerNorm biases. No persisted buffers, scale tensors, packed weights or alias storages; runtime rotary buffers are excluded automatically because nonpersistent and nonlearned."
+      "note": "Retain the prior complete checkpoint count of 4,190,509,056 learned parameters across 324 BF16 tensors, including both untied embeddings and LayerNorm biases. The fresh official API check confirms the same pinned revision, and fresh card/config reads corroborate its identity and dimensions; no new tensor census was performed. Original Minitron Table 5 reports 4.19B with matching architecture, and the later NVIDIA comparison reports nominal 4.2B for the explicitly named Minitron-4B base. These rounded disclosures corroborate, rather than replace, the existing precise total."
     },
     "active_parameters_b": {
       "value": null,
       "status": "undisclosed",
       "source_ids": [
+        "card",
         "config",
-        "implementation",
-        "paper"
+        "paper",
+        "parameter_reaudit_revision",
+        "parameter_reaudit_base",
+        "parameter_reaudit_minitron_comparison",
+        "parameter_reaudit_qwen3",
+        "parameter_reaudit_olmoe"
       ],
-      "note": "Dense model with no expert routing; no separately defined exact-model active-parameter figure found. Do not copy total into active or use non-embedding count as activity."
+      "note": "Fresh exact-model/base cards and original Minitron architecture/comparison tables provide no separately labeled active count. The later NVIDIA table explicitly calls 2.6B non-embedding parameters, so it is not an active count. Later Qwen3 and OLMoE active-parameter comparisons do not identify this model; searches for exact Mini/Minitron active or activated counts found no eligible original disclosure. Retain null rather than equating dense total with active or importing a differently pruned model or predecessor count."
     },
     "architecture": {
       "value": "dense",
@@ -301,9 +351,20 @@
         "label": "NVIDIA Open Model License Agreement, June 14, 2024",
         "url": "https://developer.download.nvidia.com/licenses/nvidia-open-model-license-agreement-june-2024.pdf",
         "type": "primary"
+      },
+      {
+        "label": "Compact Language Models via Pruning and Knowledge Distillation",
+        "url": "https://arxiv.org/html/2407.14679v2",
+        "type": "primary"
+      },
+      {
+        "label": "LLM Pruning and Distillation in Practice: The Minitron Approach, Tables 1 and 2",
+        "url": "https://arxiv.org/html/2408.11796v1",
+        "type": "primary"
       }
     ],
-    "notes": "The complete BF16 checkpoint has 4.190509056B learned parameters; active parameters are not separately specified. Context is 4,096 tokens. August 20, 2024 marks documented NIM availability; Hugging Face distribution followed in September. NVIDIA changed the model license metadata to the Open Model License in February 2025; the card body retains an older Community license link."
+    "notes": "The BF16 checkpoint has 4.190509056B learned parameters, consistent with NVIDIA’s nominal 4.19B Minitron base specification. Active parameters are not separately specified; the published 2.6B non-embedding count is a different measure. Context is 4,096 tokens. August 20, 2024 marks documented NIM availability; Hugging Face distribution followed in September. NVIDIA changed the model license metadata to the Open Model License in February 2025; the card body retains an older Community license link.",
+    "active_parameters_b": null
   },
   "checkpoint_audit": {
     "repository": "nvidia/Nemotron-Mini-4B-Instruct",
@@ -334,5 +395,5 @@
     "reproduction_script": "/tmp/model-audit-391/count.py",
     "formula": "2*256000*3072 + 32*(2*3072*3072 + 2*8*128*3072 + 2*3072*9216 + 4*3072) + 2*3072 = 4190509056."
   },
-  "summary": "Audited all 14 fields. Correct total to 4.190509056B from complete bounded PyTorch metadata reconstruction; set dense architecture, 4,096 context, August 20 release and current NVIDIA Open Model License. Retain explicit tool support and text modalities; clear unsupported reasoning=false; active remains null for this dense model. Record stale 32-head card, license body and later HF distribution discrepancies."
+  "summary": "Fresh parameter re-audit confirms the current official repository still resolves to the previously audited revision and retains 4.190509056B total, corroborated by NVIDIA’s original 4.19B architecture table and later nominal 4.2B comparison. Active remains undisclosed: the later Minitron table reports non-embedding size, while Qwen3 and OLMoE active-count comparisons do not identify this model. No new checkpoint census or weight download was performed. Preserve the other 12 field assessments and the prior checkpoint audit, including the recorded attention-head, license-body and distribution-date discrepancies."
 }
