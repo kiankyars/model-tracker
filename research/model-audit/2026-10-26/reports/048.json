@@ -1,7 +1,7 @@
 {
   "index": 48,
   "model_id": "alibaba/qwen3.5-27b",
-  "reviewed_at": "2026-10-26T14:50:34.908640Z",
+  "reviewed_at": "2026-10-27T09:44:34.688728Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Qwen3.5-27B model card",
       "publisher": "Qwen / Alibaba",
       "accessed": true,
-      "evidence": "Exact post-trained checkpoint; nominal 27B language model, vision encoder, hybrid Gated DeltaNet/gated-attention layout, native 262144 context, text/image/video examples, optional thinking and tool calling."
+      "evidence": "Exact post-trained checkpoint; nominal 27B language model, vision encoder, hybrid Gated DeltaNet/gated-attention layout, native 262144 context, text/image/video examples, optional thinking and tool calling. Reopened October 27: the language-model overview still gives 27B without a separate active count; the language and vision comparison tables contain benchmark scores, not activated-parameter columns."
     },
     {
       "id": "s2",
@@ -25,7 +25,7 @@
       "title": "Official checkpoint repository metadata",
       "publisher": "Hugging Face / Qwen",
       "accessed": true,
-      "evidence": "Repository created February 24, 2026; Apache-2.0 metadata; safetensors reports 27781419504 BF16 and 8448 F32 parameters, total 27781427952."
+      "evidence": "Repository created February 24, 2026; Apache-2.0 metadata; safetensors reports 27781419504 BF16 and 8448 F32 parameters, total 27781427952. Rechecked October 27 at repository revision fc05daec18b0a78c049392ed2e771dde82bdf654; safetensors.total remains 27781427952."
     },
     {
       "id": "s4",
@@ -41,7 +41,7 @@
       "title": "Official checkpoint tensor index and referenced safetensors headers",
       "publisher": "Qwen / Alibaba",
       "accessed": true,
-      "evidence": "Read the 11 indexed shard headers and summed all 1199 tensor shapes: language model including embeddings/output head 26895998464; vision 460730096; MTP 424699392. Sum 27781427952 matches repository metadata. Dense FFN tensor names confirm no expert tensors."
+      "evidence": "Read the 11 indexed shard headers and summed all 1199 tensor shapes: language model including embeddings/output head 26895998464; vision 460730096; MTP 424699392. Sum 27781427952 matches repository metadata. Dense FFN tensor names confirm no expert tensors. October 27 recheck of the index confirms 1199 tensor entries across 11 shards; prior header-derived component counts are retained, without downloading shards in this pass."
     },
     {
       "id": "s6",
@@ -50,6 +50,46 @@
       "publisher": "Qwen / Alibaba",
       "accessed": true,
       "evidence": "Checkpoint license is Apache License, Version 2.0. Browser reader failed, but direct HTTPS retrieval succeeded."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/Qwen/Qwen3.6-27B",
+      "title": "Later Qwen3.6-27B developer comparison tables",
+      "publisher": "Qwen / Alibaba",
+      "accessed": true,
+      "evidence": "Reopened October 27. Both language and vision benchmark tables explicitly include Qwen3.5-27B, but neither provides total/activated-parameter rows or columns. The 27B model overview describes Qwen3.6 itself and is not a separate Qwen3.5 active-count disclosure."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/Qwen/Qwen3.6-35B-A3B",
+      "title": "Later Qwen3.6-35B-A3B developer comparison tables",
+      "publisher": "Qwen / Alibaba",
+      "accessed": true,
+      "evidence": "Reopened October 27. Benchmarks explicitly include Qwen3.5-27B, without activated-parameter columns. The explicit 35B total / 3B activated specification applies to Qwen3.6-35B-A3B only."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B",
+      "title": "Later Qwen3.8-27B model card",
+      "publisher": "Qwen / Alibaba",
+      "accessed": true,
+      "evidence": "Reopened October 27 in the search for later developer count disclosures. No activated-parameter specification for Qwen3.5-27B appears."
+    },
+    {
+      "id": "s10",
+      "url": "https://www.alibabacloud.com/help/en/model-studio/newly-released-models",
+      "title": "Alibaba Cloud model release documentation",
+      "publisher": "Alibaba Cloud",
+      "accessed": true,
+      "evidence": "The qwen3.5-27b row describes a 27B native vision-language dense model with linear attention. It supplies no separate active-parameter count."
+    },
+    {
+      "id": "s11",
+      "url": "https://qianwen-res.oss-accelerate.aliyuncs.com/Qwen3.5/Figures/qwen3.5_middle_size_score.png",
+      "title": "Official Qwen3.5 medium-size benchmark figure",
+      "publisher": "Qwen / Alibaba",
+      "accessed": true,
+      "evidence": "Official figure linked by the Qwen repository was fetched and visually inspected October 27. It shows benchmark bars and the Qwen3.5-27B label, without an activated-parameter value."
     }
   ],
   "fields": {
@@ -115,7 +155,7 @@
         "s5",
         "s1"
       ],
-      "note": "Complete checkpoint tensor count, including vision and MTP. Independently summed published tensor shapes, not weight-file bytes. The model card\u2019s 27B labels the language model nominally."
+      "note": "Complete checkpoint count including vision and MTP, preserved from the original tensor-shape audit and freshly reconfirmed by repository safetensors metadata. The card separately reports a nominal 27B language model; it does not replace the supported exact total."
     },
     "active_parameters_b": {
       "value": null,
@@ -123,9 +163,13 @@
       "source_ids": [
         "s1",
         "s2",
-        "s5"
+        "s7",
+        "s8",
+        "s9",
+        "s10",
+        "s11"
       ],
-      "note": "No separately defined active-parameter count is published for this dense checkpoint. Do not substitute total, non-embedding, or language-only parameters; vision and MTP participation depends on the inference path."
+      "note": "Fresh search of the exact card/configuration, later Qwen3.6/3.8 cards and comparison tables, Alibaba release documentation and the official benchmark figure found no separate developer active-count disclosure. Also checked the Qwen3.5-9B, 4B and 122B-A10B cards and Qwen3.8-2.4T-A95B card. Third-party 27B-active listings do not establish Qwen\u2019s convention. Dense architecture alone does not justify equating active with the total or language-model count; vision and MTP participation varies by inference path."
     },
     "architecture": {
       "value": "dense",
@@ -198,7 +242,7 @@
     "parameters_source": "primary_source",
     "architecture": "dense",
     "description": "Dense Qwen3.5 vision-language model with optional thinking and tool calling",
-    "notes": "Complete checkpoint: 27.781427952B parameters, comprising 26.895998464B language model including embeddings/output head, 0.460730096B vision and 0.424699392B MTP. The card\u2019s 27B is a nominal language-model count. Active parameters are not separately disclosed. Dense FFNs with hybrid Gated DeltaNet/full attention; generic family MoE wording does not describe this checkpoint. Native context 262144; documented extension to 1010000.",
+    "notes": "Complete checkpoint: 27.781427952B parameters, comprising 26.895998464B language model including embeddings/output head, 0.460730096B vision and 0.424699392B MTP. The card\u2019s 27B is a nominal language-model count; a separate developer active count remains undisclosed. Dense FFNs with hybrid Gated DeltaNet/full attention; generic family MoE wording does not describe this checkpoint. Native context 262144; documented extension to 1010000.",
     "sources": [
       {
         "label": "Official Qwen3.5-27B model card",
@@ -229,8 +273,19 @@
         "label": "Checkpoint Apache-2.0 license",
         "url": "https://huggingface.co/Qwen/Qwen3.5-27B/raw/main/LICENSE",
         "type": "primary"
+      },
+      {
+        "label": "Later Qwen developer comparison tables",
+        "url": "https://huggingface.co/Qwen/Qwen3.6-27B",
+        "type": "primary"
+      },
+      {
+        "label": "Alibaba model release documentation",
+        "url": "https://www.alibabacloud.com/help/en/model-studio/newly-released-models",
+        "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": null
   },
   "proposed_fields": {
     "parameter_components_b": {
@@ -239,5 +294,5 @@
       "mtp": 0.424699392
     }
   },
-  "summary": "Correct release to February 24, add Apache-2.0 and dense architecture, and replace nominal 27B with the verified complete checkpoint count of 27.781427952B. Keep active parameters null. Confirm native context, modalities, optional thinking and tool calling; distinguish exact-model dense layout from generic family MoE wording."
+  "summary": "Fresh October 27 parameter re-audit preserves the exact 27.781427952B checkpoint total and existing language/vision/MTP decomposition, reconfirmed against current metadata. Reopened primary sources and searched later developer comparison tables and figures; no separate Qwen active count was found, so explicitly retain null. Other audited corrections are unchanged."
 }
