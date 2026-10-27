@@ -1,7 +1,7 @@
 {
   "index": 371,
   "model_id": "nousresearch/hermes-3-llama-3.1-405b",
-  "reviewed_at": "2026-10-27T00:17:27Z",
+  "reviewed_at": "2026-10-27T15:45:54Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Hermes 3 - Llama-3.1 405B model card",
       "publisher": "Nous Research",
       "accessed": true,
-      "evidence": "Identifies the Hermes-series 405B full-parameter fine-tune and Nous Research. Metadata explicitly maps base_model to meta-llama/Meta-Llama-3.1-405B and uses license: llama3. Documents ChatML, trained function calling and structured output, and links a separate FP8 quantization."
+      "evidence": "Reopened October 27, 2026. The exact Hermes 3 405B card explicitly identifies a full-parameter fine-tune of Llama 3.1 405B; YAML maps base_model to meta-llama/Meta-Llama-3.1-405B. It documents ChatML, function calling and structured output, distinguishes a separate FP8 quantization, and retains license: llama3. It does not separately report an active-parameter count."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "Hermes 3 405B checkpoint configuration",
       "publisher": "Nous Research",
       "accessed": true,
-      "evidence": "LlamaForCausalLM; 126 layers, hidden width 16384, FFN width 53248, 128 query heads, eight KV heads, untied embeddings, vocabulary 128256, BF16 and max_position_embeddings 131072. No quantization configuration."
+      "evidence": "Pinned configuration freshly retrieved October 27, 2026: LlamaForCausalLM; 126 layers, hidden width 16384, FFN width 53248, 128 query heads, eight KV heads, untied embeddings, vocabulary 128256, BF16 and max_position_embeddings 131072. These core dimensions match the named Meta 405B base in its report. No expert routing, pruning specification, modality encoder or quantization configuration appears."
     },
     {
       "id": "s3",
@@ -33,7 +33,7 @@
       "title": "Hermes 3 Technical Report",
       "publisher": "Nous Research",
       "accessed": true,
-      "evidence": "August 15, 2024 author report announces available weights. Sections 2 and 4.1 explicitly map Hermes 3 405B to Llama 3.1 405B, with nominal 405 billion parameters and 131072-token context. Section 2.1 documents reasoning-token training and tool use. The 405B uses its SFT checkpoint; only 8B retained DPO. FP8 describes evaluation quantization."
+      "evidence": "Reopened October 27, 2026. The August 15, 2024 author report announces available weights. Sections 2 and 4.1 explicitly map Hermes 3 405B to the 405-billion-parameter Llama 3.1 base with 131072-token context. Section 2.1 reuses reserved tokenizer IDs for reasoning tokens. The 405B retains its full-model SFT checkpoint; only 8B retained DPO. No structural compression or expansion is described. FP8 is evaluation quantization. The report does not separately publish active parameters."
     },
     {
       "id": "s5",
@@ -41,7 +41,7 @@
       "title": "The Llama 3 Herd of Models, section 3.2",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "The explicitly mapped foundation report describes a standard dense Transformer with GQA. Its 405B column gives 126 layers, width 16384, FFN 53248, 128 query heads and eight KV heads, matching the exact Nous configuration. It does not define a separate inference active-parameter count."
+      "evidence": "Reopened October 27, 2026. Section 3.2 and Table 3 describe the explicitly mapped standard dense Transformer with GQA. Its 405B column gives 126 layers, width 16384, FFN 53248, 128 query heads and eight KV heads, matching the exact Nous configuration. The report supplies nominal total size, not a separate active-parameter count."
     },
     {
       "id": "s6",
@@ -98,6 +98,14 @@
       "publisher": "Nous Research",
       "accessed": true,
       "evidence": "Index lists 1137 .weight tensors for embeddings, head, norms and per-layer dense attention/MLP projections; no expert, router, scale or buffer entries. Only index/configuration metadata was read; no weight shards or tensor-header census was performed, and byte size is not treated as an exact learned-parameter count."
+    },
+    {
+      "id": "s13",
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2025/file/a9ed43fa31dc8b4a7d7a673d713dcb5f-Paper-Conference.pdf",
+      "title": "Jamba: Hybrid Transformer-Mamba Language Models, ICLR 2025, Table 1",
+      "publisher": "AI21 Labs / Jamba Team",
+      "accessed": true,
+      "evidence": "Freshly downloaded and visually checked October 27, 2026. Table 1 on PDF page 5 explicitly lists Llama-3.1 405B with 405B available parameters and 405B active parameters. This establishes AI21\u2019s nominal comparison convention for the exact named base, not a Nous or Meta active-count disclosure and not an exact per-token tensor census. Applying it to Hermes 3 is a labeled lineage inference supported by the original full-parameter fine-tune description, unchanged core dimensions and reuse of reserved tokens."
     }
   ],
   "fields": {
@@ -164,23 +172,24 @@
       "value": 405,
       "status": "verified",
       "source_ids": [
+        "s1",
         "s4",
-        "s5",
-        "s6",
         "s2",
-        "s12"
+        "s5"
       ],
-      "note": "Nominal developer-reported total, in billions; not an exact checkpoint census and not inferred solely from the model name. The BF16 release is distinguished from its separate FP8 quantization. No storage-byte division or quantization-scale counting is used."
+      "note": "Fresh review retains the developer-published nominal 405B total for the explicitly named full-parameter Llama 3.1 405B fine-tune. The exact configuration and training report corroborate the lineage without structural compression or expansion. This is the original BF16 checkpoint, not its separate FP8 quantization; no tensor census, weight-shard download or storage-byte calculation was used."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 405,
+      "status": "verified",
       "source_ids": [
+        "s13",
+        "s1",
         "s4",
-        "s5",
-        "s6"
+        "s2",
+        "s5"
       ],
-      "note": "The checked Nous and explicitly mapped Meta sources do not separately define or report per-token active parameters. Dense architecture and nominal total do not establish this metric; retain null."
+      "note": "Nominal lineage inference under AI21\u2019s published comparison convention: the Jamba ICLR 2025 Table 1 explicitly lists Llama-3.1 405B at 405B active parameters. Nous identifies this exact Hermes model as its full-parameter fine-tune; matching core dimensions, reserved-token reuse and the retained SFT checkpoint support transferring that nominal convention. This is not a direct Nous or Meta active-count disclosure, an exact count of participating tensors per token, or an inference from dense architecture alone. Exact per-token component participation remains unspecified."
     },
     "architecture": {
       "value": "dense",
@@ -263,7 +272,7 @@
     "description": "Nous Research\u2019s 405B full-parameter fine-tune of Llama 3.1 for instruction following, multi-turn chat, structured reasoning, code generation, and tool calling.",
     "source_url": "https://huggingface.co/NousResearch/Hermes-3-Llama-3.1-405B",
     "source_type": "primary",
-    "notes": "405B is the developer\u2019s nominal total; active parameters are not separately defined or reported. This record describes the original BF16 405B fine-tune, not the separate FP8 hosting checkpoint. Reasoning denotes trained structured reasoning/scratchpad tokens, without an enforced thinking-mode or effort control. The explicit Llama 3.1 base agreement covers derivatives; Nous\u2019s card retains a legacy llama3 metadata tag and no separate license file. Earliest public launch is August 15, 2024; the current Nous retrospective index says August 24, conflicting with the contemporaneous launch.",
+    "notes": "405B is Nous\u2019s nominal total. Nominal 405B active is inferred from the explicit Llama 3.1 405B full-parameter fine-tune lineage using AI21\u2019s Jamba comparison table; it is not a direct Nous/Meta active-count disclosure or an exact per-token census. This record describes the original BF16 405B fine-tune, not the separate FP8 hosting checkpoint. Reasoning denotes trained structured reasoning/scratchpad tokens, without an enforced thinking-mode or effort control. The explicit Llama 3.1 base agreement covers derivatives; Nous\u2019s card retains a legacy llama3 metadata tag and no separate license file. Earliest public launch is August 15, 2024; the current Nous retrospective index says August 24, conflicting with the contemporaneous launch.",
     "sources": [
       {
         "label": "Nous Research model card",
@@ -309,8 +318,15 @@
         "label": "Nous retrospective release index (date conflict)",
         "url": "https://nousresearch.com/releases",
         "type": "primary"
+      },
+      {
+        "label": "AI21 Jamba Table 1: base-model active-count convention",
+        "url": "https://proceedings.iclr.cc/paper_files/paper/2025/file/a9ed43fa31dc8b4a7d7a673d713dcb5f-Paper-Conference.pdf",
+        "type": "primary"
       }
-    ]
+    ],
+    "parameters_b": 405,
+    "active_parameters_b": 405
   },
-  "summary": "All 14 public factual fields reviewed. Confirm nominal 405B total, text modalities, open weights and 131072-token context; retain null active count. Correct family, earliest release day, dense architecture, governing Llama 3.1 license, structured reasoning and tool-calling flags, description and primary provenance. Record the legacy license tag and retrospective release-date conflict. No exact tensor census or live endpoint operation is claimed."
+  "summary": "Fresh parameter re-audit retains the nominal developer total of 405B and establishes nominal 405B active through explicit full-parameter Llama 3.1 405B lineage under AI21\u2019s separately published active-count convention. Reopened Nous card/report, pinned config, Meta architecture report and original ICLR Table 1; no structural change defeats the nominal inference. Direct Nous/Meta active disclosure and exact per-token participation remain unestablished. The other twelve field assessments are unchanged."
 }
