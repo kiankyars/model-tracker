@@ -1,7 +1,7 @@
 {
   "index": 254,
   "model_id": "meta/llama-1-13b",
-  "reviewed_at": "2026-10-26T21:18:49.811825Z",
+  "reviewed_at": "2026-10-27T13:46:35.564119+00:00",
   "sources": [
     {
       "id": "s1",
@@ -19,7 +19,7 @@
       "publisher": "Meta AI authors / arXiv",
       "type": "primary",
       "accessed": true,
-      "evidence": "Original paper Table 2 lists 13.0B parameters, dimension 5120, 40 heads, 40 layers and 1.0T training tokens. Section 2.2 describes Transformer, RMSNorm, SwiGLU and RoPE; Sections 3.1 and 3.4 evaluate reasoning tasks. The arXiv submission is February 27, after the announcement."
+      "evidence": "Freshly reopened October 27, 2026. Original paper Table 2 explicitly reports 13.0B parameters, dimension 5120, 40 heads, 40 layers and 1.0T training tokens. This supports the retained nominal total and distinguishes original LLaMA-13B from later Llama 2. Section 2.2 describes Transformer, RMSNorm, SwiGLU and RoPE; Sections 3.1 and 3.4 evaluate reasoning tasks. The arXiv submission is February 27, after the announcement."
     },
     {
       "id": "s3",
@@ -28,7 +28,7 @@
       "publisher": "Meta AI / meta-llama",
       "type": "primary",
       "accessed": true,
-      "evidence": "Identifies FAIR at Meta AI as developer, version 1, autoregressive Transformer and the 13B row. Describes a foundational research model without human-feedback training, and a noncommercial bespoke model license."
+      "evidence": "Freshly reopened October 27, 2026. Identifies FAIR at Meta AI as developer, version 1, autoregressive Transformer, and model sizes including 13B. Describes a foundational research model without human-feedback training, and a noncommercial bespoke model license. It does not separately report an active count."
     },
     {
       "id": "s4",
@@ -74,6 +74,33 @@
       "type": "primary",
       "accessed": true,
       "evidence": "Repository LICENSE contains GNU GPL version 3. Combined with the explicit software notice in model.py, this is code-license evidence; the weight-license classification instead follows the original model card and release announcement."
+    },
+    {
+      "id": "s9",
+      "url": "https://research.myshell.ai/jetmoe",
+      "title": "JetMoE original project page, active-parameter comparison",
+      "publisher": "JetMoE research team / MyShell.ai",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Freshly accessed October 27, 2026. The original project benchmark table explicitly labels Active Params and lists LLaMA-13B as 13B with 1T training tokens, separately from LLaMA2-7B at 7B with 2T tokens. The 1T original-model row agrees with the original LLaMA paper. This establishes the JetMoE research team's nominal active-count comparison convention, not a Meta active-parameter disclosure or exact tensor participation count."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/jetmoe/jetmoe-8b/blob/0ca477416c6fd12ced34fba84630462b241a6439/README.md",
+      "title": "JetMoE-8B original team model card, pinned active-count table",
+      "publisher": "JetMoE research team / Hugging Face",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Freshly accessed October 27, 2026. The pinned team-authored README explicitly labels Activate Params; the LLaMA-13B row reports 13B and 1T training tokens, while LLaMA2-7B reports 7B and 2T. The separately labeled chat table also distinguishes Llama-2-13b-chat. This corroborates the project page for the original base LLaMA 13B identity. The table publishes a nominal comparison count without defining exact embedding inclusion or per-token tensor participation."
+    },
+    {
+      "id": "s11",
+      "url": "https://arxiv.org/html/2404.07413v1",
+      "title": "JetMoE technical report, version 1",
+      "publisher": "JetMoE research team / arXiv",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Freshly accessed October 27, 2026. The report identifies the JetMoE authors and describes its sparse activation convention. Its abstract and evaluation distinguish Llama2-7B and Llama2-13B-Chat; the original LLaMA-13B active-count evidence used here is the explicit project-page and pinned-card table rather than a transfer from those Llama 2 rows."
     }
   ],
   "fields": {
@@ -141,17 +168,17 @@
         "s2",
         "s3"
       ],
-      "note": "Nominal/rounded billions: original Table 2 explicitly reports 13.0B. This is not a tensor-exact checkpoint census; no full weights were downloaded."
+      "note": "Fresh primary-source check retains the published nominal total: original Meta Table 2 reports 13.0B, and the version-1 model card lists 13B. This is a rounded specification, not a tensor-exact checkpoint census."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 13,
+      "status": "verified",
       "source_ids": [
-        "s2",
-        "s3",
-        "s4"
+        "s9",
+        "s10",
+        "s2"
       ],
-      "note": "No separate active-per-token parameter count or counting convention is reported. Dense architecture alone does not justify copying the total into this field."
+      "note": "JetMoE's original research-team benchmark table explicitly publishes 13B active for LLaMA-13B. Its 1T training-token row and separate LLaMA2-7B row identify the original model, matching Meta's paper. Retain this nominal JetMoE comparison convention; it is not a separate Meta disclosure or an exact per-token count, and embedding inclusion is not specified. The value is sourced independently of the dense architecture or total count."
     },
     "architecture": {
       "value": "dense",
@@ -220,7 +247,7 @@
   },
   "patch": {
     "parameters_source": "primary_source",
-    "notes": "Original first-generation LLaMA 13B. Parameter count is the paper's rounded 13.0B, not a tensor-exact census; active parameters are not separately reported. Release date is the February 24, 2023 announcement and access-request opening; weights were delivered after case-by-case research approval. open_weights denotes released gated weights, not unrestricted access. The model weights use a bespoke noncommercial research license; the reference code uses GPLv3. Reasoning benchmark results do not establish a dedicated thinking mode, and native tool calling is not documented.",
+    "notes": "Original first-generation LLaMA 13B. Total parameters follow Meta's rounded 13.0B specification; nominal active 13B follows the JetMoE research team's comparison table, which does not specify exact per-token participation or embedding inclusion. Release date is the February 24, 2023 announcement and access-request opening; weights were delivered after case-by-case research approval. open_weights denotes released gated weights. Weights use a bespoke noncommercial research license; reference code uses GPLv3. Dedicated thinking mode and native tool calling are not documented.",
     "sources": [
       {
         "label": "Original LLaMA release announcement",
@@ -256,8 +283,20 @@
         "label": "Original LLaMA generation interface",
         "url": "https://raw.githubusercontent.com/meta-llama/llama/57b0eb62de0636e75af471e49e2f1862d908d9d8/llama/generation.py",
         "type": "primary"
+      },
+      {
+        "label": "JetMoE team comparison: original LLaMA-13B active parameters",
+        "url": "https://research.myshell.ai/jetmoe",
+        "type": "primary"
+      },
+      {
+        "label": "JetMoE pinned model card: LLaMA-13B nominal active count",
+        "url": "https://huggingface.co/jetmoe/jetmoe-8b/blob/0ca477416c6fd12ced34fba84630462b241a6439/README.md",
+        "type": "primary"
       }
-    ]
+    ],
+    "parameters_b": 13,
+    "active_parameters_b": 13
   },
-  "summary": "All 14 fields audited for original LLaMA 13B. Existing name, developer, family, release date, gated-weight status, research license, nominal 13B count, dense architecture, 2048 context, text modalities and description are supported. Retained null active parameters, dedicated reasoning and tool calling as undisclosed. Added precise first-generation evidence and notes distinguishing release announcement from individual weight approval, model-weight license from GPLv3 software, and nominal count from exact tensors. No checkpoint weights were downloaded; current gated access was not tested."
+  "summary": "Fresh parameter re-audit on October 27, 2026 reopens the original Meta paper and version-1 card and checks later active/activated-parameter comparisons. Retained nominal total 13B from Meta's explicit 13.0B Table 2 row; changed active parameters from undisclosed to verified nominal 13B using JetMoE's original project-page and pinned-card comparison. The exact LLaMA-13B/1T row distinguishes the original base model from the separate LLaMA2-7B/2T and Llama-2-13b-chat rows. The active count is attributed to the JetMoE research team, not Meta, and does not establish exact tensor participation or embedding inclusion. The JetMoE paper was also checked without transferring later-generation counts. Both parameter values have explicit patches. The other 12 field assessments are unchanged; no weights were downloaded."
 }
