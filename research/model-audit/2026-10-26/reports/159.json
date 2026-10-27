@@ -1,7 +1,7 @@
 {
   "index": 159,
   "model_id": "cohere/tiny-aya-global",
-  "reviewed_at": "2026-10-26T18:41:06.463843Z",
+  "reviewed_at": "2026-10-27T12:33:15.752537+00:00",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Tiny Aya Global model card",
       "publisher": "Cohere Labs",
       "accessed": true,
-      "evidence": "Exact Global card identifies Cohere/Cohere Labs, nominal 3.35B, text input/output, open weights, CC-BY-NC-4.0 and autoregressive Transformer. Its model identifier is tiny-aya-it-global. A 111B sentence in the terms section conflicts with the model-specific size and is apparent copied boilerplate."
+      "evidence": "Exact Global card identifies Cohere/Cohere Labs, nominal 3.35B, text input/output, open weights, CC-BY-NC-4.0 and autoregressive Transformer. Its model identifier is tiny-aya-it-global. A 111B sentence in the terms section conflicts with the model-specific size and is apparent copied boilerplate. Reopened October 27: exact Global Model Size remains 3.35B; no separate active count appears."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "Tiny Aya: Bridging Scale and Multilingual Depth",
       "publisher": "Cohere Labs and Cohere",
       "accessed": true,
-      "evidence": "March 2026 developer report identifies Global as the globally balanced instruction-tuned variant. Section 3.1 and Table 2 specify dense decoder-only Transformer, nominal 3.35B total, 8192-token input and output context, and 36 layers. Table 1 describes regional coverage; Section 5.4 evaluates prompted chain-of-thought."
+      "evidence": "March 2026 developer report identifies Global as the globally balanced instruction-tuned variant. Section 3.1 and Table 2 specify dense decoder-only Transformer, nominal 3.35B total, 8192-token input and output context, and 36 layers. Table 1 describes regional coverage; Section 5.4 evaluates prompted chain-of-thought. Independently inspected the complete freshly fetched October 27 report. Table 2 labels 0.5B embedding, 2.8B non-embedding and 3.35B total; none is labeled active. Section 3 describes post-training and parameter-space merging of checkpoints sharing architecture/tokenizer, with no separate Global active-count convention."
     },
     {
       "id": "s3",
@@ -25,7 +25,7 @@
       "title": "Tiny Aya documentation",
       "publisher": "Cohere",
       "accessed": true,
-      "evidence": "Exact tiny-aya-global row gives 3.35B, 8k context/output, 70 languages and global balance. Describes the five-model Tiny Aya family, ordinary Chat API access and downloadable weights."
+      "evidence": "Exact tiny-aya-global row gives 3.35B, 8k context/output, 70 languages and global balance. Describes the five-model Tiny Aya family, ordinary Chat API access and downloadable weights. Reopened October 27: exact Global row still specifies 3.35B, without a separate active-count column."
     },
     {
       "id": "s4",
@@ -41,7 +41,7 @@
       "title": "Exact Tiny Aya Global Hub metadata and chat template",
       "publisher": "Cohere Labs via Hugging Face",
       "accessed": true,
-      "evidence": "Public metadata identifies Cohere2ForCausalLM and exposes the complete default chat template. It renders system/user/assistant text, starts generation inside START_RESPONSE, and has no tools/tool_calls or thinking branch. Metadata reports 3349227520 BF16 elements; this aggregate was not independently audited against tensor headers."
+      "evidence": "Public metadata identifies Cohere2ForCausalLM and exposes the complete default chat template. It renders system/user/assistant text, starts generation inside START_RESPONSE, and has no tools/tool_calls or thinking branch. Metadata reports 3349227520 BF16 elements; this aggregate was not independently audited against tensor headers. Fresh October 27 metadata at af89d219b53ed9b13b8a4645f9c8028973510324 still reports 3,349,227,520 BF16 elements and explicitly names CohereLabs/tiny-aya-base as the base model. This corroborates nominal size and lineage without establishing active parameters."
     },
     {
       "id": "s6",
@@ -74,6 +74,46 @@
       "publisher": "Cohere Labs",
       "accessed": false,
       "evidence": "HTTP 401. Exact raw tokenizer_config.json and chat_template.jinja access attempts also returned 401; no gated files or checkpoint headers were inspected."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/CohereLabs/tiny-aya-base",
+      "title": "Tiny Aya Base model card",
+      "publisher": "Cohere Labs",
+      "accessed": true,
+      "evidence": "Fresh October 27 read of the exact base named in Global metadata confirms the 3.35B nominal model. The card links Global as its balanced chat variant; no separate active-count definition is provided. The explicit lineage therefore supplies no missing active count."
+    },
+    {
+      "id": "s11",
+      "url": "https://arxiv.org/html/2609.10445v1",
+      "title": "Building Multilingual Bridges: Data Mixing as the Pillar of Generalization for In-Language Reasoning",
+      "publisher": "Cohere Labs and Cohere",
+      "accessed": true,
+      "evidence": "Independently inspected the full later report from the fresh October 27 fetch, including section 3.1, parameter terminology and comparison headings. It uses the 3.35B Tiny Aya Base with extended context for later Thinker models and compares reasoning/token efficiency, but supplies no separate Global/base active count or applicable dense activation convention. Later Thinker capabilities and context are not transferred."
+    },
+    {
+      "id": "s12",
+      "url": "https://cohere.com/blog/building-multilingual-bridges",
+      "title": "In-Language Reasoning: Data Mixing Bridges",
+      "publisher": "Cohere Labs",
+      "accessed": true,
+      "evidence": "Fresh October 27 search and complete HTML retrieval of this later first-party article confirms the 3.35B L2-Thinker model and discusses in-language reasoning efficiency. It does not disclose Global active parameters or define a transferable active-count convention."
+    },
+    {
+      "id": "s13",
+      "url": "https://cohere.com/blog/how-small-models-can-make-a-big-impact-for-enterprises",
+      "title": "How small AI models can make a big impact for enterprises",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "Fresh October 27 read of the September 2, 2026 article, using complete HTML when web extraction omitted relevant text. It repeats Tiny Aya family size 3.35B and compares Global translation performance. The explicit 30B total/3B active figures concern North Mini Code; no Tiny Aya active count is given."
+    },
+    {
+      "id": "s14",
+      "url": "https://artificialanalysis.ai/models/tiny-aya-global",
+      "title": "Tiny Aya Global profile and parameter definitions",
+      "publisher": "Artificial Analysis",
+      "accessed": true,
+      "evidence": "Fresh exact-model active-count search surfaced this independent profile. Web opening failed, then full direct HTML retrieval succeeded October 27. It reports 3.35B in its model FAQ and explains its general convention that dense active equals total. That is an independent catalog convention rather than a Cohere specification or exact-model count derivation; it is recorded as a lead and not promoted to verified active parameters."
     }
   ],
   "fields": {
@@ -139,18 +179,26 @@
         "s1",
         "s2",
         "s3",
-        "s5"
+        "s5",
+        "s10",
+        "s13"
       ],
-      "note": "Developer-reported nominal billions. Hub aggregate is consistent with rounding but is not an independent complete learned-parameter count; gated tensor headers were not audited."
+      "note": "Fresh October 27 card, documentation, original report and later family comparison confirm Cohere's nominal 3.35B total. Current Hub metadata corroborates 3.349227520B; retain published nominal precision without requiring a tensor census. Explicit Tiny Aya Base lineage and shared-architecture post-training are consistent with the total."
     },
     "active_parameters_b": {
       "value": null,
       "status": "undisclosed",
       "source_ids": [
+        "s1",
         "s2",
-        "s3"
+        "s3",
+        "s10",
+        "s11",
+        "s12",
+        "s13",
+        "s14"
       ],
-      "note": "No separately defined active-parameter count is given. Dense architecture alone is not used to equate active and total parameters."
+      "note": "Fresh exact-model total/active/lineage searches, original evidence and later Cohere comparisons found no separately defined active count for Global or its named base. The report's 2.8B is explicitly non-embedding, not active. Artificial Analysis supplies its own generic dense-equals-total convention, which is not adopted as a developer specification. North Mini Code's active count belongs to another model."
     },
     "architecture": {
       "value": "dense",
@@ -254,7 +302,8 @@
         "type": "primary"
       }
     ],
-    "notes": "3.35B is the developer nominal total; active parameters are not separately reported. Raw checkpoint files are gated, and Hub aggregate metadata was not independently counted. First-party language totals differ (67 in launch, 70 in documentation). CC-BY-NC-4.0 includes an acceptable-use addendum. Dedicated reasoning and native/API tool support remain unverified despite a direct-response chat template."
+    "notes": "3.35B is Cohere's nominal total; active parameters are not separately disclosed. The report's 2.8B non-embedding count is not an active count. First-party language totals differ (67 in launch, 70 in documentation). CC-BY-NC-4.0 includes an acceptable-use addendum. Dedicated reasoning and native/API tool support remain unverified despite a direct-response chat template.",
+    "active_parameters_b": null
   },
-  "summary": "Confirmed Global identity and February 17 launch; added nominal 3.35B, Tiny Aya family and dense architecture, corrected context from 8000 to 8192. Cleared unsupported reasoning/tool flags to unknown. Active count remains undisclosed. Reworded description around consistent positioning, recording conflicting first-party language totals and gated tensor verification limits."
+  "summary": "October 27 parameter re-audit confirms nominal 3.35B and retains an undisclosed active count. Reopened exact Global/base cards, documentation and metadata; ran fresh total/active/lineage searches; independently inspected the original report and later Thinker and small-model comparisons. Resolved the non-embedding and independent dense-count-convention leads without inventing a developer active specification. Added explicit patches, refreshed evidence and preserved unrelated assessments."
 }
