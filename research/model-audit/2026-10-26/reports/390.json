@@ -1,0 +1,437 @@
+{
+  "index": 390,
+  "model_id": "nvidia/nemotron-content-safety-reasoning-4b",
+  "reviewed_at": "2026-10-27T01:01:28.649881+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/nvidia/Nemotron-Content-Safety-Reasoning-4B/blob/29da6ec41d9c710d937afcd41f65e241ab822792/README.md",
+      "title": "Pinned Content Safety Reasoning 4B model card",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Identifies NVIDIA Gemma-3-4B-it fine-tune for text safety/topic moderation with user-provided policies. Explicit Hugging Face release November 2025; nominal 4B, 128K context, text input/output, trained reasoning on/off. Names NVIDIA Open Model License plus Gemma Terms and Prohibited Use Policy."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/nvidia/Nemotron-Content-Safety-Reasoning-4B/blob/29da6ec41d9c710d937afcd41f65e241ab822792/config.json",
+      "title": "Pinned checkpoint configuration",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Gemma 3ForConditionalGeneration, Transformers 4.57.1, BF16; 34 dense text layers, width2560, FFN10240, vocabulary262208, eight query/four KV heads of256dimensions, 29 sliding/five full attention layers. max_position_embeddings131072. Retains27-layer SigLIP vision tower, width1152, FFN4304, image896/patch14, vision_use_head=false."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/nvidia/Nemotron-Content-Safety-Reasoning-4B/blob/29da6ec41d9c710d937afcd41f65e241ab822792/model.safetensors.index.json",
+      "title": "Pinned checkpoint index",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Maps884 tensor keys to two shards. metadata.total_parameters4300079472 and total_size9942663904. Stored embedding and lm_head keys are both present; stored elements are therefore larger than the unique tied parameter count."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/nvidia/Nemotron-Content-Safety-Reasoning-4B/resolve/29da6ec41d9c710d937afcd41f65e241ab822792/model-00001-of-00002.safetensors",
+      "title": "Pinned checkpoint shard 1 bounded header",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Fetched only8-byte header length and exact JSON header with HTTP206 ranges. All 884tensor names, shapes, BF16dtypes, contiguous data offsets and physical file sizes across two shards checked. Stored elements4971331952;671252480 tied output/input embedding elements counted once for4300079472unique learned parameters. Six supplementary 64-byte payload ranges compare three tied matrix positions; no complete payload downloaded."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/nvidia/Nemotron-Content-Safety-Reasoning-4B/resolve/29da6ec41d9c710d937afcd41f65e241ab822792/model-00002-of-00002.safetensors",
+      "title": "Pinned checkpoint shard 2 bounded header",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Fetched only8-byte header length and exact JSON header with HTTP206 ranges. All 884tensor names, shapes, BF16dtypes, contiguous data offsets and physical file sizes across two shards checked. Stored elements4971331952;671252480 tied output/input embedding elements counted once for4300079472unique learned parameters. Six supplementary 64-byte payload ranges compare three tied matrix positions; no complete payload downloaded."
+    },
+    {
+      "id": "s6",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.57.1/src/transformers/models/gemma3/modeling_gemma3.py",
+      "title": "Gemma3 implementation at configured version",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Defines all text/vision/projector module relationships and dense gated MLP/GQA/RMSNorm parameters. Checkpoint key conversion preserves legacy saved names. LM head is a tied weight; embedding scale and rotary frequencies are nonpersistent buffers absent from saved tensors."
+    },
+    {
+      "id": "s7",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.57.1/src/transformers/models/gemma3/configuration_gemma3.py",
+      "title": "Gemma3 configuration defaults",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Gemma 3TextConfig defaults tie_word_embeddings=true when absent from exact checkpoint config. Confirms dense model construction from text and SigLIP configs."
+    },
+    {
+      "id": "s8",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.57.1/src/transformers/modeling_utils.py",
+      "title": "Transformers embedding tying implementation",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "tie_embeddings_and_encoder_decoder reads text config tie_word_embeddings; _tie_or_clone_weights assigns output_embeddings.weight=input_embeddings.weight unless TorchScript. Exact checkpoint uses standard tied weights; no TorchScript override."
+    },
+    {
+      "id": "s9",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.57.1/src/transformers/models/siglip/modeling_siglip.py",
+      "title": "SigLIP vision implementation",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Defines learned convolution/position embeddings, biased attention and MLP matrices, layer norms and optional pooling head. No pooling head when exact config vision_use_head=false; position_ids nonpersistent buffer. Every saved vision tensor maps to a learned parameter."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/nvidia/Nemotron-Content-Safety-Reasoning-4B/blob/29da6ec41d9c710d937afcd41f65e241ab822792/chat_template.jinja",
+      "title": "Pinned chat template",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Gemma user/assistant template accepts text and inherited image markers; no tool schema or call serialization. Generic image plumbing alone does not establish evaluated image moderation support for the released text safety fine-tune."
+    },
+    {
+      "id": "s11",
+      "url": "https://docs.api.nvidia.com/nim/reference/nvidia-nemotron-content-safety-reasoning-4b",
+      "title": "NVIDIA API model reference",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Explicitly distinguishes November 2025 HF release from Jan 22, 2026 Build release. Names exact fine-tune and governing NVIDIA/Gemma terms; text safety prompt/response/policy, 128K context, optional reasoning trace. Accessed full indexed primary page; direct urllib request403 did not negate web-reader access."
+    },
+    {
+      "id": "s12",
+      "url": "https://build.nvidia.com/nvidia/nemotron-content-safety-reasoning-4b.md",
+      "title": "NVIDIA Build model-card Markdown",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Direct Markdown confirms November 2025 Hugging Face release, text-only documented moderation, 128K, nominal4B, and governing terms. Lists later Build release Jan 27, 2026 whereas API reference saysJan 22; frontmatter updatedJan 22. This provider-date discrepancy does not change earliest HF release month."
+    },
+    {
+      "id": "s13",
+      "url": "https://huggingface.co/nvidia/Nemotron-Content-Safety-Reasoning-4B/discussions/1",
+      "title": "Initial model upload discussion",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "NVIDIA contributors opened and merged initial model upload Nov 26, 2025; commit58ff5150e934a3d48184a76e5f286947a225af34 contains checkpoint. Current history has five commits. Upload/merge dates support November but do not independently prove public visibility began that day."
+    },
+    {
+      "id": "s14",
+      "url": "https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-open-model-license/",
+      "title": "NVIDIA Open Model License Agreement",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Actual governing agreement linked by exact card; title NVIDIA Open Model License Agreement, last modifiedOct 24, 2025. Distinct from newer OpenMDW or NVIDIA Open Model Agreement."
+    },
+    {
+      "id": "s15",
+      "url": "https://ai.google.dev/gemma/terms",
+      "title": "Gemma Terms of Use",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Terms cover Gemma 3 and model derivatives; exact NVIDIA card requires these alongside NVIDIA license, including incorporated use restrictions."
+    },
+    {
+      "id": "s16",
+      "url": "https://ai.google.dev/gemma/prohibited_use_policy",
+      "title": "Gemma Prohibited Use Policy",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Additional use policy explicitly required by exact NVIDIA card and incorporated in Gemma derivative terms."
+    },
+    {
+      "id": "s17",
+      "url": "https://docs.nvidia.com/nemo/guardrails/latest/get-started/tutorials/nemotron-content-safety-reasoning-deployment",
+      "title": "NVIDIA deployment guide",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Confirms exact model, dense Gemma 3 backbone, 128K context, custom-policy text moderation and configurable /think and /no_think with safety labels. Example4096server limit is a deployment setting, not maximum. Full indexed primary guide accessed."
+    },
+    {
+      "id": "s18",
+      "url": "https://arxiv.org/html/2505.20087v1",
+      "title": "Safety Through Reasoning research paper linked by card",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "May 26, 2025 empirical reasoning-guardrail study precedes November checkpoint release; investigates Gemma 3-4B among research models, dual-mode training and reasoning budgets. No separately defined active-parameter count for this subsequently released named checkpoint; not treated as its release announcement. Abstract page lists only v1."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Nemotron Content Safety Reasoning 4B",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s11"
+      ],
+      "note": "Exact released model; separate from later Nemotron3/3.5 Content Safety variants."
+    },
+    "developer": {
+      "value": "NVIDIA",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s11"
+      ],
+      "note": "NVIDIA produced this safety fine-tune; Google produced its identified Gemma 3 base."
+    },
+    "family": {
+      "value": "nemotron",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s11"
+      ],
+      "note": "Nemotron branding is explicit; Gemma 3 is base-model lineage rather than replacing catalog family."
+    },
+    "release_date": {
+      "value": "2025-11",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s11",
+        "s12",
+        "s13"
+      ],
+      "note": "Exact card and both NVIDIA endpoint references explicitly identify November 2025 HF release. Initial upload Nov 26 corroborates month but is not an explicit public-release-day announcement. Baseline Jan 22 is a later provider launch; BuildMarkdown alternatively saysJan 27. Preserve month precision."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "note": "Both full-weight shards are publicly downloadable; bounded header and sample ranges accessed without authentication. Distribution terms remain restrictive."
+    },
+    "license": {
+      "value": "NVIDIA Open Model License + Gemma Terms of Use",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s11",
+        "s14",
+        "s15",
+        "s16"
+      ],
+      "note": "Exact card explicitly requires NVIDIA Open Model License, Gemma Terms of Use and Gemma Prohibited Use Policy. Do not substitute newer sibling OpenMDW terms."
+    },
+    "parameters_b": {
+      "value": 4.300079472,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "note": "Complete unique learned count4300079472:3880263168language, 416866032vision, 2950272projector. All 884stored tensors are BF16 learned tensors but lm_head duplicates671252480embedding parameters by configured loader tying, leaving883unique tensors. Stored4971331952elements reconcile9942663904bytes. Every name/shape/offset reconstructed; no quantization, buffers, unmerged adapters or extra MTP. Three 64-byte paired samples agree but full duplicate equality was not asserted from sampling."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s11",
+        "s17",
+        "s18"
+      ],
+      "note": "Reviewed model card, API reference, deployment guide and linked research do not separately define active parameters. Dense total is not automatically per-token activity; complete count includes retained vision modules not used for documented text moderation."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s6",
+        "s9"
+      ],
+      "note": "Dense Gemma 3 causal decoder with34 layers(29 sliding, five full), GQA and gated MLP; released checkpoint retains27-layer SigLIP vision encoder and projector. No routed experts. Decoder generates labels and optional traces through tied language head."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s11"
+      ],
+      "note": "Exact text_config.max_position_embeddings131072 resolves documented128K; baseline128000 is rounded decimal. Deployment example4096 does not establish maximum."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s11",
+        "s12",
+        "s17"
+      ],
+      "note": "Exact model documentation and training/evaluation describe text policy, prompt, response to text labels/optional trace. Retained vision tower and generic image marker do not establish image moderation capability; no sibling modality transfer."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s11",
+        "s17"
+      ],
+      "note": "Explicit trained/evaluated reasoning traces, with /think and /no_think modes. Does not rely on model name alone."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s1",
+        "s10",
+        "s11",
+        "s12",
+        "s17"
+      ],
+      "note": "No checkpoint-level tool-calling capability statement or evaluated tool protocol found in the reviewed exact-model card, API reference, BuildMarkdown, template or deployment guide. Text classification output and absence of tool serialization do not prove universal incapability; clear baseline false."
+    },
+    "description": {
+      "value": "NVIDIA fine-tune of Gemma 3 4B for classifying text safety and topic-policy violations, with optional reasoning traces.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s11",
+        "s17"
+      ],
+      "note": "Concrete documented functions; removes unsupported risk-aware routing wording and does not claim image moderation."
+    }
+  },
+  "patch": {
+    "release_date": "2025-11",
+    "date_precision": "month",
+    "license": "NVIDIA Open Model License + Gemma Terms of Use",
+    "parameters_b": 4.300079472,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "context_window": 131072,
+    "tool_call": null,
+    "description": "NVIDIA fine-tune of Gemma 3 4B for classifying text safety and topic-policy violations, with optional reasoning traces.",
+    "source_url": "https://huggingface.co/nvidia/Nemotron-Content-Safety-Reasoning-4B/blob/29da6ec41d9c710d937afcd41f65e241ab822792/README.md",
+    "source_type": "primary",
+    "notes": "Released on Hugging Face in November 2025; January 2026 is a later NVIDIA endpoint launch. Complete checkpoint has 4.300079472B unique learned parameters, including retained vision modules; duplicate tied embedding/output-head storage is counted once. Documented moderation inputs are text. Active parameters and model-wide tool-calling capability are not separately verified. Context is 131072 tokens. NVIDIA Open Model License applies together with Gemma Terms of Use and Gemma Prohibited Use Policy.",
+    "sources": [
+      {
+        "label": "Pinned Content Safety Reasoning 4B model card",
+        "url": "https://huggingface.co/nvidia/Nemotron-Content-Safety-Reasoning-4B/blob/29da6ec41d9c710d937afcd41f65e241ab822792/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned checkpoint configuration",
+        "url": "https://huggingface.co/nvidia/Nemotron-Content-Safety-Reasoning-4B/blob/29da6ec41d9c710d937afcd41f65e241ab822792/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Pinned checkpoint index",
+        "url": "https://huggingface.co/nvidia/Nemotron-Content-Safety-Reasoning-4B/blob/29da6ec41d9c710d937afcd41f65e241ab822792/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Pinned checkpoint shard 1 bounded header",
+        "url": "https://huggingface.co/nvidia/Nemotron-Content-Safety-Reasoning-4B/resolve/29da6ec41d9c710d937afcd41f65e241ab822792/model-00001-of-00002.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Pinned checkpoint shard 2 bounded header",
+        "url": "https://huggingface.co/nvidia/Nemotron-Content-Safety-Reasoning-4B/resolve/29da6ec41d9c710d937afcd41f65e241ab822792/model-00002-of-00002.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Gemma3 implementation at configured version",
+        "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.57.1/src/transformers/models/gemma3/modeling_gemma3.py",
+        "type": "weights"
+      },
+      {
+        "label": "Gemma3 configuration defaults",
+        "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.57.1/src/transformers/models/gemma3/configuration_gemma3.py",
+        "type": "weights"
+      },
+      {
+        "label": "Transformers embedding tying implementation",
+        "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.57.1/src/transformers/modeling_utils.py",
+        "type": "weights"
+      },
+      {
+        "label": "SigLIP vision implementation",
+        "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.57.1/src/transformers/models/siglip/modeling_siglip.py",
+        "type": "weights"
+      },
+      {
+        "label": "Pinned chat template",
+        "url": "https://huggingface.co/nvidia/Nemotron-Content-Safety-Reasoning-4B/blob/29da6ec41d9c710d937afcd41f65e241ab822792/chat_template.jinja",
+        "type": "weights"
+      },
+      {
+        "label": "NVIDIA API model reference",
+        "url": "https://docs.api.nvidia.com/nim/reference/nvidia-nemotron-content-safety-reasoning-4b",
+        "type": "primary"
+      },
+      {
+        "label": "NVIDIA Build model-card Markdown",
+        "url": "https://build.nvidia.com/nvidia/nemotron-content-safety-reasoning-4b.md",
+        "type": "primary"
+      },
+      {
+        "label": "Initial model upload discussion",
+        "url": "https://huggingface.co/nvidia/Nemotron-Content-Safety-Reasoning-4B/discussions/1",
+        "type": "primary"
+      },
+      {
+        "label": "NVIDIA Open Model License Agreement",
+        "url": "https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-open-model-license/",
+        "type": "primary"
+      },
+      {
+        "label": "Gemma Terms of Use",
+        "url": "https://ai.google.dev/gemma/terms",
+        "type": "primary"
+      },
+      {
+        "label": "Gemma Prohibited Use Policy",
+        "url": "https://ai.google.dev/gemma/prohibited_use_policy",
+        "type": "primary"
+      },
+      {
+        "label": "NVIDIA deployment guide",
+        "url": "https://docs.nvidia.com/nemo/guardrails/latest/get-started/tutorials/nemotron-content-safety-reasoning-deployment",
+        "type": "primary"
+      }
+    ]
+  },
+  "parameter_count_reproduction": {
+    "stored_tensors": 884,
+    "unique_learned_parameters": 4300079472,
+    "unique_learned_tensors": 883,
+    "deduplicated_lm_head_elements": 671252480,
+    "components": {
+      "language_backbone": 3880263168,
+      "vision_encoder": 416866032,
+      "vision_projector": 2950272
+    },
+    "buffer_tensors_in_checkpoint": 0,
+    "revision": "29da6ec41d9c710d937afcd41f65e241ab822792",
+    "shards": 2,
+    "stored_elements": 4971331952,
+    "stored_bytes": 9942663904,
+    "method": "Fetch 8-byte safetensors header lengths and exact JSON headers using HTTP 206 ranges; validate exact key sets against index, all BF16shapes, contiguous offsets and total file sizes. Reconstruct all 884expected saved shapes from exact configuration and Transformers 4.57.1 constructors. Config default and loader tie input/output matrices; deduct one671252480element duplicate. Three 64-byte pairs at start/middle/end agree as a limited consistency check; no full weight payload downloaded.",
+    "cache": "/tmp/model-audit-390",
+    "scripts": [
+      "census.py",
+      "reconstruct.py"
+    ],
+    "buffer_handling": "Gemma embedding scale/rotary frequencies and SigLIP position IDs are nonpersistent and absent. All 884saved keys map to nn.Parameter; no quantization scales or packed storage. Tied duplicate is learned storage but adds no independent parameters."
+  },
+  "summary": "All 14 fields audited independently for exact Content Safety Reasoning 4B. Correct first release to November 2025 month precision, complete unique count to 4.300079472B, architecture to dense Gemma 3/SigLIP, context to 131072, and license to NVIDIA Open Model License plus Gemma Terms. Confirm text moderation and reasoning; active count remains undisclosed and unsupported tool false is cleared. All 884 stored tensor shapes across 2 shards verified, with tied embedding/output storage counted once."
+}
