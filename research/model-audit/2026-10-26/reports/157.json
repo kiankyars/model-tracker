@@ -1,7 +1,7 @@
 {
   "index": 157,
   "model_id": "cohere/tiny-aya-earth",
-  "reviewed_at": "2026-10-26T18:40:01.066764+00:00",
+  "reviewed_at": "2026-10-27T12:30:44.147384+00:00",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Tiny Aya Earth model card",
       "publisher": "Cohere Labs",
       "accessed": true,
-      "evidence": "Exact Earth card identifies Cohere and Cohere Labs, open weights, 3.35B size, text input/output, and West Asian/African specialization. Lists CC-BY-NC-4.0 with acceptable-use conditions. Its isolated 111B terms boilerplate conflicts with its size specification and the technical report."
+      "evidence": "Exact Earth card identifies Cohere and Cohere Labs, open weights, 3.35B size, text input/output, and West Asian/African specialization. Lists CC-BY-NC-4.0 with acceptable-use conditions. Its isolated 111B terms boilerplate conflicts with its size specification and the technical report. Reopened October 27, 2026: the exact card still explicitly states 3.35B and provides no separate active count."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "Tiny Aya: Bridging Scale and Multilingual Depth (March 12, 2026), sections 3.1-3.3 and Table 2",
       "publisher": "Cohere Labs and Cohere",
       "accessed": true,
-      "evidence": "Names Earth as the Africa/West Asia regional variant. Defines a dense decoder-only Transformer; Table 2 specifies 3.35B total, 36 layers, 2048 embedding dimensions, and 8192 input/output context. Regional checkpoints retain the shared architecture through parameter-space merging. Reports prompted chain-of-thought evaluations, not an Earth-specific thinking API."
+      "evidence": "Names Earth as the Africa/West Asia regional variant. Defines a dense decoder-only Transformer; Table 2 specifies 3.35B total, 36 layers, 2048 embedding dimensions, and 8192 input/output context. Regional checkpoints retain the shared architecture through parameter-space merging. Reports prompted chain-of-thought evaluations, not an Earth-specific thinking API. Independently inspected the complete freshly fetched October 27 report, including sections 3.1\u20133.3 and comparison tables. Table 2 distinguishes 0.5B embedding, 2.8B non-embedding and 3.35B total parameters; these are not labeled active. The shared architecture and direct parameter-space merging support the regional nominal total, with no separate active-count convention."
     },
     {
       "id": "s3",
@@ -33,7 +33,7 @@
       "title": "Official Tiny Aya Earth repository metadata and tokenizer template",
       "publisher": "Cohere Labs / Hugging Face",
       "accessed": true,
-      "evidence": "Exact repository metadata at revision 0624fafbe200f930b89566fc4ec4da314ba48d89 identifies Cohere2ForCausalLM and base_model CohereLabs/tiny-aya-base. The exposed template handles system/user/assistant text without tool definitions, tool-call serialization, or a thinking branch. Host-generated safetensors metadata reports 3349227520 BF16 elements; raw tensors were gated, so this is not an independently validated learned-parameter count."
+      "evidence": "Exact repository metadata at revision 0624fafbe200f930b89566fc4ec4da314ba48d89 identifies Cohere2ForCausalLM and base_model CohereLabs/tiny-aya-base. The exposed template handles system/user/assistant text without tool definitions, tool-call serialization, or a thinking branch. Host-generated safetensors metadata reports 3349227520 BF16 elements; raw tensors were gated, so this is not an independently validated learned-parameter count. Fresh October 27 API read returns the same revision, base-model mapping and 3,349,227,520-element aggregate; this corroborates the nominal total without being used as an active count."
     },
     {
       "id": "s5",
@@ -41,7 +41,7 @@
       "title": "Tiny Aya documentation: Model Variants",
       "publisher": "Cohere",
       "accessed": true,
-      "evidence": "Official five-model family table explicitly lists tiny-aya-earth with 3.35B parameters, 8k context/output, 70 languages and West Asian/African focus. Identifies instruction-tuned variants as available through Chat and as open weights. Does not specify Earth-native thinking or tool calling."
+      "evidence": "Official five-model family table explicitly lists tiny-aya-earth with 3.35B parameters, 8k context/output, 70 languages and West Asian/African focus. Identifies instruction-tuned variants as available through Chat and as open weights. Does not specify Earth-native thinking or tool calling. Reopened October 27: the exact Earth row still lists 3.35B under Parameters, without an active-parameter field."
     },
     {
       "id": "s6",
@@ -98,6 +98,46 @@
       "publisher": "Cohere",
       "accessed": true,
       "evidence": "Defines dedicated thinking content blocks and controls, demonstrated with command-a-reasoning-08-2025. It does not identify Tiny Aya Earth as a supported reasoning model."
+    },
+    {
+      "id": "s13",
+      "url": "https://huggingface.co/CohereLabs/tiny-aya-base",
+      "title": "Tiny Aya Base model card",
+      "publisher": "Cohere Labs",
+      "accessed": true,
+      "evidence": "Fresh October 27 read of the exact base named by Earth metadata confirms the nominal 3.35B model. The base card publishes no separate active-count definition; the named-base relationship cannot supply an otherwise undisclosed active field."
+    },
+    {
+      "id": "s14",
+      "url": "https://cohere.com/blog/command-a-plus",
+      "title": "Introducing Command A+",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "Fresh October 27 read of the later first-party model comparison. The explicit 218B total and 25B active figures describe Command A+, while Tiny Aya Earth and its base are absent. No applicable active-count convention is established."
+    },
+    {
+      "id": "s15",
+      "url": "https://cohere.com/blog/building-multilingual-bridges",
+      "title": "In-Language Reasoning: Data Mixing Bridges",
+      "publisher": "Cohere Labs",
+      "accessed": true,
+      "evidence": "Fresh October 27 search found and read this October 2026 first-party article about Tiny Aya L2-Thinker. It identifies a 3.35B model built on the 32K Tiny Aya base and compares reasoning efficiency, but supplies no separate active count for Earth or its base. Thinker capabilities and context are not transferred to Earth."
+    },
+    {
+      "id": "s16",
+      "url": "https://arxiv.org/html/2609.10445v1",
+      "title": "Building Multilingual Bridges: Data Mixing as the Pillar of Generalization for In-Language Reasoning",
+      "publisher": "Cohere Labs and Cohere",
+      "accessed": true,
+      "evidence": "Freshly fetched and independently inspected the full September 2026 report, including base-model section 3.1 and all parameter terminology and comparison headings. It describes Tiny Aya at 3.35B scale and provides benchmark/token-efficiency comparisons; no Earth/base active-parameter count or dense active-count convention is stated."
+    },
+    {
+      "id": "s17",
+      "url": "https://huggingface.co/CohereLabs/tiny-aya-l2-thinker",
+      "title": "Tiny Aya L2-Thinker model card",
+      "publisher": "Cohere Labs",
+      "accessed": true,
+      "evidence": "Fresh October 27 read of this later family release confirms its 3.35B nominal size and named Tiny Aya base. It does not separately report active parameters; its reasoning mode and 32K context belong to that later variant and are not inherited by Earth."
     }
   ],
   "fields": {
@@ -163,7 +203,7 @@
         "s4",
         "s5"
       ],
-      "note": "Nominal developer-reported billions for Earth. Host metadata reports 3,349,227,520 BF16 elements, but inaccessible shard headers prevent independent verification of learned tensors, buffers, or duplicate storage. Retain documented 3.35B precision. Disregard conflicting 111B card boilerplate."
+      "note": "Fresh October 27 card, documentation, metadata and full report checks confirm Cohere's nominal 3.35B total for Earth. Shared architecture and regional parameter-space merging preserve that published count. Hub metadata corroborates the scale at 3.349227520B; an exact tensor census is not required to retain nominal precision. The isolated 111B terms boilerplate is inconsistent with the exact size specification and report."
     },
     "active_parameters_b": {
       "value": null,
@@ -171,9 +211,14 @@
       "source_ids": [
         "s1",
         "s2",
-        "s5"
+        "s5",
+        "s13",
+        "s14",
+        "s15",
+        "s16",
+        "s17"
       ],
-      "note": "No separate active-per-token count is defined or reported. Dense architecture does not justify copying total parameters into this field."
+      "note": "Fresh exact-model total/active/activated and lineage searches, original evidence and later first-party comparisons found no separate active count for Earth or its named base. Table 2's 2.8B is explicitly non-embedding, not active. The later Thinker report and cards publish nominal size and reasoning efficiency without an active-count convention; A+ counts describe another model. Dense architecture alone does not justify filling the field."
     },
     "architecture": {
       "value": "dense",
@@ -281,9 +326,10 @@
         "type": "primary"
       }
     ],
-    "notes": "Tiny Aya Earth is the Africa/West Asia regional variant, released February 17, 2026. The developer documents a nominal 3.35B dense Transformer and 8192-token input context. Active parameters are not separately reported. Raw configuration and both checkpoint headers returned HTTP 401; the host metadata count of 3349227520 BF16 elements was not independently verified as a learned-parameter total. Ignore the inconsistent 111B boilerplate in the card terms. Dedicated thinking and native tool-calling support remain unverified for Earth; prompted chain-of-thought results and Command-family capabilities do not settle those flags. CC-BY-NC-4.0 includes acceptable-use conditions.",
+    "notes": "Tiny Aya Earth is the Africa/West Asia regional variant with a nominal 3.35B total and 8192-token input context. Active parameters are not separately disclosed; the report's 2.8B non-embedding count is a different measure. The card's isolated 111B terms boilerplate conflicts with its model specification. Dedicated thinking and native tool-calling support remain unverified for Earth. CC-BY-NC-4.0 includes acceptable-use conditions.",
     "source_type": "primary",
-    "source_url": "https://cohere.com/blog/cohere-labs-tiny-aya"
+    "source_url": "https://cohere.com/blog/cohere-labs-tiny-aya",
+    "active_parameters_b": null
   },
-  "summary": "Confirmed nominal 3.35B size, dense architecture, Tiny Aya family, 8192-token context, February 17 release, noncommercial open weights, text modalities and Earth specialization. Active count remains undisclosed. Clear unsupported native-reasoning/tool flags to null; exact tensor-derived learned count is not verified because configuration and weight headers are gated."
+  "summary": "October 27 parameter re-audit confirms nominal 3.35B total and retains an undisclosed active count. Reopened the exact Earth card, documentation, metadata and named-base card; independently inspected the original report and later Command A+ comparison, Thinker release and September technical report. No active-count convention was found, and non-embedding parameters are not relabeled active. Added explicit parameter patches and refreshed evidence while preserving unrelated assessments."
 }
