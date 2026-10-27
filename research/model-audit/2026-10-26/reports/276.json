@@ -1,7 +1,7 @@
 {
   "index": 276,
   "model_id": "meta/llama-3.3-70b-instruct",
-  "reviewed_at": "2026-10-26T21:41:52.579475+00:00",
+  "reviewed_at": "2026-10-27T14:15:59.677877+00:00",
   "sources": [
     {
       "id": "s1",
@@ -101,6 +101,33 @@
       "type": "weights",
       "accessed": false,
       "evidence": "Unauthenticated request returned HTTP 401. No attempt was made to bypass the access gate or download model weights."
+    },
+    {
+      "id": "s12",
+      "url": "https://www.microsoft.com/en-us/research/wp-content/uploads/2025/01/WEF-2025_Leave-Behind_Phi-4.pdf",
+      "title": "Phi-4 January 2025 research brief, page 1 active-parameter comparison",
+      "publisher": "Microsoft Research",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Reopened October 27, 2026 and visually inspected page 1. The chart explicitly labels its horizontal axis Active Parameters (Billions), with ticks from 0 to 75. Its exact Llama-3.3-70B-Instruct point is near 70B. This supports an approximately 70B nominal active count under Microsoft Research's benchmark convention; it is a plot estimate, not a Meta disclosure or a precise per-token component census."
+    },
+    {
+      "id": "s13",
+      "url": "https://arxiv.org/html/2606.08340v1",
+      "title": "Benchmarking Open-Ended Multi-Agent Coordination in Language Agents, Table 1 and Figure 11",
+      "publisher": "Kale-ab Abebe Tessera et al., University of Edinburgh / University of Oxford / University College London",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Reopened October 27, 2026 and visually inspected Figure 11 on PDF page 24. Table 1 identifies the evaluated checkpoint as llama-3.3-70b-instruct. Figure 11 places its Llama 3.3 70B point near 70 on an Active parameters (billions, log scale) axis. This independently corroborates the approximate nominal active count as the authors' benchmark convention, without specifying exact tensor participation."
+    },
+    {
+      "id": "s14",
+      "url": "https://arxiv.org/html/2505.09388v1",
+      "title": "Qwen3 Technical Report, active-parameter comparisons checked for exact Llama 3.3 identity",
+      "publisher": "Qwen Team, Alibaba Group",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Reopened and searched October 27, 2026. The report contains explicit activated-parameter comparisons, but no exact Llama 3.3 70B Instruct row. Its 70B Llama-derived thinking-mode comparison is DeepSeek-R1-Distill-Llama-70B, a different post-trained model, so that row is not used to establish this checkpoint's active count."
     }
   ],
   "fields": {
@@ -165,17 +192,20 @@
         "s1",
         "s7"
       ],
-      "note": "Meta explicitly reports 70B; this is the published nominal count, not an independently reconciled exact learned-parameter count. No HF aggregate or earlier-model count is substituted."
+      "note": "Freshly reopened Meta model card and exact Llama 3.3 documentation both publish 70B for this instruction-tuned model. Retain the developer's nominal total; no exact tensor count is claimed."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 70,
+      "status": "verified",
       "source_ids": [
+        "s12",
+        "s13",
         "s1",
         "s7",
-        "s10"
+        "s10",
+        "s14"
       ],
-      "note": "No separate active-per-token count is disclosed for this exact model in inspected first-party specifications or the later comparison card. Dense structure does not justify copying the total."
+      "note": "Approximately 70B under Microsoft Research's explicitly labeled active-parameter comparison on page 1 of its Phi-4 brief, independently corroborated by Tessera et al. Figure 11 and the exact Instruct identity in Table 1. Preserve plot-level nominal precision. Reopened Meta sources do not separately define an active count or per-token component scope. The Qwen3 report has no exact Llama 3.3 row; its DeepSeek-R1-distilled 70B comparison is not transferred. This is an attributed research-team convention, not an inference that every dense-model parameter participates per token."
     },
     "architecture": {
       "value": "dense",
@@ -297,9 +327,21 @@
         "label": "Llama models repository overview",
         "url": "https://github.com/meta-llama/llama-models/blob/main/README.md",
         "type": "primary"
+      },
+      {
+        "label": "Phi-4 January 2025 research brief, page 1 active-parameter comparison",
+        "url": "https://www.microsoft.com/en-us/research/wp-content/uploads/2025/01/WEF-2025_Leave-Behind_Phi-4.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Benchmarking Open-Ended Multi-Agent Coordination in Language Agents, Table 1 and Figure 11",
+        "url": "https://arxiv.org/html/2606.08340v1",
+        "type": "primary"
       }
     ],
-    "notes": "Meta publishes a nominal 70B total; active parameters are not separately disclosed. Dense Transformer with GQA; context is 131072 tokens. Native custom and built-in tool calling are documented, while dedicated reasoning-mode support is undisclosed. Exact card and license date release to December 6, 2024; the repository overview conflicts with December 4. Gated checkpoint configuration was not accessed; no exact tensor count is claimed."
+    "notes": "Meta publishes a nominal 70B total. Approximately 70B active follows Microsoft Research's plotted comparison, corroborated by Tessera et al.; exact per-token component scope is unspecified. Dense Transformer with GQA; context is 131072 tokens. Native custom and built-in tool calling are documented; dedicated thinking mode remains undisclosed. Exact card and license date release to December 6, 2024; the overview conflicts with December 4.",
+    "parameters_b": 70,
+    "active_parameters_b": 70
   },
-  "summary": "Audited all 14 fields. Confirm nominal 70B using primary evidence; add the Llama 3.3 license and dense GQA architecture; correct context from 128000 to 131072; clear unsupported reasoning=false and replace subjective description. Preserve exact-model December 6 release and native tool calling. Active count and dedicated thinking mode remain undisclosed. Record overview date conflict and gated configuration limitation without gate bypass or weight downloads."
+  "summary": "Parameter re-audit October 27: retain Meta's nominal 70B total after reopening the exact card and documentation; establish approximately 70B active using Microsoft Research's original active-axis comparison and Tessera et al. Figure 11 with exact checkpoint identity. Attribute the active-count convention to those research teams; no exact per-token participation or tensor census is established. Qwen3 was checked but its 70B distilled model is not this checkpoint. Preserve the other 12 audited fields, including dense GQA architecture, 131072 context, December 6 release, native tool calling and undisclosed dedicated thinking mode. No weights downloaded."
 }
