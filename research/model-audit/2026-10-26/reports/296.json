@@ -1,7 +1,7 @@
 {
   "index": 296,
   "model_id": "microsoft/phi-4-multimodal-instruct",
-  "reviewed_at": "2026-10-26T22:11:01.837043+00:00",
+  "reviewed_at": "2026-10-27T15:22:27.003381+00:00",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Phi-4-multimodal-instruct model card",
       "publisher": "Microsoft",
       "accessed": true,
-      "evidence": "Identifies the model, MIT release, text/image/audio input and text output, 128K context, nominal 5.6B size, function-calling format, and recommended audio lengths of 40 seconds generally or 30 minutes for summarization."
+      "evidence": "Identifies the model, MIT release, text/image/audio input and text output, 128K context, nominal 5.6B size, function-calling format, and recommended audio lengths of 40 seconds generally or 30 minutes for summarization. Reopened October 27: the pinned card still specifies 5.6B total and names Phi-4-Mini-Instruct as the backbone."
     },
     {
       "id": "s2",
@@ -41,7 +41,7 @@
       "title": "Pinned safetensors shard index",
       "publisher": "Microsoft",
       "accessed": true,
-      "evidence": "2047 tensor entries over three root shards, total_size 11148920768 bytes; already includes both speech and vision LoRA matrices. No separate lm_head tensor is stored."
+      "evidence": "2047 tensor entries over three root shards, total_size 11148920768 bytes; already includes both speech and vision LoRA matrices. No separate lm_head tensor is stored. Reopened October 27: the same pinned index still reports 2047 entries and total_size 11148920768."
     },
     {
       "id": "s6",
@@ -81,7 +81,7 @@
       "title": "Released speech encoder implementation",
       "publisher": "Microsoft",
       "accessed": true,
-      "evidence": "global_mean and global_invstd are registered buffers, each length 80; exclude them from learned parameters. GLU b1/b2 are nn.Parameter and remain included."
+      "evidence": "global_mean and global_invstd are registered buffers, each length 80; exclude them from learned parameters. GLU b1/b2 are nn.Parameter and remain included. Reopened October 27: register_buffer calls remain explicit, with input_size 80 in the pinned configuration."
     },
     {
       "id": "s11",
@@ -121,7 +121,23 @@
       "title": "Hugging Face repository metadata",
       "publisher": "Hugging Face, for Microsoft repository",
       "accessed": true,
-      "evidence": "Current revision is 93f923e1a7727d1c4f446756212d9d3e8fcc5d81; repository creation is February 24, 2025. Safetensors metadata calls all 5574460384 BF16 storage elements parameters, including the 160 buffers verified separately."
+      "evidence": "Reopened October 27, 2026: current revision remains 93f923e1a7727d1c4f446756212d9d3e8fcc5d81; repository creation is February 24, 2025. Safetensors metadata still reports 5574460384 BF16 elements, including the 160 nonlearned normalization-buffer elements identified in the original header audit and confirmed in the pinned configuration/implementation."
+    },
+    {
+      "id": "s16",
+      "url": "https://papers.nips.cc/paper_files/paper/2025/file/62867024377cac4233195949b9db0ebd-Paper-Datasets_and_Benchmarks_Track.pdf",
+      "title": "RSCC: A Large-Scale Remote Sensing Change Caption Dataset for Disaster Events, Table 5",
+      "publisher": "Zhenyuan Chen, Chenxi Wang, Ningyu Zhang and Feng Zhang / Zhejiang University / NeurIPS 2025",
+      "accessed": true,
+      "evidence": "Reopened October 27 and visually checked PDF page 29: Table 5 explicitly labels #Active Parameters and gives Phi-4-Multimodal 4B, alongside LLM Phi-4-Mini 4B and image encoder SigLIP (LORA). Section 4.1 identifies the released model as an evaluated baseline and citation 46 points to Microsoft's Phi-4-Mini technical report. This is the RSCC researchers' nominal benchmark convention; the table does not specify exact component inclusion or per-token/phase accounting."
+    },
+    {
+      "id": "s17",
+      "url": "https://github.com/Bili-Sakura/RSCC",
+      "title": "RSCC authors' companion repository: benchmark and exact baseline checkpoint",
+      "publisher": "Zhenyuan Chen et al. / Bili-Sakura",
+      "accessed": true,
+      "evidence": "Reopened October 27: README Benchmark Results labels #Activate Params and lists Phi-4-Multimodal (4B). Prepare Pre-trained Models and the baseline INFERENCE_MODEL_LIST explicitly identify microsoft/Phi-4-multimodal-instruct, resolving the paper's abbreviated model name to this exact released checkpoint."
     }
   ],
   "fields": {
@@ -183,6 +199,8 @@
       "value": 5.574460224,
       "status": "verified",
       "source_ids": [
+        "s1",
+        "s2",
         "s4",
         "s5",
         "s6",
@@ -190,19 +208,22 @@
         "s8",
         "s9",
         "s10",
-        "s11"
+        "s11",
+        "s15"
       ],
-      "note": "Complete unique checkpoint count: 5574460384 BF16 elements minus two 80-element nonlearned audio-normalization buffers = 5574460224 parameters. Tied embeddings count once; both LoRAs already occur in root shards. Nominal 5.6B is consistent rounding. Separate exported LoRA files are not added again."
+      "note": "Retain the original complete unique-checkpoint audit: 5574460384 BF16 elements minus two 80-element nonlearned audio-normalization buffers = 5574460224 parameters. Fresh metadata, pinned index, configuration and buffer-code checks confirm the unchanged revision and counting basis; no shards were requested in this re-audit. Tied embeddings count once, both LoRAs are already included, and separate adapter exports are not added again. Microsoft's nominal 5.6B specification remains consistent rounding."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 4,
+      "status": "verified",
       "source_ids": [
+        "s16",
+        "s17",
         "s3",
         "s9",
         "s13"
       ],
-      "note": "No separately defined single active count is disclosed in the examined first-party materials. Encoder/projector and LoRA participation varies by modality and inference phase; total is not a valid per-token active count."
+      "note": "Nominal 4B under the explicit #Active Parameters convention in RSCC Table 5, published by Chen et al.; the companion repository identifies the exact microsoft/Phi-4-multimodal-instruct checkpoint. The table names Phi-4-Mini 4B as the LLM and lists SigLIP (LORA) separately, but does not define exact component inclusion or a per-token/phase count. Preserve its integer-billion precision without inventing component or phase values. Fresh Microsoft card, technical-report, released-code and later comparison checks did not establish a Microsoft-defined scalar active count; this value is the original RSCC benchmark researchers' convention, not a Microsoft disclosure or dense-equals-total inference."
     },
     "architecture": {
       "value": "dense",
@@ -277,7 +298,7 @@
     "description": "Microsoft's multimodal instruction model for text, image, and audio understanding, with text output and modality-specific LoRA adapters.",
     "source_url": "https://huggingface.co/microsoft/Phi-4-multimodal-instruct",
     "source_type": "primary",
-    "notes": "Complete checkpoint: 5.574460224B learned parameters, nominally 5.6B. Header element total 5.574460384B includes 160 nonlearned audio-normalization buffer elements. Both modality LoRAs are included once; separate adapter exports are not additional parameters. Active parameters vary with input modality and phase and are not separately disclosed. Context is 131072 tokens; recommended audio lengths are 40 seconds generally or 30 minutes for summarization.",
+    "notes": "Complete checkpoint: 5.574460224B learned parameters, nominally 5.6B; excludes 160 nonlearned buffer elements and includes both modality LoRAs once. Nominal 4B active follows Chen et al.'s RSCC benchmark convention, whose table lists Phi-4-Mini 4B and SigLIP (LORA) separately; exact component inclusion and per-token counts are unspecified. Context is 131072 tokens; recommended audio lengths are 40 seconds generally or 30 minutes for summarization.",
     "sources": [
       {
         "label": "Microsoft model card",
@@ -313,8 +334,19 @@
         "label": "Microsoft non-thinking model comparison",
         "url": "https://arxiv.org/html/2603.03975v1",
         "type": "primary"
+      },
+      {
+        "label": "RSCC researchers' nominal active-parameter convention (Table 5)",
+        "url": "https://papers.nips.cc/paper_files/paper/2025/file/62867024377cac4233195949b9db0ebd-Paper-Datasets_and_Benchmarks_Track.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "RSCC authors' exact baseline checkpoint identification",
+        "url": "https://github.com/Bili-Sakura/RSCC",
+        "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": 4
   },
   "proposed_fields": {
     "parameter_components_b": {
@@ -325,5 +357,5 @@
       "speech_lora": 0.46137344
     }
   },
-  "summary": "Fill total parameters with the complete header/configuration-reconciled 5.574460224B and architecture with dense; clarify the description. Component totals include both modality LoRAs and exclude 160 audio normalization buffer elements. Confirm February 26, 2025 launch, MIT open weights, 131072-token context, native function calling and non-thinking classification. Retain null active parameters because routing depends on modality and phase. Only safetensors headers were read; no complete weights were downloaded or unpickled."
+  "summary": "October 27 re-audit retains the complete 5.574460224B learned-parameter total, corroborated by unchanged repository metadata, index and buffer definitions. Replace null active parameters with RSCC researchers' explicitly published nominal 4B convention, linked to this exact checkpoint by their companion repository. Exact active component inclusion and per-token/phase counts remain unspecified; no new component/phase values or shard requests were introduced. The other 12 field assessments are unchanged."
 }
