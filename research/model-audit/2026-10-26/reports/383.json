@@ -1,0 +1,299 @@
+{
+  "index": 383,
+  "model_id": "nvidia/nemotron-3-super-120b-a12b",
+  "reviewed_at": "2026-10-27T00:43:35.249774+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-BF16/blob/2dc98e2afe4face0e4ce40972a915c45368bd34a/README.md",
+      "title": "Nemotron 3 Super 120B A12B BF16 model card",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Exact post-trained text model, distinct from Base, MTPv2 and Nemotron 3.5. Names NVIDIA, the Nemotron family, March 11, 2026 release, downloadable weights and license. Documents configurable thinking, tool use and 1M context; serving examples specify 1048576 and explain the 262144 default as a VRAM precaution."
+    },
+    {
+      "id": "s2",
+      "url": "https://research.nvidia.com/labs/nemotron/files/NVIDIA-Nemotron-3-Super-Technical-Report.pdf",
+      "title": "Nemotron 3 Super technical report, April 3, 2026 edition",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Table 1 and section 2.1 describe 88 main layers, 512 routed experts with 22 selected, 1024 latent dimension and shared MTP. The report gives 120.6B total main parameters and 12.7B active per forward pass, 12.1B excluding embeddings. Section 2.1.2 separates the MTP drafter from main-model verification."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-BF16/blob/2dc98e2afe4face0e4ce40972a915c45368bd34a/config.json",
+      "title": "Exact BF16 checkpoint configuration",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Specifies D=4096, V=131072, untied embeddings, 88-layer pattern containing 40 Mamba-2, 40 MoE and 8 attention blocks; 512 experts/top-22, expert intermediate 2688, latent 1024, shared-expert intermediate 5376. One MTP module has attention-plus-MoE pattern *E. The 262144 default is superseded by the model card maximum."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-BF16/blob/2dc98e2afe4face0e4ce40972a915c45368bd34a/modeling_nemotron_h.py",
+      "title": "Nemotron-H reference implementation",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Defines all main-model learned tensor shapes. Mamba A_log, D and dt_bias are parameters; the 512-element e_score_correction_bias per MoE router is a registered buffer. MoE has non-gated up/down expert projections, a full-width shared expert and two latent projections. The ordinary Transformers loader excludes mtp.* tensors."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-BF16/blob/2dc98e2afe4face0e4ce40972a915c45368bd34a/model.safetensors.index.json",
+      "title": "BF16 weight index and all 50 indexed safetensors headers",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Read each indexed shard with bounded HTTP Range requests: 8-byte header length followed only by its JSON header, 5542320 bytes total. All 42683 indexed names, shapes, dtypes, offsets and shard lengths match independently constructed shapes. There are 42642 BF16 learned tensors with 123611012096 elements, and 41 F32 router buffers with 20992 elements. No packed weights or quantization scales occur. Tensor data bytes sum to 247222108160, matching index metadata; metadata total_parameters also agrees."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-BF16/blob/2dc98e2afe4face0e4ce40972a915c45368bd34a/chat_template.jinja",
+      "title": "Exact checkpoint chat template",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "The template supports enable_thinking true/false, tool definitions, XML function calls, assistant tool_calls and tool responses. These substantiate configurable reasoning and tool calling without asserting a live endpoint test."
+    },
+    {
+      "id": "s7",
+      "url": "https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-nemotron-open-model-license/",
+      "title": "NVIDIA Nemotron Open Model License",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "The model card links this named license; the agreement last modified December 15, 2025 permits use, modification and redistribution subject to its terms. This is the Nemotron license, not the differently named older NVIDIA Open Model License."
+    },
+    {
+      "id": "s8",
+      "url": "https://developer.nvidia.com/blog/introducing-nemotron-3-super-an-open-hybrid-mamba-transformer-moe-for-agentic-reasoning/",
+      "title": "Introducing Nemotron 3 Super",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "The March 11, 2026 launch article explicitly announces the model that day, identifies its hybrid Mamba-Transformer LatentMoE architecture, open weights, reasoning and tool use, and one-million-token context."
+    },
+    {
+      "id": "s9",
+      "url": "https://github.com/vllm-project/vllm/blob/f235b89bdf62b5fc6356fc8d5e9d59572e48b145/vllm/model_executor/models/nemotron_h_mtp.py",
+      "title": "Nemotron-H MTP implementation",
+      "publisher": "vLLM project",
+      "accessed": true,
+      "evidence": "The implementation creates one attention-plus-MoE prediction module with fusion projection and norms. It sets has_own_embed_tokens=False and has_own_lm_head=False and requires both to be shared from the target. Thus the census adds only MTP-specific tensors and does not duplicate embeddings or the output head."
+    },
+    {
+      "id": "s10",
+      "url": "https://www.nvidia.com/en-us/ai-data-science/foundation-models/nemotron/llm-info/",
+      "title": "NVIDIA Nemotron LLM information, August 2026 snapshot",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Its exact-model size explanation independently lists Nemotron 3 Super as 123611012096 parameters. This corroborates the tensor census; its older overview is not used to infer current family membership or newer models."
+    },
+    {
+      "id": "s11",
+      "url": "https://research.nvidia.com/labs/nemotron/files/NVIDIA-Nemotron-3.5-Super-and-Lightning-Technical-Report.pdf",
+      "title": "Nemotron 3.5 Super and Lightning technical report, October 21, 2026 edition",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Checked the later first-party report for exact-model comparisons and MTP lineage. It describes separate 3.5 models and an earlier Base-stage MTP initialization; neither its visual capabilities nor its later architecture is transferred to the March post-trained Super checkpoint."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Nemotron 3 Super 120B A12B",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8"
+      ],
+      "note": "Preserve the public model designation; 120B/A12B are nominal names, not exact counts. The inspected BF16 repository is the post-trained release."
+    },
+    "developer": {
+      "value": "NVIDIA",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8"
+      ],
+      "note": "The card explicitly names NVIDIA Corporation as developer."
+    },
+    "family": {
+      "value": "nemotron",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8"
+      ],
+      "note": "The developer identifies this release as the Super member of the Nemotron 3 family; keep the catalog family key nemotron."
+    },
+    "release_date": {
+      "value": "2026-03-11",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8"
+      ],
+      "note": "Exact card release date and contemporaneous announcement agree. March 10 repository upload activity precedes the documented public release and does not replace it."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "The official repository distributes the full post-trained checkpoint, with all 50 shard headers accessible. This establishes open weights without claiming an OSI-approved software license."
+    },
+    "license": {
+      "value": "NVIDIA Nemotron Open Model License",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7"
+      ],
+      "note": "Exact model-card license and linked agreement; do not transfer the OpenMDW license of later family releases."
+    },
+    "parameters_b": {
+      "value": 123.611012096,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s5",
+        "s9",
+        "s10"
+      ],
+      "note": "Exact complete BF16 learned-parameter census: 123611012096 = main model 120668687360 + MTP-specific 2942324736. Independently generated tensor inventory matches all 50 headers. Excludes 20992 F32 router-buffer elements; Mamba A_log/D/dt_bias remain included as learned parameters. Target input embedding and untied output head are counted once each and shared by MTP. No quantization storage or scale tensors enter this count. The nominal 120B and report 120.6B describe the main model rather than this complete checkpoint."
+    },
+    "active_parameters_b": {
+      "value": 12.7,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s9"
+      ],
+      "note": "NVIDIA reports nominal 12.7B active parameters per main-model forward pass including embeddings (12.1B excluding embeddings); this is not an exact tensor count and excludes separate MTP drafting. Exact selected-expert inventory with both full embedding matrices is 12.770216960B, so the reported rounding/embedding convention is retained as published rather than represented as an exact reconstruction."
+    },
+    "architecture": {
+      "value": "hybrid-ssm-transformer-moe",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "note": "Mamba-2 state-space blocks, global attention and LatentMoE. Exact main pattern is 40 Mamba-2 + 40 MoE + 8 attention blocks; each MoE routes top-22 of 512 experts in a 1024-dimensional latent space with a separate full-width shared expert. Checkpoint also includes a shared MTP attention/MoE module."
+    },
+    "context_window": {
+      "value": 1048576,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Use documented supported maximum, not max_position_embeddings default. The card explicitly sets vLLM max-model-len and SGLang context-length to 1048576 and says the 256K default reduces VRAM requirements."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Exact model card lists text input and output. This is not the later vision-language Nemotron 3.5 Super."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Card documents reasoning traces and configurable on/off thinking; checkpoint template implements enable_thinking."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Card documents tool-call training and usage, and template implements tool schemas, calls and responses. No hosted API availability claim is made."
+    },
+    "description": {
+      "value": "NVIDIA text model with Mamba-2, attention and LatentMoE layers, configurable reasoning, tool calling and a 1M-token context window.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s6"
+      ],
+      "note": "Replace tier/workload marketing with architecture and documented capabilities."
+    }
+  },
+  "patch": {
+    "license": "NVIDIA Nemotron Open Model License",
+    "parameters_b": 123.611012096,
+    "active_parameters_b": 12.7,
+    "parameters_source": "primary_source",
+    "architecture": "hybrid-ssm-transformer-moe",
+    "context_window": 1048576,
+    "description": "NVIDIA text model with Mamba-2, attention and LatentMoE layers, configurable reasoning, tool calling and a 1M-token context window.",
+    "source_url": "https://developer.nvidia.com/blog/introducing-nemotron-3-super-an-open-hybrid-mamba-transformer-moe-for-agentic-reasoning/",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "NVIDIA launch announcement",
+        "url": "https://developer.nvidia.com/blog/introducing-nemotron-3-super-an-open-hybrid-mamba-transformer-moe-for-agentic-reasoning/",
+        "type": "primary"
+      },
+      {
+        "label": "Exact post-trained model card",
+        "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-BF16/blob/2dc98e2afe4face0e4ce40972a915c45368bd34a/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "NVIDIA technical report",
+        "url": "https://research.nvidia.com/labs/nemotron/files/NVIDIA-Nemotron-3-Super-Technical-Report.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Checkpoint configuration",
+        "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-BF16/blob/2dc98e2afe4face0e4ce40972a915c45368bd34a/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint tensor index",
+        "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-BF16/blob/2dc98e2afe4face0e4ce40972a915c45368bd34a/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "NVIDIA model implementation",
+        "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-BF16/blob/2dc98e2afe4face0e4ce40972a915c45368bd34a/modeling_nemotron_h.py",
+        "type": "weights"
+      },
+      {
+        "label": "MTP sharing implementation",
+        "url": "https://github.com/vllm-project/vllm/blob/f235b89bdf62b5fc6356fc8d5e9d59572e48b145/vllm/model_executor/models/nemotron_h_mtp.py",
+        "type": "primary"
+      },
+      {
+        "label": "NVIDIA Nemotron license",
+        "url": "https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-nemotron-open-model-license/",
+        "type": "primary"
+      }
+    ],
+    "notes": "Complete BF16 checkpoint: 123.611012096B learned parameters, comprising a 120.66868736B main model and 2.942324736B MTP module. MTP shares the target input embedding and output head; neither is counted twice. Excludes 20992 non-parameter router-buffer elements. Active 12.7B is NVIDIA's nominal main-forward figure including embeddings, not an exact count or the cost of MTP drafting. The card's 256K configuration is a memory-saving default; supported context is 1048576. Evidence is for the original post-trained release, not Base, separate MTPv2 or 3.5 Super."
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "main_model": 120.66868736,
+      "mtp": 2.942324736
+    },
+    "active_parameters_scope": "main_model"
+  },
+  "summary": "All 14 fields audited independently. Correct total from nominal 120B to complete 123.611012096B learned parameters, active from name-derived 12B to published nominal 12.7B, context from default 262144 to supported 1048576, license to NVIDIA Nemotron Open Model License, architecture to hybrid SSM/Transformer/MoE, and description to factual capabilities. Confirm March 11, 2026 release and text/reasoning/tool support. Component scope is proposed for parent review; exact active-count convention remains less precise than the complete tensor census."
+}
