@@ -1,0 +1,343 @@
+{
+  "index": 477,
+  "model_id": "reflection/beam-1.0-501b-a23b",
+  "reviewed_at": "2026-10-27T04:16:02.875028Z",
+  "sources": [
+    {
+      "id": "intro",
+      "url": "https://reflection.ai/blog/introducing-beam",
+      "title": "Introducing Beam — October 5, 2026",
+      "publisher": "Reflection",
+      "accessed": true,
+      "evidence": "Original dated announcement explicitly says an early version is being made available to a select group of users, with a public waitlist. It does not announce downloadable weights: those are promised later in the month. Describes sparse MoE, training, SandwichNorm, attention gating, depth-scaled residuals and midtraining that extends effective context to 1M. Accessed through the indexed complete primary page; direct Python fetch returned 403."
+    },
+    {
+      "id": "launch",
+      "url": "https://reflection.ai/blog/beam-is-available",
+      "title": "Beam is now available — October 16, 2026",
+      "publisher": "Reflection",
+      "accessed": true,
+      "evidence": "Explicitly releases weights in BF16, FP8 and NVFP4 under Apache 2.0, plus a separate speculative drafter, and announces public API beta and partners. Distinguishes final release from the earlier limited preview. Declares native Transformers support and links exact card and safety report. Accessed through indexed complete primary page; direct Python fetch returned 403."
+    },
+    {
+      "id": "card",
+      "url": "https://huggingface.co/reflection/Beam-1.0-501B-A23B/blob/50a18f8ccf28c75cfdfd9cfe602451c5c81acaef/README.md",
+      "title": "Beam 1.0 501B A 23B BF 16 model card, pinned revision",
+      "publisher": "Reflection",
+      "accessed": true,
+      "evidence": "Exact instruction-tuned target card table reports 501.3B total and 23.4B active, 52 layers (3 dense +49 MoE), gated GQA/sliding-window attention, 256 experts, text input/output, 1M context and modified Harmony template. Its general architecture technical report is still labeled coming; the published safety report is separate. The rounded name 501B/A23B is less precise than this table."
+    },
+    {
+      "id": "config",
+      "url": "https://huggingface.co/reflection/Beam-1.0-501B-A23B/blob/50a18f8ccf28c75cfdfd9cfe602451c5c81acaef/config.json",
+      "title": "Beam pinned BF 16 configuration",
+      "publisher": "Reflection",
+      "accessed": true,
+      "evidence": "Selects BeamForCausalLM: width 5120, vocabulary 151936, 52 layers, first 3 dense width 20480, remaining 49 sparse with 256 experts/top 8 and expert width 2560. Query/KV heads 48/8, dimension 128; 43 sliding layers/window 512 and 9 full-attention layers. Untied input/output matrices; maximum 1048576. Sliding attention uses RoPE(theta 10000); full attention uses no positional embedding. No quantization or MTP configuration."
+    },
+    {
+      "id": "headers",
+      "url": "https://huggingface.co/reflection/Beam-1.0-501B-A23B/blob/50a18f8ccf28c75cfdfd9cfe602451c5c81acaef/model.safetensors.index.json",
+      "title": "Complete Beam checkpoint index and all 188 pinned shard headers",
+      "publisher": "Reflection",
+      "accessed": true,
+      "evidence": "Only bounded HTTP206 length-prefix and JSON-header requests were used for every indexed shard. All 38366 tensor names occur exactly once, with every shape matching enabled configuration/implementation. Stored elements 501267612352 comprise BF16 tensors plus F32 router weights and router-correction buffers; exact byte total 1002663700352 matches index metadata. The 12544 correction-buffer values are not learned parameters. Remaining learned-weight elements 501267599808 include both untied vocabulary matrices, all norms and attention gate biases. No full weights were downloaded."
+    },
+    {
+      "id": "implementation",
+      "url": "https://github.com/huggingface/transformers/blob/v5.20.1/src/transformers/models/beam/modeling_beam.py",
+      "title": "Beam native implementation in Transformers 5.20.1",
+      "publisher": "Hugging Face / Reflection integration",
+      "accessed": true,
+      "evidence": "Read all parameter-bearing constructors and selected forward paths: four RMSNorms per decoder layer plus QK norms, bias-free GQA, elementwise sigmoid output gating with one learned bias per query head, first 3 dense SwiGLU and 49 MoE layers with no shared expert. Packed runtime expert matrices correspond to separate checkpoint projections. Router correction is a persistent nn.Buffer; rotary state is nonpersistent. Untied embeddings/head and final norm complete the model; no MTP, speculative draft, adapters or quantization scales are instantiated."
+    },
+    {
+      "id": "configuration_code",
+      "url": "https://github.com/huggingface/transformers/blob/v5.20.1/src/transformers/models/beam/configuration_beam.py",
+      "title": "Beam native configuration defaults",
+      "publisher": "Hugging Face / Reflection integration",
+      "accessed": true,
+      "evidence": "Exact JSON overrides were checked against class defaults and branch selection. Defaults do not replace the target 1048576 position limit. Layer-type and MLP-type lists explicitly select all 52 layers, no additional learned module remains outside the reconstruction."
+    },
+    {
+      "id": "license",
+      "url": "https://huggingface.co/reflection/Beam-1.0-501B-A23B/blob/50a18f8ccf28c75cfdfd9cfe602451c5c81acaef/LICENSE",
+      "title": "Beam Apache License 2.0",
+      "publisher": "Reflection",
+      "accessed": true,
+      "evidence": "Actual checkpoint license is Apache License, Version 2.0, matching the primary model card and October 16 weight release."
+    },
+    {
+      "id": "template",
+      "url": "https://huggingface.co/reflection/Beam-1.0-501B-A23B/blob/50a18f8ccf28c75cfdfd9cfe602451c5c81acaef/chat_template.jinja",
+      "title": "Beam pinned modified-Harmony chat template",
+      "publisher": "Reflection",
+      "accessed": true,
+      "evidence": "Supports analysis/final channels, reasoning effort, caller-provided function definitions, XML tool-call bodies, assistant tool_calls and tool replies. Self-host template accepts a minimal label in addition to five larger effort levels; this is distinct from the first-party API documented allowed values. The optional speculative drafter is not part of this target."
+    },
+    {
+      "id": "api",
+      "url": "https://developers.reflection.ai/models",
+      "title": "Reflection API model reference",
+      "publisher": "Reflection",
+      "accessed": true,
+      "evidence": "Names exact Beam-1.0-501B-A23B and documents 1048576 combined input/output context with 131072 maximum output. Lists created October 5, but this metadata alone is not treated as proof of general public availability. Explicitly supports reasoning and tool calling."
+    },
+    {
+      "id": "reasoning",
+      "url": "https://developers.reflection.ai/reasoning",
+      "title": "Reflection reasoning API documentation",
+      "publisher": "Reflection",
+      "accessed": true,
+      "evidence": "Exact Beam identifier always reasons; API supports low, medium, high, xhigh and max efforts. No effort disables reasoning. Default effort can vary by organization; it is not inferred from a single example."
+    },
+    {
+      "id": "safety",
+      "url": "https://reflection.ai/beam-safety-report",
+      "title": "Beam Safety Technical Report",
+      "publisher": "Reflection",
+      "accessed": true,
+      "evidence": "Later exact-model safety/training report documents separate capability and safety teachers merged via multi-teacher on-policy distillation. Its 100B versus 501B alignment-teacher experiment is distinct from the final 501.3B checkpoint. Reviewed for later model disclosures; no revised final parameter count or active accounting supersedes the exact card. This is not the unreleased general architecture report."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Beam 1.0 501B A23B",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "api"
+      ],
+      "note": "Exact public target/API name; this record is the instruction-tuned BF16 model, not base, FP8/NVFP4, adapter or drafter variants."
+    },
+    "developer": {
+      "value": "Reflection",
+      "status": "verified",
+      "source_ids": [
+        "intro",
+        "card"
+      ],
+      "note": "Original developer identified by its announcement and official checkpoint repository."
+    },
+    "family": {
+      "value": "beam",
+      "status": "verified",
+      "source_ids": [
+        "intro",
+        "card"
+      ],
+      "note": "Canonical lowercase family key; Beam is explicitly introduced as the first model in a series."
+    },
+    "release_date": {
+      "value": "2026-10-05",
+      "status": "verified",
+      "source_ids": [
+        "intro",
+        "launch",
+        "api"
+      ],
+      "note": "Earliest explicitly announced availability was a limited preview for a select group, with a waitlist. Retain October 5 with that access qualification. General weight availability and public API beta began October 16; neither open weights nor unrestricted access is claimed for October 5. API created metadata is corroborating chronology, not the sole basis."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "launch",
+        "headers",
+        "license"
+      ],
+      "note": "Official current downloadable checkpoint. All 188 indexed headers were publicly accessible; weights were released October 16, later than the limited preview."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "license",
+        "launch",
+        "card"
+      ],
+      "note": "Canonical SPDX identifier from actual model-weight license."
+    },
+    "parameters_b": {
+      "value": 501.3,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "config",
+        "headers",
+        "implementation",
+        "configuration_code"
+      ],
+      "note": "Official nominal total in decimal billions. Full checkpoint reconciliation finds 501267612352 stored elements, including 12544 non-parameter router-correction buffer values; excluding those leaves 501267599808 learned-weight elements. This agrees with the nominal 501.3B table and does not imply exactly 501300000000 learned parameters. Both untied vocabulary matrices are included, and the external drafter is excluded."
+    },
+    "active_parameters_b": {
+      "value": 23.4,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "config",
+        "implementation",
+        "headers"
+      ],
+      "note": "Official nominal active-per-token figure. Top 8 of 256 experts is verified in each sparse layer. A derived full-matrix path sum including both vocabulary matrices is 23.431516608B after excluding router buffers, consistent with rounding; the card does not explicitly define embedding accounting, so that derived convention is not asserted as an official exact active count."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "config",
+        "implementation",
+        "configuration_code",
+        "intro"
+      ],
+      "note": "Decoder-only Transformer MoE:52 layers, first 3 dense and 49 sparse, top 8/256 with no shared expert. Gated GQA with 43 sliding/window 512 layers and 9 global layers, SandwichNorm and depth-scaled residuals. Sliding layers use RoPE; global layers use NoPE and position-dependent query scaling. No linear-attention/SSM, MTP or multimodal module."
+    },
+    "context_window": {
+      "value": 1048576,
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "api",
+        "card",
+        "intro"
+      ],
+      "note": "Exact supported combined context from checkpoint/API, not the 131072 output cap or 512 local attention window. Original announcement describes midtraining extending effective context to 1M. Full attention uses NoPE; no YaRN extension is configured in this checkpoint."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "config",
+        "implementation",
+        "template"
+      ],
+      "note": "Exact card specifies text-to-text. OCR models used during data preparation and external browser tools do not add native visual input/output."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "reasoning",
+        "template",
+        "card"
+      ],
+      "note": "Native reasoning confirmed. First-party API requires reasoning and offers five effort levels; self-host template additionally accepts minimal. Neither an off switch nor a universal deployment default is inferred."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "api",
+        "template",
+        "card"
+      ],
+      "note": "Exact model documentation and template support caller-defined functions, emitted tool calls and tool-result turns. Execution is performed by the caller/harness, not by model weights alone."
+    },
+    "description": {
+      "value": "Reflection text model for coding and tool use, with a sparse mixture-of-experts architecture and reasoning.",
+      "status": "verified",
+      "source_ids": [
+        "intro",
+        "card",
+        "template"
+      ],
+      "note": "Directly supported description without benchmark superlatives or rounded active-count ambiguity."
+    }
+  },
+  "patch": {
+    "parameters_b": 501.3,
+    "active_parameters_b": 23.4,
+    "parameters_source": "primary_source",
+    "description": "Reflection text model for coding and tool use, with a sparse mixture-of-experts architecture and reasoning.",
+    "source_url": "https://reflection.ai/blog/introducing-beam",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Introducing Beam — October 5, 2026",
+        "url": "https://reflection.ai/blog/introducing-beam",
+        "type": "primary"
+      },
+      {
+        "label": "Beam is now available — October 16, 2026",
+        "url": "https://reflection.ai/blog/beam-is-available",
+        "type": "primary"
+      },
+      {
+        "label": "Beam 1.0 501B A23B BF16 model card, pinned revision",
+        "url": "https://huggingface.co/reflection/Beam-1.0-501B-A23B/blob/50a18f8ccf28c75cfdfd9cfe602451c5c81acaef/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Beam pinned BF16 configuration",
+        "url": "https://huggingface.co/reflection/Beam-1.0-501B-A23B/blob/50a18f8ccf28c75cfdfd9cfe602451c5c81acaef/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Complete Beam checkpoint index and all188 pinned shard headers",
+        "url": "https://huggingface.co/reflection/Beam-1.0-501B-A23B/blob/50a18f8ccf28c75cfdfd9cfe602451c5c81acaef/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Beam native implementation in Transformers5.20.1",
+        "url": "https://github.com/huggingface/transformers/blob/v5.20.1/src/transformers/models/beam/modeling_beam.py",
+        "type": "primary"
+      },
+      {
+        "label": "Beam native configuration defaults",
+        "url": "https://github.com/huggingface/transformers/blob/v5.20.1/src/transformers/models/beam/configuration_beam.py",
+        "type": "primary"
+      },
+      {
+        "label": "Beam Apache License2.0",
+        "url": "https://huggingface.co/reflection/Beam-1.0-501B-A23B/blob/50a18f8ccf28c75cfdfd9cfe602451c5c81acaef/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "Beam pinned modified-Harmony chat template",
+        "url": "https://huggingface.co/reflection/Beam-1.0-501B-A23B/blob/50a18f8ccf28c75cfdfd9cfe602451c5c81acaef/chat_template.jinja",
+        "type": "primary"
+      },
+      {
+        "label": "Reflection API model reference",
+        "url": "https://developers.reflection.ai/models",
+        "type": "primary"
+      },
+      {
+        "label": "Reflection reasoning API documentation",
+        "url": "https://developers.reflection.ai/reasoning",
+        "type": "primary"
+      },
+      {
+        "label": "Beam Safety Technical Report",
+        "url": "https://reflection.ai/beam-safety-report",
+        "type": "primary"
+      }
+    ],
+    "notes": "October 5, 2026 was a limited early-group preview with a waitlist; public weights and API beta followed on October 16. Parameters are the model card’s nominal 501.3B total and 23.4B active figures. All 188 pinned checkpoint headers reconcile to 501,267,612,352 stored elements; excluding 12,544 router-correction buffer values leaves 501,267,599,808 learned-weight elements. F32 router weights are learned parameters; correction buffers are not. Both untied vocabulary matrices are included, and the separate speculative drafter is excluded. The exact active embedding convention is not stated, so 23.4B remains a nominal figure. The supported context is 1,048,576 tokens; 131,072 is the API output cap."
+  },
+  "checkpoint_audit": {
+    "revision": "50a18f8ccf28c75cfdfd9cfe602451c5c81acaef",
+    "shards": 188,
+    "tensors": 38366,
+    "all_names_shapes_match": true,
+    "stored_elements": 501267612352,
+    "stored_bytes": 1002663700352,
+    "router_correction_buffer_elements": 12544,
+    "learned_weight_elements": 501267599808,
+    "routed_expert_elements": 493250150400,
+    "active_including_both_full_vocab_matrices": 23431516608,
+    "active_except_input_embedding_matrix": 22653604288,
+    "active_except_both_vocab_matrices": 21875691968,
+    "note": "Exact selected Transformers5.20.1 Beam modules; four layer norms per layer, QK norms, sigmoid output gate plus head bias, 3 dense layers and49MoE with top8/256 and no shared expert; runtime packed experts equivalent to separately saved projections. Routers and correction buffers F32, all other tensors BF16. No quantization scales, MTP, draft, adapters or persistent RoPE. Untied embeddings and head both included."
+  },
+  "summary": "All 14 fields verified. Replaces name-derived 501B/23B with primary nominal 501.3B/23.4B, confirms Transformer MoE, Apache-2.0, text modalities, 1M context, reasoning and tool calling. Complete 188-shard reconstruction separates router buffers from learned weights. Retains October 5 as explicitly limited preview, distinguishing October 16 public weights/API beta."
+}
