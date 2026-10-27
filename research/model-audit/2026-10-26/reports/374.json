@@ -1,0 +1,378 @@
+{
+  "index": 374,
+  "model_id": "nvidia/llama-3.1-nemotron-70b-instruct",
+  "reviewed_at": "2026-10-27T00:24:46.029624Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-70B-Instruct/blob/a83af1f4968437064635f6726fb745e5b615e863/README.md",
+      "title": "Original NVIDIA NeMo model card",
+      "publisher": "NVIDIA",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Identifies the exact 70B Instruct model, NVIDIA customization of Llama 3.1 through REINFORCE RLHF for general instruction following, Transformer architecture, text input/output, 128k input, and the current NVIDIA plus Llama license notices."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-70B-Instruct-HF/blob/031d4042f36adc1a52cca51b331d25cbe3cf1022/README.md",
+      "title": "NVIDIA Transformers conversion model card",
+      "publisher": "NVIDIA",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Explicitly identifies this checkpoint as NVIDIA’s format conversion of the original NeMo model, rather than a later Nemotron variant; provides downloadable Transformers inference instructions."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-70B-Instruct-HF/resolve/031d4042f36adc1a52cca51b331d25cbe3cf1022/config.json",
+      "title": "Official HF checkpoint configuration",
+      "publisher": "NVIDIA",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "LlamaForCausalLM with 80 layers, hidden size 8192, intermediate size 28672, 64 query heads, 8 KV heads, vocabulary 128256, untied embeddings, BF16, and 131072 maximum positions. No quantization or MoE configuration."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-70B-Instruct-HF/resolve/031d4042f36adc1a52cca51b331d25cbe3cf1022/model.safetensors.index.json",
+      "title": "Official checkpoint tensor index",
+      "publisher": "NVIDIA",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Indexes 723 tensors across 30 safetensors shards; reports 141107412992 data bytes. Every indexed tensor was matched exactly once against the shard headers."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-70B-Instruct-HF/resolve/031d4042f36adc1a52cca51b331d25cbe3cf1022/model-00001-of-00030.safetensors",
+      "title": "Official safetensors headers (first of 30 indexed shards)",
+      "publisher": "NVIDIA",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Requested bytes 0–65535 from each of the 30 indexed shards, required HTTP 206, parsed each 8-byte little-endian header length and JSON. All 723 entries are BF16 learned weight matrices or norms; their shape products sum to 70553706496. No buffers, quantization scales or packed tensors occur."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/api/models/nvidia/Llama-3.1-Nemotron-70B-Instruct-HF",
+      "title": "Official HF repository metadata",
+      "publisher": "NVIDIA / Hugging Face",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Identifies revision 031d4042f36adc1a52cca51b331d25cbe3cf1022 and independently reports 70553706496 BF16 safetensors parameters. Creation timestamp 2024-10-12 is repository metadata, not proof of public release."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-70B-Instruct/resolve/a83af1f4968437064635f6726fb745e5b615e863/model_config.yaml",
+      "title": "Original NeMo configuration",
+      "publisher": "NVIDIA",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Original model also specifies 131072 maximum positions, 80 layers, 8192 hidden size, 28672 FFN size, 64 attention heads, 8 query groups, RMSNorm, SwiGLU, RoPE and untied embeddings; fp8 is false."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-70B-Instruct/resolve/a83af1f4968437064635f6726fb745e5b615e863/model_weights/model.embedding.word_embeddings.weight/.zarray",
+      "title": "Original NeMo weight metadata",
+      "publisher": "NVIDIA",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Read all nine original NeMo .zarray files: BF16 weight arrays total 70566289408 elements. Input and output vocabulary matrices each have 129024 rows versus 128256 in the HF conversion; the difference is 2*(129024-128256)*8192=12582912 padded elements."
+    },
+    {
+      "id": "s9",
+      "url": "https://developer.nvidia.com/blog/new-reward-model-helps-improve-llm-alignment-with-human-preferences/",
+      "title": "NVIDIA alignment-model announcement",
+      "publisher": "NVIDIA",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "The article links the exact Instruct model and says it is accessible through NVIDIA’s service and Hugging Face. Its displayed publication date is 2024-10-03 but it explicitly records an update on 2024-10-21, so this establishes October 2024 availability without proving the original Instruct release day."
+    },
+    {
+      "id": "s10",
+      "url": "https://arxiv.org/abs/2410.01257v1",
+      "title": "HelpSteer2-Preference original paper version",
+      "publisher": "NVIDIA researchers / arXiv",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "The 2024-10-02 abstract explicitly releases the Reward model and dataset, without the later Instruct-model release link. This date is not used as the Instruct release day."
+    },
+    {
+      "id": "s11",
+      "url": "https://arxiv.org/html/2410.01257v2",
+      "title": "HelpSteer2-Preference revised technical report",
+      "publisher": "NVIDIA researchers / arXiv",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "The 2025 revision explicitly links this Instruct model; sections 5.2–5.3 describe Llama 3.1-70B policy initialization and REINFORCE training. It does not separately define an active-per-token parameter count."
+    },
+    {
+      "id": "s12",
+      "url": "https://build.nvidia.com/nvidia/llama-3_1-nemotron-70b-instruct/systemcard",
+      "title": "Exact-model NVIDIA NIM system card",
+      "publisher": "NVIDIA",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "The self-hosted NIM feature table explicitly marks Tool Calling unsupported. This is deployment-support evidence for this NVIDIA model identifier, not evidence that arbitrary prompting of the raw checkpoint cannot produce a call."
+    },
+    {
+      "id": "s13",
+      "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-70B-Instruct-HF/resolve/031d4042f36adc1a52cca51b331d25cbe3cf1022/tokenizer_config.json",
+      "title": "Official checkpoint tokenizer and chat template",
+      "publisher": "NVIDIA",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "The inherited Llama chat template accepts tool definitions and single function-call messages. That format support conflicts with treating the NVIDIA NIM endpoint as tool-enabled; it does not override the exact NIM system-card limitation."
+    },
+    {
+      "id": "s14",
+      "url": "https://developer.download.nvidia.com/licenses/nvidia-open-model-license-agreement-june-2024.pdf",
+      "title": "NVIDIA Open Model License Agreement",
+      "publisher": "NVIDIA",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "The actual agreement identified by the exact current model cards; its version date is June 14, 2024."
+    },
+    {
+      "id": "s15",
+      "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3_1/LICENSE",
+      "title": "Llama 3.1 Community License Agreement",
+      "publisher": "Meta",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "The actual Llama 3.1 agreement additionally identified by the model card and explicitly accepted in the initial October 2024 card."
+    },
+    {
+      "id": "s16",
+      "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-70B-Instruct/raw/c35d010a40f0c28ed70d2a0628a2a6793ab2a677/README.md",
+      "title": "Original October 2024 model-card text",
+      "publisher": "NVIDIA",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "The October 12 committed card describes the same model and gives October 1 benchmark timing, not a release declaration. The initial license notice references Llama 3.1; current cards additionally name the NVIDIA Open Model License."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Llama 3.1 Nemotron 70B Instruct",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Display spelling matches the exact original Llama-3.1-Nemotron-70B-Instruct identifier."
+    },
+    "developer": {
+      "value": "NVIDIA",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "NVIDIA performed the alignment customization; the underlying Llama 3.1 base is from Meta."
+    },
+    "family": {
+      "value": "nemotron",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Nemotron family classification follows the official model name; this is the original 70B model, not Ultra, Super or Nano."
+    },
+    "release_date": {
+      "value": "2024-10",
+      "status": "verified",
+      "source_ids": [
+        "s9",
+        "s10",
+        "s16"
+      ],
+      "note": "October 2024 is established; the earliest day remains unresolved. October 1 is benchmark timing, October 2 is the original Reward-model paper, October 12 is repository creation/upload, and the October 3 blog was updated October 21. None independently proves the Instruct public launch day. Clear the unsupported 2025-04-15 date and preserve month precision."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4",
+        "s5"
+      ],
+      "note": "NVIDIA publishes both the original NeMo checkpoint and its full BF16 Transformers conversion."
+    },
+    "license": {
+      "value": "NVIDIA Open Model License + Llama 3.1 Community License",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s14",
+        "s15",
+        "s16"
+      ],
+      "note": "Current exact cards explicitly name both agreements. Initial October 2024 card named Llama 3.1; its YAML still uses llama 3.1. This is a descriptive combined license value, not a claim of unrestricted licensing."
+    },
+    "parameters_b": {
+      "value": 70.553706496,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s8"
+      ],
+      "note": "Complete official HF conversion: 70553706496 learned BF16 parameters in 723 tensors across 30 shards, including untied input/output embeddings and norms; no buffers/scales. Reproduce by summing each header shape product. Independent configuration formula: 2*128256*8192+80*(2*8192**2+2*8192*1024+3*8192*28672+2*8192)+8192. Original NeMo stores 70566289408 elements because both vocab matrices are padded to 129024 rows; 12582912 extra padded elements are not added to this HF count. 70B is nominal."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s7",
+        "s11"
+      ],
+      "note": "Exact cards, configurations and the revised report do not separately report or define active-per-token parameters. The dense total is not automatically an active count."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s5",
+        "s7"
+      ],
+      "note": "Dense decoder-only Llama 3.1 Transformer: 80 blocks, 64 query/8 KV heads, dense SwiGLU MLPs, RMSNorm and RoPE. The full weight inventory contains no experts or router."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s7"
+      ],
+      "note": "Both original NeMo and official HF configurations specify 131072 maximum positions; the cards use the rounded 128k label. This is the checkpoint limit; hosted deployments may impose lower limits."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Exact cards explicitly specify text input and text output."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s1",
+        "s11",
+        "s13"
+      ],
+      "note": "This is general RLHF instruction tuning, with no separately documented thinking mode or reasoning-budget control. The card’s example without additional reasoning tokens does not establish a model-wide negative capability claim; clear the unsupported false rather than transfer later Nemotron reasoning specifications."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s12",
+        "s13"
+      ],
+      "note": "The exact NVIDIA NIM system card marks Tool Calling unsupported, while the downloadable checkpoint retains inherited Llama tool-call syntax. This catalog records model capability across deployments; neither a positive capability claim nor a model-wide negative is established for this fine-tune. Clear the baseline true and retain the deployment limitation in notes."
+    },
+    "description": {
+      "value": "NVIDIA’s RLHF-tuned Llama 3.1 70B Instruct model, trained with REINFORCE and HelpSteer2 preference data to improve helpfulness in general instruction following.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s11"
+      ],
+      "note": "Replaces the unsupported specialization/efficiency/agent description with the documented training purpose."
+    }
+  },
+  "patch": {
+    "release_date": "2024-10",
+    "date_precision": "month",
+    "license": "NVIDIA Open Model License + Llama 3.1 Community License",
+    "parameters_b": 70.553706496,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "context_window": 131072,
+    "reasoning": null,
+    "tool_call": null,
+    "description": "NVIDIA’s RLHF-tuned Llama 3.1 70B Instruct model, trained with REINFORCE and HelpSteer2 preference data to improve helpfulness in general instruction following.",
+    "notes": "Total is the exact 70.553706496B complete BF16 NVIDIA Transformers conversion. The original NeMo checkpoint stores 70.566289408B elements, including 12,582,912 extra vocabulary-padding elements; 70B is nominal. Active parameters are not separately reported. Release is established to October 2024, with the day unresolved. Context is 131072 tokens in both configurations. NVIDIA NIM marks tool calling unsupported, while the checkpoint retains inherited Llama function-call syntax; capability for the fine-tune remains unverified. Dedicated reasoning support is also unverified.",
+    "sources": [
+      {
+        "label": "Original NVIDIA NeMo model card",
+        "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-70B-Instruct/blob/a83af1f4968437064635f6726fb745e5b615e863/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "NVIDIA Transformers conversion model card",
+        "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-70B-Instruct-HF/blob/031d4042f36adc1a52cca51b331d25cbe3cf1022/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Official HF checkpoint configuration",
+        "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-70B-Instruct-HF/resolve/031d4042f36adc1a52cca51b331d25cbe3cf1022/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Official checkpoint tensor index",
+        "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-70B-Instruct-HF/resolve/031d4042f36adc1a52cca51b331d25cbe3cf1022/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Official safetensors headers (first of 30 indexed shards)",
+        "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-70B-Instruct-HF/resolve/031d4042f36adc1a52cca51b331d25cbe3cf1022/model-00001-of-00030.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Original NeMo configuration",
+        "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-70B-Instruct/resolve/a83af1f4968437064635f6726fb745e5b615e863/model_config.yaml",
+        "type": "weights"
+      },
+      {
+        "label": "Original NeMo weight metadata",
+        "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-70B-Instruct/resolve/a83af1f4968437064635f6726fb745e5b615e863/model_weights/model.embedding.word_embeddings.weight/.zarray",
+        "type": "weights"
+      },
+      {
+        "label": "NVIDIA alignment-model announcement",
+        "url": "https://developer.nvidia.com/blog/new-reward-model-helps-improve-llm-alignment-with-human-preferences/",
+        "type": "primary"
+      },
+      {
+        "label": "HelpSteer2-Preference revised technical report",
+        "url": "https://arxiv.org/html/2410.01257v2",
+        "type": "primary"
+      },
+      {
+        "label": "Exact-model NVIDIA NIM system card",
+        "url": "https://build.nvidia.com/nvidia/llama-3_1-nemotron-70b-instruct/systemcard",
+        "type": "primary"
+      },
+      {
+        "label": "Official checkpoint tokenizer and chat template",
+        "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-70B-Instruct-HF/resolve/031d4042f36adc1a52cca51b331d25cbe3cf1022/tokenizer_config.json",
+        "type": "weights"
+      },
+      {
+        "label": "NVIDIA Open Model License Agreement",
+        "url": "https://developer.download.nvidia.com/licenses/nvidia-open-model-license-agreement-june-2024.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Llama 3.1 Community License Agreement",
+        "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3_1/LICENSE",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "Verified the original NVIDIA 70B Instruct model and exact 70.553706496B HF checkpoint census. Corrected release to October 2024 with day unresolved, dense architecture, 131072 context, combined named licenses, and documented instruction-following description. Active parameters remain undisclosed. Cleared unsupported reasoning and tool-calling assertions; preserved the NIM limitation and inherited-template distinction. Documented original NeMo vocabulary padding."
+}
