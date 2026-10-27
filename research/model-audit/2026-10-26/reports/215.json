@@ -1,7 +1,7 @@
 {
   "index": 215,
   "model_id": "google/gemma-2-27b-it",
-  "reviewed_at": "2026-10-26T20:04:49.366957Z",
+  "reviewed_at": "2026-10-27T13:11:20.756300Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "google/gemma-2-27b-it model card",
       "publisher": "Google",
       "accessed": true,
-      "evidence": "Exact instruction-tuned repository; Google authorship, Gemma license, text input/output, open pretrained and instruction-tuned weights, and native bfloat16 export. Public model card is readable; raw repository files require gated access.",
+      "evidence": "Exact instruction-tuned repository; Google authorship, Gemma license, text input/output, open pretrained and instruction-tuned weights, and native bfloat16 export. Public model card is readable; raw repository files require gated access. Reopened October 27, 2026: the exact Google card retains the nominal 27B instruction-tuned identity and gives no separately defined active count.",
       "type": "primary"
     },
     {
@@ -27,7 +27,7 @@
       "title": "Gemma 2: Improving Open Language Models at a Practical Size, v3",
       "publisher": "Google DeepMind / Gemma Team",
       "accessed": true,
-      "evidence": "Decoder-only Transformer with alternating local/global attention, GQA, 8192 context and tied embeddings. Tables 1-2 give 46 layers, width 4608, vocabulary 256128, 1,180,237,824 embedding and 26,047,480,320 nonembedding parameters for 27B.",
+      "evidence": "Decoder-only Transformer with alternating local/global attention, GQA, 8192 context and tied embeddings. Tables 1-2 give 46 layers, width 4608, vocabulary 256128, 1,180,237,824 embedding and 26,047,480,320 nonembedding parameters for 27B. Fresh October 27 full-report review confirms these counts. Section 6 expressly says comparisons use total rather than active parameters; the nonembedding subtotal is not an active-count disclosure. The 27B model is trained from scratch rather than distilled from a named count-bearing teacher.",
       "type": "primary"
     },
     {
@@ -36,7 +36,7 @@
       "title": "Pinned official checkpoint repository metadata",
       "publisher": "Hugging Face metadata for Google weights",
       "accessed": true,
-      "evidence": "Revision aaf20e6b9f4c0fcf043f6fb2a2068419086d77b0 reports safetensors.parameters.BF16 = 27227128320 and safetensors.total = 27227128320. Also identifies Gemma2ForCausalLM, the base model google/gemma-2-27b, Gemma license and user/model chat template. This is repository tensor aggregation, not independently downloaded tensor headers.",
+      "evidence": "Revision aaf20e6b9f4c0fcf043f6fb2a2068419086d77b0 reports safetensors.parameters.BF16 = 27227128320 and safetensors.total = 27227128320. Also identifies Gemma2ForCausalLM, the base model google/gemma-2-27b, Gemma license and user/model chat template. This is repository tensor aggregation, not independently downloaded tensor headers. Reopened October 27, 2026; the pinned API still reports exactly 27,227,128,320 BF16 parameters. No weight payload was downloaded or tensor census repeated.",
       "type": "weights"
     },
     {
@@ -45,7 +45,7 @@
       "title": "Official Gemma PyTorch configuration, pinned revision",
       "publisher": "Google",
       "accessed": true,
-      "evidence": "get_config_for_27b selects GEMMA_2, 46 layers, width 4608, intermediate size 36864, 32 query and 16 KV heads of width 128. Defaults are vocabulary 256000, context 8192, BF16 and quant=False. Four normalization vectors are enabled per layer.",
+      "evidence": "get_config_for_27b selects GEMMA_2, 46 layers, width 4608, intermediate size 36864, 32 query and 16 KV heads of width 128. Defaults are vocabulary 256000, context 8192, BF16 and quant=False. Four normalization vectors are enabled per layer. Reopened the pinned raw configuration October 27, 2026; the 27B dimensions remain unchanged.",
       "type": "primary"
     },
     {
@@ -54,7 +54,7 @@
       "title": "Official Gemma PyTorch model implementation, pinned revision",
       "publisher": "Google",
       "accessed": true,
-      "evidence": "Nonquantized 27B implementation has bias-free QKV/output projections, three dense MLP matrices, four learned RMSNorm vectors per layer and final RMSNorm. Output sampling reuses the input embedding matrix. RoPE is a computed buffer; optional quantization scalers are absent with quant=False.",
+      "evidence": "Nonquantized 27B implementation has bias-free QKV/output projections, three dense MLP matrices, four learned RMSNorm vectors per layer and final RMSNorm. Output sampling reuses the input embedding matrix. RoPE is a computed buffer; optional quantization scalers are absent with quant=False. Reopened the pinned raw implementation October 27, 2026. It supports the existing total reconciliation but does not separately publish a nominal active count.",
       "type": "primary"
     },
     {
@@ -83,6 +83,51 @@
       "accessed": false,
       "evidence": "HTTP Range bytes=0-7 request returned 401 Unauthorized. Direct raw config, index and tokenizer requests also returned 401; no shard headers or weight payload were downloaded.",
       "type": "weights"
+    },
+    {
+      "id": "s10",
+      "url": "https://storage.googleapis.com/deepmind-media/gemma/Gemma3Report.pdf",
+      "title": "Gemma 3 Technical Report",
+      "publisher": "Google DeepMind / Gemma Team",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Fresh October 27 full-report check. Table 5 explicitly includes Gemma-2-27B-it at nominal 27B under the total-parameter column. Other Gemma 2 comparisons concern capability; no separate active count is disclosed for this exact model."
+    },
+    {
+      "id": "s11",
+      "url": "https://arxiv.org/html/2607.02770v1",
+      "title": "Gemma 4 Technical Report",
+      "publisher": "Google DeepMind / Gemma Team",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Fresh October 27 later-disclosure check. The explicit 3.8B activated count belongs to Gemma 4 26B-A4B, not Gemma 2. The paper supplies no retrospective active count for Gemma 2 27B IT; no successor value is transferred."
+    },
+    {
+      "id": "s12",
+      "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/open-models/use-gemma",
+      "title": "Use Gemma open models",
+      "publisher": "Google Cloud",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Fresh exact-model search located and reopened the current Google comparison. It lists Gemma 2 27B, including instruction tuning, with nominal 27-billion parameter size. Only the Gemma 4 MoE row explicitly distinguishes active parameters; the Gemma 2 row is not an active-count specification."
+    },
+    {
+      "id": "s13",
+      "url": "https://www.microsoft.com/en-us/research/wp-content/uploads/2025/01/WEF-2025_Leave-Behind_Phi-4.pdf",
+      "title": "Phi-4, Microsoft Research, January 2025",
+      "publisher": "Microsoft Research",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Fresh search traced the reproduced chart to this original Microsoft PDF. Visually inspected page 1: its Active Parameters (Billion) axis places the exact Gemma-2-27B-Instruct point at approximately 27B. This supports a rounded benchmark convention, not an exact active tensor count or a Google specification; no coordinate table is supplied."
+    },
+    {
+      "id": "s14",
+      "url": "https://arxiv.org/html/2412.08905v1",
+      "title": "Phi-4 Technical Report",
+      "publisher": "Microsoft Research",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Followed the January 2025 PDF reference and read the original report October 27. It provides no separate Gemma 2 active-parameter row or definition refining the comparative plot. The approximate plot value is not promoted to an exact count."
     }
   ],
   "fields": {
@@ -148,17 +193,19 @@
         "s3",
         "s9"
       ],
-      "note": "Complete unique learned count for the released BF16 checkpoint: 256000*4608 + 46*(3*4608*36864 + 2*4608*(32+16)*128 + 4*4608) + 4608 = 27,227,128,320. The tied embedding/output matrix is counted once; computed RoPE buffers and optional quantization scalers are excluded. This independent implementation derivation exactly matches the pinned repository BF16 aggregation. The paper uses 256128 vocabulary rows and totals 27,227,718,144, larger by 128*4608 = 589,824. Direct tensor-header access was gated; this is a source/metadata reconciliation, not a header-by-header recount."
+      "note": "Complete unique learned count for the released BF16 checkpoint: 256000*4608 + 46*(3*4608*36864 + 2*4608*(32+16)*128 + 4*4608) + 4608 = 27,227,128,320. The tied embedding/output matrix is counted once; computed RoPE buffers and optional quantization scalers are excluded. This independent implementation derivation exactly matches the pinned repository BF16 aggregation. The paper uses 256128 vocabulary rows and totals 27,227,718,144, larger by 128*4608 = 589,824. Direct tensor-header access was gated; this is a source/metadata reconciliation, not a header-by-header recount. Fresh October 27 original-source review reconfirmed the pinned aggregation and implementation dimensions; retain the established exact total without repeating the tensor census."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 27,
+      "status": "verified",
       "source_ids": [
+        "s13",
+        "s14",
         "s3",
-        "s5",
-        "s6"
+        "s10",
+        "s12"
       ],
-      "note": "No separately defined active-per-token parameter total is published in the inspected sources. Dense architecture does not justify substituting total parameters for this field."
+      "note": "Approximately 27B nominal active parameters in Microsoft Research\u2019s exact-model benchmark plot. This is a published comparative counting convention, not a separate Google disclosure or an exact per-token tensor census. Retain the plot\u2019s rounded precision; do not substitute the precise total or nonembedding subtotal. Original and later Google sources disclose totals only."
     },
     "architecture": {
       "value": "dense",
@@ -234,7 +281,7 @@
     "reasoning": null,
     "tool_call": null,
     "description": "Gemma 2 27B instruction-tuned text model with a dense decoder-only Transformer and an 8,192-token context window.",
-    "notes": "The 27B name is nominal. Total counts 27,227,128,320 unique learned parameters, including tied embeddings once, from pinned BF16 repository metadata and Google\u2019s implementation. The paper\u2019s total is 589,824 higher because it uses 128 extra vocabulary rows. Raw tensor headers were inaccessible. Active parameters, a dedicated reasoning mode and native structured tool-call support are not established; prompt-based ReAct tool use is documented.",
+    "notes": "Nominal size: 27B. Total is 27,227,128,320 unique learned parameters from pinned BF16 metadata and Google\u2019s implementation; the paper uses 128 additional vocabulary rows. Active size is approximately 27B under Microsoft Research\u2019s benchmark convention, not an exact count or a separate Google specification. A dedicated reasoning mode and native structured tool-call support are not established; prompt-based ReAct tool use is documented.",
     "sources": [
       {
         "label": "Gemma 2 IT release (June 27, 2024)",
@@ -275,8 +322,14 @@
         "label": "Google Gemma 2 prompt-based tool use",
         "url": "https://developers.googleblog.com/en/beyond-the-chatbot-agentic-ai-with-gemma/",
         "type": "primary"
+      },
+      {
+        "label": "Microsoft Research nominal active-size comparison",
+        "url": "https://www.microsoft.com/en-us/research/wp-content/uploads/2025/01/WEF-2025_Leave-Behind_Phi-4.pdf",
+        "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": 27
   },
-  "summary": "Confirmed June 27, 2024 launch of the exact instruction-tuned 27B variant. Added explicit IT name, Gemma license and dense architecture; replaced nominal 27B with 27.22712832B complete learned parameters using pinned BF16 repository aggregation independently reproduced from Google implementation. Reconciled the paper vocabulary/count difference and disclosed gated raw-file/header access. Kept active parameters undisclosed; cleared unsupported categorical reasoning/tool-call flags and made the description factual."
+  "summary": "October 27 parameter re-audit preserves the exact 27.22712832B total after reopening pinned metadata, Google implementation and the original technical report. Adds approximately 27B nominal active size from Microsoft Research\u2019s exact-model comparative plot, with its precision and non-Google provenance explicit. Later Google tables use totals and do not independently define active size. All unrelated field assessments and corrections remain unchanged."
 }
