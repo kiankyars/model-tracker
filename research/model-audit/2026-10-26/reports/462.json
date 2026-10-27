@@ -1,0 +1,387 @@
+{
+  "index": 462,
+  "model_id": "openbmb/minicpm5-2b",
+  "reviewed_at": "2026-10-27T03:25:01.747981Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/openbmb/MiniCPM5-2B/blob/f97400052a43d642bbc6e9975e2397e3ae6a6b52/README.md",
+      "title": "MiniCPM5-2B official model card, pinned revision",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "Identifies the final BF16 RL/OPD release as the second MiniCPM5 model. Reports dense standard LlamaForCausalLM, 2,516,756,480 total and 1,981,982,720 non-embedding parameters, 42 layers, GQA 16 query/2 KV heads, and 131,072 context. Describes deep-thinking SFT, RL/OPD, XML tool calls and Apache-2.0 for model weights."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/openbmb/MiniCPM5-2B/blob/f97400052a43d642bbc6e9975e2397e3ae6a6b52/config.json",
+      "title": "MiniCPM5-2B configuration, pinned revision",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "Selects LlamaForCausalLM/model_type llama: hidden 2048, intermediate 6144, 42 layers, 16 query heads, 2 KV heads, head_dim 128, vocabulary 130560, SiLU, max_position_embeddings 131072, rope_theta 5000000, rope_scaling null, untied embeddings and BF16. Declares Transformers 5.6.2; no quantization or custom-code configuration."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/openbmb/MiniCPM5-2B/blob/f97400052a43d642bbc6e9975e2397e3ae6a6b52/model.safetensors.index.json",
+      "title": "Complete MiniCPM5-2B checkpoint index",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "All 381 tensor names map to one shard, model-00000-of-00001.safetensors. Index total_size is 5,033,512,960 bytes. Every indexed tensor name was matched to its header and an enabled LlamaForCausalLM parameter."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/openbmb/MiniCPM5-2B/resolve/f97400052a43d642bbc6e9975e2397e3ae6a6b52/model-00000-of-00001.safetensors",
+      "title": "MiniCPM5-2B complete bounded safetensors header inspection",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "Read only bytes 0-7 and 8-44135 with verified HTTP 206 Content-Range, totaling 44,136 bytes of a 5,033,557,096-byte file. The 44,128-byte header contains 381 BF16 parameter tensors. All names/shapes match the complete index and model reconstruction; contiguous byte offsets span 5,033,512,960 data bytes, exactly 2 bytes per element. Sum 2,516,756,480. No packed weights, scales, biases, extra tensors, aliases or stored buffers."
+    },
+    {
+      "id": "s5",
+      "url": "https://github.com/huggingface/transformers/blob/v5.6.2/src/transformers/models/llama/modeling_llama.py",
+      "title": "Transformers 5.6.2 enabled Llama implementation",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Inspected the selected LlamaForCausalLM\u2192LlamaModel\u219242 decoder layers: input embedding; bias-free GQA Q/K/V/O linear projections; three SiLU-gated MLP projections; two RMSNorm vectors per layer plus final norm; separate bias-free output head. RoPE inv_freq and original_inv_freq are nonpersistent computed buffers. No experts, routers, visual/audio modules, quantization modules or additional learned branches are selected."
+    },
+    {
+      "id": "s6",
+      "url": "https://github.com/huggingface/transformers/blob/v5.6.2/src/transformers/models/llama/configuration_llama.py",
+      "title": "Transformers 5.6.2 LlamaConfig",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "The selected class defaults attention_bias and mlp_bias to false, matching the absence of checkpoint bias tensors. Explicit checkpoint dimensions override generic Llama defaults. This is ordinary dense grouped-query causal attention, not MiniCPM4 InfLLM or MiniCPM-SALA attention."
+    },
+    {
+      "id": "s7",
+      "url": "https://github.com/huggingface/transformers/blob/v5.6.2/src/transformers/modeling_utils.py",
+      "title": "Transformers 5.6.2 weight-tying implementation",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "get_expanded_tied_weights_keys returns an empty mapping when config.tie_word_embeddings is false. Thus LlamaForCausalLM generic tied-weight metadata does not tie this checkpoint; both separately stored 267,386,880-element matrices are counted once each."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/api/models/openbmb/MiniCPM5-2B",
+      "title": "Official repository metadata",
+      "publisher": "OpenBMB / Hugging Face",
+      "accessed": true,
+      "evidence": "Public ungated OpenBMB text-generation repository, revision f97400052a43d642bbc6e9975e2397e3ae6a6b52. Created 2026-09-06T11:12:19Z and last modified 2026-09-29T06:12:33Z. Hub BF16 parameter aggregate 2,516,756,480 corroborates the independent header/code count. Creation time does not establish when the repository became public."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/api/models/openbmb/MiniCPM5-2B/commits/main",
+      "title": "Official MiniCPM5-2B repository history",
+      "publisher": "OpenBMB / Hugging Face",
+      "accessed": true,
+      "evidence": "Initial commit 71b5e66f9d353dbea48a9b8ea8cc60f09d6a64e7 is September 6 at 11:12:19Z; upload commit ab8fd77d37aa92791af5d0b4db99c73355fc14a2 is September 6 at 11:35:38Z. Subsequent README commits start later that day. Commit dates do not record a private-to-public transition; the initial upload config is accessible, while its README URL returned 404."
+    },
+    {
+      "id": "s10",
+      "url": "https://openbmb.cn/docs/en/changelog",
+      "title": "OpenBMB release changelog",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "Explicitly dates the MiniCPM5-2B release 2026-09-07 and identifies it as a dense text model. This establishes the release month, but its day differs from ModelBest announcement text."
+    },
+    {
+      "id": "s11",
+      "url": "https://github.com/OpenBMB/MiniCPM/blob/ab7fef3bcea534ee72967a79d7cd05f5466ab793/README.md",
+      "title": "Contemporaneous MiniCPM5-2B README release entry",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "README revision with September 5 Git commit timestamp already carries a future-dated 2026.09.07 MiniCPM5-2B release entry. This corroborates the intended September 7 launch; the commit timestamp itself is not a public-release date."
+    },
+    {
+      "id": "s12",
+      "url": "https://www.modelbest.cn/en",
+      "title": "ModelBest official news and technical-blog archive",
+      "publisher": "ModelBest",
+      "accessed": true,
+      "evidence": "Rendered archive and embedded article metadata distinguish a July 19 WAIC unveiling from a September 8 open-source release announcement. The September article explicitly says ModelBest and OpenBMB open-sourced MiniCPM5-2B on September 8, with publishTime 2026-09-08T11:29:25Z. July excerpt names the model and event but does not establish public API or downloadable-weight availability."
+    },
+    {
+      "id": "s13",
+      "url": "https://en.prnasia.com/releases/global/china-s-latest-ai-model-brings-general-purpose-agentic-capability-to-edge-devices-at-a-lower-cost-547140.shtml",
+      "title": "ModelBest MiniCPM5-2B press release",
+      "publisher": "ModelBest via PR Newswire",
+      "accessed": true,
+      "evidence": "Company-supplied release published September 9; text has a September 8 dateline but says the model was released September 9. Describes ModelBest/OpenBMB collaboration, released weights, tool calling and multi-step reasoning. This internal date conflict does not resolve earliest availability."
+    },
+    {
+      "id": "s14",
+      "url": "https://huggingface.co/openbmb/MiniCPM5-2B/blob/f97400052a43d642bbc6e9975e2397e3ae6a6b52/chat_template.jinja",
+      "title": "MiniCPM5-2B native conversation template",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "Serializes textual messages and reasoning_content, uses think delimiters, and provides explicit enable_thinking true/false branches. Supports tool definitions, XML function/parameter calls, tool_calls and tool responses. It contains no multimodal preprocessing pathway; complete selected model code and checkpoint likewise contain only the text language model."
+    },
+    {
+      "id": "s15",
+      "url": "https://arxiv.org/html/2506.07900v1",
+      "title": "MiniCPM4: Ultra-Efficient LLMs on End Devices",
+      "publisher": "MiniCPM Team",
+      "accessed": true,
+      "evidence": "Read the original report linked as the model-card technical report. It covers MiniCPM4-0.5B/8 B, not MiniCPM5-2B; it contains no MiniCPM5 identifier. Its sparse-attention architecture and parameter figures are not transferred to this exact release."
+    },
+    {
+      "id": "s16",
+      "url": "https://arxiv.org/html/2602.09003v1",
+      "title": "Data Science and Technology Towards AGI Part I: Tiered Data Management",
+      "publisher": "OpenBMB / Tsinghua authors",
+      "accessed": true,
+      "evidence": "Read the original UltraData training-framework report linked by the exact model card. Its model-configuration table concerns MiniCPM-1.2B, not this model; no MiniCPM5 identifier or exact MiniCPM5-2B active-parameter convention occurs. Used only to check scope of training-report evidence."
+    },
+    {
+      "id": "s17",
+      "url": "https://openbmb.cn/docs/en/guides/minicpm-text/minicpm5-2b",
+      "title": "Current exact-model MiniCPM5-2B guide",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "Current exact-name page identifies the second MiniCPM5 model, native long-context text use, standard Transformers deployment, enable_thinking, and XML tool calling. It links the exact final weights and other training-stage variants separately; no separate active-parameter count is defined."
+    },
+    {
+      "id": "s18",
+      "url": "https://panhaoxuan.notion.site/justrl-ii-scaling-small-llms-to-128k-reasoning-with-a-critic",
+      "title": "JustRL II linked training-method article",
+      "publisher": "Hao Pan",
+      "accessed": false,
+      "evidence": "HTTP response was a Notion application shell without article body. No factual claim or active-parameter count is inferred from it."
+    },
+    {
+      "id": "s19",
+      "url": "https://mp.weixin.qq.com/s/rjFxrUylyGMqa5QtgypCdw",
+      "title": "ModelBest July 19 WAIC MiniCPM5-2B unveiling article",
+      "publisher": "ModelBest",
+      "accessed": false,
+      "evidence": "The full article linked from the official archive could not be accessed. Only the separately accessed official archive excerpt is used; it does not establish public model availability in July."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "MiniCPM5-2B",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Exact final release name; does not substitute Base, Midtrain, SFT, quantized or DSpark draft variants."
+    },
+    "developer": {
+      "value": "OpenBMB",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8",
+        "s12",
+        "s13"
+      ],
+      "note": "Official OpenBMB namespace and repository; ModelBest press release confirms the collaboration. Preserve the catalog developer grouping OpenBMB."
+    },
+    "family": {
+      "value": "minicpm5",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s17"
+      ],
+      "note": "Explicitly the second MiniCPM5-series model; normalized lowercase catalog family key."
+    },
+    "release_date": {
+      "value": "2026-09",
+      "status": "verified",
+      "source_ids": [
+        "s8",
+        "s9",
+        "s10",
+        "s11",
+        "s12",
+        "s13",
+        "s19"
+      ],
+      "note": "Month precision: OpenBMB changelog and contemporaneous README saySeptember 7; ModelBest official archive says open-sourced September 8; its September 9 press release contains contradictory September 8/9 wording. HF creation/upload on September 6 do not prove when weights became public. July 19 was an unveiling in the accessed primary excerpt, not established public availability. September is verified; earliest day remains unresolved."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4",
+        "s8"
+      ],
+      "note": "Official public ungated BF16 checkpoint with accessible indexed tensor headers and Apache-licensed model weights."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Model-card frontmatter and License section explicitly apply Apache-2.0 to the model weights; canonical SPDX capitalization."
+    },
+    "parameters_b": {
+      "value": 2.51675648,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "note": "Exact complete released model count 2,516,756,480, independently matching all 381 indexed BF16 tensor shapes to the enabled code/config. V=130560,H=2048,I=6144,L=42,Q=16,K=2,D=128:2*V*H+H+L*(2*H+2*H*(Q+K)*D+3*H*I). Input embedding 267,386,880; untied output head 267,386,880; attention 396,361,728; MLP 1,585,446,912; all norms 174,080. No biases, quantization packing/scales, experts, adapters or stored nonparameter tensors. Computed nonpersistent RoPE buffers excluded. The published 1,981,982,720 non-embedding figure excludes both vocabulary matrices; it is not the full count."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s5",
+        "s15",
+        "s16",
+        "s17",
+        "s18"
+      ],
+      "note": "No separately defined per-token active-parameter count in the exact card, current exact-model guide, selected implementation or accessible linked original reports. Dense architecture does not by itself justify equating active with total; non-embedding count is a component convention, not a reported active count. The JustRL II article body was inaccessible. Targeted exact-name searches found no later first-party active-count disclosure."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5",
+        "s6"
+      ],
+      "note": "42-layer decoder-only Transformer using standard LlamaForCausalLM, grouped-query causal attention 16 Q / 2 KV, dense SiLU-gated MLPs and RMSNorm. No experts or sparse/linear-attention branch in the selected code; no architectural transfer from MiniCPM4 or SALA."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s17"
+      ],
+      "note": "Exact native context 131,072 tokens in the model specification and max_position_embeddings; rope_scaling is null. This is not a speculative extrapolation, DSpark setting or separately extended checkpoint."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5",
+        "s8",
+        "s14"
+      ],
+      "note": "Text-generation causal language model using token embeddings and vocabulary logits. Exhaustive checkpoint/module inspection finds no image/audio/video towers or output heads; native template consumes text messages. Tool calls remain structured text, not another modality."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s14",
+        "s17"
+      ],
+      "note": "Exact release card describes deep-thinking SFT then RL/OPD; exact inference example enables thinking. Pinned native template supports reasoning_content and explicit think/no-think branches, rather than inheriting a provider default."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s14",
+        "s17"
+      ],
+      "note": "Exact model-card Tool Calling section states XML function calls with the minicpm 5 parser; pinned template encodes tools, parameters, calls and responses. Confirms native structured tool-call support, not generic agent marketing."
+    },
+    "description": {
+      "value": "Dense text language model with 2.517B parameters, native 131,072-token context, optional thinking, and XML-style tool calling.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4",
+        "s14"
+      ],
+      "note": "Replaces nominal 2 B wording and broad deployment/agent claims with directly supported model specifications; rounded prose size refers to the complete 2.51675648 B total."
+    }
+  },
+  "patch": {
+    "family": "minicpm5",
+    "release_date": "2026-09",
+    "date_precision": "month",
+    "license": "Apache-2.0",
+    "parameters_b": 2.51675648,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "description": "Dense text language model with 2.517B parameters, native 131,072-token context, optional thinking, and XML-style tool calling.",
+    "source_url": "https://openbmb.cn/docs/en/changelog",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Official MiniCPM5-2B model card (pinned)",
+        "url": "https://huggingface.co/openbmb/MiniCPM5-2B/blob/f97400052a43d642bbc6e9975e2397e3ae6a6b52/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Official configuration (pinned)",
+        "url": "https://huggingface.co/openbmb/MiniCPM5-2B/blob/f97400052a43d642bbc6e9975e2397e3ae6a6b52/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Complete checkpoint index (pinned)",
+        "url": "https://huggingface.co/openbmb/MiniCPM5-2B/blob/f97400052a43d642bbc6e9975e2397e3ae6a6b52/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Official checkpoint (bounded tensor-header verification)",
+        "url": "https://huggingface.co/openbmb/MiniCPM5-2B/resolve/f97400052a43d642bbc6e9975e2397e3ae6a6b52/model-00000-of-00001.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "OpenBMB release changelog",
+        "url": "https://openbmb.cn/docs/en/changelog",
+        "type": "primary"
+      },
+      {
+        "label": "ModelBest announcement archive",
+        "url": "https://www.modelbest.cn/en",
+        "type": "primary"
+      },
+      {
+        "label": "ModelBest September press release",
+        "url": "https://en.prnasia.com/releases/global/china-s-latest-ai-model-brings-general-purpose-agentic-capability-to-edge-devices-at-a-lower-cost-547140.shtml",
+        "type": "primary"
+      },
+      {
+        "label": "Official repository history",
+        "url": "https://huggingface.co/api/models/openbmb/MiniCPM5-2B/commits/main",
+        "type": "primary"
+      }
+    ],
+    "notes": "Total parameters are 2,516,756,480 including separate input embeddings and output head; the card's 1,981,982,720 non-embedding count excludes both. Active parameters are not separately defined. Public-weight release is recorded at September 2026 precision: OpenBMB says September 7, ModelBest says September 8, and its press release conflicts internally on September 8/9. HF creation/upload on September 6 is not proof of public availability; July 19 was an earlier unveiling in the accessed official excerpt."
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "input_embedding": 0.26738688,
+      "output_head": 0.26738688,
+      "attention": 0.396361728,
+      "mlp": 1.585446912,
+      "norms": 0.00017408
+    }
+  },
+  "summary": "Verified all 14 fields for exact final MiniCPM5-2B. Replaced nominal 2 B with exact complete 2.51675648 B using all 381 tensors in the one indexed shard plus enabled code/config, independently agreeing with the primary card. Added dense architecture and minicpm5 family; normalized Apache-2.0 and description. Native 131072 context, text modalities, thinking and tools confirmed. Active count remains undisclosed. Changed unsupported September 6 day precision to September 2026 because public-release sources conflict; documented earlier July unveiling and access limitations."
+}
