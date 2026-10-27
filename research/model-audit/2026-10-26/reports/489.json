@@ -1,7 +1,7 @@
 {
   "index": 489,
   "model_id": "sao10k/l3.3-euryale-70b",
-  "reviewed_at": "2026-10-27T04:25:47.620567+00:00",
+  "reviewed_at": "2026-10-27T17:54:39.750600+00:00",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Euryale v2.3 model card and training configuration",
       "publisher": "Sao10K",
       "accessed": true,
-      "evidence": "Names L3.3-70B-Euryale-v2.3, explicitly fine-tuned on meta-llama/Llama-3.3-70B-Instruct and successor to Euryale v2.2. Dataset labels include roleplay/creative instruction; embedded Axolotl config uses LoRA rank 128 and sequence_len 16384. Card license tag is llama3, not llama3.3. The phrase not Lora-extracted describes its source/training distinction and does not establish full-parameter training."
+      "evidence": "Names L3.3-70B-Euryale-v2.3, explicitly fine-tuned on meta-llama/Llama-3.3-70B-Instruct and successor to Euryale v2.2. Dataset labels include roleplay/creative instruction; embedded Axolotl config uses LoRA rank 128 and sequence_len 16384. Card license tag is llama3, not llama3.3. The phrase not Lora-extracted describes its source/training distinction and does not establish full-parameter training. Reopened pinned and current cards October 27; they are byte-identical. Both metadata and training config explicitly name meta-llama/Llama-3.3-70B-Instruct. No pruning, distillation, expert expansion, added modality or architectural resizing is described."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "Euryale v2.3 checkpoint configuration",
       "publisher": "Sao10K",
       "accessed": true,
-      "evidence": "LlamaForCausalLM, 80 layers, hidden size 8192, intermediate size 28672, vocabulary 128256, 64 attention heads, 8 KV heads, head dimension 128; attention_bias and mlp_bias false, tie_word_embeddings false, BF16, max_position_embeddings 131072, Llama-3 RoPE scaling factor 8, Transformers 4.46.3. No quantization or custom architecture configuration."
+      "evidence": "LlamaForCausalLM, 80 layers, hidden size 8192, intermediate size 28672, vocabulary 128256, 64 attention heads, 8 KV heads, head dimension 128; attention_bias and mlp_bias false, tie_word_embeddings false, BF16, max_position_embeddings 131072, Llama-3 RoPE scaling factor 8, Transformers 4.46.3. No quantization or custom architecture configuration. Reopened October 27; current config is byte-identical to this pinned revision and retains the named Llama-3.3-70B-Instruct path and ordinary Llama dimensions."
     },
     {
       "id": "s3",
@@ -25,7 +25,7 @@
       "title": "Complete Euryale v2.3 checkpoint index and all 30 bounded tensor headers",
       "publisher": "Sao10K",
       "accessed": true,
-      "evidence": "Independently fetched the 8-byte prefix and JSON header of every one of the 30 indexed safetensors shards at this revision, verifying HTTP 206 and exact Content-Range. Only 84,880 prefix/header bytes were fetched, no weight data. All 723 distinct indexed BF16 tensors match their shard assignment and expected enabled-module shapes; byte ranges are contiguous/non-overlapping and cover each shard payload. Sum is 70,553,706,496 learned elements, consistent with index total_size 141,107,412,992 bytes. These are complete merged model tensors, not an adapter-only checkpoint."
+      "evidence": "Original audit independently fetched the 8-byte prefix and JSON header of every one of the 30 indexed safetensors shards at this revision, verifying HTTP 206 and exact Content-Range. Only 84,880 prefix/header bytes were fetched, no weight data. All 723 distinct indexed BF16 tensors match their shard assignment and expected enabled-module shapes; byte ranges are contiguous/non-overlapping and cover each shard payload. Sum is 70,553,706,496 learned elements, consistent with index total_size 141,107,412,992 bytes. These are complete merged model tensors, not an adapter-only checkpoint. October 27 parameter re-audit refetched only this index: its 723 names exactly match the configured Llama modules, with no residual adapters or extra structural modules; total_size is unchanged. No shard or shard header was fetched during the re-audit."
     },
     {
       "id": "s4",
@@ -33,7 +33,7 @@
       "title": "Enabled LlamaForCausalLM implementation at Transformers 4.46.3",
       "publisher": "Hugging Face",
       "accessed": true,
-      "evidence": "LlamaForCausalLM enables a token embedding, 80 LlamaDecoderLayer modules and final RMSNorm, plus bias-free LM head. Attention and MLP biases follow false config flags. RMSNorm has a learned scale; rotary inv_freq is a nonpersistent buffer. Config-selected causal LM does not instantiate sequence/token classification or question-answering heads. No routed experts, extra MTP head, external draft model or learned rotary parameter is present."
+      "evidence": "LlamaForCausalLM enables a token embedding, 80 LlamaDecoderLayer modules and final RMSNorm, plus bias-free LM head. Attention and MLP biases follow false config flags. RMSNorm has a learned scale; rotary inv_freq is a nonpersistent buffer. Config-selected causal LM does not instantiate sequence/token classification or question-answering heads. No routed experts, extra MTP head, external draft model or learned rotary parameter is present. Reopened this exact implementation October 27 and reconciled the enabled embedding, untied output head, attention/MLP dimensions and RMSNorm parameters with current creator config and index."
     },
     {
       "id": "s5",
@@ -97,7 +97,7 @@
       "title": "Later author model card checked for exact Euryale disclosures",
       "publisher": "Sao10K",
       "accessed": true,
-      "evidence": "Accessed the later author card. Its DeepSeek-R1 reasoning-trace training statements concern Vulpecula, not Euryale v2.3; it provides no exact Euryale active count or dedicated thinking-mode evidence to transfer."
+      "evidence": "Accessed the later author card. Its DeepSeek-R1 reasoning-trace training statements concern Vulpecula, not Euryale v2.3; it provides no exact Euryale active count or dedicated thinking-mode evidence to transfer. Fresh October 27 cached original reread confirms the separate Vulpecula identity and no new Euryale parameter specification."
     },
     {
       "id": "s13",
@@ -105,7 +105,39 @@
       "title": "Later Cirrus author card checked for exact Euryale disclosures",
       "publisher": "Sao10K",
       "accessed": true,
-      "evidence": "Accessed later author card; no exact Euryale v2.3 active-count or dedicated reasoning disclosure was found. The different fine-tune is not used to infer Euryale capabilities or count."
+      "evidence": "Accessed later author card; no exact Euryale v2.3 active-count or dedicated reasoning disclosure was found. The different fine-tune is not used to infer Euryale capabilities or count. Fresh October 27 cached original reread confirms the separate Cirrus identity and no new Euryale parameter specification."
+    },
+    {
+      "id": "s14",
+      "url": "https://huggingface.co/api/models/Sao10K/L3.3-70B-Euryale-v2.3?blobs=false",
+      "title": "Current Euryale repository identity and safetensors metadata",
+      "publisher": "Sao10K / Hugging Face",
+      "accessed": true,
+      "evidence": "Fetched October 27. Current repository revision remains e5737724a37ae00926e95acf663ca73d430dc8ad, last modified December 8, 2024. Hugging Face reports BF16 parameters and total both 70,553,706,496, corroborating the retained complete-header audit and freshly reconciled config/index arithmetic. This metadata is corroboration of total parameters, not an active-parameter disclosure."
+    },
+    {
+      "id": "s15",
+      "url": "https://huggingface.co/meta-llama/Llama-3.3-70B-Instruct",
+      "title": "Meta Llama 3.3 70B Instruct model information",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Reopened the public model-card page October 27. Model Information explicitly identifies the instruction-tuned text-only model as nominal 70B, describes an autoregressive Transformer with GQA and SFT/RLHF, and names the exact 70B Instruct release. It does not separately specify active parameters. Direct raw card/config endpoints returned HTTP 401; the public card itself was accessible and read."
+    },
+    {
+      "id": "s16",
+      "url": "https://www.microsoft.com/en-us/research/wp-content/uploads/2025/01/WEF-2025_Leave-Behind_Phi-4.pdf",
+      "title": "Phi-4: Microsoft Research January 2025 brief, page 1",
+      "publisher": "Microsoft Research",
+      "accessed": true,
+      "evidence": "Reopened the original two-page PDF October 27 and independently visually inspected page 1. The comparison plot explicitly labels the horizontal axis Active Parameters (Billions) and places Llama-3.3-70B-Instruct at approximately 70B. This is Microsoft Research's published nominal active-count convention for the exact named Euryale base, not an active disclosure by Meta or Sao10K, and does not establish an exact per-token tensor census."
+    },
+    {
+      "id": "s17",
+      "url": "https://arxiv.org/html/2606.08340v1",
+      "title": "Benchmarking Open-Ended Multi-Agent Coordination in Language Agents, Figure 11",
+      "publisher": "Kale-ab Abebe Tessera et al.; University of Edinburgh, University of Oxford and University College London",
+      "accessed": true,
+      "evidence": "Reopened the original June 2026 paper October 27 and independently visually inspected Figure 11 on PDF page 24. The horizontal axis is explicitly Active parameters (billions, log scale), with Llama 3.3 70B at approximately 70B. Section 4.1 and Table 1 identify the evaluated model as Llama-3.3-70B-Instruct, served with vLLM. This later original benchmark corroborates the nominal active convention for the exact base, without providing a separately measured count for Euryale or exact per-token participation."
     }
   ],
   "fields": {
@@ -170,23 +202,27 @@
       "value": 70.553706496,
       "status": "verified",
       "source_ids": [
+        "s1",
         "s2",
         "s3",
-        "s4"
+        "s4",
+        "s14"
       ],
-      "note": "Exact complete checkpoint count, not rounded 70B: 70,553,706,496 learned parameters in 723 BF16 tensors. All indexed headers plus enabled configuration/code reconcile: 2*128256*8192 + 80*(2*8192*8192 + 2*8192*1024 + 3*8192*28672 + 2*8192) + 8192. Includes distinct input embedding and untied output head, all attention/MLP matrices and RMSNorm scales. All tensor names/shapes and nonoverlapping offsets match; no packed quantization/scale tensors, buffers, residual adapters, MTP modules or external drafters counted. LoRA training is documented but the distributed checkpoint contains merged complete model weights."
+      "note": "Retain exact complete checkpoint count 70,553,706,496 learned parameters from the original 723-tensor BF16 header audit. Fresh October 27 creator card/config, index and enabled implementation checks reproduce 2*128256*8192 + 80*(2*8192*8192 + 2*8192*1024 + 3*8192*28672 + 2*8192) + 8192, and current Hugging Face metadata independently matches. Includes distinct input embedding and untied output head, attention/MLP matrices and RMSNorm scales. The creator explicitly fine-tuned Llama-3.3-70B-Instruct with LoRA; complete merged weights retain its dimensions with no residual adapters, pruning, added experts or modality modules. No shard was downloaded in this re-audit."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 70,
+      "status": "verified",
       "source_ids": [
         "s1",
         "s2",
+        "s3",
         "s4",
-        "s12",
-        "s13"
+        "s15",
+        "s16",
+        "s17"
       ],
-      "note": "No separately defined per-token active-parameter count is disclosed for this exact fine-tune in its primary files or later checked author cards. Dense topology does not justify copying the total count here."
+      "note": "Approximately 70B nominal active parameters, inferred through the creator's explicitly named Llama-3.3-70B-Instruct lineage and unchanged merged Llama structure. Microsoft Research's original January 2025 comparison plot puts that exact base at approximately 70B on its Active Parameters axis; the June 2026 ALEM original benchmark corroborates the convention. Euryale's LoRA training is merged into the ordinary complete checkpoint, with no structural change found. This is an attributed research-comparison convention transferred through documented lineage, not a separate Sao10K disclosure, exact per-token count, or equality with the precise 70.553706496B total."
     },
     "architecture": {
       "value": "dense",
@@ -265,7 +301,7 @@
     "description": "Sao10K's Llama 3.3 70B Instruct fine-tune for roleplay and creative text generation.",
     "parameters_source": "primary_source",
     "date_precision": "month",
-    "notes": "Euryale v2.3: complete merged BF16 checkpoint has exactly 70,553,706,496 learned parameters; all 30 indexed headers and enabled Llama implementation reconcile. Active count is not separately disclosed. Complete weights were uploaded December 7, 2024 and publicly discussed by December 8; first public day is unresolved, so release uses month precision rather than the later December 18 provider date. Author card labels llama3 although its explicit Llama 3.3 base uses Llama 3.3 Community License; this license-version discrepancy is preserved. Model/tokenizer context is 131072; author recommends up to 32k and training used 16384-token sequences. The shipped template supports single function calls; no dedicated reasoning mode is documented. Training config uses LoRA, but the distributed checkpoint is complete merged model weights.",
+    "notes": "Euryale v2.3 has 70.553706496B total parameters in its complete merged BF16 checkpoint. Approximately 70B active follows Microsoft Research's published convention for its explicitly named Llama 3.3 70B Instruct base, corroborated by the later ALEM benchmark and inherited through unchanged model structure; it is not an exact per-token count or a separate Sao10K disclosure. Complete weights were uploaded December 7, 2024 and publicly discussed by December 8; first public day is unresolved, so release uses month precision rather than the later December 18 provider date. Author card labels llama3 although its explicit Llama 3.3 base uses Llama 3.3 Community License; this license-version discrepancy is preserved. Model/tokenizer context is 131072; author recommends up to 32k and training used 16384-token sequences. The shipped template supports single function calls; no dedicated reasoning mode is documented. Training config uses LoRA, but the distributed checkpoint is complete merged model weights.",
     "sources": [
       {
         "label": "Euryale v2.3 model card and training configuration",
@@ -321,8 +357,29 @@
         "label": "License named by the fine-tuner llama3 tag",
         "url": "https://github.com/meta-llama/llama3/blob/main/LICENSE",
         "type": "primary"
+      },
+      {
+        "label": "Current Euryale repository identity and safetensors metadata",
+        "url": "https://huggingface.co/api/models/Sao10K/L3.3-70B-Euryale-v2.3?blobs=false",
+        "type": "primary"
+      },
+      {
+        "label": "Meta Llama 3.3 70B Instruct model information",
+        "url": "https://huggingface.co/meta-llama/Llama-3.3-70B-Instruct",
+        "type": "primary"
+      },
+      {
+        "label": "Phi-4: Microsoft Research January 2025 brief, page 1",
+        "url": "https://www.microsoft.com/en-us/research/wp-content/uploads/2025/01/WEF-2025_Leave-Behind_Phi-4.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Benchmarking Open-Ended Multi-Agent Coordination in Language Agents, Figure 11",
+        "url": "https://arxiv.org/html/2606.08340v1",
+        "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": 70
   },
-  "summary": "Audit exact Llama 3.3 Euryale v2.3 independently: replace nominal 70B with complete 70.553706496B learned-parameter count from every indexed bounded header plus enabled code/config, confirm dense topology and 131072 text context, and preserve author-versus-base license-version discrepancy. Correct release to December 2024 month precision because early-December public evidence invalidates December 18 but does not resolve first public day. Set tool_call true from the exact shipped function-call template, clear unsupported reasoning false, and describe roleplay/creative fine-tuning without claiming full-parameter training. Active count remains undisclosed; later checked author cards supply no exact disclosure. No weight payload downloaded."
+  "summary": "October 27 parameter re-audit retains exact total 70.553706496B from the prior complete-header audit, freshly corroborated by unchanged creator card/config, all 723 index names, enabled Transformers implementation and current repository metadata. Resolve active parameters to approximately 70B under Microsoft Research's original comparison-plot convention, corroborated by ALEM Figure 11 and inherited through the explicitly named Llama-3.3-70B-Instruct LoRA lineage without structural changes. This is a nominal lineage inference, not exact total=active or a direct Sao10K active disclosure. Fresh targeted searches covered total/active counts, structural changes and later comparisons; later Vulpecula and Cirrus creator cards contain no separate Euryale active specification, and secondary catalogs add no stronger original evidence. Exact per-token active participation remains unspecified. Preserve all other 12 field assessments and original corrections. No shard or shard header downloaded in this re-audit."
 }
