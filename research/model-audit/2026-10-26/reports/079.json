@@ -1,7 +1,7 @@
 {
   "index": 79,
   "model_id": "amazon/nova-lite-v1",
-  "reviewed_at": "2026-10-26T16:02:26.929044+00:00",
+  "reviewed_at": "2026-10-27T10:04:06.081Z",
   "sources": [
     {
       "id": "s1",
@@ -17,7 +17,7 @@
       "title": "Nova Lite - Amazon Bedrock",
       "publisher": "Amazon Web Services",
       "accessed": true,
-      "evidence": "Exact amazon.nova-lite-v1:0 card documents 300K context, text/image/video input, text output and client-side tool calling. Calls it a low-cost multimodal model for document analysis and visual Q&A. Its December 5, 2024 launch date conflicts with the contemporaneous December 3 GA announcement."
+      "evidence": "Reopened October 27. Exact amazon.nova-lite-v1:0 card still identifies Nova Lite with 300K context, text/image/video input, text output and client-side tool calling. It has no total or active parameter specification. Its December 5, 2024 launch date conflicts with the contemporaneous December 3 GA announcement."
     },
     {
       "id": "s3",
@@ -25,7 +25,7 @@
       "title": "The Amazon Nova Family of Models: Technical Report and Model Card",
       "publisher": "Amazon Artificial General Intelligence",
       "accessed": true,
-      "evidence": "Section 1.1, page 3 explicitly identifies Pro, Lite and Micro as Transformer-based, and describes Lite's multimodal inputs and agentic capabilities. No total/active parameter counts or dense/MoE topology are provided. Web extraction exceeded its size limit; the publisher PDF was successfully streamed through pdftotext and inspected."
+      "evidence": "Reopened the original publisher PDF on October 27 and extracted its full text; also read the arXiv HTML version. Section 1.1, page 3 explicitly identifies Pro, Lite and Micro as Transformer-based, describes pretraining followed by SFT and preference optimization, and identifies no differently named base with a published size. The report and comparison tables give no nominal total or active parameter count, or dense/MoE topology."
     },
     {
       "id": "s4",
@@ -33,7 +33,7 @@
       "title": "Amazon Nova Premier: Technical Report and Model Card",
       "publisher": "Amazon Artificial General Intelligence",
       "accessed": true,
-      "evidence": "April 30, 2025 addendum names Lite among distillation students. Checked the later report and comparison tables; they do not disclose Lite's parameter counts or dense/MoE topology."
+      "evidence": "Reopened the April 30, 2025 addendum PDF on October 27. It presents Premier as a teacher for customized Pro, Lite and Micro students; that distillation relationship does not establish equal size. Its later comparison tables contain benchmark results, with no Lite total/active parameter specification or dense/MoE disclosure."
     },
     {
       "id": "s5",
@@ -41,7 +41,7 @@
       "title": "Amazon Nova 2: Multimodal Reasoning and Generation Models",
       "publisher": "Amazon Artificial General Intelligence",
       "accessed": true,
-      "evidence": "December 2, 2025 report includes Nova 1 Lite rows in benchmark comparison tables. Those rows do not supply total/active parameters or dense/MoE topology; Nova 2 specifications are not transferred to Nova 1 Lite."
+      "evidence": "Reopened the December 2, 2025 publisher PDF on October 27. Nova 1 Lite appears in core-capability, agentic, multimodal and responsible-AI comparison tables; none has a total or activated-parameter column. API sampling parameters elsewhere in the report are not model parameter counts. Nova 2 specifications do not establish Nova 1 Lite size."
     },
     {
       "id": "s6",
@@ -49,7 +49,7 @@
       "title": "Amazon Nova Micro, Lite, Pro, and Premier - AWS AI Service Cards",
       "publisher": "Amazon Web Services",
       "accessed": true,
-      "evidence": "Service card scoped to April 30, 2025 models identifies Lite within the Nova family, its modalities, fast processing and Transformer-based inference. It does not state total/active parameters or dense/MoE topology."
+      "evidence": "Reopened October 27. Service card scoped to April 30, 2025 identifies Lite's multimodal inputs and Transformer-based inference and describes teacher/student customization across the family. It provides no total/active count or sized named-base relationship."
     },
     {
       "id": "s7",
@@ -73,7 +73,7 @@
       "title": "Migrate from Amazon Nova 1 to Amazon Nova 2 on Amazon Bedrock",
       "publisher": "Amazon Web Services",
       "accessed": true,
-      "evidence": "March 18, 2026 comparison explicitly gives Nova 1 Lite 300K context, text/image/video input and Extended Thinking = No. It maps the first generation to amazon.nova-lite-v1:0 and describes extended thinking as an addition in Nova 2."
+      "evidence": "Reopened October 27. March 18, 2026 migration guide maps Nova 1 Lite to amazon.nova-lite-v1:0, and its comparison table gives 300K context, text/image/video inputs and Extended Thinking = No. The specifications table has no total or activated-parameter row; Nova 2 is a separately identified successor."
     },
     {
       "id": "s10",
@@ -113,7 +113,39 @@
       "title": "Amazon Nova Version 1 model specifications",
       "publisher": "Amazon Web Services",
       "accessed": true,
-      "evidence": "Exact amazon.nova-lite-v1:0 column lists PDF document support. The migration guide states document input remains Converse-only."
+      "evidence": "Reopened October 27. Version 1 model specifications map Lite to amazon.nova-lite-v1:0 and list PDF document support, but no total or active parameter count. The migration guide states document input remains Converse-only."
+    },
+    {
+      "id": "s15",
+      "url": "https://cdn.amazon.science/91/54/8aa885d04ccbb58f9b16da17f632/scipub-approval152129-35517880-massiveagents-a-benchmark-for-multilingual-functioncalling-in-52-languages.pdf",
+      "title": "MASSIVE-Agents: A Benchmark for Multilingual Function-Calling in 52 Languages",
+      "publisher": "Amazon AGI",
+      "accessed": true,
+      "evidence": "Freshly checked October 27. Amazon AGI-authored paper, Table 1 on PDF page 6, explicitly has a Params column: Nova Lite is NP, with 300k context and 12/24 release. It supplies no numeric count and has no separate active/activated-parameter column. The table does not expand NP; no numeric interpretation is assigned."
+    },
+    {
+      "id": "s16",
+      "url": "https://cdn.amazon.science/50/3b/6b14413b42b7a50f6c97ea63f0cd/post-hoc-adapter-compression-extracting-low-rank-updates-from-full-rank-finetuning-er-cr.pdf",
+      "title": "PHLoRA: data-free Post-hoc Low-Rank Adapter extraction from full-rank checkpoint",
+      "publisher": "Amazon AGI and EdgeRunner AI",
+      "accessed": true,
+      "evidence": "Freshly checked October 27. This Amazon-hosted paper evaluates Micro, Lite and Pro and exposes attention_qkv, attention_dense, mlp_fc1 and mlp_fc2 adapter target names. Tables 3-6 report benchmark scores, ranks and preserved energy, not model parameter sizes. Ranks 32/64/512 are adapter ranks and do not establish total/active counts or dense topology for Lite."
+    },
+    {
+      "id": "s17",
+      "url": "https://docs.aws.amazon.com/nova/latest/nova2-userguide/nova-cpt-2.html",
+      "title": "Continued pre-training (CPT) on Nova 2.0 on SageMaker HyperPod",
+      "publisher": "Amazon Web Services",
+      "accessed": true,
+      "evidence": "Freshly checked October 27. AWS explicitly calls Nova Lite 2.0 a larger model than Nova Lite 1.0, while saying it has faster inference. This is evidence against assuming unchanged parameter size across the Lite generations; it gives neither generation a numeric total or active count."
+    },
+    {
+      "id": "s18",
+      "url": "https://docs.aws.amazon.com/nova/latest/userguide/nova-fine-tune-1.html",
+      "title": "Fine-tune Nova 1.0 - Amazon Nova",
+      "publisher": "Amazon Web Services",
+      "accessed": true,
+      "evidence": "Freshly checked October 27. The run-configuration comparison table maps amazon.nova-lite-v1:0:300k to base model path nova-lite/prod. Full-rank/LoRA settings and instance-count tables give no model parameter sizes and identify no separately sized base. Hardware replicas and adapter configuration are not nominal total/active counts."
     }
   ],
   "fields": {
@@ -176,12 +208,19 @@
       "value": null,
       "status": "undisclosed",
       "source_ids": [
+        "s2",
         "s3",
         "s4",
         "s5",
-        "s6"
+        "s6",
+        "s9",
+        "s14",
+        "s15",
+        "s16",
+        "s17",
+        "s18"
       ],
-      "note": "No total count in the original technical report, later Premier addendum, Nova 2 comparisons or service card checked. No benchmark- or pricing-derived estimate is substituted."
+      "note": "Fresh October 27 review found no developer-published nominal total for exact Lite v1. Original and later Nova reports, current v1 specifications and training docs have no numeric size; Amazon AGI MASSIVE-Agents Table 1 lists Params=NP. No named base with a published count supports inference. Nova Lite 2.0 is explicitly larger than 1.0, and Premier distillation does not imply equal size."
     },
     "active_parameters_b": {
       "value": null,
@@ -190,9 +229,13 @@
         "s3",
         "s4",
         "s5",
-        "s6"
+        "s6",
+        "s9",
+        "s15",
+        "s16",
+        "s18"
       ],
-      "note": "The checked reports do not separately state active parameters or disclose dense/MoE topology; active count cannot be inferred from Transformer architecture."
+      "note": "Freshly checked total and active counts separately, including later Nova 2/MASSIVE-Agents and current training/migration comparison tables. No activated-parameter column or numeric active count for Lite v1 was found. Transformer architecture and adapter target names do not establish dense/MoE topology or an active count; no total-to-active equality is assumed."
     },
     "architecture": {
       "value": "transformer",
@@ -281,7 +324,7 @@
     "description": "Nova model with text, image, video and PDF input, text output, a 300K-token context and tool calling.",
     "source_url": "https://press.aboutamazon.com/2024/12/introducing-amazon-nova-a-new-generation-of-foundation-models",
     "source_type": "primary",
-    "notes": "Public GA was announced December 3, 2024; the later Bedrock card lists December 5. Transformer-based is disclosed, but total/active parameter counts and dense/MoE topology are not. AWS Service Terms are proprietary use terms; Nova-specific documentation identifies proprietary weights held in AWS-managed escrow despite the JumpStart inventory's broad Open-Weight heading. Reasoning mode is unresolved: the Nova 1 Lite migration table says no extended thinking, while the current shared Nova request schema assigns reasoningConfig to Lite. PDF input is supported through the Converse API.",
+    "notes": "Public GA was announced December 3, 2024; the later Bedrock card lists December 5. Transformer-based is disclosed; total/active counts and dense/MoE topology remain undisclosed. Amazon AGI lists Lite parameters as NP; Nova 2 Lite is explicitly a larger model, so its size cannot be transferred to Lite v1. AWS Service Terms are proprietary use terms; Nova-specific documentation identifies proprietary weights held in AWS-managed escrow despite the JumpStart inventory's broad Open-Weight heading. Reasoning mode is unresolved: the Nova 1 Lite migration table says no extended thinking, while the current shared Nova request schema assigns reasoningConfig to Lite. PDF input is supported through the Converse API.",
     "sources": [
       {
         "label": "Amazon Nova launch and public availability",
@@ -337,9 +380,32 @@
         "label": "Amazon Nova Version 1 model and document specifications",
         "url": "https://docs.aws.amazon.com/nova/latest/userguide/what-is-nova.html",
         "type": "primary"
+      },
+      {
+        "label": "MASSIVE-Agents: A Benchmark for Multilingual Function-Calling in 52 Languages",
+        "url": "https://cdn.amazon.science/91/54/8aa885d04ccbb58f9b16da17f632/scipub-approval152129-35517880-massiveagents-a-benchmark-for-multilingual-functioncalling-in-52-languages.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "PHLoRA: data-free Post-hoc Low-Rank Adapter extraction from full-rank checkpoint",
+        "url": "https://cdn.amazon.science/50/3b/6b14413b42b7a50f6c97ea63f0cd/post-hoc-adapter-compression-extracting-low-rank-updates-from-full-rank-finetuning-er-cr.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Continued pre-training (CPT) on Nova 2.0 on SageMaker HyperPod",
+        "url": "https://docs.aws.amazon.com/nova/latest/nova2-userguide/nova-cpt-2.html",
+        "type": "primary"
+      },
+      {
+        "label": "Fine-tune Nova 1.0 - Amazon Nova",
+        "url": "https://docs.aws.amazon.com/nova/latest/userguide/nova-fine-tune-1.html",
+        "type": "primary"
       }
     ],
-    "reasoning": null
+    "reasoning": null,
+    "parameters_b": null,
+    "active_parameters_b": null,
+    "parameters_source": null
   },
-  "summary": "Correct release to explicit December 3 public GA, add video input, identify the Nova family, record Transformer-based architecture and AWS Service Terms, and make the description specific. Confirm 300K context and client-side tool calling. Total and active parameter counts remain undisclosed after checking original and later first-party reports and tables. Clear reasoning to null because exact Nova 1 migration guidance and current shared schema conflict. Record the conflicting December 5 listing and JumpStart inventory heading; specific Nova documentation supports proprietary weights. Parent review also verified and added PDF document input from the exact Version 1 model column."
+  "summary": "October 27 parameter re-audit retains explicit null total and active counts after reopening original Nova, Premier and Nova 2 reports, exact v1 model specifications, service card and migration tables. New evidence includes Amazon AGI MASSIVE-Agents Params=NP, PHLoRA adapter tables, v1 training/base-path documentation and AWS disclosure that Nova Lite 2.0 is larger than 1.0. No nominal count, active-count disclosure or sized named-base lineage was found. Preserve the prior release-date, family, architecture, license, modalities and other field decisions, including unresolved reasoning conflict."
 }
