@@ -1,0 +1,357 @@
+{
+  "index": 543,
+  "model_id": "xiaomi/mimo-v2.6-flash",
+  "reviewed_at": "2026-10-27T05:54:47.506828Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://mimo.xiaomi.com/mimo-v2-6/article",
+      "title": "Introducing MiMo-V2.6 series — September 22, 2026",
+      "publisher": "Xiaomi MiMo",
+      "accessed": true,
+      "evidence": "Dated original announcement explicitly releases and open-sources MiMo-V2.6-Pro and MiMo-V2.6-Flash. Describes native multimodal understanding, agentic tasks, RL and 1M context. This establishes release rather than repository creation."
+    },
+    {
+      "id": "s2",
+      "url": "https://arxiv.org/html/2610.11959v1",
+      "title": "MiMo-V2.6 technical report — architecture section and Table 1",
+      "publisher": "Xiaomi LLM-Core",
+      "accessed": true,
+      "evidence": "Exact Flash column reports nominal 310B total and 15B active parameters under Main Block. Backbone: 48 layers, 39 SWA/9 global, 256 routed experts with 8 selected, first block dense and remaining blocks MoE without shared experts. Separate encoders are 681M vision, 308M audio tokenizer and 127M audio patch encoder. Encoder counts include input embeddings but exclude projectors; audio tokenizer excludes EMA codebooks. Five-layer DFlash-style speculative decoder is described separately. No complete exact checkpoint total is claimed here."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Flash-RL/blob/dcd3fd83fb181622fbc606fbb1709901982a62c2/README.md",
+      "title": "MiMo-V2.6-Flash-RL model card at inspected revision",
+      "publisher": "Xiaomi MiMo",
+      "accessed": true,
+      "evidence": "MIT license metadata, public Flash RL checkpoint, multimodal inputs and 1M context. Summary says 309B total / 15B activated, conflicting by 1B with the later report's 310B main-block nominal count; preserve this discrepancy. Separate encoder counts agree with the technical report. Raw card was retrieved successfully."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Flash-RL/blob/dcd3fd83fb181622fbc606fbb1709901982a62c2/config.json",
+      "title": "MiMo-V2.6-Flash-RL configuration",
+      "publisher": "Xiaomi MiMo",
+      "accessed": true,
+      "evidence": "MiMoV2ForCausalLM: 1048576 positions, 48 layers, 47 MoE layers, 256 experts / 8 per token, 39 SWA/9 global layers. Vision and audio configs are present. FP8/mixed storage metadata is not a learned parameter tally. num_nextn_predict_layers=3 is distinct from the separate five-layer DFlash draft configuration."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Flash-RL/blob/dcd3fd83fb181622fbc606fbb1709901982a62c2/dflash/config.json",
+      "title": "Separate DFlash draft configuration",
+      "publisher": "Xiaomi MiMo",
+      "accessed": true,
+      "evidence": "DFlashDraftModel has five sliding-attention layers, window 1024, hidden 4096 and block_size=8. This confirms the report's separate five-layer speculative decoder; it is not counted as five additional main-backbone layers or converted into an unsupported exact parameter sum."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Flash-RL/blob/dcd3fd83fb181622fbc606fbb1709901982a62c2/chat_template.jinja",
+      "title": "MiMo-V2.6-Flash-RL chat template",
+      "publisher": "Xiaomi MiMo",
+      "accessed": true,
+      "evidence": "Template handles text, image, input_audio and video, reasoning_content in think blocks, enable_thinking and structured function/tool calls. Confirms reasoning and tool-call support for the released checkpoint."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/api/models/XiaomiMiMo/MiMo-V2.6-Flash-RL",
+      "title": "Official RL checkpoint repository inventory",
+      "publisher": "XiaomiMiMo / Hugging Face",
+      "accessed": true,
+      "evidence": "Public ungated repository with safetensors weights and model code, resolved revision dcd3fd83fb181622fbc606fbb1709901982a62c2. createdAt September 21 is repository creation, not substituted for the September 22 release announcement. No full weights downloaded."
+    },
+    {
+      "id": "s8",
+      "url": "https://mimo.mi.com/docs/en-US/updates/model",
+      "title": "Official model release log",
+      "publisher": "Xiaomi MiMo",
+      "accessed": true,
+      "evidence": "Explicit September 22, 2026 MiMo-V2.6 series release includes exact mimo-v2.6-flash API identifier and reasoning/full-modality capabilities."
+    },
+    {
+      "id": "s9",
+      "url": "https://mimo.xiaomi.com/blog/mimo-v2-6-tool-call-repetition",
+      "title": "Diagnosing and Mitigating Tool-Call Repetition in MiMo-V2.6 — September 27, 2026",
+      "publisher": "Xiaomi MiMo",
+      "accessed": true,
+      "evidence": "Explains RL versus MOPD checkpoints. Says updated models deployed September 25 at 06:00 UTC+8, retaining mimo-v2.6-flash and mimo-v2.6-pro API names; MOPD weights also released. This is an update, not a new first-release date."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Flash-MOPD/blob/b12f5573350bb1704513fcf119fca48e498b0423/README.md",
+      "title": "MiMo-V2.6-Flash-MOPD model card",
+      "publisher": "Xiaomi MiMo",
+      "accessed": true,
+      "evidence": "Raw card retrieved successfully: explicitly the MOPD upgrade of Flash-RL, with MIT metadata and unchanged model architecture. Its public ungated API inventory resolves b12f5573350bb1704513fcf119fca48e498b0423. The inspected MOPD config is identical to the RL config; template also retains reasoning, multimodal inputs and tool calls."
+    },
+    {
+      "id": "s11",
+      "url": "https://mimo.mi.com/docs/en-US/api/chat/openai-api",
+      "title": "Native Xiaomi Chat Completions API reference",
+      "publisher": "Xiaomi MiMo",
+      "accessed": true,
+      "evidence": "Current exact model options include mimo-v2.6-flash. Embedded request schema explicitly supports text/image/audio/video inputs for this model; textual response includes content, reasoning_content and tool_calls. Thinking enabled by default, can be disabled. Native text generation and function calling are documented; tools that generate assets are not native output modalities."
+    },
+    {
+      "id": "s12",
+      "url": "https://vercel.com/changelog/mimo-v2-6-models-now-available-on-ai-gateway",
+      "title": "MiMo V2.6 models now available on AI Gateway",
+      "publisher": "Vercel",
+      "accessed": true,
+      "evidence": "Original provider announcement visibly dated September21,2026 explicitly states Pro, Flash and UltraSpeed are now available. Native model release blog follows September22. Provider also documents four input modalities, reasoning, tools and1Mcontext."
+    },
+    {
+      "id": "s13",
+      "url": "https://mimo.mi.com/docs/en-US/updates/feature/studio",
+      "title": "MiMo Studio V3.4.0 release log",
+      "publisher": "Xiaomi",
+      "accessed": true,
+      "evidence": "September21,2026 update explicitly adds the V2.6 model experience and names Flash and Pro dialogue with multimodal understanding; corroborates public availability before September22 research launch."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "MiMo-V2.6-Flash",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8"
+      ],
+      "note": "Public model/API name; Flash-RL and Flash-MOPD are checkpoint stages of the same public release, distinguished in notes."
+    },
+    "developer": {
+      "value": "Xiaomi",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Original announcement, report and official checkpoint organization identify Xiaomi."
+    },
+    "family": {
+      "value": "mimo",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "MiMo family, normalized to the existing family key."
+    },
+    "release_date": {
+      "value": "2026-09-21",
+      "status": "verified",
+      "source_ids": [
+        "s12",
+        "s13",
+        "s1",
+        "s8",
+        "s9"
+      ],
+      "note": "Earliest documented public availability: September21 provider announcement and Xiaomi Studio release log. September22 is the Xiaomi research/open-sourcing announcement; September25 MOPD replacement is a later update. Repository creation alone is not release evidence."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s7",
+        "s10"
+      ],
+      "note": "Original Flash-RL and subsequent Flash-MOPD checkpoints have public ungated weights. This is model publication, not merely open serving code."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s10"
+      ],
+      "note": "Exact RL and MOPD model cards designate MIT. No separate LICENSE file exists at the attempted RL path; card designation is the evidence used."
+    },
+    "parameters_b": {
+      "value": 310,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "Author nominal main-block/backbone count from the technical report. The model card instead labels 309B total; this unresolved 1B nominal discrepancy is retained explicitly. Separate encoders/projectors and draft modules prevent treating 310B as an independently reconciled complete tensor count. Proposed scope fields preserve that boundary."
+    },
+    "active_parameters_b": {
+      "value": 15,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "Author nominal active parameters for a language-backbone token. No independent active counts are supplied for multimodal encoding, projectors or speculative drafting; do not apply 15B to every processing phase."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s5"
+      ],
+      "note": "Hybrid-SWA Transformer backbone: 48 layers (39 local/9 global), first dense, 47 sparse MoE blocks with 256 routed experts / 8 selected and no shared experts. Separate vision/audio encoders and five-layer DFlash draft model. Main config legacy nextn=3 does not override separate DFlash config=5."
+    },
+    "context_window": {
+      "value": 1048576,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4"
+      ],
+      "note": "Exact released configuration max_position_embeddings=1048576, matching nominal 1M advertised context. Inspected MOPD configuration matches RL."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "audio",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s6",
+        "s11"
+      ],
+      "note": "Native multimodal understanding with causal text/reasoning/tool output. Tool-driven image/video/3D creation does not establish native media generation."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s6",
+        "s8",
+        "s11"
+      ],
+      "note": "Native reasoning capability, switchable using thinking.type in the API; checkpoint template includes reasoning and enable_thinking."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s6",
+        "s9",
+        "s11"
+      ],
+      "note": "Released template and native API support structured tool calls. Later MOPD update corrects repetition, without changing public API identifier."
+    },
+    "description": {
+      "value": "Multimodal MoE model with hybrid sliding-window attention, a 1M-token context and reasoning and tool-calling support.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4",
+        "s6",
+        "s11"
+      ],
+      "note": "Replaces vague coding/automation positioning with verified architecture, context and native capabilities."
+    }
+  },
+  "patch": {
+    "license": "MIT",
+    "parameters_b": 310,
+    "active_parameters_b": 15,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "description": "Multimodal MoE model with hybrid sliding-window attention, a 1M-token context and reasoning and tool-calling support.",
+    "source_url": "https://vercel.com/changelog/mimo-v2-6-models-now-available-on-ai-gateway",
+    "source_type": "primary",
+    "notes": "The technical report gives nominal 310B main-block parameters and 15B active; the model card says 309B total, a 1B nominal discrepancy that is not independently reconciled. Vision (0.681B), audio tokenizer encoder (0.308B) and audio patch encoder (0.127B) are separate; these encoder counts exclude projectors, and the audio tokenizer count excludes EMA codebooks. The five-layer DFlash speculative decoder is also separate, so no exact complete-checkpoint sum or active count for all phases is asserted. Flash was publicly available September21,2026 according to Vercel and Xiaomi Studio; the Xiaomi research/open-sourcing announcement followed September22; Xiaomi replaced the API with Flash-MOPD on September 25 at 06:00 UTC+8 under the unchanged mimo-v2.6-flash name. Both released checkpoint stages are designated MIT.",
+    "sources": [
+      {
+        "label": "Introducing MiMo-V2.6 series — September 22, 2026",
+        "url": "https://mimo.xiaomi.com/mimo-v2-6/article",
+        "type": "primary"
+      },
+      {
+        "label": "MiMo-V2.6 technical report — architecture section and Table 1",
+        "url": "https://arxiv.org/html/2610.11959v1",
+        "type": "primary"
+      },
+      {
+        "label": "MiMo-V2.6-Flash-RL model card at inspected revision",
+        "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Flash-RL/blob/dcd3fd83fb181622fbc606fbb1709901982a62c2/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "MiMo-V2.6-Flash-RL configuration",
+        "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Flash-RL/blob/dcd3fd83fb181622fbc606fbb1709901982a62c2/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Separate DFlash draft configuration",
+        "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Flash-RL/blob/dcd3fd83fb181622fbc606fbb1709901982a62c2/dflash/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "MiMo-V2.6-Flash-RL chat template",
+        "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Flash-RL/blob/dcd3fd83fb181622fbc606fbb1709901982a62c2/chat_template.jinja",
+        "type": "weights"
+      },
+      {
+        "label": "Official RL checkpoint repository inventory",
+        "url": "https://huggingface.co/api/models/XiaomiMiMo/MiMo-V2.6-Flash-RL",
+        "type": "weights"
+      },
+      {
+        "label": "Official model release log",
+        "url": "https://mimo.mi.com/docs/en-US/updates/model",
+        "type": "primary"
+      },
+      {
+        "label": "Diagnosing and Mitigating Tool-Call Repetition in MiMo-V2.6 — September 27, 2026",
+        "url": "https://mimo.xiaomi.com/blog/mimo-v2-6-tool-call-repetition",
+        "type": "primary"
+      },
+      {
+        "label": "MiMo-V2.6-Flash-MOPD model card",
+        "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Flash-MOPD/blob/b12f5573350bb1704513fcf119fca48e498b0423/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "Native Xiaomi Chat Completions API reference",
+        "url": "https://mimo.mi.com/docs/en-US/api/chat/openai-api",
+        "type": "primary"
+      },
+      {
+        "label": "MiMo V2.6 models now available on AI Gateway",
+        "url": "https://vercel.com/changelog/mimo-v2-6-models-now-available-on-ai-gateway",
+        "type": "primary"
+      },
+      {
+        "label": "MiMo Studio V3.4.0 release log",
+        "url": "https://mimo.mi.com/docs/en-US/updates/feature/studio",
+        "type": "primary"
+      }
+    ],
+    "release_date": "2026-09-21",
+    "date_precision": "day"
+  },
+  "proposed_fields": {
+    "parameters_scope": "language_backbone",
+    "parameter_components_b": {
+      "language_backbone": 310,
+      "vision_encoder": 0.681,
+      "audio_tokenizer_encoder": 0.308,
+      "audio_patch_encoder": 0.127
+    },
+    "active_parameters_scope": "language_decode",
+    "active_parameters_by_phase_b": {
+      "language_decode": 15
+    }
+  },
+  "summary": "Verified all 14 fields. Filled MIT, MoE and author-nominal 310B/15B using the exact Flash technical-report column; retained card 309B discrepancy and proposed backbone/phase scopes. Corrected earliest public release to September21 using the provider announcement and Xiaomi Studio log, native text/image/audio/video input and 1,048,576 context; distinguished subsequent MOPD API update from first release. No full weights or synthetic complete total."
+}
