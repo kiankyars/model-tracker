@@ -1,7 +1,7 @@
 {
   "index": 350,
   "model_id": "mistral/pixtral-large-2502",
-  "reviewed_at": "2026-10-27T15:42:44.659789Z",
+  "reviewed_at": "2026-10-27T15:48:39.214648Z",
   "sources": [
     {
       "id": "s1",
@@ -28,7 +28,7 @@
       "publisher": "AWS",
       "type": "primary",
       "accessed": true,
-      "evidence": "Reopened October 27: the April 10, 2025 post identifies mistral.pixtral-large-2502-v1:0 and explicitly gives 124B overall, comprising a 123B multimodal decoder and 1B vision encoder. These are supported nominal model counts. The post calls Mistral Large 2 its predecessor but does not establish a 2411-to-2502 update relationship or an active count."
+      "evidence": "Reopened October 27: the April 10, 2025 post identifies mistral.pixtral-large-2502-v1:0 and publishes a nominal 124B total, comprising a 123B multimodal decoder and separate 1B vision encoder. The use-cases section explicitly says Pixtral Large is built on Mistral Large 2; the predecessor link resolves to the original July 24, 2024 Mistral Large 2 release. This supports a decoder-scoped lineage inference from the base model\u2019s published active convention, without requiring a 2411-to-2502 mapping. No full-model active count is separately stated."
     },
     {
       "id": "s4",
@@ -191,6 +191,24 @@
       "type": "primary",
       "accessed": true,
       "evidence": "Fresh full HTML comparison check October 27 finds only the Pixtral 12B reference, with no Pixtral Large 2502 row or active-parameter convention for this revision."
+    },
+    {
+      "id": "s22",
+      "url": "https://raw.githubusercontent.com/mistralai/platform-docs-public/cd2192ef7d0e96388a4261dbb6d417869e4bb965/src/schema/models/models/mistral-large-2-0-24-07.ts",
+      "title": "Pinned Mistral Large 2.0 24.07 model definition",
+      "publisher": "Mistral AI",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Fresh October 27 source reading: official metadata identifies Mistral Large 2.0, version 24.07, API mistral-large-2407, and Mistral-Large-Instruct-2407 weights, explicitly publishing parameters 123 and active 123. The accompanying renderer labels both columns in billions. This is the named base reached through AWS\u2019s exact-2502 lineage link, supporting a nominal 123B active inference for the language decoder only."
+    },
+    {
+      "id": "s23",
+      "url": "https://mistral.ai/news/mistral-large-2407/",
+      "title": "Large Enough: original Mistral Large 2 release",
+      "publisher": "Mistral AI",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Fresh October 27 reading by following AWS\u2019s predecessor link: the July 24, 2024 release identifies Mistral Large 2 as 123B and explicitly maps it to version 24.07 and mistral-large-2407. Together with AWS\u2019s built-on statement and separate 123B decoder / 1B vision components, this resolves the named base for a component-scoped active-count inference; no decoder pruning, distillation or expert expansion is documented in the reviewed sources."
     }
   ],
   "fields": {
@@ -266,25 +284,15 @@
       "note": "Fresh exact-25.02 AWS evidence confirms a nominal 124B multimodal total: 123B decoder plus 1B vision encoder. Retain the published precision; an exact tensor census is unnecessary."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 123,
+      "status": "verified",
       "source_ids": [
-        "s2",
         "s3",
-        "s5",
         "s6",
-        "s7",
-        "s10",
-        "s13",
-        "s14",
-        "s16",
-        "s17",
-        "s18",
-        "s19",
-        "s20",
-        "s21"
+        "s22",
+        "s23"
       ],
-      "note": "Fresh AWS and Mistral sources and later Kimi-VL, Qwen2.5-VL, InternVL3 and Qwen3-VL comparisons provide no exact-2502 active count. Mistral explicitly publishes 124B active for 2411, but no named 2411-to-2502 fine-tuning, post-training or alias relationship was found to support a labeled lineage inference. Matching nominal totals alone do not establish that convention for this revision."
+      "note": "Nominal active count inferred for the language decoder only. The exact-2502 AWS post identifies a 123B decoder, separates its 1B vision encoder, and explicitly says the model is built on Mistral Large 2, linking the original 24.07 release. Mistral\u2019s 24.07 metadata explicitly reports 123B active. No decoder pruning, distillation or expert expansion is documented in the reviewed lineage. This does not establish the whole multimodal model\u2019s active count, count the vision encoder as active, or imply exact per-token participation."
     },
     "architecture": {
       "value": null,
@@ -362,7 +370,7 @@
     "parameters_b": 124,
     "parameters_source": "primary_source",
     "reasoning": null,
-    "notes": "AWS documents Pixtral Large 25.02 with a nominal 124B multimodal total (123B decoder plus 1B vision encoder), 128,000-token provider context and Mistral Research License. Active parameters remain undisclosed: Mistral\u2019s explicit 124B active row identifies 2411, with no documented relationship transferring it to 2502. April 8, 2025 is the Bedrock rollout; the revision\u2019s first release, exact weight availability, architecture and dedicated reasoning-mode classification remain unresolved.",
+    "notes": "AWS documents a nominal 124B multimodal total (123B decoder plus 1B vision encoder). The 123B active count covers only the language decoder and is inferred from AWS\u2019s explicit Mistral Large 2 lineage and Mistral\u2019s published 123B active convention; whole-model active parameters remain unspecified. Provider context is 128,000 tokens with Mistral Research License. April 8, 2025 is the Bedrock rollout; the revision\u2019s first release, exact weight availability, architecture and dedicated reasoning-mode classification remain unresolved.",
     "sources": [
       {
         "label": "Amazon Bedrock now offers Pixtral Large 25.02",
@@ -458,9 +466,26 @@
         "label": "Qwen3-VL Technical Report",
         "url": "https://arxiv.org/html/2511.21631v2",
         "type": "primary"
+      },
+      {
+        "label": "Pinned Mistral Large 2.0 24.07 model definition",
+        "url": "https://raw.githubusercontent.com/mistralai/platform-docs-public/cd2192ef7d0e96388a4261dbb6d417869e4bb965/src/schema/models/models/mistral-large-2-0-24-07.ts",
+        "type": "primary"
+      },
+      {
+        "label": "Large Enough: original Mistral Large 2 release",
+        "url": "https://mistral.ai/news/mistral-large-2407/",
+        "type": "primary"
       }
     ],
-    "active_parameters_b": null
+    "active_parameters_b": 123
   },
-  "summary": "October 27 parameter re-audit retains the exact-2502 nominal 124B total from freshly reopened AWS evidence and explicitly patches active_parameters_b to null. Mistral\u2019s 124B active convention is documented for 2411; fresh release/card/legal and later model-team comparison checks found neither an exact 2502 active count nor a named version relationship supporting its transfer. The other 12 field assessments are preserved. No weight shards were requested."
+  "summary": "October 27 follow-up retains the exact-2502 nominal 124B total and establishes a labeled 123B active inference scoped to its language decoder. AWS explicitly identifies that decoder and separate 1B vision encoder, states the model is built on Mistral Large 2, and links the original 24.07 release; Mistral\u2019s 24.07 metadata publishes 123B active. Proposes language_decoder active scope and nominal component counts. The whole-model active count remains unspecified; the unproven 2411-to-2502 mapping is unnecessary for this decoder inference. Preserves the other 12 assessments. No weight shards were requested.",
+  "proposed_fields": {
+    "active_parameters_scope": "language_decoder",
+    "parameter_components_b": {
+      "language_decoder": 123,
+      "vision_encoder": 1
+    }
+  }
 }
