@@ -1,0 +1,944 @@
+{
+  "index": 550,
+  "model_id": "zhipuai/glm-4.5v",
+  "reviewed_at": "2026-10-27T06:07:09.606234Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/blob/ed47433b37111465ec527affaaddceff371bca04/README.md",
+      "title": "GLM-4.5V official model card at audited revision",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Names GLM-4.5V and the GLM family; explicitly announces release on 2025/08/11. Front matter declares MIT and GLM-4.5-Air-Base ancestry. Describes image/video understanding, thinking switch and tool-enabled serving. Attributes nominal 106B total and 12B active to its GLM-4.5-Air basis."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/blob/ed47433b37111465ec527affaaddceff371bca04/config.json",
+      "title": "Exact GLM-4.5V checkpoint configuration",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Glm4vMoeForConditionalGeneration; 46 decoder layers, first dense then 45 MoE layers, hidden 4096, 128 routed experts / top 8 plus one shared expert, intermediate 1408; 96 query and 8 KV heads of dimension 128. A 24-layer, 1536-wide vision encoder, 4096 output and 10944 merger intermediate. Untied embeddings/output. max_position_embeddings 65536, no quantization_config."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/blob/ed47433b37111465ec527affaaddceff371bca04/model.safetensors.index.json",
+      "title": "Complete exact GLM-4.5V checkpoint tensor index",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "18,106 tensor keys uniquely assigned to 46 safetensors shards. All 46 bounded JSON headers were read and matched to this inventory; full weights were not downloaded. Inventory includes complete vision/projector, input embedding and separate lm_head, with no MTP module keys."
+    },
+    {
+      "id": "s4",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.57.1/src/transformers/models/glm4v_moe/modeling_glm4v_moe.py",
+      "title": "GLM4V MoE reference implementation matching checkpoint configuration",
+      "publisher": "Hugging Face Transformers",
+      "accessed": true,
+      "evidence": "All indexed keys/shapes reconciled against configured module constructors. The 45 e_score_correction_bias tensors are explicitly registered buffers, not nn.Parameters. Remaining 18,061 BF16 tensors are learned weights/biases. Vision blocks use out_hidden_size for MLP width; merger uses intermediate_size. Text embeddings and output are separate; no MTP module is instantiated."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/blob/ed47433b37111465ec527affaaddceff371bca04/chat_template.jinja",
+      "title": "Exact GLM-4.5V chat template",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Accepts text/image/video content. Implements enable_thinking, /nothink, reasoning_content and think tags. Provides tools definitions, structured tool_call/arg_key/arg_value serialization and observation tool responses; supports general function calling rather than merely external GUI execution."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/blob/ed47433b37111465ec527affaaddceff371bca04/tokenizer_config.json",
+      "title": "Exact GLM-4.5V tokenizer configuration",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "model_max_length is 128000, conflicting with the exact model configuration max_position_embeddings 65536. Special tokens alone do not establish audio support. Tokenizer metadata is not used to override the configured model position limit."
+    },
+    {
+      "id": "s7",
+      "url": "https://docs.z.ai/guides/vlm/glm-4.5v",
+      "title": "GLM-4.5V native developer documentation",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Names exact model, MoE architecture and nominal 106B/12B figures. Lists image/video/text/file input and text output, plus thinking/non-thinking modes. File handling is a service input format, not evidence of a separate native neural modality.16K maximum output is not the context window."
+    },
+    {
+      "id": "s8",
+      "url": "https://arxiv.org/html/2507.01006v6",
+      "title": "GLM-4.5V and GLM-4.1V-Thinking technical report, revision6",
+      "publisher": "GLM-V Team, Zhipu AI and Tsinghua University",
+      "accessed": true,
+      "evidence": "Introduction explicitly labels GLM-4.5V 106B-A12B. Section2 identifies its GLM-4.5-Air language decoder, AIMv2-Huge-initialized vision encoder and MLP adapter, with 3D patch convolution and text token completions. The exact model supports thinking/non-thinking. These nominal counts do not define an exact GLM-4.5V checkpoint counting boundary or imply inclusion of Air MTP weights."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/api/models/zai-org/GLM-4.5V",
+      "title": "Official checkpoint repository metadata",
+      "publisher": "Z.ai / Hugging Face",
+      "accessed": true,
+      "evidence": "Public ungated checkpoint at revisioned47433b37111465ec527affaaddceff371bca04. Reports 107710927360 BF16 elements and 5760 F32 elements. Full module/header reconciliation identifies the F32 elements as router correction buffers and the BF16 elements as learned parameters; raw storage-element total 107710933120 is not the learned-parameter count."
+    },
+    {
+      "id": "h1",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00001-of-00046.safetensors",
+      "title": "Checkpoint shard 1 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 410 indexed tensors, 2585047040 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h2",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00002-of-00046.safetensors",
+      "title": "Checkpoint shard 2 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h3",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00003-of-00046.safetensors",
+      "title": "Checkpoint shard 3 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h4",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00004-of-00046.safetensors",
+      "title": "Checkpoint shard 4 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h5",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00005-of-00046.safetensors",
+      "title": "Checkpoint shard 5 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h6",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00006-of-00046.safetensors",
+      "title": "Checkpoint shard 6 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h7",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00007-of-00046.safetensors",
+      "title": "Checkpoint shard 7 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h8",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00008-of-00046.safetensors",
+      "title": "Checkpoint shard 8 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h9",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00009-of-00046.safetensors",
+      "title": "Checkpoint shard 9 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h10",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00010-of-00046.safetensors",
+      "title": "Checkpoint shard 10 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h11",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00011-of-00046.safetensors",
+      "title": "Checkpoint shard 11 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h12",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00012-of-00046.safetensors",
+      "title": "Checkpoint shard 12 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h13",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00013-of-00046.safetensors",
+      "title": "Checkpoint shard 13 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h14",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00014-of-00046.safetensors",
+      "title": "Checkpoint shard 14 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h15",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00015-of-00046.safetensors",
+      "title": "Checkpoint shard 15 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h16",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00016-of-00046.safetensors",
+      "title": "Checkpoint shard 16 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h17",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00017-of-00046.safetensors",
+      "title": "Checkpoint shard 17 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h18",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00018-of-00046.safetensors",
+      "title": "Checkpoint shard 18 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h19",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00019-of-00046.safetensors",
+      "title": "Checkpoint shard 19 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h20",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00020-of-00046.safetensors",
+      "title": "Checkpoint shard 20 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h21",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00021-of-00046.safetensors",
+      "title": "Checkpoint shard 21 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h22",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00022-of-00046.safetensors",
+      "title": "Checkpoint shard 22 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h23",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00023-of-00046.safetensors",
+      "title": "Checkpoint shard 23 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h24",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00024-of-00046.safetensors",
+      "title": "Checkpoint shard 24 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h25",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00025-of-00046.safetensors",
+      "title": "Checkpoint shard 25 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h26",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00026-of-00046.safetensors",
+      "title": "Checkpoint shard 26 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h27",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00027-of-00046.safetensors",
+      "title": "Checkpoint shard 27 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h28",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00028-of-00046.safetensors",
+      "title": "Checkpoint shard 28 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h29",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00029-of-00046.safetensors",
+      "title": "Checkpoint shard 29 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h30",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00030-of-00046.safetensors",
+      "title": "Checkpoint shard 30 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h31",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00031-of-00046.safetensors",
+      "title": "Checkpoint shard 31 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h32",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00032-of-00046.safetensors",
+      "title": "Checkpoint shard 32 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h33",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00033-of-00046.safetensors",
+      "title": "Checkpoint shard 33 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h34",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00034-of-00046.safetensors",
+      "title": "Checkpoint shard 34 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h35",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00035-of-00046.safetensors",
+      "title": "Checkpoint shard 35 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h36",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00036-of-00046.safetensors",
+      "title": "Checkpoint shard 36 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h37",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00037-of-00046.safetensors",
+      "title": "Checkpoint shard 37 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h38",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00038-of-00046.safetensors",
+      "title": "Checkpoint shard 38 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h39",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00039-of-00046.safetensors",
+      "title": "Checkpoint shard 39 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h40",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00040-of-00046.safetensors",
+      "title": "Checkpoint shard 40 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h41",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00041-of-00046.safetensors",
+      "title": "Checkpoint shard 41 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h42",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00042-of-00046.safetensors",
+      "title": "Checkpoint shard 42 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h43",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00043-of-00046.safetensors",
+      "title": "Checkpoint shard 43 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h44",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00044-of-00046.safetensors",
+      "title": "Checkpoint shard 44 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 398 indexed tensors, 2341492736 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h45",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00045-of-00046.safetensors",
+      "title": "Checkpoint shard 45 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 482 indexed tensors, 2681268224 learned BF16 parameters and 128 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    },
+    {
+      "id": "h46",
+      "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00046-of-00046.safetensors",
+      "title": "Checkpoint shard 46 of 46, bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "HTTP206 bounded header only; 100 indexed tensors, 1760424448 learned BF16 parameters and 0 F32 router-buffer elements. Every key and shape matches the index and model constructor inventory; no weight payload read."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "GLM-4.5V",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7",
+        "s8"
+      ],
+      "note": "Exact vision-language variant, distinct from GLM-4.5 and GLM-4.5-Air."
+    },
+    "developer": {
+      "value": "Z.ai",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7",
+        "s8"
+      ],
+      "note": "Developer brand is Z.ai; report credits the Zhipu AI GLM-V team with Tsinghua University collaborators."
+    },
+    "family": {
+      "value": "glm",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s8"
+      ],
+      "note": "GLM vision-language family using GLM-4.5-Air as its language component."
+    },
+    "release_date": {
+      "value": "2025-08-11",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Official card explicitly dates the GLM-4.5V release 2025/08/11; confirmed day precision, independent of later report revisions."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s9"
+      ],
+      "note": "Public exact checkpoint index and all 46 shard headers accessible; report/card explicitly open-source this model."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s9"
+      ],
+      "note": "Exact model card front matter and repository metadata declare MIT. This assessment concerns weights; separate framework or report licenses are not substituted."
+    },
+    "parameters_b": {
+      "value": 107.71092736,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s8",
+        "s9",
+        "h1",
+        "h2",
+        "h3",
+        "h4",
+        "h5",
+        "h6",
+        "h7",
+        "h8",
+        "h9",
+        "h10",
+        "h11",
+        "h12",
+        "h13",
+        "h14",
+        "h15",
+        "h16",
+        "h17",
+        "h18",
+        "h19",
+        "h20",
+        "h21",
+        "h22",
+        "h23",
+        "h24",
+        "h25",
+        "h26",
+        "h27",
+        "h28",
+        "h29",
+        "h30",
+        "h31",
+        "h32",
+        "h33",
+        "h34",
+        "h35",
+        "h36",
+        "h37",
+        "h38",
+        "h39",
+        "h40",
+        "h41",
+        "h42",
+        "h43",
+        "h44",
+        "h45",
+        "h46"
+      ],
+      "note": "Complete checkpoint learned-parameter total 107,710,927,360: 106,852,245,504 language parameters including untied input embeddings and output head, plus 858,681,856 vision/projector parameters. All 18,061 parameter tensors reconciled, across all 46 shards. Excludes 45 explicitly registered router correction buffers (5,760 F32 elements); all parameters are BF16, no quantized packing/scales. No MTP keys or modules in this exact checkpoint. Published 106B is nominal; the Air report convention excluding embeddings/output and including MTP is not transferred to this VLM."
+    },
+    "active_parameters_b": {
+      "value": 12,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7",
+        "s8"
+      ],
+      "note": "Author-reported nominal 12B activation figure, directly stated for GLM-4.5V and its language basis. It is not an exact active count reconstructed from the checkpoint and does not establish a vision-encoding phase count. Sources do not define a complete exact VLM active-count boundary; no Air MTP convention is assumed."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s7",
+        "s8"
+      ],
+      "note": "Transformer vision encoder/projector plus MoE language decoder: 46 language layers, first dense, 45 routed-expert layers; 128 routed experts per MoE layer, top 8 selected plus 1 shared expert."
+    },
+    "context_window": {
+      "value": 65536,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s6",
+        "s7"
+      ],
+      "note": "Use explicit max_position_embeddings 65536 of the exact released model configuration. Tokenizer model_max_length 128000 disagrees and is disclosed; native guide 16K is a maximum output limit, not context. Baseline 64000 is not established by these exact primary artifacts."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5",
+        "s7",
+        "s8"
+      ],
+      "note": "Exact model accepts image/video/text and generates text. API file input is document/media preprocessing. Neither file formats nor unused audio special tokens establish audio input or image/audio/video generation."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5",
+        "s7",
+        "s8"
+      ],
+      "note": "Exact model supports switchable thinking/non-thinking, with reasoning_content and think tags in its template."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Exact model template serializes tool schemas, assistant tool calls with arguments, and observation responses; official serving instructions enable glm45 tool-call parsing and automatic tool choice."
+    },
+    "description": {
+      "value": "MoE vision-language model based on GLM-4.5-Air, with image and video understanding, switchable reasoning, and text tool calls.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5",
+        "s7",
+        "s8"
+      ],
+      "note": "Neutral description limited to supported architecture, modalities and explicit modes."
+    }
+  },
+  "patch": {
+    "license": "MIT",
+    "parameters_b": 107.71092736,
+    "active_parameters_b": 12,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "context_window": 65536,
+    "description": "MoE vision-language model based on GLM-4.5-Air, with image and video understanding, switchable reasoning, and text tool calls.",
+    "source_url": "https://huggingface.co/zai-org/GLM-4.5V/blob/ed47433b37111465ec527affaaddceff371bca04/README.md",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "GLM-4.5V official model card at audited revision",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/blob/ed47433b37111465ec527affaaddceff371bca04/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "Exact GLM-4.5V checkpoint configuration",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/blob/ed47433b37111465ec527affaaddceff371bca04/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Complete exact GLM-4.5V checkpoint tensor index",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/blob/ed47433b37111465ec527affaaddceff371bca04/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "GLM4V MoE reference implementation matching checkpoint configuration",
+        "url": "https://raw.githubusercontent.com/huggingface/transformers/v4.57.1/src/transformers/models/glm4v_moe/modeling_glm4v_moe.py",
+        "type": "primary"
+      },
+      {
+        "label": "Exact GLM-4.5V chat template",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/blob/ed47433b37111465ec527affaaddceff371bca04/chat_template.jinja",
+        "type": "weights"
+      },
+      {
+        "label": "Exact GLM-4.5V tokenizer configuration",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/blob/ed47433b37111465ec527affaaddceff371bca04/tokenizer_config.json",
+        "type": "weights"
+      },
+      {
+        "label": "GLM-4.5V native developer documentation",
+        "url": "https://docs.z.ai/guides/vlm/glm-4.5v",
+        "type": "primary"
+      },
+      {
+        "label": "GLM-4.5V and GLM-4.1V-Thinking technical report, revision6",
+        "url": "https://arxiv.org/html/2507.01006v6",
+        "type": "primary"
+      },
+      {
+        "label": "Official checkpoint repository metadata",
+        "url": "https://huggingface.co/api/models/zai-org/GLM-4.5V",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 1 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00001-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 2 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00002-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 3 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00003-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 4 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00004-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 5 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00005-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 6 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00006-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 7 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00007-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 8 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00008-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 9 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00009-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 10 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00010-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 11 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00011-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 12 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00012-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 13 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00013-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 14 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00014-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 15 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00015-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 16 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00016-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 17 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00017-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 18 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00018-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 19 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00019-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 20 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00020-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 21 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00021-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 22 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00022-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 23 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00023-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 24 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00024-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 25 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00025-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 26 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00026-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 27 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00027-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 28 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00028-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 29 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00029-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 30 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00030-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 31 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00031-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 32 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00032-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 33 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00033-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 34 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00034-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 35 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00035-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 36 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00036-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 37 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00037-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 38 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00038-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 39 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00039-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 40 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00040-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 41 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00041-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 42 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00042-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 43 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00043-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 44 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00044-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 45 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00045-of-00046.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard 46 of 46, bounded tensor header",
+        "url": "https://huggingface.co/zai-org/GLM-4.5V/resolve/ed47433b37111465ec527affaaddceff371bca04/model-00046-of-00046.safetensors",
+        "type": "weights"
+      }
+    ],
+    "notes": "Exact full checkpoint total is 107,710,927,360 learned parameters, including 106,852,245,504 language parameters with untied embeddings/output and 858,681,856 vision/projector parameters. All 46 bounded headers and 18,061 learned tensors were reconciled; 45 router correction buffers (5,760 F32 values) are excluded. This exact checkpoint contains no MTP module. Published 106B total and 12B active are nominal; 12B is retained as the author-reported active figure, with no exact VLM or vision-phase boundary asserted and no Air MTP counting convention transferred. Model position limit 65536 conflicts with tokenizer limit 128000; 16K in native API documentation is maximum output. Native outputs are text; PDF/file handling does not add a neural modality."
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "language_backbone": 106.852245504,
+      "vision_encoder_projector": 0.858681856
+    }
+  },
+  "summary": "Audited all 14 fields. Adds MIT, exact full 107.71092736B learned-parameter count, author-nominal 12B active and MoE architecture; changes context from 64000 to configured 65536 while documenting tokenizer 128000 conflict. Confirms August 11 release, text/image/video input, text output, thinking and structured tool calls. Complete 46-shard bounded-header/module reconciliation excludes router buffers and establishes that this checkpoint has no MTP module. No full weights downloaded; no active count derived by transferring Air counting conventions."
+}
