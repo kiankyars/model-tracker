@@ -1,7 +1,7 @@
 {
   "index": 538,
   "model_id": "xiaomi/mimo-v2-omni",
-  "reviewed_at": "2026-10-27T05:54:18.442190Z",
+  "reviewed_at": "2026-10-27T18:36:18.285107+00:00",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "MiMo-V2-Omni launch",
       "publisher": "Xiaomi",
       "accessed": true,
-      "evidence": "Original March 18, 2026 launch names Xiaomi MiMo-V2-Omni. Dedicated image/video/audio encoders feed a shared backbone; it reads text and returns demonstrated text and structured tool calls. OpenClaw executes filesystem, terminal and browser actions. No parameter counts or dense/MoE backbone classification."
+      "evidence": "Original March 18, 2026 launch names Xiaomi MiMo-V2-Omni. Dedicated image/video/audio encoders feed a shared backbone; it reads text and returns demonstrated text and structured tool calls. OpenClaw executes filesystem, terminal and browser actions. No parameter counts or dense/MoE backbone classification. Reopened October 27: the shared backbone is not identified as a numerically specified Flash/Pro checkpoint, and no total or active count is stated."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "Model Release changelog",
       "publisher": "Xiaomi",
       "accessed": true,
-      "evidence": "March 18, 2026 entry explicitly releases mimo-v2-omni with 256K context and text, vision and speech modalities. Adjacent Pro/Flash architecture and parameter figures belong to different models."
+      "evidence": "March 18, 2026 entry explicitly releases mimo-v2-omni with 256K context and text, vision and speech modalities. Adjacent Pro/Flash architecture and parameter figures belong to different models. Fresh full changelog read October 27 confirms the 1T/42B entry is headed mimo-v2-pro; the separate Omni entry contains only context and modality specifications."
     },
     {
       "id": "s3",
@@ -65,7 +65,7 @@
       "title": "MiMo-V2.5 model card",
       "publisher": "XiaomiMiMo",
       "accessed": true,
-      "evidence": "Later official card gives V2.5 its own nominal 310B/15B MoE specification and component description. It does not identify these as V2-Omni figures. Its weights/license cannot be transferred across the documented API replacement."
+      "evidence": "Fresh original card read October 27: Introduction and LLM Backbone explicitly name MiMo-V2-Flash as V2.5's base architecture, with added vision/audio encoders. Its separate table gives V2.5 310B total/15B activated and V2.5-Pro 1.02T/42B. No V2-Omni size or unchanged Omni lineage is stated; V2.5 is not a size attestation for the retired Omni identifier."
     },
     {
       "id": "s9",
@@ -73,7 +73,7 @@
       "title": "MiMo-V2.6: Scaling Reinforcement Learning Towards Self-Improvement",
       "publisher": "LLM-Core Xiaomi",
       "accessed": true,
-      "evidence": "Read introduction/architecture and searched complete extracted report for Omni. Its Transformer, hybrid SWA/global attention and MoE topology describe V2.6; no exact V2-Omni total/active count or topology disclosure was found."
+      "evidence": "Fresh complete original report checked October 27. Introduction and Table 1 explicitly give V2.6-Flash 310B total/15B active and V2.6-Pro 1.02T/42B. Architecture section describes those successors with visual/audio encoders; full text has no exact V2-Omni entry, numerical comparison or named unchanged Omni backbone."
     },
     {
       "id": "s10",
@@ -81,7 +81,7 @@
       "title": "MOPD: Multi-Teacher On-Policy Distillation for Capability Integration in LLM Post-Training",
       "publisher": "Xiaomi LLM Core and collaborators",
       "accessed": true,
-      "evidence": "Read abstract/introduction and searched full text for Omni. This later training research discusses Qwen3-30B-A3B and deployment on MiMo-V2-Flash, not exact V2-Omni; it does not resolve Omni parameter count or topology."
+      "evidence": "Fresh complete original paper checked October 27. Section 4.3, Scaling to a 309B-parameter model, explicitly applies to MiMo-V2-Flash. Main small-model experiments concern Qwen3-30B-A3B. Full text has no exact V2-Omni count or named unchanged model relationship; teacher capability transfer does not establish equal parameter counts."
     },
     {
       "id": "s11",
@@ -138,6 +138,22 @@
       "publisher": "OpenRouter",
       "accessed": true,
       "evidence": "Direct JSON returns exact Healer Alpha identity, created=1773260668 (March 11, 2026 UTC), text+image+audio+video to text modalities and no currently listed endpoints. Creation time only corroborates the explicit release statement; it is not used alone as release evidence."
+    },
+    {
+      "id": "s18",
+      "url": "https://arxiv.org/html/2606.11152v1",
+      "title": "P3D-Bench: Benchmarking MLLMs for Parametric 3D Generation and Structural Reasoning, Table 2",
+      "publisher": "Yikang Yang et al., P3D-Bench research team",
+      "accessed": true,
+      "evidence": "Fresh full original HTML read October 27. Table 2 has Size (total / active), defines a dash as a closed-weight model with undisclosed parameter counts, and gives the exact MiMo v2 Omni row a dash. The distinct MiMo v2.5 Pro row is 1.02T/42B. This later original benchmark supplies no Omni total or active count; it is corroboration, not a Xiaomi disclosure."
+    },
+    {
+      "id": "s19",
+      "url": "https://mimo.xiaomi.com/mimo-v2-5",
+      "title": "MiMo-V2.5 original launch and model table",
+      "publisher": "Xiaomi",
+      "accessed": true,
+      "evidence": "Fresh full original page read October 27. April 22 launch explicitly reports V2.5 310B total/15B active and names a language backbone inherited from MiMo-V2-Flash with added visual/audio encoders. Its model table contains V2.5-Base and V2.5, not V2-Omni. No unchanged Omni-to-V2.5 lineage is established."
     }
   ],
   "fields": {
@@ -206,22 +222,28 @@
       "status": "undisclosed",
       "source_ids": [
         "s1",
+        "s2",
         "s8",
         "s9",
-        "s10"
+        "s10",
+        "s18",
+        "s19"
       ],
-      "note": "No exact Omni total count disclosed in the accessed original announcement or later official model/training materials. V2-Flash 309B, V2.5 310B and Pro 1T are not Omni evidence. No exact checkpoint was available to inspect."
+      "note": "Fresh October 27 review found no supported nominal total for original V2-Omni. Its launch names a shared backbone without identifying a counted base. V2.5 explicitly derives its language architecture from Flash and adds encoders; later 309B/310B/1.02T figures identify other models. P3D-Bench Table 2 explicitly leaves Omni size undisclosed. No named unchanged lineage supports transferring those counts."
     },
     "active_parameters_b": {
       "value": null,
       "status": "undisclosed",
       "source_ids": [
         "s1",
+        "s2",
         "s8",
         "s9",
-        "s10"
+        "s10",
+        "s18",
+        "s19"
       ],
-      "note": "No exact Omni active count or expert routing configuration disclosed. Sibling 15B/42B figures cannot be transferred; no numerical count is inferred."
+      "note": "Fresh separate review of active/activated counts, later original model tables and named lineage found no Omni active count. P3D-Bench Table 2 leaves the exact Omni total/active cell undisclosed. The 15B/42B figures are explicitly Flash, V2.5 or Pro specifications; no exact Omni expert-routing or unchanged-base evidence supports a nominal inference."
     },
     "architecture": {
       "value": null,
@@ -364,11 +386,71 @@
         "label": "Healer Alpha endpoint metadata",
         "url": "https://openrouter.ai/api/v1/models/openrouter/healer-alpha/endpoints",
         "type": "primary"
+      },
+      {
+        "label": "P3D-Bench: Benchmarking MLLMs for Parametric 3D Generation and Structural Reasoning, Table 2",
+        "url": "https://arxiv.org/html/2606.11152v1",
+        "type": "primary"
+      },
+      {
+        "label": "MiMo-V2.5 original launch and model table",
+        "url": "https://mimo.xiaomi.com/mimo-v2-5",
+        "type": "primary"
       }
     ],
-    "notes": "Public preview began March 11, 2026 as Healer Alpha: OpenRouter explicitly identifies it as an early testing version of MiMo-V2-Omni. Xiaomi dates the named release March 18. The preview-to-launch relation does not establish identical weights; capability specifications here describe the named original release. Xiaomi states 256K context; contemporaneous native-Xiaomi integration and OpenRouter document 262144 tokens. Reasoning is documented by the March 23 OpenClaw native integration. Total/active parameters and neural backbone class remain undisclosed; dedicated image/video/audio encoders share one backbone. Native inputs exclude PDF; external tools produce any media in agent demos. Xiaomi routed this identifier to V2.5 on June 1, 2026 and retired it June 30 (00:00 UTC+8); original specifications are retained, not replacement specifications.",
+    "notes": "Public preview began March 11, 2026 as Healer Alpha: OpenRouter explicitly identifies it as an early testing version of MiMo-V2-Omni. Xiaomi dates the named release March 18. The preview-to-launch relation does not establish identical weights; capability specifications here describe the named original release. Xiaomi states 256K context; contemporaneous native-Xiaomi integration and OpenRouter document 262144 tokens. Reasoning is documented by the March 23 OpenClaw native integration. Total and active parameters remain undisclosed; no counted base or unchanged lineage is identified for Omni. Later V2.5/Flash/Pro sizes do not establish Omni counts. Dedicated image/video/audio encoders share one backbone, whose network class remains undisclosed. Native inputs exclude PDF; external tools produce any media in agent demos. Xiaomi routed this identifier to V2.5 on June 1, 2026 and retired it June 30 (00:00 UTC+8); original specifications are retained, not replacement specifications.",
     "release_date": "2026-03-11",
-    "date_precision": "day"
+    "date_precision": "day",
+    "parameters_b": null,
+    "active_parameters_b": null,
+    "parameters_source": null
   },
-  "summary": "Audited all fourteen fields for original Omni. Corrected earliest release to the March 11 Healer Alpha public preview through the explicit primary-provider identity notice; preserved March 18 as the named Xiaomi launch. Confirmed original 262144 context, reasoning and structured tool calling. Added proprietary classification, removed native PDF and replaced generic description. Total/active counts and network class remain undisclosed after later primary-card/training-report checks. Recorded June rerouting/retirement without transferring replacement specifications."
+  "summary": "Audited all fourteen fields for original Omni. Corrected earliest release to the March 11 Healer Alpha public preview through the explicit primary-provider identity notice; preserved March 18 as the named Xiaomi launch. Confirmed original 262144 context, reasoning and structured tool calling. Added proprietary classification, removed native PDF and replaced generic description. October 27 parameter re-audit separately rechecked total and active counts through original launch/changelog, later Xiaomi cards/reports, P3D-Bench Table 2 and explicit lineage searches. Both counts remain undisclosed: the later table marks Omni size undisclosed, and Xiaomi names Flash rather than Omni as the V2.5 backbone. The other twelve assessments are preserved, including undisclosed network class. Recorded June rerouting/retirement without transferring replacement specifications.",
+  "parameter_reaudit": {
+    "agent": "/root/parameters_538",
+    "reviewed_at": "2026-10-27T18:36:18.285107+00:00",
+    "outcome": "Retain parameters_b=null and active_parameters_b=null, both undisclosed, after fresh separate review.",
+    "fresh_search_queries": [
+      "\"MiMo-V2-Omni\" \"parameters\"",
+      "\"MiMo-V2-Omni\" \"active\" parameters",
+      "\"MiMo-V2-Omni\" backbone Flash architecture",
+      "\"MiMo-V2-Omni\" \"activated\"",
+      "\"MiMo-V2-Omni\" \"total parameters\"",
+      "\"MiMo-V2-Omni\" \"参数量\"",
+      "site:arxiv.org \"MiMo-V2-Omni\" parameters",
+      "\"MiMo-V2-Omni\" \"parameters\" \"table\"",
+      "\"MiMo-V2-Omni\" \"based on\"",
+      "\"MiMo-V2-Omni\" \"parameter count\" Xiaomi"
+    ],
+    "original_sources_checked": [
+      "s1",
+      "s2",
+      "s8",
+      "s9",
+      "s10",
+      "s18",
+      "s19"
+    ],
+    "total_assessment": "The exact March launch and full official changelog do not report an Omni size or identify a sized language backbone. Later original P3D-Bench Table 2 explicitly marks the exact Omni row undisclosed. The official V2.5 card/launch and V2.6 report give numerical sizes only for their own named models; MOPD section 4.3 identifies its 309B model as V2-Flash. No supported nominal total was recovered.",
+    "active_assessment": "Separate active/activated searches and review of later original tables found no exact Omni numerical active convention. P3D-Bench explicitly labels its size column total/active and leaves Omni a dash. Xiaomi's 15B/42B active figures remain attached to Flash/V2.5/Pro, without an Omni bridge. No total-to-active equality, encoder sum or service-ensemble count is inferred.",
+    "lineage_assessment": "Original Omni has dedicated image/video/audio encoders sharing one unnamed backbone. V2.5 explicitly names Flash architecture and added encoders, not an unchanged Omni checkpoint. V2.6 similarly describes its own models; MOPD capability distillation does not identify Omni weights. API replacement by V2.5 does not establish unchanged model structure or justify backwards transfer.",
+    "search_findings": "Fresh English/Chinese total, active and backbone searches surfaced official launch/changelog, Xiaomi investor-material snippets, provider directories and P3D-Bench. Full original P3D-Bench and Xiaomi successor sources were inspected. Secondary directories leave counts blank or describe them as undisclosed; they are leads/corroboration only. API request-parameter tables are unrelated to learned model size.",
+    "access_limitations": "Original launch, changelog, V2.5 launch/card and P3D-Bench were accessed successfully. Complete same-day parent-fetched V2.6/MOPD source PDFs and extracted texts were independently read/searched. The exact API-release URL s3 reopened as an empty client shell; fresh indexed original text corroborated the unified-model description but is not treated as a full negative. Xiaomi investor deck surfaced indexed model descriptions but direct web and HTTP retrieval returned 403, so it is not used as complete negative evidence.",
+    "evidence_paths": [
+      "/tmp/parameter-538-reaudit/manifest.json",
+      "/tmp/parameter-538-reaudit/p3d-bench.source",
+      "/tmp/parameter-538-reaudit/p3d-bench.txt",
+      "/tmp/parameter-538-reaudit/v25-launch.txt",
+      "/tmp/parameter-538-reaudit/v25-card.txt",
+      "/tmp/parameter-538-reaudit/changelog.txt",
+      "/tmp/parameter-last-primary/manifest.json",
+      "/tmp/parameter-last-primary/538-s1.txt",
+      "/tmp/parameter-last-primary/538-s3.txt",
+      "/tmp/remaining-parameter-primary-cache/manifest.json",
+      "/tmp/remaining-parameter-primary-cache/35.txt",
+      "/tmp/remaining-parameter-primary-cache/36.txt"
+    ],
+    "remaining_uncertainty": "Neither total nor active has a supported exact-model disclosure or original nominal comparison convention in the checked material. This is a bounded fresh review, not proof that no disclosure exists anywhere.",
+    "weight_shards_requested": false
+  }
 }
