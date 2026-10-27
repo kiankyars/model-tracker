@@ -1,7 +1,7 @@
 {
   "index": 184,
   "model_id": "eleutherai/gpt-j-6b",
-  "reviewed_at": "2026-10-26T19:22:32.409494Z",
+  "reviewed_at": "2026-10-27T12:38:59.857530+00:00",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Official GPT-J 6B model card",
       "publisher": "EleutherAI",
       "accessed": true,
-      "evidence": "Names GPT-J 6B, identifies GPT-J as its model class, licenses weights Apache-2.0, and describes autoregressive text training on The Pile. Reports 28 Transformer blocks, width 4096, FFN width 16384, 16 heads, context 2048 and a published count of 6,053,381,344. The 50,400 embedding rows include padding beyond the 50,257-token tokenizer."
+      "evidence": "Names GPT-J 6B, identifies GPT-J as its model class, licenses weights Apache-2.0, and describes autoregressive text training on The Pile. Reports 28 Transformer blocks, width 4096, FFN width 16384, 16 heads, context 2048 and a published count of 6,053,381,344. The 50,400 embedding rows include padding beyond the 50,257-token tokenizer. Reopened October 27, 2026: the exact card still specifies 6,053,381,344 trainable parameters for the original representation and no separately defined active count."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "GPT-J released checkpoint configuration",
       "publisher": "EleutherAI",
       "accessed": true,
-      "evidence": "GPTJForCausalLM with 28 layers, width 4096, 16 heads, 2048 positions, RoPE dimension 64, vocabulary 50400 and tie_word_embeddings=false. The pinned revision is the current official repository revision returned by its API."
+      "evidence": "GPTJForCausalLM with 28 layers, width 4096, 16 heads, 2048 positions, RoPE dimension 64, vocabulary 50400 and tie_word_embeddings=false. The pinned revision is the current official repository revision returned by its API. Fresh October 27 metadata confirms the same revision; reopened current config retains the same dimensions and untied embeddings. No weights were requested."
     },
     {
       "id": "s3",
@@ -49,7 +49,7 @@
       "title": "Original GPT-J release README",
       "publisher": "Ben Wang and Aran Komatsuzaki",
       "accessed": true,
-      "evidence": "Publishes GPT-J-6B weights, Apache-2.0 license, autoregressive text-generation purpose and The Pile training. Gives 6,053,381,344 parameters, 28 blocks, width 4096, FFN width 16384 and 2048 context. Credits the authors and EleutherAI assistance."
+      "evidence": "Publishes GPT-J-6B weights, Apache-2.0 license, autoregressive text-generation purpose and The Pile training. Gives 6,053,381,344 parameters, 28 blocks, width 4096, FFN width 16384 and 2048 context. Credits the authors and EleutherAI assistance. Reopened the original release README on October 27; its published size and architecture remain unchanged and no per-token active convention is stated."
     },
     {
       "id": "s7",
@@ -74,6 +74,38 @@
       "publisher": "Aran Komatsuzaki",
       "accessed": true,
       "evidence": "The release article carries a June 4 publication date but a June 9, 2021 03:56:18 UTC modification timestamp. Its current release wording therefore cannot independently establish that weights were public on June 4; the explicit June 9 release commit is retained."
+    },
+    {
+      "id": "s10",
+      "url": "https://arxiv.org/html/2304.01373v2",
+      "title": "Pythia: A Suite for Analyzing Large Language Models Across Training and Scaling",
+      "publisher": "EleutherAI authors",
+      "accessed": true,
+      "evidence": "Fresh October 27 retrieval and inspection of the complete later report, including Table 1, GPT-J references, parameter terminology and comparison headings. It distinguishes Pythia total and non-embedding counts and cites GPT-J as a 6B model; it does not provide an active-parameter column or GPT-J active-count convention. Pythia is a separate trained suite, not an exact count-bearing GPT-J base."
+    },
+    {
+      "id": "s11",
+      "url": "https://arxiv.org/html/2204.06745v1",
+      "title": "GPT-NeoX-20B: An Open-Source Autoregressive Language Model",
+      "publisher": "EleutherAI authors",
+      "accessed": true,
+      "evidence": "Fresh October 27 retrieval and inspection of the complete report, architecture section and GPT-J comparison tables. GPT-J appears under a nominal 6B size label in benchmark comparisons, without a separate active count. The report distinguishes its own 20B total from 19.9B non-embedding for scaling analysis; that is neither an active-count convention nor a GPT-J specification."
+    },
+    {
+      "id": "s12",
+      "url": "https://raw.githubusercontent.com/EleutherAI/pythia/main/README.md",
+      "title": "Current Pythia suite documentation",
+      "publisher": "EleutherAI",
+      "accessed": true,
+      "evidence": "Fresh October 27 read of the official later project documentation. It explicitly discusses naming models by total parameters including embedding and unembedding layers, but supplies no GPT-J activated-count disclosure or transferable dense activation convention."
+    },
+    {
+      "id": "s13",
+      "url": "https://huggingface.co/api/models/EleutherAI/gpt-j-6b",
+      "title": "Current official GPT-J repository metadata",
+      "publisher": "EleutherAI via Hugging Face",
+      "accessed": true,
+      "evidence": "Fresh October 27 metadata returns revision 47e169305d2e8376be1d31e765533382721b2cc1, matching the previously audited consolidated checkpoint. No repeat checkpoint or tensor-header census was performed."
     }
   ],
   "fields": {
@@ -140,9 +172,11 @@
         "s4",
         "s6",
         "s7",
-        "s8"
+        "s8",
+        "s1",
+        "s13"
       ],
-      "note": "Complete official consolidated checkpoint count: 6,050,882,784 learned parameters = 206,438,400 input embeddings + 5,637,947,392 blocks + 8,192 final normalization + 206,488,800 output head. Untied embeddings counted separately; 56 nonlearned buffers excluded. The published 6,053,381,344 original JAX total is 2,498,560 higher: 1,662,976 extra LayerNorm shard elements, 802,816 extra MLP output-bias shard elements and 32,768 embedding-bias shard elements. These representation differences are not additional parameters in the official consolidated checkpoint."
+      "note": "Complete official consolidated checkpoint count: 6,050,882,784 learned parameters = 206,438,400 input embeddings + 5,637,947,392 blocks + 8,192 final normalization + 206,488,800 output head. Untied embeddings counted separately; 56 nonlearned buffers excluded. The published 6,053,381,344 original JAX total is 2,498,560 higher: 1,662,976 extra LayerNorm shard elements, 802,816 extra MLP output-bias shard elements and 32,768 embedding-bias shard elements. These representation differences are not additional parameters in the official consolidated checkpoint. October 27 original-card/config/metadata checks preserve this prior exact accounting and the original-versus-consolidated representation distinction; no repeat tensor census was performed."
     },
     "active_parameters_b": {
       "value": null,
@@ -150,9 +184,12 @@
       "source_ids": [
         "s1",
         "s2",
-        "s4"
+        "s6",
+        "s10",
+        "s11",
+        "s12"
       ],
-      "note": "Sources do not define or report a per-token active-parameter count for this dense model; no active=total assumption."
+      "note": "Fresh exact-model total/active/activated and lineage searches, reopened original release/card/config, and later EleutherAI Pythia and GPT-NeoX comparison tables yield no separately defined active count. Later reports distinguish total and non-embedding sizes, not active parameters. Neither dense architecture nor another suite\u2019s non-embedding convention establishes GPT-J\u2019s active field."
     },
     "architecture": {
       "value": "dense",
@@ -222,7 +259,7 @@
   "patch": {
     "parameters_b": 6.050882784,
     "parameters_source": "primary_source",
-    "notes": "Complete official Hugging Face checkpoint: 6,050,882,784 learned parameters, including untied input embeddings and output head, excluding causal-mask buffers. The model card publishes 6,053,381,344 for the original eight-shard JAX representation; its 2,498,560 extra elements are replicated normalization and separate per-shard bias terms absent as separate parameters in the consolidated checkpoint. Dense active parameters are not separately defined or reported.",
+    "notes": "The consolidated Hugging Face checkpoint has 6,050,882,784 learned parameters, with untied embeddings and output head counted separately and causal-mask buffers excluded. The original eight-shard JAX representation reports 6,053,381,344 elements because of replicated normalization and shard-specific biases. Active parameters are not separately disclosed.",
     "sources": [
       {
         "label": "Official GPT-J model card",
@@ -253,8 +290,19 @@
         "label": "Original eight-shard configuration",
         "url": "https://github.com/kingoflolz/mesh-transformer-jax/blob/b0c18e5205ea5ff7f97a7047e964fc04a78ea42b/configs/6B_roto_256.json",
         "type": "primary"
+      },
+      {
+        "label": "Later Pythia parameter conventions",
+        "url": "https://arxiv.org/html/2304.01373v2",
+        "type": "primary"
+      },
+      {
+        "label": "Later GPT-NeoX comparison tables",
+        "url": "https://arxiv.org/html/2204.06745v1",
+        "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": null
   },
-  "summary": "Audited all 14 fields. Replace nominal 6B with the complete consolidated checkpoint count of 6.050882784B, excluding 56 nonlearned buffers and preserving untied embeddings. Reconciled the card's larger 6.053381344B against the original eight-shard implementation. Confirm dense architecture, 2048-token context, text modalities, Apache-2.0 open weights and the June 9, 2021 release. Active parameters, dedicated reasoning and native tool calling remain undisclosed."
+  "summary": "October 27 parameter re-audit preserves the exact 6.050882784B consolidated learned total and its distinction from the original JAX representation. Reopened original card/release/config and current metadata; ran fresh count/lineage searches and inspected later EleutherAI Pythia and GPT-NeoX reports and comparisons. No separate active-count convention was found. Added explicit null patch and refreshed evidence while preserving unrelated assessments; no weight shards or repeat census requested."
 }
