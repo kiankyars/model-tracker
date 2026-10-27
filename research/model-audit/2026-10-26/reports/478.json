@@ -1,7 +1,7 @@
 {
   "index": 478,
   "model_id": "rekaai/reka-edge",
-  "reviewed_at": "2026-10-27T03:57:15.501093Z",
+  "reviewed_at": "2026-10-27T17:42:35.860630Z",
   "sources": [
     {
       "id": "release",
@@ -9,7 +9,7 @@
       "title": "Reka Edge: Frontier-Level Edge Intelligence for Physical AI — March 11, 2026",
       "publisher": "Reka",
       "accessed": true,
-      "evidence": "Dated March 11; explicitly introduces the latest Edge version and says it is now available via Playground, API and linked Hugging Face checkpoint. Discloses nominal 7B total, 657M ConvNeXt V2 encoder and 6.4B Transformer backbone trained from scratch; text/image/video understanding and agentic tools. This is the March 2026 revision, not the earlier Edge in the 2024 report. Full indexed primary body was read; direct Python fetch returned 403."
+      "evidence": "Reopened the complete original March 11, 2026 article on October 27 (HTTP 200). It introduces the latest Edge version, links the exact 2603 checkpoint, and publishes nominal 7B total, a 657M ConvNeXt V2 encoder and a 6.4B Transformer backbone trained from scratch. Its comparison sections report performance, token usage and latency, not active parameters. This is the 2026 revision, not the 2024 Edge; no named external base-model lineage is disclosed."
     },
     {
       "id": "card",
@@ -17,7 +17,7 @@
       "title": "Reka Edge 2603 pinned model card",
       "publisher": "Reka",
       "accessed": true,
-      "evidence": "Exact checkpoint card identifies 7B multimodal text/image/video-to-text Edge, local Transformers/vLLM deployment and native tool use. Its general under-$1M commercial summary is qualified by the actual license file. No separately defined active-parameter count."
+      "evidence": "Fresh pinned README fetched October 27 at 17:19 UTC (HTTP 200) and read in full. Exact 2603 card describes a nominal 7B multimodal model with local Transformers/vLLM deployment and native tool use; benchmark tables have no active-parameter column. It names no pretrained base model. Its general under-$1M commercial summary is qualified by the actual license file."
     },
     {
       "id": "config",
@@ -25,7 +25,7 @@
       "title": "Reka Edge 2603 pinned configuration",
       "publisher": "Reka",
       "accessed": true,
-      "evidence": "Yasa2ForConditionalGeneration with a dense 32-layer Yasa decoder: width 4096, intermediate 10880, 32 query/8 KV heads, head dimension 128 and vocabulary 100352. ConvNeXt V2 vision stages have widths 352/704/1408/2816 and depths 3/3/27/3 with GRN. 64 pooled visual tokens. Text limit 16384 uses YaRN factor 2 from 8192; BF16, no quantization configuration."
+      "evidence": "Fresh pinned config fetched October 27 at 17:19 UTC (HTTP 200). Yasa2ForConditionalGeneration has a dense 32-layer Yasa decoder: width 4096, intermediate 10880, 32 query/8 KV heads, head dimension 128, vocabulary 100352. ConvNeXt V2 vision widths 352/704/1408/2816, depths 3/3/27/3, GRN and 64 pooled visual tokens. Text limit 16384 uses YaRN factor 2 from 8192; BF16 with no quantization configuration. No separately published active count."
     },
     {
       "id": "code",
@@ -33,7 +33,7 @@
       "title": "Selected Yasa2 multimodal implementation",
       "publisher": "Reka",
       "accessed": true,
-      "evidence": "All enabled parameter branches were inspected: untied embedding/head, dense GQA/SwiGLU decoder and RMSNorm; ConvNeXt patch/downsample convolutions, norms, GRN and pointwise layers; two biased projection layers. Vision pooling LayerNorm is instantiated and saved but bypassed by generation return_pooled=False. Vision position arrays are non-learned sine/cosine values, RoPE nonpersistent. No MoE, MTP, draft, scale or other enabled learned branch is omitted."
+      "evidence": "All enabled parameter branches were inspected: untied embedding/head, dense GQA/SwiGLU decoder and RMSNorm; ConvNeXt patch/downsample convolutions, norms, GRN and pointwise layers; two biased projection layers. Vision pooling LayerNorm is instantiated and saved but bypassed by generation return_pooled=False. Vision position arrays are non-learned sine/cosine values, RoPE nonpersistent. No MoE, MTP, draft, scale or other enabled learned branch is omitted. Reopened pinned implementation October 27 (HTTP 200): vision encoding requires pixel_values, generation forwards vision inputs only on prefill, and return_pooled=False bypasses the learned pooling norm. These branches describe execution but do not publish an active-count convention."
     },
     {
       "id": "defaults",
@@ -41,7 +41,7 @@
       "title": "Yasa2 configuration defaults",
       "publisher": "Reka",
       "accessed": true,
-      "evidence": "Confirms untied language embeddings, bias-free attention/MLP, ConvNeXt GRN and disabled layer-scale parameters when layer_scale_init_value=0. Exact configuration overrides select the instantiated dense language/vision stack; no inherited generic default is substituted."
+      "evidence": "Confirms untied language embeddings, bias-free attention/MLP, ConvNeXt GRN and disabled layer-scale parameters when layer_scale_init_value=0. Exact configuration overrides select the instantiated dense language/vision stack; no inherited generic default is substituted. Reopened pinned source October 27 (HTTP 200); tie_word_embeddings remains False."
     },
     {
       "id": "headers",
@@ -49,7 +49,7 @@
       "title": "Complete checkpoint index and all three pinned BF16 shard headers",
       "publisher": "Reka",
       "accessed": true,
-      "evidence": "Fetched only 8-byte lengths and bounded JSON headers with HTTP 206 from all three indexed shards, no weight payloads. All 673 indexed names occur exactly once; every name/shape matches an independent enabled-code/config reconstruction. All BF16: 7,128,509,568 learned checkpoint elements, 14,257,019,136 bytes matching index metadata. Language plus untied head6,442,717,184; vision657,472,640; projection28,319,744. Includes 5,632 learned vision pooling norm parameters bypassed in generation. No packed storage, quantization scales, tied duplication or persistent non-learned buffers."
+      "evidence": "Initial audit evidence, retained: Fetched only 8-byte lengths and bounded JSON headers with HTTP 206 from all three indexed shards, no weight payloads. All 673 indexed names occur exactly once; every name/shape matches an independent enabled-code/config reconstruction. All BF16: 7,128,509,568 learned checkpoint elements, 14,257,019,136 bytes matching index metadata. Language plus untied head6,442,717,184; vision657,472,640; projection28,319,744. Includes 5,632 learned vision pooling norm parameters bypassed in generation. No packed storage, quantization scales, tied duplication or persistent non-learned buffers. This re-audit fetched only the index and Hub metadata, not shard files; fresh metadata independently corroborates the total."
     },
     {
       "id": "license",
@@ -89,7 +89,7 @@
       "title": "Reka EdgeQ, On-Device — September 22, 2026",
       "publisher": "Reka",
       "accessed": true,
-      "evidence": "Later first-party research explicitly compares canonical BF16 Edge with separately quantized EdgeQ. Confirms 657M ConvNeXt V2 encoder and architecture continuity but publishes no canonical active-parameter convention. Quantization/performance figures for EdgeQ are not assigned to the BF16 checkpoint. Read complete indexed primary article; direct Python fetch returned 403."
+      "evidence": "Reopened and read complete September 22, 2026 original article on October 27 (HTTP 200), including accuracy, latency, energy and deployment tables. It explicitly describes EdgeQ as a quantized, processor-optimized implementation of Edge, contrasts it with full-precision BF16 Edge and links the exact 2603 card. The encoder remains nominal 657M ConvNeXt V2. No active-parameter column or counting convention is given; EdgeQ deployment measurements do not establish a canonical BF16 active count."
     },
     {
       "id": "rho",
@@ -97,7 +97,7 @@
       "title": "Rho-1 research — October 5, 2026",
       "publisher": "Reka",
       "accessed": true,
-      "evidence": "Checked later first-party architecture/training disclosure and named comparisons. Its 19B two-stream omni model is Rho-1, with visual generation and reasoning; it does not establish those components or an active count for Edge2603. No sibling specifications transferred. Indexed primary architecture sections were read."
+      "evidence": "Reopened the complete October 5, 2026 original article on October 27 (HTTP 200), including architecture/training sections and comparisons. Rho-1 is a distinct 19B omni model trained from scratch, with two token streams and visual generation. No exact Edge 2603 active-count comparison or unchanged-base relationship is established; its specifications do not transfer to Edge."
     },
     {
       "id": "old",
@@ -105,7 +105,31 @@
       "title": "Reka Core, Flash, and Edge technical report — April 2024",
       "publisher": "Reka Team",
       "accessed": true,
-      "evidence": "Read abstract and version date to resolve reused Edge name. This 2024 series predates the explicitly new March 2026 checkpoint; its broader audio claims and architecture are not used as exact 2603 evidence."
+      "evidence": "Re-read the original April 18, 2024 technical report from the fresh October 27 HTTP 200 PDF cache, including introduction and Table 2: the earlier Edge is 7B dense with 8K/64K contexts and multimodal audio claims. This predates the new March 2026 checkpoint; its size/architecture context is not evidence of unchanged 2603 lineage or a 2603 active count."
+    },
+    {
+      "id": "hub_metadata_reaudit",
+      "url": "https://huggingface.co/api/models/RekaAI/reka-edge-2603/revision/492c81c225fbf5f3263a8245b00827721b119a13",
+      "title": "Reka Edge 2603 pinned Hugging Face parameter metadata — October 27 recheck",
+      "publisher": "Hugging Face / Reka AI checkpoint",
+      "accessed": true,
+      "evidence": "Fresh HTTP 200 metadata resolves exact revision 492c81c225fbf5f3263a8245b00827721b119a13 and reports safetensors.parameters.BF16=7,128,509,568 and total=7,128,509,568. Fresh original index has 673 tensor names and total_size=14,257,019,136 bytes. Corroborates the previously reconciled full checkpoint total; metadata is not an active-count disclosure. No weight shard requested."
+    },
+    {
+      "id": "labs_reaudit",
+      "url": "https://reka.ai/labs",
+      "title": "Reka Labs current Edge model specification — October 27 recheck",
+      "publisher": "Reka",
+      "accessed": true,
+      "evidence": "Fresh full HTTP 200 page explicitly labels the open-weight Reka Edge as 7B total parameters and 64 tokens per image tile, with links to its model page and Hugging Face deployment. This is a rounded nominal total, corroborating the original release/card; no active-parameter count is supplied."
+    },
+    {
+      "id": "modelbeats_reaudit",
+      "url": "https://www.modelbeats.com/models/reka-edge-2026",
+      "title": "Model Beats Reka Edge (2026) secondary active-count lead",
+      "publisher": "Model Beats",
+      "accessed": true,
+      "evidence": "Fresh search and full page identify March 11, 2026 and exact RekaAI/reka-edge-2603, and list 7B total / 7B active with the label dense. The linked sources are Reka release/card, which publish total size but no active convention. The listing provides no original active-count measurement or research-table methodology, so its dense-equals-active claim is not adopted."
     }
   ],
   "fields": {
@@ -169,13 +193,16 @@
       "value": 7.128509568,
       "status": "verified",
       "source_ids": [
+        "release",
+        "card",
+        "labs_reaudit",
         "config",
         "code",
         "defaults",
         "headers",
-        "release"
+        "hub_metadata_reaudit"
       ],
-      "note": "Exact complete pinned checkpoint count in decimal billions, independently reconciled across all 673 tensors. Includes dense language model and untied output head 6.442717184B, vision encoder 0.65747264B and projector 0.028319744B. Includes 5,632 serialized learned vision pooling-norm values bypassed by current generation. Nominal 7B full model and 6.4B backbone are rounded developer figures, not interchangeable totals."
+      "note": "Retain the exact complete pinned checkpoint total 7.128509568B from the prior 673-tensor reconciliation, freshly corroborated by pinned Hub metadata and index without requesting shards. Reka separately publishes nominal 7B total, with rounded 6.4B language backbone and 657M vision encoder; those nominal specifications are valid and consistent with the more precise count. Exact components remain 6.442717184B language/head, 0.65747264B vision and 0.028319744B projector, including 5,632 saved pooling-norm parameters bypassed in generation."
     },
     "active_parameters_b": {
       "value": null,
@@ -183,12 +210,16 @@
       "source_ids": [
         "release",
         "card",
+        "config",
         "code",
         "api",
         "edgeq",
-        "rho"
+        "rho",
+        "labs_reaudit",
+        "old",
+        "modelbeats_reaudit"
       ],
-      "note": "No separately defined per-token active count found for exact 2603 in the reviewed original and later first-party material. Dense decoder structure does not justify equating full multimodal total with active parameters: vision encoding depends on input/prefill, and the pooling norm is bypassed in generation."
+      "note": "Fresh original-source and later comparison-table searches found no developer disclosure or attributable original-research nominal active-count convention for exact reka-edge-2603. Model Beats 7B (dense) is an unsupported catalog convention; neither 2024 Edge nor separate Rho-1 provides unchanged named-base lineage. EdgeQ is explicitly a quantized Edge implementation but publishes no active count. Dense architecture alone does not establish active=total; original code applies vision encoding on visual prefill and bypasses the saved pooling norm."
     },
     "architecture": {
       "value": "dense",
@@ -324,9 +355,20 @@
         "label": "Reka EdgeQ, On-Device — September 22, 2026",
         "url": "https://reka.ai/labs/research/reka-edgeq",
         "type": "primary"
+      },
+      {
+        "label": "Reka Edge 2603 pinned Hugging Face parameter metadata — October 27 recheck",
+        "url": "https://huggingface.co/api/models/RekaAI/reka-edge-2603/revision/492c81c225fbf5f3263a8245b00827721b119a13",
+        "type": "primary"
+      },
+      {
+        "label": "Reka Labs current Edge model specification — October 27 recheck",
+        "url": "https://reka.ai/labs",
+        "type": "primary"
       }
     ],
-    "notes": "This is the March 2026 reka-edge-2603 release, not the earlier Edge series. Exact pinned BF16 total is 7,128,509,568 parameters: 6,442,717,184 in the language model and untied output head, 657,472,640 in ConvNeXt V2 and 28,319,744 in the vision projector. All three shard headers and 673 tensor shapes reconcile with enabled code/configuration. The checkpoint includes 5,632 learned vision pooling-norm parameters bypassed in generation. Active parameters are not separately disclosed. Context 16384 uses YaRN from 8192 positions. The model has no dedicated reasoning mode. Model materials use Reka’s Business Source License 1.1 with additional commercial/production/hosted-service restrictions; the stated Apache 2.0 change occurs two years after release."
+    "notes": "March 2026 reka-edge-2603, distinct from the earlier Edge series. Reka publishes a nominal 7B total; the exact pinned BF16 count is 7.128509568B: 6.442717184B language/head, 0.65747264B vision encoder and 0.028319744B projector. Fresh Hub metadata confirms the prior complete 673-tensor reconciliation. The total includes 5,632 pooling-norm parameters bypassed in generation. No supported active-count convention is published; vision encoding runs on visual prefill. Context 16384 uses YaRN from 8192 positions. The model has no dedicated reasoning mode. Model materials use Reka’s Business Source License 1.1 with additional commercial/production/hosted-service restrictions; the stated Apache 2.0 change occurs two years after release.",
+    "active_parameters_b": null
   },
   "proposed_fields": {
     "parameter_components_b": {
@@ -353,5 +395,5 @@
     "dtype": "BF16",
     "notes": "Complete checkpoint includes instantiated learned vision pooling LayerNorm, 5632 parameters, though generation requests return_pooled=False. Vision positional embeddings are non-learned sinusoidal arrays; RoPE is nonpersistent. No scales, packed weights, MoE, tied embeddings, auxiliary/MTP/draft modules or additional parameter branches."
   },
-  "summary": "Audited all 14 fields. Added complete 7.128509568B checkpoint count, dense language architecture with ConvNeXt V2 and exact Reka Business Source license. Confirmed March 11 release, multimodal inputs, non-reasoning classification, tools and16384 extended context. All 673 tensors across three BF16 shards reconcile, including unused learned pooling norm; active count remains undisclosed rather than inferred from dense/full size."
+  "summary": "October 27 parameter re-audit retains verified 7.128509568B total, corroborated by fresh pinned Hub metadata/index and Reka’s nominal 7B publication. Reopened exact card/config/code, current Labs, original release, later EdgeQ/Rho-1 research and the older 2024 report; bounded active-count/lineage/comparison-table searches found no supported 2603 active convention. Model Beats 7B (dense) is not original measurement evidence. Active remains explicitly null/undisclosed; all 12 other field assessments are unchanged. No weight shards downloaded."
 }
