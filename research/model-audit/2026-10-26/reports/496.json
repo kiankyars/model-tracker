@@ -1,0 +1,384 @@
+{
+  "index": 496,
+  "model_id": "stepfun/step-3.7-flash",
+  "reviewed_at": "2026-10-27T04:39:49.484295Z",
+  "sources": [
+    {
+      "id": "card",
+      "url": "https://huggingface.co/stepfun-ai/Step-3.7-Flash/blob/5f6244077ac62e04eec3f320501ff8c2b293373a/README.md",
+      "title": "Exact Step 3.7 Flash model card",
+      "publisher": "StepFun",
+      "accessed": true,
+      "evidence": "Names Step 3.7 Flash and declares Apache 2.0, native image/video understanding, reasoning and tool use. Gives nominal 198B total, described as 196B language plus 1.8B vision, with approximately 11B activated; these rounded figures do not enumerate all released MTP branches."
+    },
+    {
+      "id": "launch",
+      "url": "https://static.stepfun.com/blog/step-3.7-flash/",
+      "title": "Dated Step 3.7 Flash launch and availability",
+      "publisher": "StepFun",
+      "accessed": true,
+      "evidence": "Dated May 29, 2026. Explicitly announces API, web/app availability and public weight links. Its exact Step 3.7 comparison column states 196B + 1.8B ViT and 11B active. The separately invoked advisor model in its agent harness is not part of this checkpoint."
+    },
+    {
+      "id": "docs",
+      "url": "https://platform.stepfun.ai/docs/en/guides/models/step-3.7-flash",
+      "title": "Step 3.7 Flash API guide",
+      "publisher": "StepFun",
+      "accessed": true,
+      "evidence": "Exact identifier is a sparse MoE multimodal reasoning model with nominal 198B/11B, advertised 256K context, image/video input, tools/tool_choice, and low/medium/high reasoning effort; medium is default."
+    },
+    {
+      "id": "config",
+      "url": "https://huggingface.co/stepfun-ai/Step-3.7-Flash/blob/5f6244077ac62e04eec3f320501ff8c2b293373a/config.json",
+      "title": "Exact released BF16 checkpoint configuration",
+      "publisher": "StepFun",
+      "accessed": true,
+      "evidence": "45 main language layers, hidden size 4096, vocabulary 128896, first 3 dense and 42 MoE, 288 routed experts with top 8 and a shared expert; three additional MTP layers. Max sequence and position limits are 262144. Vision has 47 layers, width 1536, 728-pixel images and 14-pixel patches. No quantization configuration."
+    },
+    {
+      "id": "config_code",
+      "url": "https://huggingface.co/stepfun-ai/Step-3.7-Flash/blob/5f6244077ac62e04eec3f320501ff8c2b293373a/configuration_step3p7.py",
+      "title": "Exact model configuration defaults",
+      "publisher": "StepFun",
+      "accessed": true,
+      "evidence": "Resolves vision MLP width 8960, learned pre-normalization and absolute positional embeddings, three input channels and the top-level text/vision configuration. No checkpoint tie_word_embeddings declaration is present; runtime head ownership is resolved separately from vLLM rather than inferred from the generic config default."
+    },
+    {
+      "id": "code",
+      "url": "https://huggingface.co/stepfun-ai/Step-3.7-Flash/blob/5f6244077ac62e04eec3f320501ff8c2b293373a/modeling_step3p7.py",
+      "title": "Exact Step 3.7 backbone and projection implementation",
+      "publisher": "StepFun",
+      "accessed": true,
+      "evidence": "Defines language attention gates, Q/K norms, routed/shared FFNs, vocabulary matrices and the vision bridge. The 42 router_bias tensors are requires_grad=False balancing state; rotary frequencies are nonpersistent. This HF reference instantiates only the 45-layer target and explicitly ignores layers 45–47 when loading, so it alone cannot count the complete checkpoint."
+    },
+    {
+      "id": "vision",
+      "url": "https://huggingface.co/stepfun-ai/Step-3.7-Flash/blob/5f6244077ac62e04eec3f320501ff8c2b293373a/vision_encoder.py",
+      "title": "Exact visual encoder implementation",
+      "publisher": "StepFun",
+      "accessed": true,
+      "evidence": "Defines the learned patch convolution, 2704-position embeddings, pre-normalization, 47 Transformer blocks with attention/MLP biases, two layer norms and two layer scales, and two biased 3x3 downsampler convolutions. Rotary caches are nonpersistent. All configured vision and bridge shapes reconcile with checkpoint metadata."
+    },
+    {
+      "id": "index",
+      "url": "https://huggingface.co/stepfun-ai/Step-3.7-Flash/blob/5f6244077ac62e04eec3f320501ff8c2b293373a/model.safetensors.index.json",
+      "title": "Complete checkpoint index and bounded headers from all 26 shards",
+      "publisher": "StepFun",
+      "accessed": true,
+      "evidence": "Read only 8-byte prefixes and bounded JSON headers via validated HTTP 206 ranges for all 26 indexed shards. All 1471 keys, shard assignments, dtypes, contiguous byte ranges and expected shapes reconcile. The 201365316160 stored elements consist of 201365304064 BF16 learned weights and 12096 F32 frozen router-bias values; no quantized scales or packed low-bit weights. No weight payload downloaded."
+    },
+    {
+      "id": "engine",
+      "url": "https://github.com/vllm-project/vllm/blob/6fe3d447ac6429ef13aff117744d0298e28879ed/vllm/model_executor/models/step3p7.py",
+      "title": "Pinned vLLM exact Step 3.7 wrapper and loading map",
+      "publisher": "vLLM",
+      "accessed": true,
+      "evidence": "Exact Step3p7ForConditionalGeneration maps the released language, vision and projection prefixes and constructs the configured Step3p5ForCausalLM decoder. This is the Step 3.7 mapping, not a transfer of another variant’s configuration."
+    },
+    {
+      "id": "decoder",
+      "url": "https://github.com/vllm-project/vllm/blob/6fe3d447ac6429ef13aff117744d0298e28879ed/vllm/model_executor/models/step3p5.py",
+      "title": "Pinned configured decoder and separate output head",
+      "publisher": "vLLM",
+      "accessed": true,
+      "evidence": "The decoder implementation selected by exact Step 3.7 config constructs a separate language output head and embedding; no output/input weight tying is performed. Uses configured attention dimensions and dense/MoE layer allocation. Runtime packed projections load the released individual matrices."
+    },
+    {
+      "id": "mtp",
+      "url": "https://github.com/vllm-project/vllm/blob/6fe3d447ac6429ef13aff117744d0298e28879ed/vllm/model_executor/models/step3p5_mtp.py",
+      "title": "Pinned MTP head ownership and exact checkpoint loading rules",
+      "publisher": "vLLM",
+      "accessed": true,
+      "evidence": "Explicit has_own_lm_head=True: each MTP branch independently owns an output head and norm. Loader maps transformer.shared_head.output to each branch’s head, and uses the shared input embedding once. Three dense MTP branches at layers 45–47 contain embedding/hidden norms, concatenation projections, dense attention/FFN blocks and separate output matrices; shared_head does not mean their weights are tied."
+    },
+    {
+      "id": "license",
+      "url": "https://github.com/stepfun-ai/Step-3.7-Flash/blob/main/LICENSE",
+      "title": "Official release Apache 2.0 license",
+      "publisher": "StepFun",
+      "accessed": true,
+      "evidence": "Full Apache License Version 2.0 is present in the official release repository; the exact model card independently declares this license for the model."
+    },
+    {
+      "id": "history",
+      "url": "https://huggingface.co/api/models/stepfun-ai/Step-3.7-Flash/commits/main",
+      "title": "Exact checkpoint commit history",
+      "publisher": "StepFun / Hugging Face",
+      "accessed": true,
+      "evidence": "Initial commit and BF16 upload are May 23, 2026; README updates are visible from May 28. Repository upload timestamps do not establish when a formerly private repository became publicly accessible."
+    },
+    {
+      "id": "router",
+      "url": "https://openrouter.ai/api/v1/models/stepfun/step-3.7-flash/endpoints",
+      "title": "Exact hosted Step 3.7 endpoint metadata",
+      "publisher": "OpenRouter",
+      "accessed": true,
+      "evidence": "Exact listing has text/image/video to text, created May 28, 2026 at 16:17:49 UTC and dated provider identifier step-3.7-flash-20260528. StepFun endpoint advertises 256000 context and 230400 completion; Novita advertises 262144 context. Listing creation and identifier date do not independently establish first public serving."
+    },
+    {
+      "id": "nvidia",
+      "url": "https://docs.nvidia.com/nemo/automodel/recipes-e2e-examples/step-3-7",
+      "title": "NVIDIA exact-model integration documentation",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Calls this exact model 198B-A13B, conflicting with the original developer’s approximate 11B active figure. Reports the same 45 language layers and 47-layer vision module. It does not define a counting convention that reconciles the active-parameter discrepancy."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Step 3.7 Flash",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "launch"
+      ],
+      "note": "Exact multimodal release; separate from Step 3.5 Flash and its 2603 variant."
+    },
+    "developer": {
+      "value": "StepFun",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "launch"
+      ],
+      "note": "Original developer and weight publisher."
+    },
+    "family": {
+      "value": "step",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "docs"
+      ],
+      "note": "Step model family."
+    },
+    "release_date": {
+      "value": "2026-05-29",
+      "status": "verified",
+      "source_ids": [
+        "launch",
+        "history",
+        "router"
+      ],
+      "note": "Earliest explicit dated developer availability announcement located is May 29. May 23 upload history, May 28 README/listing creation and the 20260528 provider identifier are not independently verified public availability dates. Retain the documented launch without claiming earlier access was impossible."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "index",
+        "launch"
+      ],
+      "note": "Complete public BF16 checkpoint, including visual components and three MTP branches, is downloadable."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "license"
+      ],
+      "note": "Exact model card and official release license agree."
+    },
+    "parameters_b": {
+      "value": 201.365304064,
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "config_code",
+        "code",
+        "vision",
+        "index",
+        "engine",
+        "decoder",
+        "mtp"
+      ],
+      "note": "Complete learned checkpoint count: 201365316160 stored elements minus 12096 frozen F32 router-bias values = 201365304064. Includes 196956118272 language backbone parameters, 2428171008 across three independent MTP branches, 1955848960 in vision including downsamplers, and 25165824 in the bridge. Every indexed shape reconciles. Both language vocabulary matrices and all three separate MTP output matrices are included; shared input embedding is counted once. The developer’s 198B is nominal and is not this complete exact total."
+    },
+    "active_parameters_b": {
+      "value": 11,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "launch",
+        "docs",
+        "config",
+        "nvidia"
+      ],
+      "note": "Original developer’s approximate 11B figure, retained at published precision. Vocabulary, vision and MTP inclusion are not explicitly defined. NVIDIA instead reports 13B; adding visual processing could account for roughly 2B, but that is an inference, not an established convention. Do not treat 11B as an exact multimodal or speculative-execution count."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "code",
+        "vision",
+        "engine",
+        "mtp"
+      ],
+      "note": "Vision-language model with a 45-layer sparse MoE Transformer decoder: 3 dense layers, 42 top-8-of-288 routed layers plus shared experts, full/sliding GQA and attention gates. A 47-layer vision Transformer and projector accept visual input; three dense MTP branches support speculative decoding."
+    },
+    "context_window": {
+      "value": 262144,
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "docs",
+        "router"
+      ],
+      "note": "Checkpoint capacity is exactly 262144 tokens in both max_seq_len and max_position_embeddings. Official API prose says 256K; hosted limits differ: the StepFun route advertises 256000, while Novita advertises 262144. This field records model checkpoint capacity, not a promise for every API route."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "docs",
+        "config",
+        "vision",
+        "router"
+      ],
+      "note": "Native visual input is explicitly documented and supported by the released vision stack; the hosted modality mapping confirms text output. This is not a speech or image-generation model."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "docs"
+      ],
+      "note": "Exact model supports low, medium and high reasoning effort, with medium default."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "docs",
+        "card"
+      ],
+      "note": "Exact API documents tools/tool_choice and model-selected function calls; individual providers may support a narrower choice mode."
+    },
+    "description": {
+      "value": "Multimodal reasoning model with sparse MoE routing, image and video input, tool calling, and three multi-token prediction branches.",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "docs",
+        "config",
+        "vision",
+        "mtp"
+      ],
+      "note": "Replaces relative “newer” and unsupported speed comparison with documented model properties."
+    }
+  },
+  "patch": {
+    "family": "step",
+    "license": "Apache-2.0",
+    "parameters_b": 201.365304064,
+    "active_parameters_b": 11,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "context_window": 262144,
+    "description": "Multimodal reasoning model with sparse MoE routing, image and video input, tool calling, and three multi-token prediction branches.",
+    "source_url": "https://huggingface.co/stepfun-ai/Step-3.7-Flash/blob/5f6244077ac62e04eec3f320501ff8c2b293373a/README.md",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Exact Step 3.7 Flash model card",
+        "url": "https://huggingface.co/stepfun-ai/Step-3.7-Flash/blob/5f6244077ac62e04eec3f320501ff8c2b293373a/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Dated Step 3.7 Flash launch and availability",
+        "url": "https://static.stepfun.com/blog/step-3.7-flash/",
+        "type": "primary"
+      },
+      {
+        "label": "Step 3.7 Flash API guide",
+        "url": "https://platform.stepfun.ai/docs/en/guides/models/step-3.7-flash",
+        "type": "primary"
+      },
+      {
+        "label": "Exact released BF16 checkpoint configuration",
+        "url": "https://huggingface.co/stepfun-ai/Step-3.7-Flash/blob/5f6244077ac62e04eec3f320501ff8c2b293373a/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Exact model configuration defaults",
+        "url": "https://huggingface.co/stepfun-ai/Step-3.7-Flash/blob/5f6244077ac62e04eec3f320501ff8c2b293373a/configuration_step3p7.py",
+        "type": "primary"
+      },
+      {
+        "label": "Exact Step 3.7 backbone and projection implementation",
+        "url": "https://huggingface.co/stepfun-ai/Step-3.7-Flash/blob/5f6244077ac62e04eec3f320501ff8c2b293373a/modeling_step3p7.py",
+        "type": "primary"
+      },
+      {
+        "label": "Exact visual encoder implementation",
+        "url": "https://huggingface.co/stepfun-ai/Step-3.7-Flash/blob/5f6244077ac62e04eec3f320501ff8c2b293373a/vision_encoder.py",
+        "type": "primary"
+      },
+      {
+        "label": "Complete checkpoint index and bounded headers from all 26 shards",
+        "url": "https://huggingface.co/stepfun-ai/Step-3.7-Flash/blob/5f6244077ac62e04eec3f320501ff8c2b293373a/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned vLLM exact Step 3.7 wrapper and loading map",
+        "url": "https://github.com/vllm-project/vllm/blob/6fe3d447ac6429ef13aff117744d0298e28879ed/vllm/model_executor/models/step3p7.py",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned configured decoder and separate output head",
+        "url": "https://github.com/vllm-project/vllm/blob/6fe3d447ac6429ef13aff117744d0298e28879ed/vllm/model_executor/models/step3p5.py",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned MTP head ownership and exact checkpoint loading rules",
+        "url": "https://github.com/vllm-project/vllm/blob/6fe3d447ac6429ef13aff117744d0298e28879ed/vllm/model_executor/models/step3p5_mtp.py",
+        "type": "primary"
+      },
+      {
+        "label": "Official release Apache 2.0 license",
+        "url": "https://github.com/stepfun-ai/Step-3.7-Flash/blob/main/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "Exact checkpoint commit history",
+        "url": "https://huggingface.co/api/models/stepfun-ai/Step-3.7-Flash/commits/main",
+        "type": "primary"
+      },
+      {
+        "label": "Exact hosted Step 3.7 endpoint metadata",
+        "url": "https://openrouter.ai/api/v1/models/stepfun/step-3.7-flash/endpoints",
+        "type": "primary"
+      },
+      {
+        "label": "NVIDIA exact-model integration documentation",
+        "url": "https://docs.nvidia.com/nemo/automodel/recipes-e2e-examples/step-3-7",
+        "type": "primary"
+      }
+    ],
+    "notes": "Parameters count the complete BF16 checkpoint, including three MTP branches and vision: 201.365304064B learned weights, excluding 12096 frozen router-bias values. StepFun advertises nominal 198B total and approximately 11B active; the active-count convention is unspecified, and NVIDIA reports 13B. The checkpoint allows 262144 tokens, while the StepFun hosted route advertises 256000. May 29 is the explicit developer launch; earlier upload/listing dates do not prove earlier public serving."
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "language_backbone": 196.956118272,
+      "mtp": 2.428171008,
+      "vision_encoder_and_downsamplers": 1.95584896,
+      "vision_projector": 0.025165824
+    }
+  },
+  "summary": "Confirmed the exact May 29 developer launch, Apache 2.0 weights, native image/video input, reasoning and tools. Added a fully reconciled complete checkpoint count of 201.365304064B, the publisher’s nominal 11B active figure and MoE architecture; exposed visual/MTP components for review. Corrected context to checkpoint capacity 262144 while preserving the StepFun API’s 256000 limit in notes. Active-count and earlier-listing conventions remain explicitly qualified."
+}
