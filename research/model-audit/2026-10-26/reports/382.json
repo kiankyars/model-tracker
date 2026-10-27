@@ -1,0 +1,432 @@
+{
+  "index": 382,
+  "model_id": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning",
+  "reviewed_at": "2026-10-27T00:43:18.668026Z",
+  "sources": [
+    {
+      "id": "card",
+      "url": "https://huggingface.co/nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16/blob/e5e9932441de940c9a62185c870ea5bcd4cd24e2/README.md",
+      "title": "Nemotron 3 Nano Omni Reasoning BF16 model card",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Identifies NVIDIA and Nemotron family, April 28 release, downloadable BF16/FP8/NVFP4 weights, governing NVIDIA Open Model Agreement, Mamba2-Transformer hybrid MoE, four input modalities and text output, reasoning toggle and tool calling. The architecture subsection assigns nominal 31B/~3B to the language backbone; its headline count omits the complete multimodal checkpoint."
+    },
+    {
+      "id": "announcement",
+      "url": "https://blogs.nvidia.com/blog/nemotron-3-nano-omni-multimodal-ai-agents/",
+      "title": "Nemotron 3 Nano Omni launch, April 28, 2026",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Dated April 28, 2026; announces availability that day through Hugging Face and inference platforms. Explicitly lists text, image, audio and video inputs, text output and open weights."
+    },
+    {
+      "id": "report",
+      "url": "https://arxiv.org/html/2604.24954v2",
+      "title": "Nemotron 3 Nano Omni: Efficient and Open Multimodal Intelligence, v2",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Latest listed revision is May 11, 2026. Section 2 describes C-RADIOv4-H vision, Parakeet-TDT audio, projectors and Nemotron 3 Nano language decoder. Section 3.1.7 specifies 262,144-token context. This report does not state an exact complete multimodal parameter count or whole-model active count."
+    },
+    {
+      "id": "report_history",
+      "url": "https://arxiv.org/abs/2604.24954",
+      "title": "Technical report version history",
+      "publisher": "arXiv / NVIDIA",
+      "accessed": true,
+      "evidence": "Original paper submission April 27, 2026; latest listed version v2 May 11, 2026. Paper submission is not substituted for the explicitly documented April 28 model release."
+    },
+    {
+      "id": "config",
+      "url": "https://huggingface.co/nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16/blob/e5e9932441de940c9a62185c870ea5bcd4cd24e2/config.json",
+      "title": "Exact BF16 checkpoint configuration",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "52-layer language pattern has 23 Mamba, 23 MoE and 6 attention blocks; 128 routed experts, top-6 routing, shared expert width 3712. Untied 131072-by-2688 embeddings and output matrix. Nested language maximum context is 262144; top-level max_sequence_length is 131072. Defines vision and audio encoder/projector dimensions."
+    },
+    {
+      "id": "omni_code",
+      "url": "https://huggingface.co/nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16/blob/e5e9932441de940c9a62185c870ea5bcd4cd24e2/modeling.py",
+      "title": "Exact multimodal model implementation",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Instantiates language, C-RADIO vision and Parakeet audio components, separate image/video patch projections, and vision/audio projectors. The released video projection has temporal patch size 2. Outputs generated text through the language model."
+    },
+    {
+      "id": "llm_code",
+      "url": "https://huggingface.co/nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16/blob/e5e9932441de940c9a62185c870ea5bcd4cd24e2/modeling_nemotron_h.py",
+      "title": "Exact language decoder implementation",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Mamba2, attention and MoE modules establish learned tensor shapes, top-6 experts and shared experts. Router e_score_correction_bias is explicitly a registered buffer; Mamba A_log, D and dt_bias are learned Parameters."
+    },
+    {
+      "id": "index",
+      "url": "https://huggingface.co/nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16/blob/e5e9932441de940c9a62185c870ea5bcd4cd24e2/model.safetensors.index.json",
+      "title": "Complete 17-shard BF16 checkpoint index and bounded tensor headers",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "All 7349 indexed tensor names were reconciled to headers fetched with bounded HTTP Range reads. Payload size 66031270520 bytes matches index metadata. All 7250 learned tensors are BF16; remaining 99 tensors are buffers. No full shard payloads were downloaded."
+    },
+    {
+      "id": "radio",
+      "url": "https://huggingface.co/nvidia/C-RADIOv4-H/blob/0057b339059c0b9e1b4ba996f975410ebbfdfcc8/extra_timm_models.py",
+      "title": "C-RADIOv4-H ViT-H architecture definition",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "vit_huge_patch16_224 defines 1280-wide, 32-layer, 16-head ViT. Combined with Omni config and checkpoint shapes, establishes all vision block dimensions."
+    },
+    {
+      "id": "radio_patch",
+      "url": "https://huggingface.co/nvidia/C-RADIOv4-H/blob/0057b339059c0b9e1b4ba996f975410ebbfdfcc8/vit_patch_generator.py",
+      "title": "C-RADIO patch and position parameters",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Learned position embedding and patch projection; 2048 maximum resolution with patch size 16 gives 16384 position vectors. Omni adds its separate temporal video patch projection."
+    },
+    {
+      "id": "radio_class",
+      "url": "https://huggingface.co/nvidia/C-RADIOv4-H/blob/0057b339059c0b9e1b4ba996f975410ebbfdfcc8/cls_token.py",
+      "title": "C-RADIO class and register tokens",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Class/register token tensor is explicitly nn.Parameter. Three summary teachers and register multiple 10 produce ten 1280-wide learned tokens."
+    },
+    {
+      "id": "radio_buffers",
+      "url": "https://huggingface.co/nvidia/C-RADIOv4-H/blob/0057b339059c0b9e1b4ba996f975410ebbfdfcc8/input_conditioner.py",
+      "title": "C-RADIO normalization buffers",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Image normalization mean and standard deviation are explicitly registered buffers; six F32 elements are excluded from learned parameters."
+    },
+    {
+      "id": "audio_code",
+      "url": "https://huggingface.co/nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16/blob/e5e9932441de940c9a62185c870ea5bcd4cd24e2/audio_model.py",
+      "title": "Exact audio encoder and projection wrapper",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Uses ParakeetEncoder configured with 24 layers, width 1024, intermediate width 4096, eight heads, 128 mel bins and subsampling factor eight, followed by a learned audio projector."
+    },
+    {
+      "id": "parakeet_code",
+      "url": "https://github.com/huggingface/transformers/blob/v5.6.0/src/transformers/models/parakeet/modeling_parakeet.py",
+      "title": "Parakeet encoder implementation",
+      "publisher": "Hugging Face / NVIDIA architecture",
+      "accessed": true,
+      "evidence": "Defines subsampling convolutions, conformer blocks, five LayerNorms per block, BatchNorm, relative attention projections and learned bias_u/bias_v tensors. BatchNorm running mean, running variance and batch counters are buffers."
+    },
+    {
+      "id": "audio_buffers",
+      "url": "https://github.com/NVIDIA-NeMo/NeMo/blob/v2.7.2/nemo/collections/asr/parts/preprocessing/features.py",
+      "title": "NeMo acoustic feature buffers",
+      "publisher": "NVIDIA NeMo",
+      "accessed": true,
+      "evidence": "Mel filterbank fb and analysis window are registered buffers, confirming the corresponding retained checkpoint tensors are preprocessing state rather than learned parameters."
+    },
+    {
+      "id": "decoder_scope",
+      "url": "https://docs.nvidia.com/nemotron/nightly/nemotron/omni3/architecture.html",
+      "title": "Nemotron 3 Nano Omni architecture guide",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "The Hybrid MoE decoder table explicitly labels nominal 30B total and 3B active per forward pass, separately from vision/audio encoders and adaptors. Its license wording differs from the exact checkpoint card; the card links the governing NVIDIA Open Model Agreement, which takes precedence here."
+    },
+    {
+      "id": "license",
+      "url": "https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-open-model-agreement/",
+      "title": "NVIDIA Open Model Agreement",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Exact governing terms linked by the released checkpoint card, named NVIDIA Open Model Agreement."
+    },
+    {
+      "id": "chat",
+      "url": "https://huggingface.co/nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16/blob/e5e9932441de940c9a62185c870ea5bcd4cd24e2/chat_template.jinja",
+      "title": "Exact reasoning and tool-call chat template",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Implements thinking controls and serialized tool definitions, tool calls and tool responses for this checkpoint."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Nemotron 3 Nano Omni 30B A3B Reasoning",
+      "status": "verified",
+      "source_ids": [
+        "card"
+      ],
+      "note": "Matches the released reasoning variant; precision suffixes distinguish storage formats, not separate logical model releases."
+    },
+    "developer": {
+      "value": "NVIDIA",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "announcement"
+      ],
+      "note": "Explicit developer attribution."
+    },
+    "family": {
+      "value": "nemotron",
+      "status": "verified",
+      "source_ids": [
+        "card"
+      ],
+      "note": "Card explicitly places this model in the Nemotron family."
+    },
+    "release_date": {
+      "value": "2026-04-28",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "announcement",
+        "report_history"
+      ],
+      "note": "Exact day explicitly documented for Hugging Face, Build and NGC. April 27 is the paper submission date, not the documented model release."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "index"
+      ],
+      "note": "The official BF16 checkpoint is publicly accessible; its full index and every shard header were read."
+    },
+    "license": {
+      "value": "NVIDIA Open Model Agreement",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "license",
+        "decoder_scope"
+      ],
+      "note": "Use the exact card-linked governing license. The architecture guide uses a different legacy Nemotron license name; do not copy that wording over the checkpoint terms."
+    },
+    "parameters_b": {
+      "value": 33.015546816,
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "omni_code",
+        "llm_code",
+        "index",
+        "radio",
+        "radio_patch",
+        "radio_class",
+        "radio_buffers",
+        "audio_code",
+        "parakeet_code",
+        "audio_buffers"
+      ],
+      "note": "Exact complete released BF16 checkpoint: 33,015,546,816 learned parameters in 7250 tensors, including language, vision, audio and both projectors. Independently reconstructed all 7349 stored tensor shapes from config/code and matched the complete index and bounded headers. Excludes 99 buffers totaling 85,422 elements. All learned tensors are BF16, with no quantization scale or packed-storage inflation. Advertised 30B/31B is a rounded language-backbone label, not this complete count."
+    },
+    "active_parameters_b": {
+      "value": 3,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "decoder_scope",
+        "config",
+        "llm_code",
+        "report"
+      ],
+      "note": "Nominal ~3B per token applies only to the language decoder; proposed active_parameters_scope is language_backbone. No precise active count for the complete multimodal pipeline is disclosed in the exact card, latest report v2 or architecture guide. Top-6 routing is independently confirmed. A structural subset retaining six experts per MoE block contains 3.580073408B when both full embedding/output matrices are counted, or 3.227751872B excluding the input embedding; these accounting conventions do not establish full multimodal per-token activity and are not substituted for the published nominal figure."
+    },
+    "architecture": {
+      "value": "hybrid-ssm-transformer-moe",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "config",
+        "omni_code",
+        "llm_code",
+        "report"
+      ],
+      "note": "Mamba2-Transformer hybrid with 23 Mamba blocks, 6 attention blocks and 23 MoE blocks; each MoE has 128 routed experts, selects 6, and includes a shared expert. Dense vision/audio encoders feed the decoder."
+    },
+    "context_window": {
+      "value": 262144,
+      "status": "verified",
+      "source_ids": [
+        "report",
+        "config",
+        "card"
+      ],
+      "note": "Exact supported context from final SFT stage in latest report and llm_config.max_position_embeddings. Card 256k is shorthand. Top-level max_sequence_length=131072 conflicts with the trained capability; retain this deployment/configuration caveat instead of treating it as the full supported limit."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "video",
+          "audio"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "announcement",
+        "omni_code",
+        "report"
+      ],
+      "note": "All four inputs are documented for this exact model. Audio/video understanding does not imply audio or video generation; output is text."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "chat",
+        "report"
+      ],
+      "note": "Reasoning is enabled by default and can be disabled through enable_thinking; the report describes reasoning training and budget control."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "chat"
+      ],
+      "note": "Card explicitly supports tool calling and documents serving parsers; the exact chat template supports tool definitions, calls and responses."
+    },
+    "description": {
+      "value": "Mamba2-Transformer MoE reasoning model with C-RADIO vision and Parakeet audio encoders; accepts text, images, video and audio and generates text.",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "omni_code",
+        "report"
+      ],
+      "note": "Describes supported architecture and input/output directions without benchmark or efficiency claims."
+    }
+  },
+  "patch": {
+    "license": "NVIDIA Open Model Agreement",
+    "parameters_b": 33.015546816,
+    "parameters_source": "primary_source",
+    "context_window": 262144,
+    "description": "Mamba2-Transformer MoE reasoning model with C-RADIO vision and Parakeet audio encoders; accepts text, images, video and audio and generates text.",
+    "notes": "Complete BF16 checkpoint: 33.015546816B learned parameters, including vision/audio encoders and projectors. The advertised ~3B active figure is nominal and language-backbone-only; full multimodal activity varies by input and phase. Decoder uses 23 Mamba, 6 attention and 23 MoE blocks with 6 of 128 routed experts plus a shared expert. The report and nested language config support 262144 tokens; top-level max_sequence_length is 131072, so deployment settings may impose a lower limit.",
+    "source_url": "https://huggingface.co/nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16/blob/e5e9932441de940c9a62185c870ea5bcd4cd24e2/README.md",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "NVIDIA model card",
+        "url": "https://huggingface.co/nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16/blob/e5e9932441de940c9a62185c870ea5bcd4cd24e2/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "NVIDIA launch announcement",
+        "url": "https://blogs.nvidia.com/blog/nemotron-3-nano-omni-multimodal-ai-agents/",
+        "type": "primary"
+      },
+      {
+        "label": "NVIDIA technical report v2",
+        "url": "https://arxiv.org/html/2604.24954v2",
+        "type": "primary"
+      },
+      {
+        "label": "NVIDIA checkpoint configuration",
+        "url": "https://huggingface.co/nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16/blob/e5e9932441de940c9a62185c870ea5bcd4cd24e2/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Complete BF16 weight index",
+        "url": "https://huggingface.co/nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16/blob/e5e9932441de940c9a62185c870ea5bcd4cd24e2/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "NVIDIA decoder activity scope",
+        "url": "https://docs.nvidia.com/nemotron/nightly/nemotron/omni3/architecture.html",
+        "type": "primary"
+      }
+    ],
+    "architecture": "hybrid-ssm-transformer-moe"
+  },
+  "proposed_fields": {
+    "active_parameters_scope": "language_backbone",
+    "parameter_components_b": {
+      "language_backbone": 31.577937344,
+      "vision_encoder": 0.65361152,
+      "vision_projector": 0.15991296,
+      "audio_encoder": 0.608879616,
+      "audio_projector": 0.015205376
+    }
+  },
+  "checkpoint_audit": {
+    "repository": "nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16",
+    "revision": "e5e9932441de940c9a62185c870ea5bcd4cd24e2",
+    "shards": 17,
+    "method": "For each shard, fetch exactly bytes 0-7 to decode the little-endian uint64 header length, then bytes 8 through header_length+7. Require HTTP 206 and exact response lengths; never read tensor payloads. Reconcile names against complete index, contiguous offsets, dtype element sizes and index total_size. Reconstruct all names and shapes independently from configuration and model implementations.",
+    "counts": {
+      "learned_tensor_count": 7250,
+      "learned_parameters": 33015546816,
+      "buffer_tensor_count": 99,
+      "buffer_elements": 85422,
+      "components": {
+        "language_model": 31577937344,
+        "vision_model": 653611520,
+        "mlp1": 159912960,
+        "sound_encoder": 608879616,
+        "sound_projection": 15205376
+      },
+      "shape_checks": 7349,
+      "hybrid_pattern": {
+        "M": 23,
+        "E": 23,
+        "*": 6
+      },
+      "text_top6_expert_parameter_subset_including_full_input_embedding_and_lm_head": 3580073408,
+      "text_subset_excluding_input_embedding": 3227751872
+    },
+    "stored_elements_by_dtype": {
+      "BF16": 33015629264,
+      "F32": 2950,
+      "I64": 24
+    },
+    "payload_bytes": 66031270520,
+    "excluded_buffers": {
+      "routing_score_correction_bias": 2944,
+      "vision_normalization_mean_std": 6,
+      "audio_batchnorm_running_mean_variance": 49152,
+      "audio_batchnorm_batch_counters": 24,
+      "audio_mel_filterbank_and_window": 33296
+    },
+    "component_notes": "Vision count includes 1,966,080 separate video patch-projection parameters. Language count includes untied input and output embeddings. Audio count excludes preprocessing and BatchNorm buffers; learned relative-attention bias_u/bias_v are retained. Frozen-at-later-training-stage learned weights are still counted.",
+    "reproduction": {
+      "cache_directory": "/tmp/model-audit-382",
+      "header_script": "/tmp/model-audit-382/headers.py",
+      "count_script": "/tmp/model-audit-382/count.py",
+      "commands": [
+        "python3 /tmp/model-audit-382/headers.py",
+        "python3 /tmp/model-audit-382/count.py"
+      ],
+      "artifacts": [
+        "metadata.json",
+        "config.json",
+        "model.safetensors.index.json",
+        "headers.json",
+        "tensors.json",
+        "counts.json"
+      ],
+      "source_code_cache": [
+        "modeling.py",
+        "modeling_nemotron_h.py",
+        "audio_model.py",
+        "radio-extra_timm_models.py",
+        "radio-vit_patch_generator.py",
+        "radio-cls_token.py",
+        "radio-input_conditioner.py",
+        "parakeet_hf.py",
+        "nemo-features.py"
+      ]
+    }
+  },
+  "summary": "Correct total from nominal 30B to complete 33.015546816B learned parameters; add NVIDIA Open Model Agreement; correct 256000 context to 262144. Preserve nominal ~3B active only with language_backbone scope and component breakdown. Confirm April 28 release, hybrid MoE, four input modalities, text-only output, reasoning and tool calling. Whole multimodal active parameters are not independently disclosed; no fabricated complete active count."
+}

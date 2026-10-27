@@ -22949,6 +22949,60 @@
       "field_status": {},
       "audited_at": "2026-10-27T00:38:31.157637+00:00",
       "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/381.json"
+    },
+    "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning": {
+      "license": "NVIDIA Open Model Agreement",
+      "parameters_b": 33.015546816,
+      "parameters_source": "primary_source",
+      "context_window": 262144,
+      "description": "Mamba2-Transformer MoE reasoning model with C-RADIO vision and Parakeet audio encoders; accepts text, images, video and audio and generates text.",
+      "notes": "Complete BF16 checkpoint: 33.015546816B learned parameters, including vision/audio encoders and projectors. The advertised ~3B active figure is nominal and language-backbone-only; full multimodal activity varies by input and phase. Decoder uses 23 Mamba, 6 attention and 23 MoE blocks with 6 of 128 routed experts plus a shared expert. The report and nested language config support 262144 tokens; top-level max_sequence_length is 131072, so deployment settings may impose a lower limit.",
+      "source_url": "https://huggingface.co/nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16/blob/e5e9932441de940c9a62185c870ea5bcd4cd24e2/README.md",
+      "source_type": "primary",
+      "sources": [
+        {
+          "label": "NVIDIA model card",
+          "url": "https://huggingface.co/nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16/blob/e5e9932441de940c9a62185c870ea5bcd4cd24e2/README.md",
+          "type": "primary"
+        },
+        {
+          "label": "NVIDIA launch announcement",
+          "url": "https://blogs.nvidia.com/blog/nemotron-3-nano-omni-multimodal-ai-agents/",
+          "type": "primary"
+        },
+        {
+          "label": "NVIDIA technical report v2",
+          "url": "https://arxiv.org/html/2604.24954v2",
+          "type": "primary"
+        },
+        {
+          "label": "NVIDIA checkpoint configuration",
+          "url": "https://huggingface.co/nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16/blob/e5e9932441de940c9a62185c870ea5bcd4cd24e2/config.json",
+          "type": "primary"
+        },
+        {
+          "label": "Complete BF16 weight index",
+          "url": "https://huggingface.co/nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16/blob/e5e9932441de940c9a62185c870ea5bcd4cd24e2/model.safetensors.index.json",
+          "type": "weights"
+        },
+        {
+          "label": "NVIDIA decoder activity scope",
+          "url": "https://docs.nvidia.com/nemotron/nightly/nemotron/omni3/architecture.html",
+          "type": "primary"
+        }
+      ],
+      "architecture": "hybrid-ssm-transformer-moe",
+      "active_parameters_scope": "language_backbone",
+      "parameter_components_b": {
+        "language_backbone": 31.577937344,
+        "vision_encoder": 0.65361152,
+        "vision_projector": 0.15991296,
+        "audio_encoder": 0.608879616,
+        "audio_projector": 0.015205376
+      },
+      "field_status": {},
+      "audited_at": "2026-10-27T00:43:18.668026Z",
+      "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/382.json"
     }
   },
   "aliases": {
