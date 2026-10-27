@@ -1,7 +1,7 @@
 {
   "index": 55,
   "model_id": "alibaba/qwen3.5-9b-base",
-  "reviewed_at": "2026-10-27T09:47:11.618140Z",
+  "reviewed_at": "2026-10-27T19:29:18.594022Z",
   "sources": [
     {
       "id": "s1",
@@ -106,6 +106,30 @@
       "publisher": "Local AI Registry",
       "accessed": true,
       "evidence": "Targeted exact-variant searches surfaced 9.65B active, but the record expressly derives it from all-parameters-active-in-dense-model. Rejected as a secondary architecture inference, not a Qwen disclosure. The linked primary card and API provide no active count."
+    },
+    {
+      "id": "date_s1",
+      "url": "https://x.com/Alibaba_Qwen/status/2028460046510965160",
+      "title": "Qwen March 2 small-model and Base release announcement",
+      "publisher": "Qwen",
+      "accessed": true,
+      "evidence": "Official X syndication API provides original author Alibaba_Qwen and timestamp 2026-03-02T13:18:56Z. Its excerpt is truncated. Full original post retrieved through FxTwitter includes explicit release of the Base models alongside 0.8B, 2B, 4B and 9B, with links to the official model collections. Tongyi Lab's original newsletter independently reproduces the same Base-release text."
+    },
+    {
+      "id": "date_s2",
+      "url": "https://tongyilab.substack.com/p/mar-6-2026-the-tongyi-weekly",
+      "title": "Tongyi Lab original weekly release announcement",
+      "publisher": "Tongyi Lab / Alibaba",
+      "accessed": true,
+      "evidence": "Full newsletter accessed through web reader. Its Qwen3.5 Small Model Series section names 0.8B, 2B, 4B and 9B and explicitly says it is also releasing Base models; links to official Hugging Face and ModelScope collections. This corroborates full text of Qwen March 2 post, not a March 6 release date."
+    },
+    {
+      "id": "date_s3",
+      "url": "https://huggingface.co/api/models/Qwen/Qwen3.5-9B-Base/commits/main",
+      "title": "Exact 9B Base preparation history",
+      "publisher": "Qwen / Hugging Face",
+      "accessed": true,
+      "evidence": "Reopened original history: empty repo February 26, checkpoint upload February 27, team README PR February 27/28 and processor update March 2. These preparation dates do not override the public Base release announcement."
     }
   ],
   "fields": {
@@ -134,15 +158,14 @@
       "note": "Qwen3.5 is a member of the Qwen family."
     },
     "release_date": {
-      "value": null,
-      "status": "unverified",
+      "value": "2026-03-02",
+      "status": "verified",
       "source_ids": [
-        "s3",
-        "s7",
-        "s8",
-        "s10"
+        "date_s1",
+        "date_s2",
+        "date_s3"
       ],
-      "note": "February 26 is repository creation without weights; upload was February 27. Official news gives March 2 for the small-model series, but exact Base public availability is not established by the accessed primary sources."
+      "note": "February 26 is repository creation and February 27 is weight upload; the original March 2 Qwen announcement explicitly includes the Base models in the small-series release. The previously accessed truncated post omitted that sentence; the full post and Tongyi Lab newsletter resolve the Base identity."
     },
     "open_weights": {
       "value": true,
@@ -248,14 +271,14 @@
     }
   },
   "patch": {
-    "release_date": null,
-    "date_precision": null,
+    "release_date": "2026-03-02",
+    "date_precision": "day",
     "parameters_b": 9.653104368,
     "parameters_source": "primary_source",
     "architecture": "dense",
     "reasoning": null,
     "tool_call": null,
-    "notes": "Complete checkpoint: 9.653104368B parameters, including 8.953803264B language model with output head (nominally 9B), 0.456010480B vision and 0.243290624B MTP. Active parameters are not separately disclosed. Dense FFNs accompany hybrid DeltaNet/full attention. Base weights are pretrained-only; generic card claims and template branches do not establish trained reasoning or tool capabilities. February 26 is repository creation, February 27 is weight upload, and March 2 is the small-series announcement; exact Base public release remains unverified.",
+    "notes": "Complete checkpoint: 9.653104368B parameters, including 8.953803264B language model with output head (nominally 9B), 0.456010480B vision and 0.243290624B MTP. Active parameters are not separately disclosed. Dense FFNs accompany hybrid DeltaNet/full attention. Base weights are pretrained-only; generic card claims and template branches do not establish trained reasoning or tool capabilities. Qwen announced release of the small-series Base checkpoints on March 2, 2026. The February 26 repository creation and February 27 weight upload were preparation dates.",
     "sources": [
       {
         "label": "Exact Base model card",
@@ -306,9 +329,26 @@
         "label": "Qwen-Scope backbone comparison table",
         "url": "https://arxiv.org/html/2605.11887v1",
         "type": "technical_report"
+      },
+      {
+        "label": "Qwen March 2 small-model and Base release announcement",
+        "url": "https://x.com/Alibaba_Qwen/status/2028460046510965160",
+        "type": "primary"
+      },
+      {
+        "label": "Tongyi Lab original weekly release announcement",
+        "url": "https://tongyilab.substack.com/p/mar-6-2026-the-tongyi-weekly",
+        "type": "primary"
+      },
+      {
+        "label": "Exact 9B Base preparation history",
+        "url": "https://huggingface.co/api/models/Qwen/Qwen3.5-9B-Base/commits/main",
+        "type": "primary"
       }
     ],
-    "active_parameters_b": null
+    "active_parameters_b": null,
+    "source_type": "primary",
+    "source_url": "https://x.com/Alibaba_Qwen/status/2028460046510965160"
   },
   "proposed_fields": {
     "parameter_components_b": {
@@ -317,5 +357,34 @@
       "mtp": 0.243290624
     }
   },
-  "summary": "October 27 parameter re-audit preserves the verified 9.653104368B complete-checkpoint total and exact components; fresh official metadata agrees with the prior tensor census. The nominal 9B language-model specification remains explicit. Exact-model and targeted later first-party table searches found no published active count, so active_parameters_b remains explicitly null/undisclosed. Other audited fields are unchanged."
+  "summary": "October 27 parameter re-audit preserves the verified 9.653104368B complete-checkpoint total and exact components; fresh official metadata agrees with the prior tensor census. The nominal 9B language-model specification remains explicit. Exact-model and targeted later first-party table searches found no published active count, so active_parameters_b remains explicitly null/undisclosed. Other audited fields are unchanged. The release-date re-audit verifies March 2, 2026: the full original Qwen release announcement explicitly includes Base models, corroborated by Tongyi Lab's weekly release post.",
+  "release_date_reaudit": {
+    "reviewed_at": "2026-10-27T19:29:18.594022Z",
+    "agent": "/root/date_checkpoints",
+    "searches": [
+      "Qwen Small Model Series Base models simultaneously released March 2 2026 Alibaba official",
+      "千问 3月2日 2026 Base 模型 同步 开源",
+      "\"Qwen\" \"we’re also releasing the Base models\"",
+      "Original X syndication, official release newsletter and exact Base repository history"
+    ],
+    "accessed_originals": [
+      "https://x.com/Alibaba_Qwen/status/2028460046510965160",
+      "https://tongyilab.substack.com/p/mar-6-2026-the-tongyi-weekly",
+      "https://huggingface.co/api/models/Qwen/Qwen3.5-9B-Base/commits/main"
+    ],
+    "findings": [
+      "The March 2 original Qwen post explicitly announces Base models; it is not just an Instruct-only family announcement.",
+      "A truncated X embed omitted the decisive sentence; Tongyi Lab repeats it in its own original newsletter.",
+      "No external public-use evidence before March 2 was established; the earlier model-card PR is internal team activity."
+    ],
+    "outcome": {
+      "release_date": "2026-03-02",
+      "date_precision": "day",
+      "status": "verified"
+    },
+    "limitations": [
+      "X page itself returned 403; official syndication confirms identity and timestamp while full text was retrieved through FxTwitter and corroborated by the first-party newsletter.",
+      "An earlier private-to-public switch is not recorded; release day follows the explicit public announcement."
+    ]
+  }
 }
