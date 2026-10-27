@@ -1,7 +1,7 @@
 {
   "index": 269,
   "model_id": "meta/llama-3.1-8b-instruct",
-  "reviewed_at": "2026-10-26T21:34:36.070817Z",
+  "reviewed_at": "2026-10-27T14:08:00.487Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Llama-3.1-8B-Instruct model card",
       "publisher": "Meta (Hugging Face)",
       "accessed": true,
-      "evidence": "Exact Instruct repository identifies Meta, Llama 3.1, nominal 8B size, text input/output, 128k context, GQA and downloadable weights under llama3.1. Its tool-use section documents native structured tool calls."
+      "evidence": "Exact Instruct repository identifies Meta, Llama 3.1, nominal 8B size, text input/output, 128k context, GQA and downloadable weights under llama3.1. Its tool-use section documents native structured tool calls. Reopened October 27: the developer card explicitly includes instruction-tuned 8B models and lists 8B in its Params table."
     },
     {
       "id": "s2",
@@ -25,7 +25,7 @@
       "title": "The Llama 3 Herd of Models, version 3",
       "publisher": "Meta Llama Team",
       "accessed": true,
-      "evidence": "Table 1 separately labels Llama 3.1 8B Instruct as finetuned, multilingual, long-context and tool-capable in July 2024, distinct from original Llama 3. The paper states its results concern 3.1. Section 3.2 specifies dense Transformers; Table 3 gives 8B: 32 layers, width 4096, FFN 14336, 32 attention heads and 8 KV heads."
+      "evidence": "Table 1 separately labels Llama 3.1 8B Instruct as finetuned, multilingual, long-context and tool-capable in July 2024, distinct from original Llama 3. The paper states its results concern 3.1. Section 3.2 specifies dense Transformers; Table 3 gives 8B: 32 layers, width 4096, FFN 14336, 32 attention heads and 8 KV heads. Reopened October 27: introduction and architecture table retain the nominal 8B size for the Llama 3.1 model; no distinct activated-count specification was located in the checked Meta sections."
     },
     {
       "id": "s4",
@@ -82,6 +82,14 @@
       "publisher": "Meta (Hugging Face)",
       "accessed": false,
       "evidence": "Unauthenticated direct request returned HTTP 401. No gated configuration or weights were retrieved; exact context is independently established by public Meta implementation and evaluation documentation."
+    },
+    {
+      "id": "s11",
+      "url": "https://arxiv.org/html/2505.09388v1",
+      "title": "Qwen3 Technical Report, Table 18 and Section 4.6",
+      "publisher": "Qwen Team (Alibaba)",
+      "accessed": true,
+      "evidence": "Freshly checked October 27: Table 18 explicitly identifies LLaMA-3.1-8B-Instruct and lists Dense architecture, 8B Activated Params and 8B Total Params. Section 4.6 separately names this exact Instruct model among the non-thinking comparison baselines. This is the Qwen research team's nominal benchmark counting convention, not an active-count disclosure by Meta; it does not establish an exact component-level per-token census. The current HTML labels this Table 18, not Table 16."
     }
   ],
   "fields": {
@@ -146,16 +154,15 @@
         "s1",
         "s3"
       ],
-      "note": "Developer-reported nominal size in billions. Retain 8B; the HF aggregate alone does not justify precision of 8.030261248B without full learned-tensor accounting."
+      "note": "Meta reports a nominal 8B size for the exact Llama 3.1 8B Instruct model. Reopened model card and technical report confirm this published precision; retain 8B without requiring an exact learned-tensor census."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 8,
+      "status": "verified",
       "source_ids": [
-        "s1",
-        "s3"
+        "s11"
       ],
-      "note": "Dense architecture is documented, but no separately defined active-per-token parameter count is reported; total is not copied into active."
+      "note": "Qwen3 Table 18 explicitly lists 8B activated parameters for LLaMA-3.1-8B-Instruct; Section 4.6 confirms the exact comparison variant. Adopt Qwen Team's published nominal benchmark convention, not an inference from dense architecture or a Meta disclosure. Exact per-token component participation is not established."
     },
     "architecture": {
       "value": "dense",
@@ -233,7 +240,7 @@
     "description": "Meta open-weight 8B Llama 3.1 instruction-tuned text model for multilingual dialogue and tool use.",
     "source_url": "https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct",
     "source_type": "primary",
-    "notes": "8B is Meta\u2019s nominal total; a precise learned-parameter count was not established from the public safetensors aggregate. Dense GQA Transformer; active parameters are not separately defined. The original 128K context is exactly 131072 tokens in Meta\u2019s SKU code and evaluation documentation. Native tool calls are documented, while a dedicated reasoning-mode flag is undisclosed. Gated config returned 401; no full weights or gated data were downloaded.",
+    "notes": "Meta reports a nominal 8B total. Qwen3 Table 18 reports 8B activated parameters for this exact Instruct model under Qwen Team's benchmark convention; this is not a separate Meta disclosure or exact per-token census. Dense GQA model with 131072-token context and native tool calls; a dedicated reasoning mode remains undisclosed.",
     "sources": [
       {
         "label": "Meta exact model card",
@@ -274,8 +281,15 @@
         "label": "Original Llama 3.1 release",
         "url": "https://ai.meta.com/blog/meta-llama-3-1/",
         "type": "primary"
+      },
+      {
+        "label": "Qwen3 exact-model activated-parameter comparison (Table 18)",
+        "url": "https://arxiv.org/html/2505.09388v1",
+        "type": "primary"
       }
-    ]
+    ],
+    "parameters_b": 8,
+    "active_parameters_b": 8
   },
-  "summary": "Confirmed exact original Llama 3.1 8B Instruct identity, Meta attribution, July 23 release, open weights, nominal 8B size, text modalities and native tool use. Added its custom license and dense GQA architecture; corrected 128000 to 131072 context tokens. Replaced generic description. Active count remains undisclosed, and unsupported reasoning=false is cleared to null pending dedicated-mode evidence. The public tensor aggregate was not treated as a precise learned-parameter count."
+  "summary": "Fresh parameter re-audit retained Meta's nominal 8B total and established a nominal 8B active count from the original Qwen3 research comparison, Table 18 and Section 4.6, which explicitly identifies Llama 3.1 8B Instruct. The active count follows Qwen Team's stated benchmark convention; Meta's checked original sources do not separately define it, and exact per-token component participation remains unestablished. Reopened the Meta card and Llama technical report and searched for missed parameter disclosures. Preserved the other twelve field assessments, including dense GQA architecture, 131072-token context, native tools and the unresolved dedicated reasoning-mode flag."
 }
