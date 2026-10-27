@@ -1,7 +1,7 @@
 {
   "index": 84,
   "model_id": "amazon/nova-pro-v1",
-  "reviewed_at": "2026-10-26T16:06:20Z",
+  "reviewed_at": "2026-10-27T10:10:05.508Z",
   "sources": [
     {
       "id": "s1",
@@ -25,7 +25,7 @@
       "title": "The Amazon Nova Family of Models: Technical Report and Model Card",
       "publisher": "Amazon Artificial General Intelligence / arXiv",
       "accessed": true,
-      "evidence": "Section 1.1 explicitly identifies Nova Pro, Lite, and Micro as Transformer-based. Reports Nova Pro capabilities and evaluation tables but does not disclose total or active parameter counts, nor dense versus MoE structure. This accessible author report was used after the Amazon-hosted PDF exceeded the browser fetch limit."
+      "evidence": "Reopened October 27, 2026 for the parameter re-audit. Section 1.1 explicitly identifies Nova Pro, Lite, and Micro as Transformer-based. Reports Nova Pro capabilities and evaluation tables but does not disclose total or active parameter counts, nor dense versus MoE structure. This accessible author report was used after the Amazon-hosted PDF exceeded the browser fetch limit."
     },
     {
       "id": "s4",
@@ -33,7 +33,7 @@
       "title": "Amazon Nova Premier: Technical Report and Model Card",
       "publisher": "Amazon Artificial General Intelligence",
       "accessed": true,
-      "evidence": "April 30, 2025 addendum explicitly compares Nova Pro in capability and runtime tables. Those tables contain no total/active parameter counts or structural disclosure for Nova Pro."
+      "evidence": "Reopened October 27, 2026 for the parameter re-audit. April 30, 2025 addendum explicitly compares Nova Pro in capability and runtime tables. Those tables contain no total/active parameter counts or structural disclosure for Nova Pro."
     },
     {
       "id": "s5",
@@ -41,7 +41,7 @@
       "title": "Amazon Nova 2: Multimodal Reasoning and Generation Models",
       "publisher": "Amazon Artificial General Intelligence",
       "accessed": true,
-      "evidence": "Later first-party report includes explicitly labeled Nova 1 Pro comparisons, including multimodal benchmarks. No Nova 1 Pro total or active parameter count or dense/MoE classification is disclosed. Describes configurable extended thinking as introduced by Nova 2."
+      "evidence": "Reopened October 27, 2026 for the parameter re-audit. Later first-party report includes explicitly labeled Nova 1 Pro comparisons, including multimodal benchmarks. No Nova 1 Pro total or active parameter count or dense/MoE classification is disclosed. Describes configurable extended thinking as introduced by Nova 2."
     },
     {
       "id": "s6",
@@ -129,7 +129,55 @@
       "title": "What is Amazon Nova? \u2014 Version 1 model specifications",
       "publisher": "AWS",
       "accessed": true,
-      "evidence": "Exact Nova Pro column identifies amazon.nova-pro-v1:0, 300K context, text/image/video input, text output and PDF document support."
+      "evidence": "Reopened October 27, 2026 for the parameter re-audit. Exact Nova Pro column identifies amazon.nova-pro-v1:0, 300K context, text/image/video input, text output and PDF document support."
+    },
+    {
+      "id": "s17",
+      "url": "https://aclanthology.org/2025.findings-emnlp.1099.pdf",
+      "title": "MASSIVE-Agents: A Benchmark for Multilingual Function-Calling in 52 Languages",
+      "publisher": "Amazon AGI / ACL Anthology",
+      "accessed": true,
+      "evidence": "Amazon AGI-authored EMNLP 2025 paper. Table 1 (PDF page 6) has an explicit Params column: the Nova Pro row is NP, with 300k context and December 2024 release, identifying first-generation Pro. The table supplies no numeric total or activated parameter count for Nova Pro; its other numeric columns are context, release date and output speed."
+    },
+    {
+      "id": "s18",
+      "url": "https://aclanthology.org/2025.findings-ijcnlp.125.pdf",
+      "title": "PHLoRA: Data-Free Post-Hoc Low-Rank Adapter Extraction from Full-Rank Checkpoint",
+      "publisher": "Amazon AGI coauthors / ACL Anthology",
+      "accessed": true,
+      "evidence": "December 2025 paper evaluates Nova Micro, Lite and Pro base models and full-rank/LoRA fine-tunes. Sections 4.1-4.3 and Tables 3-6 report adapter ranks 32, 64 and 512, performance and retained energy, not total or active model parameter counts. The named fine-tuning relationship does not supply a size-bearing base-model identity."
+    },
+    {
+      "id": "s19",
+      "url": "https://aws.amazon.com/bedrock/model-distillation/",
+      "title": "Amazon Bedrock Model Distillation",
+      "publisher": "AWS",
+      "accessed": true,
+      "evidence": "Explains that teacher-generated responses fine-tune a separately selected student; names Nova Premier as teacher and Nova Pro as student. This is knowledge distillation, not an assertion that Nova Pro shares the teacher parameter count or a named size-bearing base architecture."
+    },
+    {
+      "id": "s20",
+      "url": "https://www.dirittobancario.it/wp-content/uploads/2025/05/Studio-ISDA-maggio-2025.pdf",
+      "title": "Benchmarking Generative AI for CSA Clause Extraction and CDM Representation",
+      "publisher": "ISDA / Diritto Bancario mirror",
+      "accessed": true,
+      "evidence": "May 2025 paper, appendix page 28, explicitly calls Nova Pro parameter count undisclosed and approximately 90B an estimate. Used only to investigate a secondary numeric lead, not as a developer specification."
+    },
+    {
+      "id": "s21",
+      "url": "https://lifearchitect.ai/olympus/",
+      "title": "Amazon Nova (formerly Olympus)",
+      "publisher": "LifeArchitect.ai / Alan D. Thompson",
+      "accessed": true,
+      "evidence": "The summary explicitly labels all Nova parameter numbers as Alan estimates based on benchmark scores, including Nova Pro approximately 90B. This resolves the 90B lead as secondary estimation rather than developer-published nominal size or named-base lineage. No claim is made that the ISDA paper sourced this page."
+    },
+    {
+      "id": "s22",
+      "url": "https://aws.amazon.com/blogs/architecture/architecting-offline-first-generative-ai-applications-for-edge-deployments-using-aws-services/",
+      "title": "Architecting offline-first generative AI applications for edge deployments using AWS services",
+      "publisher": "AWS",
+      "accessed": true,
+      "evidence": "July 22, 2026 first-party article names Nova Pro as a synthetic Q&A data generator, then specifies 21B total and 3.6B active for the separate gpt-oss-20b model fine-tuned on that data. Those numbers do not describe Nova Pro and provide no size-preserving model lineage."
     }
   ],
   "fields": {
@@ -193,9 +241,16 @@
       "source_ids": [
         "s3",
         "s4",
-        "s5"
+        "s5",
+        "s16",
+        "s17",
+        "s18",
+        "s19",
+        "s20",
+        "s21",
+        "s22"
       ],
-      "note": "Checked the original author report, the Premier addendum's Nova Pro comparison tables, and the later Nova 2 report's Nova 1 Pro comparisons. None gives a total parameter count for this exact model; no size is inferred from tiers, speed, training infrastructure, or siblings."
+      "note": "Fresh October 27 review reopened the original Nova family report, Premier and Nova 2 comparison reports, and exact v1 specification page, then searched for newer total/active disclosures and size-bearing lineage. Amazon AGI MASSIVE-Agents Table 1 explicitly marks Nova Pro Params as NP. PHLoRA gives adapter ranks, not base-model size; distillation documentation does not establish parameter-preserving lineage. The approximately 90B lead is explicitly a secondary benchmark-based estimate, and the later AWS 21B figure belongs to gpt-oss-20b. No developer nominal total or size-bearing named base was established."
     },
     "active_parameters_b": {
       "value": null,
@@ -203,9 +258,12 @@
       "source_ids": [
         "s3",
         "s4",
-        "s5"
+        "s5",
+        "s17",
+        "s18",
+        "s22"
       ],
-      "note": "No active-per-token count is reported for Nova Pro in the checked original or later first-party reports. Dense/MoE composition is not disclosed, so active count cannot be inferred or equated with total."
+      "note": "Checked active/activated count separately in the reopened original, Premier and Nova 2 reports and later Amazon-authored MASSIVE-Agents and PHLoRA comparisons. None supplies an activated-parameter column or count for Nova Pro. MASSIVE-Agents Params is NP; PHLoRA adapter ranks do not imply active size. A July 2026 AWS article reports 3.6B active only for gpt-oss-20b trained on Nova-generated data. No Nova Pro active count or dense/MoE classification was established."
     },
     "architecture": {
       "value": "transformer",
@@ -296,7 +354,7 @@
     },
     "reasoning": null,
     "description": "Amazon Nova Pro 1.0 is a multimodal Transformer with a 300K-token context window, document and video inputs, and tool calling.",
-    "notes": "Total and active parameter counts and dense/MoE structure are not disclosed in the checked original, Premier, and Nova 2 reports. Amazon announced general availability on December 3, 2024; the Bedrock card's December 5 date conflicts. Reasoning-mode support remains unresolved: AWS's Nova 1 Pro migration table says no extended thinking, while its current shared schema claims reasoningConfig for Nova Pro without an exact generation ID. Dedicated Nova training documentation explicitly identifies proprietary weights and AWS-managed escrow storage despite the broad JumpStart table's inconsistent Open-Weight heading.",
+    "notes": "Total and active parameters remain undisclosed; Amazon AGI\u2019s MASSIVE-Agents table marks Nova Pro Params as NP. The reported 90B estimate is secondary and benchmark-based. Dense/MoE structure is unspecified. Amazon announced general availability on December 3, 2024; the Bedrock card's December 5 date conflicts. Reasoning-mode support remains unresolved: AWS's Nova 1 Pro migration table says no extended thinking, while its current shared schema claims reasoningConfig for Nova Pro without an exact generation ID. Dedicated Nova training documentation explicitly identifies proprietary weights and AWS-managed escrow storage despite the broad JumpStart table's inconsistent Open-Weight heading.",
     "source_url": "https://press.aboutamazon.com/2024/12/introducing-amazon-nova-a-new-generation-of-foundation-models",
     "source_type": "primary",
     "sources": [
@@ -349,9 +407,32 @@
         "label": "What is Amazon Nova? \u2014 Version 1 model specifications",
         "url": "https://docs.aws.amazon.com/nova/latest/userguide/what-is-nova.html",
         "type": "primary"
+      },
+      {
+        "label": "Amazon Nova Premier: Technical Report and Model Card",
+        "url": "https://cdn.amazon.science/e5/e6/ccc5378c42dca467d1abe1628ec9/amazon-nova-premier-technical-report-and-model-card.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Amazon Nova 2: Multimodal Reasoning and Generation Models",
+        "url": "https://cdn.amazon.science/c5/3d/84514a224666b5be6de4b43ef4aa/nova-2-0-technical-report2.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "MASSIVE-Agents: A Benchmark for Multilingual Function-Calling in 52 Languages",
+        "url": "https://aclanthology.org/2025.findings-emnlp.1099.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "PHLoRA: Data-Free Post-Hoc Low-Rank Adapter Extraction from Full-Rank Checkpoint",
+        "url": "https://aclanthology.org/2025.findings-ijcnlp.125.pdf",
+        "type": "primary"
       }
     ],
-    "family": "nova"
+    "family": "nova",
+    "parameters_b": null,
+    "active_parameters_b": null,
+    "parameters_source": null
   },
-  "summary": "Correct release to December 3, 2024, add video input, record Transformer architecture and AWS Service Terms, and replace the flagship description. Confirm Amazon, exact first-generation identity, 300K context, tool calling, and proprietary weights with explicit weight-access evidence. Total/active parameter counts remain undisclosed after checking original and later first-party comparison reports. Clear reasoning=false to null because current first-party documentation conflicts on exact v1 extended-thinking support."
+  "summary": "October 27 parameter re-audit retains explicit null total/active counts after reopening original and later first-party reports, checking Amazon AGI MASSIVE-Agents Params=NP and PHLoRA adapter-rank tables, and resolving secondary 90B and unrelated gpt-oss-20b size leads. No size-bearing lineage or active-count disclosure was found. All nonparameter assessments are preserved, including the original release-date and reasoning-support qualifications."
 }
