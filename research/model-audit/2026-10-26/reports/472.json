@@ -1,0 +1,314 @@
+{
+  "index": 472,
+  "model_id": "poolside/laguna-xs-2.1",
+  "reviewed_at": "2026-10-27T03:47:29.789304Z",
+  "sources": [
+    {
+      "id": "release",
+      "url": "https://poolside.ai/blog/introducing-laguna-xs-2-1",
+      "title": "Introducing Laguna XS 2.1",
+      "publisher": "Poolside",
+      "accessed": true,
+      "evidence": "Dated July 2, 2026; announces public availability of this exact revision, with nominal 33B total and 3B active parameters, MoE architecture, OpenMDW-1.1 weights and 256K API context. It explicitly says the architecture is the same as XS.2. Quantized checkpoints and separate DFlash draft models are distinct artifacts."
+    },
+    {
+      "id": "card",
+      "url": "https://huggingface.co/poolside/Laguna-XS-2.1/blob/c5f36269bbdbd3f27fddc9a9f9dbae0cf2cf57db/README.md",
+      "title": "Laguna XS 2.1 pinned model card",
+      "publisher": "Poolside",
+      "accessed": true,
+      "evidence": "Exact variant card confirms text-to-text, 262144-token context, interleaved thinking, tool calls, 40 layers, 256 routed experts plus one shared expert, and the 33B/3B figures. Its benchmark table labels XS 2.1 separately from XS.2. Current deployment instructions explain parser-specific fixes; these are not absence of model tool-calling capability."
+    },
+    {
+      "id": "config",
+      "url": "https://huggingface.co/poolside/Laguna-XS-2.1/blob/c5f36269bbdbd3f27fddc9a9f9dbae0cf2cf57db/config.json",
+      "title": "Laguna XS 2.1 pinned configuration",
+      "publisher": "Poolside",
+      "accessed": true,
+      "evidence": "40-layer LagunaForCausalLM: width 2048, vocabulary 100352, first layer dense 8192, remaining 39 layers MoE with 256 routed 512-wide experts/top 8 plus shared 512-wide expert. Ten global layers use 48 query heads;30 sliding layers use 64; all have 8 KV heads/head 128. Embeddings are untied. Context 262144 uses global YaRN factor 32 with original 8192; sliding window 512 uses default RoPE. No quantization or MTP is configured."
+    },
+    {
+      "id": "headers",
+      "url": "https://huggingface.co/poolside/Laguna-XS-2.1/tree/c5f36269bbdbd3f27fddc9a9f9dbae0cf2cf57db",
+      "title": "All pinned BF16 safetensors shard headers",
+      "publisher": "Poolside",
+      "accessed": true,
+      "evidence": "Fetched the 8-byte length and bounded JSON header with HTTP206 for all 14 indexed shards; no weight payloads. All 30,513 indexed tensors occur exactly once, all BF16, totaling 33,442,617,088 stored elements and 66,885,234,176 bytes, matching index metadata. An independent reconstruction from every enabled module matched all 30,513 names/shapes with no missing/extra tensors. Totals: embeddings 205,520,896, untied head 205,520,896, norms 176,128, attention 1,430,978,560, dense MLP 50,331,648, router weights 20,447,232, shared experts 122,683,392, routed experts 31,406,948,352, router correction state 9,984. Excluding the non-gradient routing correction values leaves 33,442,607,104 weight elements. No packed weights, scale tensors, tied duplication or MTP/draft weights occur."
+    },
+    {
+      "id": "implementation",
+      "url": "https://huggingface.co/poolside/Laguna-XS-2.1/blob/c5f36269bbdbd3f27fddc9a9f9dbae0cf2cf57db/modeling_laguna.py",
+      "title": "Pinned Laguna model implementation",
+      "publisher": "Poolside",
+      "accessed": true,
+      "evidence": "Inspected all instantiated parameter-bearing modules: embedding/output head, 40 decoder blocks, dense first MLP, 39 sparse blocks, gated GQA projections, QK norms and two decoder RMSNorms, final RMSNorm. Routed experts are fused in the implementation; separate saved gate/up/down matrices have matching dimensions and total size. The 39 × 256 routing corrections are nn.Parameter(requires_grad=False), remapped from experts to router; they are counted separately from learned weights. Rotary frequencies are nonpersistent buffers. No auxiliary/MTP module is instantiated; the optional DFlash is a separate model."
+    },
+    {
+      "id": "configuration_code",
+      "url": "https://huggingface.co/poolside/Laguna-XS-2.1/blob/c5f36269bbdbd3f27fddc9a9f9dbae0cf2cf57db/configuration_laguna.py",
+      "title": "Pinned Laguna configuration implementation",
+      "publisher": "Poolside",
+      "accessed": true,
+      "evidence": "The explicit per-layer query-head list overrides the scalar head count. Sink parameters are disabled by the false default; per-head attention gating is enabled. The configuration preserves untied embeddings, dense-layer selection and separate global/sliding RoPE. These defaults and enabled paths were included in the full tensor reconciliation."
+    },
+    {
+      "id": "template",
+      "url": "https://huggingface.co/poolside/Laguna-XS-2.1/blob/c5f36269bbdbd3f27fddc9a9f9dbae0cf2cf57db/chat_template.jinja",
+      "title": "Pinned Laguna XS 2.1 chat template",
+      "publisher": "Poolside",
+      "accessed": true,
+      "evidence": "Serializes tools, assistant tool_calls and tool_response messages. enable_thinking controls interleaved think blocks; the actual template defaults it to false even though a model-card example comment calls reasoning on by default. Therefore capability is confirmed without claiming a universal default."
+    },
+    {
+      "id": "license",
+      "url": "https://huggingface.co/poolside/Laguna-XS-2.1/blob/c5f36269bbdbd3f27fddc9a9f9dbae0cf2cf57db/LICENSE.md",
+      "title": "Laguna XS 2.1 OpenMDW license",
+      "publisher": "Poolside",
+      "accessed": true,
+      "evidence": "The model license file explicitly names OpenMDW License Agreement version 1.1 and covers the model and distributed related artifacts. Apache notices in implementation source files do not replace the model-level OpenMDW-1.1 license."
+    },
+    {
+      "id": "history",
+      "url": "https://huggingface.co/api/models/poolside/Laguna-XS-2.1/commits/main",
+      "title": "Laguna XS 2.1 repository history",
+      "publisher": "Poolside",
+      "accessed": true,
+      "evidence": "History lists the model publication commit on July 2, 2026 and later code/template/config fixes. Hub API metadata gives repository creation June 20, 2026; creation is not evidence of public model availability. The explicit July 2 announcement controls. Audited revision c5f36269bbdbd3f27fddc9a9f9dbae0cf2cf57db is August 19, 2026."
+    },
+    {
+      "id": "later",
+      "url": "https://poolside.ai/blog/introducing-laguna-s-2-1",
+      "title": "Later Laguna S 2.1 announcement and named comparisons",
+      "publisher": "Poolside",
+      "accessed": true,
+      "evidence": "July 21, 2026 announcement separately identifies Laguna XS 2.1 as 33B/3B in comparison entries and its July 2 release timeline. It distinguishes the larger S 2.1 model and discusses training lineage; S 2.1 counts/context are not transferred to XS 2.1."
+    },
+    {
+      "id": "training",
+      "url": "https://poolside.ai/assets/laguna/laguna-m1-xs2-technical-report.pdf",
+      "title": "Laguna M.1/XS.2 technical report linked by XS 2.1",
+      "publisher": "Poolside",
+      "accessed": true,
+      "evidence": "Sections 3.1 and 3.1.1 describe the predecessor XS.2 pre-norm MoE Transformer, global/sliding GQA, softplus per-head gates, and long-context training/extension. The XS 2.1 release explicitly states architecture continuity, which the exact checkpoint independently corroborates. The PDF names XS.2 rather than XS 2.1; its precise 3.0B including-embeddings convention and training lengths are not silently treated as exact XS 2.1 measurements. Searched later first-party training/interpretability material and exact-name comparison entries; found no separate XS 2.1 count convention overriding its card."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Laguna XS 2.1",
+      "status": "verified",
+      "source_ids": [
+        "release",
+        "card"
+      ],
+      "note": "Exact marketed revision, distinct from Laguna XS.2."
+    },
+    "developer": {
+      "value": "Poolside",
+      "status": "verified",
+      "source_ids": [
+        "release",
+        "card"
+      ],
+      "note": "Published by Poolside in its official announcement and model repository."
+    },
+    "family": {
+      "value": "laguna",
+      "status": "verified",
+      "source_ids": [
+        "release",
+        "card"
+      ],
+      "note": "Lowercase family key; XS 2.1 is explicitly part of Laguna."
+    },
+    "release_date": {
+      "value": "2026-07-02",
+      "status": "verified",
+      "source_ids": [
+        "release",
+        "history",
+        "later"
+      ],
+      "note": "Earliest explicit public-release evidence found is July2, corroborated by publication commit and later first-party timeline. June 20 repository creation is not a release date."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "release",
+        "headers",
+        "license"
+      ],
+      "note": "Publicly downloadable official BF16 checkpoint and quantized variants; all 14 base checkpoint shard headers were accessible."
+    },
+    "license": {
+      "value": "OpenMDW-1.1",
+      "status": "verified",
+      "source_ids": [
+        "license",
+        "release"
+      ],
+      "note": "Model-level license; do not substitute Apache-2.0 from Python code headers or the older XS.2 model."
+    },
+    "parameters_b": {
+      "value": 33,
+      "status": "verified",
+      "source_ids": [
+        "release",
+        "card",
+        "headers",
+        "implementation",
+        "configuration_code",
+        "config",
+        "later"
+      ],
+      "note": "Official rounded total in decimal billions, not an exact integer count. Full pinned checkpoint reconciliation gives 33,442,617,088 stored BF16 elements, including 9,984 non-gradient router balancing values; excluding those yields 33,442,607,104 weights. Preserve advertised 33B rather than turn all stored state into learned parameters. Untied input/output matrices are both included; separate DFlash is excluded."
+    },
+    "active_parameters_b": {
+      "value": 3,
+      "status": "verified",
+      "source_ids": [
+        "release",
+        "card",
+        "config",
+        "later"
+      ],
+      "note": "Official rounded per-token active count in billions, directly stated for XS 2.1. Top 8/256 routed experts plus shared expert per sparse layer are confirmed. The card does not fully specify embedding/head accounting for this rounded figure; no exact active count is inferred, and the predecessor report convention is not silently transferred."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "release",
+        "config",
+        "implementation",
+        "configuration_code",
+        "training"
+      ],
+      "note": "Decoder-only pre-norm MoE Transformer with 40 layers: first dense, 39 sparse ; 256 routed experts/top 8 plus one shared expert. GQA uses 10 global / 30 sliding-window layers and softplus per-head output gating. Not a linear-attention hybrid; sigmoid is the routing activation, not the actual code output-gate activation."
+    },
+    "context_window": {
+      "value": 262144,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "config",
+        "release"
+      ],
+      "note": "Published supported/served limit and current max_position_embeddings. Global attention uses YaRN 32x from original_max_position_embeddings 8192; sliding window 512 is a local attention span. Do not label 262144 an unscaled native pretraining length or substitute the S 2.1 one-million-token context."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "config",
+        "template"
+      ],
+      "note": "Model card explicitly text-to-text; selected implementation has no vision/audio encoder or decoder."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "template"
+      ],
+      "note": "Interleaved reasoning supported and configurable per request. Actual pinned template defaults enable_thinking=false; deployment defaults may override it."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "template"
+      ],
+      "note": "Exact template supports function schemas, emitted tool calls and tool responses; first-party serving examples document the parser. Tools execute outside the model."
+    },
+    "description": {
+      "value": "Open-weight text model for coding agents, with 33B total parameters, 3B active per token, optional reasoning and tool calling.",
+      "status": "verified",
+      "source_ids": [
+        "release",
+        "card",
+        "template"
+      ],
+      "note": "Factual compact description; parameter values are nominal and no benchmark superiority or hardware guarantee is added."
+    }
+  },
+  "patch": {
+    "license": "OpenMDW-1.1",
+    "parameters_b": 33,
+    "active_parameters_b": 3,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "description": "Open-weight text model for coding agents, with 33B total parameters, 3B active per token, optional reasoning and tool calling.",
+    "source_url": "https://poolside.ai/blog/introducing-laguna-xs-2-1",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Introducing Laguna XS 2.1",
+        "url": "https://poolside.ai/blog/introducing-laguna-xs-2-1",
+        "type": "primary"
+      },
+      {
+        "label": "Laguna XS 2.1 pinned model card",
+        "url": "https://huggingface.co/poolside/Laguna-XS-2.1/blob/c5f36269bbdbd3f27fddc9a9f9dbae0cf2cf57db/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Laguna XS 2.1 pinned configuration",
+        "url": "https://huggingface.co/poolside/Laguna-XS-2.1/blob/c5f36269bbdbd3f27fddc9a9f9dbae0cf2cf57db/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "All pinned BF16 safetensors shard headers",
+        "url": "https://huggingface.co/poolside/Laguna-XS-2.1/tree/c5f36269bbdbd3f27fddc9a9f9dbae0cf2cf57db",
+        "type": "weights"
+      },
+      {
+        "label": "Pinned Laguna model implementation",
+        "url": "https://huggingface.co/poolside/Laguna-XS-2.1/blob/c5f36269bbdbd3f27fddc9a9f9dbae0cf2cf57db/modeling_laguna.py",
+        "type": "weights"
+      },
+      {
+        "label": "Pinned Laguna configuration implementation",
+        "url": "https://huggingface.co/poolside/Laguna-XS-2.1/blob/c5f36269bbdbd3f27fddc9a9f9dbae0cf2cf57db/configuration_laguna.py",
+        "type": "weights"
+      },
+      {
+        "label": "Pinned Laguna XS 2.1 chat template",
+        "url": "https://huggingface.co/poolside/Laguna-XS-2.1/blob/c5f36269bbdbd3f27fddc9a9f9dbae0cf2cf57db/chat_template.jinja",
+        "type": "weights"
+      },
+      {
+        "label": "Laguna XS 2.1 OpenMDW license",
+        "url": "https://huggingface.co/poolside/Laguna-XS-2.1/blob/c5f36269bbdbd3f27fddc9a9f9dbae0cf2cf57db/LICENSE.md",
+        "type": "weights"
+      },
+      {
+        "label": "Laguna XS 2.1 repository history",
+        "url": "https://huggingface.co/api/models/poolside/Laguna-XS-2.1/commits/main",
+        "type": "primary"
+      },
+      {
+        "label": "Later Laguna S 2.1 announcement and named comparisons",
+        "url": "https://poolside.ai/blog/introducing-laguna-s-2-1",
+        "type": "primary"
+      },
+      {
+        "label": "Laguna M.1/XS.2 technical report linked by XS 2.1",
+        "url": "https://poolside.ai/assets/laguna/laguna-m1-xs2-technical-report.pdf",
+        "type": "primary"
+      }
+    ],
+    "notes": "33B total and 3B active are Poolside’s rounded figures. All 14 pinned BF16 shards reconcile with the model code:33,442,617,088 stored elements include 9,984 non-gradient router correction values; no separate DFlash draft is included. The supported 262,144-token context uses YaRN on global-attention layers with an 8,192-token original-position setting. Model weights use OpenMDW-1.1; Apache notices in implementation files are separate. Reasoning is configurable; the pinned template defaults it off."
+  },
+  "summary": "All 14 fields verified. Added explicit OpenMDW-1.1 license, nominal 33B total/3B active counts and MoE architecture, replacing catalog-only attribution with primary evidence. July 2 public release and 262144 supported context confirmed, distinguishing earlier repository creation and YaRN extension. Reconciled every tensor across all 14 pinned BF16 shards with enabled model modules; routing state is separated and DFlash is excluded. Reasoning/tool support confirmed without copying an inconsistent default-on comment."
+}
