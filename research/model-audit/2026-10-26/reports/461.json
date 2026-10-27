@@ -1,0 +1,340 @@
+{
+  "index": 461,
+  "model_id": "openbmb/minicpm5-1b",
+  "reviewed_at": "2026-10-27T03:18:34.312982Z",
+  "sources": [
+    {
+      "id": "card",
+      "url": "https://huggingface.co/openbmb/MiniCPM5-1B/blob/87179e5c1f455ef22e6223592d2d61351b525bfc/README.md",
+      "title": "MiniCPM5-1B model card",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "The pinned final BF16 model card explicitly gives 1,080,632,832 total parameters and 679,552,512 non-embedding parameters, standard LlamaForCausalLM, 24 layers, 16 query/2 KV heads, 131,072 native context and Apache-2.0 metadata. It identifies the first MiniCPM5 model, distinct from Base and SFT checkpoints, and describes text generation, Think/No Think modes, XML function calls and SFT/RL/OPD training."
+    },
+    {
+      "id": "config",
+      "url": "https://huggingface.co/openbmb/MiniCPM5-1B/blob/87179e5c1f455ef22e6223592d2d61351b525bfc/config.json",
+      "title": "MiniCPM5-1B pinned configuration",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "LlamaForCausalLM with 24 layers, hidden width 1536, intermediate width 4608, 16 query/2 KV heads, explicit head_dim=128, vocabulary 130560, untied embeddings, BF16, max_position_embeddings=131072, RoPE theta=5000000 and no rope scaling. No vision/audio modules, expert router or custom architecture is enabled."
+    },
+    {
+      "id": "index",
+      "url": "https://huggingface.co/openbmb/MiniCPM5-1B/blob/87179e5c1f455ef22e6223592d2d61351b525bfc/model.safetensors.index.json",
+      "title": "MiniCPM5-1B checkpoint index",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "The index maps all 219 tensors to one BF16 shard and gives total_size=2161265664 bytes. Every indexed tensor was checked against the bounded shard header and independently reconstructed expected learned-module shapes."
+    },
+    {
+      "id": "header",
+      "url": "https://huggingface.co/openbmb/MiniCPM5-1B/resolve/87179e5c1f455ef22e6223592d2d61351b525bfc/model-00000-of-00001.safetensors",
+      "title": "MiniCPM5-1B complete bounded safetensors header",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "Fetched only the 8-byte length prefix and complete JSON header using HTTP 206 ranges, not weights. All 219 tensors are BF16 learned weights and exactly match the index and enabled Llama modules. Total 1,080,632,832 = input embedding 200,540,160 + separate output head 200,540,160 + attention 169,869,312 + MLP 509,607,936  + 49 RMSNorm vectors 75,264. No packed quantization tensors, scales or stored buffers occur."
+    },
+    {
+      "id": "implementation",
+      "url": "https://github.com/huggingface/transformers/blob/v5.6.2/src/transformers/models/llama/modeling_llama.py",
+      "title": "Transformers v5.6.2 Llama implementation",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Inspected all enabled learned modules in LlamaForCausalLM, LlamaModel, each decoder block, dense SwiGLU MLP, GQA attention and RMSNorm. Q/K/V/O and MLP projections are bias-free under this config. Embedding and output head are distinct because tie_word_embeddings=false. RoPE frequencies are computed nonpersistent buffers, not parameters. Each head uses explicit 128 dimensions rather than hidden_size/head_count."
+    },
+    {
+      "id": "defaults",
+      "url": "https://github.com/huggingface/transformers/blob/v5.6.2/src/transformers/models/llama/configuration_llama.py",
+      "title": "Transformers v5.6.2 Llama configuration defaults",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Read configuration defaults and initialization: attention_bias=false, mlp_bias=false, and an explicit head_dim is preserved. These defaults reconcile the absence of bias tensors and the actual attention shapes in the pinned checkpoint."
+    },
+    {
+      "id": "template",
+      "url": "https://huggingface.co/openbmb/MiniCPM5-1B/blob/87179e5c1f455ef22e6223592d2d61351b525bfc/chat_template.jinja",
+      "title": "MiniCPM5-1B chat template",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "The exact checkpoint template serializes text messages, function definitions, XML function calls and tool responses. enable_thinking=true opens a think block; false emits an empty completed think block. This corroborates documented reasoning and function-call support, rather than serving as the sole capability evidence."
+    },
+    {
+      "id": "guide",
+      "url": "https://openbmb.cn/docs/en/guides/minicpm-text/minicpm5-1b",
+      "title": "MiniCPM5-1B knowledge-base guide",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "The exact model guide documents Think and No Think modes and function calling. Its function-call section says MiniCPM5-1B emits XML calls and the minicpm5 SGLang parser converts them into an OpenAI-compatible tool_calls field. It separates final, Base, SFT and quantized downloads."
+    },
+    {
+      "id": "changelog",
+      "url": "https://github.com/OpenBMB/MiniCPM/blob/5.0/README.md",
+      "title": "MiniCPM5-1B release-tag changelog",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "The README at the May 26 version 5.0 release tag explicitly dates the MiniCPM5-1B release May 19, 2026. The current repository repeats that date. This is an earlier first-party date claim, but it conflicts with the May 26 formal release record and does not independently demonstrate May 19 public availability."
+    },
+    {
+      "id": "release",
+      "url": "https://github.com/OpenBMB/MiniCPM/releases/tag/5.0",
+      "title": "MiniCPM5-1B version 5.0 release",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "The official GitHub release announces MiniCPM5-1B and its dense Transformer, hybrid reasoning and deployment resources. GitHub API published_at is 2026-05-26T02:48:10Z. This establishes a confirmed formal release on May 26, while the attached README claims May 19. No exact earliest public day was resolved."
+    },
+    {
+      "id": "history",
+      "url": "https://huggingface.co/openbmb/MiniCPM5-1B/commits/main",
+      "title": "MiniCPM5-1B checkpoint history",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "Read the complete retrieved commit history and model metadata: repository creation May 21, 2026; initial model upload May 23; README additions May 24 and updates May 25/26; later August changes are README-only. Repository creation and upload timestamps are not proof that a model was publicly accessible on those dates and do not settle the conflicting launch-day claims."
+    },
+    {
+      "id": "later",
+      "url": "https://huggingface.co/openbmb/MiniCPM5-2B",
+      "title": "MiniCPM5-2B later model card",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "Inspected the later card and its model/evaluation tables. It names MiniCPM5-1B as the preceding release and says 2B scales the same training recipe; its 2,516,756,480 total and 1,981,982,720 non-embedding counts belong to 2B. It supplies no separate active-parameter convention for the 1B checkpoint, and no sibling specification is transferred."
+    },
+    {
+      "id": "old-report",
+      "url": "https://arxiv.org/pdf/2506.07900",
+      "title": "MiniCPM4: Ultra-Efficient LLMs on End Devices",
+      "publisher": "OpenBMB MiniCPM Team",
+      "accessed": true,
+      "evidence": "The technical report linked from the exact model card is the full MiniCPM4/4.1 report, not a MiniCPM5 specification. Read its scope and architecture sections and searched the extracted text for MiniCPM5; the sparse InfLLM v2 and BitCPM descriptions do not override the published dense Llama MiniCPM5 checkpoint."
+    },
+    {
+      "id": "training",
+      "url": "https://arxiv.org/pdf/2602.09003",
+      "title": "Data Science and Technology Towards AGI, Part I: Tiered Data Management",
+      "publisher": "Tsinghua University and ModelBest",
+      "accessed": true,
+      "evidence": "Downloaded the full report linked as the training data-management basis and inspected its scope, Section 3.1 and Table 3. Its MiniCPM-1.2B experimental architecture has 52 layers and a different vocabulary/FFN/head configuration; that is not MiniCPM5-1B. The exact model card supplies the applicable SFT/RL/OPD training description; no active-count convention is disclosed here."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "MiniCPM5-1B",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "release"
+      ],
+      "note": "Exact final post-trained checkpoint name; Base, SFT and quantized derivatives remain distinct."
+    },
+    "developer": {
+      "value": "OpenBMB",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "guide",
+        "release"
+      ],
+      "note": "The official OpenBMB organization publishes the checkpoint, code, documentation and release."
+    },
+    "family": {
+      "value": "minicpm5",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "later"
+      ],
+      "note": "The card identifies this as the first MiniCPM5 series model; the later 2B card confirms that grouping without implying identical topology."
+    },
+    "release_date": {
+      "value": "2026-05",
+      "status": "verified",
+      "source_ids": [
+        "changelog",
+        "release",
+        "history"
+      ],
+      "note": "Month precision because primary sources do not reconcile the earliest public day. The release-tag/current README says May 19, while the formal GitHub release is May 26; HF creation May 21 and upload May 23 do not establish public access. May 26 is confirmed release evidence, but adopting it as the earliest day would discard the unresolved earlier first-party claim."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "index",
+        "header"
+      ],
+      "note": "The official repository publishes the complete final BF16 checkpoint, and the indexed shard metadata was accessed directly."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "card"
+      ],
+      "note": "The exact model card declares apache-2.0. Normalize to canonical Apache-2.0 casing; the separate desktop-pet application license is not the model license."
+    },
+    "parameters_b": {
+      "value": 1.080632832,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "config",
+        "index",
+        "header",
+        "implementation",
+        "defaults"
+      ],
+      "note": "Complete learned-parameter total 1,080,632,832, independently reconstructed and matched to all 219 BF16 header tensors and the model-card count. Includes untied input/output vocabulary matrices; the card's 679,552,512 non-embedding total excludes both. No quantization storage or RoPE buffers counted. Formula: 2VH+H+L(2H+2H(Q+K)D+3HI), with V=130560, H=1536, L=24, Q=16, K=2, D=128, I=4608."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "card",
+        "implementation",
+        "later",
+        "training"
+      ],
+      "note": "Dense feed-forward blocks have no expert routing. The inspected sources do not define a separate per-token active count, including how vocabulary lookup and the output head are counted; do not copy total or non-embedding parameters into this field."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "config",
+        "implementation",
+        "defaults"
+      ],
+      "note": "Dense decoder-only Transformer using standard LlamaForCausalLM, 24 layers, SwiGLU, GQA 16 Q/2 KV heads and RoPE. The complete enabled-module reconstruction has no experts or sparse/linear-attention custom modules. MiniCPM4 InfLLM v2 is not transferred."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "config"
+      ],
+      "note": "Native published token context and max_position_embeddings are both 131072, with rope_scaling=null. No larger extrapolated context is asserted."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "config",
+        "template",
+        "implementation"
+      ],
+      "note": "Text causal-language-model checkpoint with text token embeddings/output head and text chat template. Complete enabled module inventory contains no native image, audio or video components."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "template",
+        "guide"
+      ],
+      "note": "Same final weights support Think and No Think modes via enable_thinking; exact card describes thinking SFT plus RL and on-policy distillation."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "template",
+        "guide"
+      ],
+      "note": "The developer expressly documents XML function calls and parser integration; exact checkpoint template carries tool definitions, generated calls and results."
+    },
+    "description": {
+      "value": "Dense text model with optional reasoning, function calling, and a 131,072-token context.",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "config",
+        "guide"
+      ],
+      "note": "Plain description of directly documented behavior, replacing device/deployment-oriented promotional wording."
+    }
+  },
+  "patch": {
+    "family": "minicpm5",
+    "release_date": "2026-05",
+    "date_precision": "month",
+    "license": "Apache-2.0",
+    "parameters_b": 1.080632832,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "description": "Dense text model with optional reasoning, function calling, and a 131,072-token context.",
+    "source_url": "https://github.com/OpenBMB/MiniCPM/releases/tag/5.0",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "MiniCPM5-1B model card",
+        "url": "https://huggingface.co/openbmb/MiniCPM5-1B/blob/87179e5c1f455ef22e6223592d2d61351b525bfc/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "MiniCPM5-1B pinned configuration",
+        "url": "https://huggingface.co/openbmb/MiniCPM5-1B/blob/87179e5c1f455ef22e6223592d2d61351b525bfc/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "MiniCPM5-1B checkpoint index",
+        "url": "https://huggingface.co/openbmb/MiniCPM5-1B/blob/87179e5c1f455ef22e6223592d2d61351b525bfc/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "MiniCPM5-1B complete bounded safetensors header",
+        "url": "https://huggingface.co/openbmb/MiniCPM5-1B/resolve/87179e5c1f455ef22e6223592d2d61351b525bfc/model-00000-of-00001.safetensors",
+        "type": "primary"
+      },
+      {
+        "label": "Transformers v5.6.2 Llama implementation",
+        "url": "https://github.com/huggingface/transformers/blob/v5.6.2/src/transformers/models/llama/modeling_llama.py",
+        "type": "primary"
+      },
+      {
+        "label": "Transformers v5.6.2 Llama configuration defaults",
+        "url": "https://github.com/huggingface/transformers/blob/v5.6.2/src/transformers/models/llama/configuration_llama.py",
+        "type": "primary"
+      },
+      {
+        "label": "MiniCPM5-1B chat template",
+        "url": "https://huggingface.co/openbmb/MiniCPM5-1B/blob/87179e5c1f455ef22e6223592d2d61351b525bfc/chat_template.jinja",
+        "type": "primary"
+      },
+      {
+        "label": "MiniCPM5-1B knowledge-base guide",
+        "url": "https://openbmb.cn/docs/en/guides/minicpm-text/minicpm5-1b",
+        "type": "primary"
+      },
+      {
+        "label": "MiniCPM5-1B release-tag changelog",
+        "url": "https://github.com/OpenBMB/MiniCPM/blob/5.0/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "MiniCPM5-1B version 5.0 release",
+        "url": "https://github.com/OpenBMB/MiniCPM/releases/tag/5.0",
+        "type": "primary"
+      },
+      {
+        "label": "MiniCPM5-1B checkpoint history",
+        "url": "https://huggingface.co/openbmb/MiniCPM5-1B/commits/main",
+        "type": "primary"
+      }
+    ],
+    "notes": "Complete BF16 checkpoint: 1,080,632,832 learned parameters, including separate input and output vocabulary matrices. The published 679,552,512 non-embedding count excludes both vocabulary matrices. All 219 indexed tensors match the enabled dense Llama modules; computed RoPE buffers are excluded. A separate per-token active count is not defined by the checked sources. Native context is 131,072 tokens with no configured RoPE scaling. Release month is May 2026: the repository changelog says May 19, while the formal GitHub release was published May 26; the exact earliest public day remains unresolved. HF repository creation and upload dates do not prove public availability."
+  },
+  "summary": "Verified complete 1.080632832B parameter count from the final pinned BF16 checkpoint, all 219 tensor headers and a full dense Llama module reconstruction. Added MiniCPM5 family and dense architecture, normalized Apache-2.0 and simplified the description. Confirmed 131072 native context, text modalities, thinking toggle and function calling. Active count stays null with the missing convention explained. Reduced release precision to May 2026 because the publisher's May 19 changelog and May 26 formal release do not establish one consistent earliest public day."
+}
