@@ -1,7 +1,7 @@
 {
   "index": 265,
   "model_id": "meta/llama-3-70b-instruct",
-  "reviewed_at": "2026-10-26T21:29:48.141651Z",
+  "reviewed_at": "2026-10-27T14:02:54.596149Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Meta-Llama-3-70B-Instruct official model card",
       "publisher": "Meta / Hugging Face",
       "accessed": true,
-      "evidence": "Identifies the original Meta 70B instruction-tuned Llama 3 checkpoint, text generation task and llama3 license. Its public card is readable, although file downloads require approval."
+      "evidence": "Freshly reopened October 27, 2026. The exact original Meta-Llama-3-70B-Instruct card identifies the 70B instruction-tuned text checkpoint; Meta explicitly lists 8B/70B pretrained and instruction-tuned variants and SFT/RLHF post-training."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "Original Llama 3 model card",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "Specifies Meta as developer, pretrained and instruction-tuned 8B/70B variants, text input and text/code output, GQA, 8,192-token training sequences and 8K context, SFT plus RLHF, April 18, 2024 release and a custom commercial license."
+      "evidence": "Freshly reopened October 27, 2026 via the raw official GitHub card. Specifies Meta as developer, pretrained and instruction-tuned 8B/70B variants, text input and text/code output, GQA, 8,192-token training sequences and 8K context, SFT plus RLHF, April 18, 2024 release and a custom commercial license. No separate activated count or structural change from base to Instruct is described."
     },
     {
       "id": "s3",
@@ -25,7 +25,7 @@
       "title": "Introducing Meta Llama 3",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "April 18, 2024 announcement releases the original 8B/70B pretrained and instruction-tuned text models, describes a decoder-only Transformer with GQA, and states 8,192-token sequences. General reasoning improvements are mentioned, without a separate thinking mode."
+      "evidence": "Freshly reopened October 27, 2026. The April 18, 2024 announcement explicitly releases pretrained and instruction-fine-tuned language models with 8B and 70B parameters, describes a decoder-only Transformer with GQA and 8,192-token sequences. General reasoning improvements are mentioned, without a separate thinking mode."
     },
     {
       "id": "s4",
@@ -33,7 +33,7 @@
       "title": "Official checkpoint public Hub metadata",
       "publisher": "Hugging Face / Meta repository",
       "accessed": true,
-      "evidence": "For the exact official Instruct repository, safetensors.parameters.BF16 and safetensors.total both report 70,553,706,496 serialized tensor elements. This aggregate does not independently distinguish learned parameters from any persistent buffers. The metadata also identifies LlamaForCausalLM and a manual download gate."
+      "evidence": "Freshly fetched October 27, 2026. For the exact official Instruct repository at revision 50fd307e57011801c7833c87efa1984ddf2db42f, safetensors.parameters.BF16 and safetensors.total both report 70,553,706,496 serialized tensor elements. This aggregate does not independently distinguish learned parameters from persistent buffers. Metadata identifies LlamaForCausalLM, the named base_model meta-llama/Meta-Llama-3-70B and a manual download gate."
     },
     {
       "id": "s5",
@@ -41,7 +41,7 @@
       "title": "Original Llama 3 model implementation",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "The released implementation uses Transformer blocks with attention and a shared dense gated feed-forward network, without expert selection. GQA repeats key/value heads as needed; inference caches and rotary frequencies are separate from learned linear weights."
+      "evidence": "Freshly reopened October 27, 2026 via the raw official GitHub file. The released implementation uses Transformer blocks with attention and a shared dense gated feed-forward network, without expert selection. GQA repeats key/value heads as needed; inference caches and rotary frequencies are separate from learned linear weights. It supplies no explicit activated-parameter count."
     },
     {
       "id": "s6",
@@ -57,7 +57,7 @@
       "title": "Exact checkpoint configuration download",
       "publisher": "Meta / Hugging Face",
       "accessed": false,
-      "evidence": "Unauthenticated access returned HTTP 401. Exact configuration dimensions, weight tying and individual tensor headers were not inspected, so the public serialized-element total was not independently reconciled to an exact learned-parameter count."
+      "evidence": "Retried unauthenticated October 27, 2026 and again received HTTP 401. Exact configuration dimensions, weight tying and individual tensor headers were not inspected, so the public serialized-element total was not independently reconciled to an exact learned-parameter count."
     },
     {
       "id": "s8",
@@ -66,6 +66,14 @@
       "publisher": "Meta",
       "accessed": true,
       "evidence": "Names the Meta Llama 3 Community License Agreement, dates the version April 18, 2024 and grants conditional rights to use, distribute and modify the Llama materials, including weights."
+    },
+    {
+      "id": "s9",
+      "url": "https://arxiv.org/html/2405.04434v1#S4.T3",
+      "title": "DeepSeek-V2 technical report, Table 3: original Llama 3 70B Instruct comparison",
+      "publisher": "DeepSeek-AI",
+      "accessed": true,
+      "evidence": "Freshly reopened October 27, 2026. The May 7, 2024 report explicitly identifies LLaMA-3-70B Instruct in section 4.1, then Table 3 gives its LLaMA3 / 70B Inst. column 70B under # Activated Params, 70B under # Total Params, dense architecture and 8K context. This is the original April 2024 model, preceding Llama 3.1. It establishes DeepSeek's nominal activated-count convention for the exact Instruct comparison model, not a Meta active-count disclosure or an exact tensor-participation census. Table 2 and the visually inspected Figure 1(a) concern the base 70B model; no inheritance from that plot is needed."
     }
   ],
   "fields": {
@@ -134,18 +142,17 @@
         "s3",
         "s4"
       ],
-      "note": "Nominal 70B is explicitly reported by Meta for this variant. Public Hub metadata reports 70,553,706,496 BF16 serialized tensor elements, but the aggregate was not independently reconciled against exact configuration dimensions, weight tying and persistent buffers. It is therefore not promoted to an exact learned-parameter count; no full weights were downloaded."
+      "note": "Freshly reverified Meta's explicit nominal 70B specification for the original instruction-tuned variant. Official Hub metadata again reports 70,553,706,496 BF16 serialized tensor elements; that aggregate is not promoted to an independently reconciled learned-parameter count. The configuration remains gated, but this does not weaken the published nominal size."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 70,
+      "status": "verified",
       "source_ids": [
-        "s2",
-        "s4",
-        "s5",
-        "s6"
+        "s9",
+        "s1",
+        "s2"
       ],
-      "note": "No separate active-per-token parameter count is reported for this dense checkpoint in the checked primary sources. Total parameters are not copied into this field; embedding lookups and the definition of active parameters require an explicit counting convention."
+      "note": "DeepSeek-V2 Table 3 explicitly reports 70B under # Activated Params for LLaMA3 70B Inst.; section 4.1 names LLaMA-3-70B Instruct and the May 2024 publication plus 8K context identify the original model. Retain nominal 70B under DeepSeek's published comparison convention, not a direct Meta disclosure. This is an exact-model table entry, not an inferred equality with total or transfer from the base-model plot. An exact per-token count and component breakdown remain unestablished."
     },
     "architecture": {
       "value": "dense",
@@ -217,7 +224,7 @@
     "parameters_b": 70,
     "parameters_source": "primary_source",
     "tool_call": false,
-    "notes": "Original April 2024 Llama 3 70B Instruct: Meta reports a nominal 70B parameter count. Official checkpoint Hub metadata reports 70,553,706,496 BF16 serialized tensor elements; this aggregate is not an independently verified learned-parameter count. Active parameters are not separately reported. Native tool use is absent in Meta's explicit comparison table; 3.1 tool support and 128K context do not apply. The exact configuration download returned HTTP 401; no checkpoint weights or tensor headers were downloaded.",
+    "notes": "Original April 2024 Llama 3 70B Instruct: Meta specifies nominal 70B total parameters. DeepSeek-V2 Table 3 explicitly lists this Instruct model at nominal 70B activated parameters under DeepSeek's comparison convention; no exact per-token breakdown is established. Native tool use is absent in Meta's comparison table; Llama 3.1 tool support and 128K context do not apply.",
     "sources": [
       {
         "label": "Original Llama 3 release announcement",
@@ -243,8 +250,14 @@
         "label": "Meta model comparison: original Llama 3 versus 3.1",
         "url": "https://arxiv.org/html/2407.21783v3#S1.T1",
         "type": "primary"
+      },
+      {
+        "label": "DeepSeek-V2 Table 3: Llama 3 70B Instruct activated parameters",
+        "url": "https://arxiv.org/html/2405.04434v1#S4.T3",
+        "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": 70
   },
-  "summary": "Individually reviewed the original 70B Instruct checkpoint across all 14 fields. Retained Meta's verified nominal 70B count and set native tool_call=false from Meta's exact-model comparison table. The public Hub aggregate of 70,553,706,496 BF16 serialized tensor elements was not independently reconciled to an exact learned-parameter count because the configuration was gated. Confirmed dense decoder-only GQA, 8,192 context, April 18, 2024 release, custom community license, text modalities and instruction tuning. Active parameters and a distinct reasoning mode remain undisclosed."
+  "summary": "Parameter re-audit completed October 27, 2026 after reopening the exact official card, original model card and implementation, release announcement, public Hub metadata and gated configuration endpoint, and searching for missed active-count disclosures. Retained Meta's nominal 70B total and replaced the unresolved active count with nominal 70B from DeepSeek-V2 Table 3 for the exact original Llama 3 70B Instruct comparison model. DeepSeek supplies the active convention; this is not a Meta disclosure, inferred dense equality or base-to-Instruct transfer. Figure 1(a) was visually checked but the direct Instruct table is stronger evidence. The 70,553,706,496 BF16 storage total remains unreconciled as an exact learned count; exact per-token participation is not established. All twelve nonparameter assessments are unchanged, including native tool_call=false and the unresolved distinct reasoning mode. No weights were downloaded."
 }
