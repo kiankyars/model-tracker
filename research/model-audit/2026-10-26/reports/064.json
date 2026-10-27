@@ -1,7 +1,7 @@
 {
   "index": 64,
   "model_id": "alibaba/qwen3.7-max",
-  "reviewed_at": "2026-10-26T15:16:54Z",
+  "reviewed_at": "2026-10-27T09:53:19Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Qwen3.7: The Agent Frontier",
       "publisher": "Qwen Team",
       "accessed": true,
-      "evidence": "Official May 20, 2026 launch describes Qwen3.7-Max as proprietary and available through Model Studio, with coding, office automation, tool use and long-running agent capabilities. Read through the search-indexed article; direct browser extraction returned an empty page. No exact-model parameter counts or internal architecture specification were disclosed in the retrieved article."
+      "evidence": "Reopened for the October 27 parameter re-audit through the search-indexed official May 20 launch; direct extraction still returned an empty page. It identifies Qwen3.7-Max as proprietary and describes agent training and evaluations, but publishes neither total nor active parameters. Building on the environment-scaling approach introduced in Qwen3.5 describes a training method, not a named base-model or checkpoint relationship. The Extend Attention architecture discussion concerns a kernel the model optimized, not its own internal architecture."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "qwen3.7-max Model Info",
       "publisher": "Alibaba Cloud",
       "accessed": true,
-      "evidence": "Exact alias is functionally equivalent to qwen3.7-max-2026-05-20. Documents text input/output, function calling, 1,000,000-token context and thinking-mode limits. Separately identifies June 8 snapshot as adding image/video understanding. Full HTML was fetched and inspected after the international console documentation exceeded the browser extraction limit."
+      "evidence": "Reopened and inspected the full current exact-model specification on October 27. The alias remains functionally equivalent to qwen3.7-max-2026-05-20; the separate June 8 snapshot adds image/video understanding. Capabilities, context, output, thinking limits and rate tables contain no total or activated parameter count, named base-model lineage, or dense/MoE specification."
     },
     {
       "id": "s3",
@@ -30,10 +30,10 @@
     {
       "id": "s4",
       "url": "https://github.com/AlibabaCloud-Official/Qwen3.7-max-readme/blob/main/README.md",
-      "title": "Qwen3.7: The Agent Frontier \u2014 official README",
+      "title": "Qwen3.7: The Agent Frontier — official README",
       "publisher": "Alibaba Cloud",
       "accessed": true,
-      "evidence": "Exact-model README confirms coding, productivity, cross-framework agent integration, sustained reasoning and tool-use positioning. Full raw README was inspected; it does not specify total/active parameters or an internal model architecture."
+      "evidence": "Reopened the full raw official README on October 27. Its benchmark table contains task scores only; there are no total or active parameter specifications. The Qwen3.5 reference is to environment-scaling methodology, not a named predecessor checkpoint from which size can be inherited."
     },
     {
       "id": "s5",
@@ -42,6 +42,38 @@
       "publisher": "Alibaba Group",
       "accessed": true,
       "evidence": "May 20, 2026 corporate announcement identifies Qwen3.7-Max as Alibaba's new language model for sustained agent tasks."
+    },
+    {
+      "id": "s6",
+      "url": "https://qwen.ai/blog?id=qwen3.8",
+      "title": "Qwen3.8-Max: A New Bar for Coding and Cowork",
+      "publisher": "Qwen Team",
+      "accessed": true,
+      "evidence": "The August 3 successor launch was inspected through the search-indexed article, including its full benchmark tables. It publishes 2.4T total and 95B active for Qwen3.8-Max only. Qwen3.7-Max appears as the previous flagship and a benchmark comparator, without a total/active parameter row or explicit same-size named-base relationship. These successor specifications cannot establish Qwen3.7-Max size."
+    },
+    {
+      "id": "s7",
+      "url": "https://www.alibabacloud.com/help/en/maxcompute/token-fee",
+      "title": "MaxCompute: AI inference fees",
+      "publisher": "Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Reopened the October 10 documentation and its supported-model comparison. The Qwen3.8-Max row explicitly specifies a 2.4T MoE model; the distinct Qwen3.7-Max row describes a text-only flagship without a parameter count or architecture. This later first-party comparison does not disclose Qwen3.7-Max total or active size."
+    },
+    {
+      "id": "s8",
+      "url": "https://developer.aliyun.com/article/1761578",
+      "title": "Qwen3.8 and Qwen3.7 model selection comparison",
+      "publisher": "Alibaba Cloud Developer Community user contribution",
+      "accessed": true,
+      "evidence": "September 8 user-contributed comparison claims approximately 1.2T total and 45B active for Qwen3.7-Max. The page explicitly states it is contributed by a registered community user and that the contributor owns the content; hosting on aliyun.com is not developer authorship. No supporting exact-model primary disclosure was found. Used only as a lead, not a verified specification."
+    },
+    {
+      "id": "s9",
+      "url": "https://developer.aliyun.com/article/1752833",
+      "title": "Qwen3.7 Max and Plus comparison",
+      "publisher": "Alibaba Cloud Developer Community user contribution",
+      "accessed": true,
+      "evidence": "August 3 community article by 问号云 carries the same user-contribution disclaimer. It claims 1.2T total while giving 45B active in prose and 450B active in its table, and calls the model dense. These internally inconsistent, unattributed figures are not a Qwen developer specification and supply no supported count or architecture."
     }
   ],
   "fields": {
@@ -103,9 +135,11 @@
       "source_ids": [
         "s1",
         "s2",
-        "s4"
+        "s4",
+        "s6",
+        "s7"
       ],
-      "note": "No total parameter count appears in the exact-model launch, API specification or official README reviewed. Counts from other Max generations are not evidence for this model."
+      "note": "Fresh launch, specification, README and later first-party comparison checks disclose no total count or explicit named-base lineage supporting a nominal inference. Qwen3.5 training-method references and Qwen3.8 successor counts do not establish this model size; community figures remain unsupported."
     },
     "active_parameters_b": {
       "value": null,
@@ -113,9 +147,11 @@
       "source_ids": [
         "s1",
         "s2",
-        "s4"
+        "s4",
+        "s6",
+        "s7"
       ],
-      "note": "No activated-parameter count is supplied for this proprietary model; no inferred equality or family-based estimate is used."
+      "note": "No active count is supplied in the original documents or later first-party comparisons. The 95B figure belongs to Qwen3.8-Max; community 45B/450B claims have no supporting primary disclosure. No total-to-active equality is inferred."
     },
     "architecture": {
       "value": null,
@@ -181,7 +217,7 @@
     "date_precision": "day",
     "source_url": "https://www.alibabacloud.com/help/en/model-studio/newly-released-models",
     "source_type": "primary",
-    "notes": "Qwen3.7-Max is proprietary; total/active parameter counts and internal architecture are not disclosed in the reviewed exact-model primary documents. The qwen3.7-max alias is documented as equivalent to the text-only May 20 snapshot; the separate June 8 snapshot adds vision. Earliest explicit regional release is May 20, 2026 in Global scope in Virginia, Hong Kong and Frankfurt; China and Singapore list May 21.",
+    "notes": "Qwen3.7-Max is proprietary; total/active parameter counts and internal architecture remain undisclosed. No named-base relationship establishes a nominal size, and Qwen3.8-Max specifications apply to the successor. The qwen3.7-max alias is equivalent to the text-only May 20 snapshot; the separate June 8 snapshot adds vision. Earliest explicit regional release is May 20, 2026 in Global scope in Virginia, Hong Kong and Frankfurt; China and Singapore list May 21.",
     "sources": [
       {
         "label": "Alibaba Cloud model release history",
@@ -202,9 +238,22 @@
         "label": "Alibaba Cloud Qwen3.7-Max README",
         "url": "https://github.com/AlibabaCloud-Official/Qwen3.7-max-readme/blob/main/README.md",
         "type": "primary"
+      },
+      {
+        "label": "Qwen3.8 launch and Qwen3.7 benchmark comparison",
+        "url": "https://qwen.ai/blog?id=qwen3.8",
+        "type": "primary"
+      },
+      {
+        "label": "Alibaba Cloud MaxCompute supported-model comparison",
+        "url": "https://www.alibabacloud.com/help/en/maxcompute/token-fee",
+        "type": "primary"
       }
     ],
-    "description": "Text-only Qwen3.7 model for coding and agent tasks, with a one-million-token context window, thinking mode, and function calling."
+    "description": "Text-only Qwen3.7 model for coding and agent tasks, with a one-million-token context window, thinking mode, and function calling.",
+    "parameters_b": null,
+    "active_parameters_b": null,
+    "parameters_source": null
   },
-  "summary": "Correct release date from May 21 to the explicitly documented May 20 Global release. Confirm the text-only 1M-context alias, reasoning and tool calling. Keep total parameters, active parameters and architecture null as undisclosed; do not import details from other Max generations or the later vision snapshot."
+  "summary": "October 27 parameter re-audit retains explicit null total and active counts after reopening the original launch, exact specification and official README and checking later Qwen3.8 and Alibaba comparisons. No published nominal size or explicit named-base lineage was found. Community 1.2T and conflicting 45B/450B claims are user contributions without primary support. Preserve the original May 20 release and text-only alias findings and undisclosed architecture."
 }
