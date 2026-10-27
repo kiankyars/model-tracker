@@ -1,7 +1,7 @@
 {
   "index": 267,
   "model_id": "meta/llama-3-8b-instruct",
-  "reviewed_at": "2026-10-26T21:31:00.424Z",
+  "reviewed_at": "2026-10-27T14:05:44.967Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Meta-Llama-3-8B-Instruct model card",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "The exact checkpoint card identifies Meta, the original Llama 3 family, nominal 8B size, April 18, 2024 release, text input/output, GQA, and SFT/RLHF instruction tuning. The model card is public; downloads require license acceptance."
+      "evidence": "Reopened October 27: the exact original 8B Instruct card specifies nominal 8B/70B pretrained and instruction-tuned variants. It identifies the tuned versions as SFT/RLHF alignment of the transformer language models and retains text-only input/output. No pruning, distillation, expert expansion or modality addition is documented for this original Instruct variant."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "Introducing Meta Llama 3",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "April 18, 2024 launch announcement releases 8B and 70B pretrained and instruction-tuned models; describes a decoder-only Transformer, GQA at both sizes and training sequences of 8,192 tokens."
+      "evidence": "Reopened October 27: Meta’s April 18, 2024 release explicitly offers pretrained and instruction-fine-tuned 8B/70B models with a decoder-only transformer and GQA. The Instruction fine-tuning section describes post-training the pretrained models using SFT, rejection sampling, PPO and DPO; it does not describe a structural conversion."
     },
     {
       "id": "s3",
@@ -25,7 +25,7 @@
       "title": "Original Llama 3 reference model implementation",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "TransformerBlock calls one shared FeedForward module per layer. FeedForward computes the dense SwiGLU projections directly without expert routing, establishing dense architecture."
+      "evidence": "Reopened October 27 through the raw official source: the shared original TransformerBlock executes dense attention and FeedForward modules; FeedForward directly computes SwiGLU projections. No expert router, pruning path or added modality module changes the original Instruct model’s execution structure."
     },
     {
       "id": "s4",
@@ -58,6 +58,30 @@
       "publisher": "Meta",
       "accessed": false,
       "evidence": "The configuration request returned HTTP 401 Unauthorized. No gate bypass, weight download, or precise tensor-derived parameter claim was attempted."
+    },
+    {
+      "id": "s8",
+      "url": "https://arxiv.org/html/2505.09388v1#S3.T6",
+      "title": "Qwen3 Technical Report, Table 6: original Llama-3-8B Base activated parameters",
+      "publisher": "Qwen Team, Alibaba",
+      "accessed": true,
+      "evidence": "Freshly read October 27: Table 6 identifies Llama-3-8B as Base and Dense, with 8B in both the Total Params and Activated Params rows. This is Qwen’s nominal benchmark convention for the original base model, not a Meta active-count disclosure or a direct Instruct measurement. The separate 8B Instruct comparison in Table 18 is Llama-3.1 and is not substituted for original Llama 3."
+    },
+    {
+      "id": "s9",
+      "url": "https://arxiv.org/html/2407.10671v1#S5.T8",
+      "title": "Qwen2 Technical Report, Table 8: exact original Llama-3-8B-Instruct comparison",
+      "publisher": "Qwen Team, Alibaba",
+      "accessed": true,
+      "evidence": "Fresh exact-Instruct search found Table 8 explicitly identifies Llama-3-8B-Instruct in its caption, but reports benchmark scores without an activated-parameter column. It does not directly establish an active count."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/IEITYuan/Yuan2-M32-hf",
+      "title": "Yuan2.0-M32 official model card, computational utilization comparison",
+      "publisher": "IEIT-Yuan",
+      "accessed": true,
+      "evidence": "Fresh search found section 3.2 explicitly lists Llama3-8B at 8B total and 8B Active Params. Its benchmark scores match original Instruct values, but the comparison label omits Base/Instruct, so this only corroborates the nominal convention and is not treated as an exact checkpoint identification."
     }
   ],
   "fields": {
@@ -121,17 +145,18 @@
         "s1",
         "s2"
       ],
-      "note": "Meta’s nominal total model size in billions. This is not a claim of exactly 8,000,000,000 learned parameters; gated configuration access did not establish a complete checkpoint count."
+      "note": "Fresh official-card and launch review confirms Meta’s nominal 8B total for the original Instruct checkpoint. Published precision is retained; this is not an exact tensor census."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 8,
+      "status": "verified",
       "source_ids": [
+        "s8",
         "s1",
-        "s3",
-        "s6"
+        "s2",
+        "s3"
       ],
-      "note": "The original card and later comparison table do not separately define an active-per-token count. Dense execution is confirmed, but total parameters are not copied into this field."
+      "note": "Nominal lineage inference: Qwen3 Table 6 explicitly reports 8B activated for original Llama-3-8B Base. Meta documents Instruct as post-training of the pretrained model using SFT/RLHF and related preference methods; the original shared dense implementation and text-only card show no documented structural change defeating that inheritance. The 8B value applies Qwen’s benchmark convention through this explicit lineage, rather than equating dense total and active by assumption. No exact original-Instruct active table or per-token tensor census was established."
     },
     "architecture": {
       "value": "dense",
@@ -199,7 +224,7 @@
     "parameters_source": "primary_source",
     "tool_call": false,
     "description": "Meta’s original Llama 3 8B instruction-tuned text model, aligned for dialogue using supervised fine-tuning and RLHF, with a dense decoder-only Transformer, grouped-query attention and an 8,192-token context.",
-    "notes": "8B is Meta’s nominal total parameter count. Active parameters are not separately reported. The original April 2024 model has an 8192-token context and is marked without native tool use in Meta’s retrospective table; later Llama 3.1 capabilities do not apply.",
+    "notes": "8B total is Meta’s nominal specification. Nominal 8B active is inferred through Meta’s documented Instruct post-training lineage from Qwen’s explicit original Llama-3-8B Base activated-count table; it is not a Meta per-token tensor census. Original April 2024 context is 8192 tokens, with no native tool use in Meta’s retrospective table.",
     "sources": [
       {
         "label": "Original release announcement",
@@ -230,8 +255,15 @@
         "label": "Meta retrospective model capabilities, Table 1",
         "url": "https://arxiv.org/html/2407.21783v3#S1.T1",
         "type": "primary"
+      },
+      {
+        "label": "Qwen original Llama 3 base activated-count convention, Table 6",
+        "url": "https://arxiv.org/html/2505.09388v1#S3.T6",
+        "type": "primary"
       }
-    ]
+    ],
+    "parameters_b": 8,
+    "active_parameters_b": 8
   },
-  "summary": "Confirmed original Llama 3 8B Instruct identity, Meta developer, April 18 release, nominal 8B count, dense GQA architecture, 8192-token context, text modalities, custom-license weight release and SFT/RLHF tuning. Corrected native tool_call from unknown to false using the exact original-model row in Meta’s later Table 1. Active parameters and a dedicated reasoning mode remain undisclosed. Exact config access returned 401; no full weights or fabricated learned-parameter precision were used."
+  "summary": "October 27 parameter re-audit retained Meta’s nominal 8B total and established nominal 8B active as a clearly labeled lineage inference from Qwen3 Table 6’s explicit original Llama-3-8B Base activated count. Reopened Meta’s exact Instruct card, original release and shared implementation; their post-training description shows no documented pruning, distillation, expert expansion or added modality. Fresh exact-Instruct searches, Qwen2 Table 8 and the Yuan comparison did not establish an unambiguous direct Instruct active-count table. Meta does not supply an exact per-token census here. The other twelve assessments are preserved."
 }
