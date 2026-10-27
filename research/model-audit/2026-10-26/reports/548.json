@@ -1,0 +1,295 @@
+{
+  "index": 548,
+  "model_id": "zhipuai/glm-4.5-air",
+  "reviewed_at": "2026-10-27T06:00:57.363377+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://z.ai/blog/glm-4.5",
+      "title": "GLM-4.5 original release announcement",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Original developer announcement dated July 28, 2025 explicitly introduces GLM-4.5-Air, 106B total / 12B active, hybrid thinking and API/open-weight availability. Complete indexed page was accessible; direct fetch returned a 598-byte shell."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/zai-org/GLM-4.5-Air/blob/a24ceef6ce4f3536971efe9b778bdaa1bab18daa/README.md",
+      "title": "Pinned GLM-4.5-Air model card",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Exact public Air checkpoint card explicitly declares MIT for released base, hybrid-reasoning and FP8 weights; reports nominal 106B/12B and supports thinking/non-thinking and tools. Inspected exact Air revision, not Base, AirX or FP8."
+    },
+    {
+      "id": "s3",
+      "url": "https://arxiv.org/html/2508.06471v1",
+      "title": "GLM-4.5 technical report, Table 1",
+      "publisher": "GLM-4.5 Team, Zhipu AI and Tsinghua University",
+      "accessed": true,
+      "evidence": "Table 1 exact Air column: 106B total / 12B activated; caption explicitly includes MTP layers but excludes word embeddings and output layer. Air has one dense main layer, 45 MoE main layers, one MTP layer, 128 routed experts with eight selected plus one shared expert. Air has no QK normalization; do not transfer the larger model setting."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/zai-org/GLM-4.5-Air/blob/a24ceef6ce4f3536971efe9b778bdaa1bab18daa/config.json",
+      "title": "Pinned GLM-4.5-Air configuration",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Glm4MoeForCausalLM, 46 main layers, first_k_dense_replace=1, 128 routed experts, top-8 plus one shared; hidden size 4096, GQA 96 query/8 KV heads, partial RoPE, max_position_embeddings=131072, one next-token-prediction layer and untied embeddings. Text-only decoder config."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/zai-org/GLM-4.5-Air/blob/a24ceef6ce4f3536971efe9b778bdaa1bab18daa/chat_template.jinja",
+      "title": "Pinned GLM-4.5-Air chat template",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Exact template handles only text content, enable_thinking, reasoning_content, function definitions, structured tool_calls and tool responses. Supports hybrid thinking and function calling directly."
+    },
+    {
+      "id": "s6",
+      "url": "https://docs.z.ai/guides/llm/glm-4.5",
+      "title": "GLM-4.5 and Air API overview",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Explicitly identifies both models, their MoE design and nominal counts. Documents text input/output, 128K context and separate 96K output maximum, thinking.type control and tool APIs."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/api/models/zai-org/GLM-4.5-Air",
+      "title": "Official Air checkpoint inventory",
+      "publisher": "Z.ai via Hugging Face",
+      "accessed": true,
+      "evidence": "Public ungated checkpoint at inspected revision a24ceef6ce4f3536971efe9b778bdaa1bab18daa. Contains 47 weight shards and separate chat template. Automated BF16/F32 safetensors total is not used as an independently verified learned-parameter count."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/zai-org/GLM-4.5-Air/blob/a24ceef6ce4f3536971efe9b778bdaa1bab18daa/model.safetensors.index.json",
+      "title": "Pinned Air checkpoint tensor index",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Read tensor names and mapping only: 47 shards; main layers 0–45 and extra layer 46 with MTP-specific keys. Index metadata total_size matches the HF automated tensor-element tally rather than establishing learned-weight bytes/count. No complete shard-header reconciliation or exact checkpoint sum is claimed."
+    },
+    {
+      "id": "s9",
+      "url": "https://www.prnewswire.com/news-releases/zai-releases-glm-4-5--setting-new-standards-for-ai-performance-and-accessibility-while-improving-affordability-302514803.html",
+      "title": "Z.ai original corporate release distributed by PR Newswire",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Original press release supplied by Z.ai, July 28, 2025, names GLM-4.5-Air and its 106B figure. Corroborates developer launch date independently of catalog or repository creation."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "GLM-4.5-Air",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Exact hybrid-reasoning Air release, distinct from Base, FP8 and AirX."
+    },
+    "developer": {
+      "value": "Z.ai",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Z.ai is the public developer brand; technical report identifies Zhipu AI and Tsinghua contributors."
+    },
+    "family": {
+      "value": "glm-air",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Retain the existing normalized GLM Air family key for the explicitly named Air variant."
+    },
+    "release_date": {
+      "value": "2025-07-28",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s9"
+      ],
+      "note": "Original dated announcement explicitly releases both models and weights. July 31 SGLang deployment article and August 8 report are later publications."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s7"
+      ],
+      "note": "Exact Air hybrid-reasoning checkpoint is publicly downloadable and ungated; this is weights availability, not merely inference code."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Official model card expressly applies MIT to the released model variants. A separate LICENSE path was not present at this revision; no license inferred from generic library code."
+    },
+    "parameters_b": {
+      "value": 106,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s8"
+      ],
+      "note": "Author nominal 106B count. The technical report defines this as including MTP but excluding word embeddings and output layer, so it is not the complete checkpoint total. Proposed scope records this convention. Automated ~110.469B BF16/F32 metadata was not adopted without complete tensor-header and module reconciliation."
+    },
+    "active_parameters_b": {
+      "value": 12,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "note": "Author nominal 12B activated count under the same report convention, including MTP and excluding embeddings/output. Eight routed experts plus one shared expert per MoE layer. Not an independently measured count for every decoding schedule."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4"
+      ],
+      "note": "Decoder-only Transformer with GQA and partial RoPE. Air specifically has one dense plus 45 MoE main layers, 128 routed experts/top 8, one shared expert, and one MoE MTP layer. No QK normalization in this Air variant."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s6"
+      ],
+      "note": "Exact checkpoint position limit 131072, advertised as 128K. Native API maximum output 96K is a separate constraint."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "note": "Exact decoder configuration, text-only template and native API modalities agree. Agent tools or document retrieval do not add native visual/audio inputs."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5",
+        "s6"
+      ],
+      "note": "Hybrid thinking/non-thinking modes are explicit; exact template and API support switching and reasoning content."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s5",
+        "s6"
+      ],
+      "note": "Exact template serializes function definitions, structured tool calls and tool responses; native API documents function calling."
+    },
+    "description": {
+      "value": "Text MoE model with thinking and non-thinking modes, tool calling and a 128K-token context window.",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "note": "Replaces subjective speed/cost positioning with verified capabilities."
+    }
+  },
+  "patch": {
+    "license": "MIT",
+    "parameters_b": 106,
+    "active_parameters_b": 12,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "description": "Text MoE model with thinking and non-thinking modes, tool calling and a 128K-token context window.",
+    "source_url": "https://z.ai/blog/glm-4.5",
+    "source_type": "primary",
+    "notes": "The author-reported 106B total and 12B active counts include MTP layers but exclude word embeddings and the output layer, as specified in the technical report. They are nominal scoped counts, not an exact complete-checkpoint tally. The Air model has one dense and 45 MoE main layers, plus one MTP layer; eight of 128 routed experts and one shared expert are used per MoE layer. Context capacity is 131072 tokens; API output limits are separate.",
+    "sources": [
+      {
+        "label": "GLM-4.5 original release announcement",
+        "url": "https://z.ai/blog/glm-4.5",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned GLM-4.5-Air model card",
+        "url": "https://huggingface.co/zai-org/GLM-4.5-Air/blob/a24ceef6ce4f3536971efe9b778bdaa1bab18daa/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "GLM-4.5 technical report, Table 1",
+        "url": "https://arxiv.org/html/2508.06471v1",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned GLM-4.5-Air configuration",
+        "url": "https://huggingface.co/zai-org/GLM-4.5-Air/blob/a24ceef6ce4f3536971efe9b778bdaa1bab18daa/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Pinned GLM-4.5-Air chat template",
+        "url": "https://huggingface.co/zai-org/GLM-4.5-Air/blob/a24ceef6ce4f3536971efe9b778bdaa1bab18daa/chat_template.jinja",
+        "type": "weights"
+      },
+      {
+        "label": "GLM-4.5 and Air API overview",
+        "url": "https://docs.z.ai/guides/llm/glm-4.5",
+        "type": "primary"
+      },
+      {
+        "label": "Official Air checkpoint inventory",
+        "url": "https://huggingface.co/api/models/zai-org/GLM-4.5-Air",
+        "type": "weights"
+      },
+      {
+        "label": "Pinned Air checkpoint tensor index",
+        "url": "https://huggingface.co/zai-org/GLM-4.5-Air/blob/a24ceef6ce4f3536971efe9b778bdaa1bab18daa/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Z.ai original corporate release distributed by PR Newswire",
+        "url": "https://www.prnewswire.com/news-releases/zai-releases-glm-4-5--setting-new-standards-for-ai-performance-and-accessibility-while-improving-affordability-302514803.html",
+        "type": "primary"
+      }
+    ]
+  },
+  "proposed_fields": {
+    "parameters_scope": "nonembedding_with_mtp",
+    "parameter_components_b": {
+      "nonembedding_with_mtp": 106
+    },
+    "active_parameters_scope": "nonembedding_with_mtp",
+    "active_parameters_by_phase_b": {
+      "nonembedding_with_mtp": 12
+    }
+  },
+  "summary": "Verified all 14 fields. Adds MIT, MoE and nominal 106B/12B counts with explicit report counting convention: MTP included, embeddings/output excluded. Confirms July 28 launch, 131072 context, text-only I/O, hybrid reasoning and structured tools. No full weight download or false exact complete checkpoint sum."
+}
