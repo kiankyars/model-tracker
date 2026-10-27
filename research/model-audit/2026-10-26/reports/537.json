@@ -1,0 +1,272 @@
+{
+  "index": 537,
+  "model_id": "xiaomi/mimo-v2-flash",
+  "reviewed_at": "2026-10-27T05:42:18.132839Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://mimo.xiaomi.com/mimo-v2-flash",
+      "title": "Introducing MiMo-V2-Flash, December 16, 2025",
+      "publisher": "Xiaomi",
+      "accessed": true,
+      "evidence": "Explicit same-day public release and open-weight availability. Describes 309B total / 15B active, MoE with local/global attention, switchable thinking and tool interactions. This establishes initial release rather than a later API update."
+    },
+    {
+      "id": "s2",
+      "url": "https://arxiv.org/html/2601.02780v2",
+      "title": "MiMo-V2-Flash Technical Report, January 8, 2026 revision",
+      "publisher": "Xiaomi LLM-Core Team",
+      "accessed": true,
+      "evidence": "Sections 2 and 3 specify the exact model: Transformer/MoE, 48 layers (39 SWA and 9 global), 256 experts with 8 selected and no shared experts. Reports nominal 309B total and 15B active per token, with context extended from 32768 to 262144. MTP is separately described as lightweight dense draft blocks; no independent exact tensor count is claimed."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2-Flash/blob/1afd314a2406c282e0956375c34a676501c78649/README.md",
+      "title": "MiMo-V2-Flash model card at inspected revision",
+      "publisher": "XiaomiMiMo",
+      "accessed": true,
+      "evidence": "Exact post-trained MiMo-V2-Flash row reports 309B total, 15B active and 256k context. Frontmatter declares MIT. Deployment example uses thinking controls and a MiMo tool parser; tool-use guidance explains reasoning_content with tool_calls. Separately lists the Base model, avoiding variant confusion."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2-Flash/blob/1afd314a2406c282e0956375c34a676501c78649/config.json",
+      "title": "Released checkpoint configuration",
+      "publisher": "XiaomiMiMo",
+      "accessed": true,
+      "evidence": "Read raw JSON from current main, resolved by repository API to 1afd314a2406c282e0956375c34a676501c78649. MiMoV2FlashForCausalLM, max_position_embeddings=262144, 48 layers, 256 routed experts, 8 per token, no shared experts, 128-token local windows. Mixed FP8/BF16 storage and quantization scales are not treated as parameter counts."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/api/models/XiaomiMiMo/MiMo-V2-Flash",
+      "title": "Official checkpoint inventory",
+      "publisher": "XiaomiMiMo / Hugging Face",
+      "accessed": true,
+      "evidence": "Public repository inventory lists safetensors weight shards and model code without access gating; card metadata is MIT. No full weight shards were downloaded. Repository creation timestamp is not used in place of the explicit release announcement."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2-Flash/blob/1afd314a2406c282e0956375c34a676501c78649/tokenizer_config.json",
+      "title": "Released chat template",
+      "publisher": "XiaomiMiMo",
+      "accessed": true,
+      "evidence": "Template handles textual conversations, selectable enable_thinking, function definitions and tool calls. Confirms reasoning and tool support for the released checkpoint rather than only a third-party harness."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2-Flash/blob/1afd314a2406c282e0956375c34a676501c78649/modeling_mimo_v2_flash.py",
+      "title": "Released causal language model implementation",
+      "publisher": "XiaomiMiMo",
+      "accessed": true,
+      "evidence": "Read text-token embedding and causal language-model forward/output implementation. No vision/audio encoder or multimodal input path is present in the exact checkpoint configuration/code; this supports text input/output and does not transfer the later Omni or V2.5 modalities."
+    },
+    {
+      "id": "s8",
+      "url": "https://mimo.mi.com/docs/en-US/updates/model",
+      "title": "Official model release and update log",
+      "publisher": "Xiaomi",
+      "accessed": true,
+      "evidence": "Accessed complete official changelog. Confirms December 16, 2025 release, then January 12 and February 4, 2026 updates under unchanged API name. Documents thinking and tool-use improvements. These later updates do not change the first-release date or establish identical checkpoint weights."
+    },
+    {
+      "id": "s9",
+      "url": "https://github.com/XiaomiMiMo/MiMo-V2-Flash/blob/main/LICENSE",
+      "title": "Source-code repository license",
+      "publisher": "XiaomiMiMo",
+      "accessed": true,
+      "evidence": "Raw repository LICENSE contains Apache License 2.0. This code-repository license is distinguished from the MIT designation in the exact Hugging Face model card; it is not substituted for the weights license."
+    },
+    {
+      "id": "s10",
+      "url": "https://mimo.mi.com/docs/news/previous-news/news20251216",
+      "title": "MiMo-V2-Flash release note",
+      "publisher": "Xiaomi",
+      "accessed": true,
+      "evidence": "Indexed official release text explicitly describes the model weights and inference code as MIT-licensed and gives 309B/15B MoE. Direct page retrieval returned no body, so the accessed indexed text is corroboration of the weights card; the GitHub code LICENSE differs and is separately recorded."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "MiMo-V2-Flash",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Exact post-trained model name; the separately published MiMo-V2-Flash-Base is not this record."
+    },
+    "developer": {
+      "value": "Xiaomi",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Original release, report author team and official checkpoint identify Xiaomi."
+    },
+    "family": {
+      "value": "mimo",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "MiMo family, normalized to the existing catalog family key."
+    },
+    "release_date": {
+      "value": "2025-12-16",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8"
+      ],
+      "note": "Explicit first public release and open-sourcing on December 16. January technical-report publication and later API updates are separate events."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s5"
+      ],
+      "note": "Official public checkpoint and explicit launch of model weights. This is the released model, not merely an open-source serving implementation."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s10",
+        "s9"
+      ],
+      "note": "Weights are designated MIT by the exact checkpoint card and original release text. GitHub source code has an Apache-2.0 LICENSE; retain this distinction rather than conflating code and weights."
+    },
+    "parameters_b": {
+      "value": 309,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Author-reported nominal total in billions for the exact model. No independent tensor tally or inferred storage-element count. The report separately discusses lightweight MTP modules, so 309B is preserved at the authors' precision rather than reconstructed by adding draft blocks."
+    },
+    "active_parameters_b": {
+      "value": 15,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Author-reported nominal 15B activated per token, not the total divided by expert ratio. The main network selects 8 of 256 routed experts per MoE layer. This is not an assertion that a speculative MTP decoding pass has the same operation count."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4"
+      ],
+      "note": "Transformer with hybrid local/global attention: 39 sliding-window and 9 global layers, first layer dense; remaining 47 layers each have 256 routed experts, 8 selected per token, no shared experts. MTP draft blocks are dense. The catalog architecture key records MoE; details are qualified here."
+    },
+    "context_window": {
+      "value": 262144,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "note": "Exact extended context in the released model configuration and technical report, also used in official serving example. Initial pretraining length 32768 is not the released maximum; third-party provider limits need not match."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s7"
+      ],
+      "note": "Text-generation causal LM with no multimodal encoder in the exact configuration/implementation. Native vision/audio capabilities of other MiMo models are not inherited."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s6"
+      ],
+      "note": "Explicitly supports thinking and non-thinking modes through enable_thinking; this capability does not imply always-on reasoning."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s6",
+        "s8"
+      ],
+      "note": "Official deployment and chat template support structured function calls and tool messages; changelog corroborates support."
+    },
+    "description": {
+      "value": "Open-weight text model with hybrid-attention MoE architecture, switchable reasoning and tool calling.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s7"
+      ],
+      "note": "Replaces unsupported multimodal assistance claim with documented text-model capabilities and architecture."
+    }
+  },
+  "patch": {
+    "license": "MIT",
+    "parameters_b": 309,
+    "active_parameters_b": 15,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "description": "Open-weight text model with hybrid-attention MoE architecture, switchable reasoning and tool calling.",
+    "source_url": "https://mimo.xiaomi.com/mimo-v2-flash",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Original release announcement",
+        "url": "https://mimo.xiaomi.com/mimo-v2-flash",
+        "type": "primary"
+      },
+      {
+        "label": "Technical report and model configuration",
+        "url": "https://arxiv.org/html/2601.02780v2",
+        "type": "primary"
+      },
+      {
+        "label": "Released model card and weights license",
+        "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2-Flash/blob/1afd314a2406c282e0956375c34a676501c78649/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint configuration",
+        "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2-Flash/blob/1afd314a2406c282e0956375c34a676501c78649/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Official model update history",
+        "url": "https://mimo.mi.com/docs/en-US/updates/model",
+        "type": "primary"
+      }
+    ],
+    "notes": "309B total and 15B active per token are nominal author-reported figures, not a tensor inventory. The model uses a Transformer MoE with 256 routed experts, 8 selected per token, no shared experts, and hybrid sliding-window/global attention; its MTP draft blocks are dense. The released checkpoint is text-only and supports 262144 tokens after context extension. Weights are marked MIT; GitHub source code carries Apache-2.0. December 16, 2025 is the initial release; January/February 2026 API updates kept the same model name."
+  },
+  "summary": "Verified all fourteen fields against the original Xiaomi launch, technical report, exact checkpoint card/config/code and update history. Added nominal 309B total, 15B active, MoE architecture and MIT weights licensing. Retained December 16 release, 262144 context, reasoning and tools. Replaced inaccurate multimodal description with text-only capabilities; distinguished MTP, code license and later unchanged-name API updates."
+}
