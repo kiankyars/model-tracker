@@ -1,7 +1,7 @@
 {
   "index": 487,
   "model_id": "sao10k/l3-lunaris-8b",
-  "reviewed_at": "2026-10-27T04:21:26.237521Z",
+  "reviewed_at": "2026-10-27T17:53:43.672731Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "L3-8B-Lunaris-v1 model card and merge recipe",
       "publisher": "Sao10K",
       "accessed": true,
-      "evidence": "Exact Lunaris-v1 card calls it a Llama 3 generalist/roleplaying merge, declares llama3 license and English, and provides a TIES recipe using Meta-Llama-3-8B-Instruct, crestf411/L3-8B-sunfall-v0.1, Hastagaras/Jamet-8B-L3-MK1, maldv/badger-iota-llama-3-8b and Sao10K/Stheno-3.2-Beta (identified as Stheno v3.2’s initial name). Merge density/weight pairs are 0.4/0.25, 0.5/0.3, 0.6/0.35 and 0.7/0.4; final dtype is bfloat16. The int8_mask merge option does not describe deployed weight quantization."
+      "evidence": "Exact Lunaris-v1 card calls it a Llama 3 generalist/roleplaying merge, declares llama3 license and English, and provides a TIES recipe using Meta-Llama-3-8B-Instruct, crestf411/L3-8B-sunfall-v0.1, Hastagaras/Jamet-8B-L3-MK1, maldv/badger-iota-llama-3-8b and Sao10K/Stheno-3.2-Beta (identified as Stheno v3.2’s initial name). Merge density/weight pairs are 0.4/0.25, 0.5/0.3, 0.6/0.35 and 0.7/0.4; final dtype is bfloat16. The int8_mask merge option does not describe deployed weight quantization. Reopened October 27: both the merge recipe and checkpoint _name_or_path explicitly identify the original Meta-Llama-3-8B-Instruct base. No layer expansion, distillation or modality addition is described."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "Lunaris-v1 checkpoint configuration",
       "publisher": "Sao10K",
       "accessed": true,
-      "evidence": "Pinned checkpoint selects Transformers 4.41.2 LlamaForCausalLM: 32 layers, hidden 4096, intermediate 14336, vocabulary 128256, 32 query and 8 KV heads, SiLU, 8192 positions, no RoPE scaling, attention_bias=false, mlp_bias=false and tie_word_embeddings=false. Dtype is bfloat16; no quantization configuration or auxiliary prediction branch is enabled."
+      "evidence": "Pinned checkpoint selects Transformers 4.41.2 LlamaForCausalLM: 32 layers, hidden 4096, intermediate 14336, vocabulary 128256, 32 query and 8 KV heads, SiLU, 8192 positions, no RoPE scaling, attention_bias=false, mlp_bias=false and tie_word_embeddings=false. Dtype is bfloat16; no quantization configuration or auxiliary prediction branch is enabled. October 27 comparison with the public Nous mirror of the named Instruct base confirms identical layer, attention, MLP, vocabulary and embedding dimensions. Differences are _name_or_path metadata, Transformers version and the explicit false mlp_bias key; no count-changing configuration difference was found."
     },
     {
       "id": "s3",
@@ -33,7 +33,7 @@
       "title": "Complete four-shard Lunaris-v1 tensor index",
       "publisher": "Sao10K",
       "accessed": true,
-      "evidence": "Index maps 291 tensors across four shards. Every name and shard assignment was reconciled to all four bounded headers and the configured Llama module inventory. Metadata total_size 16060522496 equals the full BF16 payload, not the parameter count itself."
+      "evidence": "Index maps 291 tensors across four shards. Every name and shard assignment was reconciled to all four bounded headers and the configured Llama module inventory. Metadata total_size 16060522496 equals the full BF16 payload, not the parameter count itself. Reopened October 27: the index still has 291 tensors and total_size 16060522496. Configuration arithmetic independently reproduces 8030261248; the previous complete header census is retained without downloading shards again."
     },
     {
       "id": "s5",
@@ -105,7 +105,7 @@
       "title": "Later Stheno v3.3 32K card",
       "publisher": "Sao10K",
       "accessed": true,
-      "evidence": "Checked later first-party card for exact Lunaris comparisons or parameter disclosures. Its PoSE 32K context extension concerns a distinct Stheno checkpoint; no Lunaris-specific total/active count or capability comparison is supplied. Its longer context and license must not transfer to Lunaris."
+      "evidence": "Checked later first-party card for exact Lunaris comparisons or parameter disclosures. Its PoSE 32K context extension concerns a distinct Stheno checkpoint; no Lunaris-specific total/active count or capability comparison is supplied. Its longer context and license must not transfer to Lunaris. Reopened the complete card October 27; it still supplies no exact Lunaris active-count disclosure."
     },
     {
       "id": "s14",
@@ -113,7 +113,7 @@
       "title": "Later Llama 3.1 Stheno v3.4 card",
       "publisher": "Sao10K",
       "accessed": true,
-      "evidence": "Checked later first-party card for exact Lunaris comparisons or active-parameter disclosures. This is a distinct Llama 3.1 model; its datasets and capabilities do not document Lunaris. Additional checked author cards for Tamamo, Chara v1 Alpha, Niitama v1 and Euryale v2.3 likewise provided no Lunaris-specific parameter disclosure."
+      "evidence": "Checked later first-party card for exact Lunaris comparisons or active-parameter disclosures. This is a distinct Llama 3.1 model; its datasets and capabilities do not document Lunaris. Additional checked author cards for Tamamo, Chara v1 Alpha, Niitama v1 and Euryale v2.3 likewise provided no Lunaris-specific parameter disclosure. Reopened the complete card October 27; it still supplies no exact Lunaris active-count disclosure."
     },
     {
       "id": "s15",
@@ -122,6 +122,54 @@
       "publisher": "OpenRouter",
       "accessed": true,
       "evidence": "Maps the exact catalog ID to Sao10K: Llama 3 8B Lunaris and describes the same generalist/roleplay merge. Creation timestamp 1723507200 is August 13, 2024, a provider listing date after developer publication. Endpoints report text input/output and 8192 context. supported_parameters omit tools while supports_tool_choice contains true entries; this inconsistent service metadata does not settle checkpoint-level tool capability."
+    },
+    {
+      "id": "s16",
+      "url": "https://arxiv.org/html/2505.09388v1#S3.T6",
+      "title": "Qwen3 Technical Report, Table 6: original Llama 3 8B Base activated parameters",
+      "publisher": "Qwen Team, Alibaba",
+      "accessed": true,
+      "evidence": "Fresh October 27 read of the original report: Table 6 explicitly identifies Llama-3-8B Base as Dense and lists 8B in separate Total Params and Activated Params rows. This establishes Qwen’s nominal benchmark convention for original Llama 3 Base, not a Meta or Sao10K disclosure. Table 18 concerns Llama 3.1 Instruct and is not substituted for the original model."
+    },
+    {
+      "id": "s17",
+      "url": "https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct",
+      "title": "Meta original Llama 3 8B Instruct model card",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Fresh October 27 read: Meta identifies original pretrained and instruction-tuned 8B/70B variants, with text-only input and text/code output. The tuned variants use SFT and RLHF. This explicitly bridges original Llama 3 Base to Instruct, without a described pruning, expert expansion, distillation or added modality."
+    },
+    {
+      "id": "s18",
+      "url": "https://ai.meta.com/blog/meta-llama-3/",
+      "title": "Introducing Meta Llama 3: original Base-to-Instruct post-training",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Fresh October 27 read of the April 18, 2024 launch: Meta specifies pretrained and instruction-fine-tuned 8B/70B models, decoder-only Transformers and GQA. Its Instruction fine-tuning section describes post-training the pretrained models with SFT, rejection sampling, PPO and DPO; no structural conversion is described."
+    },
+    {
+      "id": "s19",
+      "url": "https://huggingface.co/NousResearch/Meta-Llama-3-8B-Instruct/raw/main/config.json",
+      "title": "Public mirror of the explicitly named original Instruct base configuration",
+      "publisher": "Nous Research / Meta",
+      "accessed": true,
+      "evidence": "Fresh October 27 HTTP 200 read: the public mirror config has 32 layers, hidden size 4096, MLP size 14336, 32 query/8 KV heads, vocabulary 128256 and untied embeddings, all matching Lunaris. The official Meta raw/blob config returned HTTP 401, so this is explicitly mirror corroboration rather than a claimed fresh official config read. Differences from Lunaris are metadata/version and its explicit false mlp_bias; the original Meta implementation independently has bias-free MLP projections."
+    },
+    {
+      "id": "s20",
+      "url": "https://github.com/meta-llama/llama3/blob/main/llama/model.py",
+      "title": "Original Meta Llama 3 reference implementation",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Fresh October 27 read through the official raw GitHub source: each TransformerBlock executes dense attention and a bias-free SwiGLU FeedForward. The model uses input embeddings, decoder blocks, RMSNorm and an output projection. No expert routing, pruning path or additional modality module is present in this shared original architecture."
+    },
+    {
+      "id": "s21",
+      "url": "https://github.com/arcee-ai/mergekit/blob/main/mergekit/merge_methods/generalized_task_arithmetic.py",
+      "title": "Mergekit task-vector merging and density semantics",
+      "publisher": "Arcee AI",
+      "accessed": true,
+      "evidence": "Fresh October 27 read of the current implementation corroborates the recipe semantics: it subtracts the base tensor, sparsifies the resulting delta according to density, combines deltas and adds the result back to the base tensor. int8_mask chooses consensus-mask storage. These settings are merge-time operations, not runtime expert routing or structural parameter pruning. This current code explains the method; the exact released Lunaris configuration and prior complete tensor inventory establish its retained structure."
     }
   ],
   "fields": {
@@ -195,19 +243,22 @@
         "s8",
         "s9"
       ],
-      "note": "Complete exact checkpoint count is 8,030,261,248 learned parameters, derived from all 291 tensor shapes and reconciled to the enabled modules, not from nominal 8B naming or payload bytes. H=4096, I=14336, L=32, V=128256, Q=32, K=8, D=128: total=2VH+H+L[2H+2H(Q+K)D+3HI]. Per layer Q/O are [4096,4096], K/V [1024,4096], gate/up [14336,4096], down [4096,14336], and two norms [4096]. Untied input and output matrices are each [128256,4096], plus final norm [4096]. All indexed names/shapes and shard membership match exactly. All are BF16 learned tensors; 16,060,522,496 payload bytes equals 2 times this count, and every shard offset is contiguous. No packed weights, quantization scales, saved rotary buffers, biases, adapter tensors, MTP or auxiliary heads are present. The TIES merge method is unrelated to runtime embedding tying."
+      "note": "Complete exact checkpoint count is 8,030,261,248 learned parameters, derived from all 291 tensor shapes and reconciled to the enabled modules, not from nominal 8B naming or payload bytes. H=4096, I=14336, L=32, V=128256, Q=32, K=8, D=128: total=2VH+H+L[2H+2H(Q+K)D+3HI]. Per layer Q/O are [4096,4096], K/V [1024,4096], gate/up [14336,4096], down [4096,14336], and two norms [4096]. Untied input and output matrices are each [128256,4096], plus final norm [4096]. All indexed names/shapes and shard membership match exactly. All are BF16 learned tensors; 16,060,522,496 payload bytes equals 2 times this count, and every shard offset is contiguous. No packed weights, quantization scales, saved rotary buffers, biases, adapter tensors, MTP or auxiliary heads are present. The TIES merge method is unrelated to runtime embedding tying. October 27 recheck retained this prior complete census, freshly reopened the exact configuration and 291-tensor index, and independently reproduced the same total from the configured dimensions; no weight shard was downloaded in this pass."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 8,
+      "status": "verified",
       "source_ids": [
         "s1",
         "s2",
-        "s9",
-        "s13",
-        "s14"
+        "s16",
+        "s17",
+        "s18",
+        "s19",
+        "s20",
+        "s21"
       ],
-      "note": "No separately defined active-parameter count for exact Lunaris was located in its card/config or checked later first-party comparisons. Do not equate dense total parameters to an author-reported active count."
+      "note": "Nominal lineage inference: Qwen3 Table 6 explicitly gives original Llama-3-8B Base 8B Activated Params. Meta documents Instruct as post-training of that original model, and Sao10K explicitly uses Meta-Llama-3-8B-Instruct as Lunaris’s TIES base. The exact target configuration, prior complete tensor inventory and fresh base-mirror comparison retain all dense dimensions and vocabulary, with no structural change defeating nominal inheritance. Merge densities sparsify task-vector updates; they do not define runtime active fractions. Apply Qwen’s nominal 8B benchmark convention through this documented lineage, not an equality between dense total and active counts. No direct Lunaris active disclosure or exact per-token tensor census was established by fresh total/active/lineage searches and later creator-card checks."
     },
     "architecture": {
       "value": "dense",
@@ -289,7 +340,7 @@
     "parameters_source": "primary_source",
     "source_url": "https://huggingface.co/Sao10K/L3-8B-Lunaris-v1/blob/8479c2a7ee119c935b9a02c921cc2a85b698dfe8/README.md",
     "source_type": "primary",
-    "notes": "Complete BF16 checkpoint: 8,030,261,248 learned parameters with untied input/output embeddings. Active parameters are not separately disclosed. First public release was June 26, 2024; August 13 is the later provider listing. Llama 3 license is declared by the model card. Native tool calling and a dedicated reasoning mode are unverified for this exact merge.",
+    "notes": "Complete BF16 checkpoint: 8,030,261,248 learned parameters with untied input/output embeddings. Nominal 8B active is inferred from its documented original Llama 3 Instruct lineage under Qwen3 Table 6’s counting convention, not a separate Lunaris disclosure or exact per-token count. First public release was June 26, 2024; August 13 is the later provider listing. Llama 3 license is declared by the model card. Native tool calling and a dedicated reasoning mode are unverified for this exact merge.",
     "sources": [
       {
         "label": "L3-8B-Lunaris-v1 model card and merge recipe",
@@ -340,8 +391,39 @@
         "label": "Meta Llama 3 Community License Agreement",
         "url": "https://github.com/meta-llama/llama3/blob/main/LICENSE",
         "type": "primary"
+      },
+      {
+        "label": "Qwen3 Technical Report, Table 6: original Llama 3 8B Base activated parameters",
+        "url": "https://arxiv.org/html/2505.09388v1#S3.T6",
+        "type": "primary"
+      },
+      {
+        "label": "Meta original Llama 3 8B Instruct model card",
+        "url": "https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct",
+        "type": "primary"
+      },
+      {
+        "label": "Introducing Meta Llama 3: original Base-to-Instruct post-training",
+        "url": "https://ai.meta.com/blog/meta-llama-3/",
+        "type": "primary"
+      },
+      {
+        "label": "Public mirror of the explicitly named original Instruct base configuration",
+        "url": "https://huggingface.co/NousResearch/Meta-Llama-3-8B-Instruct/raw/main/config.json",
+        "type": "secondary"
+      },
+      {
+        "label": "Original Meta Llama 3 reference implementation",
+        "url": "https://github.com/meta-llama/llama3/blob/main/llama/model.py",
+        "type": "primary"
+      },
+      {
+        "label": "Mergekit task-vector merging and density semantics",
+        "url": "https://github.com/arcee-ai/mergekit/blob/main/mergekit/merge_methods/generalized_task_arithmetic.py",
+        "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": 8
   },
   "proposed_fields": {
     "parameter_components_b": {
@@ -351,5 +433,5 @@
       "output_head": 0.525336576
     }
   },
-  "summary": "Correct release from later provider listing to June 26, 2024, supported by the developer’s public-release acknowledgment and full upload. Replace nominal 8B with exact 8.030261248B from every indexed tensor header plus enabled configuration/implementation reconciliation. Establish dense architecture and declared Llama 3 license; retain 8192 text context and open weights. Describe exact generalist/roleplay TIES merge and clear unsupported reasoning/tool flags. Active count is undisclosed; no later checked author card provided exact Lunaris disclosure. No full weights were downloaded."
+  "summary": "October 27 parameter re-audit retains exact 8.030261248B total, freshly corroborated by the released configuration, 291-tensor index and formula. Establish nominal 8B active through Qwen3 Table 6’s explicit original Llama-3-8B Base convention, Meta’s Base-to-Instruct post-training and Sao10K’s named TIES base with unchanged dimensions. No direct Lunaris active-count disclosure or exact per-token count was found; the 8B value is an attributed lineage inference. Preserve all other 12 field assessments and existing component counts. No weight shards were downloaded in this pass."
 }
