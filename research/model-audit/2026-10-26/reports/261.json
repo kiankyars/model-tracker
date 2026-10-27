@@ -1,7 +1,7 @@
 {
   "index": 261,
   "model_id": "meta/llama-2-70b-chat",
-  "reviewed_at": "2026-10-26T21:25:41.822327Z",
+  "reviewed_at": "2026-10-27T13:56:42.449770Z",
   "sources": [
     {
       "id": "s1",
@@ -17,7 +17,7 @@
       "title": "Llama-2-70b-chat-hf official model card",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "Identifies this exact repository as the 70B dialogue-tuned model. Lists Meta, text input/output, SFT and RLHF, and the 70B row with 4k context and GQA."
+      "evidence": "Reopened 2026-10-27. The exact repository identifies the 70B fine-tuned dialogue model. Meta lists 7B/13B/70B pretrained and fine-tuned variations, text input/output, SFT and RLHF, and the 70B row with 4k context and GQA. This directly supports the nominal total and identifies the base-to-Chat lineage, but does not separately publish an active count."
     },
     {
       "id": "s3",
@@ -33,7 +33,7 @@
       "title": "Original Llama 2 reference Transformer implementation",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "Transformer applies each attention and SwiGLU feed-forward block without expert routing; includes RMSNorm and rotary positions. KV-head repetition implements GQA; embeddings and output weights are separate modules."
+      "evidence": "Reopened 2026-10-27. Transformer applies each attention and SwiGLU feed-forward block without expert routing; includes RMSNorm and rotary positions. KV-head repetition implements GQA; embeddings and output weights are separate modules. This shared released Transformer supports the documented architecture-preserving Chat fine-tuning relationship, not an exact per-token parameter census."
     },
     {
       "id": "s5",
@@ -41,7 +41,7 @@
       "title": "Original Llama 2 text and chat generation implementation",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "Chat accepts system/user/assistant roles and produces assistant content with optional token log-probabilities. No native tools schema, tool role, function-call result, separate thinking channel, or reasoning-mode parameter is exposed."
+      "evidence": "Reopened 2026-10-27. One Llama.build loader constructs Transformer from checkpoint params.json; text_completion and chat_completion use that shared model. Chat accepts system/user/assistant roles and produces assistant content with optional token log-probabilities. No native tools schema, tool role, function-call result, separate thinking channel, or reasoning-mode parameter is exposed."
     },
     {
       "id": "s6",
@@ -49,7 +49,7 @@
       "title": "Llama 2: Open Foundation and Fine-Tuned Chat Models",
       "publisher": "Meta authors / arXiv",
       "accessed": true,
-      "evidence": "Sections 2-3 describe Transformer pretraining and Chat SFT/RLHF. Appendix A.2.1 specifies 4096-token context and GQA for 70B. Section 5.1 reports emergent prompted tool use without explicit tool training; this is not a native function-calling interface."
+      "evidence": "Reopened 2026-10-27, including the fresh full-paper cache. Introduction explicitly calls Llama 2-Chat a fine-tuned Llama 2 and releases both at 70B; Figure 4 and Sections 3.1-3.2 describe SFT then RLHF. Section 3.2.3 uses 70B Chat responses to train smaller models; Section 4.2.4 fine-tunes the model on its own safety-conditioned responses. These are response-data training methods, not reported pruning or structural compression of 70B Chat. Appendix A.2.1 specifies 4096-token context and GQA for 70B; Section 5.1 describes prompted tool use rather than a native function interface."
     },
     {
       "id": "s7",
@@ -66,6 +66,14 @@
       "publisher": "Meta",
       "accessed": false,
       "evidence": "Unauthenticated direct request returned HTTP 401; blob/raw views were also inaccessible. No gated access was bypassed and no weights were downloaded."
+    },
+    {
+      "id": "s9",
+      "url": "https://arxiv.org/html/2401.04088v1",
+      "title": "Mixtral of Experts — Table 2 active-parameter comparison",
+      "publisher": "Mistral AI authors / arXiv",
+      "accessed": true,
+      "evidence": "Reopened 2026-10-27, including the fresh full-paper cache. Table 2 explicitly lists LLaMA 2 70B with 70B in its Active Params column; Section 2.1 defines active parameters in terms of processing an individual token. This is Mistral’s original benchmark convention for the base Llama 2 70B, not a Meta disclosure or a separately labeled 70B Chat row. Its nominal precision does not establish exact tensor participation or embedding scope."
     }
   ],
   "fields": {
@@ -126,17 +134,19 @@
         "s2",
         "s6"
       ],
-      "note": "Explicit nominal 70 billion parameter designation for this Chat variant, not a complete tensor-derived count. The inaccessible exact config prevents an independent shape census; the nominal count remains directly verified."
+      "note": "Freshly rechecked Meta’s exact 70B Chat card and technical paper: both explicitly support the nominal 70 billion total for this fine-tuned model. Preserve that published precision; no tensor census or weight download is required or claimed."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 70,
+      "status": "verified",
       "source_ids": [
+        "s9",
         "s2",
+        "s6",
         "s4",
-        "s6"
+        "s5"
       ],
-      "note": "Reviewed primary sources do not separately define or report an active-per-token count. Dense execution does not establish equality to total learned parameters, especially embedding lookup scope; retain null."
+      "note": "Nominal inference from documented lineage: Mistral’s Mixtral Table 2 publishes 70B active for base Llama 2 70B. Meta identifies 70B Chat as its SFT/RLHF fine-tune, with the shared released Transformer path and no documented pruning, expert expansion or structural compression. The paper’s distillation concerns training on generated responses, not shrinking 70B Chat. Carry Mistral’s nominal convention through that explicit relationship; this is not a direct Meta active-count disclosure or an exact count of tensors touched per token. Fresh searches found no stronger exact-Chat active-count disclosure."
     },
     "architecture": {
       "value": "dense",
@@ -205,7 +215,7 @@
   "patch": {
     "description": "Meta’s nominal 70B Llama 2 text chat model, fine-tuned with SFT and RLHF; a dense Transformer using grouped-query attention and a 4,096-token context window.",
     "parameters_source": "primary_source",
-    "notes": "70B is Meta’s nominal total parameter size. Active parameters are not separately reported. The original context is 4096 tokens. Reasoning and tool-call flags remain unknown: ordinary reasoning benchmarks and emergent tool-use text do not document native thinking or function-calling interfaces. Weights use the custom Llama 2 Community License and require license-conditioned access.",
+    "notes": "70B is Meta’s nominal total. Nominal 70B active is inferred through Meta’s documented SFT/RLHF lineage from Mistral’s published active-count convention for base Llama 2 70B; it is not a separate Meta active-count disclosure. The original context is 4096 tokens. Reasoning and tool-call flags remain unknown: ordinary reasoning benchmarks and emergent tool-use text do not document native thinking or function-calling interfaces. Weights use the custom Llama 2 Community License and require license-conditioned access.",
     "sources": [
       {
         "label": "Meta and Microsoft Introduce the Next Generation of Llama",
@@ -241,13 +251,21 @@
         "label": "Original Llama 2 release and inference README",
         "url": "https://raw.githubusercontent.com/meta-llama/llama/llama_v2/README.md",
         "type": "primary"
+      },
+      {
+        "label": "Mixtral of Experts — Table 2 active-parameter comparison",
+        "url": "https://arxiv.org/html/2401.04088v1",
+        "type": "primary"
       }
-    ]
+    ],
+    "parameters_b": 70,
+    "active_parameters_b": 70
   },
   "conflicts": [
     "Generic ModelArgs.max_seq_len defaults to 2048, while the release README and technical paper explicitly establish 4096 for Llama 2; runtime defaults do not override the model context.",
     "The paper’s tool-use emergence examples do not establish a native tool-call schema; the original chat implementation exposes only system/user/assistant text messages.",
-    "Exact checkpoint config access returned HTTP 401. Nominal 70B is verified from the exact public card, but no exact learned-parameter census is claimed."
+    "Exact checkpoint config access returned HTTP 401. Nominal 70B is verified from the exact public card, but no exact learned-parameter census is claimed.",
+    "Mistral’s 70B Active Params row identifies base Llama 2 70B, not Chat. The Chat value is explicitly inferred through Meta’s documented architecture-preserving SFT/RLHF relationship, with Mistral credited for the nominal active-count convention. Meta does not separately disclose an exact active-per-token count here."
   ],
-  "summary": "Confirmed the baseline identity, July 18, 2023 release, custom license, open weights, nominal 70B, dense GQA Transformer, 4096-token context and text-only modalities. Expanded the description and provenance. Active parameters, native thinking and native tool-calling remain undisclosed; gated config access does not undermine the explicit nominal count."
+  "summary": "Fresh parameter re-audit preserves Meta’s explicit nominal 70B total and resolves active parameters to nominal 70B by combining Mistral’s original base-model Active Params table with Meta’s documented 70B Chat SFT/RLHF lineage and shared released Transformer. Response-data distillation does not establish structural compression of this checkpoint. No direct Meta active-count disclosure or exact per-token census is claimed. The other twelve field assessments remain unchanged, including unknown native thinking and native tool-calling."
 }
