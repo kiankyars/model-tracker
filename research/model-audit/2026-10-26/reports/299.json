@@ -1,7 +1,7 @@
 {
   "index": 299,
   "model_id": "mindlab/macaron-v1-venti",
-  "reviewed_at": "2026-10-26T22:28:46.204565Z",
+  "reviewed_at": "2026-10-27T15:26:45.121556Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,8 @@
       "title": "Introducing Macaron-V1",
       "publisher": "Mind Lab",
       "accessed": true,
-      "evidence": "Dated July 21, 2026 and announces V1-Venti with open weights, a GLM-5.2 base, four specialists, and the 748B release label."
+      "evidence": "Dated July 21, 2026 and announces V1-Venti with open weights, a GLM-5.2 base, four specialists, and the 748B release label.",
+      "rechecked_at": "2026-10-27"
     },
     {
       "id": "s2",
@@ -17,7 +18,8 @@
       "title": "Macaron-V1-Venti model card",
       "publisher": "Mind Lab",
       "accessed": true,
-      "evidence": "Names the model and Macaron-V1 family; describes BF16 weights, MIT licensing, chat/agent/coding/GenUI specialists, and 1M context. Distinguishes 748B release label from about 774.8B logical stored parameters; warns that the automatic sidebar count matches neither."
+      "evidence": "Names the model and Macaron-V1 family; describes BF16 weights, MIT licensing, chat/agent/coding/GenUI specialists, and 1M context. Distinguishes 748B release label from about 774.8B logical stored parameters; warns that the automatic sidebar count matches neither.",
+      "rechecked_at": "2026-10-27"
     },
     {
       "id": "s3",
@@ -25,7 +27,8 @@
       "title": "Macaron-V1 technical report, revision 2 (August 24, 2026)",
       "publisher": "Mind Lab",
       "accessed": true,
-      "evidence": "Sections 2.2 and 2.6 and Table 11 identify Venti separately: nominal 744B base, four adapters with 7,688,042,496 BF16 stored values each, approximately 774.8B logical residency, and 748B release label. Explicitly says stored values are not active-per-token counts. One specialist is selected per user turn."
+      "evidence": "Sections 2.2 and 2.6 and Table 11 identify Venti separately: nominal 744B base, four adapters with 7,688,042,496 BF16 stored values each, approximately 774.8B logical residency, and 748B release label. Explicitly says stored values are not active-per-token counts. One specialist is selected per user turn.",
+      "rechecked_at": "2026-10-27"
     },
     {
       "id": "s4",
@@ -57,7 +60,8 @@
       "title": "Macaron-V1 developer repository and comparison table",
       "publisher": "Mind Lab",
       "accessed": true,
-      "evidence": "The Venti column identifies its GLM-5.2 base, 748B release label, approximately 774.8B logical residency, 1M context on B300 configurations, and 262K reference profile. The Tall and merged Coding-Venti builds are distinguished."
+      "evidence": "The Venti column identifies its GLM-5.2 base, 748B release label, approximately 774.8B logical residency, 1M context on B300 configurations, and 262K reference profile. The Tall and merged Coding-Venti builds are distinguished.",
+      "rechecked_at": "2026-10-27"
     },
     {
       "id": "s8",
@@ -73,7 +77,8 @@
       "title": "Mint Recursive hosted-model lineup",
       "publisher": "Mind Lab",
       "accessed": true,
-      "evidence": "Later documentation separately lists original macaron-v1-venti at 748B over frozen GLM-5.2, alongside newer Macaron-V1.1 over GLM-5.3. No active-parameter count for original Venti is provided."
+      "evidence": "Later documentation separately lists original macaron-v1-venti at 748B over frozen GLM-5.2, alongside newer Macaron-V1.1 over GLM-5.3. No active-parameter count for original Venti is provided.",
+      "rechecked_at": "2026-10-27"
     },
     {
       "id": "s10",
@@ -113,7 +118,8 @@
       "title": "Developer GLM-5.2 training model configuration",
       "publisher": "THUDM / Z.ai slime",
       "accessed": true,
-      "evidence": "Exact GLM-5.2 configuration enables expert bias, sets moe-router-bias-update-rate=0, uses sigmoid top-8 routing, and unties embedding/output weights."
+      "evidence": "Exact GLM-5.2 configuration enables expert bias, sets moe-router-bias-update-rate=0, uses sigmoid top-8 routing, and unties embedding/output weights. The file comment explicitly names GLM-5.2 744B-A40B, corroborating the nominal 40B active base label.",
+      "rechecked_at": "2026-10-27"
     },
     {
       "id": "s15",
@@ -130,6 +136,22 @@
       "publisher": "NVIDIA",
       "accessed": true,
       "evidence": "get_updated_expert_bias runs under torch.no_grad and adds update_rate times the sign of the token-load imbalance to expert_bias. This is load-control state updated outside gradient optimization, rather than an optimizer-learned affine bias."
+    },
+    {
+      "id": "s17",
+      "url": "https://raw.githubusercontent.com/zai-org/GLM-5/main/README.md",
+      "title": "Z.ai GLM model download table: exact GLM-5.2 nominal size",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Reopened October 27, 2026. The official Download Model table labels both GLM-5.2 BF16 and GLM-5.2-FP8 as 744B-A40B. This establishes the named base model's nominal 40B activated count; Mind Lab separately identifies that base as frozen beneath Venti's specialist adapters. The label does not specify an MTP inclusion boundary or count Venti adapters."
+    },
+    {
+      "id": "s18",
+      "url": "https://huggingface.co/zai-org/GLM-5.2",
+      "title": "Official GLM-5.2 model card",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Reopened October 27, 2026 to check exact base identity and architecture. Describes GLM-5.2 and IndexShare, but its current prose does not separately disclose a total or activated count; the explicit 744B-A40B specification is in the official repository download table."
     }
   ],
   "fields": {
@@ -195,19 +217,24 @@
         "s3",
         "s14",
         "s15",
-        "s16"
+        "s16",
+        "s1",
+        "s2",
+        "s7"
       ],
-      "note": "Complete released learned-parameter count from all 286 safetensors headers: 753329921024 BF16 base parameters (including 9952920320 MTP) plus 4 x 7688042496 BF16 LoRA parameters. Excludes 19456 F32 router correction buffers. Decoder base excluding MTP is 743377000704; decoder plus all adapters excluding MTP is 774129170688. The 748B release label and later ~774.8B calculation from nominal 744B base are not exact full-checkpoint counts. Untied embedding/head and each adapter are counted once. Router-bias exclusion follows both nn.Buffer registration and developer training/conversion references: it is token-load balancing state with a no_grad update rule, configured with zero update rate for GLM-5.2 post-training. The exact pretraining history of those values is not established; including this state gives 784.082110464B stored scalar values."
+      "note": "Retains the previously audited complete learned-parameter total: 753329921024 BF16 base parameters, including 9952920320 MTP parameters, plus four 7688042496-parameter LoRA adapters, excluding 19456 non-gradient router-state values. The existing pinned header census and classification are preserved; no new shard reads or census were performed. Fresh October 27 reads of the release, card, report v2 and developer table retain 748B as a nominal release label and approximately 774.8B as residency computed from a nominal 744B base. Those published conventions do not supersede the complete checkpoint count. The disjoint component breakdown and router-state uncertainty remain in parameter_count_method."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 40,
+      "status": "verified",
       "source_ids": [
+        "s17",
+        "s14",
         "s3",
-        "s7",
+        "s2",
         "s9"
       ],
-      "note": "No Venti-specific active-per-token total is disclosed in the checked card, later technical report, comparison table or updated lineup. Selecting one LoRA does not imply activating the entire sparse base or all its adapter tensors. The report explicitly separates stored values from active counts. No Tall or base-only active count is transferred."
+      "note": "Nominal 40B active for the frozen GLM-5.2 base component, inferred from Z.ai's exact GLM-5.2 744B-A40B release-table label and Mind Lab's explicit frozen-base relationship. Scope is base_model, excluding the four LoRA specialists; the sources do not establish a narrower MTP boundary. Full Venti active parameters remain undisclosed after fresh primary searches and rereading the card, report, repository and hosted lineup. The paper explicitly calls 7.688042496B per adapter a stored-tensor count, not an active-per-token count. No adapter budget is added and no route/answer/summary phase counts are invented."
     },
     "architecture": {
       "value": "moe",
@@ -278,7 +305,7 @@
     "architecture": "moe",
     "source_url": "https://www.mindlab.im/updates/introducing-macaron-v1",
     "source_type": "primary",
-    "notes": "Complete released checkpoint: 784.082091008B learned parameters, including 9.952920320B MTP and four 7.688042496B LoRA adapters. Excludes 19,456 non-gradient router-balance-state values under the published implementation; counting that state yields 784.082110464B stored scalars. The base without MTP is 743.377000704B; base plus four adapters without MTP is 774.129170688B. Original 748B is a release label; later ~774.8B uses a nominal 744B base, so neither is an exact complete-checkpoint count. Active parameters per token remain undisclosed. Context maximum is 1,048,576 tokens; reference serving profile is 262K. MIT release retains inherited base-model and dependency requirements.",
+    "notes": "Complete checkpoint: 784.082091008B learned parameters, including MTP and four LoRA adapters; excludes 19,456 router-state values. Mind Lab retains a 748B nominal release label and ~774.8B residency using a nominal 744B base. Active 40B is a nominal inference for the frozen GLM-5.2 base only, from Z.ai's 744B-A40B label; excludes adapters. Full Venti active count remains undisclosed. Context maximum is 1,048,576 tokens; reference serving profile is 262K. MIT release retains inherited base-model and dependency requirements.",
     "sources": [
       {
         "label": "Mind Lab release announcement",
@@ -349,10 +376,16 @@
         "label": "Megatron expert-bias state update implementation",
         "url": "https://github.com/NVIDIA/Megatron-LM/blob/e3f528380c197e8811fb68064d9ef3acf59fd3c6/megatron/core/transformer/moe/moe_utils.py",
         "type": "primary"
+      },
+      {
+        "label": "Z.ai GLM-5.2 nominal 744B-A40B specification",
+        "url": "https://raw.githubusercontent.com/zai-org/GLM-5/main/README.md",
+        "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": 40
   },
-  "summary": "Verified complete released total of 784.082091008B learned parameters from all 282 base and four adapter headers, including MTP and excluding router buffers. Provides component breakdown and distinguishes exact full-checkpoint count from the 748B release label and ~774.8B nominal-base accounting. Adds Macaron-V1 family and sparse MoE architecture; confirms all other public fields. Active-per-token count remains undisclosed.",
+  "summary": "Fresh parameter re-audit retains the prior complete learned total of 784.082091008B and distinguishes it from Mind Lab's nominal 748B label and ~774.8B nominal-base residency. Recovers a nominal 40B active count scoped to the frozen GLM-5.2 base through explicit first-party lineage; the complete Venti-plus-adapters active count remains undisclosed. No new tensor census; all twelve unrelated assessments are preserved.",
   "proposed_fields": {
     "parameter_components_b": {
       "base_without_mtp": 743.377000704,
@@ -361,7 +394,8 @@
       "lora_l1": 7.688042496,
       "lora_l2": 7.688042496,
       "lora_l3": 7.688042496
-    }
+    },
+    "active_parameters_scope": "base_model"
   },
   "parameter_count_method": {
     "revision": "be05322da0f462b08e29166ab92eb98dd4c93d6c",
@@ -380,5 +414,21 @@
     "buffer_classification": "The 19456 F32 elements are exactly 76 x 256 e_score_correction_bias values. Transformers registers them as buffers; the developer converter maps them to expert_bias; Megatron updates that state from token-count imbalance under torch.no_grad; the developer GLM-5.2 training configuration sets its update rate to zero. They are excluded from optimizer-learned parameter tensors, not dismissed merely because they are F32.",
     "classification_limit": "No exact GLM-5.2 pretraining update-history record was verified. This exclusion follows the published parameter-versus-routing-state implementation. For an accounting convention that includes the saved routing state, the raw complete scalar total is 784082110464.",
     "complete_stored_scalar_values_including_router_state": 784082110464
+  },
+  "parameter_reaudit": {
+    "agent": "/root/parameters_299",
+    "reviewed_at": "2026-10-27T15:26:45.121556Z",
+    "method": "Fresh primary total and active searches; reopened the original release, exact model card, technical report v2, developer repository, updated Mint lineup and GLM-5.2 training configuration; checked the official base model card and GLM download table. Preserved the previous accepted full-checkpoint census without downloading shards or making a new tensor census.",
+    "search_queries": [
+      "Macaron V1 Venti active parameters GLM 5.2 40B",
+      "site:mindlab.im Macaron Venti parameters 748B",
+      "GLM-5.2 total active parameters 744 40",
+      "\"GLM-5.2\" \"40B\" site:github.com/zai-org",
+      "\"Macaron-V1-Venti\" \"active parameters\"",
+      "\"Macaron-V1-Venti\" \"activated\"",
+      "\"Macaron\" \"Venti\" \"40B\" site:arxiv.org",
+      "\"Macaron-V1-Venti\" \"active\" site:github.com/MindLab-Research"
+    ],
+    "outcome": "Retain exact complete total; establish nominal 40B activated frozen base component through explicit lineage. No first-party full Venti activated count was found. Secondary 41.8B estimates and ~40B family summaries were not adopted as complete-model disclosures; adapter stored totals were not relabeled as active."
   }
 }
