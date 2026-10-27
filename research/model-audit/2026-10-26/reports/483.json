@@ -1,7 +1,7 @@
 {
   "index": 483,
   "model_id": "sakana/fugu-max",
-  "reviewed_at": "2026-10-27T04:11:12.453732Z",
+  "reviewed_at": "2026-10-27T17:47:25.613688Z",
   "sources": [
     {
       "id": "launch",
@@ -9,7 +9,7 @@
       "title": "Introducing Fugu Max and Fugu Ultra v2",
       "publisher": "Sakana AI",
       "accessed": true,
-      "evidence": "September 11, 2026 announcement explicitly makes both models available that day via the API. Max expands the open-weight/specialized worker pool, including unspecified Nemotron models, and optimizes cost and performance. It does not disclose a Max orchestrator size, active count or neural topology."
+      "evidence": "Reopened in full October 27, 2026. September 11 announcement makes Max and Ultra v2 available that day and describes the same core orchestration architecture optimized for different objectives. It names an expanded pool including the Nemotron family, but no Max backbone, nominal total, or active count. The opening multi-trillion-parameter example is a general argument about inefficient deployment, not a Fugu specification. Benchmark figures compare task scores, prices and cost-performance, not activated parameters."
     },
     {
       "id": "models",
@@ -17,7 +17,7 @@
       "title": "Sakana API model and capability documentation",
       "publisher": "Sakana AI",
       "accessed": true,
-      "evidence": "Maps fugu-max to fugu-max-v1.0. Max uses a fixed worker pool distinct from the configurable default Fugu pool. Documents caller-defined functions and, specifically for Max, model-invoked internal web tools with returned tool items. Provides text response and structured-text output contracts."
+      "evidence": "Reopened October 27, 2026. Maps fugu-max to fugu-max-v1.0 and describes its fixed worker pool, distinct from the configurable default Fugu pool. Current comparison section provides task scores and prices, but no total or activated-parameter column or named Max base checkpoint. Documents caller-defined functions, model-invoked internal web tools with returned tool items, and text/structured-text output contracts."
     },
     {
       "id": "config",
@@ -25,7 +25,7 @@
       "title": "Pinned official Fugu client model catalog",
       "publisher": "Sakana AI",
       "accessed": true,
-      "evidence": "Exact fugu-max entry gives context_window=1000000, input_modalities text/image, high/xhigh reasoning, freeform apply_patch and parallel tool calls. This is a client/service configuration, not a neural checkpoint configuration; no backbone dimensions or weights are included."
+      "evidence": "Reopened pinned original October 27, 2026. Exact fugu-max entry gives context_window=1000000, text/image input, high/xhigh reasoning, freeform apply_patch and parallel tool calls. This is a client/service configuration; no neural backbone dimensions, checkpoint identity, total or active counts are specified."
     },
     {
       "id": "guide",
@@ -49,7 +49,7 @@
       "title": "Sakana Fugu Technical Report, June 23 revision",
       "publisher": "Sakana AI",
       "accessed": true,
-      "evidence": "Reviewed architecture/training sections and comparisons. The report covers June Fugu and Fugu-Ultra, predating September Max. It describes learned language-model orchestrators and worker pools, but does not name Max or provide its count/topology. June routing-head and Conductor implementation specifics are not automatically Max specifications."
+      "evidence": "Reopened full June 23 v2 report October 27, 2026, including architecture/training sections and comparison tables. Covers June Fugu and Fugu-Ultra, not September Max. Section 3.1 attaches a selection head and adapts singular-value scales; section 3.2 scales Conductor from an unnamed pretrained language model. Table 1 and other comparisons report task performance, not total/active counts. The framework relationship does not identify Max as an unchanged named checkpoint."
     },
     {
       "id": "gemma",
@@ -57,7 +57,7 @@
       "title": "Testing a Gemma 4 based Fugu orchestrator",
       "publisher": "Sakana AI",
       "accessed": true,
-      "evidence": "August 10 research describes earlier Qwen-based orchestrators and an experimental Gemma 4 E2B replacement. It predates Max and does not identify Max as either backbone. Worker-pool models and orchestrator are separate components; experimental E2B size is not a Max parameter disclosure."
+      "evidence": "Reopened complete August 10 article October 27, 2026. Earlier Fugu orchestrators were Qwen-based without an exact named checkpoint; the article tests a separately trained Gemma 4 E2B orchestrator to demonstrate backbone interchangeability. It separates the small orchestrator from the worker pool. It predates Max and supplies no statement assigning either base to Max, so neither the experimental E2B designation nor worker sizes establish a Max count."
     },
     {
       "id": "chat",
@@ -65,7 +65,7 @@
       "title": "Sakana Chat Update: Fugu Max for Everyone, Now with Memory",
       "publisher": "Sakana AI",
       "accessed": true,
-      "evidence": "September 17 release brings the already API-available Max orchestrator to Sakana Chat. Confirms task-dependent routing among open models and application support for image/document attachments. It supplies no new parameter or topology disclosure; application memory and attachments are not neural architecture specifications."
+      "evidence": "Direct retry returned HTTP 200 October 27, 2026 at 17:46 UTC after an earlier 503. Full Japanese and English September 17 article confirms that the already API-available Max becomes the Sakana Chat orchestrator, routing prompts across diverse open models. It names no backbone or total/active count; application memory and image/document attachments do not establish a neural parameter specification."
     },
     {
       "id": "repo",
@@ -90,6 +90,22 @@
       "publisher": "OpenRouter",
       "accessed": true,
       "evidence": "Sakana-hosted fugu-max-20260911 endpoint advertises context1000000, text/image/file input and text output, with reasoning and tools. Its created timestamp is a provider listing, not the original launch source. File is an API container type, not evidence for a separate PDF neural modality."
+    },
+    {
+      "id": "conductor-recheck",
+      "url": "https://arxiv.org/html/2512.04388v2",
+      "title": "Learning to Orchestrate Agents in Natural Language with the Conductor, v2",
+      "publisher": "Sakana AI research team",
+      "accessed": true,
+      "evidence": "Fetched and read October 27, 2026. Section 4.1 describes a 7B Conductor from a Qwen2.5 checkpoint; Appendix A names Qwen2.5-7B. Comparison tables report accuracy, tokens and cost. The text does not identify Fugu Max or establish that its orchestration backbone is this checkpoint; the nominal research count therefore cannot be transferred to Max."
+    },
+    {
+      "id": "mass-recheck",
+      "url": "https://arxiv.org/html/2610.12176v1",
+      "title": "Recursive Self-Improvement through Multi-Agent Self-Supervision",
+      "publisher": "Sakana AI / UC Berkeley research team",
+      "accessed": true,
+      "evidence": "Fetched and read October 27, 2026 as later original research. Section 4.1 names Qwen3.6-27B-FP8 as the base shared by MASS agents, evaluator and optimizer; Figure 2 compares that base and its two self-improvement cycles. Full-text/table inspection finds no Max comparison or explicit active-parameter convention. The Fugu technical report appears as related research, not a statement that Max uses the MASS checkpoint."
     }
   ],
   "fields": {
@@ -153,12 +169,14 @@
       "source_ids": [
         "launch",
         "models",
+        "config",
         "paper",
         "gemma",
         "chat",
-        "repo"
+        "conductor-recheck",
+        "mass-recheck"
       ],
-      "note": "No scalar total is disclosed for Max or its orchestrator. The fixed pool is not fully enumerated; summing worker counts would also misrepresent a single learned model. Earlier Trinity/Conductor counts and the Gemma experiment cannot be transferred."
+      "note": "Fresh October 27 primary-source review and bounded searches for exact Fugu Max/fugu-max-v1.0 parameter counts and Qwen/Gemma base lineage found no published nominal total or named unchanged base for Max. Same core orchestration architecture as Ultra v2 does not identify a checkpoint. The Conductor Qwen2.5-7B, experimental Gemma 4 E2B and later MASS Qwen3.6-27B-FP8 counts belong to other identified research systems. This null reflects missing Max identity/count evidence, not a demand for an exact tensor census. Worker-pool counts and the generic multi-trillion example cannot be summed or relabeled as Max parameters."
     },
     "active_parameters_b": {
       "value": null,
@@ -167,9 +185,12 @@
         "launch",
         "models",
         "paper",
-        "gemma"
+        "gemma",
+        "chat",
+        "conductor-recheck",
+        "mass-recheck"
       ],
-      "note": "No defined per-token active count for Max. Selecting or coordinating external worker models is not sparse-expert activation inside one neural network; the number of agents is not a parameter count."
+      "note": "Separately rechecked October 27 using exact Max active/activated-parameter and model-size searches, current official benchmark comparisons, the Fugu/Conductor reports and later MASS research tables. No exact Max row establishes a nominal active-count convention, and no named backbone lineage supports transferring one. A pool of externally invoked models does not define neural expert activation; agent counts, token budgets, worker parameter sums and total-equals-active assumptions are not active-parameter evidence."
     },
     "architecture": {
       "value": null,
@@ -252,7 +273,7 @@
     "description": "Model orchestration system that selects and coordinates a fixed pool of open-weight and specialized models for each task.",
     "source_url": "https://sakana.ai/fugu-max-release/",
     "source_type": "primary",
-    "notes": "Fugu Max (current API version fugu-max-v1.0) is a learned orchestration system with a fixed worker pool, not a disclosed single neural checkpoint. Its own total/active counts and neural topology remain undisclosed. The 1,000,000-token context and text/image input describe the public service; document/file support is not a separate neural modality. Max supports high/xhigh reasoning and model-selected tools. September 11, 2026 is API availability; September 17 is the later Sakana Chat rollout. Earlier Qwen-based Fugu research and the experimental Gemma 4 E2B orchestrator do not identify the Max backbone.",
+    "notes": "Fugu Max (API version fugu-max-v1.0) is a learned orchestration system with a fixed worker pool. Its total and active parameter counts and neural topology are undisclosed; published research checkpoints do not identify its backbone. The 1,000,000-token context and text/image input describe the service; document/file support is not a separate neural modality. Max supports high/xhigh reasoning and model-selected tools. September 11, 2026 is API availability; September 17 is the later Sakana Chat rollout.",
     "sources": [
       {
         "label": "Introducing Fugu Max and Fugu Ultra v2",
@@ -294,7 +315,10 @@
         "url": "https://sakana.ai/chat-fugumax/",
         "type": "primary"
       }
-    ]
+    ],
+    "parameters_b": null,
+    "active_parameters_b": null,
+    "parameters_source": null
   },
-  "summary": "Verified exact September 11 API release, one-million-token advertised service context, reasoning and tools. Added Proprietary classification, removed PDF as a neural modality and clarified the orchestrator-system description. Exact total/active counts and dense/MoE/hybrid neural topology remain undisclosed after checking original and later primary research, current docs and official public inventories. Max is a distinct optimized orchestration configuration; shared core design is not evidence of merely a billing tier."
+  "summary": "October 27 parameter re-audit retains explicit null total and active counts with parameters_source null. Reopened the Max launch, current docs, pinned client config, Fugu report, Gemma experiment and Chat announcement; checked Conductor lineage, later MASS research tables and fresh exact-model searches. No nominal Max count, unchanged named base or attributed active-count convention was found. Conductor 7B, Gemma 4 E2B and MASS 27B identify separate research systems. The other 12 field assessments are unchanged."
 }
