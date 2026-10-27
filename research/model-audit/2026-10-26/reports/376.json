@@ -1,0 +1,267 @@
+{
+  "index": 376,
+  "model_id": "nvidia/llama-3.1-nemotron-ultra-253b",
+  "reviewed_at": "2026-10-27T00:26:19.399117Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/nvidia/Llama-3_1-Nemotron-Ultra-253B-v1/blob/5b47def5b8957142d82faeb44bfad9349d02840d/README.md",
+      "title": "Llama-3.1-Nemotron-Ultra-253B-v1 model card",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Names the exact v1 model, NVIDIA developer, Nemotron family, April 7, 2025 release, nominal 253B size, dense architecture, text input/output, 131,072-token limit, reasoning toggle, tool calling and license."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/nvidia/Llama-3_1-Nemotron-Ultra-253B-v1/blob/5b47def5b8957142d82faeb44bfad9349d02840d/config.json",
+      "title": "Ultra 253B v1 checkpoint configuration",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "DeciLMForCausalLM/nemotron-nas, hidden size 16,384, vocabulary 128,256, untied embeddings, BF16, 162 configured slots, 64 attention blocks and 81 FFNs; context 131,072. All retained attention uses 128 query heads with groups of 16; all sparsify/linear-replacement settings are disabled."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/nvidia/Llama-3_1-Nemotron-Ultra-253B-v1/blob/5b47def5b8957142d82faeb44bfad9349d02840d/modeling_decilm.py",
+      "title": "Ultra 253B v1 model implementation",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Defines every learned projection, embedding and RMSNorm tensor. No-op blocks instantiate no corresponding parameters; FFN widths round int(2*ffn_mult*hidden_size/3) upward to a multiple of 256. RoPE inverse frequencies are nonpersistent buffers."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/nvidia/Llama-3_1-Nemotron-Ultra-253B-v1/blob/5b47def5b8957142d82faeb44bfad9349d02840d/model.safetensors.index.json",
+      "title": "Ultra 253B v1 BF16 checkpoint index and referenced shard headers",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Index maps 647 named weight tensors to 49 shards and records 506,802,536,448 data bytes. Bounded HTTP Range reads of every referenced shard header independently found 253,401,268,224 BF16 elements, all learned weights; no quantization scales or persistent buffers."
+    },
+    {
+      "id": "s5",
+      "url": "https://arxiv.org/html/2505.00949v5",
+      "title": "Llama-Nemotron: Efficient Reasoning Models, revision 5",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "September 2025 revision explicitly identifies Ultra 253B v1. Section 2 describes Puzzle NAS with attention removal and variable FFNs; Ultra additionally uses FFN fusion. Sections 7.4 and Table 5 cover this Ultra release. The inspected report gives no separate active-parameter count."
+    },
+    {
+      "id": "s6",
+      "url": "https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-open-model-license/",
+      "title": "NVIDIA Open Models License",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "The governing license linked by the model card grants rights to use, reproduce, distribute and create derivatives, subject to its terms. The card additionally links the Llama 3.1 Community License Agreement."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/api/models/nvidia/Llama-3_1-Nemotron-Ultra-253B-v1",
+      "title": "Hugging Face metadata for NVIDIA Ultra 253B v1 repository",
+      "publisher": "NVIDIA / Hugging Face",
+      "accessed": true,
+      "evidence": "Corroborates BF16 tensor total of 253,401,268,224 and repository creation on April 7, 2025; used as a cross-check, not as the sole parameter-count basis."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Llama 3.1 Nemotron Ultra 253B v1",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Adds the explicit v1 revision to the display name."
+    },
+    "developer": {
+      "value": "NVIDIA",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Explicit model developer."
+    },
+    "family": {
+      "value": "nemotron",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Card places this release in the Llama Nemotron collection."
+    },
+    "release_date": {
+      "value": "2025-04-07",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7"
+      ],
+      "note": "Explicit release date and version 1.0 date; March family announcements described Ultra as forthcoming."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5"
+      ],
+      "note": "Public original BF16 checkpoint and released model code."
+    },
+    "license": {
+      "value": "NVIDIA Open Model License + Llama 3.1 Community License",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "The exact card names NVIDIA Open Model License as governing terms and additionally names the Llama 3.1 Community License for this Meta Llama derivative."
+    },
+    "parameters_b": {
+      "value": 253.401268224,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s7"
+      ],
+      "note": "Exact learned checkpoint count in decimal billions; nominal size is 253B. Independent config/implementation calculation and all 49 tensor headers agree."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "No separately defined active count found in the exact card, revised technical report or targeted later first-party comparison searches. Dense architecture alone does not justify copying the total."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s5"
+      ],
+      "note": "Dense decoder-only Transformer with NAS attention pruning, variable FFN widths and fused FFNs; it is not an unchanged stock Llama or MoE model."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Exact card input/output limit and max_position_embeddings agree; 128K is the rounded label."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Explicit text input and text output."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Supports detailed thinking on/off via the system prompt."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Tool-calling post-training and BFCL V2 Live evaluation, including a documented call-format prompt."
+    },
+    "description": {
+      "value": "NVIDIA reasoning and chat model derived from Llama 3.1 405B Instruct through neural architecture search and FFN fusion, with a reasoning toggle and tool-calling support.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Replaces relative flagship/throughput wording with the documented lineage, compression methods and capabilities."
+    }
+  },
+  "patch": {
+    "name": "Llama 3.1 Nemotron Ultra 253B v1",
+    "license": "NVIDIA Open Model License + Llama 3.1 Community License",
+    "parameters_b": 253.401268224,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "context_window": 131072,
+    "description": "NVIDIA reasoning and chat model derived from Llama 3.1 405B Instruct through neural architecture search and FFN fusion, with a reasoning toggle and tool-calling support.",
+    "source_url": "https://huggingface.co/nvidia/Llama-3_1-Nemotron-Ultra-253B-v1/blob/5b47def5b8957142d82faeb44bfad9349d02840d/README.md",
+    "source_type": "primary",
+    "notes": "253B is the nominal published size; the BF16 checkpoint contains exactly 253,401,268,224 learned parameters. This is a heterogeneous dense decoder-only Transformer using NAS and FFN fusion, with 64 attention blocks and 81 FFNs across 162 configured slots. Active parameters are not separately reported and are not equated to total parameters. The card names the NVIDIA Open Model License as governing terms and additionally references the Llama 3.1 Community License. This entry is Ultra v1, not the CPT checkpoint, FP8 storage variant, or later Nemotron 3 Ultra.",
+    "sources": [
+      {
+        "label": "Llama-3.1-Nemotron-Ultra-253B-v1 model card",
+        "url": "https://huggingface.co/nvidia/Llama-3_1-Nemotron-Ultra-253B-v1/blob/5b47def5b8957142d82faeb44bfad9349d02840d/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Ultra 253B v1 checkpoint configuration",
+        "url": "https://huggingface.co/nvidia/Llama-3_1-Nemotron-Ultra-253B-v1/blob/5b47def5b8957142d82faeb44bfad9349d02840d/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Ultra 253B v1 model implementation",
+        "url": "https://huggingface.co/nvidia/Llama-3_1-Nemotron-Ultra-253B-v1/blob/5b47def5b8957142d82faeb44bfad9349d02840d/modeling_decilm.py",
+        "type": "primary"
+      },
+      {
+        "label": "Ultra 253B v1 BF16 checkpoint index and referenced shard headers",
+        "url": "https://huggingface.co/nvidia/Llama-3_1-Nemotron-Ultra-253B-v1/blob/5b47def5b8957142d82faeb44bfad9349d02840d/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Llama-Nemotron: Efficient Reasoning Models, revision 5",
+        "url": "https://arxiv.org/html/2505.00949v5",
+        "type": "primary"
+      },
+      {
+        "label": "NVIDIA Open Models License",
+        "url": "https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-open-model-license/",
+        "type": "primary"
+      }
+    ]
+  },
+  "parameter_count_reproduction": {
+    "method": "Reconstruct all parameter shapes from pinned config.json and modeling_decilm.py, compare their names with the complete checkpoint index, then sum shape products from HTTP 206 Range bytes=0-65535 responses for all 49 safetensors shards. Only headers were read; no full weight shards were downloaded.",
+    "formula": "H=16384; V=128256. Untied embedding and output: 2*V*H. Each retained attention block: 2*H*H+2*H*(H/16), plus H RMSNorm weights. Each retained FFN: 3*H*I plus H RMSNorm weights, where I=ceil(int(2*ffn_mult*H/3)/256)*256. Add final H RMSNorm weights. No-op sublayers add zero.",
+    "counts": {
+      "embedding_and_output": 4202692608,
+      "attention_projections": 36507222016,
+      "ffn_projections": 212688961536,
+      "normalization": 2392064,
+      "total": 253401268224
+    },
+    "checks": {
+      "config_parameter_names": 647,
+      "indexed_parameter_names": 647,
+      "header_parameter_names": 647,
+      "shards_inspected": 49,
+      "dtypes": {
+        "BF16": 253401268224
+      },
+      "index_and_header_data_bytes": 506802536448,
+      "all_parameter_name_sets_equal": true
+    },
+    "non_parameter_accounting": "All 647 indexed tensors are .weight parameters instantiated by the implementation. There are no scale tensors or packed quantized elements in this BF16 checkpoint. RoPE inv_freq is a nonpersistent buffer and is absent from the checkpoint and learned-parameter sum."
+  },
+  "summary": "Verified all 14 fields for Ultra v1. Corrected context to 131,072, supplied dense NAS/FFN-fusion architecture and governing license, and replaced nominal 253B with the reproduced exact 253.401268224B checkpoint total. Release date, text modalities, open weights, reasoning and tool calling are confirmed. Active parameters remain undisclosed; no dense active=total assumption is made."
+}
