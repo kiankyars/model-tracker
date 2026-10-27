@@ -36,6 +36,8 @@ The vendored skill retains its [Apache 2.0 license](.agents/skills/impeccable/LI
 
 The primary source is the MIT-licensed [Models.dev](https://github.com/anomalyco/models.dev) canonical model catalog, supplemented by source-linked historical releases and corrections. The dataset is broad but incomplete. Open weights does not mean open source. Unknown fields are null; explicitly named parameter sizes are labeled as name-derived. Known aliases are merged; separately released revisions remain distinct. Read [methodology](public/about.md) before interpreting statistics.
 
+Parameter notes identify nominal counts and their source conventions. A nominal active count can round above a more precise total, such as T5's 3B versus 2.851598336B. Validation permits differences explained by rounding the total to the reported active count's decimal precision; it rejects larger discrepancies.
+
 - `data/source/`: Recorded upstream snapshot and retrieval metadata.
 - `data/catalog.json`: Normalized catalog, including retained history.
 - `data/historical.json`: Primary-source historical additions.

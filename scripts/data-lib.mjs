@@ -188,6 +188,13 @@ export function mergeCatalog({ upstream, previous = [], historical = [], correct
   };
 }
 
+function roundedToCountPrecision(value, count) {
+  const [coefficient, exponent = '0'] = String(count).split('e');
+  const decimalPlaces = (coefficient.split('.')[1] || '').length - Number(exponent);
+  const unit = 10 ** -decimalPlaces;
+  return Math.round(value / unit) * unit;
+}
+
 export function validateModels(models, asOf = '9999-12-31') {
   const ids = new Set();
   const slugs = new Set();
@@ -201,7 +208,7 @@ export function validateModels(models, asOf = '9999-12-31') {
     for (const key of ['parameters_b', 'active_parameters_b', 'context_window']) {
       if (model[key] !== null && (!Number.isFinite(model[key]) || model[key] <= 0)) throw new Error(`Invalid ${key}: ${model.id}`);
     }
-    if (model.active_parameters_b && model.parameters_b && model.active_parameters_b > model.parameters_b) throw new Error(`Active size exceeds total: ${model.id}`);
+    if (model.active_parameters_b && model.parameters_b && model.active_parameters_b > Math.max(model.parameters_b, roundedToCountPrecision(model.parameters_b, model.active_parameters_b))) throw new Error(`Active size exceeds total: ${model.id}`);
     if (model.parameters_lower_bound_b !== undefined) {
       if (!Number.isFinite(model.parameters_lower_bound_b) || model.parameters_lower_bound_b <= 0 || typeof model.parameters_lower_bound_exclusive !== 'boolean' || model.parameters_b !== null || model.parameters_scope) throw new Error(`Invalid parameter lower bound: ${model.id}`);
     } else if (model.parameters_lower_bound_exclusive !== undefined) throw new Error(`Parameter lower bound missing: ${model.id}`);

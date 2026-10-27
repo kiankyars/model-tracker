@@ -57,6 +57,15 @@ test('phase-dependent counts retain their scope in validation, display and both 
   assert.throws(() => validateModels([{ ...multimodal, active_parameters_b: null }]), /active parameter scope/);
 });
 
+test('nominal active counts can round above a more precise total without allowing larger discrepancies', () => {
+  const model = { ...normalize('lab/model', { name: 'Test', modalities: { input: ['text'], output: ['text'] } }, '2026-10-27T13:00:00Z'), parameters_b: 2.851598336, active_parameters_b: 3 };
+  validateModels([model]);
+  validateModels([{ ...model, parameters_b: 0.0598, active_parameters_b: 0.06 }]);
+  validateModels([{ ...model, parameters_b: 0.000000298, active_parameters_b: 3e-7 }]);
+  for (const active of [3.1, 3.01, 4]) assert.throws(() => validateModels([{ ...model, active_parameters_b: active }]), /Active size exceeds total/);
+  assert.throws(() => validateModels([{ ...model, parameters_b: 0.0598, active_parameters_b: 0.061 }]), /Active size exceeds total/);
+});
+
 test('a reopened model retains its published correction until its fresh review is accepted', async () => {
   const projectRoot = await fs.mkdtemp(path.join(os.tmpdir(), 'parameter-reaudit-'));
   try {
