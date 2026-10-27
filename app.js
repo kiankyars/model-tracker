@@ -318,7 +318,7 @@ async function load() {
   $('loading').hidden = false;
   $('error').hidden = true;
   try {
-    const response = await fetch('./api/v1/models.json');
+    const response = await fetch('./api/v1/models.json', { cache: 'no-cache' });
     if (!response.ok) throw new Error(`Data request returned ${response.status}`);
     const data = await response.json();
     if (!Array.isArray(data.models) || !data.models.length) throw new Error('Invalid or empty release index');
