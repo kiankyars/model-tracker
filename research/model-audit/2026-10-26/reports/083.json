@@ -1,7 +1,7 @@
 {
   "index": 83,
   "model_id": "amazon/nova-pro",
-  "reviewed_at": "2026-10-26T16:04:07Z",
+  "reviewed_at": "2026-10-27T10:08:46Z",
   "sources": [
     {
       "id": "s1",
@@ -17,7 +17,7 @@
       "title": "The Amazon Nova Family of Models: Technical Report and Model Card",
       "publisher": "Amazon AGI",
       "accessed": true,
-      "evidence": "Section 1.1 explicitly describes Pro, Lite and Micro as Transformer-based. Pro accepts text, images, documents and video and generates text. Full PDF was retrieved and text-extracted after browser extraction exceeded its size limit; no total or active parameter counts or dense/MoE classification were found."
+      "evidence": "Freshly retrieved and text-extracted on October 27. Section 1.1 identifies Pro, Lite and Micro as Transformer-based and describes pretraining followed by SFT, reward-model training, DPO and PPO, but gives neither nominal total/active counts nor a named size-disclosed base for Pro. No count appears elsewhere in the report."
     },
     {
       "id": "s3",
@@ -25,7 +25,7 @@
       "title": "Amazon Nova Premier: Technical Report and Model Card",
       "publisher": "Amazon AGI",
       "accessed": true,
-      "evidence": "April 30, 2025 addendum includes Nova Pro benchmark and runtime comparison columns, but no parameter-count or architectural specification for Pro. The current linked CDN copy was accessible; the old assets hostname returned 404."
+      "evidence": "Freshly retrieved and text-extracted on October 27. The April 30, 2025 addendum includes Pro benchmark and runtime comparisons in Tables 1 and 2; these report performance, latency and throughput, not total or activated parameter counts."
     },
     {
       "id": "s4",
@@ -33,7 +33,7 @@
       "title": "Amazon Nova 2: Multimodal Reasoning and Generation Models",
       "publisher": "Amazon AGI",
       "accessed": true,
-      "evidence": "December 2, 2025 report contains exact Nova 1 Pro benchmark comparison rows. It supplies no total/active parameter counts or additional architectural detail for that model; Nova 2 specifications cannot be transferred to Nova 1 Pro."
+      "evidence": "Freshly retrieved and text-extracted on October 27. The December 2, 2025 report includes explicit Nova 1 Pro benchmark rows but no total or activated parameter-count column or size-disclosed base lineage for that model. Nova 2 Pro is a different generation."
     },
     {
       "id": "s5",
@@ -114,23 +114,171 @@
       "publisher": "AWS",
       "accessed": true,
       "evidence": "Card scoped to the April 30, 2025 family confirms Nova membership, Transformer-based token inference, agentic/API use, and software-development use cases. It directs Nova users to AWS Service Terms. Premier is the most capable tier, making an unqualified current flagship claim for Pro misleading."
+    },
+    {
+      "id": "s15",
+      "url": "https://aclanthology.org/2025.findings-emnlp.1099.pdf",
+      "title": "MASSIVE-Agents: A Benchmark for Multilingual Function-Calling in 52 Languages (EMNLP 2025 archival version)",
+      "publisher": "Amazon AGI / ACL Anthology",
+      "accessed": true,
+      "evidence": "Fresh October 27 check of the November 2025 paper by Amazon AGI authors. Table 1, PDF page 6, explicitly lists Nova Pro with Params = NP, 300k context and December 2024 release. There is no separate activated-parameter column. This later developer-authored comparison supplies no numeric nominal count."
+    },
+    {
+      "id": "s16",
+      "url": "https://aclanthology.org/2025.findings-ijcnlp.125.pdf",
+      "title": "PHLoRA: Data-Free Post-Hoc Low-Rank Adapter Extraction from Full-Rank Checkpoint",
+      "publisher": "Amazon AGI and EdgeRunner AI / ACL Anthology",
+      "accessed": true,
+      "evidence": "Fresh October 27 check of the December 2025 paper with Amazon AGI authors. Sections 3.1 and 3.3 define low-rank factors and ranks 32, 64 and 512; Tables 3 and 6 evaluate Nova Pro fine-tuning and adapter extraction. These are adapter ranks and quality metrics, not total or active model-parameter counts. The paper identifies the Nova base models without a size-disclosed parent, so it supplies no nominal-size lineage inference."
     }
   ],
   "fields": {
-    "name": {"value": "Nova Pro", "status": "verified", "source_ids": ["s11"], "note": "Exact developer model-card name; original endpoint amazon.nova-pro-v1:0."},
-    "developer": {"value": "Amazon", "status": "verified", "source_ids": ["s2", "s11"], "note": "Developed by Amazon AGI; Amazon is the catalog-level developer."},
-    "family": {"value": "nova", "status": "verified", "source_ids": ["s1", "s14"], "note": "Nova is the documented model family; Pro is its tier. Normalize the baseline tier-specific family slug."},
-    "release_date": {"value": "2024-12-03", "status": "verified", "source_ids": ["s1", "s11", "s12"], "note": "Retain the contemporaneous public launch date. Later official catalog dates disagree: December 2 and December 5. Neither establishes earlier public availability than the explicit December 3 launch."},
-    "open_weights": {"value": false, "status": "verified", "source_ids": ["s6", "s7"], "note": "Specific proprietary-weight and escrow statements outweigh broad JumpStart tab grouping. Customization access does not establish an open-weight release."},
-    "license": {"value": "AWS Service Terms", "status": "verified", "source_ids": ["s7", "s14"], "note": "The exact Nova Pro JumpStart row names these terms; the Nova service card also directs users to them. This is proprietary service access, not an open-source weight license."},
-    "parameters_b": {"value": null, "status": "undisclosed", "source_ids": ["s2", "s3", "s4", "s5"], "note": "No numerical total count in the original, Premier or Nova 2 reports checked. The later MASSIVE-Agents exact Nova Pro comparison row gives Params as NP. Do not substitute third-party size estimates."},
-    "active_parameters_b": {"value": null, "status": "undisclosed", "source_ids": ["s2", "s3", "s4"], "note": "No active parameter count is separately reported for Nova Pro; no dense or MoE assumption is made."},
-    "architecture": {"value": "transformer", "status": "verified", "source_ids": ["s2", "s14"], "note": "Explicit Transformer architecture statement for Pro in section 1.1. Dense versus MoE and decoder/encoder details remain undisclosed."},
-    "context_window": {"value": 300000, "status": "verified", "source_ids": ["s1", "s9", "s11"], "note": "Launch documentation and current exact-model card agree on 300K tokens."},
-    "modalities": {"value": {"input": ["text", "image", "video", "pdf"], "output": ["text"]}, "status": "verified", "source_ids": ["s1", "s11", "s13"], "note": "Text/image/video are native input categories. Retain catalog PDF capability because the launch directly demonstrates it; PDF input requires Converse document handling."},
-    "reasoning": {"value": null, "status": "unverified", "source_ids": ["s8", "s9", "s10"], "note": "Unresolved primary-source conflict: current Version 1 schema explicitly enables reasoningConfig for Nova Pro, while March 18, 2026 migration table says Nova 1 Pro has no Extended Thinking. Version 1 examples use Lite 1.5, not original Pro. No exact-endpoint validation or release notice resolves this; clear false to null."},
-    "tool_call": {"value": true, "status": "verified", "source_ids": ["s1", "s8", "s14"], "note": "Tool/function calling is explicitly documented. The migration table's lack of built-in tools concerns hosted web/code tools, not external function calling."},
-    "description": {"value": "First-generation Amazon Nova multimodal model for document and video analysis, code generation, and tool-using applications.", "status": "verified", "source_ids": ["s1", "s14"], "note": "Replace the unsupported current flagship positioning with documented capabilities and generation."}
+    "name": {
+      "value": "Nova Pro",
+      "status": "verified",
+      "source_ids": [
+        "s11"
+      ],
+      "note": "Exact developer model-card name; original endpoint amazon.nova-pro-v1:0."
+    },
+    "developer": {
+      "value": "Amazon",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s11"
+      ],
+      "note": "Developed by Amazon AGI; Amazon is the catalog-level developer."
+    },
+    "family": {
+      "value": "nova",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s14"
+      ],
+      "note": "Nova is the documented model family; Pro is its tier. Normalize the baseline tier-specific family slug."
+    },
+    "release_date": {
+      "value": "2024-12-03",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s11",
+        "s12"
+      ],
+      "note": "Retain the contemporaneous public launch date. Later official catalog dates disagree: December 2 and December 5. Neither establishes earlier public availability than the explicit December 3 launch."
+    },
+    "open_weights": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s6",
+        "s7"
+      ],
+      "note": "Specific proprietary-weight and escrow statements outweigh broad JumpStart tab grouping. Customization access does not establish an open-weight release."
+    },
+    "license": {
+      "value": "AWS Service Terms",
+      "status": "verified",
+      "source_ids": [
+        "s7",
+        "s14"
+      ],
+      "note": "The exact Nova Pro JumpStart row names these terms; the Nova service card also directs users to them. This is proprietary service access, not an open-source weight license."
+    },
+    "parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s15",
+        "s16"
+      ],
+      "note": "Fresh October 27 review retains null: original, Premier and Nova 2 reports give no nominal Pro count; Amazon AGI MASSIVE-Agents Table 1 explicitly reports Params = NP. PHLoRA adapter ranks are not model sizes. Targeted first-party count and lineage searches found no supported count or named size-disclosed parent."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s15",
+        "s16"
+      ],
+      "note": "Rechecked separately on October 27. Original and later reports give no activated count; MASSIVE-Agents has only a Params column (NP for Pro), and PHLoRA reports adapter ranks rather than active model parameters. Do not infer active equals total or assume dense/MoE structure."
+    },
+    "architecture": {
+      "value": "transformer",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s14"
+      ],
+      "note": "Explicit Transformer architecture statement for Pro in section 1.1. Dense versus MoE and decoder/encoder details remain undisclosed."
+    },
+    "context_window": {
+      "value": 300000,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s9",
+        "s11"
+      ],
+      "note": "Launch documentation and current exact-model card agree on 300K tokens."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "video",
+          "pdf"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s11",
+        "s13"
+      ],
+      "note": "Text/image/video are native input categories. Retain catalog PDF capability because the launch directly demonstrates it; PDF input requires Converse document handling."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s8",
+        "s9",
+        "s10"
+      ],
+      "note": "Unresolved primary-source conflict: current Version 1 schema explicitly enables reasoningConfig for Nova Pro, while March 18, 2026 migration table says Nova 1 Pro has no Extended Thinking. Version 1 examples use Lite 1.5, not original Pro. No exact-endpoint validation or release notice resolves this; clear false to null."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8",
+        "s14"
+      ],
+      "note": "Tool/function calling is explicitly documented. The migration table's lack of built-in tools concerns hosted web/code tools, not external function calling."
+    },
+    "description": {
+      "value": "First-generation Amazon Nova multimodal model for document and video analysis, code generation, and tool-using applications.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s14"
+      ],
+      "note": "Replace the unsupported current flagship positioning with documented capabilities and generation."
+    }
   },
   "patch": {
     "family": "nova",
@@ -141,16 +289,71 @@
     "source_url": "https://aws.amazon.com/blogs/aws/introducing-amazon-nova-frontier-intelligence-and-industry-leading-price-performance/",
     "source_type": "primary",
     "sources": [
-      {"label": "AWS Nova launch (December 3, 2024)", "url": "https://aws.amazon.com/blogs/aws/introducing-amazon-nova-frontier-intelligence-and-industry-leading-price-performance/", "type": "primary"},
-      {"label": "Amazon Nova technical report", "url": "https://cdn.amazon.science/96/7d/0d3e59514abf8fdcfafcdc574300/nova-tech-report-20250317-0810.pdf", "type": "primary"},
-      {"label": "AWS Nova service card", "url": "https://docs.aws.amazon.com/ai/responsible-ai/nova-micro-lite-pro/overview.html", "type": "primary"},
-      {"label": "Nova Pro terms in SageMaker catalog", "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/jumpstart-foundation-models-latest.html", "type": "primary"},
-      {"label": "Nova proprietary checkpoint handling", "url": "https://docs.aws.amazon.com/nova/latest/userguide/nova-iterative-training.html", "type": "primary"},
-      {"label": "Version 1 request schema", "url": "https://docs.aws.amazon.com/nova/latest/userguide/complete-request-schema.html", "type": "primary"},
-      {"label": "Nova 1 to Nova 2 migration comparison", "url": "https://aws.amazon.com/blogs/machine-learning/migrate-from-amazon-nova-1-to-amazon-nova-2-on-amazon-bedrock/", "type": "primary"},
-      {"label": "Version 1 extended-thinking examples", "url": "https://docs.aws.amazon.com/nova/latest/userguide/extended-thinking.html", "type": "primary"}
+      {
+        "label": "AWS Nova launch (December 3, 2024)",
+        "url": "https://aws.amazon.com/blogs/aws/introducing-amazon-nova-frontier-intelligence-and-industry-leading-price-performance/",
+        "type": "primary"
+      },
+      {
+        "label": "Amazon Nova technical report",
+        "url": "https://cdn.amazon.science/96/7d/0d3e59514abf8fdcfafcdc574300/nova-tech-report-20250317-0810.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "AWS Nova service card",
+        "url": "https://docs.aws.amazon.com/ai/responsible-ai/nova-micro-lite-pro/overview.html",
+        "type": "primary"
+      },
+      {
+        "label": "Nova Pro terms in SageMaker catalog",
+        "url": "https://docs.aws.amazon.com/sagemaker/latest/dg/jumpstart-foundation-models-latest.html",
+        "type": "primary"
+      },
+      {
+        "label": "Nova proprietary checkpoint handling",
+        "url": "https://docs.aws.amazon.com/nova/latest/userguide/nova-iterative-training.html",
+        "type": "primary"
+      },
+      {
+        "label": "Version 1 request schema",
+        "url": "https://docs.aws.amazon.com/nova/latest/userguide/complete-request-schema.html",
+        "type": "primary"
+      },
+      {
+        "label": "Nova 1 to Nova 2 migration comparison",
+        "url": "https://aws.amazon.com/blogs/machine-learning/migrate-from-amazon-nova-1-to-amazon-nova-2-on-amazon-bedrock/",
+        "type": "primary"
+      },
+      {
+        "label": "Version 1 extended-thinking examples",
+        "url": "https://docs.aws.amazon.com/nova/latest/userguide/extended-thinking.html",
+        "type": "primary"
+      },
+      {
+        "label": "Amazon Nova Premier: Technical Report and Model Card",
+        "url": "https://cdn.amazon.science/e5/e6/ccc5378c42dca467d1abe1628ec9/amazon-nova-premier-technical-report-and-model-card.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Amazon Nova 2: Multimodal Reasoning and Generation Models",
+        "url": "https://cdn.amazon.science/c5/3d/84514a224666b5be6de4b43ef4aa/nova-2-0-technical-report2.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "MASSIVE-Agents: A Benchmark for Multilingual Function-Calling in 52 Languages (EMNLP 2025 archival version)",
+        "url": "https://aclanthology.org/2025.findings-emnlp.1099.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "PHLoRA: Data-Free Post-Hoc Low-Rank Adapter Extraction from Full-Rank Checkpoint",
+        "url": "https://aclanthology.org/2025.findings-ijcnlp.125.pdf",
+        "type": "primary"
+      }
     ],
-    "notes": "Original endpoint: amazon.nova-pro-v1:0. Transformer-based; total/active counts and dense/MoE structure are undisclosed. Extended-thinking support is unresolved: current Version 1 schema names Pro as supporting reasoningConfig, but AWS's March 2026 migration table says Nova 1 Pro does not; the Version 1 examples use Lite 1.5. PDF input uses Converse. Public launch was December 3, 2024; later official listings show conflicting December 2/5 dates. Nova weights are proprietary despite broad JumpStart open-weight tab placement."
+    "notes": "Original endpoint: amazon.nova-pro-v1:0. Transformer-based; total and active parameters remain undisclosed. Amazon AGI’s MASSIVE-Agents table lists Pro parameters as NP; PHLoRA reports adapter ranks only. No size-disclosed base lineage is established. Dense/MoE structure is undisclosed. Extended-thinking support is unresolved: current Version 1 schema names Pro as supporting reasoningConfig, but AWS's March 2026 migration table says Nova 1 Pro does not; the Version 1 examples use Lite 1.5. PDF input uses Converse. Public launch was December 3, 2024; later official listings show conflicting December 2/5 dates. Nova weights are proprietary despite broad JumpStart open-weight tab placement.",
+    "parameters_b": null,
+    "active_parameters_b": null,
+    "parameters_source": null
   },
-  "summary": "Audited all 14 fields against exact-model and family-scoped primary evidence. Correct family, license and Transformer architecture; replace the flagship description. Preserve 300K context, modalities, tool calling, closed weights and December 3 public release. Original/Premier/Nova 2 reports and a later exact-model comparison provide no public total or active count. Explicitly clear reasoning to null because conflicting first-party statements cannot be resolved for the original Pro endpoint."
+  "summary": "Fresh October 27 parameter re-audit retains null/undisclosed total and active counts. Reopened original, Premier and Nova 2 reports; checked Amazon AGI MASSIVE-Agents Table 1 (Pro Params = NP) and PHLoRA (adapter ranks only), plus targeted first-party nominal/active-count and lineage searches. No supported count or size-disclosed base lineage was found. Both counts and parameters_source are explicitly patched to null. Prior nonparameter assessments and corrections are preserved, including unresolved original-endpoint reasoning support."
 }
