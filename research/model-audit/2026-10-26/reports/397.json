@@ -1,7 +1,7 @@
 {
   "index": 397,
   "model_id": "openai/gpt-2-1.5b",
-  "reviewed_at": "2026-10-27T01:19:01.209440Z",
+  "reviewed_at": "2026-10-27T16:12:56.550932Z",
   "sources": [
     {
       "id": "s1",
@@ -65,7 +65,7 @@
       "title": "Language Models are Unsupervised Multitask Learners",
       "publisher": "OpenAI",
       "accessed": true,
-      "evidence": "The original technical report identifies the largest GPT-2 model as a Transformer trained on WebText and evaluated through text completion. General commonsense reasoning benchmarks do not define a dedicated reasoning mode. No separate active-parameter count or native structured tool interface is disclosed."
+      "evidence": "Re-read the complete original technical report from a fresh October 27 fetch. The abstract calls the largest GPT-2 a nominal 1.5B-parameter Transformer; Table 2 labels its 48-layer, width-1600 configuration 1542M, rather than the later released checkpoint count. It reports total model sizes and no separate active-parameter convention. It identifies WebText and text-completion evaluation; commonsense benchmarks do not establish a dedicated reasoning mode or native structured tool interface."
     },
     {
       "id": "s9",
@@ -74,6 +74,22 @@
       "publisher": "OpenAI",
       "accessed": true,
       "evidence": "The complete file history has three commits: ordinary MIT added February 20, 2019 (aae26abd600ad32771fadf6284f339f07b9d8ea1); Modified MIT introduced January 3, 2020 (0f97760ebe1ccad5778a6d5957b2be9800e4efd8); wording cleaned January 4 (0574c5708b094bfa0b0f6dfe3fd284d9a045acd9). All three license versions were read. Thus the November 2019 1.5B release originally used ordinary MIT, while the current published license is Modified MIT."
+    },
+    {
+      "id": "s10",
+      "url": "https://proceedings.neurips.cc/paper_files/paper/2025/file/dabfbf500318462382aa70a95466ad85-Paper-Conference.pdf",
+      "title": "Small Batch Size Training for Language Models: When Vanilla SGD Works, and Why Gradient Accumulation Is Wasteful",
+      "publisher": "Marek et al., NeurIPS 2025",
+      "accessed": true,
+      "evidence": "Appendix A.1, Table 1 (PDF page 24) explicitly separates active and total trainable parameters, but its GPT-2 row is a 12-layer modified small model: 124M active and 162M total. The architecture uses untied embeddings, RMSNorm, RoPE and QK normalization. The original GPT-2 1.5B is mentioned only as a training-token comparison; the table does not supply an active count for the released XL checkpoint. This lead is rejected for XL."
+    },
+    {
+      "id": "s11",
+      "url": "https://aclanthology.org/2024.findings-acl.380.pdf",
+      "title": "Too Big to Fail: Larger Language Models are Disproportionately Resilient to Induction of Dementia-Related Linguistic Anomalies",
+      "publisher": "Li et al., Findings of ACL 2024",
+      "accessed": true,
+      "evidence": "Table 2 (PDF page 7) identifies GPT-2 XL with a nominal 1.5B parameter count alongside the smaller GPT-2 models. Its other columns count masked attention heads and classification performance, not active parameters. The ablation experiments and references to active cognitive-reserve models do not disclose a separate active-parameter count for the unmodified GPT-2 XL checkpoint."
     }
   ],
   "fields": {
@@ -135,21 +151,27 @@
       "value": 1.5576112,
       "status": "verified",
       "source_ids": [
+        "s1",
+        "s2",
         "s4",
         "s5",
-        "s6"
+        "s6",
+        "s8"
       ],
-      "note": "Exact complete learned count: 1,557,611,200 across 580 original F32 variables. Reconstruction: 50,257\u00d71,600 token embeddings + 1,024\u00d71,600 position embeddings + 48\u00d7(12\u00d71,600\u00b2 + 13\u00d71,600) block parameters + 2\u00d71,600 final norm parameters. All indexed names, shapes and storage lengths match. Tied input/output embeddings count once; no learned components are omitted. The public name uses nominal 1.5B."
+      "note": "Retain the previously verified exact released-checkpoint total of 1,557,611,200 learned parameters. Freshly fetched original hyperparameters and model.py corroborate 50,257×1,600 token embeddings + 1,024×1,600 position embeddings + 48×(12×1,600² + 13×1,600) block parameters + 2×1,600 final norm parameters, counting tied input/output embeddings once. The prior original-index verification covered all 580 variables; no new census or weight download was needed. OpenAI separately publishes the valid nominal size 1.5B in its release and model card."
     },
     "active_parameters_b": {
       "value": null,
       "status": "undisclosed",
       "source_ids": [
+        "s1",
         "s2",
         "s5",
-        "s8"
+        "s8",
+        "s10",
+        "s11"
       ],
-      "note": "No separately defined active-per-token count is disclosed. Dense architecture and complete parameter count do not justify substituting a total for an active count."
+      "note": "Active count remains unresolved after reopening original release, card, implementation and paper and a fresh targeted search for GPT-2 XL/1.5B active or activated parameter disclosures. No separately stated convention for this released checkpoint was found. The later NeurIPS active-count table concerns a structurally modified small GPT-2; the exact-XL ACL comparison gives total parameters and ablated-head counts only. Neither transfers an active count to this model. Dense architecture alone is insufficient to equate active with total."
     },
     "architecture": {
       "value": "dense",
@@ -261,9 +283,25 @@
         "label": "GPT-2 license history",
         "url": "https://api.github.com/repos/openai/gpt-2/commits?path=LICENSE&per_page=100",
         "type": "primary"
+      },
+      {
+        "label": "Language Models are Unsupervised Multitask Learners",
+        "url": "https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Small Batch Size Training for Language Models: When Vanilla SGD Works, and Why Gradient Accumulation Is Wasteful",
+        "url": "https://proceedings.neurips.cc/paper_files/paper/2025/file/dabfbf500318462382aa70a95466ad85-Paper-Conference.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Too Big to Fail: Larger Language Models are Disproportionately Resilient to Induction of Dementia-Related Linguistic Anomalies",
+        "url": "https://aclanthology.org/2024.findings-acl.380.pdf",
+        "type": "primary"
       }
     ],
-    "notes": "Released publicly on November 5, 2019 after the February announcement withheld the largest model. The original 1558M TensorFlow checkpoint contains exactly 1,557,611,200 learned parameters; 1.5B remains its published size label. Tied token embeddings count once. Active parameters are not separately disclosed. The November 2019 release originally used MIT; the repository changed to Modified MIT in January 2020, which remains its current published license."
+    "notes": "Released publicly on November 5, 2019. The original 1558M checkpoint contains 1,557,611,200 learned parameters with tied token embeddings counted once; OpenAI labels it nominally 1.5B. A separate active-parameter count remains undisclosed. The release originally used MIT; the repository changed to Modified MIT in January 2020, which remains its current published license.",
+    "active_parameters_b": null
   },
-  "summary": "Verified the November 5, 2019 public weight release, original dense 48-layer architecture, 1024-token context and text modalities. Replaced nominal 1.5B with the exact 1.5576112B complete learned count using only original checkpoint metadata and a full implementation reconstruction. Recorded current Modified MIT terms, distinguishing them from the ordinary MIT license used at the November 2019 release. Active count, dedicated reasoning and structured tool calling remain unasserted."
+  "summary": "Fresh parameter re-audit retains the verified 1.5576112B released-checkpoint total, corroborated by the original hyperparameters and implementation, and preserves OpenAI’s nominal 1.5B label. Reopened the original release, model card and report and checked later original research: the explicit NeurIPS active-count table is for a modified small GPT-2, while the exact-XL ACL comparison reports only total size and masked attention heads. No applicable separate active count was found, so the patch explicitly retains null. The other twelve field assessments are unchanged."
 }
