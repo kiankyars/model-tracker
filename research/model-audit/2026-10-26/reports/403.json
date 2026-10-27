@@ -1,7 +1,7 @@
 {
   "index": 403,
   "model_id": "openai/gpt-4",
-  "reviewed_at": "2026-10-27T01:27:12.622639Z",
+  "reviewed_at": "2026-10-27T16:21:03.928624Z",
   "sources": [
     {
       "id": "s1",
@@ -17,7 +17,7 @@
       "title": "GPT-4 Technical Report",
       "publisher": "OpenAI",
       "accessed": true,
-      "evidence": "The abstract and section 2 explicitly identify a Transformer-based next-token model aligned with RLHF. The report withholds further architecture details including model size. It does not disclose total or active parameter counts, or establish dense versus mixture-of-experts structure."
+      "evidence": "Freshly reopened October 27, 2026, including the complete 100-page PDF and section 2 on page 2. The abstract and section 2 identify a Transformer-style next-token model aligned with RLHF; section 2 explicitly withholds architecture details including model size. No total or active parameter count is disclosed, and dense versus mixture-of-experts structure is not established."
     },
     {
       "id": "s3",
@@ -25,7 +25,7 @@
       "title": "GPT-4 model documentation",
       "publisher": "OpenAI",
       "accessed": true,
-      "evidence": "The exact gpt-4 page and its complete .md counterpart identify the default snapshot as gpt-4-0613, with an 8,192-token context and text input/output. The page marks the model shut down. Its function-calling table says unsupported, conflicting with explicit historical announcements; the reason is not explained."
+      "evidence": "The exact gpt-4 page and its complete .md counterpart identify the default snapshot as gpt-4-0613, with an 8,192-token context and text input/output. The page marks the model shut down. Its function-calling table says unsupported, conflicting with explicit historical announcements; the reason is not explained. The exact model page was freshly retrieved through official OpenAI documentation on October 27, 2026; it still maps gpt-4 to gpt-4-0613 and provides no total or active parameter count."
     },
     {
       "id": "s4",
@@ -65,7 +65,7 @@
       "title": "Scaling and evaluating sparse autoencoders",
       "publisher": "OpenAI",
       "accessed": true,
-      "evidence": "This later first-party technical paper explicitly studies GPT-4 and a scaling series sharing its architecture/training setup. It reports sparse-autoencoder latent counts and relative training compute, but no production GPT-4 total or active parameter count. Its auxiliary-model sparsity and suggested MoE autoencoder work do not disclose GPT-4 expert structure."
+      "evidence": "Freshly reopened October 27, 2026. Section 2.1 studies GPT-4 and a scaling series sharing its architecture/training setup. Figure 4 labels subject-model scale by relative pretraining compute, not parameter count. The 16 million latents and active-latent k values describe auxiliary sparse autoencoders; the complete 34-page paper supplies no GPT-4 total or active parameter count. Auxiliary sparsity and suggested MoE autoencoder work do not disclose GPT-4 expert structure."
     },
     {
       "id": "s9",
@@ -82,6 +82,30 @@
       "publisher": "OpenAI",
       "accessed": true,
       "evidence": "The current agreement explicitly covers the API, grants limited service access and reserves service IP rights. It supports the descriptive proprietary classification, not a named downloadable-weight license or a claim that these exact 2026 terms governed the 2023 launch."
+    },
+    {
+      "id": "s11",
+      "url": "https://papers.nips.cc/paper_files/paper/2024/file/e888eb9400fe14bb70e057aa1d719188-Paper-Datasets_and_Benchmarks_Track.pdf",
+      "title": "InfiBench: Evaluating the Question-Answering Capabilities of Code Large Language Models",
+      "publisher": "Linyi Li et al., NeurIPS 2024",
+      "accessed": true,
+      "evidence": "Fresh original proceedings PDF fetched and Table 4 on PDF page 8 visually inspected on October 27, 2026. Its size convention explicitly distinguishes total parameters and parameters activated during inference for MoE models, yet the exactly identified GPT-4-0613 entry is ?. Appendix E repeats that unknown size. This original benchmark supplies neither count for the audited alias target; its performance score is not a parameter measurement."
+    },
+    {
+      "id": "s12",
+      "url": "https://www.nature.com/articles/s43247-026-03537-5",
+      "title": "From computation to environmental cost the resource burden of artificial intelligence",
+      "publisher": "Communications Earth & Environment, 2026",
+      "accessed": true,
+      "evidence": "Freshly read the May 7, 2026 original study and its GPU requirement per AI model section. The numerical GPT-4 scenario uses 1.76T total and 222B active parameters, but the authors explicitly describe architectural hypotheses and attribute the adopted values to SemiAnalysis. This is original environmental modelling based on external estimates, not an independent GPT-4 measurement or developer specification; neither count is accepted."
+    },
+    {
+      "id": "s13",
+      "url": "https://arxiv.org/html/2405.04434v1",
+      "title": "DeepSeek-V2: A Strong, Economical, and Efficient Mixture-of-Experts Language Model",
+      "publisher": "DeepSeek-AI",
+      "accessed": true,
+      "evidence": "Freshly reopened original May 2024 report on October 27, 2026. Tables 2 and 3 have distinct activated and total parameter rows, but only for the listed open models; GPT-4-0613 appears separately in the Table 5 AlignBench comparison without a parameter column. No GPT-4 total or active count can be transferred from the other models or from benchmark scores."
     }
   ],
   "fields": {
@@ -143,19 +167,25 @@
       "status": "undisclosed",
       "source_ids": [
         "s2",
-        "s7",
-        "s8"
+        "s3",
+        "s8",
+        "s11",
+        "s12",
+        "s13"
       ],
-      "note": "No total count is disclosed in the original report or the reviewed later first-party GPT-4 interpretability study; auxiliary feature counts cannot substitute."
+      "note": "Fresh original-report, exact API documentation and later research checks do not establish a nominal total. OpenAI explicitly withholds size; its sparse-autoencoder counts concern an auxiliary model. InfiBench lists exact GPT-4-0613 size as unknown. The 2026 environmental paper explicitly adopts an external estimated scenario, which is not verification."
     },
     "active_parameters_b": {
       "value": null,
       "status": "undisclosed",
       "source_ids": [
         "s2",
-        "s8"
+        "s8",
+        "s11",
+        "s12",
+        "s13"
       ],
-      "note": "No production-model active count is disclosed. Do not infer equality with an unknown total or import rumored expert counts."
+      "note": "Checked separately for a published active-count convention. InfiBench distinguishes total/activated size but leaves exact GPT-4-0613 unknown; DeepSeek-V2 gives no activated count for that comparison model. The 2026 environmental study labels its active figure as an assumed SemiAnalysis scenario. Neither auxiliary active latents nor rumored expert counts establish GPT-4 active parameters."
     },
     "architecture": {
       "value": "transformer",
@@ -276,9 +306,17 @@
         "label": "OpenAI Services Agreement",
         "url": "https://openai.com/policies/services-agreement/",
         "type": "documentation"
+      },
+      {
+        "label": "InfiBench: Evaluating the Question-Answering Capabilities of Code Large Language Models",
+        "url": "https://papers.nips.cc/paper_files/paper/2024/file/e888eb9400fe14bb70e057aa1d719188-Paper-Datasets_and_Benchmarks_Track.pdf",
+        "type": "paper"
       }
     ],
-    "notes": "Historical gpt-4 text API alias, last pointing to gpt-4-0613. Initial public text access was March 14, 2023; image access described in the research launch was separate. Function calling was added with the June 2023 alias upgrade and is retained as historical capability despite today’s contradictory unsupported feature table. API access ended October 23, 2026. Transformer structure is documented; dense versus expert structure and parameter counts remain undisclosed. The dedicated reasoning flag is unverified."
+    "notes": "Historical gpt-4 text API alias, last pointing to gpt-4-0613. Initial public text access was March 14, 2023; image access described in the research launch was separate. Function calling was added with the June 2023 alias upgrade and is retained as historical capability despite today’s contradictory unsupported feature table. API access ended October 23, 2026. Transformer structure is documented; dense versus expert structure remains undisclosed. OpenAI withholds model size, and later exact-model comparison tables do not establish total or active parameter counts. Published estimates are unverified. The dedicated reasoning flag is unverified.",
+    "parameters_b": null,
+    "active_parameters_b": null,
+    "parameters_source": null
   },
-  "summary": "Confirm March 14, 2023 release, text-only 8,192-token API specifications and historical function calling of the 0613 alias target. Add verified Transformer architecture and proprietary classification, replace the generic description, and clear unsupported dedicated-reasoning=false. Total/active counts and dense-versus-expert subtype remain undisclosed after original-report and later first-party interpretability research checks. Record the current tool-support documentation conflict and October 23, 2026 shutdown."
+  "summary": "Parameter re-audit on October 27, 2026 retains explicit null total and active counts with undisclosed status. Reopened the GPT-4 report, exact API documentation and later OpenAI sparse-autoencoder study; inspected InfiBench Table 4 and DeepSeek-V2 comparison tables, and rejected the 2026 environmental study's explicitly assumed SemiAnalysis figures. No supported nominal count or named lineage establishes either value. Preserve the other twelve field assessments, including text-only 8,192-token API identity, historical function calling, documented Transformer structure, proprietary access, unverified reasoning flag and shutdown context."
 }
