@@ -1,0 +1,367 @@
+{
+  "index": 386,
+  "model_id": "nvidia/nemotron-3.5-lightning",
+  "reviewed_at": "2026-10-27T00:48:45.882052+00:00",
+  "sources": [
+    {
+      "id": "card",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/blob/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/README.md",
+      "title": "Pinned Nemotron 3.5 Lightning BF16 model card",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Exact post-trained reference checkpoint. Names NVIDIA, Nemotron family, August 11, 2026 release, OpenMDW-1.1, text input/output, trained reasoning and tool use. Hardware table explicitly validates 1048576 context on multi-GPU H100/Blackwell; 262144 is a single-GPU memory limit. Advertises rounded 30B total and 3B active; separately documents native MTP and standalone optional drafters."
+    },
+    {
+      "id": "announcement",
+      "url": "https://blogs.nvidia.com/blog/nemotron-lightning-switchyard-rtx-dgx/",
+      "title": "August 11 Lightning launch",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Contemporary August 11, 2026 announcement says NVIDIA is releasing Lightning that day. Confirms open model and tool-use focus; supports release date independently of later report publication and earlier private-repository creation."
+    },
+    {
+      "id": "report",
+      "url": "https://research.nvidia.com/labs/nemotron/files/NVIDIA-Nemotron-3.5-Super-and-Lightning-Technical-Report.pdf",
+      "title": "Nemotron 3.5 Super and Lightning technical report, October 21, 2026",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Later report explicitly describes Lightning as nominal 30B total/3B active, initialized from Nano 3 Base and distilled from Super Base. Section 2.1 describes recursively shared MTP and its projection fusion/pruning; Section 2.4 describes 21B-token long-context training at 1M. Lightning uses text-only SFT and RLVR. No exact complete checkpoint count or precise embedding-inclusive active convention is supplied for Lightning."
+    },
+    {
+      "id": "config",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/blob/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/config.json",
+      "title": "Pinned Lightning checkpoint configuration",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "52 main blocks: 23 Mamba, 23 MoE, six attention. Hidden size 2688, vocabulary 131072, untied input/output embeddings, 128 routed experts/top six, shared width 3712 and routed width 1856. MTP has one recursively reused attention-plus-MoE unit. No latent MoE bottleneck. Default max_position_embeddings is 262144."
+    },
+    {
+      "id": "index",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/blob/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/model.safetensors.index.json",
+      "title": "Complete BF16 tensor index",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Maps 6513 stored tensors to 14 shards. metadata.total_parameters=31577937344 agrees only with the main model; it omits 1335325824 unique learned MTP parameters. metadata.total_size=65842365568 exceeds actual tensor payload bytes by 15826944. These metadata totals were not used as the complete learned count."
+    },
+    {
+      "id": "headers",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/resolve/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/model-00001-of-00014.safetensors",
+      "title": "Bounded safetensors headers, first of 14 indexed shards",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Fetched every eight-byte header prefix and JSON header with HTTP 206 range validation, 835640 bytes total. All tensor names, shapes, dtypes, contiguous offsets and complete physical file lengths reconcile. 6489 BF16 learned tensors contain 32913263168 parameters; 24 F32 router-bias buffers contain 3072 excluded elements. Actual tensor payload is 65826538624 bytes. No weight payloads were downloaded."
+    },
+    {
+      "id": "transformers",
+      "url": "https://github.com/huggingface/transformers/blob/8979c57d98a0c43ea8278d8a8e93a48e9a3b6ccb/src/transformers/models/nemotron_h/modeling_nemotron_h.py",
+      "title": "Nemotron-H model implementation",
+      "publisher": "Hugging Face / NVIDIA architecture",
+      "accessed": true,
+      "evidence": "Defines learned Mamba dt_bias/A_log/D, convolution/norm/projection dimensions, attention dimensions and ReLU-squared up/down expert weights. Router e_score_correction_bias is explicitly nn.Buffer. Config-derived shapes independently reconcile every checkpoint tensor, allowing fused expert storage in code to be mapped to individual checkpoint expert matrices."
+    },
+    {
+      "id": "mtp",
+      "url": "https://github.com/vllm-project/vllm/blob/ed1a7307950ab5e6593d25123579ed7ca998b350/vllm/model_executor/models/nemotron_h_mtp.py",
+      "title": "Nemotron-H MTP implementation",
+      "publisher": "vLLM / NVIDIA architecture",
+      "accessed": true,
+      "evidence": "MTP input has separate embedding/hidden RMSNorms and a 2D-to-D fusion projection, followed by attention and MoE blocks and final norm. has_own_embed_tokens=False and has_own_lm_head=False explicitly share the target matrices; no duplicate embeddings are counted. Recursion reuses this unit rather than multiplying its parameters by draft depth."
+    },
+    {
+      "id": "vllm_main",
+      "url": "https://github.com/vllm-project/vllm/blob/ed1a7307950ab5e6593d25123579ed7ca998b350/vllm/model_executor/models/nemotron_h.py",
+      "title": "Nemotron-H inference modules",
+      "publisher": "vLLM / NVIDIA architecture",
+      "accessed": true,
+      "evidence": "Confirms main and MTP block projection dimensions, shared expert structure and top-six routing. This inference implementation stores routing correction state as nn.Parameter for loading, whereas the training/Hugging Face implementations identify it as a non-gradient buffer; it is excluded from learned count."
+    },
+    {
+      "id": "router",
+      "url": "https://github.com/NVIDIA/Megatron-LM/blob/e3f528380c197e8811fb68064d9ef3acf59fd3c6/megatron/core/transformer/moe/router.py",
+      "title": "Megatron training router",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Registers expert_bias as a buffer for load-balancing updates. Corroborates exclusion of persistent router correction state rather than counting every inference nn.Parameter as a learned parameter."
+    },
+    {
+      "id": "license",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/blob/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/LICENSE",
+      "title": "Released OpenMDW-1.1 agreement",
+      "publisher": "NVIDIA / OpenMDW",
+      "accessed": true,
+      "evidence": "Checkpoint LICENSE names OpenMDW License Agreement version 1.1 and contains governing terms. Card links the same version; do not transfer earlier Nemotron license names."
+    },
+    {
+      "id": "chat",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/blob/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/chat_template.jinja",
+      "title": "Pinned reasoning and tool-call template",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "enable_thinking defaults to true and controls think traces. Serializes tool definitions, function calls and tool responses; supported by explicit tool-calling training and serving examples in the card."
+    },
+    {
+      "id": "recipe",
+      "url": "https://github.com/NVIDIA-NeMo/Nemotron/blob/main/docs/nemotron/lightning35/README.md",
+      "title": "Lightning training recipe overview",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Model specifications retain nominal 30B total/3B active per forward pass and list 52 layers, hidden size 2688 and 128 routed experts/top six plus one shared expert. Points to later technical report; does not provide an exact active-count convention."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Nemotron 3.5 Lightning 30B A3B",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "report"
+      ],
+      "note": "Exact released post-trained text model; BF16 is the counting reference. Base, NVFP4 storage and standalone DSpark/DFlash drafters are not substituted or added."
+    },
+    "developer": {
+      "value": "NVIDIA",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "announcement"
+      ],
+      "note": "Explicit NVIDIA Corporation developer attribution."
+    },
+    "family": {
+      "value": "nemotron",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "announcement"
+      ],
+      "note": "Official Nemotron 3 family with a 3.5 increment."
+    },
+    "release_date": {
+      "value": "2026-08-11",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "announcement"
+      ],
+      "note": "Explicit launch day and card agree. Earlier repository creation and October report publication are not release dates."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "index",
+        "headers"
+      ],
+      "note": "Publicly downloadable complete BF16 weights; independently accessed every indexed shard header without authentication."
+    },
+    "license": {
+      "value": "OpenMDW-1.1",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "license"
+      ],
+      "note": "Exact named governing license in both card and checkpoint LICENSE."
+    },
+    "parameters_b": {
+      "value": 32.913263168,
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "index",
+        "headers",
+        "transformers",
+        "mtp",
+        "vllm_main",
+        "router"
+      ],
+      "note": "Exact complete learned count: 32913263168, comprising main model 31577937344 plus unique native MTP 1335325824. All 6513 stored shapes reconstructed from config/code; 6489 learned BF16 tensors and 24 excluded F32 router buffers. Untied input/output matrices counted once and shared by MTP. Index total_parameters is main-only; its byte total also disagrees with physical headers, so neither is treated as the complete count. No quantization scales or packed-storage inflation."
+    },
+    "active_parameters_b": {
+      "value": 3,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "report",
+        "recipe",
+        "config",
+        "mtp"
+      ],
+      "note": "NVIDIA nominal 3B per main forward pass; retain only with proposed main_model scope. Neither card nor later October report specifies an exact embedding convention or complete speculative-decoding activity. Top-six structural accounting gives 3.580073408B including both whole embedding/output matrices or 3.227751872B excluding input embedding; these are convention-dependent checks, not substitutes for the published nominal count. Native MTP adds a separate drafting computation when enabled."
+    },
+    "architecture": {
+      "value": "hybrid-ssm-transformer-moe",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "config",
+        "report",
+        "transformers",
+        "mtp"
+      ],
+      "note": "23 Mamba-2, 23 sparse MoE and six attention blocks in the main network. Each MoE selects six of 128 routed experts and always includes a shared MLP of width 3712. Native recursively shared MTP has attention plus MoE; no latent MoE bottleneck in this checkpoint."
+    },
+    "context_window": {
+      "value": 1048576,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "config",
+        "report"
+      ],
+      "note": "Exact card hardware table and serving examples validate 1048576, corroborated by report long-context training. 262144 in config is the default for memory-constrained single-GPU deployment, not the maximum supported context."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "report"
+      ],
+      "note": "Explicit text input and text output. Do not transfer the companion Super model’s multimodal features."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "chat",
+        "report"
+      ],
+      "note": "Reasoning traces enabled by default, configurable enable_thinking, and documented reasoning SFT/RL; not inferred solely from name or template syntax."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "chat"
+      ],
+      "note": "Explicit tool-call SFT/multi-step tool-use RL and serving examples with qwen3_coder parser plus function-call template support."
+    },
+    "description": {
+      "value": "Text model with Mamba-2, attention and sparse MoE layers, configurable reasoning, tool calling and native multi-token prediction; supports a 1M-token context.",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "config",
+        "report",
+        "chat"
+      ],
+      "note": "Concrete supported architecture and capabilities replace speed/reliability/enterprise marketing claims."
+    }
+  },
+  "patch": {
+    "license": "OpenMDW-1.1",
+    "parameters_b": 32.913263168,
+    "parameters_source": "primary_source",
+    "architecture": "hybrid-ssm-transformer-moe",
+    "context_window": 1048576,
+    "description": "Text model with Mamba-2, attention and sparse MoE layers, configurable reasoning, tool calling and native multi-token prediction; supports a 1M-token context.",
+    "source_url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/blob/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/README.md",
+    "source_type": "primary",
+    "notes": "Complete BF16 checkpoint has 32.913263168B learned parameters: 31.577937344B main model plus 1.335325824B native MTP. Excludes 3072 router-buffer elements and separate optional DSpark/DFlash checkpoints. The advertised 3B active count is nominal for the main forward pass; drafting activity depends on speculative-decoding settings. Supported context is 1048576; 262144 is the lower-memory default. Index total_parameters omits MTP and its total_size disagrees with actual payload bytes, so the exact total uses tensor shapes and implementation.",
+    "sources": [
+      {
+        "label": "Pinned Nemotron 3.5 Lightning BF16 model card",
+        "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/blob/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "August 11 Lightning launch",
+        "url": "https://blogs.nvidia.com/blog/nemotron-lightning-switchyard-rtx-dgx/",
+        "type": "primary"
+      },
+      {
+        "label": "Nemotron 3.5 Super and Lightning technical report, October 21, 2026",
+        "url": "https://research.nvidia.com/labs/nemotron/files/NVIDIA-Nemotron-3.5-Super-and-Lightning-Technical-Report.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned Lightning checkpoint configuration",
+        "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/blob/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Complete BF16 tensor index",
+        "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/blob/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Bounded safetensors headers, first of 14 indexed shards",
+        "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/resolve/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/model-00001-of-00014.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Nemotron-H MTP implementation",
+        "url": "https://github.com/vllm-project/vllm/blob/ed1a7307950ab5e6593d25123579ed7ca998b350/vllm/model_executor/models/nemotron_h_mtp.py",
+        "type": "weights"
+      },
+      {
+        "label": "Released OpenMDW-1.1 agreement",
+        "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/blob/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/LICENSE",
+        "type": "primary"
+      }
+    ]
+  },
+  "proposed_fields": {
+    "active_parameters_scope": "main_model",
+    "parameter_components_b": {
+      "main_model": 31.577937344,
+      "mtp": 1.335325824
+    }
+  },
+  "checkpoint_audit": {
+    "repository": "nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16",
+    "revision": "a9904d24bcc1d289a1950fa9d2b978c47cf903b9",
+    "method": "Bounded HTTP 206 reads of exactly eight length-prefix bytes plus each JSON header; validate Content-Range, every indexed name, contiguous dtype-specific offsets and physical file lengths. Independently reconstruct all shapes from pinned config and model/MTP implementation. No full tensor payload downloads.",
+    "headers": {
+      "shards": 14,
+      "tensors": 6513,
+      "dtypes": {
+        "F32": 3072,
+        "BF16": 32913263168
+      },
+      "tensor_payload_bytes": 65826538624,
+      "index_total_size": 65842365568,
+      "metadata_size_excess_bytes": 15826944,
+      "header_bytes_read": 835640,
+      "every_physical_file_size_matches_headers": true
+    },
+    "counts": {
+      "learned_parameters": 32913263168,
+      "learned_tensors": 6489,
+      "buffer_elements": 3072,
+      "buffer_tensors": 24,
+      "shape_checks": 6513,
+      "main_model": 31577937344,
+      "mtp": 1335325824,
+      "layers": {
+        "mamba": 23,
+        "moe": 23,
+        "attention": 6
+      },
+      "main_selected_expert_inventory_including_both_embedding_matrices": 3580073408,
+      "main_selected_expert_inventory_excluding_input_embedding": 3227751872,
+      "mtp_selected_expert_inventory_excluding_shared_main_embeddings": 118027392,
+      "note": "Selected-expert inventory is a shape accounting convention, not a measured runtime active parameter count. MTP shares the main input embeddings and LM head, counted once."
+    },
+    "reproduction": {
+      "cache_directory": "/tmp/model-audit-386",
+      "commands": [
+        "python3 /tmp/model-audit-386/headers.py",
+        "python3 /tmp/model-audit-386/count.py"
+      ]
+    },
+    "formula": "D=2688,V=131072. Main embeddings+head=2*D*V, final norm=D, 52 block norms=D each. Each of 23 Mamba blocks: in_proj=D*(4096+6144+64), out_proj=D*4096, conv=6144*4+6144, gated norm=4096, dt_bias/A_log/D=3*64. Each of 23 MoE blocks:128*(2*D*1856)+2*D*3712+128*D. Each of 6 attention blocks:2*D*4096+2*D*256. Main=31577937344. MTP adds one attention+one MoE plus two block norms, input/hidden norms, final norm and 2*D*D fusion projection=1335325824. Exclude 24*128 router correction elements."
+  },
+  "summary": "All fourteen fields verified. Replace nominal 30B with exact complete 32.913263168B including native MTP; preserve nominal 3B active with main-model scope. Correct hybrid architecture, maximum context to 1048576 and governing OpenMDW-1.1 license. Confirm August 11 release, open weights, text input/output, reasoning and tool calling. Document index metadata discrepancies without deriving parameter count from file size."
+}

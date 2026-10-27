@@ -23226,6 +23226,67 @@
       },
       "audited_at": "2026-10-27T00:47:44.617338+00:00",
       "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/385.json"
+    },
+    "nvidia/nemotron-3.5-lightning": {
+      "license": "OpenMDW-1.1",
+      "parameters_b": 32.913263168,
+      "parameters_source": "primary_source",
+      "architecture": "hybrid-ssm-transformer-moe",
+      "context_window": 1048576,
+      "description": "Text model with Mamba-2, attention and sparse MoE layers, configurable reasoning, tool calling and native multi-token prediction; supports a 1M-token context.",
+      "source_url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/blob/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/README.md",
+      "source_type": "primary",
+      "notes": "Complete BF16 checkpoint has 32.913263168B learned parameters: 31.577937344B main model plus 1.335325824B native MTP. Excludes 3072 router-buffer elements and separate optional DSpark/DFlash checkpoints. The advertised 3B active count is nominal for the main forward pass; drafting activity depends on speculative-decoding settings. Supported context is 1048576; 262144 is the lower-memory default. Index total_parameters omits MTP and its total_size disagrees with actual payload bytes, so the exact total uses tensor shapes and implementation.",
+      "sources": [
+        {
+          "label": "Pinned Nemotron 3.5 Lightning BF16 model card",
+          "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/blob/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/README.md",
+          "type": "primary"
+        },
+        {
+          "label": "August 11 Lightning launch",
+          "url": "https://blogs.nvidia.com/blog/nemotron-lightning-switchyard-rtx-dgx/",
+          "type": "primary"
+        },
+        {
+          "label": "Nemotron 3.5 Super and Lightning technical report, October 21, 2026",
+          "url": "https://research.nvidia.com/labs/nemotron/files/NVIDIA-Nemotron-3.5-Super-and-Lightning-Technical-Report.pdf",
+          "type": "primary"
+        },
+        {
+          "label": "Pinned Lightning checkpoint configuration",
+          "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/blob/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/config.json",
+          "type": "weights"
+        },
+        {
+          "label": "Complete BF16 tensor index",
+          "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/blob/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/model.safetensors.index.json",
+          "type": "weights"
+        },
+        {
+          "label": "Bounded safetensors headers, first of 14 indexed shards",
+          "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/resolve/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/model-00001-of-00014.safetensors",
+          "type": "weights"
+        },
+        {
+          "label": "Nemotron-H MTP implementation",
+          "url": "https://github.com/vllm-project/vllm/blob/ed1a7307950ab5e6593d25123579ed7ca998b350/vllm/model_executor/models/nemotron_h_mtp.py",
+          "type": "weights"
+        },
+        {
+          "label": "Released OpenMDW-1.1 agreement",
+          "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/blob/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/LICENSE",
+          "type": "primary"
+        }
+      ],
+      "active_parameters_scope": "main_model",
+      "parameter_components_b": {
+        "main_model": 31.577937344,
+        "mtp": 1.335325824
+      },
+      "field_status": {},
+      "audited_at": "2026-10-27T00:48:45.882052+00:00",
+      "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/386.json"
     }
   },
   "aliases": {
