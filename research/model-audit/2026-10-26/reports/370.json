@@ -1,7 +1,7 @@
 {
   "index": 370,
   "model_id": "nousresearch/hermes-2-pro-llama-3-8b",
-  "reviewed_at": "2026-10-27T00:13:52.772954Z",
+  "reviewed_at": "2026-10-27T15:46:04.940281Z",
   "sources": [
     {
       "id": "s1",
@@ -10,7 +10,7 @@
       "publisher": "Nous Research",
       "type": "weights",
       "accessed": true,
-      "evidence": "Exact variant, Hermes family, Nous authorship, Llama-3-8B base, llama3 license, ChatML dialogue, function calling and schema-guided JSON; text generation examples."
+      "evidence": "Exact variant, Hermes family, Nous authorship, Llama-3-8B base, llama3 license, ChatML dialogue, function calling and schema-guided JSON; text generation examples. Reopened October 27: current card still explicitly names NousResearch/Meta-Llama-3-8B as base, tags this model as a finetune, and describes extra function-call tokens; it gives no separate active count."
     },
     {
       "id": "s2",
@@ -19,7 +19,7 @@
       "publisher": "Nous Research",
       "type": "weights",
       "accessed": true,
-      "evidence": "LlamaForCausalLM: 32 layers, hidden 4096, intermediate 14336, 32 attention/8 KV heads, vocabulary 128288, untied embeddings, float16, max_position_embeddings=8192 and no RoPE scaling. Dense per-layer attention/MLP configuration."
+      "evidence": "LlamaForCausalLM: 32 layers, hidden 4096, intermediate 14336, 32 attention/8 KV heads, vocabulary 128288, untied embeddings, float16, max_position_embeddings=8192 and no RoPE scaling. Dense per-layer attention/MLP configuration. Reopened October 27 and compared with the explicitly named base configuration: all layer dimensions match, with 32 extra vocabulary entries (128288 versus 128256); the target uses F16 rather than BF16 storage. No pruning, expert expansion or multimodal component is configured."
     },
     {
       "id": "s3",
@@ -28,7 +28,7 @@
       "publisher": "Nous Research",
       "type": "weights",
       "accessed": true,
-      "evidence": "291 named tensors mapped to four main checkpoint shards; total_size=16061046784 bytes. All indexed names matched the inspected shard headers, with no missing or duplicate tensors."
+      "evidence": "291 named tensors mapped to four main checkpoint shards; total_size=16061046784 bytes. All indexed names matched the inspected shard headers, with no missing or duplicate tensors. Fresh October 27 index read confirms the same 291 entries and total_size; the earlier shard-header reconciliation is retained without fetching shards again."
     },
     {
       "id": "s4",
@@ -37,7 +37,7 @@
       "publisher": "Nous Research / Hugging Face",
       "type": "weights",
       "accessed": true,
-      "evidence": "Public, ungated repository; revision f798274b30e7d2d4797c369edcc0cc7473b6e6f2. Safetensors metadata reports 8030523392 F16 parameters. Separate dpo-adapter artifacts are also present; they are not added again to the complete merged checkpoint."
+      "evidence": "Public, ungated repository; revision f798274b30e7d2d4797c369edcc0cc7473b6e6f2. Safetensors metadata reports 8030523392 F16 parameters. Separate dpo-adapter artifacts are also present; they are not added again to the complete merged checkpoint. Fresh October 27 API read confirms the unchanged revision and exact safetensors total."
     },
     {
       "id": "s5",
@@ -82,7 +82,7 @@
       "publisher": "Meta",
       "type": "primary",
       "accessed": true,
-      "evidence": "Explicitly describes autoregressive Transformer architecture, GQA, text-only inputs, text/code outputs and 8192-token training sequences. Applied only through the exact model card base mapping and matching released configuration."
+      "evidence": "Explicitly describes autoregressive Transformer architecture, GQA, text-only inputs, text/code outputs and 8192-token training sequences. Applied only through the exact model card base mapping and matching released configuration. Reopened October 27: Meta explicitly describes the original 8B and 70B sizes as nominal parameter counts, but supplies no distinct active-count table."
     },
     {
       "id": "s10",
@@ -136,7 +136,7 @@
       "publisher": "Nous Research / Meta",
       "type": "weights",
       "accessed": true,
-      "evidence": "The target card identifies this repository as its base. Its README reproduces Meta Llama 3 model details and license, establishing the link to Meta documentation; no Hermes release date or active count is inferred from it."
+      "evidence": "Reopened October 27: the target card names this exact base repository, whose README identifies the original Meta-Llama-3-8B and reproduces Meta's nominal 8B specification. The base card supplies no separate active count; that convention comes from the later Qwen3 comparison."
     },
     {
       "id": "s16",
@@ -146,6 +146,24 @@
       "type": "weights",
       "accessed": true,
       "evidence": "Initial card already identifies exact Hermes 2 Pro Llama-3 8B variant and base. Its old apache-2.0 metadata differs from current llama3 metadata; current exact repository card and linked base license are used. No explicit public release date appears."
+    },
+    {
+      "id": "s17",
+      "url": "https://huggingface.co/NousResearch/Meta-Llama-3-8B/raw/main/config.json",
+      "title": "Named Llama 3 8B base configuration, freshly compared",
+      "publisher": "Nous Research / Meta",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Fresh October 27 read: LlamaForCausalLM with 32 layers, hidden size 4096, intermediate size 14336, 32 attention/8 KV heads, untied embeddings and vocabulary 128256. Hermes retains these dense layer dimensions and adds 32 vocabulary entries, or 262144 embedding/output-head parameters. The BF16-to-F16 dtype change changes storage precision, not parameter cardinality. This small vocabulary expansion does not change an integer-billion nominal active count."
+    },
+    {
+      "id": "s18",
+      "url": "https://arxiv.org/html/2505.09388v1#S3.T6",
+      "title": "Qwen3 Technical Report, Table 6: original Llama 3 8B base comparison",
+      "publisher": "Qwen Team",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Freshly read the original May 2025 report. Table 6 separately labels Llama-3-8B Base as Dense with 8B Total Params and 8B Activated Params; section 3.3 identifies the base-model comparison. This is Qwen's original benchmark counting convention for the exact named base, not a Meta or Nous active-count disclosure. Applied to Hermes only through its explicit finetune lineage and matching dense dimensions, preserving nominal integer-billion precision."
     }
   ],
   "fields": {
@@ -213,25 +231,29 @@
       "value": 8.030523392,
       "status": "verified",
       "source_ids": [
+        "s1",
         "s2",
         "s3",
         "s4",
         "s5",
         "s6",
         "s7",
-        "s8"
+        "s8",
+        "s17"
       ],
-      "note": "Exact complete merged checkpoint: 8030523392 learned parameters across 291 F16 tensors. All names end in .weight and are model embeddings, attention/MLP matrices or learned norms; no buffers/scales. Header tensor products match both HF metadata and 16061046784/2 bytes. Independent configuration arithmetic: 2*(128288*4096) + 32*(2*4096^2 + 2*4096*1024 + 3*4096*14336 + 2*4096) + 4096. Nominal name is 8B. Separate DPO adapter files are not double-counted."
+      "note": "Retain the previously verified complete merged checkpoint count: 8030523392 learned parameters across 291 F16 tensors, with no buffers or scales. The earlier header products and independent configuration arithmetic agree: 2*(128288*4096) + 32*(2*4096^2 + 2*4096*1024 + 3*4096*14336 + 2*4096) + 4096. Fresh official API metadata and index confirm the unchanged revision and exact total; no shard reads were repeated. The model name is nominally 8B. Its 32 vocabulary entries beyond the named base add 262144 embedding/output-head parameters, already included in this exact total; separate DPO adapters are not double-counted."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 8,
+      "status": "verified",
       "source_ids": [
         "s1",
         "s2",
-        "s9"
+        "s15",
+        "s17",
+        "s18"
       ],
-      "note": "No separate per-token active count is reported for this exact checkpoint. Dense architecture does not establish equality with total, especially with embedding lookup; retain null."
+      "note": "Nominal 8B active count inferred through the explicitly named Llama-3-8B base and finetune relationship. Qwen3 Table 6 separately publishes 8B Activated Params for the original Llama-3-8B Base. The fresh target/base configurations retain identical dense layer dimensions; Hermes adds only 32 vocabulary entries (262144 embedding/output-head parameters), which do not alter the source's integer-billion precision. Attribute this to Qwen's benchmark convention carried through documented lineage, not a direct Nous/Meta active disclosure or an exact per-token tensor census. Total remains the independently verified 8.030523392B; active is not set equal to that exact total. DeepSeek-V2 Tables 2/3 concern 70B and are not used for this 8B inference."
     },
     "architecture": {
       "value": "dense",
@@ -365,9 +387,20 @@
         "label": "Hermes function-calling code",
         "url": "https://raw.githubusercontent.com/NousResearch/Hermes-Function-Calling/main/README.md",
         "type": "primary"
+      },
+      {
+        "label": "Named Llama 3 8B base configuration",
+        "url": "https://huggingface.co/NousResearch/Meta-Llama-3-8B/raw/main/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Qwen3 Table 6: Llama 3 8B nominal active convention",
+        "url": "https://arxiv.org/html/2505.09388v1#S3.T6",
+        "type": "primary"
       }
     ],
-    "notes": "Complete main FP16 checkpoint contains exactly 8.030523392B learned parameters (291 tensors), independently reconciled with configuration arithmetic; 8B is nominal. Active count is not separately disclosed. Current card specifies llama3 despite initial Apache-2.0 metadata. Public launch announcement is May 1, 2024; April 30 is the earlier repository artifact-upload date, with historical public visibility unverified. Reasoning-mode support remains unverified; Hermes 3 scratch_pad documentation is not transferred."
+    "notes": "Complete main FP16 checkpoint contains exactly 8.030523392B learned parameters (291 tensors); 8B is nominal. Active 8B is a nominal lineage inference from Qwen3 Table 6's explicit Llama-3-8B Base convention, not a direct Nous disclosure or exact per-token count. Hermes retains the base layer dimensions and adds 32 vocabulary tokens, below that convention's precision. Current card specifies llama3 despite initial Apache-2.0 metadata. Public launch announcement is May 1, 2024; April 30 is the earlier repository artifact-upload date, with historical public visibility unverified. Reasoning-mode support remains unverified; Hermes 3 scratch_pad documentation is not transferred.",
+    "active_parameters_b": 8
   },
-  "summary": "Replaces nominal model-name-derived 8B with the complete verified 8.030523392B checkpoint count and establishes dense Transformer architecture. Uses May 1 public announcement rather than April 30 artifact creation as the verified launch; historical visibility on April 30 remains unknown. Confirms name, developer, family, open weights, current Llama 3 license, 8192 checkpoint context, text modalities, function calling and description. Active count stays null; unsupported reasoning=false is cleared. No Mistral Hermes, Hermes 3 or unrelated revision specifications were transferred."
+  "summary": "Fresh parameter re-audit preserves the verified 8.030523392B complete checkpoint total, reconfirmed by current official metadata and index. Resolves active parameters to nominal 8B through the exact Llama-3-8B finetune lineage and Qwen3 Table 6's explicit activated-parameter convention; the 32-token vocabulary expansion does not change that precision. This is a labeled benchmark-convention inference, not a direct Nous active disclosure or total-to-active equality. The other 12 field assessments are unchanged."
 }
