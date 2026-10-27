@@ -1,7 +1,7 @@
 {
   "index": 216,
   "model_id": "google/gemma-2-2b-it",
-  "reviewed_at": "2026-10-27T13:12:18.498742+00:00",
+  "reviewed_at": "2026-10-27T18:18:27.379370+00:00",
   "sources": [
     {
       "id": "s1",
@@ -36,7 +36,7 @@
       "title": "Pinned official instruction-tuned checkpoint metadata",
       "publisher": "Hugging Face metadata for Google weights",
       "accessed": true,
-      "evidence": "Revision 299a8560bedf22ed1c72a8a11e7dce4a7f9f51f8 reports safetensors.parameters.BF16 and safetensors.total both 2614341888. Identifies Gemma2ForCausalLM and the user/assistant chat template. This is repository tensor aggregation, not independently downloaded headers. Fresh direct metadata retrieval October 27, 2026 reconfirmed the same revision and exact BF16 total; no new tensor census or weight download was performed.",
+      "evidence": "Revision 299a8560bedf22ed1c72a8a11e7dce4a7f9f51f8 reports safetensors.parameters.BF16 and safetensors.total both 2614341888. Identifies Gemma2ForCausalLM and the user/assistant chat template. This is repository tensor aggregation, not independently downloaded headers. Fresh direct metadata retrieval October 27, 2026 reconfirmed the same revision and exact BF16 total; no new tensor census or weight download was performed. A bounded follow-up at 18:17 UTC on October 27 again returned HTTP 200 and the identical revision and BF16 total.",
       "type": "weights"
     },
     {
@@ -155,6 +155,15 @@
       "type": "primary",
       "accessed": true,
       "evidence": "Fresh October 27 review of later comparison tables with explicit activated-parameter rows. They include other Gemma generations and sizes, but no exact Gemma 2 2B IT row. Neither those rows nor a generic dense-model convention is transferred to this model."
+    },
+    {
+      "id": "s18",
+      "url": "https://arxiv.org/html/2604.09048v1",
+      "title": "Watt Counts: Energy-Aware Benchmark for Sustainable LLM Inference on Heterogeneous GPU Architectures",
+      "publisher": "Mauricio Fadel Argerich, Jonathan F\u00fcrst and Marta Pati\u00f1o-Mart\u00ednez",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Reopened October 27 and checked original Table 11 against its PDF image. The exact google/gemma-2-2b-it row lists dense architecture, 2.610B total and 2.610B active, evaluated on eight distinct GPUs. Section 5.2 explicitly adopts total-equals-active counting for dense-model comparisons. This original inference study establishes its authors\u2019 nominal convention, not a Google per-token disclosure. This row matches the official artifact identity, dense architecture and total rounded to 2.61B; unrelated erroneous MoE classifications and the Minitron 4B Width size preclude wholesale adoption of other rows."
     }
   ],
   "fields": {
@@ -222,23 +231,23 @@
         "s6",
         "s7",
         "s8",
-        "s13"
+        "s13",
+        "s18"
       ],
-      "note": "Complete unique learned count: 256000*2304 + 26*(14155776 attention + 63700992 MLP + 9216 normalization) + 2304 final normalization = 2614341888. The tied output embedding is counted once; computed RoPE buffers and optional quantization scalers are excluded. This exactly matches official BF16 checkpoint metadata. The paper instead sums to 2614636800 using 256128 vocabulary rows, 294912 more (128*2304). Direct header inspection was blocked by gating; this is implementation-derived and metadata-cross-checked. Fresh October 27 re-audit reconfirmed the pinned metadata and original published conventions; retain this supported exact released-checkpoint total rather than replacing it with the nominal 2B name or the teacher size."
+      "note": "Complete unique learned count: 256000*2304 + 26*(14155776 attention + 63700992 MLP + 9216 normalization) + 2304 final normalization = 2614341888. The tied output embedding is counted once; computed RoPE buffers and optional quantization scalers are excluded. This exactly matches official BF16 checkpoint metadata. The paper instead sums to 2614636800 using 256128 vocabulary rows, 294912 more (128*2304). Direct header inspection was blocked by gating; this is implementation-derived and metadata-cross-checked. Fresh October 27 re-audit reconfirmed the pinned metadata and original published conventions; retain this supported exact released-checkpoint total rather than replacing it with the nominal 2B name or the teacher size. Bounded follow-up reconfirmed the exact metadata; Watt Counts Table 11 independently uses the compatible rounded total 2.61B, which does not replace this precise supported count."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 2.61,
+      "status": "verified",
       "source_ids": [
-        "s7",
-        "s8",
-        "s13",
-        "s14",
-        "s15",
-        "s16",
-        "s17"
+        "s18",
+        "s1",
+        "s4",
+        "s5",
+        "s6",
+        "s7"
       ],
-      "note": "Fresh October 27 exact-model active/activated-count searches and original/later comparison checks found no supported separate active count. Google explicitly identifies 2B as excluding embeddings and states its original comparisons use total parameters. The PLOS 2B active-column lead reuses nominal sizes and gives no Gemma-specific active convention; its cited Google source does not substantiate that label. Later activated-parameter tables contain no exact row. Neither total nor non-embedding size is copied into active."
+      "note": "Watt Counts Table 11 explicitly gives 2.610B active for exact checkpoint google/gemma-2-2b-it. Retain nominal 2.61B under the independent authors\u2019 Section 5.2 dense-model counting convention, rather than inventing equality from architecture alone. Google artifact identity and dense architecture agree, and the published size matches the precise total rounded to 2.61B. This is not a Google active-per-token disclosure or a tensor-participation census. The earlier unsupported PLOS 2B label is not the basis."
     },
     "architecture": {
       "value": "dense",
@@ -314,7 +323,7 @@
     "description": "Instruction-tuned Gemma 2 text-generation model from Google, with open weights and an 8,192-token context window.",
     "source_url": "https://developers.googleblog.com/en/smaller-safer-more-transparent-advancing-responsible-ai-with-gemma/",
     "source_type": "primary",
-    "notes": "The 2B name excludes embeddings; the released BF16 checkpoint contains 2.614341888B unique learned parameters. Google does not separately publish an active count in the reviewed sources. Google documents no built-in function calling but demonstrates prompted ReAct calls; the broader tool capability remains unverified.",
+    "notes": "The 2B name excludes embeddings; the checkpoint has 2.614341888B unique learned parameters. Active size is nominally 2.61B under the Watt Counts authors\u2019 dense-model comparison convention, not a Google per-token disclosure. Google demonstrates prompted ReAct calls but documents no built-in function calling; broader tool capability remains unverified.",
     "sources": [
       {
         "label": "google/gemma-2-2b-it model card",
@@ -375,10 +384,44 @@
         "label": "Gemma 2 model card",
         "url": "https://ai.google.dev/gemma/docs/core/model_card_2",
         "type": "primary"
+      },
+      {
+        "label": "Watt Counts: Energy-Aware Benchmark for Sustainable LLM Inference on Heterogeneous GPU Architectures",
+        "url": "https://arxiv.org/html/2604.09048v1",
+        "type": "primary"
       }
     ],
     "tool_call": null,
-    "active_parameters_b": null
+    "active_parameters_b": 2.61
   },
-  "summary": "October 27 parameter re-audit reconfirms the released-checkpoint total of 2.614341888B from freshly retrieved pinned BF16 metadata, consistent with the existing implementation reconciliation. Active parameters remain explicitly null after exact-model searches, original Google documentation and later Gemma/Qwen comparison checks. Traced a 2B active-column claim in independent medical-evaluation research to nominal-size reuse rather than a separately supported active specification. No weight shards or repeated tensor census; unrelated field assessments and corrections preserved."
+  "summary": "A bounded October 27 follow-up resolves nominal active size to 2.61B from the exact Gemma 2 2B IT row in the original Watt Counts inference study, with independent authorship and counting convention explicit. Fresh pinned metadata retains the precise 2.614341888B total. The earlier PLOS 2B claim remains unsupported; it does not negate the newly located explicit research convention. No weights downloaded or tensor census repeated; all twelve unrelated field assessments preserved.",
+  "parameter_reaudit": {
+    "agent": "/root/parameters_216",
+    "reviewed_at": "2026-10-27T18:18:27.379370+00:00",
+    "outcome": "Retain precise total 2.614341888B; establish attributed nominal active size 2.61B.",
+    "fresh_search_queries": [
+      "\"google/gemma-2-2b-it\" \"2.610\" \"active\"",
+      "\"google/gemma-2-2b-it\" \"2614341888\""
+    ],
+    "original_sources_checked": [
+      "s1",
+      "s4",
+      "s18"
+    ],
+    "fresh_total_verification": {
+      "pinned_revision": "299a8560bedf22ed1c72a8a11e7dce4a7f9f51f8",
+      "BF16_parameters": 2614341888,
+      "http_status": 200,
+      "metadata_path": "/tmp/parameter-216/watt-followup-metadata.json"
+    },
+    "lineage_assessment": "No transfer from a base or sibling is required: the new table names the exact instruction-tuned Google checkpoint.",
+    "search_findings": "Bounded searches corroborated the research-table lead. Read the original arXiv HTML and cached full text, visually inspected its Table 11 PDF image, and reopened Google\u2019s exact model card and pinned metadata. The 2.610 formatting is retained as nominal 2.61, with the existing precise total unchanged.",
+    "source_quality_assessment": "Original inference measurements and an explicit convention make the exact row useful evidence. Reviewed unrelated MoE-classification and Minitron-size errors; no values are transferred from those rows. Gemma\u2019s identity, architecture and rounded size independently agree with official artifacts. The earlier PLOS source remains rejected on its own evidence.",
+    "remaining_uncertainty": "The nominal research convention does not establish exact token-dependent parameter participation or a separately disclosed Google active count.",
+    "original_report_caches": [
+      "/tmp/parameter-514-reaudit/watt-counts.txt",
+      "/tmp/parameter-514-reaudit/watt-counts.pdf",
+      "/tmp/parameter-514-reaudit/watt-counts-table11.png"
+    ]
+  }
 }
