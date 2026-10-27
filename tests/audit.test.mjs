@@ -50,6 +50,10 @@ test('phase-dependent counts retain their scope in validation, display and both 
   const hosted = { ...multimodal, parameters_b: 35, parameters_scope: 'language_decoder', parameter_components_b: { language_decoder: 35 }, active_parameters_scope: 'language_decoder' };
   validateModels([hosted]);
   assert.equal(modelSizeLabel(hosted), '35B language decoder');
+  const scopedDecoder = { ...hosted, active_parameters_by_phase_b: { decoder: 3 } };
+  validateModels([scopedDecoder]);
+  assert.throws(() => validateModels([{ ...scopedDecoder, active_parameters_scope: 'missing' }]), /active parameter scope/);
+  assert.throws(() => validateModels([{ ...scopedDecoder, active_parameters_by_phase_b: { language_decoder: 4 } }]), /phase count/);
   assert.throws(() => validateModels([{ ...multimodal, active_parameters_b: null }]), /active parameter scope/);
 });
 
