@@ -1,0 +1,410 @@
+{
+  "index": 392,
+  "model_id": "nvidia/nemotron-nano-12b-v2-vl",
+  "reviewed_at": "2026-10-27T01:02:23.830312Z",
+  "sources": [
+    {
+      "id": "card",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-12B-v2-VL-BF16/blob/ca9543b126e8bf3176916d3d305ccc415f89fd4d/README.md",
+      "title": "Pinned Nemotron Nano 12B v2 VL BF16 model card",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Exact model card: October 28, 2025 release on Hugging Face and Build; NVIDIA Open Model License; nominal 12.6B size; text, image and video inputs with text output; 128K input plus output context. Card generic Transformer label is refined by the exact model code and technical report."
+    },
+    {
+      "id": "config",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-12B-v2-VL-BF16/blob/ca9543b126e8bf3176916d3d305ccc415f89fd4d/config.json",
+      "title": "Pinned VL composite model configuration",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Language width 5120/vocabulary 132096, untied embeddings, 62 blocks comprising 28 Mamba, 28 dense MLP and 6 attention; no experts. 131072 maximum sequence and positional settings. C-RADIO ViT-H/16 width 1280 plus 20480-wide connector. No quantization configuration."
+    },
+    {
+      "id": "index",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-12B-v2-VL-BF16/blob/ca9543b126e8bf3176916d3d305ccc415f89fd4d/model.safetensors.index.json",
+      "title": "Complete seven-shard BF16 tensor index",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "All 761 indexed tensor names reconciled with bounded headers. Metadata total_size 26363720728 bytes matches the independently checked payload. No exact parameter count is supplied in the index."
+    },
+    {
+      "id": "headers",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-12B-v2-VL-BF16/resolve/ca9543b126e8bf3176916d3d305ccc415f89fd4d/model-00001-of-00007.safetensors",
+      "title": "Bounded headers from all seven BF16 checkpoint shards",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Read every 8-byte prefix and exact JSON header via checked HTTP 206 ranges. All 761 names/shapes/dtypes and contiguous offsets/file lengths verified; 759 BF16 learned tensors contain 13181860352 parameters. Two F32 normalization buffers contain 6 excluded elements. Only 97064 header/prefix bytes downloaded; no weight payload."
+    },
+    {
+      "id": "composition",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-12B-v2-VL-BF16/blob/ca9543b126e8bf3176916d3d305ccc415f89fd4d/modeling.py",
+      "title": "Pinned vision-language model composition",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Builds language and vision models from configuration; visual pixel shuffle feeds RMSNorm and two bias-free linear projections (5120\u219220480\u21925120). EVS and input processing add no learned module weights. Vision preprocessor is externalized; learned vision class tokens remain part of the checkpoint."
+    },
+    {
+      "id": "language",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-12B-v2-VL-BF16/blob/ca9543b126e8bf3176916d3d305ccc415f89fd4d/modeling_nemotron_h.py",
+      "title": "Pinned language module implementation",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Mamba-2, attention, dense ReLU-squared two-matrix MLP, norms and independent input/output matrices define every language tensor. A_log,D,dt_bias are learned Parameters. There are no MoE/router or MTP modules."
+    },
+    {
+      "id": "language-remote",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-12B-v2-Base/blob/78dc93a79e2533922ac8ad2c16f79b7fb747970d/modeling_nemotron_h.py",
+      "title": "Configuration-referenced language remote implementation",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "The composite AutoConfig references this repository for the language AutoModel. Compared all source differences against the bundled implementation: cache dtype, support flag, comments and headers differ; learned constructors and their dimensions agree. This is code verification, not transfer of a sibling checkpoint count."
+    },
+    {
+      "id": "radio-constructor",
+      "url": "https://huggingface.co/nvidia/C-RADIOv2-H/blob/0d8f4c18c877166eda07ddae1386bcad256b7a6a/radio_model.py",
+      "title": "Configuration-referenced C-RADIO model construction",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Creates the configured ViT-H/16, removes final norm and classifier, enables conditional positional embeddings and 16 class/register tokens. Empty adaptor names and absent feature-normalizer settings add no learned modules. Runtime summary indices are an integer buffer absent from the release, not parameters."
+    },
+    {
+      "id": "radio-definition",
+      "url": "https://huggingface.co/nvidia/C-RADIOv2-H/blob/0d8f4c18c877166eda07ddae1386bcad256b7a6a/extra_timm_models.py",
+      "title": "C-RADIO ViT-H definition",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "vit_huge_patch16_224 defines 1280 width, 32 layers, 16 heads, patch 16 and no LayerScale override."
+    },
+    {
+      "id": "radio-patch",
+      "url": "https://huggingface.co/nvidia/C-RADIOv2-H/blob/0d8f4c18c877166eda07ddae1386bcad256b7a6a/vit_patch_generator.py",
+      "title": "C-RADIO patch and positional embedding implementation",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Bias-free patch linear has 3*16*16 input channels; learned positions cover(2048/16)^2 positions. Replacement removes original patch/class/position parameters. cls_token helper pads four teacher class tokens to 16 including registers."
+    },
+    {
+      "id": "radio-conditioner",
+      "url": "https://huggingface.co/nvidia/C-RADIOv2-H/blob/0d8f4c18c877166eda07ddae1386bcad256b7a6a/input_conditioner.py",
+      "title": "C-RADIO input normalization buffers",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "norm_mean and norm_std are explicitly registered buffers, 3 elements each; excluded from learned count regardless of F32 storage."
+    },
+    {
+      "id": "timm",
+      "url": "https://github.com/huggingface/pytorch-image-models/blob/v1.0.20/timm/models/vision_transformer.py",
+      "title": "timm ViT constructor crosscheck",
+      "publisher": "Hugging Face / timm",
+      "accessed": true,
+      "evidence": "Inspected this fixed library revision (dependency is not pinned by the model card). Standard ViT defaults: 4x MLP, QKV and projection biases, two learned LayerNorms; no QK norms, pre-norm, LayerScale or extra MLP normalization. Combined with C-RADIO arguments exactly reconstructs all released vision tensors. Attention and Mlp source files were separately read."
+    },
+    {
+      "id": "report",
+      "url": "https://arxiv.org/html/2511.03929v2",
+      "title": "NVIDIA Nemotron Nano V2 VL technical report, revision 2",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Latest listed revision Nov 7, 2025. Exact final model combines a hybrid Mamba-Transformer language decoder, RADIO vision encoder and MLP connector. Explicit text, image/video processing, reasoning modes and Glaive/xLAM function-calling SFT. Advertised 128K context is distinct from the 311296 maximum training-sequence length in final context-extension training."
+    },
+    {
+      "id": "template",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-12B-v2-VL-BF16/blob/ca9543b126e8bf3176916d3d305ccc415f89fd4d/chat_template.jinja",
+      "title": "Pinned reasoning and tool-call chat template",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Implements /think and /no_think, AVAILABLE_TOOLS, TOOLCALL and TOOL_RESPONSE. Video inputs explicitly disable reasoning and raise when /think is requested; reasoning remains supported for text/image inputs."
+    },
+    {
+      "id": "announcement",
+      "url": "https://developer.nvidia.com/blog/develop-specialized-ai-agents-with-new-nvidia-nemotron-vision-rag-and-guardrail-models/",
+      "title": "October 28, 2025 NVIDIA model launch article",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Article body announces the open Nemotron Nano2VL model for text, images and video and links the exact BF16 checkpoint; states hybrid Mamba-Transformer architecture. AI-generated summary was not used as evidence."
+    },
+    {
+      "id": "license",
+      "url": "https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-open-model-license/",
+      "title": "NVIDIA Open Model License Agreement",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Exact governing agreement linked by the BF16 card, headed NVIDIA Open Model License Agreement, last modified October 24, 2025. Distinct from other Nemotron license variants."
+    },
+    {
+      "id": "timm-attention",
+      "url": "https://github.com/huggingface/pytorch-image-models/blob/v1.0.20/timm/layers/attention.py",
+      "title": "timm attention implementation crosscheck",
+      "publisher": "Hugging Face / timm",
+      "accessed": true,
+      "evidence": "QKV and output projections match the reconstructed shapes; QK/output normalization is disabled by the ViT defaults used by this exact C-RADIO configuration."
+    },
+    {
+      "id": "timm-mlp",
+      "url": "https://github.com/huggingface/pytorch-image-models/blob/v1.0.20/timm/layers/mlp.py",
+      "title": "timm MLP implementation crosscheck",
+      "publisher": "Hugging Face / timm",
+      "accessed": true,
+      "evidence": "The standard Mlp has two biased linear layers, hidden dimension four times vision width, with no additional learned normalization for this constructor configuration."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Nemotron Nano 12B v2 VL",
+      "status": "verified",
+      "source_ids": [
+        "card"
+      ],
+      "note": "Readable formatting of the exact model name; BF16 release used as full-precision checkpoint reference."
+    },
+    "developer": {
+      "value": "NVIDIA",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "announcement"
+      ],
+      "note": "Official NVIDIA model and launch article."
+    },
+    "family": {
+      "value": "nemotron",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "report"
+      ],
+      "note": "Explicit Nemotron family identity; canonical lowercase catalog key retained."
+    },
+    "release_date": {
+      "value": "2025-10-28",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "announcement"
+      ],
+      "note": "Exact card release date and contemporary launch article agree. Later Nov 6/7 report submissions are not model release dates."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "index",
+        "headers"
+      ],
+      "note": "Public official seven-shard checkpoint; all headers accessed without authentication."
+    },
+    "license": {
+      "value": "NVIDIA Open Model License",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "license"
+      ],
+      "note": "Exact card links this governing agreement; source-code Apache headers do not replace checkpoint terms."
+    },
+    "parameters_b": {
+      "value": 13.181860352,
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "index",
+        "headers",
+        "composition",
+        "language",
+        "language-remote",
+        "radio-constructor",
+        "radio-definition",
+        "radio-patch",
+        "radio-conditioner",
+        "timm",
+        "timm-attention",
+        "timm-mlp"
+      ],
+      "note": "Complete unique learned BF16 checkpoint count 13181860352, independently reconstructed for every tensor. Language 12320486912 + vision 651653120 + connector 209720320. Excludes 6 persistent normalization-buffer elements. The card\u2019s 12.6B is a conflicting nominal label, not this full checkpoint census. No packed weights, quantization scales, MTP or tied duplication."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "card",
+        "report",
+        "config",
+        "language"
+      ],
+      "note": "No separate active-parameter count or phase convention is reported for this dense hybrid multimodal model. Do not equate complete learned total with per-token activity: vision encoding and text decoding are separate phases."
+    },
+    "architecture": {
+      "value": "hybrid-ssm-transformer",
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "language",
+        "radio-definition",
+        "report"
+      ],
+      "note": "Language decoder has 28 Mamba-2, 6 attention and 28 dense MLP blocks. Vision encoder is a 32-layer ViT-H with MLP connector. No routed experts; not a MoE model."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "card",
+        "report"
+      ],
+      "note": "Both max_sequence_length and llm_config.max_position_embeddings are 131072, resolving advertised 128K input+output exactly. Final SFT trained sequences up to 311296; report and card still advertise 128K supported context, so training maximum is not silently substituted."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "report",
+        "composition"
+      ],
+      "note": "Explicit text/image/video inputs and generated text output. Video frames share the vision encoder and language context; no audio path."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "report",
+        "template"
+      ],
+      "note": "Exact report confirms on/off reasoning and template implements controls. Pinned template rejects /think with video input; this input-specific restriction does not negate text/image reasoning support."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "report",
+        "template"
+      ],
+      "note": "Exact-model report explicitly includes Glaive and xLAM function-calling SFT; template serializes tool schemas,calls and results."
+    },
+    "description": {
+      "value": "Vision-language model combining a C-RADIO encoder with a hybrid Mamba-2 and attention decoder, trained for document understanding, video comprehension and reasoning.",
+      "status": "verified",
+      "source_ids": [
+        "report",
+        "config",
+        "composition"
+      ],
+      "note": "Concrete supported architecture and task description, without comparative performance or generic agentic marketing."
+    }
+  },
+  "patch": {
+    "license": "NVIDIA Open Model License",
+    "parameters_b": 13.181860352,
+    "parameters_source": "primary_source",
+    "architecture": "hybrid-ssm-transformer",
+    "context_window": 131072,
+    "description": "Vision-language model combining a C-RADIO encoder with a hybrid Mamba-2 and attention decoder, trained for document understanding, video comprehension and reasoning.",
+    "source_url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-12B-v2-VL-BF16/blob/ca9543b126e8bf3176916d3d305ccc415f89fd4d/README.md",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Pinned Nemotron Nano 12B v2 VL BF16 model card",
+        "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-12B-v2-VL-BF16/blob/ca9543b126e8bf3176916d3d305ccc415f89fd4d/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned VL composite model configuration",
+        "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-12B-v2-VL-BF16/blob/ca9543b126e8bf3176916d3d305ccc415f89fd4d/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Complete seven-shard BF16 tensor index",
+        "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-12B-v2-VL-BF16/blob/ca9543b126e8bf3176916d3d305ccc415f89fd4d/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned vision-language model composition",
+        "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-12B-v2-VL-BF16/blob/ca9543b126e8bf3176916d3d305ccc415f89fd4d/modeling.py",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned language module implementation",
+        "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-12B-v2-VL-BF16/blob/ca9543b126e8bf3176916d3d305ccc415f89fd4d/modeling_nemotron_h.py",
+        "type": "primary"
+      },
+      {
+        "label": "NVIDIA Nemotron Nano V2 VL technical report, revision 2",
+        "url": "https://arxiv.org/html/2511.03929v2",
+        "type": "primary"
+      },
+      {
+        "label": "October 28, 2025 NVIDIA model launch article",
+        "url": "https://developer.nvidia.com/blog/develop-specialized-ai-agents-with-new-nvidia-nemotron-vision-rag-and-guardrail-models/",
+        "type": "primary"
+      },
+      {
+        "label": "NVIDIA Open Model License Agreement",
+        "url": "https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-open-model-license/",
+        "type": "primary"
+      }
+    ],
+    "notes": "Complete BF16 checkpoint has 13.181860352B learned parameters, including vision encoder and connector; the model card\u2019s 12.6B label differs from the reconstructed tensor inventory. Normalization buffers are excluded. Separate active parameters are not reported. Supported context is 131072 input-plus-output tokens; the larger 311296-token training sequence length is not advertised as the inference context. Reasoning is supported for text/image inputs; the pinned chat template disables reasoning for video."
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "language_backbone": 12.320486912,
+      "vision_encoder": 0.65165312,
+      "vision_connector": 0.20972032
+    }
+  },
+  "checkpoint_audit": {
+    "learned_parameters": 13181860352,
+    "learned_tensors": 759,
+    "buffer_elements": 6,
+    "buffer_tensors": 2,
+    "all_shapes_and_dtypes_verified": 761,
+    "components": {
+      "language_backbone": 12320486912,
+      "vision_encoder": 651653120,
+      "buffer": 6,
+      "vision_connector": 209720320
+    },
+    "language_layers": {
+      "M": 28,
+      "-": 28,
+      "*": 6
+    },
+    "vision_layers": 32,
+    "checkpoint_revision": "ca9543b126e8bf3176916d3d305ccc415f89fd4d",
+    "note": "Complete BF16 learned checkpoint. Nominal card 12.6B differs; independently reconstructed count is authoritative for this pinned full checkpoint. No routed experts; active count not separately disclosed.",
+    "headers": {
+      "shards": 7,
+      "tensors": 761,
+      "types": {
+        "F32": 6,
+        "BF16": 13181860352
+      },
+      "payload_bytes": 26363720728,
+      "index_metadata": {
+        "total_size": 26363720728
+      },
+      "header_bytes_read": 97064
+    },
+    "method": "Checked HTTP 206 Content-Range,length,contiguous dtype-sized offsets,physical shard lengths,index membership. Independently enumerated every expected name/shape from configuration and enabled constructors; all 761 matched. No model execution or weight payload downloads.",
+    "runtime_constructor_audit": "No extra learned constructor families found in the enabled configuration. RADIO final norm/classifier are removed; original patch/class/positions are replaced; optional adaptors/feature normalizers disabled; default LayerScale,QK normalization,pre-norm and MLP normalization are identity. Three runtime summary-index integers are derived buffers absent from the checkpoint. Vision preprocessing/EVS has no learned parameters. Language remote source constructor definitions match bundled source. timm 1.0.20 was a fixed crosscheck, not a model-pinned dependency. Although the saved arguments include force_spectral_reparam=true, spectral_reparam=false and neither active hf_model.py nor create_model_from_args calls the imported configure_spectral_reparam_from_args function; no reparametrization tensors or scaling parameters are introduced.",
+    "reproduction": {
+      "directory": "/tmp/model-audit-392",
+      "commands": [
+        "python3 /tmp/model-audit-392/headers.py",
+        "python3 /tmp/model-audit-392/count.py"
+      ]
+    },
+    "formula": "D5120,V132096,I10240,C12288,H128,F20480. Language:2*V*D+63*D+28*(D*(I+C+H)+D*I+C*4+C+I+3*H)+28*(2*D*F)+6*(2*D*5120+2*D*1024). Vision:32*(4*1280^2+4*1280+2*1280*5120+5120+1280+4*1280)+1280*768+16384*1280+16*1280. Connector:5120+5120*20480+20480*5120."
+  },
+  "summary": "All 14 fields audited. Correct total to independently reconstructed complete 13.181860352B, architecture to hybrid SSM/Transformer, governing license and exact 131072 context. Confirm Oct 28 release, text/image/video,reasoning and tool training. Keep active unknown because no separate activity accounting is published; record nominal-card size discrepancy, training-context distinction and video reasoning restriction."
+}
