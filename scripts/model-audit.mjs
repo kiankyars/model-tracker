@@ -79,7 +79,7 @@ export async function applyAcceptedReports(directory = auditDirectory, { project
   const corrections = await read(correctionsPath);
   const reopened = new Set(manifest.parameter_reaudit?.model_indices || []);
   const accepted = manifest.models.filter(entry => entry.state === 'accepted' && (!reopened.has(entry.index) || entry.parameter_reaudit?.state === 'accepted'));
-  const extendedFields = ['parameters_scope', 'active_parameters_scope', 'parameter_components_b', 'active_parameters_by_phase_b'];
+  const extendedFields = ['parameters_scope', 'active_parameters_scope', 'parameter_components_b', 'active_parameters_by_phase_b', 'parameters_lower_bound_b', 'parameters_lower_bound_exclusive'];
   let reviewedAt = '';
   for (const entry of accepted) {
     const report = validateReport(await read(path.join(directory, 'reports', `${String(entry.index).padStart(3, '0')}.json`)), entry);

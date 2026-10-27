@@ -1,6 +1,6 @@
 import { defaults, filterModels, sortModels, isMultimodal, toCSV } from './lib/model-data.js';
 import { renderChart } from './lib/chart-view.js';
-import { billions, missingLabel, modelSizeLabel, activeSizeLabel } from './lib/parameter-labels.js';
+import { billions, missingLabel, modelSizeLabel, activeSizeLabel, hasReportedSize } from './lib/parameter-labels.js';
 
 const $ = id => document.getElementById(id);
 const number = new Intl.NumberFormat('en');
@@ -223,7 +223,7 @@ function detailRow(model, id) {
   if (model.aliases?.length) cell.append(element('p', 'detail-note', `Also indexed as: ${model.aliases.join(', ')}`));
   const notes = [];
   if (model.parameters_source === 'model_name') notes.push('Parameter count is the nominal size published in the model name; it may be rounded.');
-  if (model.parameters_b == null) notes.push('Parameter count is not recorded in this catalog.');
+  if (!hasReportedSize(model)) notes.push('Parameter count is not recorded in this catalog.');
   if (model.open_weights === true) notes.push('Weights are available; usage rights depend on the model license.');
   if (model.upstream_present === false || model.in_current_source === false) notes.push('Retained from an earlier catalog snapshot or historical supplement.');
   if (notes.length) cell.append(element('p', 'detail-note', notes.join(' ')));
@@ -257,8 +257,9 @@ function renderRows() {
     const type = element('td', 'type-cell');
     type.append(element('span', 'model-type', isMultimodal(model) ? 'Multimodal' : 'Text'));
     if (model.reasoning) type.append(element('span', 'reasoning-label', 'Reasoning'));
-    const size = element('td', `numeric parameter-count${model.parameters_b == null ? ' unknown-value' : ''}`, modelSizeLabel(model));
-    if (model.parameters_b == null) size.title = 'Parameter count not recorded in this catalog';
+    const size = element('td', `numeric parameter-count${!hasReportedSize(model) ? ' unknown-value' : ''}`, modelSizeLabel(model));
+    if (!hasReportedSize(model)) size.title = 'Parameter count not recorded in this catalog';
+    else if (model.parameters_lower_bound_b != null) size.title = `Published lower bound; the total ${model.parameters_lower_bound_exclusive ? 'exceeds' : 'is at least'} ${billions(model.parameters_lower_bound_b)}`;
     else if (model.parameters_source === 'model_name') size.title = 'Nominal parameter count from the model name';
     const weights = element('td', 'weights-cell');
     weights.append(element('span', `weight-label${model.open_weights === true ? ' open' : model.open_weights == null ? ' unknown-value' : ''}`, model.open_weights === true ? 'Open' : model.open_weights === false ? 'Closed' : '—'));

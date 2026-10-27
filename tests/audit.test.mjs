@@ -6,7 +6,8 @@ import os from 'node:os';
 import path from 'node:path';
 import { validateModels, normalize, csv } from '../scripts/data-lib.mjs';
 import { modelSizeLabel, activeSizeLabel, missingLabel } from '../lib/parameter-labels.js';
-import { toCSV } from '../lib/model-data.js';
+import { toCSV, filterModels, sortModels } from '../lib/model-data.js';
+import { sizePoints } from '../lib/chart-data.js';
 
 test('an audit report cannot substitute another model or unsupported claims', () => {
   const entry = { index: 1, id: 'lab/model', task_name: 'audit_001', agent: '/root/audit_001' };
@@ -73,4 +74,21 @@ test('a reopened model retains its published correction until its fresh review i
   } finally {
     await fs.rm(projectRoot, { recursive: true, force: true });
   }
+});
+
+test('published lower bounds remain distinct from point counts across display, filters and exports', () => {
+  const model = { ...normalize('lab/bounded', { name: 'Bounded', modalities: { input: ['text'], output: ['text'] } }, '2026-10-27T09:00:00Z'), release_date: '2026-01-01', date_precision: 'day', parameters_lower_bound_b: 1000, parameters_lower_bound_exclusive: true };
+  validateModels([model]);
+  assert.equal(model.parameters_b, null);
+  assert.equal(modelSizeLabel(model), '>1,000B');
+  assert.equal(missingLabel(model, 'parameters_b'), '>1,000B');
+  assert.equal(modelSizeLabel({ ...model, parameters_lower_bound_exclusive: false }), '≥1,000B');
+  assert.equal(filterModels([model], { size: '100plus' }).length, 1);
+  for (const size of ['unknown', 'under3', '3to10', '10to30', '30to100']) assert.equal(filterModels([model], { size }).length, 0);
+  assert.equal(sizePoints([model]).length, 0);
+  assert.equal(sortModels([{ ...model, id: 'lab/unknown', parameters_lower_bound_b: undefined }, model], 'size')[0].id, model.id);
+  assert.throws(() => validateModels([{ ...model, parameters_b: 1000 }]), /lower bound/);
+  assert.throws(() => validateModels([{ ...model, parameters_lower_bound_b: -1 }]), /lower bound/);
+  assert.throws(() => validateModels([{ ...model, parameters_lower_bound_b: undefined }]), /lower bound/);
+  for (const output of [csv([model]), toCSV([model])]) assert.match(output.split('\r\n')[0].replaceAll('"', ''), /parameters_lower_bound_b,parameters_lower_bound_exclusive/);
 });

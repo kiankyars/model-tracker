@@ -202,6 +202,9 @@ export function validateModels(models, asOf = '9999-12-31') {
       if (model[key] !== null && (!Number.isFinite(model[key]) || model[key] <= 0)) throw new Error(`Invalid ${key}: ${model.id}`);
     }
     if (model.active_parameters_b && model.parameters_b && model.active_parameters_b > model.parameters_b) throw new Error(`Active size exceeds total: ${model.id}`);
+    if (model.parameters_lower_bound_b !== undefined) {
+      if (!Number.isFinite(model.parameters_lower_bound_b) || model.parameters_lower_bound_b <= 0 || typeof model.parameters_lower_bound_exclusive !== 'boolean' || model.parameters_b !== null || model.parameters_scope) throw new Error(`Invalid parameter lower bound: ${model.id}`);
+    } else if (model.parameters_lower_bound_exclusive !== undefined) throw new Error(`Parameter lower bound missing: ${model.id}`);
     for (const key of ['parameter_components_b', 'active_parameters_by_phase_b']) {
       if (model[key] === undefined) continue;
       if (!model[key] || Array.isArray(model[key]) || typeof model[key] !== 'object' || !Object.keys(model[key]).length) throw new Error(`Invalid ${key}: ${model.id}`);
@@ -253,7 +256,7 @@ export function statistics(models) {
 }
 
 export function csv(models) {
-  const columns = ['id', 'name', 'developer', 'family', 'release_date', 'date_precision', 'open_weights', 'license', 'parameters_b', 'active_parameters_b', 'parameters_source', 'parameters_scope', 'active_parameters_scope', 'parameter_components_b', 'active_parameters_by_phase_b', 'architecture', 'context_window', 'reasoning', 'tool_call', 'source_url'];
+  const columns = ['id', 'name', 'developer', 'family', 'release_date', 'date_precision', 'open_weights', 'license', 'parameters_b', 'active_parameters_b', 'parameters_source', 'parameters_scope', 'active_parameters_scope', 'parameter_components_b', 'active_parameters_by_phase_b', 'parameters_lower_bound_b', 'parameters_lower_bound_exclusive', 'architecture', 'context_window', 'reasoning', 'tool_call', 'source_url'];
   const cell = value => {
     let text = value == null ? '' : typeof value === 'object' ? JSON.stringify(value) : String(value);
     if (/^[-=+@\t\r]/.test(text)) text = `'${text}`;
