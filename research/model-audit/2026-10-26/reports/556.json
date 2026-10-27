@@ -1,7 +1,7 @@
 {
   "index": 556,
   "model_id": "zhipuai/glm-4.7-flashx",
-  "reviewed_at": "2026-10-27T06:19:06.548155Z",
+  "reviewed_at": "2026-10-27T18:39:55.224715+00:00",
   "sources": [
     {
       "id": "s1",
@@ -98,6 +98,30 @@
       "publisher": "Vercel",
       "accessed": true,
       "evidence": "The exact FlashX provider page explicitly gives January 19, 2026 as the release date and 200,000 context in its embedded service metadata, corroborating the original launch post and native 200K label. Its generic open-weights metadata is not an exact checkpoint mapping and is not used to establish weight access."
+    },
+    {
+      "id": "s13",
+      "url": "https://arxiv.org/html/2604.17543v1",
+      "title": "PoliLegalLM original comparison and local-evaluation protocol",
+      "publisher": "PoliLegalLM research team (Zhejiang University, Tongyi Lab and Zhejiang political/legal information center)",
+      "accessed": true,
+      "evidence": "Table 3 labels GLM-4.7-FlashX as 30B/A3B, Local Yes, with a PoliLegal score. Appendix A.3 restricts that private benchmark to locally deployable models. Section 5.1.3, references and linked prompt supplement provide no FlashX checkpoint or API identifier resolving possible confusion with open GLM-4.7-Flash. Table 4 also misstates GLM-5 active parameters as 30B rather than the developer's 40B (s15). The FlashX nominal-count claim is recorded but its model identity is not sufficiently established."
+    },
+    {
+      "id": "s14",
+      "url": "https://www.zhipuai.cn/zh/news/148",
+      "title": "Official GLM-4.7-Flash open-source launch",
+      "publisher": "Zhipu AI",
+      "accessed": true,
+      "evidence": "The developer explicitly reports GLM-4.7-Flash at 30B total and 3B active and links its open weights. The complete launch text does not mention FlashX or identify it as an unchanged variant of the named Flash model. These are supported Flash specifications, not a FlashX disclosure."
+    },
+    {
+      "id": "s15",
+      "url": "https://huggingface.co/zai-org/GLM-5/raw/main/README.md",
+      "title": "Official GLM-5 card used to check comparison-table accuracy",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "The introduction explicitly states 744B total and 40B active parameters for GLM-5, contradicting the 744B/A30B entry in PoliLegalLM Table 4. This establishes a concrete parameter-metadata error in the comparison source; it supplies no FlashX count."
     }
   ],
   "fields": {
@@ -162,27 +186,35 @@
     },
     "parameters_b": {
       "value": null,
-      "status": "undisclosed",
+      "status": "unverified",
       "source_ids": [
         "s1",
         "s2",
+        "s6",
+        "s7",
         "s8",
         "s9",
-        "s10"
+        "s13",
+        "s14",
+        "s15"
       ],
-      "note": "The checked exact API documents, original launch and later original reports/download comparisons disclose no total parameter count specifically for FlashX. Flash 30B and full GLM-4.7 355B are not transferred. No claim of exhaustive discovery is made."
+      "note": "The original PoliLegalLM team labels FlashX 30B, but its local-only evaluation protocol leaves the comparison model identity ambiguous; the linked supplement does not resolve it. Fresh developer guides, launch text and checkpoint inventory establish no FlashX count or explicit named-base relationship. The supported 30B Flash nominal size is preserved as comparison evidence rather than transferred."
     },
     "active_parameters_b": {
       "value": null,
-      "status": "undisclosed",
+      "status": "unverified",
       "source_ids": [
         "s1",
         "s2",
+        "s6",
+        "s7",
         "s8",
         "s9",
-        "s10"
+        "s13",
+        "s14",
+        "s15"
       ],
-      "note": "No exact active-parameter disclosure or mapped checkpoint was found. Flash 3B and full GLM-4.7 32B are not assigned to FlashX."
+      "note": "PoliLegalLM labels the FlashX comparison A3B, but the unresolved local-model identity and a demonstrable GLM-5 active-count error prevent treating this as a verified FlashX convention. Fresh developer sources report 3B active for Flash only; no FlashX disclosure or explicit lineage supporting its transfer was found."
     },
     "architecture": {
       "value": null,
@@ -264,7 +296,7 @@
     "description": "Hosted GLM text model with optional reasoning and function calling.",
     "source_url": "https://docs.z.ai/guides/llm/glm-4.7",
     "source_type": "primary",
-    "notes": "GLM-4.7-FlashX was listed as a paid high-speed API option in the January 19, 2026 GLM-4.7-Flash launch. The original post links Flash weights but does not explicitly identify the FlashX endpoint with that checkpoint. No exact FlashX checkpoint or such mapping was verified, so open-weight status is unverified and Flash\u2019s 30B/3B MoE specifications and MIT license are not transferred. Total parameters, active parameters and topology are undisclosed in the checked native docs and later original research/download tables. Proprietary describes the hosted API terms. The 200,000-token context is the documented service limit. FlashX remains a separate record because no primary identical-checkpoint statement was established; speed and pricing labels alone are insufficient for exclusion.",
+    "notes": "GLM-4.7-FlashX is a paid high-speed text API with a 200,000-token context. Total and active parameters remain unverified: PoliLegalLM lists 30B/3B, but its local-model description leaves possible confusion with the separate Flash checkpoint unresolved. No developer statement mapping FlashX to that checkpoint was established. Open-weight status remains unverified; proprietary describes the hosted API terms.",
     "sources": [
       {
         "label": "Official GLM-4.7 family API guide",
@@ -325,11 +357,145 @@
         "label": "Original Vercel gateway FlashX service page",
         "url": "https://vercel.com/ai-gateway/models/glm-4.7-flashx",
         "type": "docs"
+      },
+      {
+        "label": "PoliLegalLM original comparison and local-evaluation protocol",
+        "url": "https://arxiv.org/html/2604.17543v1",
+        "type": "primary"
+      },
+      {
+        "label": "Official GLM-4.7-Flash open-source launch",
+        "url": "https://www.zhipuai.cn/zh/news/148",
+        "type": "primary"
+      },
+      {
+        "label": "Official GLM-5 card used to check comparison-table accuracy",
+        "url": "https://huggingface.co/zai-org/GLM-5/raw/main/README.md",
+        "type": "primary"
       }
     ],
     "remove_source_urls": [
       "https://huggingface.co/zai-org/GLM-4.7-Flash"
     ]
   },
-  "summary": "Verified the January 19 launch and text/reasoning/function-call interface at 200,000 context. Cleared unsupported open-weights assertion and assigned hosted proprietary terms. Exact total/active parameters and architecture remain undisclosed after checking native docs, original launch, exact checkpoint inventory and later original research/download comparisons. No identical-checkpoint evidence supports service-tier exclusion; do not transfer Flash specifications. The full launch post was accessed via a mirror, with native X confirming its author, opening text and date. Remove the misleading Flash weights link from this FlashX record; the related card remains cited as comparison evidence."
+  "summary": "Fresh parameter re-audit found an original 30B/A3B FlashX comparison label, but could not establish which locally deployable model it identifies. Retain null total and active counts with unverified status, documenting the claim and the unresolved identity. Current native guides, the official Flash launch/card, the public checkpoint inventory and the later GLM-5 report supply no FlashX count or explicit named-base mapping. All twelve other field assessments are preserved.",
+  "parameter_reaudit": {
+    "agent": "/root/parameters_556",
+    "reviewed_at": "2026-10-27T18:39:55.224715+00:00",
+    "outcome": "Both parameters_b and active_parameters_b remain null; change assessment status to unverified to acknowledge an original but identity-ambiguous 30B/A3B comparison claim.",
+    "fresh_search_queries": [
+      "\"GLM-4.7-FlashX\" \"parameters\"",
+      "\"GLM-4.7-FlashX\" \"active\"",
+      "\"GLM-4.7-FlashX\" \"base\" model",
+      "\"PoliLegalLM\" github",
+      "\"GLM-4.7-FlashX\" \"30B\" -site:sota2.com -site:reddit.com",
+      "\"GLM-4.7-FlashX\" (\"\u53c2\u6570\" OR \"\u6fc0\u6d3b\") site:zhipuai.cn",
+      "\"GLM-4.7-FlashX\" (\"same\" OR \"variant\" OR \"\u57fa\u4e8e\") site:z.ai",
+      "\"GLM-4.7-FlashX\" (\"30B\" OR \"3B\" OR \"\u53c2\u6570\") site:docs.bigmodel.cn",
+      "\"GLM-4.7-FlashX\" (\"30B\" OR \"3B\" OR \"variant\") site:z.ai",
+      "\"GLM-4.7-FlashX\" (\"parameters\" OR \"active\") site:arxiv.org",
+      "\"GLM-4.7-FlashX\" site:github.com/zai-org",
+      "\"GLM-4.7-FlashX\" \"\u540c\" \"\u53c2\u6570\"",
+      "\"GLM-4.7-FlashX\" \"distillation\"",
+      "\"GLM-4.7-FlashX\" \"activated parameters\"",
+      "\"GLM-4.7-FlashX\" \"30B/A3B\""
+    ],
+    "fresh_originals": [
+      {
+        "url": "https://docs.z.ai/guides/llm/glm-4.7.md",
+        "status": 200,
+        "accessed_at": "2026-10-27T18:37:49.090803+00:00",
+        "evidence_path": "/tmp/parameter-556-reaudit/guide-en.txt",
+        "finding": "Complete native guide: separately named lightweight/high-speed FlashX, no parameter count or named Flash base relationship.",
+        "source_id": "s1"
+      },
+      {
+        "url": "https://docs.bigmodel.cn/cn/guide/models/text/glm-4.7.md",
+        "status": 200,
+        "accessed_at": "2026-10-27T18:37:49.041760+00:00",
+        "evidence_path": "/tmp/parameter-556-reaudit/guide-cn.txt",
+        "finding": "Complete Chinese guide: FlashX positioned as lightweight high-speed version, without an explicit named base or count.",
+        "source_id": "s2"
+      },
+      {
+        "url": "https://api.fxtwitter.com/Zai_org/status/2013261304060866758",
+        "status": 200,
+        "accessed_at": "2026-10-27T18:37:47.765555+00:00",
+        "evidence_path": "/tmp/parameter-556-reaudit/flash-launch.txt",
+        "finding": "Fresh full-text mirror: 30B wording names Flash; FlashX appears separately in the API-options list, without an explicit same-model/variant statement.",
+        "source_id": "s6"
+      },
+      {
+        "url": "https://huggingface.co/zai-org/GLM-4.7-Flash/raw/main/README.md",
+        "status": 200,
+        "accessed_at": "2026-10-27T18:37:47.693440+00:00",
+        "evidence_path": "/tmp/parameter-556-reaudit/flash-card.txt",
+        "finding": "Developer nominal 30B-A3B describes Flash; card does not mention FlashX.",
+        "source_id": "s8"
+      },
+      {
+        "url": "https://www.zhipuai.cn/zh/news/148",
+        "status": 200,
+        "accessed_at": "2026-10-27T18:38:30.272030+00:00",
+        "evidence_path": "/tmp/parameter-556-reaudit/zhipu-launch.txt",
+        "finding": "Official launch independently supplies Flash total and active counts, but no FlashX lineage.",
+        "source_id": "s14"
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=zai-org&limit=1000",
+        "status": 200,
+        "accessed_at": "2026-10-27T18:38:28.079188+00:00",
+        "evidence_path": "/tmp/parameter-556-reaudit/inventory.txt",
+        "finding": "No exact FlashX entry in fresh developer inventory; absence is not proof that no alias exists.",
+        "source_id": "s7"
+      },
+      {
+        "url": "https://arxiv.org/html/2602.15763v2",
+        "status": 200,
+        "accessed_at": "2026-10-27T18:38:27.998539+00:00",
+        "evidence_path": "/tmp/parameter-556-reaudit/glm5-report.txt",
+        "finding": "Later developer report checked for FlashX comparison/lineage; no FlashX occurrence.",
+        "source_id": "s9"
+      },
+      {
+        "url": "https://arxiv.org/html/2604.17543v1",
+        "status": 200,
+        "accessed_at": "2026-10-27T18:37:47.693017+00:00",
+        "evidence_path": "/tmp/parameter-556-reaudit/polilegal.txt",
+        "finding": "Read baseline section, both comparison tables, references, local-only private-benchmark protocol and supplement link; ambiguous local FlashX identity remains.",
+        "source_id": "s13"
+      },
+      {
+        "url": "https://huggingface.co/zai-org/GLM-5/raw/main/README.md",
+        "status": 200,
+        "accessed_at": "2026-10-27T18:38:28.047295+00:00",
+        "evidence_path": "/tmp/parameter-556-reaudit/glm5-card.txt",
+        "finding": "Independent developer evidence of the comparison table's GLM-5 active-count error.",
+        "source_id": "s15"
+      },
+      {
+        "url": "https://zenodo.org/api/records/19444015",
+        "status": 200,
+        "accessed_at": "2026-10-27T18:38:29.550145+00:00",
+        "evidence_path": "/tmp/parameter-556-reaudit/zenodo.txt",
+        "finding": "Author-linked supplement record resolves to 19444016 and lists only prompt.md."
+      },
+      {
+        "url": "https://zenodo.org/api/records/19444016/files/prompt.md/content",
+        "status": 200,
+        "accessed_at": "2026-10-27T18:38:47.031586+00:00",
+        "evidence_path": "/tmp/parameter-556-reaudit/zenodo-prompt.txt",
+        "finding": "Read linked prompt template; no baseline identifier, checkpoint or deployment information."
+      },
+      {
+        "url": "https://api.github.com/search/repositories?q=PoliLegalLM",
+        "status": 200,
+        "accessed_at": "2026-10-27T18:37:47.822101+00:00",
+        "evidence_path": "/tmp/parameter-556-reaudit/polilegal-repos.txt",
+        "finding": "Bounded exact-name repository lookup returned total_count=0; no original evaluation code identified."
+      }
+    ],
+    "reasoning": "Nominal comparison figures and named unchanged variant lineage are acceptable evidence; no exact tensor census or hosting attestation was demanded. Here the paper names FlashX but describes and evaluates it as a local model without resolving which checkpoint it means. The sole linked supplement and repository search did not resolve that identity, and a separate active-count error weakens the metadata. Developer sources name Flash at 30B/3B and separately list FlashX without explicitly naming its base. No supported FlashX lineage was established, so no structural-change inference can be completed. Secondary gateway descriptions that repeat Flash text were discovery leads only.",
+    "preserved_other_field_assessments": true
+  }
 }
