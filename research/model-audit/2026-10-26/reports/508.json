@@ -1,7 +1,7 @@
 {
   "index": 508,
   "model_id": "thedrummer/unslopnemo-12b",
-  "reviewed_at": "2026-10-27T04:59:28.294213Z",
+  "reviewed_at": "2026-10-27T18:08:30.605248Z",
   "sources": [
     {
       "id": "s1",
@@ -17,7 +17,7 @@
       "title": "UnslopNemo v4.1 configuration at audited revision",
       "publisher": "TheDrummer",
       "accessed": true,
-      "evidence": "MistralForCausalLM; 40 layers, hidden size 5120, intermediate size 14336, 32 query and 8 KV heads, head dimension 128, vocabulary 131072, untied word embeddings, BF16, max_position_embeddings 1024000, no sliding window. References Mistral-Nemo-Base-2407; Transformers version 4.45.2."
+      "evidence": "MistralForCausalLM; 40 layers, hidden size 5120, intermediate size 14336, 32 query and 8 KV heads, head dimension 128, vocabulary 131072, untied word embeddings, BF16, max_position_embeddings 1024000, no sliding window. References Mistral-Nemo-Base-2407; Transformers version 4.45.2. Fresh October 27 comparison with the official named Base and Instruct configs finds identical parameter dimensions; only the configured position limit, Transformers version and added _name_or_path differ from Base."
     },
     {
       "id": "s3",
@@ -25,7 +25,7 @@
       "title": "UnslopNemo v4.1 complete tensor index",
       "publisher": "TheDrummer",
       "accessed": true,
-      "evidence": "Index maps 363 tensors across five shards and records 24,495,564,800 tensor-data bytes. All indexed tensors were matched one-to-one against bounded header reads; no parameter count is inferred from byte size alone."
+      "evidence": "Index maps 363 tensors across five shards and records 24,495,564,800 tensor-data bytes. All indexed tensors were matched one-to-one against bounded header reads; no parameter count is inferred from byte size alone. Fresh re-read confirms the same 363-tensor mapping and total_size; metadata also names mergekit_version 0.0.4.4, without a merge recipe."
     },
     {
       "id": "s4",
@@ -73,7 +73,7 @@
       "title": "MistralForCausalLM implementation at configured Transformers version",
       "publisher": "Mistral AI / Hugging Face",
       "accessed": true,
-      "evidence": "Defines dense causal Transformer layers, bias-free attention and MLP projections, learned RMSNorm weights, token embedding and LM head. Rotary inverse frequencies are nonpersistent buffers, not parameters. The checkpoint configuration and every tensor name/shape match these modules; untied embeddings are counted separately."
+      "evidence": "Defines dense causal Transformer layers, bias-free attention and MLP projections, learned RMSNorm weights, token embedding and LM head. Rotary inverse frequencies are nonpersistent buffers, not parameters. The checkpoint configuration and every tensor name/shape match these modules; untied embeddings are counted separately. Reopened the pinned implementation on October 27 and recomputed its configured module total as 12,247,782,400."
     },
     {
       "id": "s10",
@@ -121,7 +121,63 @@
       "title": "UnslopNemo v4.1 repository API and file inventory",
       "publisher": "TheDrummer / Hugging Face",
       "accessed": true,
-      "evidence": "Repository is public, ungated and enabled at audited revision c20fadc8281ea8237acb8054f4a84524ca257478. Full file inventory lists five safetensors shards, configuration and tokenizer files; no license file or license metadata. HF reports 12,247,782,400 BF16 elements, independently verified against all headers and configured modules."
+      "evidence": "Repository is public, ungated and enabled at audited revision c20fadc8281ea8237acb8054f4a84524ca257478. Full file inventory lists five safetensors shards, configuration and tokenizer files; no license file or license metadata. HF reports 12,247,782,400 BF16 elements, independently verified against all headers and configured modules. Fresh October 27 response retains the same revision and exact safetensors count; no shard was requested in this pass."
+    },
+    {
+      "id": "s16",
+      "url": "https://huggingface.co/TheDrummer/UnslopNemo-12B-v4.1/raw/main/README.md",
+      "title": "Current UnslopNemo v4.1 creator card",
+      "publisher": "TheDrummer",
+      "accessed": true,
+      "evidence": "Fresh October 27 retrieval contains only the creator donation link. It adds no parameter or active-count statement; the explicit base identity is in the creator-published configuration s2."
+    },
+    {
+      "id": "s17",
+      "url": "https://huggingface.co/mistralai/Mistral-Nemo-Base-2407/raw/main/README.md",
+      "title": "Mistral NeMo Base original model card",
+      "publisher": "Mistral AI / NVIDIA",
+      "accessed": true,
+      "evidence": "Names the exact base as a 12B pretrained text model. Its prose MLP dimension says 14,436, inconsistent with its own config; use the authoritative executable configuration value 14,336 for dimension comparison and arithmetic."
+    },
+    {
+      "id": "s18",
+      "url": "https://huggingface.co/mistralai/Mistral-Nemo-Base-2407/raw/main/config.json",
+      "title": "Mistral NeMo Base parameter dimensions",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Fresh config matches UnslopNemo in architecture, 40 layers, width 5120, intermediate width 14336, 32 query/8 KV heads, head dimension 128, vocabulary 131072 and untied embeddings. Differences are position limit 131072 versus 1024000, Transformers version and creator _name_or_path; these do not add learned weights in the checked implementation."
+    },
+    {
+      "id": "s19",
+      "url": "https://huggingface.co/mistralai/Mistral-Nemo-Instruct-2407/raw/main/README.md",
+      "title": "Mistral NeMo Instruct named-base relationship",
+      "publisher": "Mistral AI / NVIDIA",
+      "accessed": true,
+      "evidence": "Explicitly identifies Instruct as an instruction fine-tune of Mistral-Nemo-Base-2407; establishes the named relationship for comparison with the Microsoft plot rather than relying on a similar family name."
+    },
+    {
+      "id": "s20",
+      "url": "https://huggingface.co/mistralai/Mistral-Nemo-Instruct-2407/raw/main/config.json",
+      "title": "Mistral NeMo Instruct parameter dimensions",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Fresh Instruct and Base configuration objects are identical, corroborating that instruction tuning did not change their parameter dimensions."
+    },
+    {
+      "id": "s21",
+      "url": "https://docs.mistral.ai/models/mistral-nemo-12b-24-07",
+      "title": "Current official NeMo Base and Instruct weights table",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Fresh HTTP 200 page and live browser WEIGHTS tab checked October 27. Separate Parameters (B) and Active (B) columns both give 12 for Base Weights linking exactly to mistralai/Mistral-Nemo-Base-2407; Instruct and FP8 Instruct rows also show 12/12. This is a developer-published nominal active convention, not a per-token tensor census."
+    },
+    {
+      "id": "s22",
+      "url": "https://www.microsoft.com/en-us/research/wp-content/uploads/2025/01/WEF-2025_Leave-Behind_Phi-4.pdf",
+      "title": "Phi-4 original Microsoft research comparison brief, January 2025",
+      "publisher": "Microsoft Research",
+      "accessed": true,
+      "evidence": "Reopened the two-page original brief and visually checked the page-1 chart: Active Parameters (Billions) axis places exact Mistral-Nemo-Instruct-2407 at approximately 12B. Corroborates the nominal NeMo convention at plot precision; it does not directly measure UnslopNemo and is not a TheDrummer disclosure."
     }
   ],
   "fields": {
@@ -200,20 +256,25 @@
         "s6",
         "s7",
         "s8",
-        "s9"
+        "s9",
+        "s15",
+        "s17",
+        "s18"
       ],
-      "note": "Complete learned-parameter count: 12,247,782,400 from all 363 tensors across all five indexed BF16 shard headers. Every name/shape matches the configured MistralForCausalLM modules: two untied vocabulary matrices, 40 dense decoder layers and final norm. All projections have no bias; rotary frequencies are nonpersistent buffers. No quantization, packed storage, scale tensors, unindexed tensors or unresolved ties. Read 42,304 header bytes total, never full weights. The 12B name is rounded."
+      "note": "Retain the prior complete 12,247,782,400 learned-parameter census from all 363 BF16 tensors across five indexed shard headers. Fresh October 27 creator API still reports the same revision and exact count; reopened configuration, tensor index and Mistral implementation independently reproduce that total. It includes two untied vocabulary matrices, 40 decoder layers and final norm; rotary frequencies are nonpersistent buffers. The creator and named base use nominal 12B. No shard or header was requested again in this pass."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 12,
+      "status": "verified",
       "source_ids": [
-        "s1",
         "s2",
+        "s3",
         "s9",
-        "s10"
+        "s10",
+        "s18",
+        "s21"
       ],
-      "note": "Creator does not define or report a separate per-token active-parameter count. Dense architecture does not justify equating active parameters with total learned parameters."
+      "note": "Nominal 12B inferred from explicit creator-published Mistral-Nemo-Base-2407 lineage and the exact base developer's separate Active (B)=12 disclosure. The creator config and complete earlier tensor audit preserve its parameter dimensions, without pruning, extra experts or modalities; the larger RoPE position limit does not add learned weights. Index mergekit metadata does not specify a recipe but does not change the matched parameter structure. This applies the documented base convention, not dense-equals-total arithmetic; no derivative-specific exact per-token count is disclosed."
     },
     "architecture": {
       "value": "dense",
@@ -297,7 +358,7 @@
     "description": "TheDrummer's UnslopNemo v4.1 text-generation model for roleplay, intended to replace repetitive wording with more varied vocabulary; the creator recommends Metharme prompting.",
     "source_url": "https://huggingface.co/TheDrummer/UnslopNemo-12B-v4.1",
     "source_type": "primary",
-    "notes": "This catalog id resolves to UnslopNemo v4.1. Exact total is 12,247,782,400 learned parameters, verified from all five indexed BF16 shard headers and configured modules, including separate untied embeddings and LM head; 12B is rounded. Active parameters and checkpoint-level reasoning/tool-call capability are not separately established. Context 1,024,000 is the configured position limit, not a demonstrated quality guarantee. The creator announced publicly available v4.1 GGUF weights on October 23, 2024, before the November 8 provider listing. The announcement was edited early October 24; edit contents are unavailable. No license is declared for this exact checkpoint.",
+    "notes": "This catalog id resolves to UnslopNemo v4.1. Exact total is 12,247,782,400 learned parameters, including untied embeddings and LM head. Nominal 12B active is inferred from its explicitly named Mistral-NeMo Base and unchanged parameter dimensions, using Mistral's separately published active count; it is not an exact per-token census. Checkpoint-level reasoning/tool-call capability remains unverified. Context 1,024,000 is configured, not a demonstrated quality guarantee. Creator release was October 23, 2024; the announcement was edited early October 24 with no edit history. No license is declared for this exact checkpoint.",
     "sources": [
       {
         "label": "Exact v4.1 checkpoint",
@@ -338,8 +399,70 @@
         "label": "Provider id to checkpoint mapping",
         "url": "https://openrouter.ai/thedrummer/unslopnemo-12b",
         "type": "secondary"
+      },
+      {
+        "label": "Mistral NeMo Base parameter dimensions",
+        "url": "https://huggingface.co/mistralai/Mistral-Nemo-Base-2407/raw/main/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Current official NeMo Base and Instruct weights table",
+        "url": "https://docs.mistral.ai/models/mistral-nemo-12b-24-07",
+        "type": "primary"
+      },
+      {
+        "label": "Phi-4 original Microsoft research comparison brief, January 2025",
+        "url": "https://www.microsoft.com/en-us/research/wp-content/uploads/2025/01/WEF-2025_Leave-Behind_Phi-4.pdf",
+        "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": 12
   },
-  "summary": "Identified exact v4.1 variant; replaced nominal 12B with complete 12.2477824B learned-parameter count from every indexed tensor header and configured module. Confirmed dense architecture, text modalities, public weights and configured 1,024,000 context. Corrected release to creator announcement on 2024-10-23 and description to roleplay intent. Active count and exact-checkpoint license remain undisclosed; unsupported reasoning and tool-call booleans are cleared. No whole weight downloads."
+  "summary": "Retained the precise 12.2477824B total after fresh configuration, index, implementation and API checks. Resolved nominal active parameters to 12B by explicit named-base lineage and Mistral's separate Base Weights active disclosure, with unchanged parameter dimensions. Microsoft's original comparison corroborates approximately 12B for the documented Instruct sibling. Preserved all 12 non-parameter assessments; no weight shards requested.",
+  "parameter_reaudit": {
+    "agent": "/root/parameters_508",
+    "reviewed_at": "2026-10-27T18:08:30.605248Z",
+    "outcome": "Retain precise 12.2477824B total; resolve nominal 12B active via explicit named-base lineage and original developer active-count convention.",
+    "fresh_search_queries": [
+      "\"UnslopNemo\" \"active\" parameters",
+      "\"UnslopNemo-12B-v4.1\" parameters base",
+      "\"Mistral-Nemo\" \"active parameters\"",
+      "site:huggingface.co/TheDrummer/UnslopNemo-12B-v4.1 \"parameter\"",
+      "\"UnslopNemo\" \"activated\"",
+      "\"Mistral-Nemo-Instruct-2407\" \"active\" Microsoft Phi4"
+    ],
+    "original_sources_checked": [
+      "s2",
+      "s3",
+      "s9",
+      "s10",
+      "s15",
+      "s16",
+      "s17",
+      "s18",
+      "s19",
+      "s20",
+      "s21",
+      "s22"
+    ],
+    "search_findings": "Reopened creator announcement and current card; the latter still only links donations. Read exact creator config/index/API and original Mistral Base/Instruct cards/configs. Current official weights table directly supplies Base active12; the independently published Microsoft research plot corroborates Instruct at approximately12. Secondary directories and Nextbit describe nominal12 or assume all dense parameters active; those assumptions are not used as evidence.",
+    "fresh_total_verification": {
+      "revision": "c20fadc8281ea8237acb8054f4a84524ca257478",
+      "hf_api_parameters": 12247782400,
+      "index_tensors": 363,
+      "configured_module_count": 12247782400,
+      "formula": "2*131072*5120 + 40*(2*5120*4096 + 2*5120*1024 + 3*5120*14336 + 2*5120) + 5120",
+      "creator_base_config_differences": [
+        "_name_or_path",
+        "max_position_embeddings",
+        "transformers_version"
+      ],
+      "base_instruct_config_differences": []
+    },
+    "lineage_assessment": "Creator configuration explicitly names Mistral-Nemo-Base-2407. All parameter-bearing dimensions and the previously verified complete tensor set match that base. The index names mergekit but no recipe; no structural expansion, pruning, distillation or modality addition is indicated. The current official table directly names Base, so active inference does not depend on transferring an undocumented sibling convention.",
+    "access_limitations": "Previously cited pinned Mistral documentation source files returned404, and the legacy pages.dev weights page could not be fetched. The current official documentation returned200; its live WEIGHTS tab independently displayed Base12 total/12active and linked the exact checkpoint.",
+    "remaining_uncertainty": "TheDrummer does not publish a derivative-specific active definition or exact token-dependent participation count; the recorded12B is an explicitly labeled nominal lineage inference.",
+    "cache_directory": "/tmp/parameter-508-reaudit",
+    "weight_shards_requested": false
+  }
 }
