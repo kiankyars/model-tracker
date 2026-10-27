@@ -1,7 +1,7 @@
 {
   "index": 171,
   "model_id": "deepseek/deepseek-r1-distill-qwen-32b",
-  "reviewed_at": "2026-10-26T19:02:25.121272+00:00",
+  "reviewed_at": "2026-10-27T11:00:33.541819+00:00",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,8 @@
       "title": "DeepSeek-R1-Distill-Qwen-32B official model card",
       "publisher": "DeepSeek",
       "accessed": true,
-      "evidence": "Identifies the exact January R1 distilled Qwen2.5-32B model among six dense released checkpoints; documents reasoning, text generation, 800k-sample fine-tuning and licensing provenance."
+      "evidence": "Reopened October 27, 2026. The exact pinned developer card names Qwen2.5-32B (Base, not Instruct) as the student base and describes fine-tuning on DeepSeek-R1-generated samples. It notes generic config/tokenizer adjustments across the distill family; the exact 32B config freshly compared with its base is identical. No pruning, expert expansion or added modality is described.",
+      "accessed_at": "2026-10-27T11:00:33.541819+00:00"
     },
     {
       "id": "s2",
@@ -25,7 +26,8 @@
       "title": "Pinned official Qwen-32B distill configuration",
       "publisher": "DeepSeek",
       "accessed": true,
-      "evidence": "Qwen2ForCausalLM; 64 layers; hidden size 5120; intermediate size 27648; 40 query and 8 KV heads; vocabulary 152064; BF16; max_position_embeddings 131072; tie_word_embeddings false; sliding-window attention disabled."
+      "evidence": "Freshly retrieved October 27, 2026 and compared with the official Qwen2.5-32B Base config. Full parsed JSONs are identical: Qwen2ForCausalLM, 64 layers, hidden 5120, intermediate 27648, 40 query/8 KV heads, vocabulary 152064 and untied embeddings. This confirms preserved parameter-bearing dimensions; no weight shards were read in this pass.",
+      "accessed_at": "2026-10-27T11:00:33.541819+00:00"
     },
     {
       "id": "s4",
@@ -65,7 +67,8 @@
       "title": "DeepSeek-R1 original technical report, section 2.4",
       "publisher": "DeepSeek-AI",
       "accessed": true,
-      "evidence": "Identifies Qwen2.5-32B as the base; the distilled models use supervised fine-tuning on about 800k curated samples, without an RL stage. Separately evaluates the exact Qwen-32B distill."
+      "evidence": "Reopened October 27, 2026. Section 2.4 explicitly describes supervised fine-tuning of the named Qwen2.5-32B base using about 800k teacher-generated samples, without an RL stage. Distillation here transfers teacher outputs into an existing student; it is not structural pruning of the full R1 model.",
+      "accessed_at": "2026-10-27T11:00:33.541819+00:00"
     },
     {
       "id": "s9",
@@ -73,7 +76,8 @@
       "title": "DeepSeek-R1 revised technical report, January 2026",
       "publisher": "DeepSeek-AI",
       "accessed": true,
-      "evidence": "Appendix B.4.3 and F retain the exact distilled Qwen2.5-32B model. Activated-parameter disclosures concern the full 671B R1/V3 models, not this distilled checkpoint; no separately defined active count for this model is provided."
+      "evidence": "Reopened October 27, 2026. Appendix B.4.3 Table 6 maps the exact distill to Qwen2.5-32B and specifies fine-tuning for 2–3 epochs; Appendix F reiterates SFT-only distillation and compares its benchmark scores. Activated counts in this report concern full R1/V3, so the nominal student count is instead supported through the base developer’s table and documented lineage.",
+      "accessed_at": "2026-10-27T11:00:33.541819+00:00"
     },
     {
       "id": "s10",
@@ -81,7 +85,8 @@
       "title": "Qwen2.5-32B official base model card",
       "publisher": "Qwen",
       "accessed": true,
-      "evidence": "Describes the base as a causal Transformer with RoPE, SwiGLU, RMSNorm, QKV biases and 40/8-head grouped-query attention. The base card's rounded 32.5B label is not used instead of the exact distilled-checkpoint count."
+      "evidence": "Reopened October 27, 2026. The official card identifies the pretraining-stage Qwen2.5-32B base and its 64-layer, 40/8-head dense architecture. Its rounded 32.5B total and 31.0B non-embedding labels are not substituted for the exact distilled checkpoint total or the later explicit activated count.",
+      "accessed_at": "2026-10-27T11:00:33.541819+00:00"
     },
     {
       "id": "h1",
@@ -146,6 +151,24 @@
       "publisher": "DeepSeek",
       "accessed": true,
       "evidence": "Bounded header read: 30 indexed BF16 learned weight/bias tensors, 2,036,909,056 elements; HTTP Content-Range bytes 8-3423/4073821536. No quantization scales, packed weights or persistent buffers appear."
+    },
+    {
+      "id": "s11",
+      "url": "https://arxiv.org/html/2505.09388v1",
+      "title": "Qwen3 Technical Report: base and distill activated-parameter comparison tables",
+      "publisher": "Qwen Team",
+      "accessed": true,
+      "accessed_at": "2026-10-27T11:00:33.541819+00:00",
+      "evidence": "Read October 27, 2026. Table 4 explicitly reports 32B activated parameters for Qwen2.5-32B Base. Tables 15 and 17 also list exact DeepSeek-R1-Distill-Qwen-32B at 32B activated; these downstream comparison rows corroborate the base-lineage inference. Use the developer’s nominal activation convention, not exact total or non-embedding equality."
+    },
+    {
+      "id": "s12",
+      "url": "https://huggingface.co/Qwen/Qwen2.5-32B/raw/main/config.json",
+      "title": "Official Qwen2.5-32B Base configuration",
+      "publisher": "Qwen",
+      "accessed": true,
+      "accessed_at": "2026-10-27T11:00:33.541819+00:00",
+      "evidence": "Freshly fetched October 27, 2026. Its full parsed JSON is identical to the pinned official DeepSeek-R1-Distill-Qwen-32B configuration, including layer count, hidden/FFN sizes, attention heads, vocabulary and untied embedding setting. Confirms no size-bearing change in the documented student fine-tuning relationship."
     }
   ],
   "fields": {
@@ -218,18 +241,24 @@
         "h5",
         "h6",
         "h7",
-        "h8"
+        "h8",
+        "s1",
+        "s12"
       ],
-      "note": "Complete learned checkpoint count: 32,763,876,352 = sum of all 771 BF16 tensor shape products. All indexed names match once. No buffers or quantization metadata are counted. Input embedding and lm_head each contain 778,567,680 distinct parameters; tie_word_embeddings=false, so neither is deduplicated. Independent config formula: 2*152064*5120 + 64*(2*5120^2 + 2*5120*1024 + 3*5120*27648 + 2*5120 + 5120 + 2*1024) + 5120. The name's 32B is nominal."
+      "note": "Complete learned checkpoint count: 32,763,876,352 = sum of all 771 BF16 tensor shape products. All indexed names match once. No buffers or quantization metadata are counted. Input embedding and lm_head each contain 778,567,680 distinct parameters; tie_word_embeddings=false, so neither is deduplicated. Independent config formula: 2*152064*5120 + 64*(2*5120^2 + 2*5120*1024 + 3*5120*27648 + 2*5120 + 5120 + 2*1024) + 5120. The name's 32B is nominal. October 27 re-audit retains this prior complete census and reconfirms the configuration; no weight shards were downloaded again."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 32,
+      "status": "verified",
       "source_ids": [
+        "s1",
+        "s3",
         "s8",
-        "s9"
+        "s9",
+        "s11",
+        "s12"
       ],
-      "note": "No separately defined activated/per-token count for this exact distill is reported in either technical report. Dense architecture alone does not justify active=total; the 37B figures refer to full R1/V3."
+      "note": "Nominal 32B activated parameters, inferred from the explicit Qwen2.5-32B Base fine-tuning lineage and identical parameter-bearing configuration. Qwen’s later report Table 4 defines 32B active for that base; Tables 15 and 17 corroborate the exact distill at 32B active. Teacher-output distillation does not prune the student architecture. No structural expansion or modality change is described. This follows the published nominal convention rather than equating active parameters with the precise 32.763876352B total or a non-embedding count."
     },
     "architecture": {
       "value": "dense",
@@ -308,7 +337,7 @@
     "description": "Dense text reasoning model fine-tuned from Qwen2.5-32B using about 800,000 samples curated with DeepSeek-R1.",
     "source_url": "https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-32B",
     "source_type": "primary",
-    "notes": "January 2025 R1 distill of Qwen2.5-32B. Complete BF16 checkpoint: 32,763,876,352 learned parameters; untied input/output embeddings are both included. No active-parameter figure is separately defined. MIT release derives from an Apache-2.0 base. Context 131,072 is the configured position limit; the official example/evaluation uses 32,768. Tool-call formatting exists, but exact-variant tool-use capability remains unverified.",
+    "notes": "January 2025 R1 distill of Qwen2.5-32B. Complete BF16 checkpoint: 32,763,876,352 learned parameters; untied input/output embeddings are both included. Nominal 32B active is inferred from the documented Qwen2.5-32B Base fine-tuning lineage and matching configuration, using Qwen’s activated-parameter convention. MIT release derives from an Apache-2.0 base. Context 131,072 is the configured position limit; the official example/evaluation uses 32,768. Tool-call formatting exists, but exact-variant tool-use capability remains unverified.",
     "sources": [
       {
         "label": "Official distilled-model card",
@@ -354,8 +383,19 @@
         "label": "Revised DeepSeek-R1 technical report",
         "url": "https://arxiv.org/html/2501.12948v2",
         "type": "primary"
+      },
+      {
+        "label": "Qwen3 Technical Report: base and distill activated-parameter comparison tables",
+        "url": "https://arxiv.org/html/2505.09388v1",
+        "type": "primary"
+      },
+      {
+        "label": "Official Qwen2.5-32B Base configuration",
+        "url": "https://huggingface.co/Qwen/Qwen2.5-32B/raw/main/config.json",
+        "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": 32
   },
-  "summary": "Audited the original January 2025 Qwen2.5-32B distill, not R1-0528-Qwen3-8B. All eight bounded shard-header reads and an independent config calculation confirm 32.763876352B learned parameters. Adds MIT with Apache-2.0 base provenance and dense Transformer architecture; confirms release date, text modalities, reasoning and configured 131072 context. Clears unsupported tool_call=false to null; active parameters remain undisclosed. Description now states the documented distillation procedure."
+  "summary": "October 27 parameter re-audit preserves the prior precise 32.763876352B total and recovers nominal 32B active from explicit Qwen2.5-32B Base fine-tuning lineage, identical fresh configurations and Qwen’s activated-parameter tables. Original and revised DeepSeek reports establish student fine-tuning rather than structural pruning; exact-distill rows in the later Qwen report corroborate the inference. All unrelated field assessments are preserved; no weight shards were downloaded."
 }
