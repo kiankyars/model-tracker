@@ -1,7 +1,7 @@
 {
   "index": 186,
   "model_id": "fireworks/ember-1",
-  "reviewed_at": "2026-10-26T19:24:51.531761Z",
+  "reviewed_at": "2026-10-27T12:38:48.415159+00:00",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Ember-1 API & Playground",
       "publisher": "Fireworks AI",
       "accessed": true,
-      "evidence": "Exact Ember-1 page lists 2.78T parameters, MoE, image input and function calling; context is displayed as 1040k. Its September 22 date is creation metadata."
+      "evidence": "Exact Ember-1 page lists 2.78T parameters, MoE, image input and function calling; context is displayed as 1040k. Its September 22 date is creation metadata. Fresh October 27 read confirms the exact model still reports 2.78T and explicitly says it is built on Kimi K3. This supports the nominal total independently of any tensor census."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "Introducing Ember-1",
       "publisher": "Fireworks AI",
       "accessed": true,
-      "evidence": "September 23, 2026 launch says available today, identifies Fireworks Research and the Ember series, and describes a Kimi K3 derivative trained for shorter reasoning. Release is a hosted research preview."
+      "evidence": "September 23, 2026 launch says available today, identifies Fireworks Research and the Ember series, and describes a Kimi K3 derivative trained for shorter reasoning. Release is a hosted research preview. Fresh October 27 read confirms explicit named-base lineage: Fireworks trained Kimi K3 on task/environment feedback to shorten reasoning traces, and calls Ember-1 a version of K3. No pruning, smaller student, expert expansion, changed routing or new modality is described. The reduced token count is a learned generation behavior, not a claim of fewer weights."
     },
     {
       "id": "s3",
@@ -49,7 +49,7 @@
       "title": "Kimi K3 on Fireworks: Fast RL at frontier scale",
       "publisher": "Fireworks AI",
       "accessed": true,
-      "evidence": "October 12, 2026 systems report was retrieved directly after web-tool failure. Its 2.8T hybrid MoE and layer/expert table explicitly describe Kimi K3, not Ember-1; no Ember-specific active count is supplied."
+      "evidence": "Fresh October 27 direct retrieval succeeded after the web reader failed. Independently inspected the complete October 12 systems report, including parameter, architecture and training sections. It describes full-parameter and LoRA training on Kimi K3 at 2.8T, with 896 routed experts/top-16 and the existing hybrid attention. The report supplies context for Fireworks K3 training rather than an Ember-specific count; no structural compression is described. The separate Ember launch establishes the exact derivative relationship."
     },
     {
       "id": "s7",
@@ -65,7 +65,7 @@
       "title": "LAB leaderboard by Harvey - Fireworks Specialized Intelligence Index",
       "publisher": "Fireworks AI",
       "accessed": true,
-      "evidence": "October 20, 2026 first-party comparison distinguishes Fireworks Ember-1 from Moonshot Kimi K3. It provides evaluations and serving methodology, not an Ember active-parameter count."
+      "evidence": "October 20, 2026 first-party comparison distinguishes Fireworks Ember-1 from Moonshot Kimi K3. It provides evaluations and serving methodology, not an Ember active-parameter count. Fresh October 27 complete retrieval and comparison-heading/parameter search found no additional active-count disclosure or architecture change. Benchmark differentiation does not contradict the declared K3 training lineage."
     },
     {
       "id": "s9",
@@ -74,6 +74,22 @@
       "publisher": "Vercel",
       "accessed": true,
       "evidence": "Official serving-provider page identifies the Ember-1 research preview, image input, function calling, Fireworks legal terms and September 23 release date."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/moonshotai/Kimi-K3",
+      "title": "Kimi K3 official model card",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Fresh October 27 read of the official card, including raw README to inspect the architecture table, confirms 2.8T total and 104B activated parameters. This is the explicitly named base of Ember-1. The rounded nominal active count is inherited through Fireworks documented post-training relationship, not independently measured for Ember."
+    },
+    {
+      "id": "s11",
+      "url": "https://arxiv.org/html/2607.24653v1",
+      "title": "Kimi K3: Open Frontier Intelligence",
+      "publisher": "Moonshot AI / Kimi Team",
+      "accessed": true,
+      "evidence": "Fresh October 27 full-report retrieval and independent inspection of Table 1 confirms the base model has 2.78T total and 104.2B activated parameters, with 896 routed experts, 16 selected and 2 shared experts. Its abstract/card use rounded 2.8T/104B. Preserve Fireworks own 2.78T total and use the supported rounded 104B convention for the derivative; this is a labeled nominal lineage inference rather than an exact hosted-checkpoint census."
     }
   ],
   "fields": {
@@ -134,21 +150,24 @@
       "value": 2780,
       "status": "verified",
       "source_ids": [
-        "s1"
-      ],
-      "note": "The exact model page reports 2.78T: 2,780 billion parameters. Treat as a nominal vendor figure, not a tensor-exact count."
-    },
-    "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
-      "source_ids": [
         "s1",
         "s2",
+        "s11"
+      ],
+      "note": "Fresh exact-model page confirms Fireworks nominal 2.78T total, or 2780B, consistent with the named Kimi K3 base report. Preserve the vendor-published precision; no tensor census is required."
+    },
+    "active_parameters_b": {
+      "value": 104,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s1",
+        "s10",
+        "s11",
         "s6",
-        "s7",
         "s8"
       ],
-      "note": "Reviewed exact-model documentation, later first-party training research and comparison tables do not publish Ember-1 active parameters. Third-party 104B figures inherit Kimi K3 specifications; no exact-Ember primary confirmation was found, so that count is not transferred."
+      "note": "Nominal 104B activated parameters, inferred from Fireworks explicit post-training of Kimi K3 and Moonshot\u2019s official 104B specification. Fresh exact-model searches and original/later primary sources describe shortening generated reasoning through training, with no disclosed pruning, smaller student, expert expansion or modality change. K3 Table 1 reports a finer 104.2B; the rounded card convention is retained for this hosted derivative, not asserted as an exact Ember tensor count."
     },
     "architecture": {
       "value": "moe",
@@ -223,7 +242,7 @@
     "parameters_source": "primary_source",
     "architecture": "moe",
     "description": "Fireworks reasoning model based on Kimi K3, trained to shorten reasoning traces for coding and agentic tasks.",
-    "notes": "2.78T is the vendor-reported total; Ember-1 active parameters are undisclosed. Context follows Fireworks\u2019 advertised 1040k tokens (1,040,000), also documented by Cloudflare; Vercel lists 1,048,576 for its route.",
+    "notes": "2.78T is Fireworks\u2019 nominal total. Nominal 104B active is inferred from its documented post-training of Kimi K3 and the base model\u2019s official specification. Context follows Fireworks\u2019 advertised 1040k tokens (1,040,000), also documented by Cloudflare; Vercel lists 1,048,576 for its route.",
     "source_url": "https://fireworks.ai/blog/ember-1",
     "source_type": "primary",
     "sources": [
@@ -251,9 +270,20 @@
         "label": "Fireworks Terms of Service, July 10, 2026",
         "url": "https://fireworks.ai/terms-of-service",
         "type": "primary"
+      },
+      {
+        "label": "Kimi K3 official model card",
+        "url": "https://huggingface.co/moonshotai/Kimi-K3",
+        "type": "primary"
+      },
+      {
+        "label": "Kimi K3: Open Frontier Intelligence",
+        "url": "https://arxiv.org/html/2607.24653v1",
+        "type": "primary"
       }
     ],
-    "context_window": 1040000
+    "context_window": 1040000,
+    "active_parameters_b": 104
   },
-  "summary": "Adds the directly disclosed nominal 2,780B total and MoE architecture, Ember family and proprietary service classification. Corrects public release to September 23 and shortens the description. Active parameters remain undisclosed. Uses the developer-advertised 1,040,000 context while documenting Vercel\u2019s 1,048,576 route metadata."
+  "summary": "October 27 parameter re-audit retains Fireworks nominal 2780B total and recovers nominal 104B active through the explicit Kimi K3 post-training lineage. Fresh exact-model searches, reopened launch/model page, original K3 card/report and later Fireworks training/comparison evidence found no structural change defeating that inference. The prior exact-Ember disclosure requirement was too restrictive for nominal specifications. Added explicit patches and base citations; preserved all unrelated assessments."
 }
