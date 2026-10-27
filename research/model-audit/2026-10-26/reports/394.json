@@ -1,0 +1,247 @@
+{
+  "index": 394,
+  "model_id": "nvidia/nemotron-voicechat",
+  "reviewed_at": "2026-10-27T01:10:04Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://build.nvidia.com/nvidia/nemotron-voicechat.md",
+      "title": "Nemotron 3 VoiceChat model card",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "The exact endpoint's complete Markdown card identifies the March 16, 2026 early-access v1.0 release as a nominal 12B integrated full-duplex speech model. Its architecture combines a Fast Conformer encoder, Nemotron Nano v2 9B language backbone and speech decoder/codec; the architecture label is hybrid Mamba/Transformer. It accepts and emits text and audio, lists the Evaluation License, describes training audio context of up to two minutes, and explicitly states it was not trained for reasoning or alignment. The function-calling reference is a training dataset, not a supported tool interface."
+    },
+    {
+      "id": "s2",
+      "url": "https://developer.nvidia.com/nemotron-voicechat-early-access",
+      "title": "NVIDIA Nemotron 3 VoiceChat Early Access Program",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Identifies the early-access model as 12B and describes speech recognition, language modeling and speech generation integrated into one architecture. Advertises inspectable weights but describes model and container access through a qualified-developer early-access program. This is not direct verification of a public downloadable checkpoint."
+    },
+    {
+      "id": "s3",
+      "url": "https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-software-and-model-evaluation-license/",
+      "title": "NVIDIA Software and Model Evaluation License",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "The agreement linked by the exact model card is the NVIDIA Software and Model Evaluation License, last modified February 26, 2025. It governs the delivered evaluation materials; the card separately identifies API Trial Service Terms for hosted API use."
+    },
+    {
+      "id": "s4",
+      "url": "https://registry.ngc.nvidia.com/orgs/nim/teams/nvidia/models/nemotron-voicechat",
+      "title": "Original Nemotron VoiceChat NGC registry link",
+      "publisher": "NVIDIA",
+      "accessed": false,
+      "evidence": "The exact NGC destination linked by the March model card redirects to signout. Its corresponding public API request returned HTTP 401. No files or tensor headers for this exact release were accessed; this failure alone does not establish that weights are closed."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/nvidia/NVIDIA-NemotronLabs-VoiceChat-11B/blob/443794ea956ef0065f001967ffd00e77f519cb39/README.md",
+      "title": "NVIDIA NemotronLabs VoiceChat 11B model card",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "The later public NemotronLabs VoiceChat card names an 11B model, reports an August 3, 2026 release, uses OpenMDW 1.1 and explicitly supports tool calling through a separate output channel. The card does not bind these different specifications to the March 12B early-access checkpoint, so its weights, license and tools cannot fill this frozen record. The downloaded card was checked alongside repository metadata identifying this revision."
+    },
+    {
+      "id": "s6",
+      "url": "https://arxiv.org/html/2609.21967v2",
+      "title": "NemotronLabs VoiceChat: An Open Full-duplex Speech-to-Speech Model with Tool Calling Capabilities",
+      "publisher": "NVIDIA authors, arXiv",
+      "accessed": true,
+      "evidence": "The later October 1, 2026 report revision describes the NemotronLabs model's unified streaming components and native tool outputs. Its component descriptions and counts do not establish a complete learned-parameter census or active count for the exact March 12B release."
+    },
+    {
+      "id": "s7",
+      "url": "https://arxiv.org/html/2505.15670v4",
+      "title": "SALM-Duplex: Efficient and Direct Duplex Modeling for Speech-to-Speech Language Model",
+      "publisher": "NVIDIA authors, arXiv",
+      "accessed": true,
+      "evidence": "This research paper is linked by the exact model card and describes the integrated duplex speech-modeling method. It predates the March 2026 release and does not identify the exact production checkpoint's complete or active learned-parameter count."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Nemotron 3 VoiceChat",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Use the exact first-party early-access name, distinguishing it from the later NemotronLabs VoiceChat 11B release."
+    },
+    "developer": {
+      "value": "NVIDIA",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Both official pages identify NVIDIA as the model developer."
+    },
+    "family": {
+      "value": "nemotron",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "The first-party model name and program identify the Nemotron family."
+    },
+    "release_date": {
+      "value": "2026-03-16",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "The model card explicitly dates the original NGC release March 16, 2026. This is an early-access evaluation release, not the later public NemotronLabs release."
+    },
+    "open_weights": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4",
+        "s5"
+      ],
+      "note": "The official early-access program advertises inspectable weights but restricts hands-on access to qualified developers. Public availability of the exact March checkpoint was not verified; the original registry could not be read. The public later 11B checkpoint is not a substitute, and an access failure does not justify asserting closed weights. Clear the unsupported public-open assertion."
+    },
+    "license": {
+      "value": "NVIDIA Software and Model Evaluation License",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "These are the exact card's terms for the model and NIM container. Hosted API trial terms are separate. Do not transfer OpenMDW 1.1 from the later NemotronLabs release."
+    },
+    "parameters_b": {
+      "value": 12,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "note": "NVIDIA reports 12B for the integrated early-access speech model. This is a nominal total, not an exact tensor census or the 9B backbone count. No accessible exact-release checkpoint was located for bounded-header counting; later public 11B weights and component counts cannot establish the March total."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s6",
+        "s7"
+      ],
+      "note": "The exact model card and program do not disclose per-token or per-phase active learned parameters. The linked method paper and later Labs report do not supply an exact March-release active count. Do not equate the nominal total or backbone size with activity across speech encoding, language decoding and speech synthesis."
+    },
+    "architecture": {
+      "value": "hybrid-ssm-transformer",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "The exact card labels the architecture hybrid Mamba/Transformer. It additionally identifies the Fast Conformer speech encoder and convolutional/Transformer speech decoder. This is an integrated speech model, not a claim that all components are the 9B language backbone."
+    },
+    "context_window": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "The exact card documents training audio context of up to two minutes, not a maximum token context. Clear the unsupported 128,000-token assertion; neither the audio duration nor backbone context can be converted or transferred without an exact-model definition."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "audio"
+        ],
+        "output": [
+          "text",
+          "audio"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "The card specifies text prompts and 16 kHz user speech inputs, with agent text, user transcription and 22.05 kHz generated speech outputs. Add the omitted audio output; no image or video modality is documented."
+    },
+    "reasoning": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "The exact card explicitly states that this model was not trained for reasoning or alignment. Retain false for dedicated reasoning capability; this does not deny that it can answer questions requiring some reasoning."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s1",
+        "s5",
+        "s6"
+      ],
+      "note": "The March card mentions function-calling data in training but does not document a supported tool interface. The later Labs model explicitly adds a tool-output channel, but its identity is different. Clear the unsupported true value rather than infer either support or absence."
+    },
+    "description": {
+      "value": "Early-access speech-to-speech model combining a Fast Conformer encoder, Nemotron Nano v2 language backbone and speech decoder for simultaneous listening and speaking.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Replace the unsupported visual-reasoning and agentic-workflow description with the exact model's documented duplex speech behavior and integrated components."
+    }
+  },
+  "patch": {
+    "name": "Nemotron 3 VoiceChat",
+    "open_weights": null,
+    "license": "NVIDIA Software and Model Evaluation License",
+    "parameters_b": 12,
+    "parameters_source": "primary_source",
+    "architecture": "hybrid-ssm-transformer",
+    "context_window": null,
+    "modalities": {
+      "input": [
+        "text",
+        "audio"
+      ],
+      "output": [
+        "text",
+        "audio"
+      ]
+    },
+    "tool_call": null,
+    "description": "Early-access speech-to-speech model combining a Fast Conformer encoder, Nemotron Nano v2 language backbone and speech decoder for simultaneous listening and speaking.",
+    "source_url": "https://build.nvidia.com/nvidia/nemotron-voicechat/modelcard",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "NVIDIA Nemotron 3 VoiceChat model card",
+        "url": "https://build.nvidia.com/nvidia/nemotron-voicechat.md",
+        "type": "primary"
+      },
+      {
+        "label": "NVIDIA Nemotron 3 VoiceChat early access",
+        "url": "https://developer.nvidia.com/nemotron-voicechat-early-access",
+        "type": "primary"
+      },
+      {
+        "label": "NVIDIA Software and Model Evaluation License",
+        "url": "https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-software-and-model-evaluation-license/",
+        "type": "primary"
+      }
+    ],
+    "notes": "March 2026 early-access Nemotron 3 VoiceChat, advertised as 12B total parameters. The later public 11B NemotronLabs VoiceChat is a different release. Training audio context is up to two minutes; a token limit and active parameter count are not disclosed. Public availability of the exact early-access weights and supported tool calling remain unverified."
+  },
+  "summary": "Verified the exact March 16 early-access Nemotron 3 VoiceChat identity, nominal 12B integrated model, hybrid Mamba/Transformer architecture, evaluation license, text/audio inputs and text/audio outputs. Corrected the name and unsupported visual-reasoning description; cleared unsupported public-open weights, 128K-token context and tool-calling assertions. Retained no dedicated reasoning mode from the explicit card limitation. Exact learned and active counts remain unavailable; the later public 11B NemotronLabs release was inspected but not substituted."
+}
