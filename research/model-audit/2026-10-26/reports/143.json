@@ -1,7 +1,7 @@
 {
   "index": 143,
   "model_id": "cohere/c4ai-aya-expanse-8b",
-  "reviewed_at": "2026-10-26T18:08:28.779760+00:00",
+  "reviewed_at": "2026-10-27T11:15:41.989411+00:00",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Aya Expanse 8B model card",
       "publisher": "Cohere Labs",
       "accessed": true,
-      "evidence": "Identifies Aya Expanse 8B, its developer, nominal 8 billion parameters, open weights, 23 supported languages, text input/output, autoregressive Transformer architecture, 8K context, and license with acceptable-use requirements."
+      "evidence": "Identifies Aya Expanse 8B, its developer, nominal 8 billion parameters, open weights, 23 supported languages, text input/output, autoregressive Transformer architecture, 8K context, and license with acceptable-use requirements. Reopened October 27: the exact card still explicitly states 8 billion parameters, describes post-training of the Command family without naming an exact checkpoint base, and supplies no active-parameter count."
     },
     {
       "id": "s2",
@@ -33,7 +33,7 @@
       "title": "Aya Expanse: Combining Research Breakthroughs for a New Multilingual Frontier",
       "publisher": "Cohere For AI and Cohere",
       "accessed": true,
-      "evidence": "December 2024 technical report confirms nominal 8B, the Aya Expanse instruction-tuned family, and 8K training context for the 8B model. Section 3 specifies SwiGLU, RoPE and grouped-query attention. It describes user/chatbot formatting and evaluates mathematical reasoning, without defining active-parameter counts or a dedicated thinking mode."
+      "evidence": "December 2024 technical report confirms nominal 8B, the Aya Expanse instruction-tuned family, and 8K training context for the 8B model. Section 3 specifies SwiGLU, RoPE and grouped-query attention. It describes user/chatbot formatting and evaluates mathematical reasoning, without defining active-parameter counts or a dedicated thinking mode. Fresh full report fetched October 27 and independently inspected: Sections 2–3 describe post-training/model merging of Command-series bases; the 39B active count in Section 4.1 belongs to Mixtral 8x22B, not Aya Expanse. Its comparison tables do not define an Aya Expanse active count."
     },
     {
       "id": "s5",
@@ -41,7 +41,7 @@
       "title": "Official checkpoint public metadata and chat template",
       "publisher": "Hugging Face metadata for Cohere Labs checkpoint",
       "accessed": true,
-      "evidence": "At revision 5062468bf9bc0c6035fd64e06274333ec127d980, exposes CohereForCausalLM/model_type cohere, gated auto access, CC-BY-NC-4.0, four safetensors shards, and a default template allowing an optional system message followed by alternating user/assistant turns. No tool schema, tool-result role, or thinking switch is implemented. Aggregate safetensors metadata reports 8,028,033,024 F16 elements; individual tensor names/shapes were inaccessible."
+      "evidence": "At revision 5062468bf9bc0c6035fd64e06274333ec127d980, exposes CohereForCausalLM/model_type cohere, gated auto access, CC-BY-NC-4.0, four safetensors shards, and a default template allowing an optional system message followed by alternating user/assistant turns. No tool schema, tool-result role, or thinking switch is implemented. Aggregate safetensors metadata reports 8,028,033,024 F16 elements; individual tensor names/shapes were inaccessible. October 27 public API refresh returned HTTP 200 with the same revision, architecture class and 8,028,033,024 aggregate; this is not substituted for the developer’s nominal 8B."
     },
     {
       "id": "s6",
@@ -73,7 +73,7 @@
       "title": "Original checkpoint config.json",
       "publisher": "Cohere Labs",
       "accessed": false,
-      "evidence": "Direct request returned HTTP 401 for this gated repository; full architecture dimensions and exact position limit were not inspected."
+      "evidence": "Direct request returned HTTP 401 for this gated repository; full architecture dimensions and exact position limit were not inspected. Retried October 27; HTTP 401 persists. No weight shard request was made in this pass."
     },
     {
       "id": "s10",
@@ -98,6 +98,46 @@
       "publisher": "Cohere Labs",
       "accessed": false,
       "evidence": "An HTTP Range request for bytes 0-7 returned HTTP 401. No weight shards were downloaded and no tensor-header count is claimed."
+    },
+    {
+      "id": "s13",
+      "url": "https://arxiv.org/html/2505.08751v1",
+      "title": "Aya Vision: Advancing the Frontier of Multilingual Multimodality",
+      "publisher": "Cohere Labs",
+      "accessed": true,
+      "evidence": "Fresh full report fetched and independently inspected October 27. Section 4.1 names Command R7B with the Aya Expanse post-training recipe for Aya Vision 8B, and Aya Expanse 32B for Aya Vision 32B. It does not identify Aya Expanse 8B as the Vision 8B backbone or publish an active count for Expanse 8B; its parameter-efficiency figure does not establish an activated-parameter convention."
+    },
+    {
+      "id": "s14",
+      "url": "https://arxiv.org/html/2603.11510v1",
+      "title": "Tiny Aya: Bridging Scale and Multilingual Depth",
+      "publisher": "Cohere Labs",
+      "accessed": true,
+      "evidence": "Fresh full report fetched and independently inspected October 27. Table 2 gives Tiny Aya 3.35B total and 2.8B non-embedding parameters; these counts refer to Tiny Aya, not Aya Expanse 8B. Expanse appears in the references, without an exact-model active-parameter comparison row."
+    },
+    {
+      "id": "s15",
+      "url": "https://arxiv.org/pdf/2504.00698v2",
+      "title": "Command A: An Enterprise-Ready Large Language Model",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "Fresh full v2 PDF fetched October 27 and independently inspected from its extracted text. Aya Expanse is cited as prior work; no Expanse 8B active/activated-parameter count or exact named-base lineage is disclosed."
+    },
+    {
+      "id": "s16",
+      "url": "https://arxiv.org/html/2503.14603v1",
+      "title": "Command R7B Arabic: A Small, Enterprise Focused, Multilingual, and Culturally Aware Arabic LLM",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "Fresh full report fetched and independently inspected October 27. Discusses Aya Expanse as multilingual post-training prior work, without identifying Expanse 8B as its base or supplying an Expanse 8B active count."
+    },
+    {
+      "id": "s17",
+      "url": "https://openreview.net/pdf/099f48be3207f39db74c2577f3578b15678e5ef1.pdf",
+      "title": "Gold vs. Translation: Are We Measuring Language, Knowledge, or Locality",
+      "publisher": "OpenReview search lead; authorship unverified",
+      "accessed": false,
+      "evidence": "October 27 search snippet exposed a Table 23 row aya-expanse-8b with total 8 and active 8, using a convention that distinguishes totals only for MoE models. Direct PDF request returned HTTP 403 and browser access returned a verification challenge. The full table, authorship and provenance could not be inspected; this lead is not accepted as a developer disclosure."
     }
   ],
   "fields": {
@@ -161,21 +201,24 @@
         "s1",
         "s4",
         "s5",
-        "s9",
-        "s10",
-        "s12"
+        "s9"
       ],
-      "note": "Nominal total in billions, explicitly stated by Cohere. Public aggregate metadata reports 8.028033024B F16 elements, but gated headers prevent separating learned tensors from any buffers independently; this audit does not replace the nominal figure with that aggregate."
+      "note": "Fresh October 27 exact card and original report confirm Cohere’s nominal 8B total. Public metadata still reports 8.028033024B F16 elements; prior gated-header limitations remain, but an exact census is not required to retain the published nominal count. General Command-family lineage does not warrant substituting a different checkpoint’s size."
     },
     "active_parameters_b": {
       "value": null,
       "status": "undisclosed",
       "source_ids": [
+        "s1",
         "s4",
         "s5",
-        "s6"
+        "s13",
+        "s14",
+        "s15",
+        "s16",
+        "s17"
       ],
-      "note": "No separate active-parameter count or counting convention appears in the model card, later technical report or public metadata; targeted later-primary searches found no disclosure. Dense execution is not treated as proof that active equals total."
+      "note": "Fresh exact-model total/active/activated/base searches and independently inspected original Expanse plus later Aya Vision, Tiny Aya, Command A and Command R7B Arabic reports found no developer-published active count or applicable convention for Expanse 8B. The original report’s 39B active figure belongs to Mixtral; Tiny Aya’s non-embedding count and Vision 8B’s Command R7B backbone do not establish this model’s count. An inaccessible OpenReview table snippet suggests 8B active, but its provenance cannot be verified. Dense architecture alone is not used to infer active equals total."
     },
     "architecture": {
       "value": "dense",
@@ -288,9 +331,31 @@
         "label": "An Overview of Cohere’s Models",
         "url": "https://docs.cohere.com/docs/models",
         "type": "primary"
+      },
+      {
+        "label": "Aya Vision: Advancing the Frontier of Multilingual Multimodality",
+        "url": "https://arxiv.org/html/2505.08751v1",
+        "type": "primary"
+      },
+      {
+        "label": "Tiny Aya: Bridging Scale and Multilingual Depth",
+        "url": "https://arxiv.org/html/2603.11510v1",
+        "type": "primary"
+      },
+      {
+        "label": "Command A: An Enterprise-Ready Large Language Model",
+        "url": "https://arxiv.org/pdf/2504.00698v2",
+        "type": "primary"
+      },
+      {
+        "label": "Command R7B Arabic: A Small, Enterprise Focused, Multilingual, and Culturally Aware Arabic LLM",
+        "url": "https://arxiv.org/html/2503.14603v1",
+        "type": "primary"
       }
     ],
-    "notes": "8B is Cohere’s nominal total. Public metadata lists 8,028,033,024 F16 elements, but gated original headers prevent an independent learned-parameter count. Active parameters are not separately reported and are not equated with total. Context is the documented nominal 8K. The license includes an Acceptable Use Addendum. The released template has no dedicated thinking mode or native tool-call format. Cohere retired the hosted c4ai-aya-expanse-8b endpoint on April 4, 2026; the open-weight release remains documented."
+    "notes": "8B is Cohere’s nominal total; Hub metadata lists 8,028,033,024 F16 elements, without an independent learned-tensor census. Cohere has not separately specified an active-parameter count. Context is the documented nominal 8K. The license includes an Acceptable Use Addendum. The released template has no dedicated thinking mode or native tool-call format. Cohere retired the hosted c4ai-aya-expanse-8b endpoint on April 4, 2026; the open-weight release remains documented.",
+    "parameters_b": 8,
+    "active_parameters_b": null
   },
-  "summary": "Confirmed the October 24, 2024 release, nominal 8B total, documented 8K context, license, open weights and text modalities. Added Aya Expanse family and dense Transformer architecture, replaced promotional description, and upgraded parameter provenance to primary evidence. Exact public chat-template evidence supports the native capability flags. Active parameters remain undisclosed. Original config/index/header access is gated, so an exact learned-tensor count and exact checkpoint position limit remain unverified; the hosted endpoint is retired."
+  "summary": "October 27 parameter re-audit retained Cohere’s nominal 8B total and an undisclosed active count after reopening the exact card/API/config, searching total/active/lineage claims, and independently inspecting the original report plus four later Cohere reports. No applicable active-count convention or exact count-bearing base inference was established. The 8.028033024B public aggregate and prior gated-header limitations are preserved; unrelated audited fields and patch values are unchanged."
 }
