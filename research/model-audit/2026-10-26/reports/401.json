@@ -1,0 +1,232 @@
+{
+  "index": 401,
+  "model_id": "openai/gpt-3-175b",
+  "reviewed_at": "2026-10-27T01:22:23.481190Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://arxiv.org/html/2005.14165v4",
+      "title": "Language Models are Few-Shot Learners, revision 4",
+      "publisher": "OpenAI authors, arXiv",
+      "accessed": true,
+      "evidence": "Section 2.1 and Table 2.1 identify GPT-3 as the largest 175.0B model: 96 layers, width 12288, 96 attention heads of dimension 128, feed-forward width four times the hidden width, and a 2048-token context. The architecture follows GPT-2 with alternating dense and locally banded sparse attention. The table explicitly defines its count as total trainable parameters. The PDF was also downloaded and read."
+    },
+    {
+      "id": "s2",
+      "url": "https://openai.com/index/openai-api/",
+      "title": "OpenAI API launch",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Dated June 11, 2020. Launches a private beta with access requests and text-in/text-out completion using weights from the GPT-3 family. Explains choosing controlled API access instead of open-sourcing the models. It does not enumerate dated endpoint IDs or explicitly name the 175B checkpoint in the launch body."
+    },
+    {
+      "id": "s3",
+      "url": "https://github.com/openai/gpt-3/blob/d7a9bb505df6f630f9bab3b30c889e52f22eb9ea/model-card.md",
+      "title": "GPT-3 Model Card, September 2020",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Explicitly describes the 175B autoregressive Transformer and controlled commercial/scientific access through OpenAI API terms. Confirms text data and generation. Distinguishes the original May 2020 model from a September retraining, so the card date and later training cutoff are not transferred to this original release."
+    },
+    {
+      "id": "s4",
+      "url": "https://openai.com/index/openai-licenses-gpt-3-technology-to-microsoft/",
+      "title": "OpenAI licenses GPT-3 technology to Microsoft",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "September 22, 2020 announcement recalls the June API launch and identifies GPT-3 as the 175B model offered through it. Describes a commercial license to Microsoft while continued OpenAI API access remains available. Supports proprietary hosted distribution and the historical API relationship, not a byte-identical June endpoint mapping."
+    },
+    {
+      "id": "s5",
+      "url": "https://openai.com/index/language-models-are-few-shot-learners/",
+      "title": "Language models are few-shot learners",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "The May 28, 2020 research announcement identifies the original GPT-3 model, its published 175B count and text-based few-shot evaluation. This is the paper announcement, preceding the June API private beta."
+    },
+    {
+      "id": "s6",
+      "url": "https://openai.com/index/instruction-following/",
+      "title": "Aligning language models to follow instructions",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "January 2022 comparison explicitly labels its baseline 175B GPT-3 and explains that InstructGPT models are later human-feedback fine-tunes. It corroborates the nominal size but does not provide an original-checkpoint census or separately defined active count. Later instruction tuning is not attributed to the original GPT-3 model."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "GPT-3 175B",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "The paper explicitly labels the largest model GPT-3 175B or GPT-3."
+    },
+    "developer": {
+      "value": "OpenAI",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "The original paper, announcement and model card identify OpenAI."
+    },
+    "family": {
+      "value": "gpt-3",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "This record represents the largest original GPT-3 model, not a later InstructGPT fine-tune."
+    },
+    "release_date": {
+      "value": "2020-06-11",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s5"
+      ],
+      "note": "Retain the record's defined milestone: the initial OpenAI API private-beta announcement and opening of access requests. The launch names GPT-3-family weights; the later first-party post binds the 175B model to that API. This is not a public-weight release, general availability, or proof of an immutable 175B endpoint version on that date. The research announcement was May 28."
+    },
+    "open_weights": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "note": "The original release provided controlled hosted access instead of public model weights. The repository releases evidence and samples, not the checkpoint."
+    },
+    "license": {
+      "value": "Proprietary",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "note": "Descriptive classification of a controlled commercial API model and separately licensed technology. It is not an open-weight license name or a reconstruction of historical contract wording."
+    },
+    "parameters_b": {
+      "value": 175,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s5",
+        "s6"
+      ],
+      "note": "Published nominal total: Table 2.1 reports 175.0B and explicitly defines total trainable parameters. Retain this precision; no public original checkpoint or complete tensor census was available for an exact integer. The paper's separate scaling plot excludes embeddings, but that plot-specific convention does not redefine the table total."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s6"
+      ],
+      "note": "No separately defined active-per-token count is provided in the original paper/card or reviewed later GPT-3 comparison. Dense weights and local sparse attention do not justify equating active parameters with the nominal total."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "The original GPT-2-style decoder has dense learned projections and feed-forward layers: 96 layers, width 12288, 96 heads and feed-forward width 49152. Alternating dense/local sparse attention describes token connectivity, not expert routing or MoE weights."
+    },
+    "context_window": {
+      "value": 2048,
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Section 2.1 explicitly gives a 2048-token context for every model in the table, including GPT-3 175B. The few-shot evaluation section uses that same full context. This is the original model limit, not a later API variant's limit."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Original model and API use tokenized text prompts and generated text completions; the card does not describe image, audio or video inputs or outputs."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Commonsense reasoning and arithmetic evaluations do not establish a dedicated reasoning mode. No such feature specification or explicit incapability statement is provided for this original model."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "The documented interface is text completion. No native structured tool-call protocol is specified for the original GPT-3 model; absence of a protocol does not prove categorical inability."
+    },
+    "description": {
+      "value": "Largest original GPT-3 model, a 96-layer Transformer for text completion and learning from examples in its prompt.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "The paper documents the largest original model's depth, autoregressive text generation and few-shot prompting without gradient updates."
+    }
+  },
+  "patch": {
+    "context_window": 2048,
+    "parameters_source": "primary_source",
+    "description": "Largest original GPT-3 model, a 96-layer Transformer for text completion and learning from examples in its prompt.",
+    "notes": "June 11, 2020 marks the initial API private-beta announcement and access requests; the paper was announced May 28. The published 175B size is nominal. The original model has a 2048-token context and alternating dense/local sparse attention; a separate active-parameter count is not disclosed. The September 2020 retraining and later InstructGPT models are distinct versions.",
+    "sources": [
+      {
+        "label": "GPT-3 original technical report, revision 4",
+        "url": "https://arxiv.org/html/2005.14165v4",
+        "type": "technical_report"
+      },
+      {
+        "label": "Original API private-beta announcement",
+        "url": "https://openai.com/index/openai-api/",
+        "type": "announcement"
+      },
+      {
+        "label": "GPT-3 175B model card",
+        "url": "https://github.com/openai/gpt-3/blob/d7a9bb505df6f630f9bab3b30c889e52f22eb9ea/model-card.md",
+        "type": "primary"
+      },
+      {
+        "label": "GPT-3 API and licensing history",
+        "url": "https://openai.com/index/openai-licenses-gpt-3-technology-to-microsoft/",
+        "type": "announcement"
+      },
+      {
+        "label": "Original GPT-3 research announcement",
+        "url": "https://openai.com/index/language-models-are-few-shot-learners/",
+        "type": "announcement"
+      }
+    ]
+  },
+  "summary": "Filled the missing 2048-token context and made the description model-specific. Verified the published nominal 175B count and dense Transformer architecture, distinguishing sparse attention from MoE. Retained June 11 as the stated API private-beta milestone with its scope explicit. Original closed/proprietary text model remains distinct from September retraining and InstructGPT. Active count, dedicated reasoning and native tool calling remain unasserted."
+}
