@@ -1,0 +1,337 @@
+{
+  "index": 368,
+  "model_id": "motif-technologies/motif-3",
+  "reviewed_at": "2026-10-27T00:13:41.853328Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/Motif-Technologies/Motif-3/blob/2ed2ed5cfabffa10fdabb2fc0d0288f8e6de893a/README.md",
+      "title": "Motif 3 model card",
+      "publisher": "Motif Technologies",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Identifies the post-trained Motif 3 model, its developer, open weights, approximate 314B total and 13.2B active counts, decoder-only MoE, 262144-token context, and reasoning/tool parsers."
+    },
+    {
+      "id": "s2",
+      "url": "https://arxiv.org/html/2608.09119v1",
+      "title": "Motif 3: Technical Report",
+      "publisher": "Motif Technologies",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Table 1 and sections 2 and 4.3 give approximate 314B total and 13.2B active parameters. Describes 53 Transformer layers, GDLA, sparse MoE, and an MTP head. Submitted August 10, 2026."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/Motif-Technologies/Motif-3/blob/2ed2ed5cfabffa10fdabb2fc0d0288f8e6de893a/config.json",
+      "title": "Motif 3 released configuration",
+      "publisher": "Motif Technologies",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Confirms the text causal-LM class, 53 layers, 2 initial dense layers, 384 routed experts, top-8 routing, one shared expert, 262144 positions, untied embeddings, BF16, and one MTP layer."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/Motif-Technologies/Motif-3/blob/2ed2ed5cfabffa10fdabb2fc0d0288f8e6de893a/model.safetensors.index.json",
+      "title": "Motif 3 pinned checkpoint index and indexed tensor headers",
+      "publisher": "Motif Technologies",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "All 155 indexed shard headers were read using bounded HTTP ranges. Their 2236 BF16 tensor shapes sum to 314841775750 parameters and reconcile to 629683551500 indexed bytes. The standalone NVFP4 calibration-scale file is outside this index."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/Motif-Technologies/Motif-3/blob/2ed2ed5cfabffa10fdabb2fc0d0288f8e6de893a/modeling_motif.py",
+      "title": "Motif 3 implementation",
+      "publisher": "Motif Technologies",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Identifies weight matrices, normalization and PolyNorm parameters, and mHC parameters. Expert-routing correction biases are nn.Parameters with requires_grad=False; RoPE frequencies are nonpersistent buffers absent from the checkpoint index."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/Motif-Technologies/Motif-3/blob/2ed2ed5cfabffa10fdabb2fc0d0288f8e6de893a/chat_template.jinja",
+      "title": "Motif 3 chat template",
+      "publisher": "Motif Technologies",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Formats text messages, optional thinking blocks, JSON tool calls, function schemas, and tool responses. The generation prompt opens a thinking block unless thinking is disabled."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/Motif-Technologies/Motif-3/blob/2ed2ed5cfabffa10fdabb2fc0d0288f8e6de893a/LICENSE.md",
+      "title": "Motif 3 MIT license",
+      "publisher": "Motif Technologies",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "The model repository contains the MIT License with Motif Technologies Corp. copyright."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/api/models/Motif-Technologies/Motif-3/commits/main",
+      "title": "Motif 3 repository commit history",
+      "publisher": "Motif Technologies",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Initial repository commit is August 7, 2026; the model folder upload is August 8; the full model card is added August 9. Commit dates alone do not establish when a repository became public."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/api/models/Motif-Technologies/Motif-3/tree/1e90a1a2d6104945de4c9e6f8c450f567416d20d",
+      "title": "Motif 3 initial repository tree",
+      "publisher": "Motif Technologies",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "The August 7 initial commit contains only .gitattributes and a 28-byte README, without model weights. It cannot establish the frozen record's claimed model-release day."
+    },
+    {
+      "id": "s10",
+      "url": "https://chat.motiftech.io/release",
+      "title": "Chat Motif release notes",
+      "publisher": "Motif Technologies",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Distinguishes July 14 Motif 3 Beta from the finished-model Chat Motif rollout on August 13, 2026. This is a service rollout date, not proof of the earliest weight release."
+    },
+    {
+      "id": "s11",
+      "url": "https://motiftech.io/en/resources/models/",
+      "title": "Motif Technologies model catalog",
+      "publisher": "Motif Technologies",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "The developer lists Motif 3 as an MIT model for reasoning, code and tool use, with 314B total, 13.2B active parameters and 256K context."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Motif 3",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Exact final post-trained model name; distinct from Motif-3-Base, Motif-3-Beta and Motif-3-NVFP4."
+    },
+    "developer": {
+      "value": "Motif Technologies",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7"
+      ],
+      "note": "Model card attribution and repository copyright agree."
+    },
+    "family": {
+      "value": "motif",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Normalized family label supported by the official motif tags and Motif model_type."
+    },
+    "release_date": {
+      "value": "2026-08",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s8",
+        "s9",
+        "s10"
+      ],
+      "note": "August 2026 is established for this final checkpoint. August 7 is only empty-repository creation; weights were uploaded August 8, the report was submitted August 10, and Chat Motif deployed the finished model August 13. Earliest public availability within August remains unresolved, so retain month precision rather than assert a day. The July beta is a separate checkpoint."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4"
+      ],
+      "note": "The exact post-trained checkpoint is publicly downloadable without an access request; all indexed tensor headers were accessible."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7"
+      ],
+      "note": "Verified against the actual LICENSE.md for this final model, rather than the older beta license."
+    },
+    "parameters_b": {
+      "value": 314.84177575,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "note": "Exact complete indexed BF16 checkpoint count: 314841775750 parameters, including 251151876 MTP parameters and 19584 declared routing-bias parameters. All 155 headers reconcile with config/code arithmetic. The developer's approximately 314B is nominal, not the exact count. Nonpersistent RoPE buffers and the separate calibration-scale file are excluded."
+    },
+    "active_parameters_b": {
+      "value": 13.2,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s11"
+      ],
+      "note": "Developer-reported approximate billions activated per token. This remains nominal; no exact per-token count or MTP-inclusive inference-phase count is claimed."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "Decoder-only Transformer MoE: 2 dense plus 51 sparse layers, 384 routed experts with top-8 selection, one shared expert, GDLA attention and mHC residual mixing."
+    },
+    "context_window": {
+      "value": 262144,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "The exact configuration sets max_position_embeddings=262144; the model card gives the same token count."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s6"
+      ],
+      "note": "The released text-generation causal LM and chat template consume and emit text. Chat-product document processing does not add a vision encoder to this checkpoint."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s6",
+        "s11"
+      ],
+      "note": "Official template supports thinking content and defaults to an open thinking block; enable_thinking=false can suppress it."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s6",
+        "s11"
+      ],
+      "note": "Official template defines function schemas, structured tool-call output and tool responses, corroborating developer tool-use support."
+    },
+    "description": {
+      "value": "Text MoE model with a 262,144-token context window, reasoning, and tool calling.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4"
+      ],
+      "note": "Summarizes the documented text-model capabilities; exact total and nominal active parameter counts are recorded separately."
+    }
+  },
+  "parameter_count_verification": {
+    "revision": "2ed2ed5cfabffa10fdabb2fc0d0288f8e6de893a",
+    "indexed_shards": 155,
+    "indexed_tensors": 2236,
+    "tensor_dtype": "BF16",
+    "complete_parameters": 314841775750,
+    "configuration_and_code_arithmetic": {
+      "embedding_and_output": 1803550720,
+      "attention_53_layers": 3529063936,
+      "mhc_106_modules": 43420462,
+      "normalization": 438272,
+      "dense_ffn_2_layers": 301989896,
+      "routed_experts_51_layers": 308029764096,
+      "shared_experts_51_layers": 802160844,
+      "routers_and_expert_bias_51_layers": 80235648,
+      "mtp": 251151876
+    },
+    "method": "Sum the product of each indexed tensor shape after matching every header name to its indexed shard. Independently reconstruct counts from configuration, implementation and MTP tensor dimensions; both sums equal 314841775750. All tensors are unpacked BF16 with two bytes per element.",
+    "exclusions": "The standalone nvfp4_act_scales.safetensors file is calibration metadata and is not indexed. Nonpersistent RoPE buffers are not serialized. Routing correction biases are declared parameters and are included despite requires_grad=False."
+  },
+  "patch": {
+    "release_date": "2026-08",
+    "date_precision": "month",
+    "parameters_b": 314.84177575,
+    "active_parameters_b": 13.2,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "description": "Text MoE model with a 262,144-token context window, reasoning, and tool calling.",
+    "notes": "Exact complete BF16 checkpoint: 314.84177575B, including a 0.251151876B MTP head and 19584 routing-bias parameters. All 155 pinned headers reconcile with configuration/code arithmetic; separate NVFP4 calibration scales are excluded. Published 314B total and 13.2B active figures are nominal. Release is retained at August 2026 precision: August 7 is empty-repository creation, while the final-model Chat Motif rollout is August 13; earliest public weight availability within the month is unresolved.",
+    "sources": [
+      {
+        "label": "Motif 3 model card",
+        "url": "https://huggingface.co/Motif-Technologies/Motif-3/blob/2ed2ed5cfabffa10fdabb2fc0d0288f8e6de893a/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Motif 3: Technical Report",
+        "url": "https://arxiv.org/html/2608.09119v1",
+        "type": "primary"
+      },
+      {
+        "label": "Motif 3 released configuration",
+        "url": "https://huggingface.co/Motif-Technologies/Motif-3/blob/2ed2ed5cfabffa10fdabb2fc0d0288f8e6de893a/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Motif 3 pinned checkpoint index and indexed tensor headers",
+        "url": "https://huggingface.co/Motif-Technologies/Motif-3/blob/2ed2ed5cfabffa10fdabb2fc0d0288f8e6de893a/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Motif 3 implementation",
+        "url": "https://huggingface.co/Motif-Technologies/Motif-3/blob/2ed2ed5cfabffa10fdabb2fc0d0288f8e6de893a/modeling_motif.py",
+        "type": "primary"
+      },
+      {
+        "label": "Motif 3 chat template",
+        "url": "https://huggingface.co/Motif-Technologies/Motif-3/blob/2ed2ed5cfabffa10fdabb2fc0d0288f8e6de893a/chat_template.jinja",
+        "type": "primary"
+      },
+      {
+        "label": "Motif 3 MIT license",
+        "url": "https://huggingface.co/Motif-Technologies/Motif-3/blob/2ed2ed5cfabffa10fdabb2fc0d0288f8e6de893a/LICENSE.md",
+        "type": "primary"
+      },
+      {
+        "label": "Motif 3 repository commit history",
+        "url": "https://huggingface.co/api/models/Motif-Technologies/Motif-3/commits/main",
+        "type": "primary"
+      },
+      {
+        "label": "Motif 3 initial repository tree",
+        "url": "https://huggingface.co/api/models/Motif-Technologies/Motif-3/tree/1e90a1a2d6104945de4c9e6f8c450f567416d20d",
+        "type": "weights"
+      },
+      {
+        "label": "Chat Motif release notes",
+        "url": "https://chat.motiftech.io/release",
+        "type": "primary"
+      },
+      {
+        "label": "Motif Technologies model catalog",
+        "url": "https://motiftech.io/en/resources/models/",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "Verified all 14 fields. Filled the missing exact total (314.84177575B), nominal active count (13.2B) and MoE architecture. Corrected the repository-creation release date to August 2026 month precision and clarified the description. MIT, open weights, 262144-token text context, reasoning and native tool-call support are confirmed. Exact earliest public-release day remains unresolved."
+}
