@@ -82,15 +82,15 @@
     "developer": "Recursive",
     "developer_id": "recursive",
     "family": "flint",
-    "description": "Open-weight mixture-of-experts model with about 2.5B active parameters for local coding agents",
+    "description": "Recursive text model for coding agents, with open weights, reasoning and tool calling.",
     "release_date": "2026-10-21",
     "date_precision": "day",
     "open_weights": true,
     "license": "Apache-2.0",
-    "parameters_b": null,
-    "active_parameters_b": null,
-    "parameters_source": null,
-    "architecture": null,
+    "parameters_b": 39.8,
+    "active_parameters_b": 2.5,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
     "context_window": 262144,
     "modalities": {
       "input": [
@@ -102,9 +102,64 @@
     },
     "reasoning": true,
     "tool_call": true,
-    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/recursive/flint.toml",
-    "source_type": "catalog",
+    "source_url": "https://recursive.com/updates/introducing-recursive-flint",
+    "source_type": "primary",
     "sources": [
+      {
+        "label": "Introducing Recursive Flint",
+        "url": "https://recursive.com/updates/introducing-recursive-flint",
+        "type": "primary"
+      },
+      {
+        "label": "Recursive update archive",
+        "url": "https://recursive.com/updates",
+        "type": "primary"
+      },
+      {
+        "label": "Flint pinned BF16 model card",
+        "url": "https://huggingface.co/RecursiveSI/flint/blob/2a247be0c0aec895ccb0ac7ca92229ec6df37288/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Flint pinned configuration",
+        "url": "https://huggingface.co/RecursiveSI/flint/blob/2a247be0c0aec895ccb0ac7ca92229ec6df37288/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Flint complete index and all 15 bounded shard headers",
+        "url": "https://huggingface.co/RecursiveSI/flint/blob/2a247be0c0aec895ccb0ac7ca92229ec6df37288/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Published Flint SGLang implementation package",
+        "url": "https://huggingface.co/RecursiveSI/flint/blob/2a247be0c0aec895ccb0ac7ca92229ec6df37288/sglang/flint_sglang-0.1.4-py3-none-any.whl",
+        "type": "primary"
+      },
+      {
+        "label": "Flint native chat template",
+        "url": "https://huggingface.co/RecursiveSI/flint/blob/2a247be0c0aec895ccb0ac7ca92229ec6df37288/chat_template.jinja",
+        "type": "primary"
+      },
+      {
+        "label": "Flint pinned SGLang serving guide",
+        "url": "https://huggingface.co/RecursiveSI/flint/blob/2a247be0c0aec895ccb0ac7ca92229ec6df37288/sglang/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Recursive SGLang documentation",
+        "url": "https://docs.recursive.com/gpu/sglang",
+        "type": "primary"
+      },
+      {
+        "label": "Flint Apache License2.0",
+        "url": "https://huggingface.co/RecursiveSI/flint/blob/2a247be0c0aec895ccb0ac7ca92229ec6df37288/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "Rec pinned Flint INT4 deployment profile",
+        "url": "https://github.com/recursive-oss/rec/blob/0e3150ca4262f572dee25c231d9ac7148414d2af/packaging/flint-int4-mlx.json",
+        "type": "primary"
+      },
       {
         "label": "Models.dev record",
         "url": "https://github.com/anomalyco/models.dev/blob/dev/models/recursive/flint.toml",
@@ -129,7 +184,11 @@
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
+    "upstream_present": true,
+    "notes": "39.8B total and approximately 2.5B active are developer nominal counts. The active convention includes the output head and excludes the full input embedding matrix; the active body alone is approximately 2.2B. All 15 BF16 shard headers reconcile to 39,785,287,456 learned elements, including learned attention sinks; runtime-only zero router biases and separate quantized artifacts are excluded. Context 262144 is the documented BF16 configuration. The launch claims up to 512K and recommends 256K; the inspected checkpoint and serving guide do not provide a matching 512K configuration, and no native training-length claim is inferred. Reasoning is model-selected each turn; no universal thinking toggle is documented.",
+    "field_status": {},
+    "audited_at": "2026-10-27T03:54:43.486298Z",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/476.json"
   },
   {
     "id": "inception/mercury-3",

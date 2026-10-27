@@ -1,0 +1,366 @@
+{
+  "index": 476,
+  "model_id": "recursive/flint",
+  "reviewed_at": "2026-10-27T03:54:43.486298Z",
+  "sources": [
+    {
+      "id": "release",
+      "url": "https://recursive.com/updates/introducing-recursive-flint",
+      "title": "Introducing Recursive Flint",
+      "publisher": "Recursive",
+      "accessed": true,
+      "evidence": "Announces public open weights under Apache 2.0 and a model trained from scratch for coding. Rounded 40B/2.5B, architecture search and quantization are described. Says up to 512K context, recommending 256K; the published BF16 card/configuration is narrower. Claims about throughput on quantized runtimes are not generalized to every checkpoint or hardware."
+    },
+    {
+      "id": "date",
+      "url": "https://recursive.com/updates",
+      "title": "Recursive update archive",
+      "publisher": "Recursive",
+      "accessed": true,
+      "evidence": "Explicitly dates the Flint introduction October 21, 2026. Read with the linked release making weights available, not a later distributor listing."
+    },
+    {
+      "id": "card",
+      "url": "https://huggingface.co/RecursiveSI/flint/blob/2a247be0c0aec895ccb0ac7ca92229ec6df37288/README.md",
+      "title": "Flint pinned BF16 model card",
+      "publisher": "Recursive",
+      "accessed": true,
+      "evidence": "Exact model specifications give 39.8B total and approximately 2.5B active, including output head but excluding the full input embedding matrix; active body approximately 2.2B. Text-to-text, reasoning, tool use, 262144 documented prompt-plus-output context, decoder-only MoE Transformer. Training includes pretraining, mid-training, SFT and RL; quantized variants are separate."
+    },
+    {
+      "id": "config",
+      "url": "https://huggingface.co/RecursiveSI/flint/blob/2a247be0c0aec895ccb0ac7ca92229ec6df37288/config.json",
+      "title": "Flint pinned configuration",
+      "publisher": "Recursive",
+      "accessed": true,
+      "evidence": "49 layers, width 2048, vocabulary 150144, untied embeddings. First 2 layers dense with intermediate 6144; other 47 sparse, 256 experts/top 6, routed width 512 and shared width 1024. GQA 32 query/4KV heads, head 128, per-head QK RMSNorm and learned attention sinks. 35 sliding layers use RoPE, 14 full-attention layers have no positional encoding; local window 513. BF16, no quantization configuration; max_position_embeddings 262144."
+    },
+    {
+      "id": "index",
+      "url": "https://huggingface.co/RecursiveSI/flint/blob/2a247be0c0aec895ccb0ac7ca92229ec6df37288/model.safetensors.index.json",
+      "title": "Flint complete index and all 15 bounded shard headers",
+      "publisher": "Recursive",
+      "accessed": true,
+      "evidence": "At revision 2a247be0c0aec895ccb0ac7ca92229ec6df37288, fetched only the eight-byte lengths and bounded JSON headers of every indexed shard. All 36,734 tensor names occur once in the assigned shard; every name and shape matches the reconstruction from enabled modules. All BF16, 39785287456 elements/79570574912 bytes matching index metadata, including 1,568 learned attention sink values. No low-bit packing, scales, MTP, persistent RoPE buffers or tied duplication. Runtime-only zero router-bias vectors are absent; no weight payloads downloaded."
+    },
+    {
+      "id": "code",
+      "url": "https://huggingface.co/RecursiveSI/flint/blob/2a247be0c0aec895ccb0ac7ca92229ec6df37288/sglang/flint_sglang-0.1.4-py3-none-any.whl",
+      "title": "Published Flint SGLang implementation package",
+      "publisher": "Recursive",
+      "accessed": true,
+      "evidence": "Downloaded 22,997-byte wheel for source inspection only, without installation. Reviewed config, all enabled model constructors, forwarding and loading. Inherits stock SGLang dense/expert/GQA components; adds sigmoid top 6 routing with ungated shared experts, learned attention sinks and mixed positional encoding. The1568 sink values are learned model weights despite requires_grad=False for inference. Optional 12,032 router-bias values are absent from checkpoint, initialized zero and exempted from missing-weight checks. QKV/gate-up/expert fusion preserves dimensions; no additional enabled learned module or draft is present."
+    },
+    {
+      "id": "base3",
+      "url": "https://github.com/sgl-project/sglang/blob/v0.5.16/python/sglang/srt/models/qwen3_moe.py",
+      "title": "SGLang 0.5.16 inherited MoE and attention modules",
+      "publisher": "SGLang",
+      "accessed": true,
+      "evidence": "Inspected inherited sparse block, bias-free routing linear, expert dimensions, GQA projections and QK normalization used by the published Flint serving code. Runtime tensor-parallel replicas/redundant experts do not add independent model parameters. This code inheritance is not a claim that Flint is a Qwen fine-tune."
+    },
+    {
+      "id": "base2",
+      "url": "https://github.com/sgl-project/sglang/blob/v0.5.16/python/sglang/srt/models/qwen2_moe.py",
+      "title": "SGLang 0.5.16 inherited MLP and base-model modules",
+      "publisher": "SGLang",
+      "accessed": true,
+      "evidence": "Inspected inherited bias-free SwiGLU, vocabulary embedding, selected Flint decoder stack and final RMSNorm. Exact Flint configuration overrides sibling defaults. Used solely to reconcile enabled modules, not to borrow Qwen specifications."
+    },
+    {
+      "id": "template",
+      "url": "https://huggingface.co/RecursiveSI/flint/blob/2a247be0c0aec895ccb0ac7ca92229ec6df37288/chat_template.jinja",
+      "title": "Flint native chat template",
+      "publisher": "Recursive",
+      "accessed": true,
+      "evidence": "Serializes text conversation, reasoning_content, caller-defined function schemas, assistant tool_calls and tool responses. Preserves thinking between turns; does not provide an enable_thinking toggle."
+    },
+    {
+      "id": "serving",
+      "url": "https://huggingface.co/RecursiveSI/flint/blob/2a247be0c0aec895ccb0ac7ca92229ec6df37288/sglang/README.md",
+      "title": "Flint pinned SGLang serving guide",
+      "publisher": "Recursive",
+      "accessed": true,
+      "evidence": "Documents reasoning/parser support, custom tool-call examples and 262144 serving context, shared by prompt and output. Flint chooses whether to reason on each turn; thinking/enable_thinking controls are unsupported. Does not establish a native 512K training length."
+    },
+    {
+      "id": "docs",
+      "url": "https://docs.recursive.com/gpu/sglang",
+      "title": "Recursive SGLang documentation",
+      "publisher": "Recursive",
+      "accessed": true,
+      "evidence": "Explicitly qualifies 262144 as the context for the BF16 configuration and documents native reasoning and tool round trips. Its older pinned revision/plugin differs from current Hub revision, so current pinned card/code control the checkpoint audit. Inspected also current Rec/Ollama/llama.cpp documentation; none resolved the launch512K claim into an exact supported configuration here."
+    },
+    {
+      "id": "license",
+      "url": "https://huggingface.co/RecursiveSI/flint/blob/2a247be0c0aec895ccb0ac7ca92229ec6df37288/LICENSE",
+      "title": "Flint Apache License2.0",
+      "publisher": "Recursive",
+      "accessed": true,
+      "evidence": "Exact weight repository includes Apache License Version 2.0, agreeing with the release and card. Hosted API terms and local-engine code licenses are separate."
+    },
+    {
+      "id": "history",
+      "url": "https://huggingface.co/api/models/RecursiveSI/flint/commits/main",
+      "title": "Flint repository history",
+      "publisher": "Recursive",
+      "accessed": true,
+      "evidence": "The initial release commit is 2a247be0c0aec895ccb0ac7ca92229ec6df37288 dated 2026-10-21T14:24:03Z; corroborates the explicit public announcement day rather than substituting repository creation as release."
+    },
+    {
+      "id": "research",
+      "url": "https://recursive.com/updates/first-steps-toward-automated-ai-research",
+      "title": "First Steps Toward Automated AI Research",
+      "publisher": "Recursive",
+      "accessed": true,
+      "evidence": "Reviewed the earlier first-party automated-research article linked by Flint, and searched current exact-model technical/training evidence. NanoChat/NanoGPT training experiments and SOL kernel tasks in this earlier article are separate experiments, not Flint parameter or architecture measurements. Exact Flint release architecture discussion and pinned implementation provide the applicable disclosures."
+    },
+    {
+      "id": "rec_profile",
+      "url": "https://github.com/recursive-oss/rec/blob/0e3150ca4262f572dee25c231d9ac7148414d2af/packaging/flint-int4-mlx.json",
+      "title": "Rec pinned Flint INT4 deployment profile",
+      "publisher": "Recursive",
+      "accessed": true,
+      "evidence": "The official local-engine profile specifies context=262144 and max_context=262144. Inspected its contextLimit/withContext implementation, which enforces the profile maximum; this is a quantized deployment profile, not proof against the launch claim of broader 512K model capacity. No exact 512K integer was recovered from the inspected primary configurations."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Flint",
+      "status": "verified",
+      "source_ids": [
+        "release",
+        "card"
+      ],
+      "note": "Official short model name, also styled Recursive Flint; BF16 target rather than separately named INT4/NVFP4 conversion."
+    },
+    "developer": {
+      "value": "Recursive",
+      "status": "verified",
+      "source_ids": [
+        "release",
+        "card"
+      ],
+      "note": "Official developer and RecursiveSI repository agree."
+    },
+    "family": {
+      "value": "flint",
+      "status": "verified",
+      "source_ids": [
+        "release",
+        "card"
+      ],
+      "note": "Lowercase Flint family identifier."
+    },
+    "release_date": {
+      "value": "2026-10-21",
+      "status": "verified",
+      "source_ids": [
+        "date",
+        "release",
+        "history"
+      ],
+      "note": "Dated primary introduction explicitly makes weights available; initial publication commit corroborates the day."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "release",
+        "index",
+        "license"
+      ],
+      "note": "Official BF16 weights publicly downloadable; all 15 checkpoint headers were accessible."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "license",
+        "release"
+      ],
+      "note": "Model-weight license verified in the actual repository license."
+    },
+    "parameters_b": {
+      "value": 39.8,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "config",
+        "index",
+        "code",
+        "base3",
+        "base2"
+      ],
+      "note": "Developer nominal total in decimal billions, not exactly 39,800,000,000. Complete header/module reconciliation gives 39,785,287,456 learned weight elements, including the 1,568 learned sinks and both untied vocabulary matrices. All checkpoints shapes account for enabled learned modules. Optional zero-initialized inference router state is absent from checkpoint and excluded. No quantization storage sum is used."
+    },
+    "active_parameters_b": {
+      "value": 2.5,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "config",
+        "code",
+        "index"
+      ],
+      "note": "Official approximate per-token figure includes output head and excludes the full input embedding matrix. Six of 256 routed experts plus one shared expert operate in each sparse layer. Config-derived path count under that stated whole-matrix convention is 2,515,488,544; body excluding both vocabulary matrices is 2,207,993,632. These corroborate rounded 2.5B/2.2B, not a newly asserted exact operational active count."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "config",
+        "code",
+        "base3",
+        "base2"
+      ],
+      "note": "Decoder-only pre-norm Transformer MoE: two dense and 47 sparse layers, sigmoid top 6 routing with shared expert, GQA/QK norms, learned per-head attention sinks; 35 sliding-window/RoPE and 14 global/no-position layers. No recurrent or SSM module. Implementation reuse does not establish Qwen model ancestry."
+    },
+    "context_window": {
+      "value": 262144,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "config",
+        "serving",
+        "docs",
+        "release",
+        "rec_profile"
+      ],
+      "note": "Retain exact documented BF16 configuration including prompt and output. Launch advertises up to 512K while recommending256K; that wider claim has no matching 512K configuration in the inspected checkpoint/serving documentation. This field is the verified configured limit, not a claim that all implementations have a hard 256K maximum or that training was natively 256K."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "config",
+        "template"
+      ],
+      "note": "Text/code input and text output. No image/audio encoder or generator in released model modules; external tool results do not add native modalities."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "template",
+        "serving"
+      ],
+      "note": "Native reasoning with preserved reasoning_content. Model decides whether to think each turn; no supported enable_thinking toggle in this integration."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "template",
+        "serving"
+      ],
+      "note": "Native caller-defined function signatures, emitted tool calls and external tool responses; explicit parser/grammar integration and round-trip examples."
+    },
+    "description": {
+      "value": "Recursive text model for coding agents, with open weights, reasoning and tool calling.",
+      "status": "verified",
+      "source_ids": [
+        "release",
+        "card",
+        "template"
+      ],
+      "note": "Concise supported capabilities without a hardware guarantee or benchmark superlative."
+    }
+  },
+  "patch": {
+    "parameters_b": 39.8,
+    "active_parameters_b": 2.5,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "description": "Recursive text model for coding agents, with open weights, reasoning and tool calling.",
+    "source_url": "https://recursive.com/updates/introducing-recursive-flint",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Introducing Recursive Flint",
+        "url": "https://recursive.com/updates/introducing-recursive-flint",
+        "type": "primary"
+      },
+      {
+        "label": "Recursive update archive",
+        "url": "https://recursive.com/updates",
+        "type": "primary"
+      },
+      {
+        "label": "Flint pinned BF16 model card",
+        "url": "https://huggingface.co/RecursiveSI/flint/blob/2a247be0c0aec895ccb0ac7ca92229ec6df37288/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Flint pinned configuration",
+        "url": "https://huggingface.co/RecursiveSI/flint/blob/2a247be0c0aec895ccb0ac7ca92229ec6df37288/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Flint complete index and all 15 bounded shard headers",
+        "url": "https://huggingface.co/RecursiveSI/flint/blob/2a247be0c0aec895ccb0ac7ca92229ec6df37288/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Published Flint SGLang implementation package",
+        "url": "https://huggingface.co/RecursiveSI/flint/blob/2a247be0c0aec895ccb0ac7ca92229ec6df37288/sglang/flint_sglang-0.1.4-py3-none-any.whl",
+        "type": "primary"
+      },
+      {
+        "label": "Flint native chat template",
+        "url": "https://huggingface.co/RecursiveSI/flint/blob/2a247be0c0aec895ccb0ac7ca92229ec6df37288/chat_template.jinja",
+        "type": "primary"
+      },
+      {
+        "label": "Flint pinned SGLang serving guide",
+        "url": "https://huggingface.co/RecursiveSI/flint/blob/2a247be0c0aec895ccb0ac7ca92229ec6df37288/sglang/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Recursive SGLang documentation",
+        "url": "https://docs.recursive.com/gpu/sglang",
+        "type": "primary"
+      },
+      {
+        "label": "Flint Apache License2.0",
+        "url": "https://huggingface.co/RecursiveSI/flint/blob/2a247be0c0aec895ccb0ac7ca92229ec6df37288/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "Rec pinned Flint INT4 deployment profile",
+        "url": "https://github.com/recursive-oss/rec/blob/0e3150ca4262f572dee25c231d9ac7148414d2af/packaging/flint-int4-mlx.json",
+        "type": "primary"
+      }
+    ],
+    "notes": "39.8B total and approximately 2.5B active are developer nominal counts. The active convention includes the output head and excludes the full input embedding matrix; the active body alone is approximately 2.2B. All 15 BF16 shard headers reconcile to 39,785,287,456 learned elements, including learned attention sinks; runtime-only zero router biases and separate quantized artifacts are excluded. Context 262144 is the documented BF16 configuration. The launch claims up to 512K and recommends 256K; the inspected checkpoint and serving guide do not provide a matching 512K configuration, and no native training-length claim is inferred. Reasoning is model-selected each turn; no universal thinking toggle is documented."
+  },
+  "checkpoint_audit": {
+    "revision": "2a247be0c0aec895ccb0ac7ca92229ec6df37288",
+    "shards": 15,
+    "indexed_tensors": 36734,
+    "missing": [],
+    "extra": [],
+    "mismatched_shapes": {},
+    "bf16_stored_elements": 39785287456,
+    "bytes": 79570574912,
+    "learned_attention_sink_elements": 1568,
+    "routed_expert_elements": 37849399296,
+    "input_embedding_elements": 307494912,
+    "active_selected_experts_plus_head_excluding_entire_input_embedding": 2515488544,
+    "active_body_excluding_both_vocab_matrices": 2207993632,
+    "runtime_only_zero_router_bias_elements_not_in_checkpoint": 12032,
+    "notes": "Every checkpoint tensor maps to an enabled learned module; includes learned sinks despite requires_grad=False in inference. Optional inference router biases are absent from all checkpoint headers and zero initialized, excluded from model counts. Fused QKV/gate-up/expert runtime layout preserves sizes. No quantization scales, packed low-bit storage, MTP, tied vocabulary duplication or persistent rotary values."
+  },
+  "summary": "All 14 fields audited. Adds published nominal 39.8B total/2.5B active and verified MoE architecture. Confirms October 21 release, Apache-2.0, text modalities, reasoning and custom tools. Reconciles every shape across 15 BF16 shards with published serving implementation and inherited modules. Keeps documented 262144 BF16 context while explicitly recording broader 512K launch claim."
+}
