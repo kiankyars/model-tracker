@@ -1,7 +1,7 @@
 {
   "index": 366,
   "model_id": "morph/morph-v3-fast",
-  "reviewed_at": "2026-10-27T15:42:35.094187Z",
+  "reviewed_at": "2026-10-27T19:27:36.061408Z",
   "sources": [
     {
       "id": "s1",
@@ -122,6 +122,14 @@
       "publisher": "Kortix",
       "accessed": true,
       "evidence": "Fresh named-base search lead checked October 27: Kortix documents its own FastApply-7B/1.5B Qwen2.5-Coder fine-tunes, then separately says it uses the hosted Morph API for production. These are not identified as Morph v3 Fast weights; neither their Qwen lineage nor parameter counts transfer to this model."
+    },
+    {
+      "id": "date_20261027_morph_v3",
+      "url": "https://www.morphllm.com/blog/morph-gets-faster",
+      "title": "Morph V3 Fast and Large introduction, June 15, 2025",
+      "publisher": "Morph",
+      "accessed": true,
+      "evidence": "Reopened October 27 in the live browser: after rendering, the complete body explicitly introduces Morph v3 as a step up from the previous model, names morph-v3-fast at 10,500+ tok/s and morph-v3-large at 5,000+ tok/s, and offers API access. The article is dated June 15, 2025 and authored by Tejas Bhakta. This exact-generation introduction was missing from the previous static extraction, which returned only the title/date/table of contents."
     }
   ],
   "fields": {
@@ -154,14 +162,12 @@
       "note": "Retain the catalog grouping for Morph v3 Apply models. This is not a claim of shared base architecture."
     },
     "release_date": {
-      "value": null,
-      "status": "unverified",
+      "value": "2025-06-15",
+      "status": "verified",
       "source_ids": [
-        "s7",
-        "s10",
-        "s11"
+        "date_20261027_morph_v3"
       ],
-      "note": "July 7, 2025 is a provider/catalog date. No reviewed developer announcement establishes this as the earliest release of morph-v3-fast. The API created field changes on fetch and is unsuitable. Clear the unsupported exact date."
+      "note": "Developer introduction dated June 15, 2025 explicitly presents the new Morph v3 generation and both exact Fast/Large API identifiers as available. The fully rendered article resolves the earlier missing-body limitation. July 7 is a later provider listing date; the mutable API created field is not used."
     },
     "open_weights": {
       "value": false,
@@ -279,13 +285,13 @@
     }
   },
   "patch": {
-    "release_date": null,
-    "date_precision": null,
+    "release_date": "2025-06-15",
+    "date_precision": "day",
     "license": "proprietary",
     "reasoning": null,
     "tool_call": null,
     "description": "Specialized code-edit application model that merges an instruction and proposed edit snippet into an existing source file and returns the complete updated file.",
-    "notes": "Morph publishes nominal 7B for Fast Apply, matched to morph-v3-fast by the exact 10,500 tok/s and $0.80 row. Active parameters are not separately disclosed, and no named base lineage is established. Neural architecture remains unresolved. Morph documents 262,144 text tokens; the exact release date and native reasoning/tool support remain unverified.",
+    "notes": "Morph publishes nominal 7B for Fast Apply, matched to morph-v3-fast by the exact 10,500 tok/s and $0.80 row. Active parameters are not separately disclosed, and no named base lineage is established. Neural architecture remains unresolved. Morph documents 262,144 text tokens; the developer introduced V3 Fast and Large on June 15, 2025. Native reasoning/tool support remains unverified.",
     "sources": [
       {
         "label": "Morph exact model API metadata",
@@ -326,11 +332,53 @@
         "label": "Morph code-generation inference research",
         "url": "https://www.morphllm.com/blog/codegen-inference-research",
         "type": "primary"
+      },
+      {
+        "label": "Morph V3 Fast and Large introduction",
+        "url": "https://www.morphllm.com/blog/morph-gets-faster",
+        "type": "primary"
       }
     ],
     "parameters_b": 7,
     "parameters_source": "primary_source",
-    "active_parameters_b": null
+    "active_parameters_b": null,
+    "source_type": "primary",
+    "source_url": "https://www.morphllm.com/blog/morph-gets-faster"
   },
-  "summary": "Fresh October 27 parameter re-audit retains developer nominal 7B for exact morph-v3-fast. Separate active-count, later comparison-table and named-base searches found no support for an active count; Kortix Qwen-based FastApply is a different project, and the November Morph article body remains unavailable. Explicitly patches active parameters to null. The other 12 field assessments are preserved."
+  "summary": "Fresh October 27 parameter re-audit retains developer nominal 7B for exact morph-v3-fast. Separate active-count, later comparison-table and named-base searches found no support for an active count; Kortix Qwen-based FastApply is a different project, and the November Morph article body remains unavailable. Explicitly patches active parameters to null. The October 27 release-date re-audit recovers the complete rendered June 15, 2025 V3 introduction, verifies that release date, and preserves all thirteen other field assessments.",
+  "release_date_reaudit": {
+    "agent": "/root/date_hosted",
+    "reviewed_at": "2026-10-27T19:27:36.043662+00:00",
+    "searches": [
+      "site:morphllm.com \"v3\" \"2025\" release",
+      "site:morphllm.com \"Morph Gets Faster\" \"June 15\"",
+      "\"morph-v3-fast\" \"June\"",
+      "\"Morph V3\" launch",
+      "site:morphllm.com/blog/morph-gets-faster \"v3\""
+    ],
+    "accessed_originals": [
+      {
+        "url": "https://www.morphllm.com/blog/morph-gets-faster",
+        "method": "live browser rendered article",
+        "evidence_path": "/tmp/model-tracker-date-review/morph-faster-rendered.txt"
+      },
+      {
+        "url": "https://www.morphllm.com/changelog",
+        "method": "web open"
+      },
+      {
+        "url": "https://www.morphllm.com/api/models/json",
+        "method": "direct HTTP"
+      }
+    ],
+    "findings": [
+      "The previous failure was incomplete client-rendered article extraction, not absence of exact developer launch evidence.",
+      "The new-v3 wording names both exact variants and offers immediate API use.",
+      "The generic changelog and mutable created metadata were not substituted for the exact article."
+    ],
+    "outcome": "Verified 2025-06-15, day precision.",
+    "limitations": [
+      "The article is current publisher content, not an archived historical snapshot; no authenticated inference was performed."
+    ]
+  }
 }
