@@ -1,7 +1,7 @@
 {
   "index": 463,
   "model_id": "paddlepaddle/paddleocr-vl",
-  "reviewed_at": "2026-10-27T03:25:36.150717Z",
+  "reviewed_at": "2026-10-27T17:31:02.367306+00:00",
   "sources": [
     {
       "id": "release",
@@ -25,7 +25,7 @@
       "title": "Original PaddleOCR-VL model card at pinned revision",
       "publisher": "PaddlePaddle / Baidu",
       "accessed": true,
-      "evidence": "Names the core PaddleOCR-VL-0.9B, declares Apache 2.0, and gives four task-specific image-plus-text prompts producing generated text. Its Transformers example supports element recognition; page parsing additionally uses the surrounding pipeline. The card identifies the October 16, 2025 release."
+      "evidence": "Names the core PaddleOCR-VL-0.9B, declares Apache 2.0, and gives four task-specific image-plus-text prompts producing generated text. Its Transformers example supports element recognition; page parsing additionally uses the surrounding pipeline. The card identifies the October 16, 2025 release. Fresh pinned card read on October 27 reconfirms the original core model's nominal 0.9B designation, separately from its 0.3B language backbone."
     },
     {
       "id": "config",
@@ -33,7 +33,7 @@
       "title": "Original PaddleOCR-VL checkpoint configuration",
       "publisher": "PaddlePaddle / Baidu",
       "accessed": true,
-      "evidence": "Dense 18-layer text decoder, hidden size 1024, intermediate size 3072, 16 query heads, two KV heads and head size 128; vocabulary 103424; untied embeddings. Vision configuration has 27 layers, width 1152 and intermediate size 4304. max_position_embeddings is 131072, while max_sequence_length is null."
+      "evidence": "Dense 18-layer text decoder, hidden size 1024, intermediate size 3072, 16 query heads, two KV heads and head size 128; vocabulary 103424; untied embeddings. Vision configuration has 27 layers, width 1152 and intermediate size 4304. max_position_embeddings is 131072, while max_sequence_length is null. Fresh HTTP 200 retrieval on October 27 is JSON-identical to the current original, 1.5 and 1.6 configurations, including every layer, width, vocabulary, embedding-tying and vision setting."
     },
     {
       "id": "code",
@@ -41,7 +41,7 @@
       "title": "Original PaddleOCR-VL model implementation",
       "publisher": "PaddlePaddle / Baidu",
       "accessed": true,
-      "evidence": "Instantiates the vision Transformer, projector, dense ERNIE decoder and separate output head. All 620 checkpoint tensor names/shapes reconcile with these declarations. Rotary frequencies and position IDs are nonpersistent buffers. The instantiated vision pooling head and packing-position embedding are learned parameters, although the recognition forward path disables pooling and uses interpolated position embeddings. There is no MoE router or expert dispatch."
+      "evidence": "Instantiates the vision Transformer, projector, dense ERNIE decoder and separate output head. All 620 checkpoint tensor names/shapes reconcile with these declarations. Rotary frequencies and position IDs are nonpersistent buffers. The instantiated vision pooling head and packing-position embedding are learned parameters, although the recognition forward path disables pooling and uses interpolated position embeddings. There is no MoE router or expert dispatch. Fresh pinned implementation and configuration-code reads on October 27 independently reproduce the three component totals and 958,588,736 complete parameters by dimension arithmetic; no weight payload was requested."
     },
     {
       "id": "config-code",
@@ -73,7 +73,7 @@
       "title": "PaddleOCR-VL-1.5 technical report, original-model comparison",
       "publisher": "PaddlePaddle / Baidu",
       "accessed": true,
-      "evidence": "Tables 2 and A2 explicitly label original PaddleOCR-VL as 0.9B, separately from 1.5. Appendix A contrasts V1 and V1.5 and reserves new seal/text-spotting capabilities for 1.5. This supports the nominal original size and family relationship, without transferring successor capabilities."
+      "evidence": "Tables 2 and A2 label the original PaddleOCR-VL as nominally 0.9B, separately from 1.5. Section 2.1.2 explicitly says the 1.5 VLM inherits the original PaddleOCR-VL-0.9B architecture: native-resolution vision encoder, adaptive MLP connector and ERNIE-4.5-0.3B. Section 2.2.2 describes updated training rather than compression or expert changes. The structural changes in Section 2.1.1 concern separate PP-DocLayoutV3. Appendix A reserves new seal/text-spotting capabilities for 1.5; these are not transferred to the original."
     },
     {
       "id": "template",
@@ -98,6 +98,46 @@
       "publisher": "PaddlePaddle / Baidu",
       "accessed": true,
       "evidence": "model_max_length is 131072, matching the checkpoint positional ceiling. This does not establish tested or supported 128K document recognition, given the developer deployment limit of 16,384."
+    },
+    {
+      "id": "jina-ocr-comparison",
+      "url": "https://www.elastic.co/search-labs/blog/ocr-model-jina-ocr-v1-document-parsing",
+      "title": "Jina OCR v1 original model-team comparison, September 17, 2026",
+      "publisher": "Jina AI / Elastic",
+      "accessed": true,
+      "evidence": "Tables 1 and 2 explicitly list the exact PaddleOCR-VL-1.6 comparator at 0.9 billion total and 0.9 billion active parameters. Both tables agree on this model. This supplies Jina's nominal comparison convention, not a PaddlePaddle active disclosure or a measured count for each image-encoding/decoding phase. Five bounded searches for original PaddleOCR-VL total, active and activated counts, including developer-domain searches, found no stronger direct original-model active statement."
+    },
+    {
+      "id": "v16-architecture",
+      "url": "https://www.paddleocr.ai/main/en/version3.x/algorithm/PaddleOCR-VL/PaddleOCR-VL-1.6.html",
+      "title": "PaddleOCR-VL-1.6 developer architecture and deployment documentation",
+      "publisher": "PaddlePaddle / Baidu",
+      "accessed": true,
+      "evidence": "Section 4 explicitly states 1.6 and 1.5 use exactly the same architecture. Sections 1-2 retain the 0.9B designation and describe loading 1.5 weights followed by continued pretraining, supervised fine-tuning and reinforcement learning. No pruning, distillation, expert expansion or new VLM component is described."
+    },
+    {
+      "id": "reaudit-config-original",
+      "url": "https://huggingface.co/PaddlePaddle/PaddleOCR-VL/raw/main/config.json",
+      "title": "Original PaddleOCR-VL current developer configuration, October 27 recheck",
+      "publisher": "PaddlePaddle / Baidu",
+      "accessed": true,
+      "evidence": "Fresh HTTP 200 retrieval; parsed JSON is identical to pinned original revision 7fa00a8c55b735ba51ba49a9058f3f9c57a99a11 and the current 1.5/1.6 configurations. Corroborates unchanged VLM dimensions and nominal architecture; no weights downloaded."
+    },
+    {
+      "id": "reaudit-config-v15",
+      "url": "https://huggingface.co/PaddlePaddle/PaddleOCR-VL-1.5/raw/main/config.json",
+      "title": "PaddleOCR-VL-1.5 developer configuration, October 27 recheck",
+      "publisher": "PaddlePaddle / Baidu",
+      "accessed": true,
+      "evidence": "Fresh HTTP 200 retrieval; entire parsed JSON matches the original and 1.6 configurations, including 18 text layers, width 1024, intermediate 3072, vocabulary 103424, untied embeddings, and 27 vision layers with width 1152/intermediate 4304. This corroborates the developer's explicit inherited architecture."
+    },
+    {
+      "id": "reaudit-config-v16",
+      "url": "https://huggingface.co/PaddlePaddle/PaddleOCR-VL-1.6/raw/main/config.json",
+      "title": "PaddleOCR-VL-1.6 developer configuration, October 27 recheck",
+      "publisher": "PaddlePaddle / Baidu",
+      "accessed": true,
+      "evidence": "Fresh HTTP 200 retrieval; entire parsed JSON matches both original and 1.5 configurations. Confirms the same dense language/vision dimensions, projector inputs, vocabulary and untied embeddings behind the developer's same-architecture statement. Configuration agreement supports nominal lineage, not literal active counts by phase."
     }
   ],
   "fields": {
@@ -163,19 +203,25 @@
         "config",
         "code",
         "config-code",
+        "card",
+        "paper",
         "later-paper"
       ],
-      "note": "Complete instantiated checkpoint total: language decoder plus independent input/output embeddings 466,654,208; vision model 465,974,336; projector 25,960,192. All 620 tensors reconcile with code and shapes. Vision total includes the serialized 37,748,736 packing-position embedding and 15,238,352 pooling head, which normal recognition bypasses. Both are parameters, not buffers. Input embedding and output head each contain 105,906,176 parameters and are untied. The published 0.9B is a nominal model designation; do not substitute the 0.3B backbone label or add separate PP-DocLayoutV2 weights."
+      "note": "Retain the complete 0.958588736B checkpoint total from the prior 620-tensor reconciliation. Fresh pinned configuration and implementation reads independently reproduce language decoder plus untied input/output embeddings 466,654,208, vision model 465,974,336, and projector 25,960,192. Vision includes the stored 37,748,736 packing-position embedding and 15,238,352 pooling head bypassed in normal recognition. The developer's 0.9B designation is nominal; the 0.3B backbone label and separate PP-DocLayoutV2 are not complete VLM counts."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 0.9,
+      "status": "verified",
       "source_ids": [
-        "paper",
-        "code",
-        "header"
+        "jina-ocr-comparison",
+        "later-paper",
+        "v16-architecture",
+        "config",
+        "reaudit-config-original",
+        "reaudit-config-v15",
+        "reaudit-config-v16"
       ],
-      "note": "No separately defined active-per-token parameter count is reported. Dense architecture does not justify equating total with active parameters, especially with visual modules used at image encoding and stored alternate-path modules."
+      "note": "Infer nominal 0.9B active under Jina AI/Elastic's published comparison convention: its Tables 1 and 2 explicitly give PaddleOCR-VL-1.6 0.9B active. PaddlePaddle documents identical 1.6/1.5 architecture, and the 1.5 paper explicitly inherits the original VLM architecture. Fresh original, 1.5 and 1.6 configurations are entirely identical. The changed PP-DocLayoutV3 is a separate pipeline detector. This is a labeled architecture-lineage inference of Jina's nominal convention, not a separate PaddlePaddle active disclosure, dense-equals-total arithmetic, or an exact per-token/phase tensor census. Embedding and visual-phase accounting remain unspecified."
     },
     "architecture": {
       "value": "dense",
@@ -316,9 +362,35 @@
         "label": "Original PaddleOCR-VL tokenizer configuration",
         "url": "https://huggingface.co/PaddlePaddle/PaddleOCR-VL/blob/7fa00a8c55b735ba51ba49a9058f3f9c57a99a11/tokenizer_config.json",
         "type": "primary"
+      },
+      {
+        "label": "Jina OCR v1 original model-team comparison, September 17, 2026",
+        "url": "https://www.elastic.co/search-labs/blog/ocr-model-jina-ocr-v1-document-parsing",
+        "type": "primary"
+      },
+      {
+        "label": "PaddleOCR-VL-1.6 developer architecture and deployment documentation",
+        "url": "https://www.paddleocr.ai/main/en/version3.x/algorithm/PaddleOCR-VL/PaddleOCR-VL-1.6.html",
+        "type": "primary"
+      },
+      {
+        "label": "Original PaddleOCR-VL current developer configuration, October 27 recheck",
+        "url": "https://huggingface.co/PaddlePaddle/PaddleOCR-VL/raw/main/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "PaddleOCR-VL-1.5 developer configuration, October 27 recheck",
+        "url": "https://huggingface.co/PaddlePaddle/PaddleOCR-VL-1.5/raw/main/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "PaddleOCR-VL-1.6 developer configuration, October 27 recheck",
+        "url": "https://huggingface.co/PaddlePaddle/PaddleOCR-VL-1.6/raw/main/config.json",
+        "type": "primary"
       }
     ],
-    "notes": "Original PaddleOCR-VL checkpoint, nominally 0.9B. Exact complete checkpoint count is 958,588,736 parameters at Hugging Face revision 7fa00a8c55b735ba51ba49a9058f3f9c57a99a11; includes the vision encoder, projector and untied language input/output embeddings, and excludes separate PP-DocLayoutV2 pipeline weights. Stored vision pooling and packing-position parameters are included in the total but bypassed in normal recognition. Supported context is 16,384 per PaddlePaddle FastDeploy documentation; 131,072 in config/tokenizer is a larger configured ceiling, not demonstrated supported context. Dedicated reasoning and native tool calling remain unverified."
+    "notes": "Original PaddleOCR-VL: 0.958588736B complete checkpoint parameters, nominally 0.9B. Active 0.9B is inferred from Jina AI/Elastic's nominal 1.6 comparison convention through PaddlePaddle's documented unchanged VLM architecture across original, 1.5 and 1.6, corroborated by identical configurations. This is not a separate PaddlePaddle active disclosure or exact per-token/phase count. Total includes stored vision pooling and packing-position parameters bypassed in normal recognition; excludes the separate layout detector. Supported context is 16,384; the 131,072 config/tokenizer value is a larger ceiling. Dedicated reasoning and native tool calling remain unverified.",
+    "active_parameters_b": 0.9
   },
   "proposed_fields": {
     "parameter_components_b": {
@@ -327,5 +399,5 @@
       "projector": 0.025960192
     }
   },
-  "summary": "Verified original October 16, 2025 release and Apache-2.0 open weights. Added exact complete 0.958588736B checkpoint total with all 620 BF16 parameter tensors reconciled to code, dense architecture and PaddleOCR-VL family. Corrected supported context to 16,384 based on explicit developer guidance, distinguishing the 131,072 config ceiling. Removed unsupported false assertions for reasoning and tool calling; active count remains undisclosed."
+  "summary": "October 27 parameter re-audit retains the exact 0.958588736B total after independently reproducing all component counts from fresh pinned code/configuration. Adds nominal 0.9B active as an explicitly attributed inference of Jina AI/Elastic's PaddleOCR-VL-1.6 comparison convention: original developer sources establish unchanged VLM architecture through 1.5 and 1.6, and all freshly fetched configurations are identical. Bounded total/active searches found no direct original-model active disclosure; phase and embedding accounting remain unspecified. Preserved all twelve other field assessments and the exact component breakdown."
 }
