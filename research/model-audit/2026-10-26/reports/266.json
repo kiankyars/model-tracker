@@ -1,7 +1,7 @@
 {
   "index": 266,
   "model_id": "meta/llama-3-8b",
-  "reviewed_at": "2026-10-26T21:31:04.622022Z",
+  "reviewed_at": "2026-10-27T14:05:10.409Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Meta-Llama-3-8B model card",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "The exact base-model repository identifies Meta-Llama-3-8B and provides original and Transformers formats. Its card gives Meta as developer, nominal 8B parameters, text input/output, GQA, 8k context, April 18, 2024 release and the custom Llama 3 license. The page links Llama 3.1 as a newer, separate model."
+      "evidence": "Reopened October 27, 2026. The exact original base-model repository identifies Meta-Llama-3-8B; its Params table explicitly lists 8B, 8k context and GQA. The card distinguishes pretrained and instruction-tuned variants and gives Meta as developer, text input/output, April 18, 2024 release and the custom Llama 3 license. It links Llama 3.1 as a newer, separate model; no separate active-parameter value is specified."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "Original Meta Llama 3 model card",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "Original release card distinguishes pretrained and instruction-tuned 8B and 70B models, describes autoregressive Transformers using GQA and 8,192-token training sequences, and reports the April 18, 2024 release. Base benchmarks include prompted chain-of-thought tasks but do not specify a dedicated reasoning mode or an active-parameter count."
+      "evidence": "Reopened October 27, 2026. The original release card explicitly distinguishes pretrained and instruction-tuned 8B and 70B models, describes autoregressive Transformers using GQA and 8,192-token training sequences, and reports the April 18, 2024 release. It supports the nominal 8B total but does not separately report activated parameters. Base benchmarks include prompted chain-of-thought tasks without specifying a dedicated reasoning mode."
     },
     {
       "id": "s3",
@@ -25,7 +25,7 @@
       "title": "Introducing Meta Llama 3",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "Dated April 18, 2024 announcement releases pretrained and instruction-fine-tuned 8B and 70B text models. It describes a standard decoder-only Transformer, GQA for both sizes, and training sequences of 8,192 tokens."
+      "evidence": "Reopened October 27, 2026. The April 18, 2024 announcement explicitly releases pretrained and instruction-fine-tuned language models with 8B and 70B parameters. It describes a standard decoder-only Transformer, GQA for both sizes, and training sequences of 8,192 tokens. It does not separately specify an active count."
     },
     {
       "id": "s4",
@@ -90,6 +90,22 @@
       "publisher": "Llama Team, AI at Meta",
       "accessed": true,
       "evidence": "Table 1 explicitly gives original Llama 3 8B Finetuned=no, Tool use=no and Release=April 2024, separately from Llama 3.1. The paper states its later benchmark results describe Llama 3.1; those specifications are not transferred to this original checkpoint."
+    },
+    {
+      "id": "s12",
+      "url": "https://arxiv.org/html/2505.09388v1#S3.T6",
+      "title": "Qwen3 Technical Report, Table 6: original Llama-3-8B Base",
+      "publisher": "Qwen Team, Alibaba Group",
+      "accessed": true,
+      "evidence": "Freshly opened October 27, 2026. Table 6 identifies Llama-3-8B with the explicit Base qualifier and lists Architecture=Dense, Total Params=8B and Activated Params=8B. The report separately identifies LLaMA-3.1-8B-Instruct elsewhere, so the Table 6 row is the original Llama 3 base model. This is the Qwen research team's explicit nominal comparison convention, not an active-count disclosure by Meta or an exact tensor census."
+    },
+    {
+      "id": "s13",
+      "url": "https://arxiv.org/html/2405.04434v1#S0.F1",
+      "title": "DeepSeek-V2 technical report, Figure 1(a)",
+      "publisher": "DeepSeek-AI",
+      "accessed": true,
+      "evidence": "Freshly opened October 27, 2026 and visually checked the original mmlu.svg plot. Figure 1(a) labels LLaMA 3 8B at approximately 8 billion on an axis explicitly named Activated Parameters (Billions). The May 2024 report compares pretrained models in Section 3.2 and discusses aligned chat models separately; this predates Llama 3.1. It corroborates the nominal scale under DeepSeek's comparison convention with approximate plot precision, not a direct Meta disclosure."
     }
   ],
   "fields": {
@@ -154,21 +170,18 @@
       "source_ids": [
         "s1",
         "s2",
-        "s3",
-        "s9",
-        "s10"
+        "s3"
       ],
-      "note": "Meta’s nominal 8-billion parameter size. Public metadata reports 8,030,261,248 BF16 tensor elements, but exact learned-parameter counting was not established from the accessible aggregate and gated config; retain nominal precision."
+      "note": "Meta explicitly publishes 8B for the original pretrained Llama 3 checkpoint. Retain this supported nominal total; an exact learned-tensor census is not required to establish the published size."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 8,
+      "status": "verified",
       "source_ids": [
-        "s2",
-        "s5",
-        "s11"
+        "s12",
+        "s13"
       ],
-      "note": "No separately defined active-parameter count for this exact original model is reported. Dense execution does not justify copying its nominal total into this field."
+      "note": "Qwen3 Table 6 explicitly reports 8B activated parameters for Llama-3-8B Base. DeepSeek-V2 Figure 1(a) independently places the original model at approximately 8B active. Adopt the Qwen authors' nominal comparison convention, not a direct Meta active-count disclosure or an inferred dense-equals-total rule; exact per-token tensor participation is not established."
     },
     "architecture": {
       "value": "dense",
@@ -240,7 +253,7 @@
     "parameters_source": "primary_source",
     "tool_call": false,
     "description": "Meta’s original Llama 3 8B pretrained text-generation model, using a dense decoder-only Transformer with grouped-query attention and an 8,192-token context window.",
-    "notes": "The 8B parameter value is Meta’s nominal size, not an independently audited exact learned-parameter total. Active parameters and a dedicated reasoning mode are not separately established. Meta explicitly marks native tool use absent for this original pretrained checkpoint; later Llama 3.1 capabilities do not apply.",
+    "notes": "Total parameters are Meta’s nominal 8B. The nominal 8B active count follows the Qwen3 authors’ explicit comparison table for Llama-3-8B Base; it is not a separate Meta disclosure or an exact per-token tensor count. A dedicated reasoning mode remains unspecified. Meta marks native tool use absent for this original pretrained checkpoint.",
     "sources": [
       {
         "label": "Original release announcement",
@@ -281,8 +294,20 @@
         "label": "Public exact-repository tensor metadata",
         "url": "https://huggingface.co/api/models/meta-llama/Meta-Llama-3-8B",
         "type": "catalog"
+      },
+      {
+        "label": "Qwen3 Table 6: original Llama 3 8B Base activated parameters",
+        "url": "https://arxiv.org/html/2505.09388v1#S3.T6",
+        "type": "paper"
+      },
+      {
+        "label": "DeepSeek comparison: approximate activated parameters",
+        "url": "https://arxiv.org/html/2405.04434v1#S0.F1",
+        "type": "paper"
       }
-    ]
+    ],
+    "parameters_b": 8,
+    "active_parameters_b": 8
   },
-  "summary": "Confirmed the original base model, nominal 8B size, dense decoder-only GQA architecture, 8,192-token context, April 18, 2024 release, text modalities and custom open-weight license. Set native tool calling false from Meta’s exact-model comparison and expanded the description. Active count and dedicated reasoning remain undisclosed. Public BF16 aggregate metadata was inspected but not promoted to an exact learned-parameter count; normal config access was gated."
+  "summary": "October 27 parameter re-audit retained Meta’s nominal 8B total after reopening the exact base card, original card and April release announcement. Fresh searches of Meta sources did not locate a separate active-count specification. Qwen3 Table 6 explicitly identifies the original Llama-3-8B Base and reports 8B activated parameters; this supports changing active_parameters_b from undisclosed to verified at nominal 8B under the Qwen authors’ stated comparison convention. DeepSeek-V2 Figure 1(a), visually inspected, corroborates approximately 8B active. Neither comparison is represented as a direct Meta active-count disclosure or exact per-token tensor census. All twelve nonparameter assessments are preserved."
 }
