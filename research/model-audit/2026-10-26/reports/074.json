@@ -1,7 +1,7 @@
 {
   "index": 74,
   "model_id": "alibaba/qwen3.8-omni-flash",
-  "reviewed_at": "2026-10-26T15:53:40.034719+00:00",
+  "reviewed_at": "2026-10-27T09:56:55.983739+00:00",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "qwen3.8-omni-flash model information",
       "publisher": "Alibaba Cloud",
       "accessed": true,
-      "evidence": "Exact endpoint: text/image/audio/video inputs, text-only output, 1M-token context, default thinking with adjustable effort, and custom function calling. Official hosted API documentation; no model-weight license or parameter counts."
+      "evidence": "Reopened October 27: exact text-output endpoint capabilities and limits remain documented; no numeric total or active model count is listed."
     },
     {
       "id": "s2",
@@ -25,7 +25,7 @@
       "title": "Qwen3.8-Omni: Towards Native Omni-Modal Agents",
       "publisher": "Qwen Team",
       "accessed": true,
-      "evidence": "September 22 technical report, sections 2.1 and 7: Thinker-Talker architecture; hybrid sparse MoE Thinker with Gated DeltaNet and Qwen Sparse Attention; vision, AuT and Spatial AuT encoders. Talker/Code2Wav discussion concerns Realtime speech generation. No numeric total, active, or component parameter counts are given."
+      "evidence": "Reopened October 27, sections 2.1, 3 and 4: Thinker uses the Qwen3.8-Next sparse MoE backbone, and S1 explicitly initializes its LLM from Qwen3.8-Next parameters. S2-S4 train that backbone and enable QSA. Multi-teacher distillation consolidates specialist trajectories; no backbone resizing, pruning or expert expansion is stated. Vision, AuT and Spatial AuT are separate encoders. Vision provenance differs between sections 2.1 (Next) and 3 (Qwen3.5), so no encoder count is transferred. No direct Omni numeric count is printed."
     },
     {
       "id": "s4",
@@ -33,7 +33,7 @@
       "title": "Model releases",
       "publisher": "QwenCloud / Alibaba",
       "accessed": true,
-      "evidence": "September 18 entry names the exact model and states it is built on Qwen3.8-Flash-Next architecture with text/image/audio/video inputs and 1M context. Its date differs by one day from Alibaba Cloud release tables; it gives no counts for Omni-Flash."
+      "evidence": "Reopened October 27: September 18 entry explicitly says built on Qwen3.8-Flash-Next architecture. Later changelog entries through October 26 give no Omni total or active count. Architecture wording supplements the technical report's more specific LLM initialization evidence."
     },
     {
       "id": "s5",
@@ -41,7 +41,7 @@
       "title": "Qwen3.8-Omni-Flash: Omni Senses. Agentic Delivery.",
       "publisher": "Qwen Team",
       "accessed": true,
-      "evidence": "Full search-indexed official article dated 2026/09/18 announces platform/API access, the distinct Realtime variant, and open-source companion plugins/harness. Direct web opening produced an empty app shell; indexed text supplied the article. No numeric model size or weights release was announced."
+      "evidence": "Rechecked indexed official launch article October 27; direct opening still returns an empty app shell. Article and text/vision benchmark tables contain no parameter-count column. Similar-size text performance and comparisons with Flash or Qwen3.5-Omni-Plus are not used as size evidence. Realtime and companion open-source tools remain distinct."
     },
     {
       "id": "s6",
@@ -50,6 +50,30 @@
       "publisher": "Hugging Face / Qwen",
       "accessed": true,
       "evidence": "Live HTTP 200 query returned an empty array on the review date, supporting the absence of a public Qwen checkpoint under the exact model family name. This is limited to this official-organization query."
+    },
+    {
+      "id": "s7",
+      "url": "https://docs.qwencloud.com/developer-guides/speech/multimodal-speech",
+      "title": "Qwen-Omni developer guide",
+      "publisher": "QwenCloud / Alibaba",
+      "accessed": true,
+      "evidence": "Reopened October 27: exact Qwen3.8-Omni-Flash model selection and comparison tables specify text output, modalities and context, but no total or activated parameter counts. Shared language support with Qwen3.5-Omni does not identify an equal-size model."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next",
+      "title": "Qwen3.8-Flash-Next official model card",
+      "publisher": "Qwen Team",
+      "accessed": true,
+      "evidence": "Accessed October 27: Language Model specification publishes nominal 125B with 6B activated, plus separate 51B n-gram embedding and 4B MTP. The benchmark table independently labels parameters, activated parameters and n-gram parameters. These supply the named base's main-language convention, not an Omni full-model count."
+    },
+    {
+      "id": "s9",
+      "url": "https://arxiv.org/html/2608.30320v1",
+      "title": "On the Design of Qwen3.8-Next Architecture: Evaluation, Efficiency, and Training Stability",
+      "publisher": "Qwen Team",
+      "accessed": true,
+      "evidence": "Accessed October 27: report cited by Omni's initialization statement identifies Qwen3.8-Flash-Next. Abstract and Table 11 publish 125B main parameters, 6B activated, and 51B additional n-gram embeddings; the n-gram tables are outside the backbone. This connects the named initialization source to its published nominal counts."
     }
   ],
   "fields": {
@@ -112,25 +136,25 @@
       "note": "No exact weight artifact and corresponding license were verified for this hosted variant. API terms and other checkpoint or companion-software licenses do not establish a weight license here."
     },
     "parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 125,
+      "status": "verified",
       "source_ids": [
-        "s1",
         "s3",
         "s4",
-        "s5"
+        "s8",
+        "s9"
       ],
-      "note": "No complete-model or component counts in the exact-model technical report, launch article or official documentation. Exact-name searches in later first-party reports/cards found no numeric disclosure. Do not substitute Flash-Next backbone or earlier Omni counts."
+      "note": "Nominal inference for main_language_model only: Omni section 3 explicitly initializes the LLM from Qwen3.8-Next, whose cited report identifies Flash-Next and publishes 125B main parameters. No subsequent backbone resizing is stated. Excludes encoders and the base's separately counted n-gram/MTP components; full Omni total remains undisclosed."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 6,
+      "status": "verified",
       "source_ids": [
-        "s1",
         "s3",
-        "s4"
+        "s8",
+        "s9"
       ],
-      "note": "No activated count is specified for this model or its Thinker, Talker or encoders. Architecture lineage does not establish an identical active count."
+      "note": "Nominal inference for main_language_model from the explicit Next initialization and its developer-published 6B activated convention, also present in Table 11. No changed expert-routing size is stated. This does not measure complete multimodal execution or add encoder, n-gram-lookup or MTP activation."
     },
     "architecture": {
       "value": "moe",
@@ -219,11 +243,36 @@
         "label": "QwenCloud model release changelog",
         "url": "https://docs.qwencloud.com/changelog/models",
         "type": "primary"
+      },
+      {
+        "label": "Qwen-Omni developer guide",
+        "url": "https://docs.qwencloud.com/developer-guides/speech/multimodal-speech",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3.8-Flash-Next named base specifications",
+        "url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3.8-Next architecture and parameter table",
+        "url": "https://arxiv.org/html/2608.30320v1",
+        "type": "primary"
       }
     ],
-    "notes": "Hybrid sparse MoE Thinker; total, activated and component parameter counts remain undisclosed. This endpoint produces text only; speech generation belongs to the Realtime variant. Earliest official release-table date is September 17, 2026; QwenCloud and the launch article show September 18. Exact weight-release status and a corresponding weight license remain unverified.",
+    "notes": "Nominal 125B main-language parameters and 6B active are inferred from the technical report's explicit Qwen3.8-Next initialization. Both counts cover the main language model only; they exclude encoders and the base's separately counted n-gram/MTP components. Full Omni total and full multimodal active count remain undisclosed. This endpoint outputs text; Realtime handles speech generation. Earliest official release-table date is September 17, 2026; the launch article shows September 18. Exact weight-release status and license remain unverified.",
     "open_weights": null,
-    "license": null
+    "license": null,
+    "parameters_b": 125,
+    "active_parameters_b": 6,
+    "parameters_source": "primary_source"
   },
-  "summary": "Confirmed all asserted baseline capabilities and September 17 earliest official endpoint-release date, with a one-day first-party date discrepancy recorded. Added primary-source MoE architecture evidence from the exact-model technical report. Total/active/component counts remain undisclosed; no predecessor or backbone counts were transferred. Parent review leaves exact weight availability and license unverified rather than inferring closed weights from hosting or absent search results."
+  "summary": "October 27 parameter re-audit found missed explicit LLM initialization in Omni report section 3. Infer nominal 125B main-language parameters and 6B active from the named Next base, with component scopes and primary-source provenance. Reviewed encoder additions and distillation; no backbone resizing is stated. Reopened launch/API guides and searched later first-party reports, cards and comparisons; none supplies a complete Omni total or multimodal active count. Other audited fields are preserved.",
+  "proposed_fields": {
+    "parameters_scope": "main_language_model",
+    "active_parameters_scope": "main_language_model",
+    "parameter_components_b": {
+      "main_language_model": 125
+    }
+  }
 }
