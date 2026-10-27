@@ -1,7 +1,7 @@
 {
   "index": 35,
   "model_id": "alibaba/qwen3-coder-plus",
-  "reviewed_at": "2026-10-26T14:32:35.089208Z",
+  "reviewed_at": "2026-10-27T07:52:15.704067Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Model lifecycle and updates",
       "publisher": "Alibaba Cloud",
       "accessed": true,
-      "evidence": "Live release history names qwen3-coder-plus and its July snapshot: China release 2025-07-22, international/global release 2025-07-23. It separately lists the September 23 snapshot and describes code generation, tool calls, environment interaction and autonomous programming."
+      "evidence": "Reopened on October 27: release history names qwen3-coder-plus and July 22/23 availability, then explicitly describes qwen3-coder-plus-2025-09-23 as its September snapshot with better downstream robustness, tool invocation and code security. It reports no pruning, distillation, expert-count change or additional modality for that update."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "Qwen3-Coder: Agentic Coding in the World",
       "publisher": "Qwen Team",
       "accessed": true,
-      "evidence": "July 22, 2025 announcement identifies the open Qwen3-Coder-480B-A35B-Instruct checkpoint as 480B total/35B active MoE. Its Cline instructions pair that checkpoint name with qwen3-coder-plus. This establishes a launch association, not immutable equivalence of later hosted snapshots."
+      "evidence": "Reopened the original July 22, 2025 launch post on October 27. It states 480B total and 35B active parameters for the MoE Qwen3-Coder-480B-A35B-Instruct. The Cline instructions explicitly tell users to configure that named checkpoint through DashScope by entering qwen3-coder-plus. This is a named-model mapping supporting nominal lineage inference, beyond generic family resemblance."
     },
     {
       "id": "s3",
@@ -25,7 +25,7 @@
       "title": "Model Studio pricing \u2014 historical search-index copy",
       "publisher": "Alibaba Cloud",
       "accessed": true,
-      "evidence": "Search-index copy explicitly maps qwen3-coder-plus to qwen3-coder-plus-2025-09-23. This is historical documentation, not evidence that the endpoint still operates."
+      "evidence": "Fresh search-index evidence still maps qwen3-coder-plus to qwen3-coder-plus-2025-09-23; the current live pricing page no longer includes the alias. The dated Alibaba update notices s9 and s10 independently establish that mapping without relying only on the stale index."
     },
     {
       "id": "s4",
@@ -58,6 +58,38 @@
       "publisher": "Alibaba Cloud",
       "accessed": true,
       "evidence": "October 8, 2026 announcement lists qwen3-coder-plus among DataWorks models retiring in phases from October 10, with qwen3.7-plus as replacement and region-dependent availability. This does not independently prove every Model Studio endpoint is retired."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/Qwen/Qwen3-Coder-480B-A35B-Instruct",
+      "title": "Qwen3-Coder-480B-A35B-Instruct model card",
+      "publisher": "Qwen Team",
+      "accessed": true,
+      "evidence": "Official model overview independently reports 480B total and 35B activated parameters, 62 layers, 160 experts and 8 activated experts. These are developer-published nominal counts for the named model mapped to the hosted alias at launch; no weight shards were downloaded."
+    },
+    {
+      "id": "s9",
+      "url": "https://www.alibabacloud.com/en/notice/model_studio_update_of_qwen3coderplus_5c3?_p_lc=1",
+      "title": "Model Studio: Update of Qwen3-Coder-Plus, September 28, 2025",
+      "publisher": "Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Dated primary notice explicitly maps qwen3-coder-plus from the 2025-07-22 version to the 2025-09-23 version and describes improved downstream-task robustness, function calling and code security. It identifies an update of the same named model, with no disclosed structural change. The 480B/35B carry-forward remains a nominal lineage inference, not a new September count disclosure."
+    },
+    {
+      "id": "s10",
+      "url": "https://www.alibabacloud.com/en/notice/model_studio_update_of_qwen3coderplus_60c?_p_lc=1",
+      "title": "Model Studio: Update of Qwen3-Coder-Plus, November 20, 2025",
+      "publisher": "Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Reopened primary notice confirms the Beijing and Singapore alias mapping from qwen3-coder-plus-2025-07-22 to qwen3-coder-plus-2025-09-23, scheduled for December 4, 2025. Pricing is unchanged; this corroborates version continuity but is not itself a parameter disclosure."
+    },
+    {
+      "id": "s11",
+      "url": "https://github.com/QwenLM/Qwen3-Coder",
+      "title": "Qwen3-Coder official repository",
+      "publisher": "Qwen Team",
+      "accessed": true,
+      "evidence": "Fresh review of the current README finds the open 480B-A35B, 30B-A3B and Next variants. It explicitly attributes the newer Next model to Qwen3-Next-80B-A3B-Base and its hybrid architecture, but does not map that structural change onto Coder Plus. Targeted English/Chinese searches for the Plus alias and both snapshots found no developer disclosure of a changed total, active count, pruning, distillation or expert expansion."
     }
   ],
   "fields": {
@@ -116,34 +148,37 @@
       "note": "No weight license established for the exact later hosted alias. Do not transfer an open checkpoint license to an unproven equivalent."
     },
     "parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 480,
+      "status": "verified",
       "source_ids": [
-        "s1",
         "s2",
-        "s3"
+        "s8",
+        "s9",
+        "s10"
       ],
-      "note": "The 480B announcement concerns the launch checkpoint. Total parameters for the later qwen3-coder-plus-2025-09-23 hosted snapshot are not disclosed in the reviewed exact-model sources."
+      "note": "Nominal lineage inference: Qwen explicitly maps the hosted alias to Qwen3-Coder-480B-A35B-Instruct at launch, whose developer card reports 480B total. Alibaba identifies September 23 as an update of that same model, with robustness and safety improvements and no disclosed structural change. This supports carrying forward the nominal size; a separate exact September snapshot count was not published."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 35,
+      "status": "verified",
       "source_ids": [
-        "s1",
         "s2",
-        "s3"
+        "s8",
+        "s9",
+        "s10"
       ],
-      "note": "The launch checkpoint has nominal 35B active parameters, but that count cannot establish the later hosted snapshot count."
+      "note": "Nominal lineage inference from the explicitly mapped model: Qwen separately publishes 35B activated parameters. The documented September update contains no changed activation or expert-count specification. Retain the developer activation convention; this is not calculated from total parameters or a claim of exact hosted tensor equivalence."
     },
     "architecture": {
-      "value": null,
-      "status": "undisclosed",
+      "value": "moe",
+      "status": "verified",
       "source_ids": [
-        "s1",
         "s2",
-        "s3"
+        "s8",
+        "s9",
+        "s11"
       ],
-      "note": "MoE is documented for the launch checkpoint; latest documented hosted alias is a later snapshot without an exact architecture disclosure. Qwen3-based alone is insufficient."
+      "note": "MoE follows the same explicit launch mapping and documented same-model snapshot update. The base card specifies 160 experts with 8 activated; no structural replacement for Coder Plus was found. The separately named Coder Next architecture is not transferred to Plus."
     },
     "context_window": {
       "value": 1000000,
@@ -201,7 +236,7 @@
     "context_window": 1000000,
     "reasoning": null,
     "description": "Hosted Qwen3 coding model for code generation and tool-driven programming.",
-    "notes": "Hosted alias: launch instructions linked it to Qwen3-Coder-480B-A35B-Instruct, but later documentation maps it to qwen3-coder-plus-2025-09-23; counts, architecture and weight license for that later snapshot remain undisclosed. Context and modalities use historical indexed official documentation; current model pages omit/redirect this alias and DataWorks announced phased retirement from 2026-10-10. Present endpoint operation is unverified. Official sources conflict on thinking mode and regional tool-calling support. Release date is earliest documented China availability; international/global service followed July 23.",
+    "notes": "Nominal 480B total / 35B active MoE inferred from Qwen\u2019s explicit launch mapping to Qwen3-Coder-480B-A35B-Instruct and the documented September snapshot update; no structural change is disclosed, but the later snapshot has no separate count publication. Exact hosted weights and license remain unresolved. Context and modalities use historical official documentation; current pages omit or redirect this alias, and present endpoint operation is unverified. Official sources conflict on thinking mode and regional tool-calling support. Release date is earliest China availability; international/global service followed July 23.",
     "sources": [
       {
         "label": "Alibaba model lifecycle and release dates",
@@ -232,10 +267,29 @@
         "label": "DataWorks model retirement notice",
         "url": "https://www.alibabacloud.com/help/en/dataworks/announcement-on-model-retirement-for-dataworks-data-agent",
         "type": "primary"
+      },
+      {
+        "label": "Qwen3-Coder-480B-A35B official parameter specification",
+        "url": "https://huggingface.co/Qwen/Qwen3-Coder-480B-A35B-Instruct",
+        "type": "primary"
+      },
+      {
+        "label": "Alibaba Coder Plus snapshot update and lineage",
+        "url": "https://www.alibabacloud.com/en/notice/model_studio_update_of_qwen3coderplus_5c3?_p_lc=1",
+        "type": "primary"
+      },
+      {
+        "label": "Alibaba regional Coder Plus alias mapping",
+        "url": "https://www.alibabacloud.com/en/notice/model_studio_update_of_qwen3coderplus_60c?_p_lc=1",
+        "type": "primary"
       }
     ],
     "release_date": "2025-07-22",
-    "date_precision": "day"
+    "date_precision": "day",
+    "parameters_b": 480,
+    "active_parameters_b": 35,
+    "architecture": "moe",
+    "parameters_source": "primary_source"
   },
-  "summary": "Correct context to 1,000,000 using the last indexed official model card; confirm international release 2025-07-23, text modalities and tool-calling capability. Keep parameters and architecture undisclosed for the later hosted snapshot despite the launch checkpoint association. Mark exact open-weight status and thinking mode unresolved; document primary-source conflicts and limits on current availability claims."
+  "summary": "October 27 parameter re-audit restores nominal 480B total, 35B active and MoE through the explicit Qwen launch mapping plus Alibaba\u2019s documented July-to-September snapshot continuity. Fresh primary-source checks found no changed size, pruning, distillation, expert expansion or added modality for Plus; the later snapshot does not separately publish a count. Preserve the prior context correction and non-parameter assessments. Exact hosted weight identity, license, conflicting thinking-mode documentation and current endpoint operation remain unresolved."
 }
