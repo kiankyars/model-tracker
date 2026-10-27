@@ -1,7 +1,7 @@
 {
   "index": 71,
   "model_id": "alibaba/qwen3.8-max-0902",
-  "reviewed_at": "2026-10-26T15:53:40.034719+00:00",
+  "reviewed_at": "2026-10-27T09:55:10.092Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Alibaba Cloud Model Studio: qwen3.8-max",
       "publisher": "Alibaba Cloud",
       "accessed": true,
-      "evidence": "Updated October 11, 2026. Describes the current Max endpoint as a 2.4-trillion-parameter MoE. The dedicated 0902 snapshot section names its long-date alias, lists text/image/video inputs and text output, function calling, thinking, and a 1,000,000-token context."
+      "evidence": "Reopened October 27. The current Max documentation, updated October 11, calls it a 2.4-trillion-parameter MoE and explicitly identifies qwen3.8-max-0902 (alias qwen3.8-max-2026-09-02) as an upgraded snapshot of qwen3.8-max. Its native vision is described as refined; no pruning, distillation, expert expansion or added modality is disclosed. The snapshot retains a 1,000,000-token context."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "[Model Studio] Update Notice for Qwen3.8-Max Models",
       "publisher": "Alibaba Cloud",
       "accessed": true,
-      "evidence": "September 2 notice explicitly identifies the September 2 snapshot and permits direct testing before September 5. It announces that the qwen3.8-max endpoint will transition to qwen3.8-max-0902 on September 5."
+      "evidence": "Reopened October 27. The September 2 developer notice explicitly names 0902 as the September 2, 2026 snapshot of Qwen3.8-Max and maps the moving qwen3.8-max endpoint to it from September 5. Changes concern coding, agentic collaboration and refined visual understanding; the context, thinking mode and tool ecosystem are retained. It does not separately restate parameter counts."
     },
     {
       "id": "s3",
@@ -33,7 +33,7 @@
       "title": "Alibaba Unveils Qwen3.8-Max: Its Largest and Most Capable Flagship Model to Date",
       "publisher": "Alibaba Cloud",
       "accessed": true,
-      "evidence": "The August 3 launch release attributes Qwen3.8-Max to Alibaba and reports a nominal total of 2.4T, 95B activated, sparse MoE and hybrid attention. This predates the 0902 revision; its active count is not a direct disclosure for that revision."
+      "evidence": "Reopened October 27. The August 3 developer launch release directly describes hosted multimodal Qwen3.8-Max as having 2.4 trillion total parameters and 95 billion activated parameters, with sparse MoE and hybrid attention. These are nominal model-level disclosures, not counts restricted to the later open text checkpoint. The named 0902 snapshot relationship is established separately by s1/s2/s7."
     },
     {
       "id": "s5",
@@ -41,7 +41,7 @@
       "title": "Qwen/Qwen3.8-2.4T-A95B model card",
       "publisher": "Qwen",
       "accessed": true,
-      "evidence": "The open checkpoint is text-only and requires thinking. Its language-model section reports 2.4T total and 95B active. The card distinguishes hosted Qwen3.8-Max, which adds vision, optional thinking and tools. It does not identify its weights as the 0902 snapshot."
+      "evidence": "Reopened October 27, including the raw README. The open checkpoint is a text-only causal language model requiring thinking, with 2.4T total and 95B active listed under Language Model. The card calls hosted Qwen3.8-Max its official version with added vision, optional thinking and tools. This component-specific table alone does not establish a complete hosted-model count; s4 and s10 independently publish nominal counts for hosted Max."
     },
     {
       "id": "s6",
@@ -57,7 +57,7 @@
       "title": "Qwen3.8-Max-0902 - QwenCloud",
       "publisher": "QwenCloud / Alibaba Cloud",
       "accessed": true,
-      "evidence": "Exact snapshot page confirms its ID and long-date alias, thinking mode, function calling and 1M context. Alibaba describes improvements to coding, agent coordination and visual document analysis; those are vendor performance claims."
+      "evidence": "Reopened October 27. The exact qwen3.8-max-0902 page calls it an upgraded snapshot of qwen3.8-max, provides the long-date alias, and describes improved coding, agent coordination and refined native visual understanding. Thinking, function calling and 1M context are retained. No structural parameter-count change is disclosed."
     },
     {
       "id": "s8",
@@ -74,6 +74,14 @@
       "publisher": "Models.dev contributors",
       "accessed": true,
       "evidence": "Original catalog lead was inspected. It points to Alibaba and QwenCloud documentation and asserts the baseline date, modalities and capabilities; these were checked against developer sources."
+    },
+    {
+      "id": "s10",
+      "url": "https://qwen.ai/blog?id=qwen3.8",
+      "title": "Qwen3.8-Max: A New Bar for Coding and Cowork",
+      "publisher": "Qwen Team",
+      "accessed": true,
+      "evidence": "Freshly retrieved through indexed primary-page content October 27; direct page extraction is empty. The August 3 official release describes Qwen3.8-Max available via QwenCloud and explicitly lists 2.4T parameters with 95B active. Its multimodal discussion covers native vision, documents and video. The count is a nominal hosted-Max model specification, not a tensor census or solely an open-checkpoint language-model table."
     }
   ],
   "fields": {
@@ -137,19 +145,22 @@
       "source_ids": [
         "s1",
         "s2",
-        "s4"
+        "s4",
+        "s10"
       ],
-      "note": "Nominal hosted-model disclosure: current Max documentation states 2.4T and the explicit endpoint mapping identifies 0902. The launch source calls 2.4T a total. This is not a tensor-derived count or an extrapolation from open checkpoint weights."
+      "note": "Alibaba and Qwen directly publish a nominal 2.4T total for hosted multimodal Qwen3.8-Max. Current documentation repeats 2.4T and names 0902 as its upgraded snapshot; the update notice explicitly maps the endpoint. This is the developer nominal model size, without an invented vision-component adjustment."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "unverified",
+      "value": 95,
+      "status": "verified",
       "source_ids": [
+        "s10",
         "s4",
         "s1",
-        "s5"
+        "s2",
+        "s7"
       ],
-      "note": "95B is disclosed for August Max and the separate open language model. The reviewed current hosted documentation does not repeat an active count for 0902; exact snapshot coverage remains unresolved."
+      "note": "Nominal lineage inference: Qwen and Alibaba publish 95B active for hosted Qwen3.8-Max, and developer documentation explicitly identifies 0902 as its upgraded snapshot. The update refines existing coding, agent and native-vision capabilities; no structural parameter-count change is disclosed. The 0902 pages do not independently repeat 95B. This inference uses the hosted-Max release, not the separate text-only checkpoint."
     },
     "architecture": {
       "value": "moe",
@@ -254,11 +265,22 @@
         "label": "Alibaba exact-snapshot PDF support",
         "url": "https://www.alibabacloud.com/help/en/model-studio/pdf-understanding",
         "type": "primary"
+      },
+      {
+        "label": "Qwen hosted Max nominal total and active parameters",
+        "url": "https://qwen.ai/blog?id=qwen3.8",
+        "type": "primary"
       }
     ],
-    "notes": "2.4T is Alibaba's nominal hosted Max total, linked to 0902 through its documented endpoint mapping; it is not a complete tensor census. An exact 0902 active count remains unverified: 95B was disclosed for the August Max launch and separate text-only open checkpoint. The latter is not the hosted multimodal snapshot. PDF input is supported in Beijing/Singapore through Chat Completions, not Responses. Exact weight-release status and a corresponding weight license remain unverified.",
+    "notes": "Alibaba publishes a nominal 2.4T total and 95B active for hosted Qwen3.8-Max. The 95B active count is inherited by inference from the developer-documented 0902 snapshot relationship; no structural change is disclosed. PDF input is supported in Beijing/Singapore through Chat Completions, not Responses. Exact weight-release status and a corresponding weight license remain unverified.",
     "open_weights": null,
-    "license": null
+    "license": null,
+    "active_parameters_b": 95
   },
-  "summary": "Adds a nominal 2400B hosted-model count and MoE architecture using current primary specifications plus an explicit alias mapping, without deriving a full hosted count from the open text checkpoint. Confirms September 2 public release and all baseline capabilities, including exact-snapshot PDF support. Attributes performance improvements to Alibaba. Exact 0902 active parameters remain unresolved. Parent review leaves exact weight availability and license unverified rather than inferring closed weights from hosting or absent search results."
+  "summary": "Fresh parameter review retains the nominal 2400B total and establishes 95B active by a clearly labeled lineage inference from the hosted Qwen3.8-Max release to its developer-documented 0902 snapshot. Reopened current specifications, the snapshot update notice, exact snapshot page, launch release and open model card, and retrieved the official Qwen release. The hosted release independently supplies both counts, so no language-backbone-only scope is imposed from the separate open checkpoint. No structural-change disclosure was found; 0902 does not separately restate its active count. All unrelated field assessments are preserved.",
+  "parameter_reaudit": {
+    "agent": "/root/parameters_071",
+    "outcome": "Verified nominal 2400B total and 95B active; active count is an explicit named-snapshot lineage inference from hosted Qwen3.8-Max.",
+    "evidence_note": "Fresh searches covered Qwen, Alibaba Cloud and the exact 0902 identifier for total/active parameters, post-training and vision scope. Secondary post-training reports served only as leads; the accepted counts rely on developer sources. No later first-party 0902 active-count table or disclosed structural change was found."
+  }
 }
