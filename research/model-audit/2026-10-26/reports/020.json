@@ -1,7 +1,7 @@
 {
   "index": 20,
   "model_id": "alibaba/qwen2-5-vl-72b-instruct",
-  "reviewed_at": "2026-10-26T14:21:20.074986Z",
+  "reviewed_at": "2026-10-27T07:44:30.041Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Qwen2.5-VL-72B-Instruct model card",
       "publisher": "Qwen / Alibaba",
       "accessed": true,
-      "evidence": "Identifies the instruction-tuned nominal 72B Qwen model; documents text, image and video inputs, text generation, visual reasoning, document understanding and tool-directed visual agents. Its Processing Long Texts section describes 32768 and optional YaRN extrapolation, although the shipped model config specifies 128000."
+      "evidence": "Identifies the instruction-tuned nominal 72B Qwen model; documents text, image and video inputs, text generation, visual reasoning, document understanding and tool-directed visual agents. Its Processing Long Texts section describes 32768 and optional YaRN extrapolation, although the shipped model config specifies 128000. Reopened for the parameter re-audit: the developer still calls this the instruction-tuned 72B variant and gives no separate active-parameter figure."
     },
     {
       "id": "s2",
@@ -41,7 +41,7 @@
       "title": "Checkpoint index and referenced Safetensors headers",
       "publisher": "Qwen / Alibaba",
       "accessed": true,
-      "evidence": "Independently read only the first 65536 bytes of each of the 38 referenced shards. All 1353 tensor shapes total 73410777344 BF16 parameters: 72706203648 language-model parameters and 704573696 visual-encoder/merger parameters. This agrees with index total_size 146821554688 bytes divided by two."
+      "evidence": "The original audit read only tensor headers from the 38 shards: 1353 tensor shapes total 73410777344 BF16 parameters, comprising 72706203648 language-model parameters and 704573696 visual-encoder/merger parameters. The fresh metadata-only recheck confirms the same pinned index total_size of 146821554688 bytes, 1353 tensor names and 38 shards; no weight shard was downloaded in this pass."
     },
     {
       "id": "s6",
@@ -57,7 +57,7 @@
       "title": "Qwen2.5-VL Technical Report",
       "publisher": "Qwen Team, Alibaba Group",
       "accessed": true,
-      "evidence": "Section 2.1 and Table 1 describe the 72B variant as Qwen2.5 language decoder, vision transformer and MLP merger; no expert routing. General reasoning and tool-use abilities are described, without defining a separate reasoning-mode capability. Section 2.2.2 gives 32768 as final-stage pretraining sequence length."
+      "evidence": "Section 2.1 explicitly initializes the LLM component with pretrained Qwen2.5 weights and identifies its modification as multimodal RoPE; Section 2.2.2 repeats the pretrained Qwen2.5 initialization. Table 1 supplies the 72B variant dimensions. The other components are the vision transformer and MLP merger. No pruning or expert expansion of the LLM is described. The report itself gives no active count; Section 2.2.2 gives 32768 as final-stage pretraining sequence length. General reasoning and tool-use abilities are described, without a separately defined reasoning mode."
     },
     {
       "id": "s8",
@@ -73,7 +73,7 @@
       "title": "Qwen2.5-VL rotary embedding implementation",
       "publisher": "Qwen Team / Hugging Face",
       "accessed": true,
-      "evidence": "Qwen2_5_VLRotaryEmbedding initializes its original_max_seq_len and max_seq_len_cached from model config.max_position_embeddings, not tokenizer.model_max_length. Position frequencies are computed from supplied position IDs."
+      "evidence": "Qwen2_5_VLRotaryEmbedding initializes its original_max_seq_len and max_seq_len_cached from model config.max_position_embeddings, not tokenizer.model_max_length. Position frequencies are computed from supplied position IDs. The rechecked forward implementation calls the visual module conditionally on image/video pixel inputs; it does not define an active-parameter metric."
     },
     {
       "id": "s10",
@@ -82,6 +82,54 @@
       "publisher": "Hugging Face",
       "accessed": true,
       "evidence": "Tokenizer maximum length supplies padding/truncation defaults. Tokenization can emit longer sequences when truncation is disabled; this setting does not alter model positional configuration."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/api/models/Qwen/Qwen2.5-VL-72B-Instruct",
+      "title": "Live checkpoint repository and Safetensors metadata",
+      "publisher": "Hugging Face metadata for Qwen / Alibaba checkpoint",
+      "accessed": true,
+      "evidence": "Fresh metadata-only read reports repository SHA 89c86200743eec961a297729e7990e8f2ddbc4c5, safetensors.parameters.BF16 = 73410777344 and safetensors.total = 73410777344. This independently corroborates the retained exact full-model count without fetching weights."
+    },
+    {
+      "id": "s12",
+      "url": "https://qwenlm.github.io/blog/qwen2.5-llm/",
+      "title": "Qwen2.5-LLM developer parameter specifications",
+      "publisher": "Qwen Team",
+      "accessed": true,
+      "evidence": "The developer distinguishes 72.7B parameters from 70.0B non-embedding parameters for the Qwen2.5-72B language model. Neither column is called active parameters. This clarifies the language-backbone counting convention but does not specify an active count for the multimodal Qwen2.5-VL checkpoint."
+    },
+    {
+      "id": "s13",
+      "url": "https://qwenlm.github.io/blog/qwen3/",
+      "title": "Qwen3 developer discussion of activated parameters",
+      "publisher": "Qwen Team",
+      "accessed": true,
+      "evidence": "Checked for a broader developer convention: the post gives explicit total/activated counts for Qwen3 MoE models and approximate active-parameter comparisons against dense Qwen2.5 and QwQ language models. It does not define how to include embeddings or conditionally used vision components in Qwen2.5-VL active counts."
+    },
+    {
+      "id": "s14",
+      "url": "https://www.siliconflow.com/models/qwen2-5-vl-72b-instruct",
+      "title": "SiliconFlow Qwen2.5-VL-72B hosted-model specifications",
+      "publisher": "SiliconFlow",
+      "accessed": true,
+      "evidence": "Fresh searches surfaced this non-developer provider page listing both total and activated parameters as nominal 72B for its FP8 offering. No counting method, component scope or Qwen active-count disclosure is supplied. This secondary claim is recorded but not adopted as a verified developer specification for the full checkpoint."
+    },
+    {
+      "id": "s15",
+      "url": "https://arxiv.org/html/2505.09388v1",
+      "title": "Qwen3 Technical Report: Qwen2.5-72B activated-parameter specification",
+      "publisher": "Qwen Team, Alibaba Group",
+      "accessed": true,
+      "evidence": "Tables 3 and 4 explicitly list Qwen2.5-72B Base as dense with 72B total parameters and 72B activated parameters. This supplies the developer nominal active-count convention for the named language backbone, rather than deriving an exact active count from the multimodal checkpoint total."
+    },
+    {
+      "id": "s16",
+      "url": "https://huggingface.co/Qwen/Qwen2.5-72B/blob/efba10c8e54e91e0d9570ab5f7b51a958474d4cb/config.json",
+      "title": "Qwen2.5-72B base language-model configuration",
+      "publisher": "Qwen / Alibaba",
+      "accessed": true,
+      "evidence": "Freshly read the base model config at repository SHA efba10c8e54e91e0d9570ab5f7b51a958474d4cb. Its 80 layers, 8192 hidden size, 29568 MLP width, 152064 vocabulary, 64 attention/8 KV heads and untied embeddings match the VL checkpoint language component, corroborating the documented Qwen2.5 backbone relationship at nominal 72B scale."
     }
   ],
   "fields": {
@@ -139,18 +187,22 @@
       "value": 73.410777344,
       "status": "verified",
       "source_ids": [
-        "s5"
+        "s5",
+        "s11",
+        "s1"
       ],
-      "note": "Exact full checkpoint tensor count in decimal billions, including visual encoder and merger. 72B is the nominal variant label, not the exact multimodal total."
+      "note": "Retain the supported exact full-checkpoint count in decimal billions, including the visual encoder and merger. Fresh index/API metadata for the unchanged checkpoint confirms 73410777344 BF16 parameters; the developer also continues to publish the nominal 72B variant label. No tensor recount is needed to preserve the earlier verified component inventory."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 72,
+      "status": "verified",
       "source_ids": [
+        "s15",
+        "s7",
         "s3",
-        "s7"
+        "s16"
       ],
-      "note": "No separately defined active-parameter count. Do not equate total with active: visual processing and language decoding use different components."
+      "note": "Nominal language-model-component inference, not a full multimodal or exact per-token count. Qwen3 Technical Report Tables 3/4 explicitly publish 72B activated parameters for Qwen2.5-72B Base. Qwen2.5-VL documents initialization of its LLM from pretrained Qwen2.5 and a multimodal RoPE adaptation; its 72B language dimensions match the named base configuration without documented pruning or expert expansion. Apply that developer nominal convention only to the language_model scope, excluding the separately counted visual encoder and merger. An exact full-model active count remains unspecified."
     },
     "architecture": {
       "value": "dense",
@@ -241,7 +293,7 @@
         "text"
       ]
     },
-    "notes": "72B is the nominal label; the complete BF16 checkpoint has 73.410777344B parameters, including 0.704573696B in the visual encoder and merger. Active parameters are not separately defined. Context 128000 follows the shipped model positional configuration; tokenizer length 131072 is a preprocessing setting. The card describes 32768 and optional YaRN, and the report documents 32768 training sequences, so configured context does not establish long-text quality. A dedicated reasoning-mode boolean remains unverified.",
+    "notes": "72B is the nominal label; the complete BF16 checkpoint has 73.410777344B parameters, including 0.704573696B in the visual encoder and merger. Active 72B is nominal and scoped to the Qwen2.5 language backbone: Qwen publishes 72B activated for that base, which the VL model explicitly uses. It excludes the visual encoder and merger; a full multimodal active count is unspecified. Context 128000 follows the shipped model positional configuration; tokenizer length 131072 is a preprocessing setting. The card describes 32768 and optional YaRN, and the report documents 32768 training sequences, so configured context does not establish long-text quality. A dedicated reasoning-mode boolean remains unverified.",
     "sources": [
       {
         "label": "Qwen2.5-VL-72B-Instruct model card",
@@ -292,14 +344,31 @@
         "label": "Transformers tokenizer truncation and padding documentation",
         "url": "https://huggingface.co/docs/transformers/v4.51.3/en/main_classes/tokenizer",
         "type": "primary"
+      },
+      {
+        "label": "Live checkpoint repository and Safetensors metadata",
+        "url": "https://huggingface.co/api/models/Qwen/Qwen2.5-VL-72B-Instruct",
+        "type": "weights"
+      },
+      {
+        "label": "Qwen3 Technical Report: Qwen2.5-72B activated-parameter specification",
+        "url": "https://arxiv.org/html/2505.09388v1",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen2.5-72B base language-model configuration",
+        "url": "https://huggingface.co/Qwen/Qwen2.5-72B/blob/efba10c8e54e91e0d9570ab5f7b51a958474d4cb/config.json",
+        "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": 72
   },
-  "summary": "Verified total size 73.410777344B versus nominal 72B; added dense architecture, Qwen license and video input. Context corrected to the shipped model configuration value 128000, distinguishing tokenizer defaults and 32768 training/card guidance. Release and description confirmed; active size undisclosed and dedicated reasoning mode unverified.",
+  "summary": "Fresh metadata reconfirms the unchanged 73.410777344B full-checkpoint total and preserves both exact component counts. The later first-party Qwen3 report explicitly publishes 72B activated for Qwen2.5-72B Base; the documented and configuration-matched VL language backbone supports nominal active 72B scoped to language_model. Vision parameters are excluded from that active figure, and a full multimodal active count remains unspecified. Other audited fields are unchanged.",
   "proposed_fields": {
     "parameter_components_b": {
       "language_model": 72.706203648,
       "vision_encoder_and_merger": 0.704573696
-    }
+    },
+    "active_parameters_scope": "language_model"
   }
 }

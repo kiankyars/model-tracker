@@ -1743,7 +1743,7 @@
           "text"
         ]
       },
-      "notes": "72B is the nominal label; the complete BF16 checkpoint has 73.410777344B parameters, including 0.704573696B in the visual encoder and merger. Active parameters are not separately defined. Context 128000 follows the shipped model positional configuration; tokenizer length 131072 is a preprocessing setting. The card describes 32768 and optional YaRN, and the report documents 32768 training sequences, so configured context does not establish long-text quality. A dedicated reasoning-mode boolean remains unverified.",
+      "notes": "72B is the nominal label; the complete BF16 checkpoint has 73.410777344B parameters, including 0.704573696B in the visual encoder and merger. Active 72B is nominal and scoped to the Qwen2.5 language backbone: Qwen publishes 72B activated for that base, which the VL model explicitly uses. It excludes the visual encoder and merger; a full multimodal active count is unspecified. Context 128000 follows the shipped model positional configuration; tokenizer length 131072 is a preprocessing setting. The card describes 32768 and optional YaRN, and the report documents 32768 training sequences, so configured context does not establish long-text quality. A dedicated reasoning-mode boolean remains unverified.",
       "sources": [
         {
           "label": "Qwen2.5-VL-72B-Instruct model card",
@@ -1794,6 +1794,21 @@
           "label": "Transformers tokenizer truncation and padding documentation",
           "url": "https://huggingface.co/docs/transformers/v4.51.3/en/main_classes/tokenizer",
           "type": "primary"
+        },
+        {
+          "label": "Live checkpoint repository and Safetensors metadata",
+          "url": "https://huggingface.co/api/models/Qwen/Qwen2.5-VL-72B-Instruct",
+          "type": "weights"
+        },
+        {
+          "label": "Qwen3 Technical Report: Qwen2.5-72B activated-parameter specification",
+          "url": "https://arxiv.org/html/2505.09388v1",
+          "type": "primary"
+        },
+        {
+          "label": "Qwen2.5-72B base language-model configuration",
+          "url": "https://huggingface.co/Qwen/Qwen2.5-72B/blob/efba10c8e54e91e0d9570ab5f7b51a958474d4cb/config.json",
+          "type": "primary"
         }
       ],
       "parameter_components_b": {
@@ -1801,11 +1816,12 @@
         "vision_encoder_and_merger": 0.704573696
       },
       "field_status": {
-        "active_parameters_b": "undisclosed",
         "reasoning": "unverified"
       },
-      "audited_at": "2026-10-26T14:21:20.074986Z",
-      "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/020.json"
+      "audited_at": "2026-10-27T07:44:30.041Z",
+      "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/020.json",
+      "active_parameters_b": 72,
+      "active_parameters_scope": "language_model"
     },
     "alibaba/qwen3-30b-a3b": {
       "release_date": "2025-04-29",
