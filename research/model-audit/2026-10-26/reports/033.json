@@ -1,7 +1,7 @@
 {
   "index": 33,
   "model_id": "alibaba/qwen3-coder-flash",
-  "reviewed_at": "2026-10-26T14:29:51.818483+00:00",
+  "reviewed_at": "2026-10-27T09:38:10.143987+00:00",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "qwen3-coder-flash",
       "publisher": "Alibaba Cloud",
       "accessed": true,
-      "evidence": "Exact hosted model card: July 28 snapshot equivalence, Qwen3 lineage, text input/output, 1,000,000-token context and coding/tool interaction. Function Calling differs by regional table. Web extraction failed; page HTML was retrieved and parsed directly."
+      "evidence": "Reopened October 27, 2026: exact hosted model card still says qwen3-coder-flash is functionally equivalent to qwen3-coder-flash-2025-07-28. Text-only coding/tool-interaction model with 1,000,000-token context. It does not disclose a later alias replacement, parameter change, pruning, distillation, expert expansion or added modality. Regional Function Calling tables differ. Web extraction exceeded its size limit; original page HTML was retrieved and parsed directly."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "Model lifecycle and updates",
       "publisher": "Alibaba Cloud",
       "accessed": true,
-      "evidence": "Global and International release tables date qwen3-coder-flash and its July 28 snapshot to July 29, 2025. A separate regional entry is dated August 5. The open qwen3-coder-30b-a3b-instruct is separately listed on July 31."
+      "evidence": "Reopened October 27, 2026: Global and International release tables date qwen3-coder-flash and its July 28 snapshot to July 29, 2025; another regional entry is August 5. No later Flash snapshot or structural replacement was identified in this lifecycle page. The separately listed open qwen3-coder-30b-a3b-instruct release is July 31."
     },
     {
       "id": "s3",
@@ -34,6 +34,46 @@
       "publisher": "Alibaba Cloud",
       "accessed": true,
       "evidence": "Dedicated thinking documentation describes reasoning_content and supported model families; it does not explicitly identify qwen3-coder-flash."
+    },
+    {
+      "id": "s5",
+      "url": "https://x.com/Alibaba_Qwen/status/1950925444057792808",
+      "title": "Qwen3-Coder-Flash release announcement, July 31, 2025",
+      "publisher": "Qwen",
+      "accessed": true,
+      "evidence": "Official Qwen post begins \"Qwen3-Coder-Flash: Qwen3-Coder-30B-A3B-Instruct\" and describes 256K native context extendable to 1M with YaRN. This is an explicit developer identification, stronger than family resemblance. Direct X retrieval returned 403; original post text and author/date were read through https://publish.twitter.com/oembed?url=https://x.com/Alibaba_Qwen/status/1950925444057792808 on October 27, 2026."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct",
+      "title": "Qwen3-Coder-30B-A3B-Instruct model card",
+      "publisher": "Qwen",
+      "accessed": true,
+      "evidence": "Reopened October 27, 2026. Developer model overview explicitly reports 30.5B total and 3.3B activated parameters, with 128 experts and 8 activated experts. It describes text generation, 256K native context extended to 1M with YaRN, and non-thinking output. These are the published nominal counts of the model explicitly identified as Coder-Flash in s5, not a claim of a tensor census of the hosted service."
+    },
+    {
+      "id": "s7",
+      "url": "https://x.com/Alibaba_Qwen/status/1952767585596145773",
+      "title": "Qwen Flash API release announcement, August 5, 2025",
+      "publisher": "Qwen",
+      "accessed": true,
+      "evidence": "Official Qwen post announces Flash APIs supporting Qwen3-Coder and Qwen3-2507, both with 1M context, and specifically names Qwen3-Coder-Flash. This corroborates the connection between the Flash model announcement and the hosted API. Read original text and author/date through https://publish.twitter.com/oembed?url=https://x.com/Alibaba_Qwen/status/1952767585596145773 on October 27, 2026."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/raw/main/config.json",
+      "title": "Qwen3-Coder-30B-A3B-Instruct configuration",
+      "publisher": "Qwen",
+      "accessed": true,
+      "evidence": "Reopened October 27, 2026: Qwen3MoeForCausalLM, model_type qwen3_moe, 48 layers, 128 experts and 8 experts per token. Supports the MoE correction associated with the nominal model identity. Configuration only was downloaded, not weight shards."
+    },
+    {
+      "id": "s9",
+      "url": "https://raw.githubusercontent.com/QwenLM/Qwen3-Coder/main/README.md",
+      "title": "Qwen3-Coder repository README",
+      "publisher": "Qwen",
+      "accessed": true,
+      "evidence": "Current README reopened October 27, 2026 lists Qwen3-Coder-30B-A3B-Instruct and its FP8 variant, alongside separate 480B and Next models. It does not identify Flash as a structurally changed or newly replaced model. Fresh first-party searches across Qwen and Alibaba sources found no conflicting nominal parameter disclosure or documented structural change for the exact Flash alias."
     }
   ],
   "fields": {
@@ -75,9 +115,10 @@
       "status": "unverified",
       "source_ids": [
         "s1",
-        "s2"
+        "s5",
+        "s6"
       ],
-      "note": "Hosted alias documented; no exact open-checkpoint equivalence established. The separately listed 30B model does not prove this alias has open weights."
+      "note": "Qwen explicitly identifies Flash with the published Qwen3-Coder-30B-A3B-Instruct nominal model, supporting parameter and architecture inference. Exact equivalence of the currently served checkpoint to downloadable weights remains unverified; retain the hosted-alias weight-status assessment."
     },
     "license": {
       "value": null,
@@ -88,28 +129,35 @@
       "note": "No model-weight license disclosed for this hosted alias; do not transfer a related checkpoint license."
     },
     "parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 30.5,
+      "status": "verified",
       "source_ids": [
-        "s1"
+        "s1",
+        "s5",
+        "s6",
+        "s7"
       ],
-      "note": "Exact-model documentation does not disclose a total count. No 30B-checkpoint equivalence established."
+      "note": "Nominal total inferred from explicit developer identity: Qwen calls Qwen3-Coder-30B-A3B-Instruct Qwen3-Coder-Flash, and its card reports 30.5B. Current API documentation still maps Flash to the July 28 snapshot; no pruning, distillation, expert expansion, modality addition or alias replacement was disclosed in checked first-party sources. This supports the model specification without asserting exact hosted tensor identity."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 3.3,
+      "status": "verified",
       "source_ids": [
-        "s1"
+        "s5",
+        "s6",
+        "s8"
       ],
-      "note": "Exact-model active count not disclosed."
+      "note": "The explicitly identified model card independently reports 3.3B activated parameters; this is not calculated from total parameters or the A3B name. Applied to Flash as a nominal inference from the developer identity. The model has 128 experts with 8 selected per token."
     },
     "architecture": {
-      "value": null,
-      "status": "undisclosed",
+      "value": "moe",
+      "status": "verified",
       "source_ids": [
-        "s1"
+        "s5",
+        "s6",
+        "s8"
       ],
-      "note": "Qwen3 lineage alone does not establish dense or MoE architecture for this alias."
+      "note": "Developer identification of Flash as Qwen3-Coder-30B-A3B-Instruct supports MoE lineage; its configuration explicitly uses Qwen3MoeForCausalLM with 8 of 128 experts activated per token. No contradictory structural change was identified."
     },
     "context_window": {
       "value": 1000000,
@@ -140,9 +188,10 @@
       "source_ids": [
         "s2",
         "s3",
-        "s4"
+        "s4",
+        "s6"
       ],
-      "note": "Official exact-row overview marks thinking supported, but the dedicated thinking documentation does not identify this legacy alias; baseline false cannot be confirmed. Keep unresolved status rather than retain an unsupported boolean."
+      "note": "Official exact-row overview marks thinking supported, but the dedicated thinking documentation does not identify this legacy alias and the now-identified open model card explicitly says non-thinking. Preserve unresolved hosted reasoning status because the official capability conflict remains."
     },
     "tool_call": {
       "value": true,
@@ -165,7 +214,7 @@
   "patch": {
     "release_date": "2025-07-29",
     "description": "Qwen3-based code generation model for repository understanding and multi-turn tool interaction.",
-    "notes": "July 28, 2025 is the snapshot date; Alibaba lists the Global/International service release on July 29. Exact hosted-alias parameter counts, architecture and open-checkpoint equivalence are not established. Current official overview says thinking mode is supported, conflicting with catalog reasoning=false; detailed regional function-calling tables also differ.",
+    "notes": "30.5B total and 3.3B activated are nominal counts inferred from Qwen's explicit identification of Coder-Flash as Qwen3-Coder-30B-A3B-Instruct, a MoE model. Alibaba still maps the API alias to its July 28 snapshot; Global/International service release was July 29, 2025. Exact served-checkpoint weight equivalence remains unverified. Official thinking-mode and regional function-calling documentation conflict.",
     "sources": [
       {
         "label": "Alibaba Cloud exact model card",
@@ -186,10 +235,34 @@
         "label": "Alibaba Cloud deep-thinking documentation",
         "url": "https://www.alibabacloud.com/help/en/model-studio/deep-thinking",
         "type": "primary"
+      },
+      {
+        "label": "Qwen Coder-Flash model identification",
+        "url": "https://x.com/Alibaba_Qwen/status/1950925444057792808",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen identified model parameter specifications",
+        "url": "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen Flash API announcement",
+        "url": "https://x.com/Alibaba_Qwen/status/1952767585596145773",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen identified model configuration",
+        "url": "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/raw/main/config.json",
+        "type": "primary"
       }
     ],
     "open_weights": null,
-    "reasoning": null
+    "reasoning": null,
+    "parameters_b": 30.5,
+    "active_parameters_b": 3.3,
+    "parameters_source": "primary_source",
+    "architecture": "moe"
   },
-  "summary": "Correct release date from snapshot date to explicit July 29 service release and narrow the description. Confirm 1M context, text modalities and tool interaction. Keep parameter counts and architecture null; do not infer 30B/3B or MoE from a separate checkpoint. Open weights and thinking mode remain unresolved, with official capability inconsistencies recorded."
+  "summary": "Fresh parameter re-audit establishes nominal 30.5B total, 3.3B activated and MoE through Qwen's explicit July 31 identification of Coder-Flash as Qwen3-Coder-30B-A3B-Instruct plus that model's developer card/configuration. Reopened original Flash/API announcements, current hosted model card, lifecycle history and developer repository; searched first-party sources for newer disclosures and structural changes. Current alias remains tied to the July 28 snapshot, with no conflicting count or documented structural replacement found. Preserve July 29 service release, 1M hosted context and other original assessments. Exact hosted weight equivalence/license and conflicting thinking-mode documentation remain unresolved; absence of a hosted tensor census does not erase the supported nominal counts."
 }
