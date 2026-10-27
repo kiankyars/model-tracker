@@ -1,0 +1,328 @@
+{
+  "index": 489,
+  "model_id": "sao10k/l3.3-euryale-70b",
+  "reviewed_at": "2026-10-27T04:25:47.620567+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/Sao10K/L3.3-70B-Euryale-v2.3/blob/e5737724a37ae00926e95acf663ca73d430dc8ad/README.md",
+      "title": "Euryale v2.3 model card and training configuration",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "Names L3.3-70B-Euryale-v2.3, explicitly fine-tuned on meta-llama/Llama-3.3-70B-Instruct and successor to Euryale v2.2. Dataset labels include roleplay/creative instruction; embedded Axolotl config uses LoRA rank 128 and sequence_len 16384. Card license tag is llama3, not llama3.3. The phrase not Lora-extracted describes its source/training distinction and does not establish full-parameter training."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/Sao10K/L3.3-70B-Euryale-v2.3/blob/e5737724a37ae00926e95acf663ca73d430dc8ad/config.json",
+      "title": "Euryale v2.3 checkpoint configuration",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "LlamaForCausalLM, 80 layers, hidden size 8192, intermediate size 28672, vocabulary 128256, 64 attention heads, 8 KV heads, head dimension 128; attention_bias and mlp_bias false, tie_word_embeddings false, BF16, max_position_embeddings 131072, Llama-3 RoPE scaling factor 8, Transformers 4.46.3. No quantization or custom architecture configuration."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/Sao10K/L3.3-70B-Euryale-v2.3/blob/e5737724a37ae00926e95acf663ca73d430dc8ad/model.safetensors.index.json",
+      "title": "Complete Euryale v2.3 checkpoint index and all 30 bounded tensor headers",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "Independently fetched the 8-byte prefix and JSON header of every one of the 30 indexed safetensors shards at this revision, verifying HTTP 206 and exact Content-Range. Only 84,880 prefix/header bytes were fetched, no weight data. All 723 distinct indexed BF16 tensors match their shard assignment and expected enabled-module shapes; byte ranges are contiguous/non-overlapping and cover each shard payload. Sum is 70,553,706,496 learned elements, consistent with index total_size 141,107,412,992 bytes. These are complete merged model tensors, not an adapter-only checkpoint."
+    },
+    {
+      "id": "s4",
+      "url": "https://github.com/huggingface/transformers/blob/v4.46.3/src/transformers/models/llama/modeling_llama.py",
+      "title": "Enabled LlamaForCausalLM implementation at Transformers 4.46.3",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "LlamaForCausalLM enables a token embedding, 80 LlamaDecoderLayer modules and final RMSNorm, plus bias-free LM head. Attention and MLP biases follow false config flags. RMSNorm has a learned scale; rotary inv_freq is a nonpersistent buffer. Config-selected causal LM does not instantiate sequence/token classification or question-answering heads. No routed experts, extra MTP head, external draft model or learned rotary parameter is present."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/Sao10K/L3.3-70B-Euryale-v2.3/blob/e5737724a37ae00926e95acf663ca73d430dc8ad/tokenizer_config.json",
+      "title": "Euryale v2.3 tokenizer and shipped chat template",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "Text tokenizer has model_max_length 131072. The shipped template accepts tools/custom_tools, prompts the model to select a function with JSON name and parameters, serializes assistant tool_calls, handles tool/ipython results, and explicitly restricts to one tool call at a time. This is positive model-side function-call formatting support; it is not a claim of benchmark reliability or execution inside the model. No dedicated reasoning/thinking switch or reasoning output channel is documented."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/Sao10K/L3.3-70B-Euryale-v2.3/commits/main",
+      "title": "Euryale v2.3 author commit history",
+      "publisher": "Sao10K / Hugging Face",
+      "accessed": true,
+      "evidence": "Repository was created December 7, 2024 at 23:22:12 UTC; complete checkpoint upload commit 7dc63d618162fc9afa0e46de276729d841fdad9d is dated December 7 at 23:28:37 UTC. Model card created December 8 at 10:21:23 UTC; latest author card edit December 8 at 10:53:31 UTC. These timestamps establish December provenance but do not independently expose when repository visibility first became public."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/Sao10K/L3.3-70B-Euryale-v2.3/tree/7dc63d618162fc9afa0e46de276729d841fdad9d",
+      "title": "Complete checkpoint tree at the initial weight upload",
+      "publisher": "Sao10K / Hugging Face",
+      "accessed": true,
+      "evidence": "The initial upload tree contains all 30 safetensors shards, model.safetensors.index.json, configuration and tokenizer files. This verifies an actual complete checkpoint upload rather than only repository creation."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/Sao10K/L3.3-70B-Euryale-v2.3/discussions/1",
+      "title": "Public model discussion and author response",
+      "publisher": "Sao10K / Hugging Face",
+      "accessed": true,
+      "evidence": "Public discussion began December 8, 2024 at 22:43:40 UTC; Sao10K responded December 9 at 16:01:38 UTC about training and instruction following. This supports public availability in early December, before the baseline December 18 provider date, without an explicit author announcement fixing the initial day."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/Sao10K/L3.3-70B-Euryale-v2.3/discussions/3",
+      "title": "Author clarification of Euryale v2.3 context",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "In the discussion linking the exact OpenRouter sao10k/l3.3-euryale-70b route, Sao10K states Eury v2.3 is a Llama 3.3 model and is fine up to 128k, while recommending up to 32k. Author also explicitly says hosted provider context limits are outside their control. This binds the catalog route to the audited checkpoint and distinguishes configured/model context from provider limits and training sequence length."
+    },
+    {
+      "id": "s10",
+      "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3_3/LICENSE",
+      "title": "Llama 3.3 Community License for the explicitly named base",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Meta license identifies Llama 3.3, its December 6, 2024 release, and terms for Llama materials and derivative works. The exact base model public card also labels llama3.3. This differs from the fine-tuner card tag llama3; preserve both declarations rather than silently treating that tag as version 3.3."
+    },
+    {
+      "id": "s11",
+      "url": "https://github.com/meta-llama/llama3/blob/main/LICENSE",
+      "title": "License named by the fine-tuner llama3 tag",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Names Meta Llama 3 Community License Agreement and April 18, 2024 base version. This documents the literal fine-tuner card tag; it is distinct from the 3.3 base terms."
+    },
+    {
+      "id": "s12",
+      "url": "https://huggingface.co/Sao10K/Llama-3.3-70B-Vulpecula-r1/blob/main/README.md",
+      "title": "Later author model card checked for exact Euryale disclosures",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "Accessed the later author card. Its DeepSeek-R1 reasoning-trace training statements concern Vulpecula, not Euryale v2.3; it provides no exact Euryale active count or dedicated thinking-mode evidence to transfer."
+    },
+    {
+      "id": "s13",
+      "url": "https://huggingface.co/Sao10K/70B-L3.3-Cirrus-x1/blob/main/README.md",
+      "title": "Later Cirrus author card checked for exact Euryale disclosures",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "Accessed later author card; no exact Euryale v2.3 active-count or dedicated reasoning disclosure was found. The different fine-tune is not used to infer Euryale capabilities or count."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Llama 3.3 Euryale 70B v2.3",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s9"
+      ],
+      "note": "Clarifies the exact author version corresponding to the catalog route; not Llama 3.1 Euryale v2.2."
+    },
+    "developer": {
+      "value": "Sao10K",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Author owns and uploaded the exact fine-tune repository; Meta is the base-model developer."
+    },
+    "family": {
+      "value": "llama",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Exact model card names Llama 3.3 Instruct as base and config selects LlamaForCausalLM."
+    },
+    "release_date": {
+      "value": "2024-12",
+      "status": "verified",
+      "source_ids": [
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "note": "Month precision: complete upload late December 7 UTC, author card December 8 and public discussion December 8 establish early-December availability. None explicitly fixes the first public visibility day; do not equate repository creation/upload alone with release. Clear unsupported December 18 day precision, which postdates this primary evidence."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s7"
+      ],
+      "note": "Public author repository exposes all 30 complete checkpoint shards; restrictive Llama license is separate from weight availability."
+    },
+    "license": {
+      "value": "Llama 3 Community License (card); Llama 3.3 Community License (base)",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s10",
+        "s11"
+      ],
+      "note": "The author explicitly labels llama3, while the explicitly named Llama 3.3 base is under Llama 3.3 Community License. Preserve this version discrepancy as a qualified classification; no separate license file in the fine-tune tree resolves it, and no permissive/open-source license is inferred."
+    },
+    "parameters_b": {
+      "value": 70.553706496,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "note": "Exact complete checkpoint count, not rounded 70B: 70,553,706,496 learned parameters in 723 BF16 tensors. All indexed headers plus enabled configuration/code reconcile: 2*128256*8192 + 80*(2*8192*8192 + 2*8192*1024 + 3*8192*28672 + 2*8192) + 8192. Includes distinct input embedding and untied output head, all attention/MLP matrices and RMSNorm scales. All tensor names/shapes and nonoverlapping offsets match; no packed quantization/scale tensors, buffers, residual adapters, MTP modules or external drafters counted. LoRA training is documented but the distributed checkpoint contains merged complete model weights."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4",
+        "s12",
+        "s13"
+      ],
+      "note": "No separately defined per-token active-parameter count is disclosed for this exact fine-tune in its primary files or later checked author cards. Dense topology does not justify copying the total count here."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "note": "Dense decoder-only Llama Transformer with 80 layers, grouped-query attention (64 query/8 KV heads), SwiGLU MLPs, RMSNorm and RoPE. Every layer has ordinary attention/MLP matrices; no expert router. Configuration and complete checkpoint agree."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s5",
+        "s9"
+      ],
+      "note": "Model config and tokenizer both specify 131072; author explicitly confirms 128k while recommending up to 32k. Training sequence_len 16384 and an individual hosted endpoint limit are different quantities; no claim of equal quality at every context length."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4",
+        "s5"
+      ],
+      "note": "Text token inputs and causal vocabulary logits; complete checkpoint contains no vision/audio encoder or projection modules."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s5",
+        "s12",
+        "s13"
+      ],
+      "note": "Primary exact-model material does not establish a dedicated reasoning/thinking mode or an explicit negative. Ordinary instruction following and later Vulpecula reasoning-trace training are not evidence of Euryale thinking support. Clear baseline false."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s5"
+      ],
+      "note": "Exact shipped template positively implements model-selected single function calls with JSON arguments, assistant tool_calls and returned tool messages. This establishes supported calling format, not measured fine-tune reliability or execution by the model. Clear baseline false; do not substitute a provider tools listing for the checkpoint template."
+    },
+    "description": {
+      "value": "Sao10K's Llama 3.3 70B Instruct fine-tune for roleplay and creative text generation.",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Grounded in exact base declaration and roleplay/creative-instruction dataset labels. Removes unsupported generic multilingual/reasoning/coding claims and avoids claiming full-parameter training: embedded training configuration uses LoRA."
+    }
+  },
+  "patch": {
+    "name": "Llama 3.3 Euryale 70B v2.3",
+    "release_date": "2024-12",
+    "license": "Llama 3 Community License (card); Llama 3.3 Community License (base)",
+    "parameters_b": 70.553706496,
+    "architecture": "dense",
+    "reasoning": null,
+    "tool_call": true,
+    "description": "Sao10K's Llama 3.3 70B Instruct fine-tune for roleplay and creative text generation.",
+    "parameters_source": "primary_source",
+    "date_precision": "month",
+    "notes": "Euryale v2.3: complete merged BF16 checkpoint has exactly 70,553,706,496 learned parameters; all 30 indexed headers and enabled Llama implementation reconcile. Active count is not separately disclosed. Complete weights were uploaded December 7, 2024 and publicly discussed by December 8; first public day is unresolved, so release uses month precision rather than the later December 18 provider date. Author card labels llama3 although its explicit Llama 3.3 base uses Llama 3.3 Community License; this license-version discrepancy is preserved. Model/tokenizer context is 131072; author recommends up to 32k and training used 16384-token sequences. The shipped template supports single function calls; no dedicated reasoning mode is documented. Training config uses LoRA, but the distributed checkpoint is complete merged model weights.",
+    "sources": [
+      {
+        "label": "Euryale v2.3 model card and training configuration",
+        "url": "https://huggingface.co/Sao10K/L3.3-70B-Euryale-v2.3/blob/e5737724a37ae00926e95acf663ca73d430dc8ad/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Euryale v2.3 checkpoint configuration",
+        "url": "https://huggingface.co/Sao10K/L3.3-70B-Euryale-v2.3/blob/e5737724a37ae00926e95acf663ca73d430dc8ad/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Complete Euryale v2.3 checkpoint index and all 30 bounded tensor headers",
+        "url": "https://huggingface.co/Sao10K/L3.3-70B-Euryale-v2.3/blob/e5737724a37ae00926e95acf663ca73d430dc8ad/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Enabled LlamaForCausalLM implementation at Transformers 4.46.3",
+        "url": "https://github.com/huggingface/transformers/blob/v4.46.3/src/transformers/models/llama/modeling_llama.py",
+        "type": "primary"
+      },
+      {
+        "label": "Euryale v2.3 tokenizer and shipped chat template",
+        "url": "https://huggingface.co/Sao10K/L3.3-70B-Euryale-v2.3/blob/e5737724a37ae00926e95acf663ca73d430dc8ad/tokenizer_config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Euryale v2.3 author commit history",
+        "url": "https://huggingface.co/Sao10K/L3.3-70B-Euryale-v2.3/commits/main",
+        "type": "primary"
+      },
+      {
+        "label": "Complete checkpoint tree at the initial weight upload",
+        "url": "https://huggingface.co/Sao10K/L3.3-70B-Euryale-v2.3/tree/7dc63d618162fc9afa0e46de276729d841fdad9d",
+        "type": "primary"
+      },
+      {
+        "label": "Public model discussion and author response",
+        "url": "https://huggingface.co/Sao10K/L3.3-70B-Euryale-v2.3/discussions/1",
+        "type": "primary"
+      },
+      {
+        "label": "Author clarification of Euryale v2.3 context",
+        "url": "https://huggingface.co/Sao10K/L3.3-70B-Euryale-v2.3/discussions/3",
+        "type": "primary"
+      },
+      {
+        "label": "Llama 3.3 Community License for the explicitly named base",
+        "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3_3/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "License named by the fine-tuner llama3 tag",
+        "url": "https://github.com/meta-llama/llama3/blob/main/LICENSE",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "Audit exact Llama 3.3 Euryale v2.3 independently: replace nominal 70B with complete 70.553706496B learned-parameter count from every indexed bounded header plus enabled code/config, confirm dense topology and 131072 text context, and preserve author-versus-base license-version discrepancy. Correct release to December 2024 month precision because early-December public evidence invalidates December 18 but does not resolve first public day. Set tool_call true from the exact shipped function-call template, clear unsupported reasoning false, and describe roleplay/creative fine-tuning without claiming full-parameter training. Active count remains undisclosed; later checked author cards supply no exact disclosure. No weight payload downloaded."
+}
