@@ -1,0 +1,299 @@
+{
+  "index": 471,
+  "model_id": "poolside/laguna-s-2.1",
+  "reviewed_at": "2026-10-27T03:45:49.367374Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://poolside.ai/blog/introducing-laguna-s-2-1",
+      "title": "Introducing Laguna S 2.1 \u2014 July 21, 2026",
+      "publisher": "Poolside",
+      "accessed": true,
+      "evidence": "Dated July 21, 2026, announces the public release that day and Hugging Face weights from day one. Names the exact S 2.1 model as 118B total / 8B active MoE, with up to 1M context in thinking and non-thinking modes. Documents SFT and FP8 reinforcement learning, native tool-call format and limitations, and lack of vision. Separates the free OpenRouter 256K endpoint from the dedicated full-1M deployment. Its family timeline identifies M.1/XS.2, XS 2.1 and S 2.1 separately."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/poolside/Laguna-S-2.1/blob/0f573140834b11cfac0c2af97a101a7a69a13e22/README.md",
+      "title": "Laguna S 2.1 BF16 model card, pinned revision",
+      "publisher": "Poolside",
+      "accessed": true,
+      "evidence": "Exact unquantized post-trained target card reports nominal 118B total, approximately 8B active per token, text input/output, 48 Transformer layers, 256 routed experts with top-10 selection and one shared expert, and 1,048,576 context. Supports interleaved reasoning and tool calling; the separate DFlash draft is optional. The exact S 2.1 benchmark row is 118B-A8B, distinct from XS 2.1 33B-A3B and M.1 225B-A23B. The prose says softplus router gating, but the published router implementation uses sigmoid; attention output gates use softplus."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/poolside/Laguna-S-2.1/blob/0f573140834b11cfac0c2af97a101a7a69a13e22/config.json",
+      "title": "Laguna S 2.1 BF16 configuration, pinned revision",
+      "publisher": "Poolside",
+      "accessed": true,
+      "evidence": "Selects LagunaForCausalLM with 48 layers, hidden size 3072, vocabulary 100352, one dense first MLP of width 12288 and 47 sparse MLPs. Each sparse layer has 256 routed experts (top 10, width 1024) and one shared expert (width 1024). The 12 global and 36 sliding attention layers use 48 and 72 query heads respectively, eight KV heads and head dimension 128. Embeddings are untied. BF16 with no quantization configuration; 1,048,576 maximum positions, global YaRN factor 128 from original 8192 positions, and sliding window 512."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/poolside/Laguna-S-2.1/blob/0f573140834b11cfac0c2af97a101a7a69a13e22/modeling_laguna.py",
+      "title": "Laguna S 2.1 selected model implementation",
+      "publisher": "Poolside",
+      "accessed": true,
+      "evidence": "Reviewed every enabled parameter branch: untied embedding/head, RMSNorm, GQA projections, per-head softplus attention gates, dense SwiGLU first MLP, sparse routed/shared MLPs and linear sigmoid top-k routers. Expert runtime tensors fuse gate/up matrices without changing their total size. The 47 router correction vectors are nn.Parameters with requires_grad=False, and RoPE frequency vectors are nonpersistent buffers. Attention sinks are conditional and disabled by configuration defaults. There is no MTP module or speculative draft in this target. The complete indexed tensor shapes reconcile to these selected modules."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/poolside/Laguna-S-2.1/blob/0f573140834b11cfac0c2af97a101a7a69a13e22/configuration_laguna.py",
+      "title": "Laguna S 2.1 configuration defaults",
+      "publisher": "Poolside",
+      "accessed": true,
+      "evidence": "Confirms SiLU activation, default-disabled sliding-attention sinks, untied word embeddings, first dense layer, and selected sparse-layer rules. Generic class defaults were overridden by the exact target config when reconstructing dimensions; they were not substituted for S 2.1 specifications."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/poolside/Laguna-S-2.1/blob/0f573140834b11cfac0c2af97a101a7a69a13e22/model.safetensors.index.json",
+      "title": "Laguna S 2.1 complete checkpoint index and all 46 pinned shard headers",
+      "publisher": "Poolside",
+      "accessed": true,
+      "evidence": "Fetched only the eight-byte header lengths and bounded JSON headers from every one of the 46 indexed safetensors shards at revision 0f573140834b11cfac0c2af97a101a7a69a13e22. All 36,769 tensor names occur exactly once in the index and headers, and every shape matches an independent reconstruction from selected code/configuration. All tensors are BF16; their 117,561,977,600 storage elements exactly match index total_size 235,123,955,200 bytes. This includes 12,032 frozen router correction values; excluding that non-gradient routing state leaves 117,561,965,568 learned-weight elements. Both untied vocabulary matrices, all norms, gates and shared/routed experts are included. No quantization scales, packed weights, rotary buffers, enabled attention sinks, or MTP/draft tensors appear. No full weight shard was downloaded."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/poolside/Laguna-S-2.1/blob/0f573140834b11cfac0c2af97a101a7a69a13e22/LICENSE.md",
+      "title": "Laguna S 2.1 model-materials license",
+      "publisher": "Poolside",
+      "accessed": true,
+      "evidence": "The actual weight repository license identifies OpenMDW License Agreement version 1.1 (OpenMDW-1.1), matching the card. Separate Apache headers in implementation source files do not replace the model-materials license."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/poolside/Laguna-S-2.1/blob/0f573140834b11cfac0c2af97a101a7a69a13e22/chat_template.jinja",
+      "title": "Laguna S 2.1 chat template",
+      "publisher": "Poolside",
+      "accessed": true,
+      "evidence": "Formats text messages, function signatures, tool calls and tool responses; supports enable_thinking (default true), preserve_thinking, and reasoning/reasoning_content fields. Confirms the released post-trained target supports reasoning and caller-provided tools."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/poolside/Laguna-S-2.1-NVFP4/blob/826aacdf6d8b2699d4e367def6f17c83b06044c2/README.md",
+      "title": "Official Laguna S 2.1 NVFP4 sibling card, checked for count conflicts",
+      "publisher": "Poolside",
+      "accessed": true,
+      "evidence": "This separately named quantized checkpoint says 117.6B total / 8.5B active and explicitly warns that its August 2026 weights supersede an earlier checkpoint. Its comparison table still labels the exact S 2.1 row 118B-A8B. This establishes inconsistent precision/conventions in official documentation, not grounds to transfer the sibling active count to the canonical BF16 target."
+    },
+    {
+      "id": "s10",
+      "url": "https://poolside.ai/assets/laguna/laguna-m1-xs2-technical-report.pdf",
+      "title": "Laguna M.1/XS.2 Technical Report \u2014 May 25, 2026",
+      "publisher": "Poolside",
+      "accessed": true,
+      "evidence": "Checked the linked report and architecture/training sections. It concerns the earlier M.1 and XS.2 models; its parameter counts, active-count embedding convention, and 128K-to-256K context extension do not disclose the later exact S 2.1 specifications. They are not transferred. Searches for later exact S 2.1 technical/interpretability evidence led to the accessed July release, current official cards and implementation, rather than a separate S 2.1 technical report."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Laguna S 2.1",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Official display name; the repository/API identifier uses hyphens."
+    },
+    "developer": {
+      "value": "Poolside",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s8"
+      ],
+      "note": "Developer identified in the original release, official repository and template."
+    },
+    "family": {
+      "value": "laguna",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Lowercase normalized Laguna family; S is distinct from XS and M."
+    },
+    "release_date": {
+      "value": "2026-07-21",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Explicit dated public launch with weights available that day, not the later repository/config or quantization update date."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6",
+        "s7"
+      ],
+      "note": "Official post-trained BF16 checkpoint is publicly downloadable, with all 46 shard headers accessed. The separately described base checkpoint by email is not this model."
+    },
+    "license": {
+      "value": "OpenMDW-1.1",
+      "status": "verified",
+      "source_ids": [
+        "s7",
+        "s1"
+      ],
+      "note": "Canonical name from the actual model-materials license. Implementation source headers are a separate licensing layer."
+    },
+    "parameters_b": {
+      "value": 118,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "note": "Official nominal total in decimal billions, not an exact 118,000,000,000 count. All pinned BF16 headers reconcile to 117,561,977,600 stored values, including 12,032 frozen router correction values; excluding that routing state yields 117,561,965,568 learned-weight elements (117.561965568B), consistent with the rounded 118B label. Catalog value deliberately retains the developer's nominal precision and avoids conflating storage state with learned parameters."
+    },
+    "active_parameters_b": {
+      "value": 8,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s9"
+      ],
+      "note": "Official approximately 8B activated per token for this exact BF16 target, not an exact-count claim. Config verifies top-10 of 256 experts in each of 47 sparse layers, plus a shared expert and the first dense layer. The NVFP4 sibling prose says 8.5B, while its exact S 2.1 comparison row remains 118B-A8B. No exact active convention is specified for the target; do not transfer the sibling figure or present a derived embedding-inclusive path sum as an official count."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "note": "Decoder-only Transformer MoE: 48 layers, first dense and remaining 47 sparse, top-10 routed experts plus one shared expert; mixed global/sliding GQA and softplus attention output gates. Published model code uses sigmoid routing despite card prose saying softplus router gating. No SSM, vision encoder or MTP module is enabled."
+    },
+    "context_window": {
+      "value": 1048576,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Published target limit of 1,048,576 tokens. Config uses global-attention YaRN factor 128 from 8192 original positions; this is the released extended-context configuration, not evidence of an unscaled native 1M training length. The lower 256K free hosted endpoint is a serving limit. The sibling M.1/XS.2 training lengths are not assigned to S 2.1."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s8",
+        "s1"
+      ],
+      "note": "Text-to-text model with text/code tools; the release explicitly notes lack of vision. Tool access does not add native image/audio modalities."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s8"
+      ],
+      "note": "Optional native thinking with interleaved reasoning; template enable_thinking defaults true. Availability does not imply configurable low/medium/high effort levels."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s8"
+      ],
+      "note": "Native caller-provided function signatures, tool calls and responses are supported. The release documents schema adherence and nested-argument limitations without withdrawing support."
+    },
+    "description": {
+      "value": "Poolside text model for agentic coding, with open weights, optional reasoning and tool calling.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s7",
+        "s8"
+      ],
+      "note": "Removes the incorrect XS-size-class assertion and hardware-specific local-deployment implication from the baseline. Uses supported capabilities without benchmark superlatives."
+    }
+  },
+  "patch": {
+    "license": "OpenMDW-1.1",
+    "parameters_b": 118,
+    "active_parameters_b": 8,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "description": "Poolside text model for agentic coding, with open weights, optional reasoning and tool calling.",
+    "source_url": "https://poolside.ai/blog/introducing-laguna-s-2-1",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Introducing Laguna S 2.1 \u2014 July 21, 2026",
+        "url": "https://poolside.ai/blog/introducing-laguna-s-2-1",
+        "type": "primary"
+      },
+      {
+        "label": "Laguna S 2.1 BF16 model card, pinned revision",
+        "url": "https://huggingface.co/poolside/Laguna-S-2.1/blob/0f573140834b11cfac0c2af97a101a7a69a13e22/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Laguna S 2.1 BF16 configuration, pinned revision",
+        "url": "https://huggingface.co/poolside/Laguna-S-2.1/blob/0f573140834b11cfac0c2af97a101a7a69a13e22/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Laguna S 2.1 selected model implementation",
+        "url": "https://huggingface.co/poolside/Laguna-S-2.1/blob/0f573140834b11cfac0c2af97a101a7a69a13e22/modeling_laguna.py",
+        "type": "primary"
+      },
+      {
+        "label": "Laguna S 2.1 configuration defaults",
+        "url": "https://huggingface.co/poolside/Laguna-S-2.1/blob/0f573140834b11cfac0c2af97a101a7a69a13e22/configuration_laguna.py",
+        "type": "primary"
+      },
+      {
+        "label": "Laguna S 2.1 complete checkpoint index and all 46 pinned shard headers",
+        "url": "https://huggingface.co/poolside/Laguna-S-2.1/blob/0f573140834b11cfac0c2af97a101a7a69a13e22/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Laguna S 2.1 model-materials license",
+        "url": "https://huggingface.co/poolside/Laguna-S-2.1/blob/0f573140834b11cfac0c2af97a101a7a69a13e22/LICENSE.md",
+        "type": "primary"
+      },
+      {
+        "label": "Laguna S 2.1 chat template",
+        "url": "https://huggingface.co/poolside/Laguna-S-2.1/blob/0f573140834b11cfac0c2af97a101a7a69a13e22/chat_template.jinja",
+        "type": "primary"
+      },
+      {
+        "label": "Official Laguna S 2.1 NVFP4 sibling card, checked for count conflicts",
+        "url": "https://huggingface.co/poolside/Laguna-S-2.1-NVFP4/blob/826aacdf6d8b2699d4e367def6f17c83b06044c2/README.md",
+        "type": "primary"
+      }
+    ],
+    "notes": "Parameters are Poolside's nominal 118B total and approximately 8B active per token. At BF16 revision 0f573140834b11cfac0c2af97a101a7a69a13e22, all 46 indexed shard headers reconcile to 117,561,977,600 stored values; excluding 12,032 frozen router-correction values leaves 117,561,965,568 learned-weight elements. Both untied vocabulary matrices and all enabled learned modules are included; the separate DFlash draft is excluded. Quantized sibling prose reports 8.5B active, whereas the canonical BF16 card and release report approximately 8B; the latter is retained without claiming exact active-count precision. The released 1,048,576-token configuration uses YaRN; the free 256K hosted endpoint is a separate serving cap. Published code implements sigmoid MoE routing and softplus attention output gates, despite the card describing softplus router gating."
+  },
+  "summary": "Audited all 14 fields. Added OpenMDW-1.1, nominal 118B total/~8B active and verified Transformer MoE architecture; corrected the mistaken XS description. Confirmed July 21 public release, text modalities, reasoning/tools and the 1,048,576 extended-context model limit. Reconciled every tensor name and shape across all 46 pinned BF16 shard headers to enabled code/configuration, separating frozen router state and excluding the external draft model. Documented the official sibling 8.5B active-count and card/router wording discrepancies; retained exact-target nominal specifications."
+}
