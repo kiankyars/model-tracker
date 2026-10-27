@@ -1,0 +1,255 @@
+{
+  "index": 481,
+  "model_id": "relace/relace-search",
+  "reviewed_at": "2026-10-27T04:07:15.415751Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://relace.ai/old/blog/fast-agentic-search",
+      "title": "Exploiting parallel tool calls to make agentic search 4x faster",
+      "publisher": "Relace",
+      "accessed": true,
+      "evidence": "Dated December 8, 2025; announces public model/API availability. Describes an on-policy RL-trained search model, explicit reasoning between parallel tool calls, fixed search tools and a separate execution harness. Gives training data, hardware and reward design but no exact backbone or parameter counts."
+    },
+    {
+      "id": "s2",
+      "url": "https://docs.relace.ai/api-reference/fast-agentic-search/search.md",
+      "title": "Search Code",
+      "publisher": "Relace",
+      "accessed": true,
+      "evidence": "Identifies relace-search as the language model behind FAS. Its chat-completions endpoint returns tool calls; callers execute them and append results. Documents text messages and function arguments, but no numeric native context maximum. OpenAPI MIT metadata licenses the specification, not model weights."
+    },
+    {
+      "id": "s3",
+      "url": "https://docs.relace.ai/docs/fast-agentic-search/agent.md",
+      "title": "Fast Agentic Search: Overview",
+      "publisher": "Relace",
+      "accessed": true,
+      "evidence": "Publishes the exact trained prompt and schemas for view_file, view_directory, grep_search, bash and report_back. Model-generated tool selections are distinct from backend execution. Describes the relace-search model and its search harness separately."
+    },
+    {
+      "id": "s4",
+      "url": "https://relace.ai/legal/terms-of-use",
+      "title": "Terms of Use",
+      "publisher": "Relace",
+      "accessed": true,
+      "evidence": "Defines the company API as access to its auxiliary code models, grants limited service access, reserves proprietary rights, restricts distribution and reverse engineering, and states inference occurs on company systems."
+    },
+    {
+      "id": "s5",
+      "url": "https://openrouter.ai/api/v1/models/relace/relace-search/endpoints",
+      "title": "Relace Search: provider endpoints",
+      "publisher": "OpenRouter",
+      "accessed": true,
+      "evidence": "Relace-hosted relace-search-20251208 endpoint advertises context_length 256000 and max_completion_tokens 128000, text input/output and tool calling. This establishes hosting limits, not an independently disclosed architectural maximum."
+    },
+    {
+      "id": "s6",
+      "url": "https://relace.ai/blog",
+      "title": "Relace Blog",
+      "publisher": "Relace",
+      "accessed": true,
+      "evidence": "Current research index links the original FAS training article and a later July 2026 Compact article. The later article concerns another model; it does not supply Search counts or a backbone."
+    },
+    {
+      "id": "s7",
+      "url": "https://docs.relace.ai/llms-full.txt",
+      "title": "Relace complete documentation",
+      "publisher": "Relace",
+      "accessed": true,
+      "evidence": "Current documentation keeps Search, Apply, Compact and hosted open models separate. Search sections supply API and agent harness details but no exact total/active parameter counts, neural architecture or native maximum context."
+    },
+    {
+      "id": "s8",
+      "url": "https://models.relace.ai/v1/models",
+      "title": "Relace authenticated model catalog",
+      "publisher": "Relace",
+      "accessed": false,
+      "evidence": "Unauthenticated request returned HTTP 401; no model-specific metadata was read from this endpoint."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Relace Search",
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Official product name and exact relace-search identifier."
+    },
+    "developer": {
+      "value": "Relace",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Released and served by Relace."
+    },
+    "family": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s7"
+      ],
+      "note": "No named underlying model lineage is disclosed; Search is a product name, not evidence of a shared backbone with Apply or Compact."
+    },
+    "release_date": {
+      "value": "2025-12-08",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Dated announcement explicitly makes the model and API available that day; not inferred from provider listing time."
+    },
+    "open_weights": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4"
+      ],
+      "note": "Released as a proprietary hosted model. The accessed release and current documentation offer API access, without a weight distribution; public harness code does not distribute model weights."
+    },
+    "license": {
+      "value": "Proprietary",
+      "status": "verified",
+      "source_ids": [
+        "s4"
+      ],
+      "note": "Descriptive classification under the restricted hosted-service terms, not the MIT label on the API specification."
+    },
+    "parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s6",
+        "s7"
+      ],
+      "note": "Exact total parameters are absent from the detailed training article and later first-party research/documentation checked. Training hardware does not determine model size; Apply and other-model counts are not transferred."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s7"
+      ],
+      "note": "No per-token active count or routing topology is disclosed. Tool-call parallelism is not parameter activation."
+    },
+    "architecture": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s6",
+        "s7"
+      ],
+      "note": "The base model is unnamed. RL, verl and the search harness do not establish Transformer, dense or MoE structure; no exact-model configuration or checkpoint was identified."
+    },
+    "context_window": {
+      "value": 256000,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s5",
+        "s7",
+        "s8"
+      ],
+      "note": "Documented maximum for the Relace-hosted relace-search-20251208 endpoint on OpenRouter, with128000 maximum completion tokens. This catalog field records available context, not a claim about native training length or architectural maximum. The direct Relace model catalog requires authentication; no inference request was made."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "Model consumes text conversation/code/tool results and emits text/function arguments. Access to files through external tools adds no neural modality."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Developer reports explicit reasoning steps emerging between tool-call bursts during RL and encourages reasoning in subsequent training. This does not imply a separate thinking-token API or adjustable reasoning budget."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "The model generates function calls for the documented search tools; the harness executes them. This is model tool selection, not merely an external agent invoking Search."
+    },
+    "description": {
+      "value": "Code-search language model trained with reinforcement learning to select parallel file and grep tools, reason across search turns, and report relevant file ranges to a coding agent.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Replaces the generic chat description with the documented specialized task and model behavior; embedding retrieval and the managed harness are distinct components."
+    }
+  },
+  "patch": {
+    "description": "Code-search language model trained with reinforcement learning to select parallel file and grep tools, reason across search turns, and report relevant file ranges to a coding agent.",
+    "license": "Proprietary",
+    "reasoning": true,
+    "source_url": "https://relace.ai/old/blog/fast-agentic-search",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Exploiting parallel tool calls to make agentic search 4x faster",
+        "url": "https://relace.ai/old/blog/fast-agentic-search",
+        "type": "primary"
+      },
+      {
+        "label": "Search Code",
+        "url": "https://docs.relace.ai/api-reference/fast-agentic-search/search.md",
+        "type": "primary"
+      },
+      {
+        "label": "Fast Agentic Search: Overview",
+        "url": "https://docs.relace.ai/docs/fast-agentic-search/agent.md",
+        "type": "primary"
+      },
+      {
+        "label": "Terms of Use",
+        "url": "https://relace.ai/legal/terms-of-use",
+        "type": "primary"
+      },
+      {
+        "label": "Relace Search: provider endpoints",
+        "url": "https://openrouter.ai/api/v1/models/relace/relace-search/endpoints",
+        "type": "provider"
+      },
+      {
+        "label": "Relace Blog",
+        "url": "https://relace.ai/blog",
+        "type": "primary"
+      },
+      {
+        "label": "Relace complete documentation",
+        "url": "https://docs.relace.ai/llms-full.txt",
+        "type": "primary"
+      }
+    ],
+    "notes": "Relace Search is the separately callable RL-trained model behind Fast Agentic Search, not the embedding/rerank retrieval service or the managed execution harness. It emits explicit reasoning and model-selected search-tool calls; no separate thinking-token interface is established. Exact total/active parameters and neural architecture are undisclosed. OpenRouter advertises a 256,000-token Relace endpoint context and 128,000-token completion limit; the context field records that serving limit, while the native model maximum is unverified. Public SDK/harness or OpenAPI licenses are not model-weight licenses."
+  },
+  "summary": "Confirmed December 8, 2025 public release, proprietary hosted text model and native tool selection. Corrected reasoning to true and replaced the generic description. Total/active parameters and backbone remain undisclosed; retained the explicit256000 hosted context limit with a note distinguishing serving capacity from an undisclosed native maximum."
+}
