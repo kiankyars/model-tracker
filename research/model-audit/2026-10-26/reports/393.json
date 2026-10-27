@@ -1,7 +1,7 @@
 {
   "index": 393,
   "model_id": "nvidia/nemotron-nano-9b-v2",
-  "reviewed_at": "2026-10-27T01:07:03.272149Z",
+  "reviewed_at": "2026-10-27T16:09:04.983906Z",
   "sources": [
     {
       "id": "card",
@@ -41,7 +41,7 @@
       "title": "Pinned checkpoint tensor index",
       "publisher": "NVIDIA",
       "accessed": true,
-      "evidence": "Maps 341 tensor names to four original BF16 shards; total_size is 17776454656 bytes. No serialized parameter total is assumed."
+      "evidence": "Reopened October 27, 2026. Maps 341 tensor names to four original BF16 shards; metadata total_size remains 17776454656 bytes. This pass fetched the index only, not shards; bytes alone are not treated as a parameter total."
     },
     {
       "id": "headers",
@@ -65,7 +65,7 @@
       "title": "Nano 2 technical report, revision 4",
       "publisher": "NVIDIA",
       "accessed": true,
-      "evidence": "Latest listed revision dated September 2, 2025. Section 4 selects the 56-layer, width-4480, FFN-15680 candidate with rounded 8.89B parameters and describes its post-training and distillation. Four attention layers and exact model reasoning/tool evaluations support the card. Training used some 262144-token sequences, but supported deployment context is explicitly 128K. No separately defined active-parameter count is given."
+      "evidence": "Reopened October 27, 2026. Revision 4 is dated September 2, 2025. Section 4.2.2/Table 10 explicitly selects Candidate 2: 56 layers, width 4480, FFN 15680, 128 Mamba heads and rounded 8.89B total parameters. Section 4.3 carries that candidate through post-training to the released reasoning and base models. Four attention layers and exact-model reasoning/tool evaluations support the card. Training used some 262144-token sequences, but supported deployment context is explicitly 128K. No separate numerical active-parameter count is given."
     },
     {
       "id": "history",
@@ -106,6 +106,70 @@
       "publisher": "NVIDIA",
       "accessed": true,
       "evidence": "Exact-model primary API reference explicitly gives August 18, 2025 HF/API release, Mamba2-Transformer hybrid, 128K text context, reasoning budget control, BFCL tool evaluation and governing model license. Accessed full indexed primary page; the obsolete /re/reference path returned 404."
+    },
+    {
+      "id": "reaudit_hf_metadata",
+      "url": "https://huggingface.co/api/models/nvidia/NVIDIA-Nemotron-Nano-9B-v2/revision/6533e8de2c68e4536bf7c411d7a3ce5734111476",
+      "title": "Pinned NVIDIA checkpoint Hugging Face metadata, freshly reopened",
+      "publisher": "Hugging Face / NVIDIA model repository",
+      "accessed": true,
+      "evidence": "Fetched October 27, 2026; returned SHA exactly 6533e8de2c68e4536bf7c411d7a3ce5734111476 and safetensors.parameters.BF16 = safetensors.total = 8888227328. Corroborates the preserved earlier learned-checkpoint reconstruction without any shard request or new census; no active count is supplied."
+    },
+    {
+      "id": "reaudit_current_card",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-9B-v2/raw/main/README.md",
+      "title": "Current NVIDIA Nemotron Nano 9B v2 model card",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Fetched and read October 27, 2026. Exact current card still names the 9B v2 model and hybrid Mamba-2/MLP/four-attention architecture. No separate active-parameter figure or active-count definition is stated; input/output parameters in the card describe tensor dimensions, not model size."
+    },
+    {
+      "id": "reaudit_modelopt",
+      "url": "https://github.com/NVIDIA/Model-Optimizer/blob/main/examples/pruning/minitron/NVIDIA-Nemotron-Nano-9B-v2/README.md",
+      "title": "NVIDIA Model Optimizer Nano 9B v2 pruning and distillation tutorial",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Freshly read full original tutorial October 27, 2026. Identifies the official 9B v2 model as the starting checkpoint and separately prunes it to a 7B, 48-layer/4352-width model. Official baseline, pruned model, BF16 and FP8 throughput results are distinguished. Gives no separate active count for the original 9B checkpoint; neither the 7B target nor loading-memory measurements supply it."
+    },
+    {
+      "id": "reaudit_nano3_report",
+      "url": "https://arxiv.org/html/2512.20848v1",
+      "title": "Later NVIDIA Nemotron 3 Nano technical report",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Freshly reopened October 27, 2026. Abstract says Nano 3 activates less than half the parameters of previous-generation Nemotron 2 Nano, but gives no numerical active count for the 9B v2 predecessor. Its explicit 3.2B active/3.6B including embeddings figures belong to Nano 3, a structurally different MoE model, and cannot be transferred."
+    },
+    {
+      "id": "reaudit_super3_report",
+      "url": "https://arxiv.org/html/2604.12374v1",
+      "title": "Later NVIDIA Nemotron 3 Super technical report",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Freshly reopened October 27, 2026 and searched comparison/architecture sections for the predecessor. Reports 120B total/12B active for Super 3 and compares other MoE models; no explicit active-count row for exact Nano 9B v2 was found."
+    },
+    {
+      "id": "reaudit_ace_card",
+      "url": "https://developer.download.nvidia.com/assets/ace/model_card/Nemotron-Nano-9B-V2.pdf",
+      "title": "NVIDIA ACE exact Nano 9B v2 model card PDF",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Freshly read six-page original model card October 27, 2026. Exact model identity and hybrid architecture agree with the HF card; no numerical active-parameter specification is supplied."
+    },
+    {
+      "id": "reaudit_openreview_rejected",
+      "url": "https://openreview.net/pdf?id=5LDnMNmuss",
+      "title": "Untangling Input Language from Reasoning Language, Table 26 (rejected lead)",
+      "publisher": "OpenReview submission authors",
+      "accessed": true,
+      "evidence": "Read the search-indexed original Table 26 excerpt on October 27, 2026; direct PDF requests were challenge-blocked/403, so the full document was not accessed. Excerpt lists Nemotron-Nano-9B at total/active 9B/9B, but also misclassifies GPT-OSS-20B as dense with 20B active. This evident counting/architecture error prevents adopting the isolated 9B active claim without reliable corroboration."
+    },
+    {
+      "id": "reaudit_directive4_unverified",
+      "url": "https://directive4.ai/st4ts",
+      "title": "Directive4 ST4TS independent hardware benchmark (unverified active-count lead)",
+      "publisher": "Directive4",
+      "accessed": true,
+      "evidence": "Read full benchmark page October 27, 2026. Exact Nemotron-Nano-9B-v2 row labels Params 9B / Active 9B and reports its own August 12, 2026 R9700 measurement using a community Q4_K_M quant. This is an infrastructure benchmark, not a NVIDIA or model-research-team specification. Readable methods establish throughput measurements but do not explain the Nano active-count source or convention. Linked raw CSV was unsupported by web retrieval and blocked with HTTP 403 via direct request. Retained as an unverified lead rather than silently adopting dense-equals-total."
     }
   ],
   "fields": {
@@ -173,9 +237,11 @@
         "configuration",
         "index",
         "headers",
-        "report"
+        "report",
+        "reaudit_hf_metadata",
+        "reaudit_modelopt"
       ],
-      "note": "Complete unique learned checkpoint count of 8888227328 BF16 elements across 341 tensors. Includes both untied embeddings, all norms and learned Mamba A_log/D/dt_bias. No stored buffers, quantization or MTP. Independently reconstructed shapes and payload sizes agree; report selected candidate rounds to 8.89B."
+      "note": "Retain the previously reconstructed complete learned checkpoint total of 8,888,227,328 parameters. Fresh pinned HF metadata independently reports the same BF16/total count; NVIDIA Table 10 selects the rounded 8.89B candidate used for this model. Both untied embeddings, norms and learned Mamba parameters are included. No new census or shard download was performed."
     },
     "active_parameters_b": {
       "value": null,
@@ -185,9 +251,16 @@
         "config",
         "code",
         "report",
-        "api"
+        "api",
+        "reaudit_current_card",
+        "reaudit_modelopt",
+        "reaudit_nano3_report",
+        "reaudit_super3_report",
+        "reaudit_ace_card",
+        "reaudit_openreview_rejected",
+        "reaudit_directive4_unverified"
       ],
-      "note": "No separately defined active-parameter count found in exact-model primary documentation or latest technical report. This hybrid uses dense MLPs and no expert routing; total is not silently substituted for per-token activity."
+      "note": "Fresh original NVIDIA card/report, later Nano 3/Super 3 reports and Model Optimizer tutorial do not establish a separate numerical active count for exact 9B v2. Nano 3 provides only a relative comparison. OpenReview Table 26 has an obvious GPT-OSS architecture/active-count error; Directive4 reports 9B active without a recoverable parameter-count basis. Neither establishes a reliable convention here. Dense MLPs and absence of expert routing do not automatically make active equal total."
     },
     "architecture": {
       "value": "hybrid-ssm-transformer",
@@ -266,7 +339,7 @@
     "description": "Text model pruned and distilled from Nemotron Nano 12B v2, combining Mamba-2, attention and dense MLP layers with configurable reasoning and tool calling.",
     "source_url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-9B-v2/blob/6533e8de2c68e4536bf7c411d7a3ce5734111476/README.md",
     "source_type": "primary",
-    "notes": "Complete BF16 checkpoint contains 8.888227328B learned parameters, consistent with the technical report\u2019s rounded 8.89B candidate. Active parameters are not separately specified. August 18 is the explicit checkpoint/API release date and announcement date; an experimental NGC container lists August 15 without corroborating earlier public availability.",
+    "notes": "The complete checkpoint has 8.888227328B learned parameters, corroborated by pinned Hugging Face metadata and NVIDIA\u2019s rounded 8.89B specification. NVIDIA does not separately specify active parameters; unverified third-party 9B active claims are not adopted. August 18 is the explicit checkpoint/API release and announcement date; an experimental NGC container lists August 15 without corroborating earlier public availability.",
     "sources": [
       {
         "label": "Pinned Nemotron Nano 9B v2 model card",
@@ -302,8 +375,14 @@
         "label": "NVIDIA Open Model License Agreement",
         "url": "https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-open-model-license/",
         "type": "primary"
+      },
+      {
+        "label": "Pinned NVIDIA checkpoint parameter metadata",
+        "url": "https://huggingface.co/api/models/nvidia/NVIDIA-Nemotron-Nano-9B-v2/revision/6533e8de2c68e4536bf7c411d7a3ce5734111476",
+        "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": null
   },
   "checkpoint_reconstruction": {
     "repository": "nvidia/NVIDIA-Nemotron-Nano-9B-v2",
@@ -360,5 +439,5 @@
     "reproduction": "/tmp/model-audit-393/count.py",
     "runtime_constructor_review": "Static review of all enabled constructors found no additional learned module weights beyond the 341 reconstructed checkpoint tensors. Mamba gated RMSNorm and block/final norms each have one learned vector; attention and MLP bias flags are false, convolution bias true; input and output matrices are untied. No external model constructor dependency or extra head is active."
   },
-  "summary": "Audited all 14 fields. Replaced nominal 9B with independently reconstructed complete 8.888227328B count, added hybrid SSM/Transformer architecture and exact governing license, and rewrote description. Confirmed 131072 context, text, reasoning and tools. Active count remains undisclosed. Retained August 18 release with experimental NGC August 15 discrepancy documented."
+  "summary": "October 27 parameter re-audit preserves the exact 8.888227328B total, freshly corroborated by pinned HF metadata and NVIDIA\u2019s selected 8.89B candidate. Active count remains unresolved: later NVIDIA reports and the pruning tutorial give no separate exact-model count; weak third-party 9B active leads are documented without adoption. Preserved the other 12 field assessments and prior checkpoint reconstruction."
 }
