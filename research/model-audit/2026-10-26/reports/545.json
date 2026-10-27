@@ -1,0 +1,338 @@
+{
+  "index": 545,
+  "model_id": "xiaomi/mimo-v2.6-pro-ultraspeed",
+  "reviewed_at": "2026-10-27T05:57:46.177232Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://mimo.mi.com/docs/en-US/news/latest/v2-6",
+      "title": "Official MiMo-V2.6 launch",
+      "publisher": "Xiaomi",
+      "accessed": true,
+      "evidence": "Describes two models, Pro and Flash; explicitly calls UltraSpeed a mode of V2.6-Pro in Desktop and API. Announces open Pro/Flash weights. September22 documentation date, with earlier provider availability separately documented."
+    },
+    {
+      "id": "s2",
+      "url": "https://mimo.mi.com/models/en-US/mimo-v2.6-pro-ultraspeed",
+      "title": "Exact UltraSpeed model interface",
+      "publisher": "Xiaomi",
+      "accessed": true,
+      "evidence": "Current exact-model page directly lists text/image/video/audio input, text output, thinking, tool calls and 1M context. It describes accelerated Pro performance. Earlier search snippet displayed text only; opened current page lists all four inputs."
+    },
+    {
+      "id": "s3",
+      "url": "https://vercel.com/changelog/mimo-v2-6-models-now-available-on-ai-gateway",
+      "title": "MiMo V2.6 models now available on AI Gateway",
+      "publisher": "Vercel",
+      "accessed": true,
+      "evidence": "Original provider announcement dated September21,2026 says Pro, Flash and UltraSpeed are available. Explicitly says UltraSpeed runs the same Pro model. Confirms four input modalities, reasoning and tools; Pro nominal1.02T/42B."
+    },
+    {
+      "id": "s4",
+      "url": "https://openrouter.ai/api/v1/models/xiaomi/mimo-v2.6-pro-ultraspeed/endpoints",
+      "title": "Exact UltraSpeed endpoint metadata",
+      "publisher": "OpenRouter",
+      "accessed": true,
+      "evidence": "Direct JSON identifies same Pro checkpoint, four input modalities and text output. Xiaomi endpoint documents1048576 context,131072 output, reasoning and tools. Listed fp8 precision is provider metadata, not proof that native backend bytes match a published checkpoint."
+    },
+    {
+      "id": "s5",
+      "url": "https://mimo.mi.com/docs/en-US/updates/feature/studio",
+      "title": "MiMo Studio update log",
+      "publisher": "Xiaomi",
+      "accessed": true,
+      "evidence": "Version3.4.0 dated September21 adds V2.6 experience and UltraSpeed entry. Corroborates provider availability before September22 documentation date."
+    },
+    {
+      "id": "s6",
+      "url": "https://arxiv.org/html/2610.11959v1",
+      "title": "MiMo-V2.6: Scaling Reinforcement Learning Towards Self-Improvement",
+      "publisher": "Xiaomi LLM-Core",
+      "accessed": true,
+      "evidence": "October8 original technical report Table1 reports Pro Main Block1.02T total/42B active,70 layers,384 experts/top8. Separately lists681M vision,308M audio tokenizer and127M audio patch encoders; projectors excluded and audio EMA codebooks excluded. Describes five-layer dense DFlash-style speculative decoder; no separate UltraSpeed training/checkpoint identified."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Pro-RL/blob/b61f21852680ee02a29e946e18cf8697f4844061/README.md",
+      "title": "Official Pro-RL checkpoint card",
+      "publisher": "XiaomiMiMo",
+      "accessed": true,
+      "evidence": "Pinned card carries MIT license metadata and gives sparseMoE1.02T/42B, multimodal inputs,1M context and DFlash-style drafter. This is the underlying Pro model, not a separately named UltraSpeed artifact."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Pro-RL/blob/b61f21852680ee02a29e946e18cf8697f4844061/config.json",
+      "title": "Official Pro-RL configuration",
+      "publisher": "XiaomiMiMo",
+      "accessed": true,
+      "evidence": "Exact config has70 decoder layers,384 routed experts/top8,1048576 positions,28-layer vision encoder and6-layer audio patch encoder. Mixed precision/packed weights do not establish parameter totals by storage-element summation."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Pro-RL/blob/b61f21852680ee02a29e946e18cf8697f4844061/tokenizer_config.json",
+      "title": "Official Pro-RL chat template",
+      "publisher": "XiaomiMiMo",
+      "accessed": true,
+      "evidence": "Explicit thinking/reasoning-content and structured tool-call handling. Corroborates native interface capabilities without equating external action execution with model output modalities."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/api/models?author=XiaomiMiMo&limit=100",
+      "title": "Official XiaomiMiMo model inventory",
+      "publisher": "XiaomiMiMo via Hugging Face",
+      "accessed": true,
+      "evidence": "Read30 public repositories. Pro-RL and Pro-MOPD are listed; no separately named V2.6 UltraSpeed checkpoint. This supports the explicit mode relationship but absence alone is not its proof."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/api/models/XiaomiMiMo/MiMo-V2.6-Pro-RL",
+      "title": "Pro-RL repository metadata",
+      "publisher": "XiaomiMiMo via Hugging Face",
+      "accessed": true,
+      "evidence": "Public ungated repository at revisionb61f21852680ee02a29e946e18cf8697f4844061 includes dflash config, implementation and drafter weights alongside ordinary Pro weights. Repository creation timestamp is not used alone as release evidence."
+    },
+    {
+      "id": "s12",
+      "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Pro-MOPD/blob/6a7f202e8dbd0e57b3fe1da03917d08d75abc4b8/README.md",
+      "title": "Official Pro-MOPD checkpoint card",
+      "publisher": "XiaomiMiMo",
+      "accessed": true,
+      "evidence": "MIT successor post-training checkpoint explicitly identified as MOPD upgrade of Pro-RL. Card does not map a particular UltraSpeed endpoint revision to this checkpoint. Its public repository also includes DFlash files; current service checkpoint bytes are not established."
+    },
+    {
+      "id": "s13",
+      "url": "https://mimo.xiaomi.com/mimo-v2-6/article.html",
+      "title": "Original research announcement article",
+      "publisher": "Xiaomi",
+      "accessed": true,
+      "evidence": "Original research page iframe content is dated September22. It explicitly describes UltraSpeed as a mode callable for Pro, while open weights concern Pro and Flash. No separately trained UltraSpeed model or distinct weight release is claimed."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "MiMo-V2.6-Pro-UltraSpeed",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "Exact official serving identifier and display name; this is a Pro mode."
+    },
+    "developer": {
+      "value": "Xiaomi",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Official Xiaomi model and API."
+    },
+    "family": {
+      "value": "mimo",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Normalized MiMo series key."
+    },
+    "release_date": {
+      "value": "2026-09-21",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s5",
+        "s13"
+      ],
+      "note": "Earliest explicit availability statement is Vercel September21, corroborated by Xiaomi Studio log. September22 is Xiaomi research/docs date. This is mode availability, not a separately trained model release; repository creation is not the basis."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s7",
+        "s10",
+        "s11"
+      ],
+      "note": "Underlying Pro weights are public and ungated. Same-model relationship is explicit. No distinct UltraSpeed weights release or exact serving-byte identity is asserted."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s7",
+        "s12",
+        "s3"
+      ],
+      "note": "License of the underlying released Pro weights; not the commercial API contract or a separately licensed UltraSpeed checkpoint."
+    },
+    "parameters_b": {
+      "value": 1020,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s6",
+        "s7"
+      ],
+      "note": "Nominal underlying Pro language-backbone count1.02T=1020B, supported by explicit same-model relationship. Encoder/projector/drafter overhead is not reconciled into an exact system total. No complete tensor inventory or storage-element count claimed."
+    },
+    "active_parameters_b": {
+      "value": 42,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "note": "Nominal active language-backbone count, eight selected experts per MoE layer. Does not sum encoder work, speculative draft work or repeated verification passes."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "note": "Underlying Pro sparse MoE Transformer with hybrid sliding-window/global attention and multimodal encoders. Published Pro contains DFlash; exact UltraSpeed serving optimization is not independently specified by the endpoint metadata."
+    },
+    "context_window": {
+      "value": 1048576,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s8"
+      ],
+      "note": "Exact Xiaomi route through OpenRouter documents1048576 tokens, consistent with underlying config; native page advertises1M.131072 output tokens is a separate limit."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "audio",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "note": "Current exact native page and provider endpoint agree. Generated media in tool demonstrations are external artifacts, not native output modalities."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s9"
+      ],
+      "note": "Exact hosted interface documents thinking and reasoning-content support."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s9"
+      ],
+      "note": "Exact endpoint accepts tools and tool_choice; underlying checkpoint template supports structured tool calls."
+    },
+    "description": {
+      "value": "High-speed serving mode of MiMo-V2.6-Pro, with multimodal input, text output, reasoning and tool calling.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Replaces generic promotional model description with the documented mode relationship; no speed multiplier is guaranteed."
+    }
+  },
+  "patch": {
+    "license": "MIT",
+    "parameters_b": 1020,
+    "active_parameters_b": 42,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "description": "High-speed serving mode of MiMo-V2.6-Pro, with multimodal input, text output, reasoning and tool calling.",
+    "source_url": "https://vercel.com/changelog/mimo-v2-6-models-now-available-on-ai-gateway",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Official MiMo-V2.6 launch",
+        "url": "https://mimo.mi.com/docs/en-US/news/latest/v2-6",
+        "type": "primary"
+      },
+      {
+        "label": "Exact UltraSpeed model interface",
+        "url": "https://mimo.mi.com/models/en-US/mimo-v2.6-pro-ultraspeed",
+        "type": "primary"
+      },
+      {
+        "label": "MiMo V2.6 models now available on AI Gateway",
+        "url": "https://vercel.com/changelog/mimo-v2-6-models-now-available-on-ai-gateway",
+        "type": "primary"
+      },
+      {
+        "label": "Exact UltraSpeed endpoint metadata",
+        "url": "https://openrouter.ai/api/v1/models/xiaomi/mimo-v2.6-pro-ultraspeed/endpoints",
+        "type": "primary"
+      },
+      {
+        "label": "MiMo-V2.6: Scaling Reinforcement Learning Towards Self-Improvement",
+        "url": "https://arxiv.org/html/2610.11959v1",
+        "type": "primary"
+      },
+      {
+        "label": "Official Pro-RL checkpoint card",
+        "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Pro-RL/blob/b61f21852680ee02a29e946e18cf8697f4844061/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "Official Pro-RL configuration",
+        "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Pro-RL/blob/b61f21852680ee02a29e946e18cf8697f4844061/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Original research announcement article",
+        "url": "https://mimo.xiaomi.com/mimo-v2-6/article.html",
+        "type": "primary"
+      }
+    ],
+    "notes": "UltraSpeed is documented as a serving mode of the same MiMo-V2.6-Pro model, not a separate trained model. Public availability was documented September21,2026; Xiaomi research announcement is dated September22. Nominal1020B/42B figures describe the underlying language backbone, with separate encoders and speculative decoder not reconciled into an exact whole-system count. MIT applies to released Pro weights, not the hosted API terms. The current endpoint is not proven byte-identical to a particular RL/MOPD checkpoint. Recommend excluding this mode from independent-model release counts while preserving its audit."
+  },
+  "proposed_fields": {
+    "catalog_exclusion": {
+      "category": "service_tier",
+      "related_model_id": "xiaomi/mimo-v2.6-pro",
+      "reason": "Xiaomi explicitly describes UltraSpeed as a mode of V2.6-Pro. Vercel original launch documentation says it runs the same Pro model, and exact OpenRouter metadata explicitly identifies the same Pro checkpoint. Ordinary Pro releases already include the drafter; no separately linked trained UltraSpeed checkpoint is documented. Exclude this serving-mode duplicate from independent-model release counts while preserving the frozen audit assignment.",
+      "source_url": "https://vercel.com/changelog/mimo-v2-6-models-now-available-on-ai-gateway"
+    },
+    "parameters_scope": "language_backbone",
+    "parameter_components_b": {
+      "language_backbone": 1020,
+      "vision_encoder": 0.681,
+      "audio_tokenizer_encoder": 0.308,
+      "audio_patch_encoder": 0.127
+    },
+    "active_parameters_scope": "language_decode",
+    "active_parameters_by_phase_b": {
+      "language_decode": 42
+    }
+  },
+  "summary": "Audited all14 fields. Identified UltraSpeed as a documented Pro serving mode and propose exclusion from independent-model counts. Underlying Pro has nominal1020B/42B,MoE and MIT public weights; exact route supports1048576 context, multimodal input, text output, reasoning and tools. Retain September21 earliest documented public availability. No distinct UltraSpeed checkpoint or exact live RL/MOPD byte mapping established. Component scopes supplied only if parent retains the record instead of accepting exclusion."
+}
