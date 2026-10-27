@@ -1,7 +1,7 @@
 {
   "index": 81,
   "model_id": "amazon/nova-micro-v1",
-  "reviewed_at": "2026-10-26T16:02:47.572245Z",
+  "reviewed_at": "2026-10-27T10:07:12.388693Z",
   "sources": [
     {
       "id": "s1",
@@ -33,7 +33,7 @@
       "title": "The Amazon Nova Family of Models: Technical Report and Model Card",
       "publisher": "Amazon Artificial General Intelligence",
       "accessed": true,
-      "evidence": "PDF page 3 explicitly says Nova Pro, Lite and Micro use the Transformer architecture. Full text retrieved with urllib and pdftotext after web retrieval exceeded its size limit. It does not disclose Micro total/active parameter counts or dense versus MoE structure."
+      "evidence": "Reopened on October 27. Section 1.1 (PDF page 3) identifies the Transformer architecture and pretraining followed by SFT, reward modeling and preference optimization for Pro, Lite and Micro. It names no size-disclosed parent model and supplies no nominal total or active parameter count; the full PDF was downloaded and text-extracted after the web fetch exceeded its size limit."
     },
     {
       "id": "s5",
@@ -82,6 +82,38 @@
       "publisher": "Amazon Web Services",
       "accessed": true,
       "evidence": "The inferenceConfig documentation restricts reasoningConfig to Nova Pro and Nova Lite, excluding Micro. Supports toolConfig and toolChoice; explicitly excludes image and video input for Micro."
+    },
+    {
+      "id": "s11",
+      "url": "https://aclanthology.org/2025.findings-emnlp.1099.pdf",
+      "title": "MASSIVE-Agents: A Benchmark for Multilingual Function-Calling in 52 Languages",
+      "publisher": "Amazon AGI / ACL Anthology",
+      "accessed": true,
+      "evidence": "November 2025 Amazon AGI-authored comparison. Table 1 on PDF page 6 lists Nova Micro with Params = NP, alongside 128k context and December 2024 release. It has no activated-parameter column or count. This is explicit later first-party evidence that a nominal size is not supplied, rather than an inference from performance tier."
+    },
+    {
+      "id": "s12",
+      "url": "https://cdn.amazon.science/50/3b/6b14413b42b7a50f6c97ea63f0cd/post-hoc-adapter-compression-extracting-low-rank-updates-from-full-rank-finetuning-er-cr.pdf",
+      "title": "PHLoRA: data-free Post-hoc Low-Rank Adapter extraction from full-rank checkpoint (workshop version)",
+      "publisher": "Amazon AGI and EdgeRunner AI / Amazon Science",
+      "accessed": true,
+      "evidence": "Sections 3.3 and 4 and Tables 3-4 evaluate Nova Micro using adapter ranks 32, 64 and 512. These are low-rank update dimensions, not model parameter counts. Nova Micro itself is the base for the custom fine-tunes; no total, active count or size-disclosed ancestor is identified. The assets.amazon.science URL returned 404; the same PDF was retrieved from cdn.amazon.science and text-extracted."
+    },
+    {
+      "id": "s13",
+      "url": "https://aclanthology.org/2025.findings-ijcnlp.125.pdf",
+      "title": "PHLoRA: Data-Free Post-Hoc Low-Rank Adapter Extraction from Full-Rank Checkpoint (December 2025 archival version)",
+      "publisher": "Amazon AGI and EdgeRunner AI / ACL Anthology",
+      "accessed": true,
+      "evidence": "December 20-24, 2025 archival paper checked independently. Sections 4.1-4.3, Tables 3-4 and Appendix A.3 retain Nova Micro base/full-rank/adapter comparisons and rank hyperparameters, with no nominal total or active parameter count. Its base-model language describes custom fine-tuning of Nova Micro, not lineage from a separately sized base."
+    },
+    {
+      "id": "s14",
+      "url": "https://docs.aws.amazon.com/nova/latest/userguide/nova-fine-tune-1.html",
+      "title": "Fine-tune Nova 1.0 - Amazon Nova",
+      "publisher": "Amazon Web Services",
+      "accessed": true,
+      "evidence": "Current full-rank and LoRA configuration table maps amazon.nova-micro-v1:0:128k to the base path nova-micro/prod. It discloses training settings and replica counts but no model size or alternate named base with a published size; neither adapter settings nor hardware replicas establish parameters."
     }
   ],
   "fields": {
@@ -146,9 +178,13 @@
         "s4",
         "s5",
         "s6",
-        "s7"
+        "s7",
+        "s11",
+        "s12",
+        "s13",
+        "s14"
       ],
-      "note": "No exact or nominal total is disclosed in the original report, later Premier and Nova 2 reports, or service card reviewed. Do not infer size from latency or hardware."
+      "note": "Fresh October 27 search and reopened original/Premier/Nova 2 reports reveal no nominal total. Amazon AGI MASSIVE-Agents Table 1 explicitly gives Nova Micro Params = NP. Both later PHLoRA versions disclose adapter ranks only; original training and current customization documentation establish no size-disclosed named-base lineage. Tier, latency, hardware and adapter rank are not used to infer size."
     },
     "active_parameters_b": {
       "value": null,
@@ -157,9 +193,12 @@
         "s4",
         "s5",
         "s6",
-        "s7"
+        "s7",
+        "s11",
+        "s12",
+        "s13"
       ],
-      "note": "No active parameter count is disclosed. Dense versus MoE is also not established, so no total-to-active equality is assumed."
+      "note": "Fresh search for active/activated parameters and later first-party comparison tables found no separately reported active count. MASSIVE-Agents has only Params = NP for Micro; PHLoRA reports adapter ranks and task results, not per-token activated parameters. Dense versus MoE remains undisclosed, and no total-to-active equality is assumed."
     },
     "architecture": {
       "value": "transformer",
@@ -280,10 +319,33 @@
         "label": "Complete request schema - Amazon Nova",
         "url": "https://docs.aws.amazon.com/nova/latest/userguide/complete-request-schema.html",
         "type": "primary"
+      },
+      {
+        "label": "MASSIVE-Agents: A Benchmark for Multilingual Function-Calling in 52 Languages",
+        "url": "https://aclanthology.org/2025.findings-emnlp.1099.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "PHLoRA: data-free Post-hoc Low-Rank Adapter extraction from full-rank checkpoint (workshop version)",
+        "url": "https://cdn.amazon.science/50/3b/6b14413b42b7a50f6c97ea63f0cd/post-hoc-adapter-compression-extracting-low-rank-updates-from-full-rank-finetuning-er-cr.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "PHLoRA: Data-Free Post-Hoc Low-Rank Adapter Extraction from Full-Rank Checkpoint (December 2025 archival version)",
+        "url": "https://aclanthology.org/2025.findings-ijcnlp.125.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Fine-tune Nova 1.0 - Amazon Nova",
+        "url": "https://docs.aws.amazon.com/nova/latest/userguide/nova-fine-tune-1.html",
+        "type": "primary"
       }
     ],
-    "notes": "The Dec 3, 2024 launch announcement explicitly states availability; the current Bedrock card instead lists Dec 5, 2024, an unexplained date conflict. Transformer backbone is documented, but total/active parameters and dense versus MoE structure remain undisclosed after reviewing the original, Premier and Nova 2 reports and service card. Nova weights are proprietary and trained checkpoints remain in AWS-managed escrow. Micro accepts text only, with no native document input or configurable thinking mode. Endpoint operation was not tested.",
-    "family": "nova"
+    "notes": "The Dec 3, 2024 launch announcement explicitly states availability; the current Bedrock card instead lists Dec 5, 2024, an unexplained date conflict. Transformer backbone is documented; total and active parameters remain undisclosed. Amazon AGI’s MASSIVE-Agents table lists Micro parameters as NP; PHLoRA reports adapter ranks only. No size-disclosed base lineage is established. Nova weights are proprietary and trained checkpoints remain in AWS-managed escrow. Micro accepts text only, with no native document input or configurable thinking mode. Endpoint operation was not tested.",
+    "family": "nova",
+    "parameters_b": null,
+    "active_parameters_b": null,
+    "parameters_source": null
   },
-  "summary": "Correct release to Dec 3, 2024; add documented Transformer architecture and AWS Service Terms; sharpen description. Confirm text-only 128K context, closed weights, tools and no configurable thinking mode. Exact total/active counts and dense/MoE details remain undisclosed; explicitly record the Bedrock Dec 5 date conflict."
+  "summary": "Fresh October 27 parameter re-audit retains undisclosed total and active counts. Reopened original and later Nova reports; Amazon AGI MASSIVE-Agents explicitly lists Params = NP, while both PHLoRA versions and current customization documentation provide no nominal count or size-disclosed base lineage. Explicitly patch both counts and parameters_source to null. Preserve prior nonparameter assessments and corrections, including the Dec 3 launch and Dec 5 model-card discrepancy."
 }
