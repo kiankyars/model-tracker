@@ -1,7 +1,7 @@
 {
   "index": 358,
   "model_id": "moonshotai/kimi-k2-thinking-turbo",
-  "reviewed_at": "2026-10-26T23:58:09.154962Z",
+  "reviewed_at": "2026-10-27T07:09:56.351706Z",
   "sources": [
     {
       "id": "s1",
@@ -25,7 +25,7 @@
       "title": "Moonshot API pricing page bundle, archived November 6, 2025",
       "publisher": "Moonshot AI; preserved by Internet Archive",
       "accessed": true,
-      "evidence": "The page bundle linked by the archived /docs/pricing/chat HTML identifies kimi-k2-thinking-turbo as a high-speed version of kimi-k2-thinking with 256k context. The K2 section supports ToolCalls and excludes vision. Its explicit same-model-parameters statement names kimi-k2-turbo-preview, not Thinking Turbo."
+      "evidence": "Reopened the archived launch-day page bundle on October 27, 2026. It explicitly identifies kimi-k2-thinking-turbo as a high-speed version of kimi-k2-thinking with 256k context, establishing named model lineage. The K2 section supports ToolCalls and excludes vision. Its additional same-model-parameters wording names kimi-k2-turbo-preview; that separate sibling statement is not used to prove Thinking Turbo checkpoint identity."
     },
     {
       "id": "s4",
@@ -41,7 +41,7 @@
       "title": "Kimi-K2-Thinking model card",
       "publisher": "Moonshot AI",
       "accessed": true,
-      "evidence": "The downloadable standard Thinking checkpoint has nominal 1T total and 32B activated parameters, MoE architecture, 256K context, native INT4 quantization and Modified MIT licensing. The card does not identify a Turbo checkpoint or explicitly equate the Turbo endpoint with these weights."
+      "evidence": "Reopened on October 27, 2026. The developer model summary separately publishes nominal 1T total and 32B activated parameters for Kimi K2 Thinking, with MoE architecture, 384 experts and 8 selected experts per token. The card describes native INT4 quantization/QAT for inference speed; it does not describe a pruned or distilled Turbo architecture or identify a separate Turbo checkpoint."
     },
     {
       "id": "s6",
@@ -49,7 +49,7 @@
       "title": "Kimi K2.5: Visual Agentic Intelligence",
       "publisher": "Kimi Team / Moonshot AI",
       "accessed": true,
-      "evidence": "The later February 2026 technical report discusses standard K2 Thinking and experiments using it, but does not name Thinking Turbo or supply a Turbo-specific parameter count or checkpoint mapping."
+      "evidence": "Reopened and searched on October 27, 2026. The February 2026 technical report discusses standard K2 Thinking and experiments using it, but contains no Turbo reference, Turbo-specific count or structural-change disclosure. It supplies no contrary evidence to the official high-speed-version lineage."
     },
     {
       "id": "s7",
@@ -57,7 +57,7 @@
       "title": "Kimi-K2.5 model card and comparison tables",
       "publisher": "Moonshot AI",
       "accessed": true,
-      "evidence": "The later card gives K2.5-specific architectural counts and compares models, but does not identify Thinking Turbo as a checkpoint or give its counts. Its shared quantization-method reference names standard Kimi-K2-Thinking."
+      "evidence": "Reopened and searched on October 27, 2026. This later card gives K2.5-specific architectural counts and compares standard Thinking, but contains no Turbo reference or Turbo-specific count/structural-change disclosure. Its K2.5 counts are not transferred to Thinking Turbo."
     },
     {
       "id": "s8",
@@ -82,6 +82,14 @@
       "publisher": "Moonshot AI",
       "accessed": true,
       "evidence": "The November 7 announcement explicitly introduces both Thinking endpoint names for complex reasoning, multi-step instructions and tool/function calling; it confirms the Turbo model launched with the November 6 pricing."
+    },
+    {
+      "id": "s11",
+      "url": "https://platform.kimi.ai/blog/posts/coding_with_kimi_agents_setup",
+      "title": "Coding with Kimi K2: Top 6 Agents & Setup Guides",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "The December 22, 2025 first-party guide explicitly recommends kimi-k2-thinking-turbo for speed and describes it as optimized for high-speed generation, reaching up to 100 tokens/s. This later serving-oriented description corroborates the launch-day named high-speed-version relationship; it does not report pruning, distillation, expert expansion or added modalities."
     }
   ],
   "fields": {
@@ -148,37 +156,34 @@
       "note": "Modified MIT is verified for standard K2 Thinking weights, not this exact hosted Turbo model. No established checkpoint mapping supports transferring that license, and missing mapping does not establish proprietary weights."
     },
     "parameters_b": {
-      "value": null,
-      "status": "unverified",
+      "value": 1000,
+      "status": "verified",
       "source_ids": [
         "s3",
         "s5",
-        "s6",
-        "s7"
+        "s11"
       ],
-      "note": "Standard Thinking nominal 1T is not an exact tensor count and is not transferred to Turbo without an explicit parameter/checkpoint mapping. Later K2.5 report and model-card comparison tables were checked and do not resolve Turbo; this is an unresolved verification, not a claim that Moonshot never disclosed it."
+      "note": "Nominal total-parameter inference from explicit developer lineage: the official launch-day API documentation identifies this exact endpoint as the high-speed version of kimi-k2-thinking, whose developer card reports 1T total parameters. Record that published nominal size as 1000B, without claiming a tensor census or byte-identical hosted checkpoint. Fresh searches and reopened later first-party materials found no Turbo pruning, distillation, expert expansion or added-modality disclosure that would defeat the inference; do not rely on the separate K2 Turbo Preview same-parameters statement."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "unverified",
+      "value": 32,
+      "status": "verified",
       "source_ids": [
         "s3",
         "s5",
-        "s6",
-        "s7"
+        "s11"
       ],
-      "note": "Standard Thinking nominal 32B activated is distinct from total parameters and cannot establish Turbo active parameters without a matching checkpoint declaration. No count was inferred from packed INT4 storage or scales."
+      "note": "Nominal activated-parameter inference from the same explicitly identified K2 Thinking model: its developer card separately reports 32B activated parameters. The high-speed Turbo description and later speed guide disclose no altered expert selection or model structure; retain the developer convention as 32B rather than equating active with total, counting packed INT4 storage, or claiming a Turbo-specific exact per-token census."
     },
     "architecture": {
-      "value": null,
-      "status": "unverified",
+      "value": "moe",
+      "status": "verified",
       "source_ids": [
         "s3",
         "s5",
-        "s6",
-        "s7"
+        "s11"
       ],
-      "note": "The standard checkpoint is MoE, but the accessed primary sources do not explicitly map the exact Turbo endpoint to that checkpoint. Later technical research does not supply a Turbo-specific architecture; retain null."
+      "note": "Architecture inference coupled to the nominal parameter inference: Moonshot explicitly identifies Turbo as the high-speed version of Kimi K2 Thinking, whose model card specifies Mixture-of-Experts. Fresh first-party searches found no Turbo structural-change disclosure that would defeat this named-model lineage; this does not establish byte-identical deployed weights."
     },
     "context_window": {
       "value": 262144,
@@ -242,7 +247,7 @@
     "description": "High-speed Kimi K2 Thinking API variant for text reasoning and tool calling; the original Moonshot endpoint is deprecated.",
     "source_url": "https://platform.kimi.ai/blog/posts/changelog",
     "source_type": "primary",
-    "notes": "Historical Moonshot API speed variant, released November 6, 2025 and listed as deprecated since May 25, 2026. Its advertised 256K context is represented as 262144 tokens; always-thinking and tool calling are explicit. Public standard K2 Thinking weights have nominal 1T total/32B activated parameters and Modified MIT licensing, but exact Turbo checkpoint equivalence was not verified, so openness, license, counts and architecture remain unknown. Do not interpret the standard Thinking weights link as a verified Turbo checkpoint.",
+    "notes": "Historical Moonshot API speed variant, released November 6, 2025 and listed as deprecated since May 25, 2026. Its advertised 256K context is represented as 262144 tokens; always-thinking and tool calling are explicit. Parameter re-audit on October 27, 2026 accepts nominal 1T total/32B activated parameters through the official identification of this endpoint as the high-speed version of Kimi K2 Thinking and that named model's developer-published specification. Later first-party speed guidance corroborates this relationship; fresh searches found no Turbo-specific pruning, distillation, changed expert selection or added modalities. These are nominal model counts inferred from explicit lineage, not an exact tensor census, whole-service inventory or proof of byte-identical hosted weights. MoE architecture follows the same explicit lineage. Openness and license assessments are unchanged; a public standard Thinking weights link is not a verified Turbo checkpoint.",
     "sources": [
       {
         "label": "Moonshot official release log",
@@ -268,8 +273,22 @@
         "label": "Moonshot exact-model tool-calling support",
         "url": "https://forum.moonshot.ai/t/tool-calling-specification-violation-on-moonshot-api/102",
         "type": "primary"
+      },
+      {
+        "label": "Kimi K2 Thinking developer-published nominal parameter specifications",
+        "url": "https://huggingface.co/moonshotai/Kimi-K2-Thinking",
+        "type": "primary"
+      },
+      {
+        "label": "Moonshot exact-model high-speed generation guidance",
+        "url": "https://platform.kimi.ai/blog/posts/coding_with_kimi_agents_setup",
+        "type": "primary"
       }
-    ]
+    ],
+    "parameters_b": 1000,
+    "active_parameters_b": 32,
+    "parameters_source": "primary_source",
+    "architecture": "moe"
   },
-  "summary": "Confirmed the exact Turbo endpoint release on 2025-11-06, historical 256K context, text input/output, always-on reasoning and tool calling; current Moonshot docs mark it deprecated. Corrected family to kimi-k2, replaced generic description and cleared unsupported open_weights=true. Standard Thinking weights, nominal 1T/32B counts, MoE architecture and Modified MIT license were not transferred without explicit Turbo checkpoint equivalence. Five fields remain unverified (openness, license, total/active parameters and architecture)."
+  "summary": "Parameter re-audit verified nominal 1000B total and 32B activated parameters, plus coupled MoE architecture, by combining the official exact-endpoint identification as a high-speed version of Kimi K2 Thinking with that named model's developer specifications. Reopened launch, model-card and later first-party sources and searched for structural changes; no Turbo-specific pruning, distillation or expert-selection change was found. Exact hosted checkpoint identity remains unproven and is not required for these labeled lineage inferences. Unrelated field assessments are preserved; openness and license remain unverified."
 }

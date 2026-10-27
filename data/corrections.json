@@ -21523,7 +21523,7 @@
       "description": "High-speed Kimi K2 Thinking API variant for text reasoning and tool calling; the original Moonshot endpoint is deprecated.",
       "source_url": "https://platform.kimi.ai/blog/posts/changelog",
       "source_type": "primary",
-      "notes": "Historical Moonshot API speed variant, released November 6, 2025 and listed as deprecated since May 25, 2026. Its advertised 256K context is represented as 262144 tokens; always-thinking and tool calling are explicit. Public standard K2 Thinking weights have nominal 1T total/32B activated parameters and Modified MIT licensing, but exact Turbo checkpoint equivalence was not verified, so openness, license, counts and architecture remain unknown. Do not interpret the standard Thinking weights link as a verified Turbo checkpoint.",
+      "notes": "Historical Moonshot API speed variant, released November 6, 2025 and listed as deprecated since May 25, 2026. Its advertised 256K context is represented as 262144 tokens; always-thinking and tool calling are explicit. Parameter re-audit on October 27, 2026 accepts nominal 1T total/32B activated parameters through the official identification of this endpoint as the high-speed version of Kimi K2 Thinking and that named model's developer-published specification. Later first-party speed guidance corroborates this relationship; fresh searches found no Turbo-specific pruning, distillation, changed expert selection or added modalities. These are nominal model counts inferred from explicit lineage, not an exact tensor census, whole-service inventory or proof of byte-identical hosted weights. MoE architecture follows the same explicit lineage. Openness and license assessments are unchanged; a public standard Thinking weights link is not a verified Turbo checkpoint.",
       "sources": [
         {
           "label": "Moonshot official release log",
@@ -21549,17 +21549,28 @@
           "label": "Moonshot exact-model tool-calling support",
           "url": "https://forum.moonshot.ai/t/tool-calling-specification-violation-on-moonshot-api/102",
           "type": "primary"
+        },
+        {
+          "label": "Kimi K2 Thinking developer-published nominal parameter specifications",
+          "url": "https://huggingface.co/moonshotai/Kimi-K2-Thinking",
+          "type": "primary"
+        },
+        {
+          "label": "Moonshot exact-model high-speed generation guidance",
+          "url": "https://platform.kimi.ai/blog/posts/coding_with_kimi_agents_setup",
+          "type": "primary"
         }
       ],
       "field_status": {
         "open_weights": "unverified",
-        "license": "unverified",
-        "parameters_b": "unverified",
-        "active_parameters_b": "unverified",
-        "architecture": "unverified"
+        "license": "unverified"
       },
-      "audited_at": "2026-10-26T23:58:09.154962Z",
-      "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/358.json"
+      "audited_at": "2026-10-27T07:09:56.351706Z",
+      "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/358.json",
+      "parameters_b": 1000,
+      "active_parameters_b": 32,
+      "parameters_source": "primary_source",
+      "architecture": "moe"
     },
     "moonshotai/kimi-k2.5": {
       "license": "Modified MIT",
