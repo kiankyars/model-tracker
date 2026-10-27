@@ -1,7 +1,7 @@
 {
   "index": 230,
   "model_id": "google/t5-3b",
-  "reviewed_at": "2026-10-26T20:37:56.785385+00:00",
+  "reviewed_at": "2026-10-27T13:32:44.880636+00:00",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Original T5 release README",
       "publisher": "Google Research",
       "accessed": true,
-      "evidence": "The initial repository commit explicitly lists T5-3B among released checkpoints and links gs://t5-data/pretrained_models/3B. It describes text-to-text pretraining and fine-tuning and calls 512 the default sequence length."
+      "evidence": "The initial repository commit explicitly lists T5-3B among released checkpoints and links gs://t5-data/pretrained_models/3B. It describes text-to-text pretraining and fine-tuning and calls 512 the default sequence length. Freshly reopened October 27: original release explicitly labels this checkpoint 3 billion parameters and links the original 3B directory."
     },
     {
       "id": "s2",
@@ -25,7 +25,7 @@
       "title": "Original Google T5-3B operative configuration",
       "publisher": "Google Research",
       "accessed": true,
-      "evidence": "Exact original 3B configuration: 24 encoder and 24 decoder layers, d_model=1024, d_ff=16384, d_kv=128, 32 heads, shared encoder/decoder embeddings and shared decoder embedding/softmax weights. Uses all_mix pretraining with span corruption. Both training inputs and targets/max_length are 512; absolute positional embedding is disabled."
+      "evidence": "Exact original 3B configuration: 24 encoder and 24 decoder layers, d_model=1024, d_ff=16384, d_kv=128, 32 heads, shared encoder/decoder embeddings and shared decoder embedding/softmax weights. Uses all_mix pretraining with span corruption. Both training inputs and targets/max_length are 512; absolute positional embedding is disabled. Freshly reopened the complete configuration October 27; its original checkpoint path and dimensions remain unchanged. No checkpoint tensors or census were fetched again."
     },
     {
       "id": "s4",
@@ -41,7 +41,7 @@
       "title": "T5-3B checkpoint model card",
       "publisher": "Hugging Face",
       "accessed": true,
-      "evidence": "Exact original T5-3B checkpoint card identifies the Google researchers, Apache 2.0, text-to-text inputs/outputs and mixed unsupervised/supervised pretraining. The card was written by Hugging Face and is distinguished from the original Google release evidence. No dedicated thinking mode or native function-calling claim appears."
+      "evidence": "Exact original T5-3B checkpoint card identifies the Google researchers, Apache 2.0, text-to-text inputs/outputs and mixed unsupervised/supervised pretraining. The card was written by Hugging Face and is distinguished from the original Google release evidence. No dedicated thinking mode or native function-calling claim appears. Freshly reopened the pinned raw card October 27; it retains the nominal 3-billion label and original mixed-pretraining identity."
     },
     {
       "id": "s6",
@@ -73,7 +73,7 @@
       "title": "Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer",
       "publisher": "Google Research",
       "accessed": true,
-      "evidence": "Original submission October 23, 2019; inspected full paper including later revision. Section 3.7 specifies original 3B architecture and approximately 2.8B parameters, while the3B name is rounded. Dense encoder-decoder Transformer, tied output embedding, shared relative-position biases,512-token training and multitask pretraining are documented. No separately defined inference active-parameter count for exact 3B is supplied."
+      "evidence": "Original submission October 23, 2019; inspected full paper including later revision. Section 3.7 specifies original 3B architecture and approximately 2.8B parameters, while the3B name is rounded. Dense encoder-decoder Transformer, tied output embedding, shared relative-position biases,512-token training and multitask pretraining are documented. No separately defined inference active-parameter count for exact 3B is supplied. Freshly reread the complete JMLR paper from the October 27 primary-source cache: the model-size section and encoder/decoder compute discussion do not independently declare a per-token active total."
     },
     {
       "id": "s10",
@@ -81,7 +81,7 @@
       "title": "Language Models are Few-Shot Learners, Appendix D",
       "publisher": "OpenAI",
       "accessed": true,
-      "evidence": "A later comparative training-compute estimate lists nominal T5-3B = 3000M and assumes 0.5 of parameters active per training token, ignoring attention. This approximate encoder/decoder training accounting is not a Google-disclosed, phase-independent inference active count and is not converted into an asserted 1.5B model field."
+      "evidence": "A later comparative training-compute estimate lists nominal T5-3B = 3000M and assumes 0.5 of parameters active per training token, ignoring attention. This approximate encoder/decoder training accounting is not a Google-disclosed, phase-independent inference active count and is not converted into an asserted 1.5B model field. October 27 fresh exact-model searches returned the original NeurIPS supplement Table D.1; the 0.5 fraction remains explicitly an approximate training-compute convention, distinct from the later TAC closed-book QA comparison."
     },
     {
       "id": "s11",
@@ -90,6 +90,30 @@
       "publisher": "Google Research",
       "accessed": true,
       "evidence": "Original project license is Apache 2.0; the exact T5-3B checkpoint card independently declares the same license."
+    },
+    {
+      "id": "s12",
+      "url": "https://tac.nist.gov/publications/2020/presentations/TAC2020.KEYNOTE.Bikel.presentation.pdf",
+      "title": "Entities: what are they, where are they and how do we model them? — TAC 2020 keynote, slide 74",
+      "publisher": "Daniel M. Bikel / Google Research",
+      "accessed": true,
+      "evidence": "Freshly opened the complete NIST-hosted original Google Research keynote and visually inspected slide 74 on October 27. The title page dates the talk February 22, 2021. Its TriviaQA Closed Book Question Answering table explicitly separates Parameters All from Activated: T5 3B is 3B in both columns, with TriviaQA 35.1 and WebQ 33.6. T5 11B and T5 11B plus Salient Span Masking are distinct rows. This supplies a nominal research-comparison convention, not a phase-resolved or per-token tensor census."
+    },
+    {
+      "id": "s13",
+      "url": "https://aclanthology.org/2020.emnlp-main.437.pdf",
+      "title": "How Much Knowledge Can You Pack Into the Parameters of a Language Model?",
+      "publisher": "Adam Roberts, Colin Raffel and Noam Shazeer / Google Research",
+      "accessed": true,
+      "evidence": "Read the original final EMNLP 2020 paper on October 27. Section 3 explicitly identifies fine-tuning the original Raffel et al. pretrained T5 Base/Large/3B/11B checkpoints, with unchanged text-to-text architecture and separately reported T5.1.1 variants. Table 1 gives the original T5-3B 35.1 TriviaQA-dev and 33.6 WebQuestions, exactly matching the keynote. This establishes original-model identity and explicit fine-tune lineage for applying the nominal activated-size convention; no pruning, expert expansion or structural replacement is reported."
+    },
+    {
+      "id": "s14",
+      "url": "https://github.com/google-research/text-to-text-transfer-transformer/blob/main/released_checkpoints.md",
+      "title": "Google experimental T5 checkpoint distinctions",
+      "publisher": "Google Research",
+      "accessed": true,
+      "evidence": "Freshly read the full developer file October 27. T5.1.1 changes ReLU to GEGLU, removes embedding/classifier sharing and replaces 3B/11B with differently shaped XL/XXL models. These changes rule out automatic size inheritance from T5.1.1 or its descendants; the accepted benchmark row is explicitly original T5-3B instead."
     }
   ],
   "fields": {
@@ -160,20 +184,26 @@
         "s6",
         "s7",
         "s8",
-        "s9"
+        "s9",
+        "s1",
+        "s12",
+        "s13"
       ],
-      "note": "Complete original model: 2,851,598,336 parameters = encoder 1,208,010,752 + decoder 1,610,688,512 + shared embedding 32,899,072. Both stacks, attention, FFNs, scale-only normalization and two self-attention relative-bias tables are included; shared encoder/decoder/output token embedding is counted once. Original checkpoint index excludes optimizer state and global_step. Independently derived as E=24*(4*1024*4096+2*1024*16384+2*1024)+1024+32*32; D=24*(8*1024*4096+2*1024*16384+3*1024)+1024+32*32; shared=32128*1024. Converted F32 storage/API aggregate is 1,024 higher due to an unused cross-attention bias explicitly ignored on load. No weight payload was downloaded."
+      "note": "Complete original model: 2,851,598,336 parameters = encoder 1,208,010,752 + decoder 1,610,688,512 + shared embedding 32,899,072. Both stacks, attention, FFNs, scale-only normalization and two self-attention relative-bias tables are included; shared encoder/decoder/output token embedding is counted once. Original checkpoint index excludes optimizer state and global_step. Independently derived as E=24*(4*1024*4096+2*1024*16384+2*1024)+1024+32*32; D=24*(8*1024*4096+2*1024*16384+3*1024)+1024+32*32; shared=32128*1024. Converted F32 storage/API aggregate is 1,024 higher due to an unused cross-attention bias explicitly ignored on load. No weight payload was downloaded. October 27 re-audit preserves this supported exact total; freshly reopened developer release/configuration and full paper reconfirm the original model and nominal 3B label. No tensor census was repeated."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 3,
+      "status": "verified",
       "source_ids": [
+        "s12",
+        "s13",
+        "s1",
         "s3",
-        "s8",
         "s9",
-        "s10"
+        "s10",
+        "s14"
       ],
-      "note": "No separately defined inference active count is reported by the developer. Encoder processing and decoder generation have different parameter participation; do not equate dense total with per-token active count. OpenAI Appendix D uses an explicitly approximate half-model training-compute assumption, not a universal model inference count."
+      "note": "Nominal 3B activated parameters under Google Research researcher Daniel Bikel’s original TAC 2020 keynote comparison, slide 74, visually checked October 27. The exact T5-3B row has separate All and Activated columns and scores matching Roberts et al.’s original T5-3B QA fine-tune. That paper explicitly identifies the original pretrained model and unchanged fine-tuning, distinct from structurally changed T5.1.1. Apply the published nominal convention through this explicit lineage; do not substitute the precise 2.851598336B checkpoint count or claim 3B exact parameters participate for every input/output token. The 3B label rounds above the exact total. Encoder/decoder phase participation remains unspecified. Fresh total/active/activated searches and original papers were checked separately; GPT-3 Appendix D’s half-model training-FLOP approximation is a different convention, not the basis for this value."
     },
     "architecture": {
       "value": "dense",
@@ -248,7 +278,7 @@
     "parameters_b": 2.851598336,
     "parameters_source": "primary_source",
     "description": "Google's original dense encoder-decoder model for text-to-text tasks, pretrained on a mixture of span-corrupted text and supervised NLP tasks.",
-    "notes": "Total includes both encoder and decoder, with shared token/output embeddings counted once. The original checkpoint index gives 2,851,598,336 parameters; the converted file includes an extra 1,024-element cross-attention bias that the implementation ignores. 3B is a nominal size label. Training used 512-token inputs and targets; a universal hard context maximum is not established. Active parameters are not separately reported for inference.",
+    "notes": "The original checkpoint has 2,851,598,336 parameters, counting both stacks and shared embeddings once; the conversion adds an unused 1,024-element bias. Nominal active size 3B follows Google Research’s TAC 2020 benchmark comparison, linked to the original model through its documented QA fine-tune. This rounded convention is not a phase-specific or per-token tensor census. Training used 512-token inputs and targets; a universal hard context maximum is not established.",
     "sources": [
       {
         "label": "Original T5 release README",
@@ -299,8 +329,19 @@
         "label": "Original T5 Apache 2.0 license",
         "url": "https://github.com/google-research/text-to-text-transfer-transformer/blob/9fd7b14a769417be33bc6c850f9598764913c833/LICENSE",
         "type": "primary"
+      },
+      {
+        "label": "Google Research TAC keynote: activated-parameter comparison",
+        "url": "https://tac.nist.gov/publications/2020/presentations/TAC2020.KEYNOTE.Bikel.presentation.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Original T5 QA fine-tune lineage",
+        "url": "https://aclanthology.org/2020.emnlp-main.437.pdf",
+        "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": 3
   },
-  "summary": "Replaces nominal 3B with exact complete original 2.851598336B, independently confirmed by Google checkpoint index, configuration arithmetic and converted-header reconciliation. Excludes optimizer state, duplicate tied embeddings and an unused conversion-only cross-attention bias. Confirms dense encoder-decoder architecture, Apache 2.0 and October 23, 2019 release. Training length 512 is not asserted as a hard context cap; active count, thinking mode and native tool capability remain unverified/undisclosed as appropriate."
+  "summary": "October 27 parameter re-audit retains the exact original 2.851598336B total and recovers nominal 3B activated parameters from Google Research’s TAC 2020 keynote, with explicit original T5 QA fine-tune lineage. The rounded benchmark convention exceeds the exact total slightly and does not establish a per-token or phase-specific tensor census. T5.1.1 structural changes and GPT-3’s training-FLOP approximation are distinguished. All nonparameter assessments are preserved; no weights or repeated tensor census were needed."
 }
