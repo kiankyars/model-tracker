@@ -1,7 +1,7 @@
 {
   "index": 229,
   "model_id": "google/t5-11b",
-  "reviewed_at": "2026-10-26T20:37:51.752975+00:00",
+  "reviewed_at": "2026-10-27T13:32:16.579331+00:00",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Original T5 release README",
       "publisher": "Google Research",
       "accessed": true,
-      "evidence": "The October 23, 2019 repository snapshot explicitly lists T5-11B among released model checkpoints, linking gs://t5-data/pretrained_models/11B and giving nominal 11 billion parameters. It describes pretraining and downstream fine-tuning in a text-to-text encoder-decoder framework."
+      "evidence": "The October 23, 2019 repository snapshot explicitly lists T5-11B among released model checkpoints, linking gs://t5-data/pretrained_models/11B and giving nominal 11 billion parameters. It describes pretraining and downstream fine-tuning in a text-to-text encoder-decoder framework. Freshly reopened the original raw README on October 27; the released T5-11B row still explicitly supplies the nominal 11B size."
     },
     {
       "id": "s2",
@@ -33,7 +33,7 @@
       "title": "Original T5-11B operative configuration",
       "publisher": "Google Research",
       "accessed": true,
-      "evidence": "24 encoder and 24 decoder blocks, d_model=1024, d_ff=65536, d_kv=128, 128 heads, dense ReLU feed-forward layers. Encoder/decoder share the embedding, decoder embedding/softmax weights are tied; relative attention bias is shared across layers. Config sets input/target lengths and max_length to 512, disables absolute positional embeddings, and uses vocabulary padding divisor 128."
+      "evidence": "24 encoder and 24 decoder blocks, d_model=1024, d_ff=65536, d_kv=128, 128 heads, dense ReLU feed-forward layers. Encoder/decoder share the embedding, decoder embedding/softmax weights are tied; relative attention bias is shared across layers. Config sets input/target lengths and max_length to 512, disables absolute positional embeddings, and uses vocabulary padding divisor 128. Freshly fetched the complete operative config on October 27; dimensions, shared embeddings and two-matrix ReLU layers agree with the earlier verification. No tensor census was repeated."
     },
     {
       "id": "s5",
@@ -41,7 +41,7 @@
       "title": "Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer",
       "publisher": "T5 authors / Google Research",
       "accessed": true,
-      "evidence": "Original research describes dense encoder-decoder Transformers, text inputs and outputs, relative-position bias, shared input/output vocabulary, nominal 11B variant, and multitask pretraining combining denoising with supervised tasks. Length 512 is documented for training/fine-tuning. No separately defined active-parameter count, dedicated thinking mode or native tool-call capability is supplied."
+      "evidence": "Original research describes dense encoder-decoder Transformers, text inputs and outputs, relative-position bias, shared input/output vocabulary, nominal 11B variant, and multitask pretraining combining denoising with supervised tasks. Length 512 is documented for training/fine-tuning. No separately defined active-parameter count, dedicated thinking mode or native tool-call capability is supplied. Re-read the complete original paper from the October 27 primary-source cache, including Section 3.7: the nominal 11B description and specified dimensions remain consistent. It does not separately define activated parameters."
     },
     {
       "id": "s6",
@@ -65,7 +65,7 @@
       "title": "T5 11B model card",
       "publisher": "Hugging Face",
       "accessed": true,
-      "evidence": "Identifies original T5-11B checkpoint and its Google Research authors, text-to-text uses, C4 plus supervised multitask pretraining, and Apache 2.0 license. Card is authored by Hugging Face, not a separate claim of a Google-authored card; original checkpoint evidence is used for parameter count."
+      "evidence": "Identifies original T5-11B checkpoint and its Google Research authors, text-to-text uses, C4 plus supervised multitask pretraining, and Apache 2.0 license. Card is authored by Hugging Face, not a separate claim of a Google-authored card; original checkpoint evidence is used for parameter count. Freshly reopened the full pinned raw card on October 27; it introduces no separate active count or different named base."
     },
     {
       "id": "s9",
@@ -81,7 +81,47 @@
       "title": "T5X released-model documentation",
       "publisher": "Google Research",
       "accessed": true,
-      "evidence": "Later first-party documentation explicitly separates original T5 11B from T5 1.1 XXL, LM-adapted and Flan variants, with differing shapes and embedding sharing. No active-parameter specification for original T5-11B was found here; later-model capabilities/counts are not transferred."
+      "evidence": "Later first-party documentation explicitly separates original T5 11B from T5 1.1 XXL, LM-adapted and Flan variants, with differing shapes and embedding sharing. No active-parameter specification for original T5-11B was found here; later-model capabilities/counts are not transferred. Freshly reopened current raw documentation on October 27; the original T5-11B row remains separate from T5 1.1 XXL and Flan-T5. No active-count column is given."
+    },
+    {
+      "id": "s11",
+      "url": "https://tac.nist.gov/publications/2020/presentations/TAC2020.KEYNOTE.Bikel.presentation.pdf",
+      "title": "Entities: what are they, where are they and how do we model them? \u2014 TAC keynote",
+      "publisher": "Daniel M. Bikel / Google Research",
+      "accessed": true,
+      "evidence": "Freshly opened the original Google Research presentation hosted by NIST, dated February 22, 2021 on its title slide. Visually inspected slide 74: the TriviaQA closed-book comparison separately labels All and Activated parameters, listing T5 11B as 11B in both columns. T5 11B plus salient-span masking is a separate row. Slides 57 and 69 frame this convention as parameters accessed per input/example, not an exact token-by-token encoder/decoder census."
+    },
+    {
+      "id": "s12",
+      "url": "https://aclanthology.org/2020.emnlp-main.437.pdf",
+      "title": "How Much Knowledge Can You Pack Into the Parameters of a Language Model?",
+      "publisher": "Adam Roberts, Colin Raffel and Noam Shazeer / Google",
+      "accessed": true,
+      "evidence": "Freshly read the original EMNLP paper. Section 3 explicitly uses the released Raffel et al. original T5 Base, Large, 3B and 11B checkpoints and fine-tunes them for QA using the existing text-to-text formulation. It separately describes T5.1.1 and salient-span-masking variants; no pruning, new head or architecture change is described for ordinary T5-11B. This establishes the nominal original-to-QA model relationship behind the keynote comparison."
+    },
+    {
+      "id": "s13",
+      "url": "https://arxiv.org/pdf/2005.14165",
+      "title": "Language Models are Few-Shot Learners \u2014 Appendix D",
+      "publisher": "Brown et al. / OpenAI",
+      "accessed": true,
+      "evidence": "Read the full October 27 cached original paper and reopened the published Appendix D table in search. Table D.1 pairs nominal T5-11B with a half-active fraction only for approximate training-FLOP accounting, explicitly ignoring attention operations. This does not establish an inference-time 5.5B count and is not used to overwrite Google Research\u2019s separate per-example activated convention."
+    },
+    {
+      "id": "s14",
+      "url": "https://github.com/google-research/text-to-text-transfer-transformer/blob/main/released_checkpoints.md",
+      "title": "Experimental T5 pretrained checkpoints",
+      "publisher": "Google Research",
+      "accessed": true,
+      "evidence": "Freshly fetched the raw first-party document October 27. T5.1.1 replaces ReLU with GEGLU, stops embedding/classifier sharing, and changes the XXL shape relative to original 11B. Its parameter count is not transferable to this original checkpoint."
+    },
+    {
+      "id": "s15",
+      "url": "https://aclanthology.org/2020.emnlp-main.400.pdf",
+      "title": "Entities as Experts: Sparse Memory Access with Entity Supervision",
+      "publisher": "F\u00e9vry et al. / Google Research",
+      "accessed": true,
+      "evidence": "Freshly read the original paper behind the keynote\u2019s comparison. Its T5 baseline section identifies the Raffel encoder-decoder fine-tuned by Roberts et al.; Table 3 distinguishes ordinary T5-11B from T5-11B+SSM. This supports exact baseline identity; the explicit activated-parameter column used here comes from the Google Research keynote, not this paper\u2019s total-parameter table."
     }
   ],
   "fields": {
@@ -144,22 +184,28 @@
       "value": 11.307321344,
       "status": "verified",
       "source_ids": [
+        "s1",
         "s3",
         "s4",
+        "s5",
         "s6",
-        "s7"
+        "s7",
+        "s8"
       ],
-      "note": "Complete original model count in decimal billions, verified by original TensorFlow checkpoint index and independent configuration formula. 509 unique BF16 tensors: encoder 4,831,892,480 + decoder 6,442,529,792 + shared token/output embedding 32,899,072 = 11,307,321,344. Excludes optimizer slots/global_step; no quantization metadata or extra converted cross-attention bias. Embeddings shared by encoder, decoder and output are counted once. 11B is the nominal size name; no weight payloads were downloaded."
+      "note": "Complete original model count in decimal billions, verified by original TensorFlow checkpoint index and independent configuration formula. 509 unique BF16 tensors: encoder 4,831,892,480 + decoder 6,442,529,792 + shared token/output embedding 32,899,072 = 11,307,321,344. Excludes optimizer slots/global_step; no quantization metadata or extra converted cross-attention bias. Embeddings shared by encoder, decoder and output are counted once. 11B is the nominal size name; no weight payloads were downloaded. October 27 re-audit freshly reconfirmed the developer\u2019s nominal 11B specification and matching configuration; retain the already verified exact total without re-reading tensor payloads or repeating the census."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 11,
+      "status": "verified",
       "source_ids": [
+        "s11",
+        "s12",
+        "s15",
         "s4",
-        "s5",
-        "s10"
+        "s13",
+        "s14"
       ],
-      "note": "No separately defined per-token active count is reported for original T5-11B in reviewed primary evidence or later original-model documentation. Dense total is not copied into this field: encoder computation and autoregressive decoder computation occur in different phases."
+      "note": "Nominal 11B under the activated-parameter convention published in Daniel Bikel\u2019s Google Research keynote, slide 74, visually verified October 27. The exact ordinary T5-11B QA row is distinct from T5-11B+SSM; original Google QA research explicitly fine-tunes the released original T5-11B with the same text-to-text architecture, supporting this labeled nominal inference for the base model. The keynote counts parameters accessed per input/example; it does not resolve encoder versus decoder-token participation or justify copying the precise 11.307321344B total into active. GPT-3 Appendix D\u2019s half-active training-FLOP approximation has a different scope and omits attention, so it does not supply a competing inference count. Fresh exact-model active/activated searches and later first-party documentation found no more precise inference convention. T5.1.1 and Flan dimensions are not substituted."
     },
     "architecture": {
       "value": "dense",
@@ -287,9 +333,25 @@
         "label": "T5X released-model documentation",
         "url": "https://github.com/google-research/t5x/blob/main/docs/models.md",
         "type": "primary"
+      },
+      {
+        "label": "Entities: what are they, where are they and how do we model them? \u2014 TAC keynote",
+        "url": "https://tac.nist.gov/publications/2020/presentations/TAC2020.KEYNOTE.Bikel.presentation.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "How Much Knowledge Can You Pack Into the Parameters of a Language Model?",
+        "url": "https://aclanthology.org/2020.emnlp-main.437.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Entities as Experts: Sparse Memory Access with Entity Supervision",
+        "url": "https://aclanthology.org/2020.emnlp-main.400.pdf",
+        "type": "primary"
       }
     ],
-    "notes": "The 11B name is nominal. Original checkpoint metadata gives 11,307,321,344 unique parameters across encoder, decoder and one shared token/output embedding; optimizer state is excluded. Active parameters are not separately defined. The documented 512-token training/default length is not a verified hard context limit. Release date follows the original repository snapshot linking the released checkpoint."
+    "notes": "The original checkpoint contains 11,307,321,344 unique parameters, with shared token/output embeddings counted once and optimizer state excluded. Active 11B follows Google Research\u2019s nominal per-example QA comparison, transferred through the documented original T5 fine-tuning relationship; it is not an exact decoder-token count. The 512-token training/default length is not a verified hard context limit. Release date follows the original repository snapshot.",
+    "active_parameters_b": 11
   },
-  "summary": "Replace nominal 11B with exact 11.307321344B from the original Google checkpoint index, independently reconciled with the full encoder-decoder configuration and tied embedding. All 14 fields checked; dense architecture and Apache-2.0 confirmed. Context, dedicated reasoning and native tools remain unverified; 512 is a training/default length rather than a universal cap. Active count remains undisclosed. October 23, 2019 original release retained."
+  "summary": "October 27 parameter re-audit preserves the verified 11.307321344B total and recovers nominal active 11B from the explicit Google Research keynote comparison, supported by the original T5-to-QA fine-tuning relationship. The per-example convention is distinguished from exact decoder-token participation and OpenAI\u2019s approximate training-FLOP fraction. All twelve nonparameter field assessments are unchanged; no weights or tensor census were downloaded or repeated."
 }
