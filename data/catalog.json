@@ -19077,12 +19077,12 @@
     "name": "GPT-5.2 Chat",
     "developer": "OpenAI",
     "developer_id": "openai",
-    "family": "gpt",
-    "description": "Chat-tuned GPT model for conversational assistance, writing, and tool workflows",
+    "family": "gpt-5.2",
+    "description": "GPT-5.2 Instant chat model with text and image input, text output and function calling in the API.",
     "release_date": "2025-12-11",
     "date_precision": "day",
     "open_weights": false,
-    "license": null,
+    "license": "Proprietary",
     "parameters_b": null,
     "active_parameters_b": null,
     "parameters_source": null,
@@ -19091,7 +19091,8 @@
     "modalities": {
       "input": [
         "text",
-        "image"
+        "image",
+        "pdf"
       ],
       "output": [
         "text"
@@ -19099,9 +19100,74 @@
     },
     "reasoning": true,
     "tool_call": true,
-    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/openai/gpt-5.2-chat-latest.toml",
-    "source_type": "catalog",
+    "source_url": "https://openai.com/index/introducing-gpt-5-2/",
+    "source_type": "primary",
     "sources": [
+      {
+        "label": "Introducing GPT-5.2",
+        "url": "https://openai.com/index/introducing-gpt-5-2/",
+        "type": "primary"
+      },
+      {
+        "label": "GPT-5.2 Chat API documentation",
+        "url": "https://developers.openai.com/api/docs/models/gpt-5.2-chat-latest.md",
+        "type": "primary"
+      },
+      {
+        "label": "Update to GPT-5 System Card: GPT-5.2",
+        "url": "https://cdn.openai.com/pdf/3a4153c8-c748-4b71-8e31-aecbde944f8d/oai_5_2_system-card.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "GPT-5.5 Instant System Card",
+        "url": "https://deploymentsafety.openai.com/gpt-5-5-instant/gpt-5-5-instant.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Investigating the consequences of accidentally grading CoT during RL",
+        "url": "https://alignment.openai.com/accidental-cot-grading/",
+        "type": "primary"
+      },
+      {
+        "label": "Prompt caching",
+        "url": "https://developers.openai.com/api/docs/guides/prompt-caching.md",
+        "type": "primary"
+      },
+      {
+        "label": "Prompt Caching 201",
+        "url": "https://developers.openai.com/cookbook/examples/prompt_caching_201.md",
+        "type": "primary"
+      },
+      {
+        "label": "File inputs",
+        "url": "https://developers.openai.com/api/docs/guides/file-inputs.md",
+        "type": "primary"
+      },
+      {
+        "label": "API deprecations",
+        "url": "https://developers.openai.com/api/docs/deprecations.md",
+        "type": "primary"
+      },
+      {
+        "label": "API changelog",
+        "url": "https://developers.openai.com/api/docs/changelog.md",
+        "type": "primary"
+      },
+      {
+        "label": "OpenAI Services Agreement",
+        "url": "https://openai.com/policies/services-agreement/",
+        "type": "primary"
+      },
+      {
+        "label": "All OpenAI API models",
+        "url": "https://developers.openai.com/api/docs/models/all.md",
+        "type": "primary"
+      },
+      {
+        "label": "Azure models sold directly by Azure",
+        "url": "https://learn.microsoft.com/en-us/azure/foundry/foundry-models/concepts/models-sold-directly-by-azure",
+        "type": "primary"
+      },
       {
         "label": "Models.dev record",
         "url": "https://github.com/anomalyco/models.dev/blob/dev/models/openai/gpt-5.2-chat-latest.toml",
@@ -19111,7 +19177,15 @@
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
+    "upstream_present": true,
+    "notes": "The original 2025-12-11 launch maps gpt-5.2-chat-latest to GPT-5.2 Instant, separately from Thinking and Pro. This was a mutable alias, explicitly updated on 2026-02-10; the current OpenAI model page lists no dated immutable snapshot. Exact OpenAI documentation specifies 128,000 context and 16,384 maximum output, but its Markdown also gives an inconsistent 272,000 maximum input; Azure exact-version rows corroborate 128,000 context. OpenAI training research explicitly establishes limited CoT for GPT-5.2 Instant; reasoning=true does not imply documented effort controls, adaptive reasoning or the ChatGPT router. PDF denotes API conversion to extracted text and page images. Total/active parameter counts remain undisclosed in the reviewed original card, later exact Instant comparisons and training research; architecture remains unverified. OpenAI’s deprecation notice gives 2026-08-10 as this alias’s shutdown date, consistent with its current model page. Specifications are historical documentation, not a successful endpoint test.",
+    "field_status": {
+      "parameters_b": "undisclosed",
+      "active_parameters_b": "undisclosed",
+      "architecture": "unverified"
+    },
+    "audited_at": "2026-10-27T02:05:27.230955Z",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/424.json"
   },
   {
     "id": "openai/gpt-5.2-codex",
