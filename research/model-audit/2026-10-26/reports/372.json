@@ -1,7 +1,7 @@
 {
   "index": 372,
   "model_id": "nousresearch/hermes-3-llama-3.1-70b",
-  "reviewed_at": "2026-10-27T00:21:39.188052Z",
+  "reviewed_at": "2026-10-27T15:45:56.035027Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Hermes 3 Llama 3.1 70B official model card",
       "publisher": "Nous Research",
       "accessed": true,
-      "evidence": "Exact 70B checkpoint is a Nous Research Hermes-series instruction/chat fine-tune explicitly mapped to meta-llama/Meta-Llama-3.1-70B. Card carries a legacy llama3 license tag and English language tag; it demonstrates text generation and explicitly states training for function calling and JSON output."
+      "evidence": "Exact 70B checkpoint is a Nous Research Hermes-series instruction/chat fine-tune explicitly mapped to meta-llama/Meta-Llama-3.1-70B. Card carries a legacy llama3 license tag and English language tag; it demonstrates text generation and explicitly states training for function calling and JSON output. Reopened October 27: the exact card still identifies meta-llama/Meta-Llama-3.1-70B as its base; its synthetic-data/distillation tags do not describe a smaller replacement architecture."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "Exact 70B checkpoint configuration",
       "publisher": "Nous Research",
       "accessed": true,
-      "evidence": "LlamaForCausalLM, 80 layers, hidden size 8192, intermediate size 28672, 64 query heads and 8 KV heads, vocabulary 128256, untied embeddings, no attention/MLP biases, BF16, and 131072 maximum positions."
+      "evidence": "LlamaForCausalLM, 80 layers, hidden size 8192, intermediate size 28672, 64 query heads and 8 KV heads, vocabulary 128256, untied embeddings, no attention/MLP biases, BF16, and 131072 maximum positions. Fresh pinned config retrieval on October 27 confirms these same dimensions, vocabulary and merged checkpoint path; no experts, extra modality or reduced architecture is specified."
     },
     {
       "id": "s3",
@@ -25,7 +25,7 @@
       "title": "Hermes 3 Technical Report, sections 2, 2.1 and 4.1",
       "publisher": "Nous Research",
       "accessed": true,
-      "evidence": "Explicitly covers Hermes 3 8B, 70B and 405B. Describes decoder-only Transformer bases, available weights, and training on structured reasoning tasks with scratchpad, reasoning, planning and thinking tokens; also documents function calling. The 70B run appears separately in Table 3."
+      "evidence": "Explicitly covers Hermes 3 8B, 70B and 405B. Describes decoder-only Transformer bases, available weights, and training on structured reasoning tasks with scratchpad, reasoning, planning and thinking tokens; also documents function calling. The 70B run appears separately in Table 3. Freshly reopened sections 2, 2.1 and 4: Hermes 3 is explicitly created by fine-tuning Llama 3.1 8B, 70B and 405B; reasoning uses the base tokenizer's existing reserved tokens. Training experiments included SFT and DPO with LoRA, but section 4.2 explicitly retains the SFT-phase checkpoints for larger sizes including 70B. No pruning, expert expansion, new modality or structurally smaller distilled model is described."
     },
     {
       "id": "s4",
@@ -33,7 +33,7 @@
       "title": "Official repository safetensors metadata",
       "publisher": "Hugging Face / Nous Research",
       "accessed": true,
-      "evidence": "Current revision is 1fc86da0ce9cdb14cd775ad270bc7d1b4bf70ede. Reports 70,553,706,496 BF16 tensor elements, 30 weight shards and the exact base/card metadata. Used as a cross-check, not by itself as proof that every storage element is a parameter."
+      "evidence": "Current revision is 1fc86da0ce9cdb14cd775ad270bc7d1b4bf70ede. Reports 70,553,706,496 BF16 tensor elements, 30 weight shards and the exact base/card metadata. Used as a cross-check, not by itself as proof that every storage element is a parameter. Fresh API retrieval on October 27 confirms the same revision and 70,553,706,496 BF16 elements; the earlier validated tensor census is preserved without requesting any shard again."
     },
     {
       "id": "s5",
@@ -89,7 +89,7 @@
       "title": "Later Hermes 4 Technical Report",
       "publisher": "Nous Research",
       "accessed": true,
-      "evidence": "Parent retrieved the later first-party report through arXiv version2. It discusses Hermes3 continuity and nominal model sizes, but does not give a separately defined active count for Hermes3 70B. Earlier direct publisher retrieval was unavailable."
+      "evidence": "Reopened the original version 2 report and searched its full text on October 27. It discusses Hermes 3 dataset continuity and later nominal model sizes, but supplies no separately defined active-parameter count for Hermes 3 70B. No Hermes 4 specification is transferred to this model."
     },
     {
       "id": "s12",
@@ -122,6 +122,14 @@
       "publisher": "Meta",
       "accessed": true,
       "evidence": "Official card explicitly includes the 70B pretrained base and names the Llama 3.1 Community License, linking to the actual agreement."
+    },
+    {
+      "id": "s16",
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2025/file/a9ed43fa31dc8b4a7d7a673d713dcb5f-Paper-Conference.pdf",
+      "title": "Jamba: Hybrid Transformer-Mamba Language Models, ICLR 2025 Table 1",
+      "publisher": "AI21 Labs / Jamba Team",
+      "accessed": true,
+      "evidence": "Independently read the original proceedings PDF cached October 27 and visually checked page 5, Table 1. Its separate Available params and Active params columns give Llama-3.1 70B as 70B and 70B. This is AI21's nominal comparison convention for the named base, not a Nous or Meta active-count disclosure and not a table of Hermes checkpoints. Applying it to Hermes 3 70B requires the exact Nous fine-tuning lineage and unchanged structure documented by the card, report and config. The table does not define exact per-token embedding participation."
     }
   ],
   "fields": {
@@ -192,20 +200,22 @@
         "s2",
         "s4",
         "s5",
-        "s6"
+        "s6",
+        "s3"
       ],
-      "note": "Exact complete checkpoint count: 70,553,706,496 learned parameters, including separate input/output embeddings and all norms. All 723 BF16 tensors reconcile with config arithmetic and 141,107,412,992 data bytes; no scales, packed tensors or buffers were counted. 70B is nominal."
+      "note": "Preserve the previously verified complete checkpoint count: 70,553,706,496 learned parameters, including separate input/output embeddings and all norms. Its 723 BF16 tensors previously reconciled with config arithmetic and 141,107,412,992 data bytes, with no scales, packed tensors or buffers counted. Fresh October 27 API/config checks confirm the same revision and count; the tensor census was not repeated and no shards were requested. Nous publishes the nominal 70B size."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 70,
+      "status": "verified",
       "source_ids": [
+        "s16",
         "s1",
         "s3",
         "s2",
         "s11"
       ],
-      "note": "No separately defined active-per-token count is published in the exact card, Hermes3 report/config or accessed later Hermes4 report. Dense structure and total size are not a definition of active parameters; embedding lookup makes automatic equality misleading."
+      "note": "Nominal 70B inferred through documented lineage under AI21's comparison convention: Jamba ICLR 2025 Table 1 explicitly lists Llama-3.1 70B at 70B active parameters, and Nous identifies this exact Hermes 3 checkpoint as a fine-tune of that base. The report retains the 70B SFT checkpoint after DPO experiments, uses existing reserved tokenizer tokens, and describes no structural compression, pruning, expert expansion or new modality; the exact config retains the 80-layer Llama architecture and 128256 vocabulary. This is not a direct Nous/Meta active-count disclosure or an exact per-token tensor census, and is not derived by equating the precise total to active parameters. Fresh exact-card, Hermes 3 report and later Hermes 4 report checks found no more specific Hermes 3 active-count definition."
     },
     "architecture": {
       "value": "dense",
@@ -331,9 +341,15 @@
         "label": "Exact Meta Llama 3.1 70B base license",
         "url": "https://huggingface.co/api/models/meta-llama/Llama-3.1-70B",
         "type": "primary"
+      },
+      {
+        "label": "AI21 Jamba Table 1: nominal base-model active-count convention",
+        "url": "https://proceedings.iclr.cc/paper_files/paper/2025/file/a9ed43fa31dc8b4a7d7a673d713dcb5f-Paper-Conference.pdf",
+        "type": "primary"
       }
     ],
-    "notes": "Complete native BF16 checkpoint has exactly 70.553706496B learned parameters in 723 tensors; 70B is nominal. Active count is not separately disclosed. Dense decoder-only Llama architecture and 131072-token configuration are verified. Public launch including 70B was August 15, 2024; earlier private/public repository visibility is unknown. Reasoning denotes explicitly trained structured reasoning tokens, while tools denote trained function calls; provider controls may differ. The exact card declares English and has a legacy llama3 tag; the explicitly mapped Llama 3.1 70B base is governed by the Llama 3.1 Community License, and no separate fine-tune license appears in the 70B repository."
+    "notes": "Complete native BF16 checkpoint has exactly 70.553706496B learned parameters in 723 tensors; 70B is nominal. Nominal 70B active is inferred from its documented Llama 3.1 70B fine-tuning lineage under AI21's Jamba Table 1 comparison convention; it is not a direct Nous/Meta active-count disclosure or an exact per-token census. Dense decoder-only Llama architecture and 131072-token configuration are verified. Public launch including 70B was August 15, 2024; earlier private/public repository visibility is unknown. Reasoning denotes explicitly trained structured reasoning tokens, while tools denote trained function calls; provider controls may differ. The exact card declares English and has a legacy llama3 tag; the explicitly mapped Llama 3.1 70B base is governed by the Llama 3.1 Community License, and no separate fine-tune license appears in the 70B repository.",
+    "active_parameters_b": 70
   },
   "parameter_count_reproduction": {
     "revision": "1fc86da0ce9cdb14cd775ad270bc7d1b4bf70ede",
@@ -370,5 +386,5 @@
     },
     "exclusions": "No non-weight tensor entries, quantization scales, packed weights, expert/router tensors, or persistent buffers were present. All expected architecture learned weights are included; no whole shards were downloaded."
   },
-  "summary": "Audited all 14 fields. Replaced nominal 70B with the exact complete 70.553706496B checkpoint count; established dense architecture and Hermes family; identified the governing Llama 3.1 Community License despite the legacy llama3 card tag; corrected public release to August 15, 2024; enabled trained reasoning and function calling; removed unsupported multilingual wording. Confirmed name, developer, open weights, 131072 context and text modalities. Active parameters remain undisclosed. No 8B/405B specifications were transferred."
+  "summary": "Audited all 14 fields. Replaced nominal 70B with the exact complete 70.553706496B checkpoint count; established dense architecture and Hermes family; identified the governing Llama 3.1 Community License despite the legacy llama3 card tag; corrected public release to August 15, 2024; enabled trained reasoning and function calling; removed unsupported multilingual wording. Confirmed name, developer, open weights, 131072 context and text modalities. The October 27 parameter re-audit preserves the precise total after fresh API/config confirmation and records nominal 70B active through explicit Llama 3.1 70B fine-tuning lineage under AI21's Jamba Table 1 convention; no direct Nous/Meta active definition or exact per-token count was found. No shards were requested in this pass. No 8B/405B specifications were transferred."
 }
