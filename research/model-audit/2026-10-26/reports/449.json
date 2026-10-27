@@ -1,0 +1,418 @@
+{
+  "index": 449,
+  "model_id": "openai/gpt-oss-safeguard-20b",
+  "reviewed_at": "2026-10-27T02:53:45.394112Z",
+  "sources": [
+    {
+      "id": "launch",
+      "url": "https://openai.com/index/introducing-gpt-oss-safeguard/",
+      "title": "Introducing gpt-oss-safeguard — October 29, 2025",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Dated original release explicitly names safeguard-20b and safeguard-120b as downloadable research-preview reasoning fine-tunes for developer-provided policy classification, under Apache 2.0. This is the safeguard release, distinct from the August base-model launch."
+    },
+    {
+      "id": "card",
+      "url": "https://huggingface.co/openai/gpt-oss-safeguard-20b/resolve/8a11e17b25c973a24099d4016bf2e17dd7ec1574/README.md",
+      "title": "Pinned gpt-oss-safeguard-20b model card",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Identifies this exact fine-tune of openai/gpt-oss-20b, 21B nominal total and 3.6B nominal active, safety reasoning with low/medium/high effort, Harmony formatting and Apache 2.0. The supported task is text classification with generated reasoning."
+    },
+    {
+      "id": "report",
+      "url": "https://cdn.openai.com/pdf/08b7dee4-8bc6-4955-a219-7793fb69090c/Technical_report__Research_Preview_of_gpt_oss_safeguard.pdf",
+      "title": "Technical Report: Performance and baseline evaluations of gpt-oss-safeguard-120b and gpt-oss-safeguard-20b",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Downloaded and inspected all 10 pages. Introduction establishes text-only generative reasoning, structured outputs, fine-tuning relationship and architecture reference to the base gpt-oss report. Exact safeguard-20b columns describe classification, multilingual and safety performance; they do not supply a new architecture or function-calling benchmark."
+    },
+    {
+      "id": "help",
+      "url": "https://help.openai.com/en/articles/11870455-openai-open-weight-models-gpt-oss",
+      "title": "OpenAI open-weight models — safeguard variants and sizing",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Current exact safeguard-20b row gives 21B total and about 3.6B active. Explicitly states both safeguard fine-tunes have no architecture change, and are self/third-party hosted rather than served by OpenAI API or ChatGPT. General chat and agents are recommended to use core gpt-oss instead."
+    },
+    {
+      "id": "config",
+      "url": "https://huggingface.co/openai/gpt-oss-safeguard-20b/resolve/8a11e17b25c973a24099d4016bf2e17dd7ec1574/config.json",
+      "title": "Pinned safeguard-20b configuration",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Specifies 24 layers, hidden/intermediate width 2880, 32 experts/top-4, 64 query and 8 KV heads of width 64, vocabulary 201088, untied embeddings, attention biases, MXFP4 expert quantization, alternating sliding/full attention and max_position_embeddings 131072."
+    },
+    {
+      "id": "index",
+      "url": "https://huggingface.co/openai/gpt-oss-safeguard-20b/resolve/8a11e17b25c973a24099d4016bf2e17dd7ec1574/model.safetensors.index.json",
+      "title": "Pinned complete safeguard-20b checkpoint index",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "All 459 tensor keys across three shards were matched exactly to bounded tensor headers, with no missing/duplicate keys. Every dtype byte length, contiguous data offset and file payload extent matches; total tensor data 13,761,264,768 bytes equals index metadata. Storage bytes are not parameters."
+    },
+    {
+      "id": "header1",
+      "url": "https://huggingface.co/openai/gpt-oss-safeguard-20b/resolve/8a11e17b25c973a24099d4016bf2e17dd7ec1574/model-00000-of-00002.safetensors",
+      "title": "Pinned safeguard-20b shard1 bounded header",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Read only bytes 0–7 and 8–22247; verified HTTP 206 Content-Range bytes 8-22247/4792272488. Header lists 196 tensors, all matched to the complete index and expected module shapes. No weight payload downloaded."
+    },
+    {
+      "id": "header2",
+      "url": "https://huggingface.co/openai/gpt-oss-safeguard-20b/resolve/8a11e17b25c973a24099d4016bf2e17dd7ec1574/model-00001-of-00002.safetensors",
+      "title": "Pinned safeguard-20b shard2 bounded header",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Read only bytes 0–7 and 8–22311; verified HTTP 206 Content-Range bytes 8-22311/4798702184. Header lists 197 tensors, all matched to the complete index and expected module shapes. No weight payload downloaded."
+    },
+    {
+      "id": "header3",
+      "url": "https://huggingface.co/openai/gpt-oss-safeguard-20b/resolve/8a11e17b25c973a24099d4016bf2e17dd7ec1574/model-00002-of-00002.safetensors",
+      "title": "Pinned safeguard-20b shard3 bounded header",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Read only bytes 0–7 and 8–7575; verified HTTP 206 Content-Range bytes 8-7575/4170342232. Header lists 66 tensors, all matched to the complete index and expected module shapes. No weight payload downloaded."
+    },
+    {
+      "id": "model_code",
+      "url": "https://raw.githubusercontent.com/openai/gpt-oss/5681a6b6552635e7b29cde94a61ca6a7aee90ebd/gpt_oss/torch/model.py",
+      "title": "Pinned official gpt-oss reference implementation",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Inspected every enabled learned module and reconstructed it using this exact safeguard configuration: untied embedding/head, two norms per layer/final norm, biased attention projections, per-head learned sinks, biased router and biased SwiGLU experts. Root checkpoint splits fused QKV into three projections; all 411 logical tensors match. Rotary frequencies and activation constants are computed, not learned."
+    },
+    {
+      "id": "packing",
+      "url": "https://raw.githubusercontent.com/openai/gpt-oss/5681a6b6552635e7b29cde94a61ca6a7aee90ebd/gpt_oss/torch/weights.py",
+      "title": "Pinned official MXFP4 checkpoint loader",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Each packed U8 block contains two logical FP4 weights per byte, with 16 bytes producing 32 weights. Paired scales decode weights and are not extra learned parameters. All 48 exact checkpoint packed matrices have matching scale shapes; no dimension padding was inferred."
+    },
+    {
+      "id": "base_report",
+      "url": "https://arxiv.org/html/2508.10925v1",
+      "title": "Original gpt-oss model architecture and counting conventions",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "The base 20b report describes 24-layer MoE Transformer, 32 experts/top-4, GQA 64/8, 128-token local/full alternating attention, RMSNorm, learned sinks and YaRN. Its active convention includes unembedding and excludes embedding. Applied structurally only because OpenAI explicitly confirms unchanged safeguard architecture and the safeguard checkpoint was fully reconciled; base capability claims are not automatically transferred."
+    },
+    {
+      "id": "license",
+      "url": "https://huggingface.co/openai/gpt-oss-safeguard-20b/resolve/8a11e17b25c973a24099d4016bf2e17dd7ec1574/LICENSE",
+      "title": "Pinned safeguard-20b license",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "The exact checkpoint LICENSE is Apache License Version 2.0; its card and original announcement expressly apply Apache 2.0 to released weights."
+    },
+    {
+      "id": "template",
+      "url": "https://huggingface.co/openai/gpt-oss-safeguard-20b/resolve/8a11e17b25c973a24099d4016bf2e17dd7ec1574/chat_template.jinja",
+      "title": "Pinned safeguard-20b Harmony template",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Exact released template serializes function schemas, assistant tool calls and tool responses. It establishes supported formatting, while provider documentation supplies independent exact-model tool capability evidence; template presence alone is not treated as proof of trained function calling."
+    },
+    {
+      "id": "groq_tools",
+      "url": "https://console.groq.com/docs/tool-use/overview",
+      "title": "Groq tool-use support table",
+      "publisher": "Groq",
+      "accessed": true,
+      "evidence": "Exact openai/gpt-oss-safeguard-20b row supports local/remote tool use and JSON mode; it lists no parallel or built-in tools. This is primary serving-provider evidence for this exact model, not a transfer from base GPT-OSS or safeguard-120b."
+    },
+    {
+      "id": "groq_model",
+      "url": "https://console.groq.com/docs/model/openai/gpt-oss-safeguard-20b",
+      "title": "Groq safeguard-20b model reference",
+      "publisher": "Groq",
+      "accessed": true,
+      "evidence": "Exact model page lists text input/output, tool use, reasoning and 131,072 context. It also displays browser/code badges inconsistent with the more explicit tool-support table; no built-in-tool claim is adopted. Its 20B prose is naming shorthand, not used over the complete checkpoint count."
+    },
+    {
+      "id": "guide",
+      "url": "https://developers.openai.com/cookbook/articles/gpt-oss-safeguard-guide",
+      "title": "User guide for gpt-oss-safeguard",
+      "publisher": "OpenAI / ROOST",
+      "accessed": true,
+      "evidence": "Read exact safeguard guide, including 20b serving examples, Harmony, developer policy prompts, structured classifications and reasoning controls; medium is default. General tooling integrations do not independently establish function-call training."
+    },
+    {
+      "id": "later",
+      "url": "https://openai.com/index/teen-safety-policies-gpt-oss-safeguard/",
+      "title": "Helping developers build safer AI experiences for teens — March 24, 2026",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Later first-party publication supplies new policy prompts for existing safeguard models, not a new checkpoint or parameter count. It confirms policy-based classification use; no image/audio modality is inferred from categories being classified."
+    },
+    {
+      "id": "catalog",
+      "url": "https://raw.githubusercontent.com/anomalyco/models.dev/dev/models/openai/gpt-oss-safeguard-20b.toml",
+      "title": "Models.dev original catalog lead",
+      "publisher": "Models.dev",
+      "accessed": true,
+      "evidence": "Read the upstream record independently. It cites the exact template for tool-call format, supplies name-based 20B and no learned-count detail; primary checkpoint and provider sources are used for verification."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "gpt-oss-safeguard-20b",
+      "status": "verified",
+      "source_ids": [
+        "launch",
+        "card"
+      ],
+      "note": "Exact developer spelling, replacing title-cased catalog label."
+    },
+    "developer": {
+      "value": "OpenAI",
+      "status": "verified",
+      "source_ids": [
+        "launch",
+        "card",
+        "report"
+      ],
+      "note": "Official release and checkpoint publisher."
+    },
+    "family": {
+      "value": "gpt-oss",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "help",
+        "report"
+      ],
+      "note": "Safety-specialized fine-tune within the gpt-oss family; exact parent is gpt-oss-20b."
+    },
+    "release_date": {
+      "value": "2025-10-29",
+      "status": "verified",
+      "source_ids": [
+        "launch",
+        "report"
+      ],
+      "note": "Original public research-preview release; do not substitute the August 5 base release, later provider availability or March 2026 policy prompts."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "launch",
+        "card",
+        "index"
+      ],
+      "note": "Official public checkpoint distribution; all three shard headers accessible."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "license",
+        "card",
+        "launch"
+      ],
+      "note": "Named license confirmed on the exact released weights; OpenAI also publishes a separate gpt-oss usage policy."
+    },
+    "parameters_b": {
+      "value": 20.914757184,
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "index",
+        "header1",
+        "header2",
+        "header3",
+        "model_code",
+        "packing",
+        "help"
+      ],
+      "note": "Complete logical checkpoint count 20,914,757,184. All 459 stored tensors reconcile to 411 logical learned tensors, including untied embeddings/head 579,133,440 each, norms 141,120, attention 637,203,456 (including projection biases and learned sinks), routers 2,212,608, experts 19,116,933,120 (including biases). The 9,555,148,800 packed U8 elements expand to 19,110,297,600 logical weights; 597,196,800 quantization-scale elements are excluded. Formula: 2VH+(2L+1)H+L[(Q+2K)D(H+1)+H(QD+1)+Q+E(H+1)+E(3HI+2I+H)], using V=201088, H=I=2880, L=24, E=32, Q=64, K=8, D=64. All shapes, dtype lengths, index membership, contiguous offsets and payload extents checked using 52,136 header/prefix bytes. Computed RoPE/activation values are not parameters. The exact result rounds to the card 21B; it was derived from this fine-tune, not merely copied from base 20B."
+    },
+    "active_parameters_b": {
+      "value": 3.6,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "help",
+        "config",
+        "base_report",
+        "model_code",
+        "index",
+        "header1",
+        "header2",
+        "header3"
+      ],
+      "note": "Direct safeguard-specific nominal count in billions, retaining the publisher's 3.6B precision. This is per-token forward-pass activity with 4 of 32 experts per layer. The original gpt-oss report counts unembedding but not input embedding; applying that convention to the officially unchanged and independently reconciled safeguard topology gives 3,608,307,264 derived active parameters, which corroborates 3.6B. This derived value is not presented as a source-reported exact safeguard active count or batch-wide coverage."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "model_code",
+        "help",
+        "base_report"
+      ],
+      "note": "24-layer decoder-only MoE Transformer, width 2880, 32 SwiGLU experts/top-4, 64 query and 8 KV heads (width 64), alternating full and 128-token local attention, learned attention sinks, RMSNorm and YaRN-scaled RoPE. Unchanged architecture is explicit and all exact-checkpoint modules were checked."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "groq_model",
+        "base_report"
+      ],
+      "note": "Exact configured token context; prompt, reasoning and output share this budget. The 4096 initial RoPE length is not the deployed maximum; provider output caps are distinct."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "report",
+        "help",
+        "groq_model"
+      ],
+      "note": "Explicit text-only generative reasoning/classification; policy topics or integration with safety pipelines do not imply image/audio input."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "report",
+        "guide"
+      ],
+      "note": "Safety chain-of-thought reasoning with low/medium/high effort; guide documents medium default. Harmony format is required."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "groq_tools",
+        "groq_model",
+        "template"
+      ],
+      "note": "Verified by the serving provider's exact safeguard-20b support row and its model page, corroborated by the released function/tool-message template. Groq documents local/remote function calling; no parallel/built-in claim is made. OpenAI's safety report does not itself benchmark tool calls; no general-agent recommendation or performance equivalence to base GPT-OSS is inferred."
+    },
+    "description": {
+      "value": "Open-weight safety reasoning model that classifies text against developer-provided policies and generates an explanation of its decision.",
+      "status": "verified",
+      "source_ids": [
+        "launch",
+        "card",
+        "report"
+      ],
+      "note": "Directly states the supported task and generated reasoning, removing vague routing language."
+    }
+  },
+  "patch": {
+    "name": "gpt-oss-safeguard-20b",
+    "license": "Apache-2.0",
+    "parameters_b": 20.914757184,
+    "active_parameters_b": 3.6,
+    "architecture": "moe",
+    "description": "Open-weight safety reasoning model that classifies text against developer-provided policies and generates an explanation of its decision.",
+    "parameters_source": "primary_source",
+    "source_url": "https://openai.com/index/introducing-gpt-oss-safeguard/",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Introducing gpt-oss-safeguard — October 29, 2025",
+        "url": "https://openai.com/index/introducing-gpt-oss-safeguard/",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned gpt-oss-safeguard-20b model card",
+        "url": "https://huggingface.co/openai/gpt-oss-safeguard-20b/resolve/8a11e17b25c973a24099d4016bf2e17dd7ec1574/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "Technical Report: Performance and baseline evaluations of gpt-oss-safeguard-120b and gpt-oss-safeguard-20b",
+        "url": "https://cdn.openai.com/pdf/08b7dee4-8bc6-4955-a219-7793fb69090c/Technical_report__Research_Preview_of_gpt_oss_safeguard.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "OpenAI open-weight models — safeguard variants and sizing",
+        "url": "https://help.openai.com/en/articles/11870455-openai-open-weight-models-gpt-oss",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned safeguard-20b configuration",
+        "url": "https://huggingface.co/openai/gpt-oss-safeguard-20b/resolve/8a11e17b25c973a24099d4016bf2e17dd7ec1574/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Pinned complete safeguard-20b checkpoint index",
+        "url": "https://huggingface.co/openai/gpt-oss-safeguard-20b/resolve/8a11e17b25c973a24099d4016bf2e17dd7ec1574/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Pinned safeguard-20b shard1 bounded header",
+        "url": "https://huggingface.co/openai/gpt-oss-safeguard-20b/resolve/8a11e17b25c973a24099d4016bf2e17dd7ec1574/model-00000-of-00002.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Pinned safeguard-20b shard2 bounded header",
+        "url": "https://huggingface.co/openai/gpt-oss-safeguard-20b/resolve/8a11e17b25c973a24099d4016bf2e17dd7ec1574/model-00001-of-00002.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Pinned safeguard-20b shard3 bounded header",
+        "url": "https://huggingface.co/openai/gpt-oss-safeguard-20b/resolve/8a11e17b25c973a24099d4016bf2e17dd7ec1574/model-00002-of-00002.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Pinned official gpt-oss reference implementation",
+        "url": "https://raw.githubusercontent.com/openai/gpt-oss/5681a6b6552635e7b29cde94a61ca6a7aee90ebd/gpt_oss/torch/model.py",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned official MXFP4 checkpoint loader",
+        "url": "https://raw.githubusercontent.com/openai/gpt-oss/5681a6b6552635e7b29cde94a61ca6a7aee90ebd/gpt_oss/torch/weights.py",
+        "type": "primary"
+      },
+      {
+        "label": "Original gpt-oss model architecture and counting conventions",
+        "url": "https://arxiv.org/html/2508.10925v1",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned safeguard-20b license",
+        "url": "https://huggingface.co/openai/gpt-oss-safeguard-20b/resolve/8a11e17b25c973a24099d4016bf2e17dd7ec1574/LICENSE",
+        "type": "weights"
+      },
+      {
+        "label": "Pinned safeguard-20b Harmony template",
+        "url": "https://huggingface.co/openai/gpt-oss-safeguard-20b/resolve/8a11e17b25c973a24099d4016bf2e17dd7ec1574/chat_template.jinja",
+        "type": "weights"
+      },
+      {
+        "label": "Groq tool-use support table",
+        "url": "https://console.groq.com/docs/tool-use/overview",
+        "type": "primary"
+      },
+      {
+        "label": "Groq safeguard-20b model reference",
+        "url": "https://console.groq.com/docs/model/openai/gpt-oss-safeguard-20b",
+        "type": "primary"
+      },
+      {
+        "label": "User guide for gpt-oss-safeguard",
+        "url": "https://developers.openai.com/cookbook/articles/gpt-oss-safeguard-guide",
+        "type": "primary"
+      }
+    ],
+    "notes": "Complete checkpoint count: 20,914,757,184 logical learned parameters, including untied embeddings/head, norms, attention sinks/biases, routers and expert biases. MXFP4 packed weights are expanded and quantization scales excluded. Official safeguard active count is nominal 3.6B per token; the unchanged base architecture uses a convention that includes unembedding and excludes input embedding. Released October 29, 2025 under Apache 2.0. Harmony is required. Tool calling is documented for this exact model by Groq; parallel/built-in tool support is not claimed."
+  },
+  "summary": "Replace name-derived 20B with a complete 20.914757184B checkpoint count; add direct nominal 3.6B active, verified MoE and Apache 2.0. Confirm October 29 safeguard release, 131,072 context, text reasoning and exact-model provider tool support. All three bounded shard headers independently reconciled; no whole weights downloaded. Later policy prompts are not a model release."
+}
