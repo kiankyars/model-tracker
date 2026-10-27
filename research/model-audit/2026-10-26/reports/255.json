@@ -1,7 +1,7 @@
 {
   "index": 255,
   "model_id": "meta/llama-1-33b",
-  "reviewed_at": "2026-10-26T21:18:41Z",
+  "reviewed_at": "2026-10-27T13:49:53.859766Z",
   "sources": [
     {
       "id": "s1",
@@ -19,7 +19,7 @@
       "publisher": "Meta AI",
       "type": "primary",
       "accessed": true,
-      "evidence": "Table 2 reports 32.5B parameters, dimension 6656, 52 attention heads and 60 layers for the model called LLaMA-33B elsewhere in the paper. Section 2.2 describes its Transformer, RMSNorm, SwiGLU and rotary embeddings. The paper evaluates text generation and reasoning benchmarks; its separate instruction-finetuning experiment is LLaMA-I 65B."
+      "evidence": "Freshly reopened on October 27: Table 2 reports 32.5B parameters, dimension 6656, 52 attention heads and 60 layers for the model called LLaMA-33B elsewhere in the paper. Section 2.2 describes its Transformer, RMSNorm, SwiGLU and rotary embeddings. The paper evaluates text generation and reasoning benchmarks; its separate instruction-finetuning experiment is LLaMA-I 65B."
     },
     {
       "id": "s3",
@@ -28,7 +28,7 @@
       "publisher": "Meta AI",
       "type": "primary",
       "accessed": true,
-      "evidence": "Identifies Meta AI's FAIR team, version 1, the 33B size, an autoregressive Transformer, research use and a noncommercial bespoke license. It explicitly calls LLaMA a base/foundational model without human-feedback training. The 33B row lists dimension 6656, 52 heads and 60 layers."
+      "evidence": "Freshly reopened the pinned original card on October 27: it identifies Meta AI's FAIR team, version 1, the nominal 33B size, an autoregressive Transformer, research use and a noncommercial bespoke license. It explicitly calls LLaMA a base/foundational model without human-feedback training. The 33B row lists dimension 6656, 52 heads and 60 layers."
     },
     {
       "id": "s4",
@@ -74,6 +74,24 @@
       "type": "primary",
       "accessed": true,
       "evidence": "The repository LICENSE contains GPLv3. In conjunction with the implementation's software-license header and the model card's separate noncommercial model license, it must not be substituted for the checkpoint license. The full bespoke weight-access agreement was not retrieved."
+    },
+    {
+      "id": "s9",
+      "url": "https://arxiv.org/html/2401.04088v1",
+      "title": "Mixtral of Experts: original LLaMA 1 33B active-parameter comparisons",
+      "publisher": "Mistral AI",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Freshly reopened on October 27. Tables 2 and 4 explicitly identify LLaMA 1 33B and give 33B in the Active Params column. The same tables distinguish LLaMA 2 models. Section 3 explicitly says it substitutes the original LLaMA because Llama 2 34B was not open-sourced, though that prose calls the earlier model 34B; both exact table rows say LLaMA 1 33B. The team re-ran benchmarks with its own evaluation pipeline. This is Mistral's original nominal benchmark-count convention for the exact base comparison model, not a Meta disclosure or a tensor-exact per-token census. Its whole-billion precision differs from Meta's 32.5B total."
+    },
+    {
+      "id": "s10",
+      "url": "https://arxiv.org/pdf/2405.04434v1",
+      "title": "DeepSeek-V2: Figure 1 activated-parameter comparison",
+      "publisher": "DeepSeek-AI",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Freshly opened the paper and visually inspected PDF page 1 on October 27. Figure 1(a) plots the explicitly labeled LLaMA 1 33B point at approximately 33B on the Activated Parameters (Billions) axis, separately from LLaMA 2 34B. This corroborates the nominal comparison convention at plot precision; it supplies neither an exact count nor Meta-authored component or per-token accounting."
     }
   ],
   "fields": {
@@ -117,13 +135,13 @@
       "value": 32.5,
       "status": "verified",
       "source_ids": ["s2", "s3"],
-      "note": "Billions of total parameters at the precision reported in original paper Table 2. Refines the nominal 33B designation; 32.5B is still a rounded published count, not a tensor-exact measurement. No full weights were downloaded."
+      "note": "Reconfirmed 32.5B total in Meta's original paper Table 2, matched to the version-1 33B model card. Retains the paper's rounded precision; the 33B model name and later nominal active count use coarser precision. No tensor census is required to retain this published total."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
-      "source_ids": ["s2", "s3", "s4", "s7"],
-      "note": "Reviewed original and later first-party sources report total/nominal model size, not a separately defined per-token active-parameter count. Dense architecture alone is not used to copy total into this field."
+      "value": 33,
+      "status": "verified",
+      "source_ids": ["s9", "s10"],
+      "note": "Mistral's Mixtral paper Tables 2 and 4 explicitly report 33B Active Params for LLaMA 1 33B. DeepSeek-V2 Figure 1 independently plots the exact original-generation model at approximately 33B activated parameters. Adopt the published whole-billion nominal benchmark convention, attributed to those research teams; it is not Meta's exact per-token disclosure. The separately retained 32.5B total has finer precision. No dense-equals-total inference or component decomposition is made."
     },
     "architecture": {
       "value": "dense",
@@ -164,8 +182,9 @@
   },
   "patch": {
     "parameters_b": 32.5,
+    "active_parameters_b": 33,
     "parameters_source": "primary_source",
-    "notes": "Original LLaMA-33B: the paper reports 32.5B total parameters (rounded), while 33B is the nominal model name. A separate active-parameter count and native thinking/tool-call flags are not documented. February 24, 2023 dates the gated research-release announcement; access required approval. Released weights use a noncommercial bespoke research license, separate from the inference code's GPLv3 and the later Llama 2 license.",
+    "notes": "Original LLaMA-33B: Meta reports 32.5B total parameters. Mistral reports nominal 33B active in its Mixtral benchmark tables; the coarser count is a comparison convention, not Meta's exact per-token disclosure. Native thinking/tool-call flags are undocumented. February 24, 2023 dates the gated research announcement; access required approval. Weights use the noncommercial research license, separate from the code's GPLv3 and later Llama 2 license.",
     "sources": [
       {"label": "Original LLaMA release announcement", "url": "https://ai.meta.com/blog/large-language-model-Llama-meta-ai/", "type": "primary"},
       {"label": "Original LLaMA paper: Table 2 parameter count", "url": "https://arxiv.org/pdf/2302.13971", "type": "primary"},
@@ -173,8 +192,10 @@
       {"label": "Original LLaMA v1 architecture", "url": "https://github.com/meta-llama/llama/blob/57b0eb62de0636e75af471e49e2f1862d908d9d8/llama/model.py", "type": "primary"},
       {"label": "Original gated-checkpoint download documentation", "url": "https://github.com/meta-llama/llama/blob/57b0eb62de0636e75af471e49e2f1862d908d9d8/README.md", "type": "primary"},
       {"label": "Original LLaMA text-generation interface", "url": "https://github.com/meta-llama/llama/blob/57b0eb62de0636e75af471e49e2f1862d908d9d8/llama/generation.py", "type": "primary"},
-      {"label": "Meta Llama 2 paper: explicit Llama 1 context comparison", "url": "https://arxiv.org/html/2307.09288v2", "type": "primary"}
+      {"label": "Meta Llama 2 paper: explicit Llama 1 context comparison", "url": "https://arxiv.org/html/2307.09288v2", "type": "primary"},
+      {"label": "Mistral Mixtral paper: LLaMA 1 33B nominal active count", "url": "https://arxiv.org/html/2401.04088v1", "type": "primary"},
+      {"label": "DeepSeek-V2 Figure 1: LLaMA 1 33B activated-count corroboration", "url": "https://arxiv.org/pdf/2405.04434v1", "type": "primary"}
     ]
   },
-  "summary": "Audited all 14 fields for the original LLaMA 33B. Refined the nominal 33B count to the original paper's reported 32.5B, preserving its rounded precision. Confirmed dense architecture, 2048-token context, text modalities, February 24 gated-release announcement, and noncommercial research checkpoint licensing. Retained null active count and native thinking/tool flags because the reviewed sources do not separately specify them. No checkpoint tensors or full bespoke license agreement were obtained; no current download-service operation is claimed."
+  "summary": "Fresh October 27 parameter re-audit: reopened Meta's original paper and pinned v1 model card, and searched original and later total/active/activated-parameter evidence. Preserved the paper's rounded 32.5B total. Changed active parameters from undisclosed to verified nominal 33B using Mistral's explicit LLaMA 1 33B rows in Mixtral Tables 2 and 4; visually checked DeepSeek-V2 Figure 1 as approximate corroboration. The active count is the publishing research teams' comparison convention, not Meta's exact per-token tensor accounting. Meta's original sources do not separately disclose that exact count, and the fresh search did not establish one. No weights were downloaded. Preserved all 12 non-parameter assessments, including unresolved native thinking/tool flags and the existing historical access/license limits."
 }
