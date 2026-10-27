@@ -1,7 +1,7 @@
 {
   "index": 271,
   "model_id": "meta/llama-3.2-1b",
-  "reviewed_at": "2026-10-26T21:37:32.947769Z",
+  "reviewed_at": "2026-10-27T14:10:19.710Z",
   "sources": [
     {
       "id": "s1",
@@ -65,7 +65,7 @@
       "title": "Current combined Llama 3.2 model card",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "Confirms 1.23B and shared embeddings. The combined card now includes quantized models and gives October 24, 2024 as its release date; this later date does not replace the original base release."
+      "evidence": "Freshly reopened on October 27, 2026. Meta’s combined model card explicitly lists 1B (1.23B) for original Llama 3.2 text models and shared embeddings. It describes pretrained and instruction-tuned releases; the later quantized section is separate. It has no separate active-parameter column. The combined card dates the later quantized update October 24, 2024; this does not replace the original base release date."
     },
     {
       "id": "s9",
@@ -82,6 +82,22 @@
       "publisher": "Meta",
       "accessed": false,
       "evidence": "The unauthenticated configuration request returned HTTP 401 because model access is restricted. No gate bypass, weight download, or tensor-header retrieval was attempted."
+    },
+    {
+      "id": "s11",
+      "url": "https://aclanthology.org/2025.findings-emnlp.837.pdf",
+      "title": "Zipf’s and Heaps’ Laws for Tokens and LLM-generated Texts, Table 3 and Sections 4.1–4.2",
+      "publisher": "Nikolay Mikhaylovskiy (NTR Labs / Tomsk State University), Findings of EMNLP 2025",
+      "accessed": true,
+      "evidence": "Freshly reopened and Table 3 visually checked on October 27, 2026. The Llama-3.2-1B row explicitly gives Params 1.23B and Active params 1.23B. Section 4.1 identifies the experiments as using base and original instruction-finetuned models with BitsAndBytes NF4 quantization, and Section 4.2 reports base-model results including Llama 1B. This is the author’s nominal comparison convention for the underlying model, not a Meta active-count disclosure or a tensor-level participation measurement."
+    },
+    {
+      "id": "s12",
+      "url": "https://huggingface.co/meta-llama/Llama-3.2-1B/raw/main/README.md",
+      "title": "Exact original Llama-3.2-1B checkpoint README fresh access attempt",
+      "publisher": "Meta",
+      "accessed": false,
+      "evidence": "Fresh unauthenticated raw README request on October 27, 2026 returned HTTP 401. The public model landing page was reopened, and Meta’s accessible combined GitHub model card supplies the current nominal total. No weights or tensor census were retrieved."
     }
   ],
   "fields": {
@@ -146,21 +162,17 @@
       "value": 1.23,
       "status": "verified",
       "source_ids": [
-        "s1",
-        "s8",
-        "s10"
-      ],
-      "note": "Meta explicitly gives 1B (1.23B), a reported approximate total in billions with shared embeddings. This is not a claim of exactly 1,230,000,000 learned parameters. Gated configuration was unavailable; no aggregate storage count was promoted to an exact parameter count."
-    },
-    "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
-      "source_ids": [
-        "s1",
-        "s5",
         "s8"
       ],
-      "note": "An active-per-token count is not separately disclosed. Dense execution does not justify copying the total into this field."
+      "note": "Meta’s freshly reopened model card explicitly reports 1B (1.23B), with shared embeddings, for the original pretrained and instruction-tuned text models. Retains the developer’s nominal total at its published precision; it is not an exact learned-tensor census."
+    },
+    "active_parameters_b": {
+      "value": 1.23,
+      "status": "verified",
+      "source_ids": [
+        "s11"
+      ],
+      "note": "Table 3 of Mikhaylovskiy’s original EMNLP study explicitly labels Llama-3.2-1B as 1.23B active. Sections 4.1–4.2 establish that the listed models include the original base checkpoint, evaluated using NF4 quantization. Records the author’s nominal active-count convention at its published precision; Meta does not separately disclose this figure, and the paper does not define component-level or exact per-token participation."
     },
     "architecture": {
       "value": "dense",
@@ -285,9 +297,15 @@
         "label": "Meta Llama 3.2 model and quantization documentation",
         "url": "https://dev.meta.ai/llama/docs/model-cards-and-prompt-formats/llama3_2",
         "type": "primary"
+      },
+      {
+        "label": "Mikhaylovskiy: Llama-3.2-1B nominal active count, Table 3",
+        "url": "https://aclanthology.org/2025.findings-emnlp.837.pdf",
+        "type": "primary"
       }
     ],
-    "notes": "1.23B is Meta's reported approximate total, with shared embeddings, not an independently audited exact learned-parameter count. Active parameters and a dedicated reasoning mode are undisclosed. Native function calling is documented for the Instruct sibling, not established for this base checkpoint. Original BF16 context is 131072; later INT4 Instruct context is 8192. The September 25, 2024 base release predates the October 24 quantized update. Gated config returned HTTP 401; no weights were downloaded."
+    "notes": "Meta reports a nominal 1.23B total with shared embeddings. The 1.23B active count follows Mikhaylovskiy’s EMNLP 2025 Table 3 convention for the original base model; it is not a separate Meta disclosure or exact per-token tensor count. A dedicated reasoning mode remains undisclosed. Native function calling is documented for the Instruct sibling, not established for this base checkpoint. Original BF16 context is 131072; later INT4 Instruct context is 8192. The September 25, 2024 base release predates the October 24 quantized update.",
+    "active_parameters_b": 1.23
   },
-  "summary": "Corrects the name-derived 1B count to Meta's reported 1.23B total, fills dense architecture and the Llama 3.2 family, and clears unsupported false reasoning/tool-call flags. Confirms September 25 release, original 131072-token BF16 context, text modalities, open weights and license. Shared embeddings and pruning/distillation are documented; an exact learned count and separate active count were not established."
+  "summary": "The fresh parameter re-audit retains Meta’s nominal 1.23B total and replaces the unresolved active count with the explicit 1.23B nominal active convention in Mikhaylovskiy’s original EMNLP 2025 Table 3. The exact Llama-3.2-1B row and base-model experimental context establish identity; NF4 is the study’s execution format. Meta’s card has no separate active count, and neither source establishes exact tensor-level participation. Fresh searches for active-count disclosures found no stronger Meta specification. All twelve non-parameter field assessments are preserved."
 }
