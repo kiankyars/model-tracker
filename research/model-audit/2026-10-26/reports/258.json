@@ -1,7 +1,7 @@
 {
   "index": 258,
   "model_id": "meta/llama-2-13b",
-  "reviewed_at": "2026-10-26T21:23:25.468028Z",
+  "reviewed_at": "2026-10-27T13:53:09.566363Z",
   "sources": [
     {
       "id": "s1",
@@ -17,7 +17,7 @@
       "title": "Llama-2-13b-hf official model card",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "Exact repository identifies the 13B pretrained model converted to Transformers. Names Meta, text-only input/output, autoregressive Transformer, nominal 13B and 4k context, with no GQA for this size. Public card accessed by an unauthenticated HTTP request after the web tool returned 429."
+      "evidence": "Reopened October 27, 2026. Exact official repository identifies the 13B pretrained model converted to Transformers, explicitly distinct from the dialogue-tuned Llama-2-Chat models. Its Params column gives 13B, with 4k context and no GQA; the card identifies Meta and text-only input/output."
     },
     {
       "id": "s3",
@@ -25,7 +25,7 @@
       "title": "Llama 2: Open Foundation and Fine-Tuned Chat Models",
       "publisher": "Meta authors / arXiv",
       "accessed": true,
-      "evidence": "Sections 1\u20132 and Table 1 distinguish base from Chat and Llama 1; the 13B row has 4k context and no GQA. Section 2.2 describes RMSNorm, SwiGLU and RoPE. Section 5.1 tool-use experiments concern Llama 2-Chat."
+      "evidence": "Reopened October 27, 2026, and checked the fresh original-paper cache. Sections 1–2 distinguish pretrained Llama 2 from Llama 2-Chat and Llama 1; Table 1 gives the Llama 2 13B row 13B parameters, 4k context and no GQA. Section 2.2 describes RMSNorm, SwiGLU and RoPE. Section 5.1 tool-use experiments concern Llama 2-Chat. No separate active-count specification is given for this model."
     },
     {
       "id": "s4",
@@ -66,6 +66,22 @@
       "publisher": "Hugging Face / Meta repository",
       "accessed": true,
       "evidence": "Public API identifies manual gating and LlamaForCausalLM. Safetensors summary totals 13,015,866,880 stored elements (13,015,864,320 F16; 2,560 F32), without per-tensor names sufficient to establish a complete learned-parameter count."
+    },
+    {
+      "id": "s9",
+      "url": "https://arxiv.org/html/2401.04088v1",
+      "title": "Mixtral of Experts, Table 2 and Sections 2.1–4",
+      "publisher": "Mistral AI research team / arXiv",
+      "accessed": true,
+      "evidence": "Reopened October 27, 2026. The original January 8, 2024 report explicitly lists LLaMA 2 13B with 13B in Table 2’s Active Params column. Section 3 compares pretrained models using the authors’ evaluation pipeline; instruction fine-tuning and chat comparisons are treated separately in Section 4, which names chat variants explicitly. Section 2.1 defines active count as parameters used to process an individual token. Adopt the table’s nominal 13B benchmark convention for the exactly identified Llama 2 13B base model, attributed to Mistral rather than Meta; this is not a tensor-exact activation census."
+    },
+    {
+      "id": "s10",
+      "url": "https://arxiv.org/html/2405.04434v1",
+      "title": "DeepSeek-V2 technical report, Figure 1(a)",
+      "publisher": "DeepSeek-AI / arXiv",
+      "accessed": true,
+      "evidence": "Reopened October 27, 2026 and visually checked Figure 1(a), whose source is https://arxiv.org/html/2405.04434v1/mmlu.svg. The exact LLaMA 2 13B label is plotted near 13 on the Activated Parameters (Billions) axis. This independently corroborates Mistral’s nominal 13B benchmark convention at approximate plot precision; it does not provide an exact count or a Meta disclosure."
     }
   ],
   "fields": {
@@ -126,21 +142,18 @@
       "status": "verified",
       "source_ids": [
         "s2",
-        "s3",
-        "s7",
-        "s8"
+        "s3"
       ],
-      "note": "Nominal 13 billion as explicitly reported. Exact config is gated; API storage totals alone do not distinguish all learned tensors and buffers, so no exact checkpoint count is asserted."
+      "note": "Freshly reconfirmed Meta’s published nominal 13B size for the exact pretrained base model. This supported specification does not require an exact tensor census; no more precise total is asserted."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 13,
+      "status": "verified",
       "source_ids": [
-        "s2",
-        "s3",
-        "s6"
+        "s9",
+        "s10"
       ],
-      "note": "No separately defined active-parameter figure is reported. Dense architecture does not justify copying the nominal total into this field."
+      "note": "Mistral’s original Mixtral paper Table 2 explicitly reports 13B Active Params for the Llama 2 13B base comparison. Adopt its nominal active-count convention, corroborated approximately by DeepSeek-V2 Figure 1(a). The count is attributed to the publishing research teams, not a separate Meta specification, and does not establish exact per-token tensor participation."
     },
     "architecture": {
       "value": "dense",
@@ -211,7 +224,7 @@
   "patch": {
     "parameters_source": "primary_source",
     "description": "Meta's Llama 2 13B pretrained text-generation model, using a dense autoregressive Transformer with multi-head attention and a 4,096-token context.",
-    "notes": "13B is Meta's nominal size, not a tensor-exact learned-parameter count. Active parameters are not separately reported. The original 13B base model uses multi-head attention and a 4096-token context; Llama 2-Chat tool-use experiments and later context extensions are separate. Released weights require approval and the bespoke Llama 2 Community License. Dedicated thinking and native tool-calling capabilities are not documented.",
+    "notes": "Total size is Meta’s nominal 13B. Active size is nominally 13B under Mistral’s Mixtral benchmark convention, corroborated approximately by DeepSeek; neither is a tensor-exact count. The original base model uses multi-head attention and a 4096-token context. Released weights require approval and the Llama 2 Community License. Dedicated thinking and native tool calling are not documented for this base checkpoint.",
     "sources": [
       {
         "label": "Original Llama 2 release announcement",
@@ -242,8 +255,20 @@
         "label": "Llama 2 reference architecture",
         "url": "https://raw.githubusercontent.com/meta-llama/llama/llama_v2/llama/model.py",
         "type": "primary"
+      },
+      {
+        "label": "Mistral comparison: nominal active parameters, Table 2",
+        "url": "https://arxiv.org/html/2401.04088v1",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeek comparison: activated parameters, Figure 1(a)",
+        "url": "https://arxiv.org/html/2405.04434v1",
+        "type": "primary"
       }
-    ]
+    ],
+    "parameters_b": 13,
+    "active_parameters_b": 13
   },
-  "summary": "Confirmed the original Llama 2 13B base record: July 18, 2023, released gated weights, custom Llama 2 license, nominal 13B, dense Transformer with MHA, 4096-token trained context, and text-only I/O. Clarified description and interpretation notes. Active count and dedicated reasoning/tool-call flags remain undisclosed. Exact HF config access was restricted; public storage metadata was not promoted to a complete learned count."
+  "summary": "Fresh parameter re-audit confirms Meta’s nominal 13B total for the exact Llama 2 13B pretrained base model. Resolves the previously undisclosed active count to nominal 13B using Mistral’s original Mixtral Table 2, with approximate corroboration from DeepSeek-V2 Figure 1(a); this is the comparison teams’ published convention, not a separate Meta disclosure or tensor-exact count. The other twelve assessments are unchanged; dedicated reasoning and native tool-call flags remain undisclosed."
 }
