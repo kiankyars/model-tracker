@@ -1,7 +1,7 @@
 {
   "index": 218,
   "model_id": "google/gemma-3-27b-it",
-  "reviewed_at": "2026-10-26T20:09:31.677698Z",
+  "reviewed_at": "2026-10-27T13:14:03.620912+00:00",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Gemma 3 model card",
       "publisher": "Google DeepMind",
       "accessed": true,
-      "evidence": "Describes open pretrained and instruction-tuned Gemma 3 variants, text/image inputs, text output, multilingual support and 128K context for 27B; identifies IT as instruction tuning.",
+      "evidence": "Describes open pretrained and instruction-tuned Gemma 3 variants, text/image inputs, text output, multilingual support and 128K context for 27B; identifies IT as instruction tuning. Reopened October 27, 2026: no separate numerical active-count convention is supplied for the 27B IT model.",
       "type": "primary"
     },
     {
@@ -27,7 +27,7 @@
       "title": "Gemma 3 Technical Report",
       "publisher": "Google DeepMind / Gemma Team",
       "accessed": true,
-      "evidence": "Specifies decoder-only Transformer, GQA and 5:1 local/global attention. Table 1 labels the 27B model with rounded 417M vision, 1,416M embedding and 25,600M nonembedding counts. The shared vision encoder is a SigLIP Vision Transformer; raw and quantized releases are distinct.",
+      "evidence": "Specifies decoder-only Transformer, GQA and 5:1 local/global attention. Table 1 labels the 27B model with rounded 417M vision, 1,416M embedding and 25,600M nonembedding counts. The shared vision encoder is a SigLIP Vision Transformer; raw and quantized releases are distinct. Reopened October 27, 2026. Table 5 gives the exact IT model a single nominal 27B entry under a combined params/activated heading, rather than separate total and active rows. Section 3 identifies instruction tuning of the pretrained model; this does not justify copying the precise full checkpoint total into active parameters.",
       "type": "primary"
     },
     {
@@ -36,7 +36,7 @@
       "title": "Official Gemma 3 27B IT model repository",
       "publisher": "Google",
       "accessed": true,
-      "evidence": "Exact google/gemma-3-27b-it instruction-tuned model, distributed under Gemma terms. The public model card is readable; raw configuration and index requests require acceptance of the repository gate.",
+      "evidence": "Exact google/gemma-3-27b-it instruction-tuned model, distributed under Gemma terms. The public model card is readable; raw configuration and index requests require acceptance of the repository gate. Reopened October 27, 2026 to confirm the exact original IT variant; later QAT and specialized fine-tunes are distinct.",
       "type": "weights"
     },
     {
@@ -45,7 +45,7 @@
       "title": "Pinned official Gemma 3 27B IT repository metadata",
       "publisher": "Google / Hugging Face",
       "accessed": true,
-      "evidence": "For the pinned official revision, safetensors metadata reports 27,432,406,640 BF16 elements and the same total, with no other tensor dtypes. Lists Gemma3ForConditionalGeneration, gemma3 architecture and google/gemma-3-27b-pt base model.",
+      "evidence": "For the pinned official revision, safetensors metadata reports 27,432,406,640 BF16 elements and the same total, with no other tensor dtypes. Lists Gemma3ForConditionalGeneration, gemma3 architecture and google/gemma-3-27b-pt base model. Fresh October 27, 2026 metadata retrieval reconfirms the same revision, BF16 total and named PT base without downloading weights or repeating the tensor census.",
       "type": "weights"
     },
     {
@@ -146,6 +146,33 @@
       "type": "primary",
       "accessed": true,
       "evidence": "The current chronology lists March 10, 2025 for Gemma 3, conflicting with the contemporaneous March 12 developer announcement. The explicit dated launch is retained."
+    },
+    {
+      "id": "s17",
+      "url": "https://arxiv.org/html/2505.09388v1",
+      "title": "Qwen3 Technical Report — Table 16",
+      "publisher": "Qwen Team",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Independently reopened October 27, 2026. Table 16 explicitly assigns the exact Gemma-3-27B-IT column 27B Activated Params and 27B Total Params in a text-benchmark comparison. This establishes Qwen’s nominal benchmark convention, not a Google specification or precise count of participating tensors."
+    },
+    {
+      "id": "s18",
+      "url": "https://arxiv.org/html/2607.02770v1",
+      "title": "Gemma 4 Technical Report",
+      "publisher": "Google DeepMind / Gemma Team",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Reopened October 27, 2026 for retrospective parameter disclosures. Table 4 lists Gemma 3 27B with nominal 27B in a combined parameter column; benchmark tables compare its text and vision results without a separate active-count row. The explicit active-count discussion concerns Gemma 4’s MoE model, not this Gemma 3 checkpoint."
+    },
+    {
+      "id": "s19",
+      "url": "https://ai.google.dev/gemma/docs/core/model_card_4",
+      "title": "Gemma 4 model card — Gemma 3 comparisons",
+      "publisher": "Google DeepMind",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Reopened October 27, 2026. The exact Gemma 3 27B comparison column gives benchmark results, without a total or active parameter row. The card’s 3.8B active figure belongs only to Gemma 4 26B A4B and is not transferred."
     }
   ],
   "fields": {
@@ -219,16 +246,18 @@
         "s10",
         "s15"
       ],
-      "note": "Complete unique parameter count reconstructed as 27,009,346,304 language + 416,866,032 vision + 6,194,304 projector/norm = 27,432,406,640, exactly matching pinned official BF16 metadata. Tied 262208 x 5376 embeddings counted once; nonpersistent RoPE/position-ID buffers excluded. BF16 weights are not packed quantization. Nominal 27B is not the full multimodal total. Config is a third-party copy matched to official file identity; raw tensor headers remain gated. The pinned converter independently confirms these dimensions and adds 344064 embedding entries during conversion; the pre-conversion implementation total is 27432062576."
+      "note": "Complete unique parameter count reconstructed as 27,009,346,304 language + 416,866,032 vision + 6,194,304 projector/norm = 27,432,406,640, exactly matching pinned official BF16 metadata. Tied 262208 x 5376 embeddings counted once; nonpersistent RoPE/position-ID buffers excluded. BF16 weights are not packed quantization. Nominal 27B is not the full multimodal total. Config is a third-party copy matched to official file identity; raw tensor headers remain gated. The pinned converter independently confirms these dimensions and adds 344064 embedding entries during conversion; the pre-conversion implementation total is 27432062576. Fresh October 27 pinned BF16 metadata reconfirms the retained total; the nominal benchmark size does not replace this complete checkpoint count."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 27,
+      "status": "verified",
       "source_ids": [
+        "s17",
         "s3",
-        "s8"
+        "s18",
+        "s19"
       ],
-      "note": "No separately defined per-token active count is published. Dense architecture does not establish equivalence to the complete total; the vision path is used when processing image input."
+      "note": "Nominal 27B active parameters under Qwen’s published Table 16 text-benchmark convention for the exact IT model. This is not an exact per-token census or a separate Google disclosure. It does not assert every vision/projector parameter participates in each generated token; no component scope is inferred from the rounded table value."
     },
     "architecture": {
       "value": "dense",
@@ -306,7 +335,7 @@
     "reasoning": null,
     "source_url": "https://developers.googleblog.com/en/introducing-gemma3/",
     "source_type": "primary",
-    "notes": "Total includes 27,009,346,304 language, 416,866,032 vision and 6,194,304 projector parameters, with tied embeddings counted once. The language count includes 344,064 entries added during Hugging Face conversion. Pinned metadata and implementation agree; raw tensor headers were inaccessible. Active parameters are not separately defined. Google supports function calling through prompting and output parsing. The March 12 launch announcement conflicts with a later release log saying March 10.",
+    "notes": "Total includes 27,009,346,304 language, 416,866,032 vision and 6,194,304 projector parameters, with tied embeddings counted once. The language count includes 344,064 entries added during Hugging Face conversion. Pinned metadata and implementation agree; raw tensor headers were inaccessible. Active 27B follows Qwen’s nominal text-benchmark convention, not an exact per-token count or a separate Google disclosure; vision participation varies with input. Google supports function calling through prompting and output parsing. The March 12 launch announcement conflicts with a later release log saying March 10.",
     "sources": [
       {
         "label": "Gemma 3 model card",
@@ -382,8 +411,14 @@
         "label": "Gemma release chronology",
         "url": "https://ai.google.dev/gemma/docs/releases",
         "type": "primary"
+      },
+      {
+        "label": "Qwen3 Table 16: nominal activated parameters",
+        "url": "https://arxiv.org/html/2505.09388v1",
+        "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": 27
   },
   "proposed_fields": {
     "parameter_components_b": {
@@ -392,5 +427,5 @@
       "multimodal_projector": 0.006194304
     }
   },
-  "summary": "Verified the exact March 12, 2025 IT release. Replace nominal 27B with a complete 27.43240664B unique checkpoint count reconstructed from matched configuration and implementation and reconciled to official BF16 metadata; identify dense Transformer architecture and custom Gemma license. Keep active parameters undisclosed, clear unverified reasoning=false, and retain documented function-calling capability with the explicit prompting/parsing limitation. Official raw config/index/tensor headers remain gated; no whole weights were downloaded."
+  "summary": "October 27 parameter re-audit retains the complete 27.43240664B checkpoint total, freshly reconfirmed in pinned BF16 metadata, and recovers nominal active 27B from Qwen’s explicit exact-model benchmark row. Original and later Google evidence was reopened; no precise active census or component scope is inferred. All unrelated assessments and existing component totals are preserved."
 }
