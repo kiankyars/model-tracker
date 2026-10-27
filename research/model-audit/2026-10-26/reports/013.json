@@ -1,7 +1,7 @@
 {
   "index": 13,
   "model_id": "alibaba/qwen-max",
-  "reviewed_at": "2026-10-26T14:21:02Z",
+  "reviewed_at": "2026-10-27T07:29:18.062Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "qwen-max Model Info",
       "publisher": "Alibaba Cloud",
       "accessed": true,
-      "evidence": "Rolling alias currently equivalent to qwen-max-2025-01-25. Exact card lists text input/output, 32768 context, and regional function-calling support. Only a broad hundreds-of-billions parameter scale is stated."
+      "evidence": "Reopened October 27, 2026. The qwen-max card still explicitly maps the rolling alias to qwen-max-2025-01-25 and describes only a parameter scale of hundreds of billions. It gives no nominal total or activated parameter count. Text modalities, 32768 context and regional function-calling differences remain on the card."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "Qwen2.5-Max: Exploring the Intelligence of Large-scale MoE Model",
       "publisher": "Qwen Team",
       "accessed": true,
-      "evidence": "January 28, 2025 announcement explicitly identifies Qwen2.5-Max as a large-scale MoE and its API ID as qwen-max-2025-01-25; exact parameter counts are not given."
+      "evidence": "Reopened October 27, 2026. The January 28, 2025 announcement identifies Qwen2.5-Max as a large-scale MoE pretrained on over 20 trillion tokens, then post-trained with SFT and RLHF, and binds it to API ID qwen-max-2025-01-25. It publishes neither total nor active size. Qwen2.5-72B is a comparison model, not an identified base for Max; 20 trillion measures training tokens, not parameters."
     },
     {
       "id": "s3",
@@ -49,7 +49,7 @@
       "title": "Alibaba Cloud Launches First Cloud Region in Brazil to Accelerate Cloud and AI Transformation",
       "publisher": "Alibaba Cloud",
       "accessed": true,
-      "evidence": "Defines Qwen as developed by Alibaba; describes Qwen3.8-2.4T-A95B as the first open release of a Qwen-Max-class model. The older qwen-max alias must not inherit those open weights or parameter counts."
+      "evidence": "Reopened October 27, 2026. Alibaba identifies Qwen3.8-2.4T-A95B as the first open release of a Qwen-Max-class model and publishes 2.4 trillion total and 95 billion active parameters for that named release. It does not bind those sizes or weights to the older qwen-max-2025-01-25 snapshot. Also identifies Qwen as developed by Alibaba."
     },
     {
       "id": "s7",
@@ -65,7 +65,7 @@
       "title": "qwen-max Model Info (international documentation)",
       "publisher": "Alibaba Cloud",
       "accessed": true,
-      "evidence": "Page updated October 11, 2026 still maps qwen-max to qwen-max-2025-01-25 and specifies 32768 context with 30720 maximum input; regional capabilities cover Beijing and Singapore, but context is a single shared table."
+      "evidence": "Reopened October 27, 2026. The international card, last updated October 11, still maps qwen-max to qwen-max-2025-01-25. Its only size description is hundreds of billions; no nominal total or active figure is supplied. It specifies 32768 context and 30720 maximum input in a shared table, with separate Beijing and Singapore capability rows."
     },
     {
       "id": "s9",
@@ -73,7 +73,7 @@
       "title": "qwen-max model information (Chinese documentation)",
       "publisher": "Alibaba Cloud",
       "accessed": true,
-      "evidence": "Chinese exact-model card likewise identifies the Qwen2.5 snapshot mapping and 32768 context; it does not provide a 128k alternative for Beijing."
+      "evidence": "Reopened October 27, 2026. The Chinese exact-model card describes a Qwen2.5 model at the hundred-billion scale (千亿级别), explicitly maps it to qwen-max-2025-01-25, and provides no nominal total or active count. Its shared context table remains 32768 with no 128k Beijing alternative."
     },
     {
       "id": "s10",
@@ -82,6 +82,30 @@
       "publisher": "Alibaba Cloud",
       "accessed": true,
       "evidence": "Quota change effective September 19, 2024 lists qwen-max separately from qwen-max-0403, qwen-max-0428 and qwen-max-0107. Establishes availability by that date, not the original release date, and shows why a snapshot suffix must not establish alias introduction."
+    },
+    {
+      "id": "s11",
+      "url": "https://arxiv.org/html/2412.15115v2",
+      "title": "Qwen2.5 Technical Report, revision 2",
+      "publisher": "Qwen Team",
+      "accessed": true,
+      "evidence": "The January 3, 2025 report cited by the Qwen2.5-Max launch post names open dense models from 0.5B through 72B and proprietary MoE models Qwen2.5-Turbo and Qwen2.5-Plus. Sections 1-2 and the architecture table do not identify Qwen2.5-Max as a variant of any sized model. The family-level dense-to-MoE construction description is not a named-base lineage for Max and cannot supply its total or active size."
+    },
+    {
+      "id": "s12",
+      "url": "https://qwenlm.github.io/blog/qwen3/",
+      "title": "Qwen3: Think Deeper, Act Faster",
+      "publisher": "Qwen Team",
+      "accessed": true,
+      "evidence": "April 29, 2025 release explicitly assigns 235B total and 22B activated parameters to Qwen3-235B-A22B, and 30B total and 3B activated to Qwen3-30B-A3B. These are separately named later models; the announcement does not identify either as the base or equivalent checkpoint of Qwen2.5-Max. Their nominal sizes therefore cannot populate this historical record."
+    },
+    {
+      "id": "s13",
+      "url": "https://qwenlm.github.io/zh/blog/qwen2.5-max/",
+      "title": "Qwen2.5-Max: Exploring large-scale MoE intelligence (Chinese announcement)",
+      "publisher": "Qwen Team",
+      "accessed": true,
+      "evidence": "The Chinese January 28, 2025 announcement independently describes Qwen2.5-Max as a large-scale MoE, more than 20 trillion pretraining tokens and subsequent post-training. It compares Max with Qwen2.5-72B and gives no numerical total or activated parameter count or named sized base model."
     }
   ],
   "fields": {
@@ -144,17 +168,28 @@
       "status": "undisclosed",
       "source_ids": [
         "s1",
-        "s2"
+        "s2",
+        "s8",
+        "s9",
+        "s11",
+        "s6",
+        "s12",
+        "s13"
       ],
-      "note": "Exact total is undisclosed. Broad scale language cannot be converted into a precise billion-parameter count."
+      "note": "Fresh October 27 search and reopened primary sources establish only hundred-billion-scale size for qwen-max, still mapped to qwen-max-2025-01-25 (Qwen2.5-Max). This is not a nominal point count. No developer-published nominal total or explicit lineage to a named model with a known size was located. The launch compares against Qwen2.5-72B rather than identifying it as the base; its cited technical report covers other named dense and MoE models. Qwen3 and Qwen3.8 disclosures apply to distinct later releases. Null reflects absence of a supported nominal count, not a requirement for an exact tensor census."
     },
     "active_parameters_b": {
       "value": null,
       "status": "undisclosed",
       "source_ids": [
-        "s2"
+        "s2",
+        "s8",
+        "s11",
+        "s6",
+        "s12",
+        "s13"
       ],
-      "note": "No activated-per-token count is disclosed for Qwen2.5-Max."
+      "note": "No nominal activated-per-token count, expert configuration sufficient to establish one, or explicit named-base relationship with a known active size was located for Qwen2.5-Max. The official MoE designation is insufficient to infer the active count. The 22B figure belongs to Qwen3-235B-A22B and 95B to Qwen3.8-2.4T-A95B, neither bound to the January 2025 snapshot."
     },
     "architecture": {
       "value": "moe",
@@ -223,7 +258,7 @@
   "patch": {
     "architecture": "moe",
     "description": "Hosted Qwen text model for multilingual chat and coding, currently mapped to the Qwen2.5-Max snapshot.",
-    "notes": "Rolling hosted alias: MoE architecture refers to the documented qwen-max-2025-01-25 (Qwen2.5-Max) mapping. Exact total and active parameter counts remain undisclosed. Current context is unresolved: exact model cards state 32768, including the October 11, 2026 international card; the October 15 overview says 128k. No region-specific context difference or upgrade announcement was verified. Function calling is supported in Beijing but marked unsupported in Singapore. Initial alias release date is unverified; the alias was listed by September 19, 2024, separately from the 0403 snapshot. January 28, 2025 announces the later Qwen2.5-Max snapshot.",
+    "notes": "Rolling hosted alias: MoE architecture refers to the documented qwen-max-2025-01-25 (Qwen2.5-Max) mapping. Alibaba describes a hundred-billion-scale model but publishes no nominal total or active parameter count for this snapshot; later Qwen3/Qwen3.8 sizes do not apply. Current context is unresolved: exact model cards state 32768, including the October 11, 2026 international card; the October 15 overview says 128k. No region-specific context difference or upgrade announcement was verified. Function calling is supported in Beijing but marked unsupported in Singapore. Initial alias release date is unverified; the alias was listed by September 19, 2024, separately from the 0403 snapshot. January 28, 2025 announces the later Qwen2.5-Max snapshot.",
     "sources": [
       {
         "label": "qwen-max Model Info",
@@ -274,11 +309,29 @@
         "label": "Qwen Series Model Free Quota Validity Period Adjustment Notice",
         "url": "https://help.aliyun.com/en/model-studio/qwen-model-free-quota-adjustment",
         "type": "primary"
+      },
+      {
+        "label": "Qwen2.5 Technical Report, revision 2",
+        "url": "https://arxiv.org/html/2412.15115v2",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3: Think Deeper, Act Faster",
+        "url": "https://qwenlm.github.io/blog/qwen3/",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen2.5-Max: Exploring large-scale MoE intelligence (Chinese announcement)",
+        "url": "https://qwenlm.github.io/zh/blog/qwen2.5-max/",
+        "type": "primary"
       }
     ],
     "release_date": null,
     "date_precision": null,
-    "context_window": null
+    "context_window": null,
+    "parameters_b": null,
+    "active_parameters_b": null,
+    "parameters_source": null
   },
-  "summary": "Verified documented alias-to-Qwen2.5-Max mapping and MoE architecture, without importing open-Qwen sizes. Total/active counts stay null. Confirmed text modalities, non-thinking mode and region-qualified function calling. Clears unsupported release date/date precision. Further exact-card checks corroborate 32768 for the named snapshot but do not resolve the newer 128k overview; therefore clears unqualified current context and retains both claims in notes."
+  "summary": "October 27 parameter re-audit confirms the qwen-max alias still maps to Qwen2.5-Max (qwen-max-2025-01-25). Reopened English/Chinese cards and launch posts, checked the cited technical report, and searched newer developer disclosures and named-base lineage. No nominal total or active count is supported: hundred-billion-scale wording is broad, 20 trillion counts training tokens, Qwen2.5-72B is a benchmark comparator, and later Qwen3/Qwen3.8 counts belong to other models. Explicitly retains null for both counts and parameters_source, with verified MoE architecture unchanged. Other audited fields and their existing release-date/context uncertainties are preserved."
 }
