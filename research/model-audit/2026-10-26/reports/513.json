@@ -1,7 +1,7 @@
 {
   "index": 513,
   "model_id": "undi95/remm-slerp-l2-13b",
-  "reviewed_at": "2026-10-27T05:04:43.772941Z",
+  "reviewed_at": "2026-10-27T18:11:35.563948Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,8 @@
       "title": "ReMM-SLERP-L2-13B original model card",
       "publisher": "Undi95",
       "accessed": true,
-      "evidence": "Calls the release Re:MythoMax (ReMM), a recreation of MythoMax using updated component models; documents the SLERP merge of ReML and Huginn v1.2, and an Alpaca text instruction template. Exact repository title labels the model 13B. Current accepted model-card metadata declares cc-by-nc-4.0."
+      "evidence": "Calls the release Re:MythoMax (ReMM), a recreation of MythoMax using updated component models; documents the SLERP merge of ReML and Huginn v1.2, and an Alpaca text instruction template. Exact repository title labels the model 13B. Current accepted model-card metadata declares cc-by-nc-4.0. Freshly reopened for parameter re-audit: the recipe explicitly uses TheBloke/Llama-2-13B-fp16 as the TIES base for ReML and then SLERP-merges ReML with Huginn v1.2; its base-model metadata and Models used list identify the named Llama 2 13B lineage.",
+      "accessed_at": "2026-10-27T18:11:35.563948Z"
     },
     {
       "id": "s2",
@@ -17,7 +18,8 @@
       "title": "Exact released checkpoint configuration",
       "publisher": "Undi95",
       "accessed": true,
-      "evidence": "LlamaForCausalLM, 40 layers, hidden size 5120, intermediate size 13824, 40 attention and KV heads, vocabulary 32000, untied embeddings, max_position_embeddings 4096 and rope_scaling null. No expert, multimodal or quantization configuration. Specifies Transformers 4.32.1 and float32; card prose says fp16, so its storage precision is not assumed."
+      "evidence": "LlamaForCausalLM, 40 layers, hidden size 5120, intermediate size 13824, 40 attention and KV heads, vocabulary 32000, untied embeddings, max_position_embeddings 4096 and rope_scaling null. No expert, multimodal or quantization configuration. Specifies Transformers 4.32.1 and float32; card prose says fp16, so its storage precision is not assumed. Fresh comparison with the exact named base conversion config matches all parameter-determining dimensions; _name_or_path identifies Huginn-13b-v1.2. No layer expansion, expert expansion, new modality, changed vocabulary or structural pruning is indicated.",
+      "accessed_at": "2026-10-27T18:11:35.563948Z"
     },
     {
       "id": "s3",
@@ -25,7 +27,8 @@
       "title": "Original PyTorch checkpoint index",
       "publisher": "Undi95",
       "accessed": true,
-      "evidence": "Maps 363 learned-weight names to three PyTorch .bin shards. Names comprise token embedding, final norm, LM head and forty layers of four attention projections, three MLP projections and two norms. No expert/router, vision or audio module names. The byte total alone is not treated as an exact learned-parameter count, and no large weight shard was downloaded."
+      "evidence": "Maps 363 learned-weight names to three PyTorch .bin shards. Names comprise token embedding, final norm, LM head and forty layers of four attention projections, three MLP projections and two norms. No expert/router, vision or audio module names. The byte total alone is not treated as an exact learned-parameter count, and no large weight shard was downloaded.",
+      "accessed_at": "2026-10-27T18:11:35.563948Z"
     },
     {
       "id": "s4",
@@ -73,7 +76,8 @@
       "title": "Later ReMM v2 model card checked for exact-series context",
       "publisher": "Undi95",
       "accessed": true,
-      "evidence": "Names Re:MythoMax v2 / ReMM v2 as a separate updated-component SLERP merge. Establishes family naming but supplies no separate active-parameter count for the earlier original SLERP release; later variant details are not transferred."
+      "evidence": "Names Re:MythoMax v2 / ReMM v2 as a separate updated-component SLERP merge. Establishes family naming but supplies no separate active-parameter count for the earlier original SLERP release; later variant details are not transferred.",
+      "accessed_at": "2026-10-27T18:11:35.563948Z"
     },
     {
       "id": "s10",
@@ -89,7 +93,80 @@
       "title": "Creator-owned GGUF variant card",
       "publisher": "Undi95",
       "accessed": true,
-      "evidence": "Describes quantized versions of the same ReMM SLERP merge, with matching components and Alpaca prompting; declares cc-by-nc-4.0. Checked for original availability/capability details; it does not disclose a separate active count or exact launch day."
+      "evidence": "Describes quantized versions of the same ReMM SLERP merge, with matching components and Alpaca prompting; declares cc-by-nc-4.0. Checked for original availability/capability details; it does not disclose a separate active count or exact launch day.",
+      "accessed_at": "2026-10-27T18:11:35.563948Z"
+    },
+    {
+      "id": "s12",
+      "url": "https://arxiv.org/html/2401.04088v1#S3.T2",
+      "title": "Mixtral of Experts: original Table 2 active-parameter comparison",
+      "publisher": "Mistral AI research team",
+      "accessed": true,
+      "accessed_at": "2026-10-27T18:11:35.563948Z",
+      "evidence": "Table 2 explicitly labels its count column Active Params and gives LLaMA 2 13B = 13B. Section 2.1 distinguishes total parameters from parameters used to process an individual token. This is Mistral's published nominal comparison convention for the exactly named base, not a Meta or Undi95 disclosure and not an exact participation census."
+    },
+    {
+      "id": "s13",
+      "url": "https://huggingface.co/TheBloke/Llama-2-13B-fp16/raw/main/README.md",
+      "title": "Exact named Llama 2 13B merge-base conversion card",
+      "publisher": "TheBloke",
+      "accessed": true,
+      "accessed_at": "2026-10-27T18:11:35.563948Z",
+      "evidence": "States these fp16 files are Meta's Llama 2 13B, made by downloading Meta PTH files and converting to Hugging Face format; supplies the conversion command with model_size 13B. This is the exact base named in the ReMM recipe, not a merely similar model. Its mirrored original Meta card also lists the 13B pretrained variation."
+    },
+    {
+      "id": "s14",
+      "url": "https://huggingface.co/TheBloke/Llama-2-13B-fp16/raw/main/config.json",
+      "title": "Exact named Llama 2 13B merge-base configuration",
+      "publisher": "TheBloke",
+      "accessed": true,
+      "accessed_at": "2026-10-27T18:11:35.563948Z",
+      "evidence": "LlamaForCausalLM with 40 layers, hidden size 5120, intermediate size 13824, 40 attention heads, vocabulary 32000 and untied embeddings. These parameter-determining dimensions exactly match ReMM's released configuration; ReMM additionally makes its 40 KV heads explicit."
+    },
+    {
+      "id": "s15",
+      "url": "https://raw.githubusercontent.com/Undi95/LLM-SLERP-MergeTest/ec79eb7afa6a69dc56e32ea9e1a29436a3639f7f/slerpmergelm.py",
+      "title": "Creator-linked SLERP implementation at freshly resolved revision",
+      "publisher": "Undi95",
+      "accessed": true,
+      "accessed_at": "2026-10-27T18:11:35.563948Z",
+      "evidence": "Interpolates corresponding state-dict tensors, constructs AutoModelForCausalLM from the primary model configuration, loads the merged state dict and saves that model. The current creator-linked implementation supports a weight merge retaining the configured architecture; it is not evidence of runtime routing or expansion into an ensemble. The exact release config and index independently establish the resulting structure."
+    },
+    {
+      "id": "s16",
+      "url": "https://huggingface.co/jondurbin/airoboros-l2-13b-2.1/raw/main/README.md",
+      "title": "Original named airoboros 2.1 component card",
+      "publisher": "Jon Durbin",
+      "accessed": true,
+      "accessed_at": "2026-10-27T18:11:35.563948Z",
+      "evidence": "Identifies the exact named component as an instruction fine-tuned llama-2 model using synthetic airoboros data. Describes data and prompting changes, with no structural parameter-count alteration or separate active count."
+    },
+    {
+      "id": "s17",
+      "url": "https://huggingface.co/NousResearch/Nous-Hermes-Llama2-13b/raw/main/README.md",
+      "title": "Original named Nous Hermes Llama 2 component card",
+      "publisher": "Nous Research",
+      "accessed": true,
+      "accessed_at": "2026-10-27T18:11:35.563948Z",
+      "evidence": "Names Nous-Hermes-Llama2-13b and describes instruction fine-tuning on over 300,000 instructions at sequence length 4096. No structural parameter-count alteration or separate active-count disclosure is described."
+    },
+    {
+      "id": "s18",
+      "url": "https://huggingface.co/TheBloke/huginnv1.2-GGUF/raw/main/README.md",
+      "title": "Huginn v1.2 original card text mirrored by its quantizer",
+      "publisher": "TheBloke, mirroring Caleb Morgan",
+      "accessed": true,
+      "accessed_at": "2026-10-27T18:11:35.563948Z",
+      "evidence": "The mirrored original card describes merges of chronos, airoboros, hermes and beluga, subsequently mythologic and ledgerdemain, plus a limarp LoRA. Used only as corroboration for the named merge lineage; the original Huginn repository now returns HTTP 401 and this mirror does not independently establish an active count."
+    },
+    {
+      "id": "s19",
+      "url": "https://www.nextbit256.com/en/docs/models/remm-slerp-l2-13b",
+      "title": "Later exact-model provider documentation checked for parameter claims",
+      "publisher": "Nextbit256",
+      "accessed": true,
+      "accessed_at": "2026-10-27T18:11:35.563948Z",
+      "evidence": "May 2026 documentation lists exact ReMM-SLERP-L2-13B as total 13B and calls active parameters N/A because the model is dense, followed by prose asserting all 13B are active. The provider explicitly says it did not develop or train the model and derived the documentation from public sources. Corroborative only: the active assessment instead uses Mistral's explicit nominal Active Params column and verified named lineage, not a generic dense-equals-active rule."
     }
   ],
   "fields": {
@@ -158,20 +235,25 @@
       "source_ids": [
         "s1",
         "s2",
-        "s3"
+        "s3",
+        "s13",
+        "s14"
       ],
-      "note": "Retain the original developer model designation as a nominal 13-billion parameter figure. This is not an exact measured checkpoint total: original files are PyTorch .bin, card precision prose conflicts with config, and all tensor storage shapes/dtypes were not read. Index bytes and the unmerged later safetensors conversion are not used as exact-count proof."
+      "note": "Fresh re-audit retains the developer's nominal 13B designation and explicitly named Llama 2 13B merge-base lineage. Released parameter-determining dimensions match the named base. This is not an exact checkpoint tensor census: original PyTorch storage shapes/dtypes were not all read, and index bytes or later conversions are not substituted for that measurement."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 13,
+      "status": "verified",
       "source_ids": [
         "s1",
         "s2",
-        "s9",
-        "s11"
+        "s3",
+        "s12",
+        "s13",
+        "s14",
+        "s15"
       ],
-      "note": "No developer source consulted separately defines or reports an active-per-token count for this exact merge. A dense architecture does not justify copying total parameters into this field."
+      "note": "Nominal 13B inferred through the developer-documented Llama 2 13B TIES/SLERP merge lineage from Mistral AI's original Mixtral Table 2, whose Active Params column explicitly lists LLaMA 2 13B as 13B. The released architecture dimensions match the named base and the complete index retains the ordinary 40-layer Llama module inventory, with no structural pruning, expert expansion or added modality indicated. TIES merge-density settings are not treated as runtime pruning. This is the attributed base-model comparison convention, not an exact token-dependent count or a separate active-count disclosure by Undi95."
     },
     "architecture": {
       "value": "dense",
@@ -298,9 +380,50 @@
         "label": "Provider listing used by downstream catalogs",
         "url": "https://openrouter.ai/undi95/remm-slerp-l2-13b/overview",
         "type": "secondary"
+      },
+      {
+        "label": "Mixtral of Experts: original Table 2 active-parameter comparison",
+        "url": "https://arxiv.org/html/2401.04088v1#S3.T2",
+        "type": "primary"
+      },
+      {
+        "label": "Exact named Llama 2 13B merge-base conversion card",
+        "url": "https://huggingface.co/TheBloke/Llama-2-13B-fp16/raw/main/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Exact named Llama 2 13B merge-base configuration",
+        "url": "https://huggingface.co/TheBloke/Llama-2-13B-fp16/raw/main/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Creator-linked SLERP implementation at freshly resolved revision",
+        "url": "https://raw.githubusercontent.com/Undi95/LLM-SLERP-MergeTest/ec79eb7afa6a69dc56e32ea9e1a29436a3639f7f/slerpmergelm.py",
+        "type": "primary"
       }
     ],
-    "notes": "13B is the developer's nominal designation, not an exact checkpoint tensor count. Original config is a dense 40-layer Llama model with a 4096-token window; hosted 6144-token limits are separate. Release is recorded only to September 2023, inferred from September 4 repository creation/upload and September 9 public contribution; the precise launch day is unresolved and July 22 provider metadata is unsupported. Current creator-accepted model-card license is CC-BY-NC-4.0. Active parameters are undisclosed; reasoning and tool-calling capabilities remain unverified."
+    "notes": "13B total is the developer's nominal designation. Nominal 13B active is inferred from the documented Llama 2 13B merge lineage using Mistral AI's Mixtral comparison convention; released dimensions are unchanged, and neither count is an exact tensor-participation census. Original context is 4096 tokens; hosted 6144 limits are separate. September 2023 release month is inferred from repository/public contribution history; exact launch day remains unresolved. The creator-accepted card declares CC-BY-NC-4.0. Reasoning and tool-calling capabilities remain unverified.",
+    "parameters_b": 13,
+    "active_parameters_b": 13
   },
-  "summary": "Confirms nominal 13B and establishes dense Llama architecture; corrects original checkpoint context to 4096 and identifies its declared CC-BY-NC-4.0 license. Replaces unsupported July day with inferred September 2023 month precision, with exact launch day unresolved. Names the ReMM family and precise merge, and clears unsupported reasoning/tool flags. No exact parameter count or active count is invented."
+  "summary": "Fresh parameter re-audit preserves nominal 13B total and resolves nominal active parameters to 13B through the documented unchanged Llama 2 13B merge lineage and Mistral AI's original Active Params comparison. The precise checkpoint total and token-level participation are not claimed. All twelve other field assessments are preserved, including 4096 original context, September 2023 month precision and declared CC-BY-NC-4.0 license.",
+  "parameter_reaudit": {
+    "agent": "/root/parameters_513",
+    "reviewed_at": "2026-10-27T18:11:35.563948Z",
+    "outcome": "Retain developer nominal 13B total; resolve nominal 13B active via explicit unchanged Llama 2 13B merge lineage and Mistral AI's published comparison convention.",
+    "fresh_search_queries": [
+      "\"ReMM-SLERP-L2-13B\" \"parameters\"",
+      "\"ReMM-SLERP\" \"active\" parameters",
+      "\"Llama 2 13B\" \"Active Params\" Mixtral",
+      "\"ReMM-SLERP-L2-13B\" \"active parameters\" 2025 2026",
+      "site:huggingface.co/Undi95/ReMM \"pruning\" OR \"distill\" OR \"parameters\"",
+      "\"The-Face-Of-Goonery/Huginn-13b-v1.2\" \"llama\""
+    ],
+    "search_findings": "Reopened the exact pinned creator card, config and index; exact named base conversion card/config; original airoboros and Hermes component cards; creator-linked SLERP code; original Mistral Mixtral Table 2; and later creator ReMM v2/GGUF cards. Searches also recovered 2026 exact-model provider documentation and a Huginn original-card mirror, retained only as corroboration. No distinct later creator active-count definition or structural size change was found. The active count is not obtained by equating dense with active or by summing merge components.",
+    "structural_check": "Compared LlamaForCausalLM, model type, 40 layers, width 5120, MLP width 13824, 40 heads, vocabulary 32000 and untied embeddings against the explicitly named base configuration. All match. ReMM states 40 KV heads. Its index has 363 learned-weight entries in 3 shards and no expert/router, vision or audio modules. SLERP implementation retains the primary model configuration. Merge-density recipe values do not establish structural runtime pruning.",
+    "access_limitations": "Original Huginn v1.2 card/config, Chronos-Beluga-v2 card, private ReML card and Meta Llama 2 13B raw card returned HTTP 401; none is represented as accessed evidence. The exact creator merge recipe, public named base conversion sources and released structure establish lineage; the Huginn original-card mirror is explicitly secondary.",
+    "evidence_cache": "/tmp/parameter-513-fresh/manifest.json",
+    "remaining_uncertainty": "13B total remains nominal rather than an exact storage census. Active 13B follows Mistral's nominal base-model comparison convention through the documented merge, not a separate fine-tuner disclosure or exact token-dependent participation measurement.",
+    "weight_shards_requested": false
+  }
 }
