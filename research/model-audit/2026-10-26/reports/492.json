@@ -1,0 +1,386 @@
+{
+  "index": 492,
+  "model_id": "sarvam/sarvam-m",
+  "reviewed_at": "2026-10-27T04:31:19.776797Z",
+  "sources": [
+    {
+      "id": "card",
+      "url": "https://huggingface.co/sarvamai/sarvam-m/blob/01534a53c46f2788e392dbb3d994e0fa8f04d3fd/README.md",
+      "title": "Sarvam-M model card",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "Identifies Sarvam-M as a text-only post-trained Mistral-Small-3.1-24B-Base-2503 derivative. Lists English plus ten Indian languages and switchable think/non-think generation. The exact repository is publicly accessible and supplies ten original safetensors shards."
+    },
+    {
+      "id": "config",
+      "url": "https://huggingface.co/sarvamai/sarvam-m/blob/01534a53c46f2788e392dbb3d994e0fa8f04d3fd/config.json",
+      "title": "Sarvam-M configuration",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "MistralForCausalLM, 40 layers, hidden size 5120, intermediate size 32768, vocabulary 131072, 32 query heads, 8 KV heads, explicit head dimension 128, untied embeddings and BF16. max_position_embeddings 32768; sliding_window=null; no quantization/custom code configuration; Transformers 4.51.3."
+    },
+    {
+      "id": "tokenizer",
+      "url": "https://huggingface.co/sarvamai/sarvam-m/blob/01534a53c46f2788e392dbb3d994e0fa8f04d3fd/tokenizer_config.json",
+      "title": "Sarvam-M tokenizer and chat template",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "model_max_length 32768. enable_thinking selects think/non-think system text and assistant prefix. Template accepts only system, user and assistant roles, requires alternation and has no tools/tool_calls serialization. This limits the shipped template, not every custom prompting protocol."
+    },
+    {
+      "id": "license",
+      "url": "https://huggingface.co/sarvamai/sarvam-m/blob/01534a53c46f2788e392dbb3d994e0fa8f04d3fd/LICENSE.txt",
+      "title": "Sarvam-M Apache License",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "Repository LICENSE.txt contains Apache License Version 2.0; the exact model card also declares apache-2.0."
+    },
+    {
+      "id": "index",
+      "url": "https://huggingface.co/sarvamai/sarvam-m/blob/01534a53c46f2788e392dbb3d994e0fa8f04d3fd/model.safetensors.index.json",
+      "title": "Complete original checkpoint index",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "Maps 363 tensors across ten shards. All indexed tensor names and shard assignments were reconciled against bounded headers, exact configuration and enabled implementation. metadata.total_size=47144806400 bytes agrees with 23,572,403,200 BF16 learned elements; byte size alone was not used as a parameter count."
+    },
+    {
+      "id": "implementation",
+      "url": "https://github.com/huggingface/transformers/blob/v4.51.3/src/transformers/models/mistral/modeling_mistral.py",
+      "title": "Configured Transformers 4.51.3 Mistral implementation",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Dense decoder-only Mistral Transformer: bias-free Q/K/V/O projections and gated SiLU MLPs, two RMSNorm weights per layer, token embeddings, final RMSNorm and bias-free LM head. RoPE inv_freq is a non-persistent buffer. No expert routing, MTP, adapter or vision modules are selected by this configuration. Separate embeddings/head are counted because tie_word_embeddings=false."
+    },
+    {
+      "id": "config_code",
+      "url": "https://github.com/huggingface/transformers/blob/v4.51.3/src/transformers/models/mistral/configuration_mistral.py",
+      "title": "Mistral configuration semantics",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "The explicit head_dim 128 governs projection dimensions; it must not be replaced with hidden_size/num_attention_heads=160. Explicit sliding_window=null overrides the class default 4096; generic Mistral sliding-window claims do not describe this checkpoint."
+    },
+    {
+      "id": "launch",
+      "url": "https://www.sarvam.ai/blogs/sarvam-m",
+      "title": "Sarvam-M original technical launch, May 23, 2025",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "Explicitly offers download, playground and APIs. Describes Mistral 3.1 post-training after removing vision encoder, with SFT and RLVR. Section 4.3.3 attributes lookup decisions and English Wikipedia query generation to Sarvam-M in a custom grounding system, without naming a separately trained checkpoint. Subsequent-drop wording leaves packaged grounding availability unspecified. Separate FP8 deployment, tokenizer-transplant and vocabulary-extension experiments are not the original BF16 checkpoint."
+    },
+    {
+      "id": "history",
+      "url": "https://huggingface.co/api/models/sarvamai/sarvam-m/commits/main",
+      "title": "Sarvam-M repository history",
+      "publisher": "Sarvam AI / Hugging Face",
+      "accessed": true,
+      "evidence": "Initial repository and weight upload occurred May 20, 2025. These timestamps do not establish first-public availability. The initial May 20 README pull request is by a Sarvam-named author and is not an explicit release announcement."
+    },
+    {
+      "id": "monthly_changelog",
+      "url": "https://docs.sarvam.ai/api-reference-docs/changelog",
+      "title": "Original monthly Sarvam changelog, indexed prior layout",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "The accessed indexed prior layout groups Sarvam-M Released under May 2025. Direct current URL redirects to a newer timeline. Recorded as month-level historical release evidence, not an exact May 1 announcement."
+    },
+    {
+      "id": "changelog_detail",
+      "url": "https://docs.sarvam.ai/changelog/2025/5/1",
+      "title": "Migrated Sarvam changelog detail",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "Current page labels May 1, 2025 and repeats the monthly collection of Sarvam-M release, SDK, STT and dashboard changes. Its linked technical blog is dated May 23. This conflict prevents treating the migrated day-one heading as an independently established first-public day."
+    },
+    {
+      "id": "current_docs",
+      "url": "https://docs.sarvam.ai/api/getting-started/models/sarvam-m",
+      "title": "Current exact-model Sarvam documentation",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "Retains Sarvam-M as a nominal 24B model and explicitly says its Chat Completions API is retired. Historical hosted context is 8192. This hosted limit is distinct from checkpoint 32768. No separate active-parameter count is supplied; current 105B tool/architecture specifications must not be transferred."
+    },
+    {
+      "id": "later_comparison",
+      "url": "https://docs.sarvam.ai/api/getting-started/models/sarvam-105b",
+      "title": "Later Sarvam 105B documentation mentioning Sarvam-M",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "Explicitly labels retired Sarvam-M 24B; the page assigns MoE, MLA and newer context/tool specifications to 105B, not to Sarvam-M. No separately labeled active count for Sarvam-M."
+    },
+    {
+      "id": "shard_01",
+      "url": "https://huggingface.co/sarvamai/sarvam-m/resolve/01534a53c46f2788e392dbb3d994e0fa8f04d3fd/model-00001-of-00010.safetensors",
+      "title": "Original BF16 checkpoint shard1/10 bounded header",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "HTTP 206 prefix/header reads only: 3736 bytes, 32 BF16 tensors, 2390784000 learned elements. Names/shapes match indexed modules; contiguous nonoverlapping offsets and payload length reconcile at two bytes per element. No tensor payload downloaded."
+    },
+    {
+      "id": "shard_02",
+      "url": "https://huggingface.co/sarvamai/sarvam-m/resolve/01534a53c46f2788e392dbb3d994e0fa8f04d3fd/model-00002-of-00010.safetensors",
+      "title": "Original BF16 checkpoint shard2/10 bounded header",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "HTTP 206 prefix/header reads only: 4304 bytes, 37 BF16 tensors, 2390794240 learned elements. Names/shapes match indexed modules; contiguous nonoverlapping offsets and payload length reconcile at two bytes per element. No tensor payload downloaded."
+    },
+    {
+      "id": "shard_03",
+      "url": "https://huggingface.co/sarvamai/sarvam-m/resolve/01534a53c46f2788e392dbb3d994e0fa8f04d3fd/model-00003-of-00010.safetensors",
+      "title": "Original BF16 checkpoint shard3/10 bounded header",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "HTTP 206 prefix/header reads only: 4320 bytes, 37 BF16 tensors, 2390794240 learned elements. Names/shapes match indexed modules; contiguous nonoverlapping offsets and payload length reconcile at two bytes per element. No tensor payload downloaded."
+    },
+    {
+      "id": "shard_04",
+      "url": "https://huggingface.co/sarvamai/sarvam-m/resolve/01534a53c46f2788e392dbb3d994e0fa8f04d3fd/model-00004-of-00010.safetensors",
+      "title": "Original BF16 checkpoint shard4/10 bounded header",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "HTTP 206 prefix/header reads only: 5040 bytes, 43 BF16 tensors, 2443233280 learned elements. Names/shapes match indexed modules; contiguous nonoverlapping offsets and payload length reconcile at two bytes per element. No tensor payload downloaded."
+    },
+    {
+      "id": "shard_05",
+      "url": "https://huggingface.co/sarvamai/sarvam-m/resolve/01534a53c46f2788e392dbb3d994e0fa8f04d3fd/model-00005-of-00010.safetensors",
+      "title": "Original BF16 checkpoint shard5/10 bounded header",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "HTTP 206 prefix/header reads only: 4344 bytes, 37 BF16 tensors, 2390794240 learned elements. Names/shapes match indexed modules; contiguous nonoverlapping offsets and payload length reconcile at two bytes per element. No tensor payload downloaded."
+    },
+    {
+      "id": "shard_06",
+      "url": "https://huggingface.co/sarvamai/sarvam-m/resolve/01534a53c46f2788e392dbb3d994e0fa8f04d3fd/model-00006-of-00010.safetensors",
+      "title": "Original BF16 checkpoint shard6/10 bounded header",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "HTTP 206 prefix/header reads only: 4336 bytes, 37 BF16 tensors, 2390794240 learned elements. Names/shapes match indexed modules; contiguous nonoverlapping offsets and payload length reconcile at two bytes per element. No tensor payload downloaded."
+    },
+    {
+      "id": "shard_07",
+      "url": "https://huggingface.co/sarvamai/sarvam-m/resolve/01534a53c46f2788e392dbb3d994e0fa8f04d3fd/model-00007-of-00010.safetensors",
+      "title": "Original BF16 checkpoint shard7/10 bounded header",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "HTTP 206 prefix/header reads only: 5040 bytes, 43 BF16 tensors, 2443233280 learned elements. Names/shapes match indexed modules; contiguous nonoverlapping offsets and payload length reconcile at two bytes per element. No tensor payload downloaded."
+    },
+    {
+      "id": "shard_08",
+      "url": "https://huggingface.co/sarvamai/sarvam-m/resolve/01534a53c46f2788e392dbb3d994e0fa8f04d3fd/model-00008-of-00010.safetensors",
+      "title": "Original BF16 checkpoint shard8/10 bounded header",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "HTTP 206 prefix/header reads only: 4344 bytes, 37 BF16 tensors, 2390794240 learned elements. Names/shapes match indexed modules; contiguous nonoverlapping offsets and payload length reconcile at two bytes per element. No tensor payload downloaded."
+    },
+    {
+      "id": "shard_09",
+      "url": "https://huggingface.co/sarvamai/sarvam-m/resolve/01534a53c46f2788e392dbb3d994e0fa8f04d3fd/model-00009-of-00010.safetensors",
+      "title": "Original BF16 checkpoint shard9/10 bounded header",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "HTTP 206 prefix/header reads only: 4336 bytes, 37 BF16 tensors, 2390794240 learned elements. Names/shapes match indexed modules; contiguous nonoverlapping offsets and payload length reconcile at two bytes per element. No tensor payload downloaded."
+    },
+    {
+      "id": "shard_10",
+      "url": "https://huggingface.co/sarvamai/sarvam-m/resolve/01534a53c46f2788e392dbb3d994e0fa8f04d3fd/model-00010-of-00010.safetensors",
+      "title": "Original BF16 checkpoint shard10/10 bounded header",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "HTTP 206 prefix/header reads only: 2672 bytes, 23 BF16 tensors, 1950387200 learned elements. Names/shapes match indexed modules; contiguous nonoverlapping offsets and payload length reconcile at two bytes per element. No tensor payload downloaded."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Sarvam-M",
+      "status": "verified",
+      "source_ids": [
+        "card"
+      ],
+      "note": "Exact developer model name."
+    },
+    "developer": {
+      "value": "Sarvam AI",
+      "status": "verified",
+      "source_ids": [
+        "card"
+      ],
+      "note": "Published by the Sarvam AI organization."
+    },
+    "family": {
+      "value": "sarvam",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "current_docs"
+      ],
+      "note": "Developer model-series grouping; the neural backbone is separately identified as Mistral."
+    },
+    "release_date": {
+      "value": "2025-05",
+      "status": "verified",
+      "source_ids": [
+        "launch",
+        "history",
+        "monthly_changelog",
+        "changelog_detail"
+      ],
+      "note": "May 2025 is established. May 20 is upload history, May 23 is explicit availability in the launch article, and the migrated monthly changelog renders May 1. Exact earliest public day remains unresolved; retain month precision."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "index"
+      ],
+      "note": "Original full checkpoint publicly downloadable; hosted API retirement does not withdraw weights."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "license",
+        "card"
+      ],
+      "note": "Normalized repository license declaration."
+    },
+    "parameters_b": {
+      "value": 23.5724032,
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "index",
+        "implementation",
+        "config_code",
+        "shard_01",
+        "shard_02",
+        "shard_03",
+        "shard_04",
+        "shard_05",
+        "shard_06",
+        "shard_07",
+        "shard_08",
+        "shard_09",
+        "shard_10"
+      ],
+      "note": "Exact complete learned total 23,572,403,200, from all 363 BF16 tensors in 10 shards. Formula 2 VH+H+L*(2 H*(Q+K)D+3 HI+2 H), with H 5120,V 131072,L 40,Q 32,K 8,D 128,I 32768, matches every tensor shape. Includes untied input/output matrices and norms; no serialized buffers, scales, packing, vision encoder, adapters or MTP. Metadata-only reads totaled 42,472 bytes."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "card",
+        "current_docs",
+        "later_comparison",
+        "implementation"
+      ],
+      "note": "No separately defined active count in the exact card or current/later first-party pages checked. Dense execution alone does not establish an embedding-inclusive active-count convention."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "implementation",
+        "index"
+      ],
+      "note": "40-layer decoder-only dense Mistral Transformer with GQA 32/8, head dimension 128, SwiGLU width 32768, RMSNorm, RoPE and untied embeddings. Full tensor inventory reconciles; no sparse experts or sliding window."
+    },
+    "context_window": {
+      "value": 32768,
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "tokenizer",
+        "current_docs"
+      ],
+      "note": "Exact checkpoint and tokenizer both specify 32768. Historical Sarvam API 8192 is a serving restriction; retained catalog value describes the released checkpoint. Generic 4096 sliding-window assertions are contradicted by sliding_window=null."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "config",
+        "index"
+      ],
+      "note": "Text-only; no vision tensors in the released checkpoint."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "tokenizer"
+      ],
+      "note": "Explicit enable_thinking switch with think-tag outputs; the same checkpoint supports non-thinking generation."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "launch",
+        "tokenizer"
+      ],
+      "note": "Verified model-selected Wikipedia lookup and generated search query in the developer research system. This supports custom tool use, not a guarantee of standard function-call JSON or tool-role support in the shipped template or retired API."
+    },
+    "description": {
+      "value": "Text-only Mistral Small derivative post-trained for English and ten Indian languages, with switchable thinking and non-thinking modes.",
+      "status": "verified",
+      "source_ids": [
+        "card"
+      ],
+      "note": "Supported purpose and lineage without benchmark superlatives."
+    }
+  },
+  "patch": {
+    "release_date": "2025-05",
+    "date_precision": "month",
+    "license": "Apache-2.0",
+    "parameters_b": 23.5724032,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "tool_call": true,
+    "description": "Text-only Mistral Small derivative post-trained for English and ten Indian languages, with switchable thinking and non-thinking modes.",
+    "source_url": "https://www.sarvam.ai/blogs/sarvam-m",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Sarvam-M technical launch",
+        "url": "https://www.sarvam.ai/blogs/sarvam-m",
+        "type": "primary"
+      },
+      {
+        "label": "Sarvam-M exact checkpoint",
+        "url": "https://huggingface.co/sarvamai/sarvam-m/blob/01534a53c46f2788e392dbb3d994e0fa8f04d3fd/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "Sarvam-M configuration",
+        "url": "https://huggingface.co/sarvamai/sarvam-m/blob/01534a53c46f2788e392dbb3d994e0fa8f04d3fd/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Sarvam-M current API documentation",
+        "url": "https://docs.sarvam.ai/api/getting-started/models/sarvam-m",
+        "type": "primary"
+      }
+    ],
+    "notes": "Exact original checkpoint: 23.5724032B learned parameters; all 363 BF16 tensor headers reconcile with configuration and implementation. Active count is not separately defined. Checkpoint context is 32768; historical Sarvam hosting used 8192 and the API is now retired. Tool use is demonstrated as model-selected Wikipedia lookup in a custom research system; the shipped template has no standard tool-role/function-call serialization. May 2025 release is established; May 20 upload, May 23 launch and the migrated May 1 changelog do not resolve the exact first-public day."
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "input_embeddings": 0.67108864,
+      "decoder_layers": 22.2302208,
+      "final_norm": 5.12e-06,
+      "output_head": 0.67108864
+    }
+  },
+  "summary": "Verified exact 23.5724032B dense text checkpoint and 32768 context; added custom research-system tool capability, retained switchable thinking, normalized Apache 2.0 and qualified release to May 2025. Separate active-count convention is undisclosed. Hosted API retirement does not remove the open weights."
+}
