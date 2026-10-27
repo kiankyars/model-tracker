@@ -97,6 +97,15 @@ function syncControls() {
   }
 }
 
+function showFilters(open) {
+  $('filter-toggle').setAttribute('aria-expanded', String(open));
+  $('filter-options').hidden = !open;
+}
+
+function revealActiveFilters() {
+  if (['from', 'to', 'developer', 'access', 'type', 'size'].some(key => state[key])) showFilters(true);
+}
+
 function writeURL(replace = false) {
   const url = new URL(location.href);
   for (const [key, value] of Object.entries({ ...state, ...chartState })) {
@@ -123,14 +132,13 @@ function reset() {
 
 function renderStats() {
   const values = [
-    ['Releases', filtered.length, false],
-    ['Developers', new Set(filtered.map(model => model.developer_id)).size, false],
-    ['Open weights', filtered.filter(model => model.open_weights === true).length, true],
-    ['Known sizes', filtered.filter(model => model.parameters_b != null).length, true],
+    ['Developers', new Set(filtered.map(model => model.developer_id)).size],
+    ['Open weights', filtered.filter(model => model.open_weights === true).length],
+    ['Known sizes', filtered.filter(model => model.parameters_b != null).length],
   ];
   const fragment = document.createDocumentFragment();
-  for (const [label, value, small] of values) {
-    const wrapper = element('div', `stat-line${small ? ' small' : ''}`);
+  for (const [label, value] of values) {
+    const wrapper = element('div', 'stat-line');
     wrapper.append(element('dt', '', label), element('dd', '', number.format(value)));
     fragment.append(wrapper);
   }
@@ -144,10 +152,12 @@ function renderVisualization() {
     models: filtered, filters: state, options: chartState,
     onRange: range => {
       changeState(range);
+      showFilters(true);
       $('chart').querySelector('[role="button"]')?.focus({ preventScroll: true });
     },
     onDeveloper: developer => {
       changeState({ developer });
+      showFilters(true);
       $('chart').querySelector('button')?.focus({ preventScroll: true });
     },
     onModel: id => {
@@ -184,7 +194,7 @@ function detailRow(model, id) {
   if (model.description) cell.append(element('p', 'detail-description', model.description));
   if (model.notes) {
     const note = element('p', 'detail-source-note');
-    note.append(element('strong', '', 'Source note. '), document.createTextNode(Array.isArray(model.notes) ? model.notes.join(' ') : model.notes));
+    note.textContent = Array.isArray(model.notes) ? model.notes.join(' ') : model.notes;
     cell.append(note);
   }
   const list = element('dl', 'detail-grid');
@@ -329,12 +339,9 @@ async function load() {
     state = readState();
     chartState = readChartState();
     syncControls();
+    revealActiveFilters();
     writeURL(true);
-    const note = $('data-note');
-    note.replaceChildren(document.createTextNode(`Updated ${dateLabel(catalog.updated_at)} · ${number.format(catalog.models.length)} releases · ${number.format(developers.length)} developers · `));
-    const coverage = element('a', '', 'Coverage & sources');
-    coverage.href = './about.html';
-    note.append(coverage);
+    $('data-note').textContent = `Updated ${dateLabel(catalog.updated_at)}`;
     $('explorer-content').hidden = false;
     render();
   } catch (error) {
@@ -354,10 +361,15 @@ for (const button of document.querySelectorAll('[data-chart-view]')) button.addE
 for (const button of document.querySelectorAll('[data-range]')) button.addEventListener('click', () => { if (catalog) changeState(presetRange(button.dataset.range)); });
 $('chart-interval').addEventListener('change', () => changeChart({ interval: $('chart-interval').value }));
 $('chart-metric').addEventListener('change', () => changeChart({ metric: $('chart-metric').value }));
+$('chart').addEventListener('mouseleave', () => {
+  if (!$('chart').contains(document.activeElement)) $('chart-detail').textContent = '';
+});
+$('chart').addEventListener('focusout', event => {
+  if (!$('chart').contains(event.relatedTarget)) $('chart-detail').textContent = '';
+});
 $('filter-toggle').addEventListener('click', () => {
   const open = $('filter-toggle').getAttribute('aria-expanded') !== 'true';
-  $('filter-toggle').setAttribute('aria-expanded', String(open));
-  $('filter-options').classList.toggle('is-open', open);
+  showFilters(open);
 });
 $('reset').addEventListener('click', reset);
 $('empty-reset').addEventListener('click', reset);
@@ -378,6 +390,7 @@ window.addEventListener('popstate', () => {
   shown = pageSize;
   expanded.clear();
   syncControls();
+  revealActiveFilters();
   render();
 });
 document.addEventListener('click', event => {
