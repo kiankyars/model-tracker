@@ -1,7 +1,7 @@
 {
   "index": 297,
   "model_id": "microsoft/wizardlm-2-8x22b",
-  "reviewed_at": "2026-10-26T22:15:55.923341Z",
+  "reviewed_at": "2026-10-27T10:53:19.177215+00:00",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,8 @@
       "title": "WizardLM 2 official release announcement",
       "publisher": "WizardLM team",
       "accessed": true,
-      "evidence": "Dated April 15, 2024; names the exact 8x22B variant in the WizardLM-2 family. Describes multilingual instruction/chat post-training and Vicuna-style multi-turn text prompts. Explicitly licenses 8x22B and 7B under Apache2.0, separately from the 70B Llama-2-Community license."
+      "evidence": "Reopened October 27, 2026. The original April 15 release explicitly describes WizardLM-2 as LLM post-training and names the 8x22B model. Its training methods change instructions, data and optimization; no pruning, expert expansion, distillation into a resized model or modality additions are described. Existing release, modality and license evidence is preserved.",
+      "accessed_at": "2026-10-27T10:53:19.177215+00:00"
     },
     {
       "id": "s2",
@@ -17,7 +18,8 @@
       "title": "Original Microsoft WizardLM-2-8x22B model card, archived April 15, 2024",
       "publisher": "Microsoft via Internet Archive",
       "accessed": true,
-      "evidence": "Actual capture of the original Microsoft repository, fetched as HTML. States WizardLM@Microsoft AI, Mixture of Experts, base mistral-community/Mixtral-8x22B-v0.1, 141B parameters, multilingual text and Apache2.0. Embedded repository metadata identifies MixtralForCausalLM, ungated/public access and 140620634112 BF16 safetensor elements. Explicitly says 70B weights are forthcoming, unlike this published 8x22B checkpoint."
+      "evidence": "Freshly retrieved the actual April 15 Microsoft model-card capture with curl on October 27, 2026 after the web reader failed. The card explicitly identifies WizardLM@Microsoft AI, Mixture of Experts, base mistral-community/Mixtral-8x22B-v0.1 and nominal 141B parameters. This is an exact named-base declaration, not a name-similarity inference. No structural modification is described. Prior embedded metadata observations remain historical; no new shard census was performed.",
+      "accessed_at": "2026-10-27T10:53:19.177215+00:00"
     },
     {
       "id": "s3",
@@ -49,7 +51,8 @@
       "title": "Community mirror checkpoint configuration",
       "publisher": "alpindale, community mirror",
       "accessed": true,
-      "evidence": "Config reports MixtralForCausalLM, 56 layers, width 6144, intermediate 16384, vocabulary 32000, 48 query/8 KV heads, eight experts with two per token, untied embeddings, BF16 and max_position_embeddings=65536. No quantization config. Original configuration was not independently retrieved; these specifications describe the inspected mirror."
+      "evidence": "Freshly fetched the pinned mirror config October 27, 2026. Its 56 layers, width 6144, intermediate 16384, vocabulary 32000, 48 query/8 KV heads, eight experts and two selected experts per token exactly match the freshly fetched official Mixtral-8x22B-v0.1 base config. Model type and untied embeddings also match. This corroborates preserved geometry; the explicit lineage comes from the original Microsoft card, not mirror authenticity.",
+      "accessed_at": "2026-10-27T10:53:19.177215+00:00"
     },
     {
       "id": "s7",
@@ -73,7 +76,8 @@
       "title": "Cheaper, Better, Faster, Stronger: original Mixtral 8x22B announcement",
       "publisher": "Mistral AI",
       "accessed": true,
-      "evidence": "The base-model developer reports a sparse MoE with 141B total and 39B active parameters and 64K context. This describes Mixtral 8x22B, not an independently specified WizardLM checkpoint; its active count, function-calling claims and context are not automatically transferred to WizardLM."
+      "evidence": "Reopened October 27, 2026. Mistral explicitly reports Mixtral 8x22B as 141B total and 39B active parameters. The current first-party weights table separately confirms these numbers for both base and instruct weights. Combined with the original Microsoft named-base declaration and post-training description, 39B supports a labeled nominal inference for WizardLM-2 8x22B; no finer mirror-derived count is substituted.",
+      "accessed_at": "2026-10-27T10:53:19.177215+00:00"
     },
     {
       "id": "s10",
@@ -81,7 +85,8 @@
       "title": "Arena Learning: Build Data Flywheel for LLMs Post-training via Simulated Chatbot Arena",
       "publisher": "WizardLM researchers / Microsoft and academic collaborators",
       "accessed": true,
-      "evidence": "July 2024 first-party report explicitly names WizardLM-2-8x22B-0415 as an evaluated/battle model, distinct from experimental WizardLM-beta-8x22B iterations. It corroborates the exact April model and team provenance but supplies no separate active count or original context specification for it."
+      "evidence": "Reopened October 27, 2026 and checked exact model occurrences and comparison tables. The report identifies WizardLM-2-8x22B-0415 separately from later WizardLM-beta experiments. Its Mixtral post-training experiments and benchmark tables provide no separate active count for the April release; they do not contradict the original-card lineage. No beta-model results are transferred.",
+      "accessed_at": "2026-10-27T10:53:19.177215+00:00"
     },
     {
       "id": "s11",
@@ -90,6 +95,24 @@
       "publisher": "Hugging Face / alpindale",
       "accessed": true,
       "evidence": "Current revision 661fa9dcdb48da87a59da37a97df289ee6f5dd50 is ungated and enabled, created 2024-04-16T02:36:59Z. Reports 140620634112 BF16 elements. Full header accesses establish current artifact availability without downloading full weights or executing model code."
+    },
+    {
+      "id": "s12",
+      "url": "https://docs.mistral.ai/models/mixtral-8x22b-0-1-0-3",
+      "title": "Mistral current Mixtral 8x22B base and instruct weights table",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "accessed_at": "2026-10-27T10:53:19.177215+00:00",
+      "evidence": "Read October 27, 2026. The first-party table explicitly labels Parameters (B) and Active (B), giving 141 and 39 for both base and instruct weights. Confirms the nominal active convention used for the identified WizardLM base; not an exact tensor calculation."
+    },
+    {
+      "id": "s13",
+      "url": "https://huggingface.co/mistralai/Mixtral-8x22B-v0.1/raw/main/config.json",
+      "title": "Official Mixtral 8x22B v0.1 base configuration",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "accessed_at": "2026-10-27T10:53:19.177215+00:00",
+      "evidence": "Freshly fetched October 27, 2026. Defines MixtralForCausalLM with 56 layers, hidden size 6144, intermediate size 16384, 48 query heads, 8 KV heads, 32000 vocabulary entries, 8 experts and 2 experts per token. All parameter-bearing dimensions match the pinned WizardLM mirror configuration. No weight shards were downloaded."
     }
   ],
   "fields": {
@@ -156,23 +179,26 @@
       "value": 141,
       "status": "verified",
       "source_ids": [
+        "s1",
         "s2",
-        "s7"
+        "s9",
+        "s12"
       ],
-      "note": "Original developer-reported nominal 141B. Archived original HF metadata reports140620634112 BF16 tensor elements; all mirror headers separately reconcile to 140620634112 learned parameters. Retain the nominal original claim rather than promote an unauthenticated mirror exact count to the original checkpoint."
+      "note": "Fresh October 27 re-audit confirms the original Microsoft card directly reports nominal 141B total and explicitly identifies Mixtral-8x22B-v0.1 as the base. Retain this developer precision; the prior mirror census is not promoted to an exact original-checkpoint count."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "unverified",
+      "value": 39,
+      "status": "verified",
       "source_ids": [
+        "s1",
         "s2",
         "s6",
-        "s7",
-        "s8",
         "s9",
-        "s10"
+        "s10",
+        "s12",
+        "s13"
       ],
-      "note": "No exact-WizardLM primary active count was located in the original card or later Arena Learning report. The mirror yields 39.152031744B when all shared matrices plus 2/8 expert matrices are counted (5.329164288B shared +33.822867456B experts); original Mixtral advertises 39B. Neither mirror topology nor the base-model number proves the original WizardLM active count."
+      "note": "Nominal lineage inference: the original Microsoft card explicitly names Mixtral-8x22B-v0.1 as base, and the official release describes post-training without a structural change. Mistral reports 39B active for this base. Fresh official-base and pinned-mirror configurations match all parameter-bearing dimensions and 2-of-8 expert routing. No pruning, expansion or modality change is described. Use the developer nominal convention, not the prior 39.152031744B mirror calculation; an exact original tensor census is unnecessary for this labeled inference."
     },
     "architecture": {
       "value": "moe",
@@ -277,11 +303,27 @@
         "label": "Community mirror configuration (unverified original provenance)",
         "url": "https://huggingface.co/alpindale/WizardLM-2-8x22B/blob/661fa9dcdb48da87a59da37a97df289ee6f5dd50/config.json",
         "type": "weights"
+      },
+      {
+        "label": "Cheaper, Better, Faster, Stronger: original Mixtral 8x22B announcement",
+        "url": "https://mistral.ai/news/mixtral-8x22b/",
+        "type": "primary"
+      },
+      {
+        "label": "Mistral current Mixtral 8x22B base and instruct weights table",
+        "url": "https://docs.mistral.ai/models/mixtral-8x22b-0-1-0-3",
+        "type": "primary"
+      },
+      {
+        "label": "Official Mixtral 8x22B v0.1 base configuration",
+        "url": "https://huggingface.co/mistralai/Mixtral-8x22B-v0.1/raw/main/config.json",
+        "type": "primary"
       }
     ],
-    "notes": "Original Microsoft card reports nominal 141B and MoE/Mixtral 8x22B lineage. Official release was 2024-04-15; the team acknowledged missed toxicity testing the next day. Original hosting is now inaccessible; community weights remain available, without independent byte-authenticity verification. Mirror headers count 140.620634112B and imply 39.152031744B active under full-shared-matrix/top-2 counting; these derivations are not asserted as original checkpoint specifications. Original active count and context remain unverified (mirror config 65536). Dedicated reasoning and native tool-call features are not separately documented.",
+    "notes": "Microsoft reports nominal 141B total. Nominal 39B active is inferred from the explicitly identified Mixtral-8x22B-v0.1 base and preserved MoE geometry. Official release was April 15, 2024; the team acknowledged missed toxicity testing the next day. Original hosting is inaccessible; community weights remain available without independent byte-authenticity verification. Original context remains unverified (mirror config 65536). Dedicated reasoning and native tool-call features are not separately documented.",
     "reasoning": null,
-    "tool_call": null
+    "tool_call": null,
+    "active_parameters_b": 39
   },
-  "summary": "Verified nominal 141B, MoE architecture, WizardLM family, Microsoft attribution, April 15 release and Apache2.0 using the actual archived original Microsoft card and official launch. Exact community-mirror headers reconcile, but their finer specifications are kept separate from the original model; original active parameters and context remain unverified, so baseline 65536 is cleared. Community weight availability is confirmed despite inaccessible original hosting. No other report or shared catalog file changed."
+  "summary": "October 27 parameter re-audit confirms nominal 141B total and recovers nominal 39B active through the original Microsoft named-base declaration, post-training description and Mistral active-count disclosure. Fresh base/mirror configurations corroborate preserved dimensions and routing; no structural change is described. The active count is explicitly a lineage inference, not an exact tensor count. All unrelated field assessments are preserved."
 }
