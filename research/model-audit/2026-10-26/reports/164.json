@@ -1,7 +1,7 @@
 {
   "index": 164,
   "model_id": "deepreinforce/ornith-1.0-9b",
-  "reviewed_at": "2026-10-26T18:48:43.115358+00:00",
+  "reviewed_at": "2026-10-27T12:36:11.593862+00:00",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Ornith-1.0-9B model card",
       "publisher": "DeepReinforce / Ornith",
       "accessed": true,
-      "evidence": "Exact model card names the 9B dense Ornith variant, credits DeepReinforce Team, declares MIT, describes agentic coding/self-scaffolding RL, documents native reasoning and structured tool calls, and serves 262144-token context. Its ~9B label is nominal."
+      "evidence": "Exact model card names the 9B dense Ornith variant, credits DeepReinforce Team, declares MIT, describes agentic coding/self-scaffolding RL, documents native reasoning and structured tool calls, and serves 262144-token context. Its ~9B label is nominal. Reopened October 27 using a direct request after the web reader failed; current and pinned cards retain the nominal 9B dense designation and family-level Gemma 4/Qwen 3.5 post-training description, without a separate active count."
     },
     {
       "id": "s2",
@@ -25,7 +25,7 @@
       "title": "Exact checkpoint tensor index",
       "publisher": "DeepReinforce / Ornith",
       "accessed": true,
-      "evidence": "All 760 indexed tensor names match the four inspected safetensors headers. total_size=18819627488 equals the header-derived byte count. Its total_parameters=1469680 is inconsistent with both tensor shapes and byte count and is rejected."
+      "evidence": "All 760 indexed tensor names match the four inspected safetensors headers. total_size=18819627488 equals the header-derived byte count. Its total_parameters=1469680 is inconsistent with both tensor shapes and byte count and is rejected. Fresh October 27 current index remains at the same 760 tensors and byte total; no shards or headers were downloaded again."
     },
     {
       "id": "s4",
@@ -105,7 +105,7 @@
       "title": "Later Ornith-1.5 announcement and comparison tables",
       "publisher": "Ornith",
       "accessed": true,
-      "evidence": "Later first-party table explicitly compares Ornith-1.0-9B on coding, reasoning and agentic tasks. It supplies no separately defined active-parameter count or more precise complete parameter count for Ornith-1.0-9B; sibling 35B-A3B counts are not transferred."
+      "evidence": "Later first-party table explicitly compares Ornith-1.0-9B on coding, reasoning and agentic tasks. It supplies no separately defined active-parameter count or more precise complete parameter count for Ornith-1.0-9B; sibling 35B-A3B counts are not transferred. Reopened October 27 and inspected all comparison headings: 9B remains a size designation; the explicit 35B-A3B sibling count does not define a dense activation convention."
     },
     {
       "id": "s14",
@@ -114,6 +114,70 @@
       "publisher": "Hugging Face Transformers",
       "accessed": true,
       "evidence": "GatedDeltaNet implementation declares dt_bias and A_log as nn.Parameter, so those checkpoint tensors are learned parameters. Rotary inv_freq/original_inv_freq are nonpersistent buffers and absent from the inspected checkpoint. Dense text projections, norms, untied LM head and vision module weights/biases are learned tensors."
+    },
+    {
+      "id": "s15",
+      "url": "https://huggingface.co/api/models/ornith-ai/Ornith-1.0-9B",
+      "title": "Current exact checkpoint metadata",
+      "publisher": "Ornith via Hugging Face",
+      "accessed": true,
+      "evidence": "Fresh October 27 metadata identifies unchanged revision 83dc1f5e24ef8527af019a6b3bf66ac0f1c2c999. The BF16 element aggregate is 9,409,813,744, corroborating the prior learned-tensor census; the separate total=1,469,680 repeats the erroneous index field and is rejected. No exact base_model is declared."
+    },
+    {
+      "id": "s16",
+      "url": "https://huggingface.co/Qwen/Qwen3.5-9B/raw/main/README.md",
+      "title": "Qwen3.5 9B model card",
+      "publisher": "Qwen",
+      "accessed": true,
+      "evidence": "Fresh October 27 read of the full original Qwen card and its comparison headings. Under Language Model it specifies Number of Parameters: 9B, with the dense hybrid architecture; it does not separately label 9B active or activated. This language-model total is not an active count and cannot fill Ornith\u2019s active field through lineage."
+    },
+    {
+      "id": "s17",
+      "url": "https://huggingface.co/Qwen/Qwen3.5-9B-Base/raw/main/README.md",
+      "title": "Qwen3.5 9B Base model card",
+      "publisher": "Qwen",
+      "accessed": true,
+      "evidence": "Fresh October 27 read of the named pretraining-base candidate. It gives 9B language-model parameters and no separate active count. Neither the base card nor Ornith\u2019s post-training relationship supplies an activation convention to inherit."
+    },
+    {
+      "id": "s18",
+      "url": "https://huggingface.co/Qwen/Qwen3.6-35B-A3B/raw/main/README.md",
+      "title": "Later Qwen3.6 model card and comparisons",
+      "publisher": "Qwen",
+      "accessed": true,
+      "evidence": "Fresh October 27 read of the full later first-party card and comparison tables. The explicitly activated 3B specification belongs to its 35B MoE; it supplies no active-count specification for Qwen3.5-9B or Ornith 9B."
+    },
+    {
+      "id": "s19",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B/raw/main/README.md",
+      "title": "Later Qwen3.8 model card and comparisons",
+      "publisher": "Qwen",
+      "accessed": true,
+      "evidence": "Fresh October 27 read of the full later first-party card and comparison headings found no Qwen3.5-9B active-parameter disclosure. Its own 27B language-model count is not a transferable activation convention."
+    },
+    {
+      "id": "s20",
+      "url": "https://ornith.ai/ornith_1_0.html",
+      "title": "Ornith 1.0 developer announcement",
+      "publisher": "Ornith",
+      "accessed": true,
+      "evidence": "Reopened October 27. Names the 9B dense member and says the family is built on pretrained Gemma 4 and Qwen 3.5 with self-scaffolding reinforcement learning. The 9B comparison contains benchmark scores without an active-parameter row or column."
+    },
+    {
+      "id": "s21",
+      "url": "https://www.ornith.site/blog/ornith-vram-requirements/",
+      "title": "Unofficial Ornith VRAM guide",
+      "publisher": "Ornith.site, independent guide",
+      "accessed": true,
+      "evidence": "Fresh exact-model search found a table claiming 9B Active Params/Token. The page footer explicitly identifies the site as independent, unofficial and unaffiliated with DeepReinforce AI. The table provides no developer count citation or exact-model activation derivation; the claim is recorded as an unsupported lead."
+    },
+    {
+      "id": "s22",
+      "url": "https://www.siliconflow.com/models/qwen3-5-9b",
+      "title": "Qwen3.5 9B provider specifications",
+      "publisher": "SiliconFlow",
+      "accessed": true,
+      "evidence": "Fresh search found and reopened a provider field claiming 9B activated parameters for Qwen3.5-9B. The linked Qwen card states only the language-model parameter total, without this activation label or a field-level counting definition. The provider claim does not establish an Ornith active count."
     }
   ],
   "fields": {
@@ -185,19 +249,27 @@
         "s5",
         "s6",
         "s7",
-        "s14"
+        "s14",
+        "s1",
+        "s15"
       ],
-      "note": "Complete published checkpoint count: 9409813744 learned parameters from 760 BF16 tensor shapes. Text model plus untied head totals 8953803264; vision encoder/projector totals 456010480. Nominal 9B refers to the size class. No packed quantized tensors/scales/buffers or duplicate tied head were counted; no MTP tensors occur in the index. Ignore erroneous index total_parameters=1469680; total_size corroborates the complete count."
+      "note": "Complete published checkpoint count: 9409813744 learned parameters from 760 BF16 tensor shapes. Text model plus untied head totals 8953803264; vision encoder/projector totals 456010480. Nominal 9B refers to the size class. No packed quantized tensors/scales/buffers or duplicate tied head were counted; no MTP tensors occur in the index. Ignore erroneous index total_parameters=1469680; total_size corroborates the complete count. Fresh October 27 exact card, unchanged revision and index/metadata corroborate this prior count; retained without a repeat census."
     },
     "active_parameters_b": {
       "value": null,
       "status": "undisclosed",
       "source_ids": [
         "s1",
-        "s2",
-        "s13"
+        "s13",
+        "s16",
+        "s17",
+        "s18",
+        "s19",
+        "s20",
+        "s21",
+        "s22"
       ],
-      "note": "Dense model, but no separately defined active-per-token total is disclosed. Do not equate the full multimodal checkpoint count with parameters exercised by a particular input."
+      "note": "Fresh exact-model total/active/lineage searches and original/later developer comparisons found no separate active count for Ornith 9B or its Qwen3.5 9B base candidate. Qwen\u2019s 9B is explicitly a language-model total; neither dense architecture nor post-training lineage turns it into active parameters. Unofficial Ornith.site and provider SiliconFlow active-count claims lack a developer counting convention. The full multimodal checkpoint total is not copied into this field."
     },
     "architecture": {
       "value": "dense",
@@ -281,7 +353,7 @@
         "text"
       ]
     },
-    "notes": "Full published BF16 checkpoint contains 9,409,813,744 learned parameters (8,953,803,264 text stack plus untied LM head; 456,010,480 vision encoder/projector), versus nominal 9B branding. All 760 tensor names match the index; shard headers contain no quantization scales or persistent buffers. Index total_parameters=1,469,680 is erroneous; its 18,819,627,488-byte total_size matches the header-derived total. Dense Qwen3.5 hybrid: 24 GatedDeltaNet linear-attention layers, 8 full-attention layers, and a 27-layer vision encoder. Active parameters are not separately disclosed. Native checkpoint accepts text, image and video and generates text; deployed endpoints may expose fewer inputs. June 25, 2026 is corroborated by the release README and exact weight-upload commit. Current distribution migrated from deepreinforce-ai to ornith-ai.",
+    "notes": "The complete checkpoint contains 9.409813744B learned parameters: 8.953803264B text model and untied head, plus 0.456010480B vision encoder/projector. Its index total_parameters field is erroneous; tensor shapes and total_size support the retained count. Active parameters are not separately disclosed. The dense Qwen3.5 hybrid has 24 linear-attention and 8 full-attention layers. Native inputs include text, images and video; hosted endpoints may expose fewer. June 25, 2026 is the documented weight release. Distribution migrated from deepreinforce-ai to ornith-ai.",
     "source_url": "https://raw.githubusercontent.com/ornith-ai/Ornith-1/16d32b11211ac83373d37dc67234f77e77f909a1/README.md",
     "source_type": "primary",
     "sources": [
@@ -355,7 +427,8 @@
         "url": "https://raw.githubusercontent.com/huggingface/transformers/v5.8.1/src/transformers/models/qwen3_5/modeling_qwen3_5.py",
         "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": null
   },
   "proposed_fields": {
     "parameter_components_b": {
@@ -363,5 +436,5 @@
       "vision": 0.45601048
     }
   },
-  "summary": "Confirmed exact model identity, DeepReinforce attribution, June 25 release, MIT/open weights, 262144 context, native reasoning and tool calls. Replace nominal 9B with complete header-derived 9.409813744B learned count; reject inconsistent index parameter metadata. Add dense classification with hybrid-layer details and checkpoint-native video input. Active count remains undisclosed; description clarifies self-scaffolding training."
+  "summary": "October 27 parameter re-audit retained the prior exact 9.409813744B complete total and component breakdown. Fresh exact-model searches, reopened card/index/metadata, original and later Ornith comparisons, and Qwen 3.5 base plus later Qwen cards found no supported active-count convention. Documented unofficial and provider 9B-active leads without promoting them to developer specifications. Added explicit parameter patches and preserved unrelated assessments; no weight shards or repeat census requested."
 }
