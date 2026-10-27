@@ -1,7 +1,7 @@
 {
   "index": 170,
   "model_id": "deepseek/deepseek-r1-0528-qwen3-8b",
-  "reviewed_at": "2026-10-26T19:02:16.269551+00:00",
+  "reviewed_at": "2026-10-27T11:00:55.976004+00:00",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,8 @@
       "title": "DeepSeek-R1-0528-Qwen3-8B model card",
       "publisher": "DeepSeek",
       "accessed": true,
-      "evidence": "Exact-model section identifies Qwen3-8B Base post-training on R1-0528 chain-of-thought outputs, reasoning/math/code evaluation, and Qwen3-8B-identical architecture. Shared introduction and tool benchmarks describe the larger R1-0528."
+      "evidence": "Freshly reopened and directly retrieved October 27. The exact-model section explicitly says Qwen3-8B Base was post-trained on R1-0528 chain-of-thought outputs; the deployment section states architecture is identical to Qwen3-8B. Distillation here trains the named student rather than pruning the full R1 teacher. No structural resizing or modality addition is described; larger-model tool benchmarks remain separate.",
+      "accessed_at": "2026-10-27T11:00:55.976004+00:00"
     },
     {
       "id": "s2",
@@ -17,7 +18,8 @@
       "title": "Exact checkpoint config.json",
       "publisher": "DeepSeek",
       "accessed": true,
-      "evidence": "Qwen3ForCausalLM; 36 dense decoder layers, hidden width 4096, intermediate width 12288, 32 query/8 KV heads, head dimension 128, untied embeddings, vocabulary 151936. Maximum positions 131072; YaRN factor 4 and original positions 32768."
+      "evidence": "Freshly retrieved the pinned configuration October 27 and compared it with official Qwen3-8B-Base. All parameter-bearing dimensions match: 36 layers, hidden 4096, intermediate 12288, 32 query/8 KV heads, head dimension 128, vocabulary 151936 and untied embeddings. Only EOS, YaRN scaling and context differ; these add no learned parameter matrices. The DeepSeek configuration retains 131072 maximum positions with 4x YaRN from 32768 original positions.",
+      "accessed_at": "2026-10-27T11:00:55.976004+00:00"
     },
     {
       "id": "s3",
@@ -25,7 +27,8 @@
       "title": "Exact checkpoint safetensors index",
       "publisher": "DeepSeek",
       "accessed": true,
-      "evidence": "Index enumerates 399 tensors in two shards and 16,381,470,720 tensor-data bytes. Every indexed name matches the fetched headers."
+      "evidence": "Freshly retrieved the pinned index October 27: it still enumerates 399 tensors in two shards and 16,381,470,720 tensor-data bytes, matching the previously verified BF16 header census. No weight shard or header was downloaded again in this re-audit.",
+      "accessed_at": "2026-10-27T11:00:55.976004+00:00"
     },
     {
       "id": "s4",
@@ -65,7 +68,8 @@
       "title": "Underlying Qwen3-8B-Base model card",
       "publisher": "Qwen",
       "accessed": true,
-      "evidence": "Named base model declares Apache-2.0, nominal 8.2B total and 6.95B non-embedding parameters, 36 layers, GQA, and 32768 context. Its license is distinct from DeepSeek release MIT. Requested standalone LICENSE URL returned 404; license declaration is in the accessible card."
+      "evidence": "Freshly retrieved October 27. The explicitly named base declares nominal 8.2B total, 6.95B non-embedding parameters and 36 layers. These rounded figures are consistent with the preserved exact checkpoint total; non-embedding size is not substituted for active parameters. The separate Qwen3 report supplies the nominal activated convention. The base card still declares Apache-2.0, distinct from the DeepSeek release MIT license, and 32768 native context.",
+      "accessed_at": "2026-10-27T11:00:55.976004+00:00"
     },
     {
       "id": "s9",
@@ -90,6 +94,33 @@
       "publisher": "DeepSeek",
       "accessed": true,
       "evidence": "Tokenizer is text-only. Tool delimiter strings used by the template are absent as individual vocabulary/added tokens; this observation neither proves nor disproves learned tool capability."
+    },
+    {
+      "id": "s12",
+      "url": "https://arxiv.org/html/2505.09388v1",
+      "title": "Qwen3 Technical Report - activated-parameter comparison tables",
+      "publisher": "Qwen Team",
+      "accessed": true,
+      "accessed_at": "2026-10-27T11:00:55.976004+00:00",
+      "evidence": "Read October 27, including Tables 17 and 18. Both explicitly label Qwen3-8B as dense with 8B activated parameters. This is a developer nominal convention, distinct from the precise total and non-embedding counts. Applied through DeepSeek’s explicit identical-architecture and named-base post-training statements, not merely because the model is dense."
+    },
+    {
+      "id": "s13",
+      "url": "https://huggingface.co/Qwen/Qwen3-8B-Base/raw/main/config.json",
+      "title": "Official Qwen3-8B Base configuration",
+      "publisher": "Qwen",
+      "accessed": true,
+      "accessed_at": "2026-10-27T11:00:55.976004+00:00",
+      "evidence": "Freshly retrieved October 27 and compared with the pinned DeepSeek configuration. Layer, hidden, intermediate, attention-head, head-dimension and vocabulary values match, as does untied embedding structure. Differences are EOS and context/YaRN settings; no learned-dimension change appears."
+    },
+    {
+      "id": "s14",
+      "url": "https://arxiv.org/html/2501.12948v2",
+      "title": "DeepSeek-R1 revised technical report - later comparison check",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "accessed_at": "2026-10-27T11:00:55.976004+00:00",
+      "evidence": "Opened the January 2026 revision October 27 and checked exact 0528/Qwen3 names and activated-parameter tables. The report contains no 0528 or Qwen3 entry; its 37B active disclosure describes full R1/V3. It adds no conflicting count for this student model. Fresh exact-name count searches likewise supplied no developer revision to the explicit Qwen architecture basis."
     }
   ],
   "fields": {
@@ -150,21 +181,27 @@
       "value": 8.19073536,
       "status": "verified",
       "source_ids": [
+        "s1",
         "s2",
         "s3",
         "s4",
-        "s5"
+        "s5",
+        "s8",
+        "s13"
       ],
-      "note": "Complete learned checkpoint count: sum of all 399 BF16 tensor shapes is 8,190,735,360, including input embeddings, untied output head and normalization weights. No quantized storage/scales or buffers are included; 8B/8.2B are rounded labels."
+      "note": "Retain the complete learned checkpoint count of 8,190,735,360 from the prior 399-tensor BF16 header census. Fresh pinned-index and configuration checks corroborate that evidence; no shards were downloaded again. Qwen’s 8B/8.2B labels remain nominal, not replacements for the precise total."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 8,
+      "status": "verified",
       "source_ids": [
         "s1",
-        "s2"
+        "s2",
+        "s12",
+        "s13",
+        "s14"
       ],
-      "note": "Dense model, but no separately defined per-token active-parameter count is published. Total and non-embedding counts are not substituted for active parameters."
+      "note": "Nominal 8B activated parameters, inferred from DeepSeek’s explicit post-training of Qwen3-8B Base and identical-Qwen3-8B architecture statement. Qwen3 report Tables 17/18 explicitly publish 8B activated; fresh configurations match every parameter-bearing dimension. Distillation transfers teacher outputs into the unchanged student architecture, with no pruning, expansion or new modality documented. This follows the developer’s nominal activation convention rather than equating active with the precise total or non-embedding count."
     },
     "architecture": {
       "value": "dense",
@@ -241,7 +278,7 @@
     "date_precision": "month",
     "tool_call": null,
     "description": "Dense reasoning model obtained by post-training Qwen3-8B Base on chain-of-thought outputs from DeepSeek-R1-0528.",
-    "notes": "Complete checkpoint: 8,190,735,360 learned parameters; active count is not separately reported. Qwen3 dense architecture; 131072 configured context uses 4x YaRN from 32768 native positions. DeepSeek release declares MIT; underlying Qwen3-8B Base declares Apache-2.0. Release day is unresolved between a May 28 dated announcement and May 29 checkpoint upload, so only May 2025 is asserted. Tool-call capability of this exact distillation remains unverified despite template support; full-R1 tool benchmarks do not establish it.",
+    "notes": "Complete checkpoint: 8,190,735,360 learned parameters. Nominal 8B active is inferred from documented Qwen3-8B post-training lineage, identical architecture and Qwen’s activated-parameter tables. Qwen3 dense architecture; 131072 configured context uses 4x YaRN from 32768 native positions. DeepSeek release declares MIT; underlying Qwen3-8B Base declares Apache-2.0. Release day is unresolved between a May 28 dated announcement and May 29 checkpoint upload, so only May 2025 is asserted. Tool-call capability of this exact distillation remains unverified despite template support; full-R1 tool benchmarks do not establish it.",
     "sources": [
       {
         "label": "DeepSeek-R1-0528-Qwen3-8B model card",
@@ -297,8 +334,24 @@
         "label": "Exact checkpoint tokenizer vocabulary",
         "url": "https://huggingface.co/deepseek-ai/DeepSeek-R1-0528-Qwen3-8B/blob/6e8885a6ff5c1dc5201574c8fd700323f23c25fa/tokenizer.json",
         "type": "primary"
+      },
+      {
+        "label": "Qwen3 Technical Report - activated-parameter comparison tables",
+        "url": "https://arxiv.org/html/2505.09388v1",
+        "type": "primary"
+      },
+      {
+        "label": "Official Qwen3-8B Base configuration",
+        "url": "https://huggingface.co/Qwen/Qwen3-8B-Base/raw/main/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeek-R1 revised technical report - later comparison check",
+        "url": "https://arxiv.org/html/2501.12948v2",
+        "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": 8
   },
-  "summary": "Verified complete 8.19073536B learned checkpoint count and dense Qwen3 architecture. Preserved configured 131072 context with native/YaRN distinction and MIT release license with Apache-2.0 base provenance. Reduced release date to May 2025 because primary day evidence conflicts. Cleared unsupported tool_call=false to unknown; active parameters remain undisclosed. Exact model is the May 2025 Qwen3-base R1-0528 distillation, not an earlier R1 distill."
+  "summary": "October 27 parameter re-audit preserves precise 8.19073536B total and recovers nominal 8B active through explicit Qwen3-8B Base post-training/identical-architecture evidence and Qwen’s activated-parameter tables. Fresh configs match learned dimensions and the pinned index corroborates the prior census. Later R1 comparisons do not revise this student’s size. All unrelated assessments, date precision and context/license/tool qualifications are preserved."
 }
