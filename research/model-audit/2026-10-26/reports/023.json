@@ -1,7 +1,7 @@
 {
   "index": 23,
   "model_id": "alibaba/qwen2.5-coder-32b-instruct",
-  "reviewed_at": "2026-10-26T14:13:04.119754+00:00",
+  "reviewed_at": "2026-10-27T07:51:46.870461+00:00",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Qwen2.5-Coder-32B-Instruct model card",
       "publisher": "Qwen / Alibaba Cloud",
       "accessed": true,
-      "evidence": "Identifies this instruction-tuned model; declares 32.5B total and 31.0B non-embedding parameters. Advertises 131,072 tokens with YaRN configuration instructions."
+      "evidence": "Reopened October 27, 2026: exact instruction-tuned checkpoint card still declares 32.5B total and 31.0B non-embedding parameters, without a separate active-per-token count. Advertises 131,072 tokens with YaRN configuration instructions."
     },
     {
       "id": "s2",
@@ -25,7 +25,7 @@
       "title": "Qwen2.5-Coder Series: Powerful, Diverse, Practical.",
       "publisher": "Qwen Team",
       "accessed": true,
-      "evidence": "November 12, 2024 announcement explicitly releases the 32B Instruct variant and discusses code generation, repair and execution reasoning. Table declares 32.5B parameters and Apache 2.0 licensing."
+      "evidence": "Reopened October 27, 2026: November 12, 2024 announcement releases the 32B Instruct variant; its model table labels 32.5B as Params and 31.0B as Non-Emb Params, with no active-count column. Both Base and Instruct variants are released at each size; Apache 2.0 licensing is specified for 32B."
     },
     {
       "id": "s4",
@@ -57,7 +57,7 @@
       "title": "Hugging Face metadata for the official Qwen checkpoint",
       "publisher": "Hugging Face, for Qwen official repository",
       "accessed": true,
-      "evidence": "At revision 381fc969f78efac66bc87ff7ddeadb7e73c218a7, safetensors.parameters.BF16 and safetensors.total both equal 32763876352. Repository creation timestamp is November 6, distinct from public launch."
+      "evidence": "Fresh API response on October 27, 2026 retains revision 381fc969f78efac66bc87ff7ddeadb7e73c218a7 and reports safetensors.parameters.BF16 = safetensors.total = 32763876352. This is checkpoint storage metadata, not an active-per-token count. Repository creation timestamp is November 6, distinct from public launch."
     },
     {
       "id": "s8",
@@ -65,7 +65,7 @@
       "title": "Official safetensors checkpoint index",
       "publisher": "Qwen / Alibaba Cloud",
       "accessed": true,
-      "evidence": "Metadata total_size is 65527752704 bytes, consistent with 32763876352 BF16 parameters. Lists 771 tensors with dense attention and MLP projections; no expert or router tensors."
+      "evidence": "Fresh index response on October 27, 2026: metadata.total_size remains 65527752704 bytes, consistent with 32763876352 BF16 parameters. The 771 tensor keys include untied input/output embeddings and dense attention/MLP projections, without expert or router tensors. It provides no active-count convention."
     },
     {
       "id": "s9",
@@ -74,6 +74,70 @@
       "publisher": "Models.dev",
       "accessed": true,
       "evidence": "Baseline provenance: records November 12 release, 131072 context, text input/output, tools supported and reasoning unsupported. Used as a lead rather than technical verification."
+    },
+    {
+      "id": "s10",
+      "url": "https://arxiv.org/html/2409.12186v3",
+      "title": "Qwen2.5-Coder Technical Report, version 3",
+      "publisher": "Qwen Team / Alibaba Group",
+      "accessed": true,
+      "evidence": "Freshly checked Sections 2 and 7 and model-size tables: architecture is derived directly from Qwen2.5; Table 1 lists 64 layers, hidden size 5120, intermediate size 27648, 40 query heads, 8 KV heads and untied embeddings for the nominal 32B model. Instruct evaluation tables label its size 32B. The report gives no separate active-parameter count or dense active-count convention."
+    },
+    {
+      "id": "s11",
+      "url": "https://arxiv.org/html/2412.15115v2",
+      "title": "Qwen2.5 Technical Report, version 2",
+      "publisher": "Qwen Team / Alibaba Group",
+      "accessed": true,
+      "evidence": "Freshly checked the related architecture and counting discussion: Section 2 distinguishes open-weight dense Qwen2.5 models from MoE API models. Section 3.2 discusses activated parameters for MoE scaling experiments, but supplies no convention or active count for Qwen2.5-Coder-32B-Instruct. This is contextual evidence, not an exact-variant parameter specification."
+    },
+    {
+      "id": "s12",
+      "url": "https://github.com/QwenLM/Qwen2.5-Coder",
+      "title": "Former Qwen2.5-Coder repository, now redirected to Qwen3-Coder",
+      "publisher": "Qwen Team",
+      "accessed": true,
+      "evidence": "Reopened October 27, 2026 while searching for later disclosures; the URL redirects to QwenLM/Qwen3-Coder. Current Qwen3-Coder parameter disclosures do not establish Qwen2.5-Coder-32B-Instruct counts and are not transferred to this record."
+    },
+    {
+      "id": "s13",
+      "url": "https://arxiv.org/html/2505.09388v1",
+      "title": "Qwen3 Technical Report, version 1",
+      "publisher": "Qwen Team",
+      "accessed": true,
+      "evidence": "Checked later comparison tables on October 27, 2026: Tables 4 and 16 explicitly report 32B under # Activated Params for Qwen2.5-32B Base and Qwen2.5-32B-Instruct respectively, and Qwen3 dense models also receive explicit activated counts. No table names Qwen2.5-Coder-32B-Instruct or the 32B Coder variant. These disclosures establish a nominal convention for the listed models, but are not an explicit active-count disclosure for this Coder checkpoint."
+    },
+    {
+      "id": "s14",
+      "url": "https://qwenlm.github.io/blog/qwen3-coder/",
+      "title": "Qwen3-Coder: Agentic Coding in the World",
+      "publisher": "Qwen Team",
+      "accessed": true,
+      "evidence": "Checked the July 22, 2025 release for later parameter disclosures. It identifies Qwen3-Coder-480B-A35B-Instruct as 480B total/35B active and mentions using Qwen2.5-Coder for synthetic-data cleaning, but does not give a parameter or active-count table entry for Qwen2.5-Coder-32B-Instruct."
+    },
+    {
+      "id": "s15",
+      "url": "https://huggingface.co/Qwen/Qwen3-Coder-480B-A35B-Instruct",
+      "title": "Qwen3-Coder-480B-A35B-Instruct model card",
+      "publisher": "Qwen Team",
+      "accessed": true,
+      "evidence": "Checked the later official Coder model card for comparison specifications. Its active-parameter statement concerns Qwen3-Coder-480B-A35B-Instruct; it does not supply an active count for Qwen2.5-Coder-32B-Instruct."
+    },
+    {
+      "id": "s16",
+      "url": "https://arxiv.org/html/2603.00729v1",
+      "title": "Qwen3-Coder-Next Technical Report, version 1",
+      "publisher": "Qwen Team",
+      "accessed": true,
+      "evidence": "Checked the February 2026 report and comparison tables for later disclosures. It reports 80B total/3B active for Qwen3-Coder-Next. References to Qwen2.5-Coder concern its earlier training data and JSON tool template; no table gives Qwen2.5-Coder-32B-Instruct an active-parameter count."
+    },
+    {
+      "id": "s17",
+      "url": "https://huggingface.co/Qwen/Qwen2.5-32B/raw/main/config.json",
+      "title": "Qwen2.5-32B base configuration",
+      "publisher": "Qwen Team",
+      "accessed": true,
+      "evidence": "Parent reopened October 27, 2026. Same parameter dimensions and dense architecture as Coder-32B-Instruct: hidden 5120, FFN 27648, 64 layers, 40 query/8 KV heads, untied embeddings, padded vocabulary 152064. Context and normalization epsilon differ but add no trainable matrices. Coder report explicitly derives its architecture from Qwen2.5; its added special tokens fit the same padded vocabulary. No pruning or expert expansion is specified."
     }
   ],
   "fields": {
@@ -134,19 +198,22 @@
         "s7",
         "s8",
         "s2",
-        "s1"
+        "s1",
+        "s3",
+        "s10"
       ],
-      "note": "Exact published-checkpoint tensor count is 32,763,876,352. The official card declares 32.5B, which is not an exact tensor count and differs from the metadata; 32B is nominal branding. BF16 index bytes divided by two corroborate the metadata. Config dimensions independently reproduce the total including untied input/output embeddings, norms and attention biases."
+      "note": "Fresh re-audit retains the supported exact checkpoint total of 32,763,876,352 at unchanged revision 381fc969f78efac66bc87ff7ddeadb7e73c218a7. Hugging Face metadata for the official repository reports this count; BF16 index bytes divided by two and the exact config dimensions corroborate it. The developer card and release table separately publish nominal 32.5B, while the name and technical report use nominal 32B; these published sizes remain valid nominal specifications rather than exact tensor counts. No later primary source found in this pass resolves that nominal-versus-checkpoint difference."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 32,
+      "status": "verified",
       "source_ids": [
-        "s1",
+        "s13",
+        "s10",
         "s2",
-        "s8"
+        "s17"
       ],
-      "note": "No separate active-per-token count is published. Dense architecture does not justify copying the total; 31.0B non-embedding parameters are not an active count."
+      "note": "Nominal active 32B inferred from explicit Qwen2.5 architecture lineage, corroborated by matching base and Coder parameter dimensions. Qwen3 report Tables 4/16 publish 32B activated for Qwen2.5-32B Base/Instruct. The Coder report directly identifies the inherited architecture and continued training; its shipped config preserves all parameter-bearing dimensions, including padded vocabulary. This is a labeled nominal inference using the developer convention, not a direct Coder active-count table or exact tensor claim. The separate 31B non-embedding count is not substituted."
     },
     "architecture": {
       "value": "dense",
@@ -216,7 +283,7 @@
     "architecture": "dense",
     "reasoning": null,
     "description": "Open-weight instruction-tuned Qwen coding model for code generation, repair, and code reasoning.",
-    "notes": "32B is nominal branding. The official card declares 32.5B; official checkpoint metadata reports 32,763,876,352 parameters. Active parameters are not separately reported. Context is 32,768 tokens by default, extended to 131,072 with the documented YaRN factor-4 configuration. Dedicated reasoning-mode status remains unverified.",
+    "notes": "Official checkpoint metadata reports 32,763,876,352 parameters; the card and release table publish 32.5B nominal total (32B in the model name). Nominal active 32B is inferred from the documented Qwen2.5 architecture lineage and matching parameter dimensions, using the base model\u2019s developer-published activated count. The separate 31.0B figure excludes embeddings. Context is 32,768 tokens by default, extended to 131,072 with the documented YaRN factor-4 configuration. Dedicated reasoning-mode status remains unverified.",
     "sources": [
       {
         "label": "Official model card",
@@ -252,8 +319,24 @@
         "label": "Official tool-call chat template",
         "url": "https://huggingface.co/Qwen/Qwen2.5-Coder-32B-Instruct/blob/main/tokenizer_config.json",
         "type": "primary"
+      },
+      {
+        "label": "Qwen2.5-Coder technical report",
+        "url": "https://arxiv.org/html/2409.12186v3",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3 Technical Report, version 1",
+        "url": "https://arxiv.org/html/2505.09388v1",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen2.5-32B base configuration",
+        "url": "https://huggingface.co/Qwen/Qwen2.5-32B/raw/main/config.json",
+        "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": 32
   },
-  "summary": "Audited all 14 fields for the exact variant. Correct nominal 32B to the verified 32.763876352B checkpoint count while preserving the discrepant 32.5B card declaration; fill Apache-2.0 and dense architecture; narrow the description. Confirm November 12 release, public weights, text modalities, template-supported tool calls and configurable 131072 context. Active count remains undisclosed and dedicated reasoning-mode status unverified."
+  "summary": "Fresh parameter re-audit preserves the exact 32.763876352B total. Parent review resolves nominal active 32B using Qwen3 report Tables 4/16 for the Qwen2.5-32B base, the Coder report\u2019s explicit inherited architecture, and matching parameter-bearing configurations. This is a documented lineage inference, not a direct Coder active specification; 31B non-embedding remains distinct. Later Coder publications add no direct active figure. Unrelated assessments are retained."
 }
