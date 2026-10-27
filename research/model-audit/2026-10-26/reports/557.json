@@ -1,0 +1,294 @@
+{
+  "index": 557,
+  "model_id": "zhipuai/glm-5",
+  "reviewed_at": "2026-10-27T06:17:02.002499Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://arxiv.org/html/2602.15763v1",
+      "title": "GLM-5 technical report, architecture, Table 10 and anonymous release account",
+      "publisher": "GLM-5 Team, Zhipu AI and Tsinghua University",
+      "accessed": true,
+      "evidence": "Table 10 reports nominal 744B total and 40B activated, counting MTP but excluding embeddings and output. Architecture uses MoE, MLA and DSA. Section 8 identifies Pony Alpha as the anonymous GLM-5 release. This is not an exact checkpoint tensor inventory."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/zai-org/GLM-5/blob/c183ef8c61faee82855eca1ed9bb3a9a7ce3b0b2/README.md",
+      "title": "GLM-5 original checkpoint card at pinned revision",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Exact GLM-5 card declares MIT, describes 744B/40B and DSA, and provides local deployment instructions with reasoning and tool parsers. Its evaluation footnote uses a 202752-token context."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/zai-org/GLM-5/blob/c183ef8c61faee82855eca1ed9bb3a9a7ce3b0b2/config.json",
+      "title": "GLM-5 exact checkpoint configuration",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "GlmMoeDsaForCausalLM with 78 main layers, first 3 dense, 256 routed experts, top 8 selected and 1 shared expert, one next-token prediction module, MLA latent projections and a sparse indexer. Configured capacity is 202752; embeddings and output are untied."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/zai-org/GLM-5/blob/c183ef8c61faee82855eca1ed9bb3a9a7ce3b0b2/tokenizer_config.json",
+      "title": "GLM-5 exact tokenizer configuration",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "The tokenizer sets model_max_length to 202752. Shared multimodal special tokens are not evidence of multimodal model inputs."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/zai-org/GLM-5/blob/c183ef8c61faee82855eca1ed9bb3a9a7ce3b0b2/chat_template.jinja",
+      "title": "GLM-5 exact chat template",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Includes switchable think blocks, function schemas, structured tool-call serialization and tool responses; content extraction handles text."
+    },
+    {
+      "id": "s6",
+      "url": "https://docs.z.ai/guides/llm/glm-5",
+      "title": "GLM-5 native API guide",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Exact native guide lists text input and text output, 200K context, 128K output, thinking modes and function calling. Retrieved full Markdown as well as indexed HTML."
+    },
+    {
+      "id": "s7",
+      "url": "https://openrouter.ai/openrouter/pony-alpha/activity",
+      "title": "Pony Alpha historical release page",
+      "publisher": "OpenRouter",
+      "accessed": true,
+      "evidence": "Accessed indexed page explicitly identifies Pony Alpha as an early testing version of GLM-5 and labels its release February 6, 2026. Direct urllib access returned 403; the browsing tool returned the complete relevant historical text. This establishes public preview availability, not identical final weights."
+    },
+    {
+      "id": "s8",
+      "url": "https://docs.z.ai/release-notes/new-released.md",
+      "title": "Z.ai release notes for the named GLM-5 launch",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "The release notes place the named GLM-5 release under February 12, 2026, distinct from its earlier anonymous public preview."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/api/models/zai-org/GLM-5/revision/c183ef8c61faee82855eca1ed9bb3a9a7ce3b0b2",
+      "title": "Pinned GLM-5 repository metadata",
+      "publisher": "Z.ai on Hugging Face",
+      "accessed": true,
+      "evidence": "Repository API records downloadable checkpoint files. The live response pinned to this revision lists 282 weight shards and automated storage aggregates of 753864119552 BF16 and 19456 F32 elements. These were not reconciled across all tensor headers and are not asserted as a learned parameter count."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "GLM-5",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Exact released name; Pony Alpha was its earlier public test identity."
+    },
+    "developer": {
+      "value": "Z.ai",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s6"
+      ],
+      "note": "Published by Z.ai, also named Zhipu AI in the technical report."
+    },
+    "family": {
+      "value": "glm",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "GLM family, explicitly presented as the successor to earlier GLM models."
+    },
+    "release_date": {
+      "value": "2026-02-06",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7",
+        "s8"
+      ],
+      "note": "Earliest mapped public preview: OpenRouter dates Pony Alpha to February 6 and the original authors confirm its GLM-5 identity. Native release notes date the named release February 12. The preview is not claimed to have identical final checkpoint weights."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s9"
+      ],
+      "note": "Official downloadable checkpoint with local serving instructions; this describes the named open release, not the earlier preview access conditions."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "MIT is declared in the exact checkpoint card frontmatter."
+    },
+    "parameters_b": {
+      "value": 744,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s9"
+      ],
+      "note": "Author-reported nominal count. Table 10 explicitly includes MTP but excludes word embeddings/output. Repository storage metadata differs and has not been independently reconciled; 744 is not a complete exact learned-tensor total."
+    },
+    "active_parameters_b": {
+      "value": 40,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Author-reported nominal activated count under the same nonembedding-with-MTP convention. No claim that this measures every prefill/decode/speculative phase."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Decoder MoE with multi-head latent attention and DeepSeek Sparse Attention: 3 dense and 75 MoE main layers, top 8 of 256 routed experts plus 1 shared expert. One stored MTP module is reused across three training prediction steps."
+    },
+    "context_window": {
+      "value": 202752,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s6"
+      ],
+      "note": "Exact checkpoint and tokenizer capacity; also used in the official evaluation footnote. Native guide advertises rounded 200K; 128K output is a separate limit. Replaces the baseline 204800."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s5",
+        "s6"
+      ],
+      "note": "Native guide explicitly lists text-to-text. No vision/audio modules in the checkpoint config; generic tokenizer special tokens do not establish multimodal support."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s5",
+        "s6"
+      ],
+      "note": "Native thinking mode and checkpoint think-block template with enable_thinking control."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s5",
+        "s6"
+      ],
+      "note": "Native function calling and the exact checkpoint tool schema, call and response template."
+    },
+    "description": {
+      "value": "Text MoE model with sparse attention, switchable reasoning and function calling.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5",
+        "s6"
+      ],
+      "note": "Replaces broad engineering-workflow language with documented architecture and interfaces."
+    }
+  },
+  "patch": {
+    "release_date": "2026-02-06",
+    "date_precision": "day",
+    "license": "MIT",
+    "parameters_b": 744,
+    "active_parameters_b": 40,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "context_window": 202752,
+    "description": "Text MoE model with sparse attention, switchable reasoning and function calling.",
+    "source_url": "https://arxiv.org/html/2602.15763v1",
+    "source_type": "primary",
+    "notes": "First public preview: Pony Alpha on February 6, 2026, directly identified as GLM-5 by its authors and original host. Z.ai release notes date the named launch February 12; final checkpoint specifications are not claims about identical preview weights. The published 744B total and 40B active figures are nominal and include MTP while excluding word embeddings and output. Automated repository storage totals differ and were not reconciled as learned parameters. GLM-5 uses MoE with MLA and DeepSeek Sparse Attention: 3 dense and 75 MoE layers, 8 of 256 routed experts plus a shared expert, and one MTP module reused across three training prediction steps. Exact checkpoint/tokenizer context is 202752 tokens; the native guide rounds this to 200K and gives a separate 128K output limit.",
+    "sources": [
+      {
+        "label": "GLM-5 technical report, architecture, Table 10 and anonymous release account",
+        "url": "https://arxiv.org/html/2602.15763v1",
+        "type": "primary"
+      },
+      {
+        "label": "GLM-5 original checkpoint card at pinned revision",
+        "url": "https://huggingface.co/zai-org/GLM-5/blob/c183ef8c61faee82855eca1ed9bb3a9a7ce3b0b2/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "GLM-5 exact checkpoint configuration",
+        "url": "https://huggingface.co/zai-org/GLM-5/blob/c183ef8c61faee82855eca1ed9bb3a9a7ce3b0b2/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "GLM-5 exact tokenizer configuration",
+        "url": "https://huggingface.co/zai-org/GLM-5/blob/c183ef8c61faee82855eca1ed9bb3a9a7ce3b0b2/tokenizer_config.json",
+        "type": "weights"
+      },
+      {
+        "label": "GLM-5 exact chat template",
+        "url": "https://huggingface.co/zai-org/GLM-5/blob/c183ef8c61faee82855eca1ed9bb3a9a7ce3b0b2/chat_template.jinja",
+        "type": "weights"
+      },
+      {
+        "label": "GLM-5 native API guide",
+        "url": "https://docs.z.ai/guides/llm/glm-5",
+        "type": "primary"
+      },
+      {
+        "label": "Pony Alpha historical release page",
+        "url": "https://openrouter.ai/openrouter/pony-alpha/activity",
+        "type": "primary"
+      },
+      {
+        "label": "Z.ai release notes for the named GLM-5 launch",
+        "url": "https://docs.z.ai/release-notes/new-released.md",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned GLM-5 repository metadata",
+        "url": "https://huggingface.co/api/models/zai-org/GLM-5/revision/c183ef8c61faee82855eca1ed9bb3a9a7ce3b0b2",
+        "type": "weights"
+      }
+    ]
+  },
+  "proposed_fields": {
+    "parameters_scope": "nonembedding_with_mtp",
+    "parameter_components_b": {
+      "nonembedding_with_mtp": 744
+    },
+    "active_parameters_scope": "nonembedding_with_mtp",
+    "active_parameters_by_phase_b": {
+      "nonembedding_with_mtp": 40
+    }
+  },
+  "summary": "Verified all 14 fields. Added nominal 744B/40B with the authors' explicit counting scope, MoE/MLA/DSA and MIT; corrected context to 202752 and earliest public release to the directly mapped February 6 Pony Alpha preview. Named release appears in February 12 native release notes. No unsupported full-checkpoint count or preview-weight identity inferred."
+}
