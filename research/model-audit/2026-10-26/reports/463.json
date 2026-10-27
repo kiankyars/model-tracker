@@ -1,0 +1,331 @@
+{
+  "index": 463,
+  "model_id": "paddlepaddle/paddleocr-vl",
+  "reviewed_at": "2026-10-27T03:25:36.150717Z",
+  "sources": [
+    {
+      "id": "release",
+      "url": "https://github.com/PaddlePaddle/PaddleOCR/releases/tag/v3.3.0",
+      "title": "PaddleOCR v3.3.0 release, 16 October 2025",
+      "publisher": "PaddlePaddle / Baidu",
+      "accessed": true,
+      "evidence": "Dated release announces original PaddleOCR-VL and its downloadable PaddleOCR-VL-0.9B core checkpoint. This is the first release, not the October 29 Transformers integration or a later 1.5/1.6 successor."
+    },
+    {
+      "id": "paper",
+      "url": "https://arxiv.org/html/2510.14528v1",
+      "title": "Original PaddleOCR-VL technical report",
+      "publisher": "PaddlePaddle / Baidu",
+      "accessed": true,
+      "evidence": "Authors identify the PaddlePaddle Team at Baidu. Sections 2.1.2 and 2.2.2 distinguish the vision encoder, two-layer projector and autoregressive ERNIE decoder from the separate PP-DocLayoutV2 pipeline. Table 1 reports 16,384-token training in both stages. The original recognizes text, tables, formulas and charts in 109 languages."
+    },
+    {
+      "id": "card",
+      "url": "https://huggingface.co/PaddlePaddle/PaddleOCR-VL/blob/7fa00a8c55b735ba51ba49a9058f3f9c57a99a11/README.md",
+      "title": "Original PaddleOCR-VL model card at pinned revision",
+      "publisher": "PaddlePaddle / Baidu",
+      "accessed": true,
+      "evidence": "Names the core PaddleOCR-VL-0.9B, declares Apache 2.0, and gives four task-specific image-plus-text prompts producing generated text. Its Transformers example supports element recognition; page parsing additionally uses the surrounding pipeline. The card identifies the October 16, 2025 release."
+    },
+    {
+      "id": "config",
+      "url": "https://huggingface.co/PaddlePaddle/PaddleOCR-VL/blob/7fa00a8c55b735ba51ba49a9058f3f9c57a99a11/config.json",
+      "title": "Original PaddleOCR-VL checkpoint configuration",
+      "publisher": "PaddlePaddle / Baidu",
+      "accessed": true,
+      "evidence": "Dense 18-layer text decoder, hidden size 1024, intermediate size 3072, 16 query heads, two KV heads and head size 128; vocabulary 103424; untied embeddings. Vision configuration has 27 layers, width 1152 and intermediate size 4304. max_position_embeddings is 131072, while max_sequence_length is null."
+    },
+    {
+      "id": "code",
+      "url": "https://huggingface.co/PaddlePaddle/PaddleOCR-VL/blob/7fa00a8c55b735ba51ba49a9058f3f9c57a99a11/modeling_paddleocr_vl.py",
+      "title": "Original PaddleOCR-VL model implementation",
+      "publisher": "PaddlePaddle / Baidu",
+      "accessed": true,
+      "evidence": "Instantiates the vision Transformer, projector, dense ERNIE decoder and separate output head. All 620 checkpoint tensor names/shapes reconcile with these declarations. Rotary frequencies and position IDs are nonpersistent buffers. The instantiated vision pooling head and packing-position embedding are learned parameters, although the recognition forward path disables pooling and uses interpolated position embeddings. There is no MoE router or expert dispatch."
+    },
+    {
+      "id": "config-code",
+      "url": "https://huggingface.co/PaddlePaddle/PaddleOCR-VL/blob/7fa00a8c55b735ba51ba49a9058f3f9c57a99a11/configuration_paddleocr_vl.py",
+      "title": "Original PaddleOCR-VL configuration implementation",
+      "publisher": "PaddlePaddle / Baidu",
+      "accessed": true,
+      "evidence": "Confirms the false tie_word_embeddings setting reaches the parent configuration. No vision_use_head override is supplied, so the implementation instantiates the pooling head by default. Optional classes/default arguments were checked against the actual JSON rather than counted indiscriminately."
+    },
+    {
+      "id": "header",
+      "url": "https://huggingface.co/PaddlePaddle/PaddleOCR-VL/resolve/7fa00a8c55b735ba51ba49a9058f3f9c57a99a11/model.safetensors",
+      "title": "Complete original PaddleOCR-VL safetensors header at pinned revision",
+      "publisher": "PaddlePaddle / Baidu",
+      "accessed": true,
+      "evidence": "Retrieved only HTTP 206 ranges 0-7 and 8-78495: 78,488-byte JSON header, 620 BF16 tensors, 958,588,736 parameter elements. Every name and shape matches a parameter reconstructed from the pinned configuration and enabled module declarations. All offsets are contiguous, nonoverlapping and account for 1,917,177,472 tensor bytes; with header and prefix the file is 1,917,255,968 bytes. No packed quantization, scales, persistent buffers or duplicate tied matrices occur. This is the sole root weight file; PP-DocLayoutV2 is a separate model, excluded. No weight payload was downloaded."
+    },
+    {
+      "id": "license",
+      "url": "https://huggingface.co/PaddlePaddle/PaddleOCR-VL/blob/7fa00a8c55b735ba51ba49a9058f3f9c57a99a11/LICENSE",
+      "title": "Original checkpoint Apache License 2.0",
+      "publisher": "PaddlePaddle / Baidu",
+      "accessed": true,
+      "evidence": "The exact model repository distributes the Apache License, Version 2.0; the pinned card declares the same license."
+    },
+    {
+      "id": "later-paper",
+      "url": "https://arxiv.org/html/2601.21957v1",
+      "title": "PaddleOCR-VL-1.5 technical report, original-model comparison",
+      "publisher": "PaddlePaddle / Baidu",
+      "accessed": true,
+      "evidence": "Tables 2 and A2 explicitly label original PaddleOCR-VL as 0.9B, separately from 1.5. Appendix A contrasts V1 and V1.5 and reserves new seal/text-spotting capabilities for 1.5. This supports the nominal original size and family relationship, without transferring successor capabilities."
+    },
+    {
+      "id": "template",
+      "url": "https://huggingface.co/PaddlePaddle/PaddleOCR-VL/blob/7fa00a8c55b735ba51ba49a9058f3f9c57a99a11/chat_template.jinja",
+      "title": "Original PaddleOCR-VL chat template",
+      "publisher": "PaddlePaddle / Baidu",
+      "accessed": true,
+      "evidence": "Serializes user image/text input and assistant text; no structured tool-call serialization, tool-role branch or reasoning-mode switch is implemented. These omissions do not by themselves establish that all tool calling or reasoning is impossible."
+    },
+    {
+      "id": "deployment",
+      "url": "https://github.com/PaddlePaddle/FastDeploy/blob/cba185f1fe5b676bdfc8dcbf5a2fb13e0ea78e88/docs/best_practices/PaddleOCR-VL-0.9B.md",
+      "title": "PaddlePaddle FastDeploy guide for PaddleOCR-VL-0.9B",
+      "publisher": "PaddlePaddle / Baidu",
+      "accessed": true,
+      "evidence": "The Context Length section explicitly states a maximum supported context of 16,384 for the original PaddleOCR-VL-0.9B, and its deployment examples name PaddlePaddle/PaddleOCR-VL. This is stronger evidence of supported context than the larger positional ceiling in the generic checkpoint configuration."
+    },
+    {
+      "id": "tokenizer",
+      "url": "https://huggingface.co/PaddlePaddle/PaddleOCR-VL/blob/7fa00a8c55b735ba51ba49a9058f3f9c57a99a11/tokenizer_config.json",
+      "title": "Original PaddleOCR-VL tokenizer configuration",
+      "publisher": "PaddlePaddle / Baidu",
+      "accessed": true,
+      "evidence": "model_max_length is 131072, matching the checkpoint positional ceiling. This does not establish tested or supported 128K document recognition, given the developer deployment limit of 16,384."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "PaddleOCR-VL",
+      "status": "verified",
+      "source_ids": [
+        "release",
+        "card"
+      ],
+      "note": "Official spelling of the original release; its core checkpoint is also named PaddleOCR-VL-0.9B. Not the later 1.5 or 1.6."
+    },
+    "developer": {
+      "value": "PaddlePaddle",
+      "status": "verified",
+      "source_ids": [
+        "release",
+        "paper"
+      ],
+      "note": "Retain the developer label; the paper identifies PaddlePaddle Team, Baidu Inc."
+    },
+    "family": {
+      "value": "paddleocr-vl",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "later-paper"
+      ],
+      "note": "The original is the V1 member of the developer-documented PaddleOCR-VL series, not the ERNIE text backbone alone."
+    },
+    "release_date": {
+      "value": "2025-10-16",
+      "status": "verified",
+      "source_ids": [
+        "release",
+        "card"
+      ],
+      "note": "Explicit original release date, also consistent with the first technical report. Later inference-backend support is not a new model release."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "release",
+        "header"
+      ],
+      "note": "Developer publishes the complete downloadable checkpoint under its official repository; header was accessed at a fixed revision."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "license",
+        "card"
+      ],
+      "note": "Exact checkpoint license, not inferred solely from the larger PaddleOCR code repository."
+    },
+    "parameters_b": {
+      "value": 0.958588736,
+      "status": "verified",
+      "source_ids": [
+        "header",
+        "config",
+        "code",
+        "config-code",
+        "later-paper"
+      ],
+      "note": "Complete instantiated checkpoint total: language decoder plus independent input/output embeddings 466,654,208; vision model 465,974,336; projector 25,960,192. All 620 tensors reconcile with code and shapes. Vision total includes the serialized 37,748,736 packing-position embedding and 15,238,352 pooling head, which normal recognition bypasses. Both are parameters, not buffers. Input embedding and output head each contain 105,906,176 parameters and are untied. The published 0.9B is a nominal model designation; do not substitute the 0.3B backbone label or add separate PP-DocLayoutV2 weights."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "paper",
+        "code",
+        "header"
+      ],
+      "note": "No separately defined active-per-token parameter count is reported. Dense architecture does not justify equating total with active parameters, especially with visual modules used at image encoding and stored alternate-path modules."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "code",
+        "paper"
+      ],
+      "note": "Dense multimodal Transformer: NaViT-style vision encoder, two-layer MLP projector, and autoregressive ERNIE decoder with grouped-query attention and gated dense MLPs. No expert routing. The separate layout detector is not part of this VLM architecture."
+    },
+    "context_window": {
+      "value": 16384,
+      "status": "verified",
+      "source_ids": [
+        "deployment",
+        "paper",
+        "config",
+        "tokenizer"
+      ],
+      "note": "Correct to the developer-documented supported context of 16,384, also the training sequence length. The checkpoint/tokenizer specify a 131,072 positional/tokenizer ceiling, but that is not evidence of supported 128K recognition. This conflict is recorded rather than silently treating the ceiling as the effective context."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "template"
+      ],
+      "note": "The exact model consumes an image with a task prompt and generates text. PDF-to-image conversion, JSON/Markdown export and page layout are surrounding pipeline functions. Generic video token fields in config do not verify original model video support."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "paper",
+        "card",
+        "template"
+      ],
+      "note": "Original documentation describes direct recognition tasks and no dedicated reasoning feature. Neither that specialization nor an absent reasoning switch verifies the baseline blanket false; clear to null. No successor training claims are transferred."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "card",
+        "template"
+      ],
+      "note": "The supplied template has no native structured tool-call path, and the documented tasks do not establish tool use. Absence of an advertised capability is not an explicit model-wide unsupported guarantee; clear the unsupported baseline false to null. An OpenAI-compatible serving endpoint alone does not establish tool calling."
+    },
+    "description": {
+      "value": "Vision-language model from PaddlePaddle for recognizing text, tables, formulas and charts in document images, supporting 109 languages.",
+      "status": "verified",
+      "source_ids": [
+        "paper",
+        "card"
+      ],
+      "note": "Describes the original VLM and its documented tasks without benchmark superlatives or capabilities introduced by successors."
+    }
+  },
+  "patch": {
+    "name": "PaddleOCR-VL",
+    "family": "paddleocr-vl",
+    "parameters_b": 0.958588736,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "context_window": 16384,
+    "reasoning": null,
+    "tool_call": null,
+    "description": "Vision-language model from PaddlePaddle for recognizing text, tables, formulas and charts in document images, supporting 109 languages.",
+    "source_url": "https://github.com/PaddlePaddle/PaddleOCR/releases/tag/v3.3.0",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "PaddleOCR v3.3.0 release, 16 October 2025",
+        "url": "https://github.com/PaddlePaddle/PaddleOCR/releases/tag/v3.3.0",
+        "type": "primary"
+      },
+      {
+        "label": "Original PaddleOCR-VL technical report",
+        "url": "https://arxiv.org/html/2510.14528v1",
+        "type": "primary"
+      },
+      {
+        "label": "Original PaddleOCR-VL model card at pinned revision",
+        "url": "https://huggingface.co/PaddlePaddle/PaddleOCR-VL/blob/7fa00a8c55b735ba51ba49a9058f3f9c57a99a11/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Original PaddleOCR-VL checkpoint configuration",
+        "url": "https://huggingface.co/PaddlePaddle/PaddleOCR-VL/blob/7fa00a8c55b735ba51ba49a9058f3f9c57a99a11/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Original PaddleOCR-VL model implementation",
+        "url": "https://huggingface.co/PaddlePaddle/PaddleOCR-VL/blob/7fa00a8c55b735ba51ba49a9058f3f9c57a99a11/modeling_paddleocr_vl.py",
+        "type": "primary"
+      },
+      {
+        "label": "Original PaddleOCR-VL configuration implementation",
+        "url": "https://huggingface.co/PaddlePaddle/PaddleOCR-VL/blob/7fa00a8c55b735ba51ba49a9058f3f9c57a99a11/configuration_paddleocr_vl.py",
+        "type": "primary"
+      },
+      {
+        "label": "Complete original PaddleOCR-VL safetensors header at pinned revision",
+        "url": "https://huggingface.co/PaddlePaddle/PaddleOCR-VL/resolve/7fa00a8c55b735ba51ba49a9058f3f9c57a99a11/model.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Original checkpoint Apache License 2.0",
+        "url": "https://huggingface.co/PaddlePaddle/PaddleOCR-VL/blob/7fa00a8c55b735ba51ba49a9058f3f9c57a99a11/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "PaddleOCR-VL-1.5 technical report, original-model comparison",
+        "url": "https://arxiv.org/html/2601.21957v1",
+        "type": "primary"
+      },
+      {
+        "label": "Original PaddleOCR-VL chat template",
+        "url": "https://huggingface.co/PaddlePaddle/PaddleOCR-VL/blob/7fa00a8c55b735ba51ba49a9058f3f9c57a99a11/chat_template.jinja",
+        "type": "primary"
+      },
+      {
+        "label": "PaddlePaddle FastDeploy guide for PaddleOCR-VL-0.9B",
+        "url": "https://github.com/PaddlePaddle/FastDeploy/blob/cba185f1fe5b676bdfc8dcbf5a2fb13e0ea78e88/docs/best_practices/PaddleOCR-VL-0.9B.md",
+        "type": "primary"
+      },
+      {
+        "label": "Original PaddleOCR-VL tokenizer configuration",
+        "url": "https://huggingface.co/PaddlePaddle/PaddleOCR-VL/blob/7fa00a8c55b735ba51ba49a9058f3f9c57a99a11/tokenizer_config.json",
+        "type": "primary"
+      }
+    ],
+    "notes": "Original PaddleOCR-VL checkpoint, nominally 0.9B. Exact complete checkpoint count is 958,588,736 parameters at Hugging Face revision 7fa00a8c55b735ba51ba49a9058f3f9c57a99a11; includes the vision encoder, projector and untied language input/output embeddings, and excludes separate PP-DocLayoutV2 pipeline weights. Stored vision pooling and packing-position parameters are included in the total but bypassed in normal recognition. Supported context is 16,384 per PaddlePaddle FastDeploy documentation; 131,072 in config/tokenizer is a larger configured ceiling, not demonstrated supported context. Dedicated reasoning and native tool calling remain unverified."
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "language_model_and_head": 0.466654208,
+      "vision_encoder": 0.465974336,
+      "projector": 0.025960192
+    }
+  },
+  "summary": "Verified original October 16, 2025 release and Apache-2.0 open weights. Added exact complete 0.958588736B checkpoint total with all 620 BF16 parameter tensors reconciled to code, dense architecture and PaddleOCR-VL family. Corrected supported context to 16,384 based on explicit developer guidance, distinguishing the 131,072 config ceiling. Removed unsupported false assertions for reasoning and tool calling; active count remains undisclosed."
+}
