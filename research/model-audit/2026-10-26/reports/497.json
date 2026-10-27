@@ -1,0 +1,395 @@
+{
+  "index": 497,
+  "model_id": "stepfun/step-5-preview",
+  "reviewed_at": "2026-10-27T04:47:19.337370Z",
+  "sources": [
+    {
+      "id": "launch",
+      "url": "https://www.stepfun.com/news/step-5-preview",
+      "title": "Dated Step 5 Preview release announcement",
+      "publisher": "StepFun",
+      "accessed": true,
+      "evidence": "The September 20, 2026 article explicitly says full access opens that day and links the domestic API, international API and Studio. It separately promises weights on October 15. The complete dated article was read in the official page client bundle, https://www.stepfun.com/assets/index-4zBpLKmx.js, and corroborated by the indexed first-party page. Earlier benchmark sightings do not establish general access."
+    },
+    {
+      "id": "card",
+      "url": "https://huggingface.co/stepfun-ai/Step-5-Preview/blob/364b3b03fed2477aa0953fe855a2c4c8c48ee3cc/README.md",
+      "title": "Exact Step 5 Preview official model card",
+      "publisher": "StepFun",
+      "accessed": true,
+      "evidence": "Identifies StepFun, sparse MoE, nominal 600B total and 27B active parameters, reasoning and tool use; links official FP8 and BF16 checkpoints. The introduction includes text, images and video, although the abbreviated specification table omits video. Serving commands set the model length to 1048576."
+    },
+    {
+      "id": "docs",
+      "url": "https://platform.stepfun.ai/docs/en/guides/models/step-5-preview",
+      "title": "Current Step 5 Preview API guide",
+      "publisher": "StepFun",
+      "accessed": true,
+      "evidence": "The exact step-5-preview guide explicitly describes native text, image and video input, text output, a nominal 1M-token context, tool calls and low/medium/high reasoning effort. Tools are supplied by the application. Its hosted maximum output differs from the current weight card; no unsupported output field is added."
+    },
+    {
+      "id": "architecture",
+      "url": "https://platform.stepfun.com/blog/inside-step-5-preview",
+      "title": "Inside Step 5 Preview: Architecture and Training for Agentic Work, October 15, 2026",
+      "publisher": "StepFun",
+      "accessed": true,
+      "evidence": "Describes this exact model as a 92-block Transformer with 3:1 interleaved gated sliding attention and sparse full attention. Sparse GQA selects blocks of historical tokens. Also describes mixed-precision training, SFT, agentic RL and an MTP-3 head; it is not an untouched base checkpoint."
+    },
+    {
+      "id": "config",
+      "url": "https://huggingface.co/stepfun-ai/Step-5-Preview-BF16/blob/7734b7ffac118d70d8398bfa3eb0fab007eb45b1/config.json",
+      "title": "Pinned released BF16 Step 5 Preview configuration",
+      "publisher": "StepFun",
+      "accessed": true,
+      "evidence": "Defines Step5ForConditionalGeneration, a step5_vl envelope, 47-layer perception encoder, vision projector, 92-layer text decoder, hidden size 4096, 352 routed experts and top-8 selection plus shared experts. Both maximum sequence and position limits are 1048576; three extra prediction layers are configured. No sibling configuration was substituted."
+    },
+    {
+      "id": "license",
+      "url": "https://huggingface.co/stepfun-ai/Step-5-Preview-BF16/blob/7734b7ffac118d70d8398bfa3eb0fab007eb45b1/LICENSE.txt",
+      "title": "StepFun Model License 1.0 for the released checkpoint",
+      "publisher": "StepFun",
+      "accessed": true,
+      "evidence": "Names StepFun Model License 1.0 and grants weight use, modification and redistribution subject to attribution and specified commercial-license conditions. It is neither Apache-2.0 nor an unrestricted open-source license; public weight availability is a separate field."
+    },
+    {
+      "id": "index",
+      "url": "https://huggingface.co/stepfun-ai/Step-5-Preview-BF16/blob/7734b7ffac118d70d8398bfa3eb0fab007eb45b1/model.safetensors.index.json",
+      "title": "Complete BF16 index and bounded tensor headers",
+      "publisher": "StepFun",
+      "accessed": true,
+      "evidence": "Read only the length and JSON header of all 26 index-referenced BF16 shards, requiring HTTP 206. Every one of the 2449 mapped tensor names and shapes matches the independently enumerated configured modules; dtype sizes and nonoverlapping offsets also reconcile. The 602972927296 indexed elements include 30976 auxiliary router-bias values and 1472 unused ssmax_s values. Excluding these gives 602972894848 learned parameters. Eighteen unindexed embedding/MTP copies are ignored; neither metadata.total_size nor raw storage totals determine the count."
+    },
+    {
+      "id": "code",
+      "url": "https://huggingface.co/stepfun-ai/Step-5-Preview-BF16/blob/7734b7ffac118d70d8398bfa3eb0fab007eb45b1/inference/model.py",
+      "title": "Exact Step 5 standalone text and vision implementation",
+      "publisher": "StepFun",
+      "accessed": true,
+      "evidence": "Confirms exact sparse routing, distinct main embeddings/output projection and vision integration. The 23 ssmax_s vectors, 1472 elements, are registered unused buffers. Router bias affects top-k selection and is subtracted before expert mixture weighting; the exact training bridge separately establishes its buffer semantics. MTP ownership is resolved by the pinned Step 5 serving loader."
+    },
+    {
+      "id": "vision",
+      "url": "https://huggingface.co/stepfun-ai/Step-5-Preview-BF16/blob/7734b7ffac118d70d8398bfa3eb0fab007eb45b1/inference/vision_encoder.py",
+      "title": "Exact Step 5 vision encoder implementation",
+      "publisher": "StepFun",
+      "accessed": true,
+      "evidence": "Provides the learned image encoder, layer-scale parameters and downsampling components; rotary caches are nonpersistent buffers. This is actual visual processing, not only an image/video API container."
+    },
+    {
+      "id": "open_weights",
+      "url": "https://cdn.syndication.twimg.com/tweet-result?id=2110717330657616092&lang=en&token=0",
+      "title": "StepFun October 15 public weight release announcement",
+      "publisher": "StepFun",
+      "accessed": true,
+      "evidence": "First-party X syndication returns StepFun account identity, timestamp 2026-10-15T13:00:01Z and explicit confirmation that BF16 and FP8 weights are available on Hugging Face and ModelScope. Canonical announcement: https://x.com/StepFun_ai/status/2110717330657616092. Public weights were also directly verified via bounded checkpoint reads."
+    },
+    {
+      "id": "engine",
+      "url": "https://github.com/vllm-project/vllm/blob/5d35ce3934a7804b298559d2d99eec33792e1eb9/vllm/models/step5/nvidia/model.py",
+      "title": "Pinned Step 5 decoder and weight-loading implementation",
+      "publisher": "vLLM",
+      "accessed": true,
+      "evidence": "Exact Step 5 implementation confirms separate main language embedding/output matrices when tie_word_embeddings is false, sparse indexing, stacked experts and shared experts. It explicitly describes ssmax_s as unused checkpoint state. Names, shapes and projection dimensions were reconciled with the complete checkpoint index."
+    },
+    {
+      "id": "mtp",
+      "url": "https://github.com/vllm-project/vllm/blob/5d35ce3934a7804b298559d2d99eec33792e1eb9/vllm/models/step5/nvidia/mtp.py",
+      "title": "Pinned Step 5 MTP ownership and loading rules",
+      "publisher": "vLLM",
+      "accessed": true,
+      "evidence": "Each of the three MTP layers constructs its own ParallelLMHead and loads its own shared_head.output matrix. has_own_lm_head is true; the first draft head alias does not create another matrix. The indexed input embedding is counted once, and all three independent output heads are included."
+    },
+    {
+      "id": "engine_config",
+      "url": "https://github.com/vllm-project/vllm/blob/5d35ce3934a7804b298559d2d99eec33792e1eb9/vllm/transformers_utils/configs/step5.py",
+      "title": "Pinned Step 5 configuration defaults",
+      "publisher": "vLLM",
+      "accessed": true,
+      "evidence": "The exact Step 5 text configuration defaults tie_word_embeddings to false, consistent with the developer standalone implementation; this resolves ownership of the main vocabulary matrices."
+    },
+    {
+      "id": "vl",
+      "url": "https://github.com/vllm-project/vllm/blob/5d35ce3934a7804b298559d2d99eec33792e1eb9/vllm/models/step5/nvidia/vl.py",
+      "title": "Pinned Step 5 multimodal wrapper",
+      "publisher": "vLLM",
+      "accessed": true,
+      "evidence": "The exact Step 5 wrapper uses its own text model and the reused visual frontend, mapping language_model, vision_model and vit_large_projector. Reuse is established by code; no Step 3.x parameter counts are transferred."
+    },
+    {
+      "id": "training_bridge",
+      "url": "https://github.com/radixark/miles/blob/266bec4356f79711a493827169288d8e3952832f/miles_plugins/mbridge/step5.py",
+      "title": "Pinned exact Step 5 training bridge in Miles PR 4105",
+      "publisher": "Miles / RadixArk",
+      "accessed": true,
+      "evidence": "Exact step5 and step5_vl bridge maps checkpoint moe.router_bias to Megatron mlp.router.expert_bias, with expert bias enabled and update rate 0.0. This establishes auxiliary routing-state semantics beyond the inference requires_grad flag. This is the pinned implementation from the open Step 5 integration PR, not a claim it has merged."
+    },
+    {
+      "id": "routing_buffer",
+      "url": "https://github.com/NVIDIA/Megatron-LM/blob/63f687dc83f44b31346e3775a5e23cf2337f7cbd/megatron/core/transformer/moe/router.py",
+      "title": "Pinned Megatron expert-bias buffer implementation",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "The expert_bias target used by the exact Step 5 training bridge is registered as a persistent buffer rather than a learned projection parameter. The 88 indexed 352-element correction vectors are therefore excluded from learned-parameter totals; learned gate matrices remain included."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Step 5 Preview",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "launch"
+      ],
+      "note": "Exact official model name."
+    },
+    "developer": {
+      "value": "StepFun",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "launch"
+      ],
+      "note": "Official StepFun model, repository and announcement."
+    },
+    "family": {
+      "value": "step",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "config"
+      ],
+      "note": "Normalized Step model family, supported by official naming and step5 model types."
+    },
+    "release_date": {
+      "value": "2026-09-20",
+      "status": "verified",
+      "source_ids": [
+        "launch"
+      ],
+      "note": "Earliest verified explicit public availability: the dated first-party article states access opens that day. The baseline September 16 date is unsupported; September 18/19 benchmark sightings are not release proof. October 15 is the later public-weight release, not the original model release."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "index",
+        "open_weights"
+      ],
+      "note": "Official FP8 and BF16 weights are now accessible. The October 15 release date is distinct from the September API launch."
+    },
+    "license": {
+      "value": "StepFun Model License 1.0",
+      "status": "verified",
+      "source_ids": [
+        "license"
+      ],
+      "note": "Custom weight license, including commercial conditions; not Apache-2.0."
+    },
+    "parameters_b": {
+      "value": 602.972894848,
+      "status": "verified",
+      "source_ids": [
+        "index",
+        "config",
+        "code",
+        "vision",
+        "engine",
+        "mtp",
+        "engine_config",
+        "vl",
+        "training_bridge",
+        "routing_buffer"
+      ],
+      "note": "Complete learned checkpoint count: 602972927296 unique indexed elements minus 30976 auxiliary frozen router-bias values and 1472 unused ssmax_s values = 602972894848. All 2449 configured tensor shapes reconcile across all 26 indexed BF16 shards. Includes 598476021504 language, 2515858560 across three independent MTP branches, 1955848960 vision and 25165824 projector parameters. Both main vocabulary matrices and all three MTP output heads are included; shared input embedding is counted once. No quantization scales are counted. The publisher's 600B is nominal."
+    },
+    "active_parameters_b": {
+      "value": 27,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "config"
+      ],
+      "note": "Official nominal active parameters per token. Top-8-of-352 routing is independently confirmed. The source does not supply an exact per-phase count or separate vision/MTP activity; no total/active equality or sibling-derived number is assumed."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "architecture",
+        "config",
+        "code",
+        "vision",
+        "engine",
+        "mtp",
+        "vl"
+      ],
+      "note": "Multimodal sparse MoE Transformer: 92 text blocks, 88 routed MoE blocks with 352 experts/top-8 plus shared experts, 3:1 gated sliding/sparse full attention with Sparse GQA, and a 47-layer visual encoder. Three MTP branches support speculative decoding."
+    },
+    "context_window": {
+      "value": 1048576,
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "card",
+        "docs"
+      ],
+      "note": "Exact released model capacity is 1048576 in max_seq_len, max_position_embeddings and deployment commands. The API advertises nominal 1M; this field describes checkpoint capacity and does not establish a measured limit for every hosting route."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "docs",
+        "card",
+        "config",
+        "vision"
+      ],
+      "note": "The exact developer guide expressly describes native image/video input and text output, corroborated by the card introduction and real vision encoder. The abbreviated card table omits video; audio input/output is not asserted. Video input support does not imply video generation or a separately identified temporal encoder."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "docs",
+        "card",
+        "architecture"
+      ],
+      "note": "Exact API guide provides low, medium and high reasoning effort; model card deployment includes a Step 5 reasoning parser."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "docs",
+        "card"
+      ],
+      "note": "Explicit tool-calling support and Step 5 tool parser. Execution itself belongs to the integrating application."
+    },
+    "description": {
+      "value": "Multimodal sparse MoE model for coding and tool-based tasks, accepting text, images and video and producing text.",
+      "status": "verified",
+      "source_ids": [
+        "docs",
+        "card",
+        "architecture"
+      ],
+      "note": "Replaces promotional comparisons and the misleading base-model label with directly supported capabilities; the architecture note documents post-training."
+    }
+  },
+  "patch": {
+    "family": "step",
+    "release_date": "2026-09-20",
+    "license": "StepFun Model License 1.0",
+    "parameters_b": 602.972894848,
+    "active_parameters_b": 27,
+    "architecture": "moe",
+    "context_window": 1048576,
+    "description": "Multimodal sparse MoE model for coding and tool-based tasks, accepting text, images and video and producing text.",
+    "parameters_source": "primary_source",
+    "date_precision": "day",
+    "source_url": "https://www.stepfun.com/news/step-5-preview",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Dated Step 5 Preview release announcement",
+        "url": "https://www.stepfun.com/news/step-5-preview",
+        "type": "primary"
+      },
+      {
+        "label": "Exact Step 5 Preview official model card",
+        "url": "https://huggingface.co/stepfun-ai/Step-5-Preview/blob/364b3b03fed2477aa0953fe855a2c4c8c48ee3cc/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Current Step 5 Preview API guide",
+        "url": "https://platform.stepfun.ai/docs/en/guides/models/step-5-preview",
+        "type": "primary"
+      },
+      {
+        "label": "Inside Step 5 Preview: Architecture and Training for Agentic Work, October 15, 2026",
+        "url": "https://platform.stepfun.com/blog/inside-step-5-preview",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned released BF16 Step 5 Preview configuration",
+        "url": "https://huggingface.co/stepfun-ai/Step-5-Preview-BF16/blob/7734b7ffac118d70d8398bfa3eb0fab007eb45b1/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "StepFun Model License 1.0 for the released checkpoint",
+        "url": "https://huggingface.co/stepfun-ai/Step-5-Preview-BF16/blob/7734b7ffac118d70d8398bfa3eb0fab007eb45b1/LICENSE.txt",
+        "type": "primary"
+      },
+      {
+        "label": "Complete BF16 index and bounded tensor headers",
+        "url": "https://huggingface.co/stepfun-ai/Step-5-Preview-BF16/blob/7734b7ffac118d70d8398bfa3eb0fab007eb45b1/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Exact Step 5 standalone text and vision implementation",
+        "url": "https://huggingface.co/stepfun-ai/Step-5-Preview-BF16/blob/7734b7ffac118d70d8398bfa3eb0fab007eb45b1/inference/model.py",
+        "type": "primary"
+      },
+      {
+        "label": "Exact Step 5 vision encoder implementation",
+        "url": "https://huggingface.co/stepfun-ai/Step-5-Preview-BF16/blob/7734b7ffac118d70d8398bfa3eb0fab007eb45b1/inference/vision_encoder.py",
+        "type": "primary"
+      },
+      {
+        "label": "StepFun October 15 public weight release announcement",
+        "url": "https://cdn.syndication.twimg.com/tweet-result?id=2110717330657616092&lang=en&token=0",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned Step 5 decoder and weight-loading implementation",
+        "url": "https://github.com/vllm-project/vllm/blob/5d35ce3934a7804b298559d2d99eec33792e1eb9/vllm/models/step5/nvidia/model.py",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned Step 5 MTP ownership and loading rules",
+        "url": "https://github.com/vllm-project/vllm/blob/5d35ce3934a7804b298559d2d99eec33792e1eb9/vllm/models/step5/nvidia/mtp.py",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned Step 5 configuration defaults",
+        "url": "https://github.com/vllm-project/vllm/blob/5d35ce3934a7804b298559d2d99eec33792e1eb9/vllm/transformers_utils/configs/step5.py",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned Step 5 multimodal wrapper",
+        "url": "https://github.com/vllm-project/vllm/blob/5d35ce3934a7804b298559d2d99eec33792e1eb9/vllm/models/step5/nvidia/vl.py",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned exact Step 5 training bridge in Miles PR 4105",
+        "url": "https://github.com/radixark/miles/blob/266bec4356f79711a493827169288d8e3952832f/miles_plugins/mbridge/step5.py",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned Megatron expert-bias buffer implementation",
+        "url": "https://github.com/NVIDIA/Megatron-LM/blob/63f687dc83f44b31346e3775a5e23cf2337f7cbd/megatron/core/transformer/moe/router.py",
+        "type": "primary"
+      }
+    ],
+    "notes": "Complete released checkpoint: 602972894848 learned parameters, including three MTP branches, visual encoder and projector. The 2449 unique indexed tensor shapes reconcile; 30976 auxiliary routing-bias values, 1472 unused ssmax_s values and unindexed duplicate storage are excluded. StepFun advertises nominal 600B total and 27B active per token; the active figure is not an exact per-phase count. Public API access began September 20, 2026; official weights followed October 15 under StepFun Model License 1.0. The checkpoint supports 1048576 tokens; API prose advertises nominal 1M. Image/video input produces text output."
+  },
+  "summary": "Correct September 16 to the explicit September 20 public launch; distinguish October 15 open weights. Add the custom license, Step family, exact complete 602.972894848B learned checkpoint total, published nominal 27B active, sparse MoE architecture and exact 1048576-token capacity. All 2449 configured shapes reconcile; loader ownership and auxiliary-state semantics resolve duplicate storage, three independent MTP heads, unused sparse-indexer values and routing biases. Native image/video input, reasoning and tool calls are confirmed; description is simplified.",
+  "proposed_fields": {
+    "parameter_components_b": {
+      "language_backbone": 598.476021504,
+      "mtp": 2.51585856,
+      "vision_encoder_and_downsamplers": 1.95584896,
+      "vision_projector": 0.025165824
+    }
+  }
+}
