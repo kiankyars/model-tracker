@@ -1,7 +1,7 @@
 {
   "index": 492,
   "model_id": "sarvam/sarvam-m",
-  "reviewed_at": "2026-10-27T04:31:19.776797Z",
+  "reviewed_at": "2026-10-27T17:56:31.584577Z",
   "sources": [
     {
       "id": "card",
@@ -186,6 +186,46 @@
       "publisher": "Sarvam AI",
       "accessed": true,
       "evidence": "HTTP 206 prefix/header reads only: 2672 bytes, 23 BF16 tensors, 1950387200 learned elements. Names/shapes match indexed modules; contiguous nonoverlapping offsets and payload length reconcile at two bytes per element. No tensor payload downloaded."
+    },
+    {
+      "id": "milu2026",
+      "url": "https://sthanika.ai/research/milu-2026",
+      "title": "Sthanika MILU 2026 original evaluation, Finding 09",
+      "publisher": "Sthanika AI",
+      "accessed": true,
+      "evidence": "The research lab reports its own local evaluation of Sarvam-M and explicitly assigns it 24B active parameters in Finding 09, contrasting it with Sarvam-30B at about 2.4B active. The Sarvam-M league-table row is labeled 24B. This supplies the team's nominal dense-model active-count convention, not a Sarvam disclosure or a tensor-level proof of every parameter participating per token. Its exact checkpoint is identified in the companion investigation config."
+    },
+    {
+      "id": "milu_config",
+      "url": "https://github.com/sthanika-ai/milu-llm-evaluation/blob/main/configs/models/sarvam-m-thinkmode-0shot-json.yaml",
+      "title": "Sthanika Sarvam-M pinned investigation configuration",
+      "publisher": "Sthanika AI",
+      "accessed": true,
+      "evidence": "Freshly read original raw YAML: hf_checkpoint=sarvamai/sarvam-m, revision=01534a53c46f2788e392dbb3d994e0fa8f04d3fd, BF16 with no quantization, vLLM and thinking-enabled generation. This identifies the exact audited checkpoint within the study. The committed config explicitly covers a 200-item English-only investigation; it is not the full 11-language production invocation, which is not separately committed."
+    },
+    {
+      "id": "milu_repository",
+      "url": "https://github.com/sthanika-ai/milu-llm-evaluation",
+      "title": "Sthanika MILU evaluation repository and reported results",
+      "publisher": "Sthanika AI",
+      "accessed": true,
+      "evidence": "The original README describes the team's evaluation pipeline, lists Sarvam-M 24B thinkmode among its measured local models and links the MILU 2026 report. It expressly says generated raw outputs/results database are machine-local and unpublished, and auxiliary retry/replication scripts for Sarvam-M are absent. These limitations are preserved; this is original research with published code and reported metrics, not independent reproduction of the full benchmark."
+    },
+    {
+      "id": "sthanika_lab",
+      "url": "https://sthanika.ai/about",
+      "title": "Sthanika AI research lab",
+      "publisher": "Sthanika AI",
+      "accessed": true,
+      "evidence": "Identifies Sthanika as a Hyderabad AI research lab building small open-weight models, establishing model-research-team provenance for its original MILU comparison."
+    },
+    {
+      "id": "base_config_reaudit",
+      "url": "https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Base-2503/blob/main/config.json",
+      "title": "Named Mistral Small 3.1 base configuration, parameter re-audit",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "Freshly reopened original named-base configuration. Its text_config matches Sarvam-M's counted dimensions: 40 layers, hidden size 5120, intermediate size 32768, vocabulary 131072, 32 query/8 KV heads and head_dim 128. It also contains a separate Pixtral vision encoder and projector; Sarvam's launch explicitly removes vision. No whole multimodal active-count transfer is needed or asserted because Sthanika supplies a model-specific Sarvam-M convention."
     }
   ],
   "fields": {
@@ -260,20 +300,25 @@
         "shard_07",
         "shard_08",
         "shard_09",
-        "shard_10"
+        "shard_10",
+        "card",
+        "launch",
+        "base_config_reaudit"
       ],
-      "note": "Exact complete learned total 23,572,403,200, from all 363 BF16 tensors in 10 shards. Formula 2 VH+H+L*(2 H*(Q+K)D+3 HI+2 H), with H 5120,V 131072,L 40,Q 32,K 8,D 128,I 32768, matches every tensor shape. Includes untied input/output matrices and norms; no serialized buffers, scales, packing, vision encoder, adapters or MTP. Metadata-only reads totaled 42,472 bytes."
+      "note": "Retained exact complete learned total 23,572,403,200 from the original audit of all 363 BF16 tensors in 10 shards. Fresh October 27 card, launch, configuration and index reads reconfirm the named Mistral Small 3.1 fine-tune, removed vision encoder and unchanged counted text dimensions. Formula 2 VH+H+L*(2 H*(Q+K)D+3 HI+2 H), with H 5120, V 131072, L 40, Q 32, K 8, D 128, I 32768, still yields 23.5724032B, consistent with index total_size=47,144,806,400 bytes. Includes untied input/output matrices and norms. The developer's nominal 24B label corroborates scale without replacing this precise total. No weight shards were downloaded in this re-audit."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 24,
+      "status": "verified",
       "source_ids": [
+        "milu2026",
+        "milu_config",
+        "milu_repository",
+        "sthanika_lab",
         "card",
-        "current_docs",
-        "later_comparison",
-        "implementation"
+        "config"
       ],
-      "note": "No separately defined active count in the exact card or current/later first-party pages checked. Dense execution alone does not establish an embedding-inclusive active-count convention."
+      "note": "Nominal 24B active under Sthanika AI's explicitly stated convention in its original MILU 2026 comparison, Finding 09. Its companion config pins this exact Sarvam-M checkpoint in BF16 without quantization. Attribute the count to the research team, not to Sarvam AI; it does not establish exact embedding participation, a component decomposition or phase-dependent counts. The published investigation config covers only 200 English items, and full production raw outputs are not public. Fresh searches for total/active counts and named lineage found no separately defined active count in Sarvam's own card, launch or current documentation. Retain the exact 23.5724032B total alongside the independently rounded 24B active convention."
     },
     "architecture": {
       "value": "dense",
@@ -370,9 +415,20 @@
         "label": "Sarvam-M current API documentation",
         "url": "https://docs.sarvam.ai/api/getting-started/models/sarvam-m",
         "type": "primary"
+      },
+      {
+        "label": "Sthanika original MILU 2026 active-count convention",
+        "url": "https://sthanika.ai/research/milu-2026",
+        "type": "primary"
+      },
+      {
+        "label": "Sthanika exact Sarvam-M checkpoint configuration",
+        "url": "https://github.com/sthanika-ai/milu-llm-evaluation/blob/main/configs/models/sarvam-m-thinkmode-0shot-json.yaml",
+        "type": "primary"
       }
     ],
-    "notes": "Exact original checkpoint: 23.5724032B learned parameters; all 363 BF16 tensor headers reconcile with configuration and implementation. Active count is not separately defined. Checkpoint context is 32768; historical Sarvam hosting used 8192 and the API is now retired. Tool use is demonstrated as model-selected Wikipedia lookup in a custom research system; the shipped template has no standard tool-role/function-call serialization. May 2025 release is established; May 20 upload, May 23 launch and the migrated May 1 changelog do not resolve the exact first-public day."
+    "notes": "Exact original checkpoint: 23.5724032B learned parameters; all 363 BF16 tensor headers reconcile with configuration and implementation. Nominal 24B active follows Sthanika AI's original MILU 2026 comparison convention for this checkpoint, not a Sarvam disclosure or an exact per-token tensor count. Checkpoint context is 32768; historical Sarvam hosting used 8192 and the API is now retired. Tool use is demonstrated as model-selected Wikipedia lookup in a custom research system; the shipped template has no standard tool-role/function-call serialization. May 2025 release is established; May 20 upload, May 23 launch and the migrated May 1 changelog do not resolve the exact first-public day.",
+    "active_parameters_b": 24
   },
   "proposed_fields": {
     "parameter_components_b": {
@@ -382,5 +438,5 @@
       "output_head": 0.67108864
     }
   },
-  "summary": "Verified exact 23.5724032B dense text checkpoint and 32768 context; added custom research-system tool capability, retained switchable thinking, normalized Apache 2.0 and qualified release to May 2025. Separate active-count convention is undisclosed. Hosted API retirement does not remove the open weights."
+  "summary": "Parameter re-audit retains the exact 23.5724032B learned total and establishes nominal 24B active from Sthanika AI's original, exactly identified Sarvam-M comparison. Its active convention is attributed to Sthanika; exact per-token tensor participation remains unspecified. The other twelve audited fields and component totals are unchanged."
 }
