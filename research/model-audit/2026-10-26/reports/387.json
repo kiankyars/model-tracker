@@ -1,7 +1,7 @@
 {
   "index": 387,
   "model_id": "nvidia/nemotron-3.5-super-120b-a12b",
-  "reviewed_at": "2026-10-27T00:51:37.846137+00:00",
+  "reviewed_at": "2026-10-27T07:08:55.653249+00:00",
   "sources": [
     {
       "id": "provider",
@@ -9,7 +9,7 @@
       "title": "Perplexity Agent API model reference",
       "publisher": "Perplexity",
       "accessed": true,
-      "evidence": "Lists the exact endpoint perplexity/nemotron-3.5-super-120b-a12b under NVIDIA. Explicitly documents reasoning, text-only input, 1048576 context and 131072 maximum output. Provides no checkpoint or architecture link, and cautions that third-party feature support varies by model."
+      "evidence": "Reopened October 27: the NVIDIA section identifies Nemotron 3.5 Super and lists the exact perplexity/nemotron-3.5-super-120b-a12b endpoint, with text-only input, reasoning, 1048576 context and 131072 maximum output. The explicit endpoint name carries the published 120B/A12B nominal specification; no exact served checkpoint or tensor inventory is identified."
     },
     {
       "id": "changelog",
@@ -41,7 +41,7 @@
       "title": "Nemotron 3.5 Super training recipe",
       "publisher": "NVIDIA",
       "accessed": true,
-      "evidence": "Identifies released Super 3.5 checkpoints as Super-VL. Describes text pretraining followed by multimodal post-training. Does not identify which weights Perplexity serves, so neither nominal counts nor architecture are transferred into this endpoint record."
+      "evidence": "Reopened October 27: the architecture diagram labels the language decoder 120B total / 12B active. The specification table independently reports 120B nominal total and 12B per forward pass, distinguishing a 124.453B count including vision encoder, projector and MTP. This supports the nominal language-backbone scope; it does not identify the Perplexity deployment."
     },
     {
       "id": "vl_card",
@@ -49,7 +49,7 @@
       "title": "Separate Super VL BF16 model card",
       "publisher": "NVIDIA",
       "accessed": true,
-      "evidence": "Accessible official checkpoint is explicitly vision-language, under OpenMDW-1.1. It documents nominal120B/12B, hybrid architecture and text/image/video support. Those facts belong to the separately audited VL record; the card does not bind the Perplexity endpoint to this revision."
+      "evidence": "Official VL checkpoint card documents nominal 120B/12B, hybrid architecture and text/image/video support under OpenMDW-1.1. The current main card was also reopened October 27 and retains these advertised counts. These corroborate the published size designation, but do not establish which checkpoint or auxiliary modules the Perplexity endpoint serves."
     },
     {
       "id": "text_bridge",
@@ -65,7 +65,7 @@
       "title": "Nemotron 3.5 Super and Lightning technical report, October 21 edition",
       "publisher": "NVIDIA",
       "accessed": true,
-      "evidence": "The abstract identifies the120B/12B Super as multimodal. Checked this later primary report and the exact released card; neither establishes the weights, count convention or architecture of the separately named Perplexity text endpoint."
+      "evidence": "Reopened October 27: the October 21 technical report separately publishes 120B total and 12B active for Super. Its released checkpoints are multimodal; its text-only base is also called Super 120B-A12B. The report supplies nominal specifications, but no Perplexity checkpoint binding or exact hosted-service count."
     },
     {
       "id": "vllm",
@@ -74,6 +74,14 @@
       "publisher": "vLLM Project with NVIDIA contributors",
       "accessed": true,
       "evidence": "The article distinguishes a Super DGX Spark comparison from Super VL in its Figure3 discussion. It supplies no Perplexity checkpoint identity; this reinforces the need to avoid equating names without a binding source."
+    },
+    {
+      "id": "research_reaudit",
+      "url": "https://research.nvidia.com/labs/nemotron/Nemotron-3.5-Super-and-Lightning/",
+      "title": "NVIDIA Nemotron 3.5 Super and Lightning research release",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Freshly checked October 27: the NVIDIA research release explicitly identifies Nemotron 3.5 Super as nominally 120 billion parameters and 12 billion active. It distinguishes text-only pretraining from multimodal post-training. Targeted NVIDIA and Perplexity searches found no later contradictory size disclosure or exact endpoint checkpoint mapping."
     }
   ],
   "fields": {
@@ -84,7 +92,7 @@
         "provider",
         "catalog"
       ],
-      "note": "Preserve the catalog designation for Perplexity’s text-only endpoint, whose API id contains120b-a12b. The size suffix is not a verified parameter measurement."
+      "note": "Preserve the catalog designation for Perplexity\u2019s text-only endpoint. Its explicit 120b-a12b size suffix agrees with NVIDIA\u2019s published nominal specification; it is not an exact tensor measurement."
     },
     "developer": {
       "value": "NVIDIA",
@@ -123,7 +131,7 @@
         "vl_card",
         "text_bridge"
       ],
-      "note": "The exact hosted checkpoint is unidentified. Public VL weights and a text-only conversion recipe do not establish that this endpoint’s weights are publicly released; do not claim either open or closed."
+      "note": "The exact hosted checkpoint is unidentified. Public VL weights and a text-only conversion recipe do not establish that this endpoint\u2019s weights are publicly released; do not claim either open or closed."
     },
     "license": {
       "value": null,
@@ -136,37 +144,36 @@
       "note": "No governing model-weight license is identified for this exact endpoint. OpenMDW-1.1 belongs to the accessible VL checkpoint; a provider binding would be needed to apply it here."
     },
     "parameters_b": {
-      "value": null,
-      "status": "unverified",
-      "source_ids": [
-        "provider",
-        "report",
-        "vl_card",
-        "text_bridge"
-      ],
-      "note": "Clear the name-derived120B. NVIDIA’s nominal120B describes the released multimodal Super; the provider does not bind its endpoint to those weights or a particular text-only extraction. A census of VL or extracted language/MTP tensors would not establish this hosted total."
-    },
-    "active_parameters_b": {
-      "value": null,
-      "status": "unverified",
-      "source_ids": [
-        "provider",
-        "report",
-        "vl_card",
-        "text_bridge"
-      ],
-      "note": "Clear the name-derived12B. No primary source located binds a nominal active count or embedding/MTP convention to this exact text endpoint. Do not transfer the separate VL report or infer from the API suffix."
-    },
-    "architecture": {
-      "value": null,
-      "status": "unverified",
+      "value": 120,
+      "status": "verified",
       "source_ids": [
         "provider",
         "nvidia_recipe",
-        "vl_card",
-        "text_bridge"
+        "report",
+        "research_reaudit"
       ],
-      "note": "The published VL model and text conversion use hybrid Nemotron-H, but the host does not identify its checkpoint or explicitly shared backbone. Clear the unsupported MoE assertion until that mapping is verified."
+      "note": "Retain 120B as the published nominal language-backbone size for the hosted offer: Perplexity explicitly names NVIDIA Nemotron 3.5 Super and uses 120b-a12b in this exact endpoint, while NVIDIA independently publishes 120B and scopes that number to its decoder. Exact hosted checkpoint and loaded auxiliary components remain unknown. Do not substitute the separate VL complete-checkpoint count or present 120B as a measured service inventory."
+    },
+    "active_parameters_b": {
+      "value": 12,
+      "status": "verified",
+      "source_ids": [
+        "provider",
+        "nvidia_recipe",
+        "report",
+        "research_reaudit"
+      ],
+      "note": "Retain independently published nominal 12B active parameters for the language backbone, supported by NVIDIA\u2019s per-forward-pass specification and decoder diagram and by the exact hosted endpoint\u2019s A12B designation. This is not derived by equating active and total parameters. It does not assert an exact hosted per-token tensor count, MTP contribution or media-processing cost."
+    },
+    "architecture": {
+      "value": "hybrid-ssm-transformer-moe",
+      "status": "verified",
+      "source_ids": [
+        "provider",
+        "nvidia_recipe",
+        "report"
+      ],
+      "note": "Perplexity explicitly identifies its named 120B-A12B offer as NVIDIA Nemotron 3.5 Super. NVIDIA documents that model's language backbone as hybrid Mamba-Transformer LatentMoE. This establishes the published coarse model architecture, without claiming an identical hosted checkpoint or auxiliary-module inventory."
     },
     "context_window": {
       "value": 1048576,
@@ -213,29 +220,29 @@
       "note": "Baseline support was inferred from the Nemotron family. The exact model documentation confirms reasoning but not custom function calling, and warns that generic Agent API tools are not supported by every model. No authenticated capability test was performed."
     },
     "description": {
-      "value": "NVIDIA reasoning model served through Perplexity’s Agent API with text-only input and a 1,048,576-token context window.",
+      "value": "NVIDIA reasoning model served through Perplexity\u2019s Agent API with text-only input and a 1,048,576-token context window.",
       "status": "verified",
       "source_ids": [
         "provider",
         "announcement"
       ],
-      "note": "Describes the documented hosted offering without unverified parameter counts or VL capabilities."
+      "note": "Describes the documented hosted offering without asserting exact tensor counts or VL capabilities."
     }
   },
   "patch": {
     "release_date": "2026-10",
     "open_weights": null,
     "license": null,
-    "parameters_b": null,
-    "active_parameters_b": null,
-    "architecture": null,
+    "parameters_b": 120,
+    "active_parameters_b": 12,
+    "architecture": "hybrid-ssm-transformer-moe",
     "tool_call": null,
-    "description": "NVIDIA reasoning model served through Perplexity’s Agent API with text-only input and a 1,048,576-token context window.",
+    "description": "NVIDIA reasoning model served through Perplexity\u2019s Agent API with text-only input and a 1,048,576-token context window.",
     "date_precision": "month",
-    "parameters_source": null,
+    "parameters_source": "primary_source",
     "source_url": "https://docs.perplexity.ai/docs/agent-api/models",
     "source_type": "primary",
-    "notes": "This record is Perplexity’s text-only perplexity/nemotron-3.5-super-120b-a12b endpoint, separate from the Super VL release. The host does not identify the served checkpoint. Its parameter counts, architecture, weight availability, model license and custom-tool support remain unverified; 120B/A12B in the name is not measurement evidence. Primary sources establish an October 2026 release but not the day. Context and reasoning are explicitly documented.",
+    "notes": "Perplexity\u2019s text-only perplexity/nemotron-3.5-super-120b-a12b offer names NVIDIA Nemotron 3.5 Super. Retain the published nominal language-backbone specification of 120B total and 12B active, supported by the exact endpoint designation and NVIDIA\u2019s separate total/active disclosures and decoder scope. These rounded specifications are not an exact inventory of the hosted service. The served checkpoint and auxiliary modules remain unidentified; the separate VL complete-checkpoint count is not applied here. The published hybrid Mamba-Transformer MoE architecture follows the same model identity. Weight availability, model license and custom-tool support retain their prior unverified assessments. Primary sources establish October 2026 availability without a verified release day; context and reasoning are explicitly documented.",
     "sources": [
       {
         "label": "Perplexity Agent API model reference",
@@ -271,6 +278,11 @@
         "label": "Nemotron 3.5 Super and Lightning technical report, October 21 edition",
         "url": "https://research.nvidia.com/labs/nemotron/files/NVIDIA-Nemotron-3.5-Super-and-Lightning-Technical-Report.pdf",
         "type": "primary"
+      },
+      {
+        "label": "NVIDIA Nemotron 3.5 Super and Lightning research release",
+        "url": "https://research.nvidia.com/labs/nemotron/Nemotron-3.5-Super-and-Lightning/",
+        "type": "primary"
       }
     ]
   },
@@ -282,5 +294,12 @@
     "access_limits": "Unauthenticated Perplexity /v1/models returned401. Non-VL guessed HF repositories returned401, which does not prove nonexistence. The old NVIDIA Build route returned genericHTML but its Markdown card returned404. Public provider documentation was accessible.",
     "research_cache": "/tmp/model-audit-387"
   },
-  "summary": "All 14 fields reviewed individually. Confirm the Perplexity text-only identity, NVIDIA attribution, reasoning and 1048576 context. Correct release precision to October 2026. Clear unsupported name-derived counts, architecture, weight availability and tool support; leave the model license unverified. The separately cataloged VL checkpoint and text-extraction recipe do not establish the hosted configuration."
+  "summary": "October 27 parameter re-audit: restore verified nominal 120B total and 12B active for the named offer\u2019s language backbone. Reopened Perplexity\u2019s exact endpoint documentation, its October 19 announcement, NVIDIA\u2019s training recipe, current VL card, text-only conversion guide and October 21 report; also checked the research release and searched for missed or later disclosures. NVIDIA\u2019s decoder scope resolves the nominal-count question without requiring an exact hosted tensor census. Exact checkpoint and auxiliary-module composition remain unresolved. Other audited values are unchanged. The same named-model evidence also supports the coupled hybrid Mamba-Transformer MoE architecture correction.",
+  "proposed_fields": {
+    "parameters_scope": "language_backbone",
+    "active_parameters_scope": "language_backbone",
+    "parameter_components_b": {
+      "language_backbone": 120
+    }
+  }
 }
