@@ -1,0 +1,291 @@
+{
+  "index": 547,
+  "model_id": "zhipuai/glm-4.5",
+  "reviewed_at": "2026-10-27T06:00:42.073577Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://z.ai/blog/glm-4.5",
+      "title": "GLM-4.5 original release announcement",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Complete indexed original announcement is dated July 28, 2025 and explicitly says GLM-4.5 and Air are available in chat, API and open weights. Gives exact GLM-4.5 nominal 355B/32B, hybrid reasoning and native function calling. Direct HTML retrieval returned a client shell; indexed article supplied the full substantive page."
+    },
+    {
+      "id": "s2",
+      "url": "https://arxiv.org/html/2508.06471v1",
+      "title": "GLM-4.5 technical report, architecture section and Table 1",
+      "publisher": "GLM-4.5 Team, Zhipu AI and Tsinghua University",
+      "accessed": true,
+      "evidence": "First-party August 8 report explicitly gives GLM-4.5 355B total and 32B activated. Table 1 caption includes MTP parameters but excludes word embeddings and output layer. Exact column: 3 dense layers, 89 MoE layers, 1 MTP layer, 160 routed experts with 8 selected plus 1 shared expert. Uses GQA, partial RoPE and QK-Norm."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/zai-org/GLM-4.5/blob/cbb2c7cfb52fa128a9660cb1a7a78e017899e115/README.md",
+      "title": "GLM-4.5 official checkpoint card at pinned revision",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Exact hybrid reasoning BF16 checkpoint; explicitly releases base, hybrid reasoning and FP8 variants under MIT for commercial use and further development. Gives 355B/32B nominal size, thinking/non-thinking modes and tool use. Separate Air, Base and FP8 links avoid variant confusion."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/zai-org/GLM-4.5/blob/cbb2c7cfb52fa128a9660cb1a7a78e017899e115/config.json",
+      "title": "GLM-4.5 checkpoint configuration",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Glm4MoeForCausalLM with 92 decoder layers, first 3 dense, 160 routed experts/top 8 and 1 shared expert; num_nextn_predict_layers=1, untied embeddings, BF16 and max_position_embeddings=131072. No vision/audio encoder is configured. Config corroborates topology, not an exact full parameter inventory."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/zai-org/GLM-4.5/blob/cbb2c7cfb52fa128a9660cb1a7a78e017899e115/chat_template.jinja",
+      "title": "GLM-4.5 checkpoint chat template",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Template serializes text, thinking control and reasoning content, structured XML tool calls, function definitions and tool responses. It does not establish native image/audio/video input."
+    },
+    {
+      "id": "s6",
+      "url": "https://docs.z.ai/guides/llm/glm-4.5",
+      "title": "Native GLM-4.5 API model documentation",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Exact GLM-4.5 overview explicitly says text input and output, 128K context, 96K maximum output, 355B/32B MoE, switchable thinking.type and function calls. Context and maximum output are distinct. This is documented capability, not a test of endpoint operation."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/api/models/zai-org/GLM-4.5",
+      "title": "Official GLM-4.5 checkpoint repository metadata",
+      "publisher": "Z.ai / Hugging Face",
+      "accessed": true,
+      "evidence": "Public ungated repository containing safetensors weight shards, index and tokenizer/config files; inspected revision cbb2c7cfb52fa128a9660cb1a7a78e017899e115. July 20 repository creation is not substituted for the explicit July 28 public launch. No full weight shards were downloaded."
+    },
+    {
+      "id": "s8",
+      "url": "https://github.com/zai-org/GLM-4.5",
+      "title": "Official GLM repository with later model comparison/download table",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Current repository includes GLM-4.6 and 4.7 entries, while its separately labeled GLM-4.5 row retains 355B-A32B and MIT release statement. Later siblings are not used to change original GLM-4.5 context or capabilities."
+    },
+    {
+      "id": "s9",
+      "url": "https://www.prnewswire.com/news-releases/zai-releases-glm-4-5--setting-new-standards-for-ai-performance-and-accessibility-while-improving-affordability-302514803.html",
+      "title": "Z.ai original corporate release distributed by PR Newswire",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Original press release supplied by Z.ai, July 28, 2025, names GLM-4.5-Air and its 106B figure. Corroborates developer launch date independently of catalog or repository creation."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "GLM-4.5",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Exact hybrid reasoning release, distinct from GLM-4.5-Air, Base, FP8, X and Flash variants."
+    },
+    "developer": {
+      "value": "Z.ai",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s2"
+      ],
+      "note": "Product developer is Z.ai, formerly Zhipu AI. The original technical report credits the GLM-4.5 team with Zhipu AI and Tsinghua University affiliations."
+    },
+    "family": {
+      "value": "glm",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Normalized identifier for the explicitly named GLM model family."
+    },
+    "release_date": {
+      "value": "2025-07-28",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s9"
+      ],
+      "note": "Original announcement explicitly states public chat, API and open-weight availability on July 28. Earlier repository creation and later paper/provider pages are not treated as first release."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s7"
+      ],
+      "note": "Exact hybrid reasoning model has public ungated weights; this is not merely publication of serving code."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s8"
+      ],
+      "note": "Official model card explicitly applies MIT to these model releases. No separate LICENSE file exists at the attempted checkpoint path; the explicit model-card grant is the evidence."
+    },
+    "parameters_b": {
+      "value": 355,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Author-reported nominal count. Table 1 includes MTP but excludes word embeddings and output layer. Proposed nonembedding_with_mtp scope makes that boundary explicit; this is not an exact complete-checkpoint count or a sum reconstructed from config."
+    },
+    "active_parameters_b": {
+      "value": 32,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s6"
+      ],
+      "note": "Author-reported nominal activated count under the same nonembedding-with-MTP convention. Proposed scope records that convention, not a measured whole inference phase or all executed modules for every token."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4"
+      ],
+      "note": "Decoder Transformer MoE: 3 dense plus 89 MoE layers, 160 routed experts with 8 selected and 1 shared expert, GQA with partial RoPE and QK-Norm; one additional MoE MTP layer is documented."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s6"
+      ],
+      "note": "Exact checkpoint maximum position count is 131072, matching the advertised 128K context. Native API maximum output 96K is a separate limit."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "note": "Native API explicitly specifies text input/output, consistent with text-only checkpoint configuration and template. Agent-generated artifacts are not native media modalities."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5",
+        "s6"
+      ],
+      "note": "Hybrid thinking/non-thinking modes are explicit in the release, checkpoint template and native thinking.type parameter."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5",
+        "s6"
+      ],
+      "note": "Original native function-calling claim is corroborated by structured tool definitions, tool_call serialization and response handling in the checkpoint template."
+    },
+    "description": {
+      "value": "Text MoE model with switchable reasoning, tool calling and a 128K-token context window.",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "note": "Replaces subjective usefulness wording with supported architecture and capabilities."
+    }
+  },
+  "patch": {
+    "license": "MIT",
+    "parameters_b": 355,
+    "active_parameters_b": 32,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "description": "Text MoE model with switchable reasoning, tool calling and a 128K-token context window.",
+    "source_url": "https://z.ai/blog/glm-4.5",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "GLM-4.5 original release announcement",
+        "url": "https://z.ai/blog/glm-4.5",
+        "type": "primary"
+      },
+      {
+        "label": "GLM-4.5 technical report, architecture section and Table 1",
+        "url": "https://arxiv.org/html/2508.06471v1",
+        "type": "primary"
+      },
+      {
+        "label": "GLM-4.5 official checkpoint card at pinned revision",
+        "url": "https://huggingface.co/zai-org/GLM-4.5/blob/cbb2c7cfb52fa128a9660cb1a7a78e017899e115/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "GLM-4.5 checkpoint configuration",
+        "url": "https://huggingface.co/zai-org/GLM-4.5/blob/cbb2c7cfb52fa128a9660cb1a7a78e017899e115/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "GLM-4.5 checkpoint chat template",
+        "url": "https://huggingface.co/zai-org/GLM-4.5/blob/cbb2c7cfb52fa128a9660cb1a7a78e017899e115/chat_template.jinja",
+        "type": "weights"
+      },
+      {
+        "label": "Native GLM-4.5 API model documentation",
+        "url": "https://docs.z.ai/guides/llm/glm-4.5",
+        "type": "primary"
+      },
+      {
+        "label": "Official GLM-4.5 checkpoint repository metadata",
+        "url": "https://huggingface.co/api/models/zai-org/GLM-4.5",
+        "type": "weights"
+      },
+      {
+        "label": "Official GLM repository with later model comparison/download table",
+        "url": "https://github.com/zai-org/GLM-4.5",
+        "type": "primary"
+      },
+      {
+        "label": "Z.ai original corporate release distributed by PR Newswire",
+        "url": "https://www.prnewswire.com/news-releases/zai-releases-glm-4-5--setting-new-standards-for-ai-performance-and-accessibility-while-improving-affordability-302514803.html",
+        "type": "primary"
+      }
+    ],
+    "notes": "GLM-4.5 launched July 28, 2025. Z.ai reports nominal 355B total and 32B activated parameters; its technical report explicitly includes the MTP layer but excludes word embeddings and the output layer. These scoped figures are not exact complete-checkpoint totals or measured inference-phase counts. The exact BF16 checkpoint supports 131072 positions; the native API advertises 128K context and a separate 96K maximum output. The model accepts and produces text, with switchable thinking and structured tool calls."
+  },
+  "proposed_fields": {
+    "parameters_scope": "nonembedding_with_mtp",
+    "parameter_components_b": {
+      "nonembedding_with_mtp": 355
+    },
+    "active_parameters_scope": "nonembedding_with_mtp",
+    "active_parameters_by_phase_b": {
+      "nonembedding_with_mtp": 32
+    }
+  },
+  "summary": "Verified all 14 fields. Adds MIT, MoE and nominal 355B/32B with the original report counting convention: MTP included, embeddings/output layer excluded. Confirms July 28 release, exact 131072 context, text-only scope, switchable reasoning and tool calls. No full weight downloads or exact complete parameter tally claimed."
+}
