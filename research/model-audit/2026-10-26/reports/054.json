@@ -1,7 +1,7 @@
 {
   "index": 54,
   "model_id": "alibaba/qwen3.5-9b",
-  "reviewed_at": "2026-10-26T14:59:31.152925Z",
+  "reviewed_at": "2026-10-27T09:48:06.491Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Qwen3.5-9B model card",
       "publisher": "Qwen",
       "accessed": true,
-      "evidence": "Post-trained vision-language checkpoint; nominal language model size 9B; native context 262144; text, image and video input examples; thinking and tool-call deployment examples."
+      "evidence": "Reopened October 27: exact post-trained vision-language model card still labels its language model nominally 9B. Its language and vision-language comparison tables report benchmark results without total/activated-parameter rows; no separate active count is stated. Native context 262144; text, image and video inputs; thinking and tool-call examples."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "Qwen3.5-9B configuration",
       "publisher": "Qwen",
       "accessed": true,
-      "evidence": "Qwen3_5ForConditionalGeneration with vision encoder and 32 dense text layers: three linear-attention layers per full-attention layer, FFN intermediate size 12288, and one MTP layer. No routed experts."
+      "evidence": "Reopened October 27: Qwen3_5ForConditionalGeneration with vision encoder and 32 dense text layers, FFN intermediate size 12288 and one MTP layer. No routed experts or declared active-parameter count."
     },
     {
       "id": "s3",
@@ -25,7 +25,7 @@
       "title": "Qwen3.5-9B repository and safetensors metadata",
       "publisher": "Hugging Face / Qwen repository",
       "accessed": true,
-      "evidence": "Safetensors metadata reports 9653100528 BF16 plus 3840 F32 parameters, totaling 9653104368. Repository creation on February 27 is not public-release evidence."
+      "evidence": "Reopened October 27 at repository revision c202236235762e1c871ad0ccb60c8ee5ba337b9a: safetensors metadata still reports 9653100528 BF16 plus 3840 F32 parameters, totaling 9653104368. This reconfirms the previous full-checkpoint tensor audit without another header census."
     },
     {
       "id": "s4",
@@ -33,7 +33,7 @@
       "title": "Qwen3.5-9B checkpoint tensor manifest",
       "publisher": "Qwen",
       "accessed": true,
-      "evidence": "Maps language-model, vision and MTP tensor names to four public shards; total stored tensor bytes 19306216416."
+      "evidence": "Reopened October 27: manifest retains language-model, LM-head, vision and MTP tensor names across four shards, 775 tensor entries and total stored tensor bytes 19306216416."
     },
     {
       "id": "s5",
@@ -41,7 +41,7 @@
       "title": "Official Qwen repository release history",
       "publisher": "Qwen / Alibaba Group",
       "accessed": true,
-      "evidence": "Official repository, redirected from QwenLM/Qwen3.5, explicitly dates availability of Qwen3.5-9B, 4B, 2B and 0.8B to 2026-03-02."
+      "evidence": "Reopened October 27 via the official raw README: release history still dates Qwen3.5-9B, 4B, 2B and 0.8B availability to 2026-03-02. The Qwen3.5 section links the exact 9B/4B comparison graphic, which reports benchmark scores rather than activated parameters."
     },
     {
       "id": "s6",
@@ -82,6 +82,38 @@
       "publisher": "Qwen",
       "accessed": true,
       "evidence": "HTTP 206 byte-range read of header only; shard 4 has 645 tensors. Summing shape products across all four headers reproduces 9653104368 parameters."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/Qwen/Qwen3.5-9B/raw/main/README.md",
+      "title": "Qwen3.5-9B raw model card, October 27 recheck",
+      "publisher": "Qwen",
+      "accessed": true,
+      "evidence": "Complete raw card rechecked for parameter and activation statements: nominal language-model size 9B, language and vision-language benchmark tables, and optional MTP serving commands; no separately defined activated-parameter count. Searches for the exact model with active/activated-parameter terms did not locate a newer developer disclosure."
+    },
+    {
+      "id": "s12",
+      "url": "https://qianwen-res.oss-accelerate.aliyuncs.com/Qwen3.5/Figures/qwen3.5_small_size_score.png",
+      "title": "Official Qwen3.5-9B and Qwen3.5-4B benchmark comparison graphic",
+      "publisher": "Qwen / Alibaba Group",
+      "accessed": true,
+      "evidence": "Downloaded and visually inspected the comparison graphic linked from the current official Qwen repository: eight benchmark panels identify Qwen3.5-9B and Qwen3.5-4B but contain no total or activated-parameter row or axis."
+    },
+    {
+      "id": "s13",
+      "url": "https://www.siliconflow.com/models/qwen3-5-9b",
+      "title": "SiliconFlow Qwen3.5-9B listing, secondary search lead",
+      "publisher": "SiliconFlow",
+      "accessed": true,
+      "evidence": "Secondary provider listing labels both total and activated parameters 9B. It does not define the active-count scope or attribute that count to a Qwen statement; its model-source link leads to the exact Qwen card, which does not report an activated count. Recorded as a search lead, not accepted as developer evidence."
+    },
+    {
+      "id": "s14",
+      "url": "https://qwen.ai/blog?id=qwen3.5",
+      "title": "Official Qwen3.5 release blog, attempted October 27 recheck",
+      "publisher": "Qwen",
+      "accessed": false,
+      "evidence": "Direct web access returned no extractable article text. No parameter claim is inferred from this failed read; the exact official model card and repository comparison graphic were accessible."
     }
   ],
   "fields": {
@@ -139,23 +171,29 @@
       "value": 9.653104368,
       "status": "verified",
       "source_ids": [
+        "s1",
         "s3",
         "s4",
         "s7",
         "s8",
         "s9",
-        "s10"
+        "s10",
+        "s11"
       ],
-      "note": "Complete checkpoint: 9653104368 stored parameters, including vision and MTP. Header sums: language model including LM head 8.953803264B, vision 0.456010480B, MTP 0.243290624B. The card labels only the language model nominally 9B."
+      "note": "Complete checkpoint remains 9.653104368B stored parameters, freshly reconfirmed by repository metadata. Preserve the previous header-derived components: language model including LM head 8.953803264B, vision 0.456010480B, MTP 0.243290624B. Qwen separately publishes the nominal 9B language-model label; no tensor recount was needed."
     },
     "active_parameters_b": {
       "value": null,
       "status": "undisclosed",
       "source_ids": [
         "s1",
-        "s2"
+        "s2",
+        "s5",
+        "s11",
+        "s12",
+        "s13"
       ],
-      "note": "No separately defined active-per-token count is reported; dense architecture does not establish active equals total, especially with vision and MTP components."
+      "note": "No developer-defined active-per-token count was found in the exact card, configuration or official comparison graphic after the fresh targeted search. SiliconFlow lists 9B activated without developer provenance or a counting definition, so that secondary claim is not adopted. Dense architecture and nominal or non-embedding size alone do not establish an active count, especially with vision and optional MTP."
     },
     "architecture": {
       "value": "dense",
@@ -261,7 +299,8 @@
         "type": "primary"
       }
     ],
-    "notes": "9B is the nominal language-model size. Complete released checkpoint contains 9.653104368B parameters: language model and LM head 8.953803264B, vision 0.456010480B, MTP 0.243290624B. Counts were summed from safetensors headers and match repository metadata. Active parameters are not separately reported. Native context is 262144; larger context requires extension configuration."
+    "notes": "9B is the nominal language-model size. Complete checkpoint: 9.653104368B parameters, comprising language model and LM head 8.953803264B, vision 0.456010480B and MTP 0.243290624B. Qwen does not separately specify active parameters. Native context is 262144; larger context requires extension configuration.",
+    "active_parameters_b": null
   },
   "proposed_fields": {
     "parameter_components_b": {
@@ -270,5 +309,5 @@
       "mtp": 0.243290624
     }
   },
-  "summary": "Corrects release to March 2, 2026 and total from nominal 9B language-model label to 9.653104368B complete checkpoint. Adds Apache-2.0 and dense classification with hybrid attention; documents vision/MTP components and preserves unknown active count. Confirms native context, modalities, thinking and tool calls."
+  "summary": "October 27 parameter re-audit reconfirms the 9.653104368B complete-checkpoint total and preserves all component counts. Qwen publishes a nominal 9B language-model size but no separate active count in the exact card or official comparison graphic. A secondary 9B-activated listing lacks developer provenance; active parameters remain explicitly null/undisclosed. Prior non-parameter findings are unchanged."
 }
