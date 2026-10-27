@@ -1,0 +1,321 @@
+{
+  "index": 559,
+  "model_id": "zhipuai/glm-5.1",
+  "reviewed_at": "2026-10-27T06:20:03.622447+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://z.ai/blog/glm-5.1",
+      "title": "GLM-5.1: Towards Long-Horizon Tasks",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Original announcement explicitly dated April 7, 2026 states that GLM-5.1 is released under MIT, available through the developer API platforms and downloadable on Hugging Face/ModelScope. It describes coding and tool-based long-horizon work. Complete indexed primary page text was accessed; later chat availability is distinguished from the API/weights release."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/zai-org/GLM-5.1/blob/26e1bd6e011feb778d25ae34b09b07074139d92d/README.md",
+      "title": "GLM-5.1 pinned official model card",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Names the exact GLM-5.1 release, declares MIT, links the original announcement and public deployment instructions. The cited technical report is GLM-5, not a GLM-5.1-specific count derivation."
+    },
+    {
+      "id": "s3",
+      "url": "https://github.com/zai-org/GLM-5/blob/83c03d317378f86f0a012f7c4cd48b6243c7e69b/README.md",
+      "title": "Official GLM model download table at pinned revision",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "The exact GLM-5.1 BF16 row directly reports 744B-A40B, separately from GLM-5, GLM-5.1-FP8 and later releases. This supplies nominal total and active counts but no exact embedding, output or MTP accounting boundary."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/zai-org/GLM-5.1/blob/26e1bd6e011feb778d25ae34b09b07074139d92d/config.json",
+      "title": "GLM-5.1 checkpoint configuration",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "GlmMoeDsaForCausalLM with 78 main layers, first 3 dense, 256 routed experts with top 8 selected and one shared expert, one next-token-prediction layer, hidden size 6144, 64 attention heads, query rank 2048 and KV rank 512. Sparse indexer has 32 heads and top-k 2048. max_position_embeddings=202752, untied embeddings and BF16; no vision or audio module."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/zai-org/GLM-5.1/blob/26e1bd6e011feb778d25ae34b09b07074139d92d/LICENSE",
+      "title": "GLM-5.1 checkpoint MIT license",
+      "publisher": "Zhipu AI",
+      "accessed": true,
+      "evidence": "The exact repository includes a complete MIT License with 2026 Zhipu AI copyright, matching the model-card declaration and original release."
+    },
+    {
+      "id": "s6",
+      "url": "https://docs.z.ai/guides/llm/glm-5.1",
+      "title": "GLM-5.1 native API guide",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Complete Markdown page accessed through its .md URL. Exact model guide specifies text input/output, rounded 200K context and separate 128K output maximum, thinking modes and function calling."
+    },
+    {
+      "id": "s7",
+      "url": "https://docs.z.ai/release-notes/new-released",
+      "title": "Z.ai model release notes",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "The explicit 2026-04-07 GLM-5.1 release entry links the exact model guide and describes its public availability. This corroborates the original announcement date rather than a repository upload timestamp."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/zai-org/GLM-5.1/blob/26e1bd6e011feb778d25ae34b09b07074139d92d/chat_template.jinja",
+      "title": "GLM-5.1 exact checkpoint chat template",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Serializes text content, structured function definitions, calls and tool responses. Supports reasoning_content, preserved thinking and enable_thinking=false. Shared tokenizer image/audio special tokens alone do not establish native multimodal input."
+    },
+    {
+      "id": "s9",
+      "url": "https://github.com/huggingface/transformers/blob/v5.4.0/src/transformers/models/glm_moe_dsa/modeling_glm_moe_dsa.py",
+      "title": "GLM MoE DSA implementation at checkpoint-declared version",
+      "publisher": "Hugging Face Transformers / GLM model contributors",
+      "accessed": true,
+      "evidence": "Developer-linked implementation explicitly identifies Multi-head Latent Attention with a sparse-attention indexer, routed/shared experts and top-k selection. Router e_score_correction_bias is an F32 buffer. This supports topology, not an unperformed complete tensor count."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/zai-org/GLM-5.1/blob/26e1bd6e011feb778d25ae34b09b07074139d92d/tokenizer_config.json",
+      "title": "GLM-5.1 exact tokenizer configuration",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "model_max_length=202752 agrees with the checkpoint position limit. Shared special tokens do not override the native text-only model/API configuration."
+    },
+    {
+      "id": "s11",
+      "url": "https://arxiv.org/html/2602.15763v1",
+      "title": "GLM-5 technical report, checked for applicability",
+      "publisher": "GLM Team / Z.ai",
+      "accessed": true,
+      "evidence": "The report contains no GLM-5.1 reference. Table 10 defines nominal GLM-5/GLM-4.5 counts as including MTP and excluding word embeddings/output; this convention is not silently transferred to GLM-5.1 merely because its card cites the report."
+    },
+    {
+      "id": "s12",
+      "url": "https://huggingface.co/api/models/zai-org/GLM-5.1",
+      "title": "GLM-5.1 public checkpoint metadata",
+      "publisher": "Z.ai / Hugging Face",
+      "accessed": true,
+      "evidence": "Public ungated repository at the pinned revision contains 282 indexed BF16 weight shards. Its metadata aggregates 753864119552 BF16 and 19456 F32 elements; these are not promoted to an exact learned count because all shard headers, module accounting and MTP sharing were not independently reconciled. No weights were downloaded."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "GLM-5.1",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Exact released name, distinct from GLM-5-Turbo and later GLM-5.2."
+    },
+    "developer": {
+      "value": "Z.ai",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5"
+      ],
+      "note": "Original developer branding; the checkpoint license identifies Zhipu AI."
+    },
+    "family": {
+      "value": "glm",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "Official GLM series naming and download table."
+    },
+    "release_date": {
+      "value": "2026-04-07",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7"
+      ],
+      "note": "Explicit public API/weights release date. Earlier third-party mentions of an invitation-only beta do not establish an earlier public release; no primary public-preview identity/date was verified. The announcement separately says chat access is coming later."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s12"
+      ],
+      "note": "Exact public ungated developer checkpoint and download instructions; this is not inferred from the base GLM-5 release."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5"
+      ],
+      "note": "Exact checkpoint LICENSE and card agree with the original announcement."
+    },
+    "parameters_b": {
+      "value": 744,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s11",
+        "s12"
+      ],
+      "note": "Direct author-reported nominal total in the exact GLM-5.1 row. Not an exact checkpoint learned-tensor total. Embedding/output/MTP accounting is not defined for this row; GLM-5 Table 10 scope is not imported. HF storage metadata is not used as a learned count."
+    },
+    "active_parameters_b": {
+      "value": 40,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4"
+      ],
+      "note": "Direct author-reported nominal A40B. The exact row does not define the embedding/output/MTP or per-phase convention. Config independently confirms top-eight routed experts plus one shared expert."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s9"
+      ],
+      "note": "Causal language Transformer with MLA and sparse-attention indexer: 3 dense plus 75 MoE main layers, 256 routed experts/top eight and one shared expert. One MTP layer is configured. This is exact GLM-5.1 evidence, not successor IndexShare architecture."
+    },
+    "context_window": {
+      "value": 202752,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s6",
+        "s10"
+      ],
+      "note": "Exact checkpoint max_position_embeddings and tokenizer model_max_length agree at 202752. Native API docs use rounded 200K; 128K maximum output is separate. No live inference capacity test was performed."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s6",
+        "s8"
+      ],
+      "note": "Native guide explicitly states text input/output; config lacks visual/audio modules and template processes text. Shared tokenizer modality markers do not establish image/audio capability."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s6",
+        "s8"
+      ],
+      "note": "Native thinking modes and exact checkpoint reasoning serialization/on-off switch."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s6",
+        "s8"
+      ],
+      "note": "Native function calling and exact checkpoint tool definitions/calls/responses."
+    },
+    "description": {
+      "value": "Text MoE model with sparse attention, reasoning and tool calling for coding and long-running tasks.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4",
+        "s6"
+      ],
+      "note": "Neutral description of supported architecture and capabilities; removes subjective strength claims."
+    }
+  },
+  "patch": {
+    "license": "MIT",
+    "parameters_b": 744,
+    "active_parameters_b": 40,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "context_window": 202752,
+    "description": "Text MoE model with sparse attention, reasoning and tool calling for coding and long-running tasks.",
+    "source_url": "https://z.ai/blog/glm-5.1",
+    "source_type": "primary",
+    "notes": "Z.ai lists GLM-5.1 as nominal 744B total and 40B active. The exact download row does not define embedding, output-head or MTP accounting, so these are not exact full checkpoint counts and the GLM-5 counting scope is not transferred. The released model uses MoE with MLA and sparse attention, plus one configured MTP layer. Checkpoint and tokenizer context is 202752 tokens, rounded to 200K in native API documentation. Public API and weights release was April 7, 2026; the announcement described chat access as forthcoming.",
+    "sources": [
+      {
+        "label": "GLM-5.1: Towards Long-Horizon Tasks",
+        "url": "https://z.ai/blog/glm-5.1",
+        "type": "primary"
+      },
+      {
+        "label": "GLM-5.1 pinned official model card",
+        "url": "https://huggingface.co/zai-org/GLM-5.1/blob/26e1bd6e011feb778d25ae34b09b07074139d92d/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Official GLM model download table at pinned revision",
+        "url": "https://github.com/zai-org/GLM-5/blob/83c03d317378f86f0a012f7c4cd48b6243c7e69b/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "GLM-5.1 checkpoint configuration",
+        "url": "https://huggingface.co/zai-org/GLM-5.1/blob/26e1bd6e011feb778d25ae34b09b07074139d92d/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "GLM-5.1 checkpoint MIT license",
+        "url": "https://huggingface.co/zai-org/GLM-5.1/blob/26e1bd6e011feb778d25ae34b09b07074139d92d/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "GLM-5.1 native API guide",
+        "url": "https://docs.z.ai/guides/llm/glm-5.1",
+        "type": "primary"
+      },
+      {
+        "label": "Z.ai model release notes",
+        "url": "https://docs.z.ai/release-notes/new-released",
+        "type": "primary"
+      },
+      {
+        "label": "GLM-5.1 exact checkpoint chat template",
+        "url": "https://huggingface.co/zai-org/GLM-5.1/blob/26e1bd6e011feb778d25ae34b09b07074139d92d/chat_template.jinja",
+        "type": "primary"
+      },
+      {
+        "label": "GLM MoE DSA implementation at checkpoint-declared version",
+        "url": "https://github.com/huggingface/transformers/blob/v5.4.0/src/transformers/models/glm_moe_dsa/modeling_glm_moe_dsa.py",
+        "type": "primary"
+      },
+      {
+        "label": "GLM-5.1 exact tokenizer configuration",
+        "url": "https://huggingface.co/zai-org/GLM-5.1/blob/26e1bd6e011feb778d25ae34b09b07074139d92d/tokenizer_config.json",
+        "type": "primary"
+      },
+      {
+        "label": "GLM-5 technical report, checked for applicability",
+        "url": "https://arxiv.org/html/2602.15763v1",
+        "type": "primary"
+      },
+      {
+        "label": "GLM-5.1 public checkpoint metadata",
+        "url": "https://huggingface.co/api/models/zai-org/GLM-5.1",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "Verified all 14 fields. Adds exact-model author-nominal 744B total/40B active, MIT and MoE with MLA/sparse attention; corrects context to 202752 and replaces subjective description. Confirms April 7 public release and text, reasoning, tool capabilities. No sibling parameter-count scope or unverified storage total is asserted."
+}
