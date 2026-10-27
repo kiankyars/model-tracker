@@ -68,6 +68,22 @@ test('an upstream date corrected into the future removes an earlier mistaken rel
   assert.equal(result.coverage.excluded_future_releases, 1);
 });
 
+test('service tiers do not reappear as releases after refresh or inflate alias counts', () => {
+  const options = {
+    upstream: { 'lab/model': upstream(), 'lab/model-fast': upstream() },
+    previous: [normalize('lab/model-fast', upstream(), at)],
+    corrections: { exclude: { 'lab/model-fast': { category: 'service_tier', reason: 'Processing option for the same model', related_model_id: 'lab/model', source_url: 'https://example.org/fast' } } },
+    retrievedAt: at, asOf: '2026-10-26',
+  };
+  const first = mergeCatalog(options);
+  const refreshed = mergeCatalog({ ...options, previous: first.models });
+  assert.deepEqual(refreshed.models.map(model => model.id), ['lab/model']);
+  assert.equal(statistics(refreshed.models).total_models, 1);
+  assert.equal(refreshed.coverage.excluded_service_tiers, 1);
+  assert.equal(refreshed.coverage.excluded_mutable_aliases, 0);
+  assert.equal(refreshed.coverage.excluded_non_language_models, 0);
+});
+
 test('explicit alias corrections collapse aliases while preserving distinct versions', () => {
   const result = mergeCatalog({ upstream: { 'lab/model': upstream(), 'lab/model-2025': upstream(), 'lab/model-v2': { ...upstream(), release_date: '2026-01-01' } }, corrections: { aliases: { 'lab/model-2025': 'lab/model' }, overrides: { 'lab/model': { release_date: '2025-02-28' } } }, retrievedAt: at, asOf: '2026-10-26' });
   assert.equal(result.models.length, 2);

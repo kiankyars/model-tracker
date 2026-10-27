@@ -17,6 +17,11 @@ test('an audit report cannot substitute another model or unsupported claims', ()
   const mismatch = structuredClone(report);
   mismatch.patch.parameters_b = 42;
   assert.throws(() => validateReport(mismatch, entry), /disagrees/);
+  const excluded = structuredClone(report);
+  excluded.proposed_fields = { catalog_exclusion: { category: 'service_tier', reason: 'Documented processing option', related_model_id: 'lab/base', source_url: report.sources[0].url } };
+  assert.equal(validateReport(excluded, entry), excluded);
+  excluded.proposed_fields.catalog_exclusion.source_url = 'https://example.org/unread';
+  assert.throws(() => validateReport(excluded, entry), /exclusion/);
 });
 
 test('phase-dependent counts retain their scope in validation, display and both CSV exports', () => {

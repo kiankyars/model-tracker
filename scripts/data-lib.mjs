@@ -156,10 +156,12 @@ export function mergeCatalog({ upstream, previous = [], historical = [], correct
     map.delete(alias);
   }
   let excludedMutableAliases = 0;
+  let excludedServiceTiers = 0;
   for (const [id, exclusion] of Object.entries(corrections.exclude || {})) {
     if (exclusion.category === 'non_language_model') {
       if (map.has(id)) excludedTypes++;
-    } else excludedMutableAliases++;
+    } else if (exclusion.category === 'service_tier') excludedServiceTiers++;
+    else excludedMutableAliases++;
     map.delete(id);
   }
   for (const model of map.values()) model.sources = [...new Map(model.sources.map(source => [source.url, source])).values()];
@@ -178,6 +180,7 @@ export function mergeCatalog({ upstream, previous = [], historical = [], correct
       excluded_future_releases: future,
       merged_aliases: Object.keys(corrections.aliases || {}).length,
       excluded_mutable_aliases: excludedMutableAliases,
+      excluded_service_tiers: excludedServiceTiers,
       date_basis: 'First public release, as recorded by sources. Month precision is preserved.',
       limitation: 'A growing source-backed catalog, not an exhaustive census. Coverage depends on upstream and contributed records. Model variants count separately; explicitly identified aliases are merged.',
     },

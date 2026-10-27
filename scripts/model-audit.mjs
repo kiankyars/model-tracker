@@ -36,6 +36,8 @@ export function validateReport(report, entry) {
     if (!auditFields.includes(field) && !extras.has(field)) fail(`unexpected patch field ${field}`);
     if (auditFields.includes(field) && !isDeepStrictEqual(value, report.fields[field].value)) fail(`patch disagrees with ${field} assessment`);
   }
+  const exclusion = report.proposed_fields?.catalog_exclusion;
+  if (exclusion && (exclusion.category !== 'service_tier' || !exclusion.reason || !exclusion.related_model_id || exclusion.related_model_id === entry.id || !report.sources.some(source => source.accessed && source.url === exclusion.source_url))) fail('catalog exclusion requires a service-tier relationship and accessed source');
   if (Object.hasOwn(report.patch, 'release_date') && report.patch.release_date !== null && Object.hasOwn(report.patch, 'date_precision') && report.patch.date_precision !== (report.patch.release_date.length === 7 ? 'month' : 'day')) fail('corrected date needs matching precision');
   if (!report.summary) fail('summary missing');
   return report;
@@ -76,6 +78,15 @@ export async function applyAcceptedReports(directory = auditDirectory) {
   for (const entry of accepted) {
     const report = validateReport(await read(path.join(directory, 'reports', `${String(entry.index).padStart(3, '0')}.json`)), entry);
     if (!entry.review.note) throw new Error(`${entry.id}: parent review is missing`);
+    if (entry.review.accepted_proposed_fields?.includes('catalog_exclusion')) {
+      const exclusion = report.proposed_fields?.catalog_exclusion;
+      if (!exclusion || entry.review.accepted_proposed_fields.length !== 1) throw new Error(`${entry.id}: invalid exclusion approval`);
+      corrections.exclude ||= {};
+      corrections.exclude[entry.id] = { ...exclusion, audit_url: `https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/${String(entry.index).padStart(3, '0')}.json` };
+      delete corrections.overrides[entry.id];
+      if (report.reviewed_at > reviewedAt) reviewedAt = report.reviewed_at;
+      continue;
+    }
     const old = corrections.overrides[entry.id] || {};
     const patch = { ...old, ...report.patch };
     for (const key of entry.review.accepted_proposed_fields || []) {
