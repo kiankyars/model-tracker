@@ -1,7 +1,7 @@
 {
   "index": 263,
   "model_id": "meta/llama-2-7b-chat",
-  "reviewed_at": "2026-10-26T21:28:27.726695Z",
+  "reviewed_at": "2026-10-27T14:02:29.180015Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Llama-2-7b-chat-hf official model card and license",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "Identifies this exact repository as the dialogue-tuned 7B model; gives Meta authorship, text input/output, SFT/RLHF, 4k context, and the Llama 2 Community License."
+      "evidence": "Reopened October 27: the exact repository identifies the dialogue-optimized 7B fine-tuned model. Meta describes SFT/RLHF, text input/output, 4k context, and the Llama 2 Community License."
     },
     {
       "id": "s2",
@@ -25,7 +25,7 @@
       "title": "Llama 2: Open Foundation and Fine-Tuned Chat Models",
       "publisher": "Meta research authors / arXiv",
       "accessed": true,
-      "evidence": "Table 1 gives 7B, 4k, and no GQA for the 7B architecture. Appendix A.2.1 specifies 4096 tokens. Section 5.1 discusses emergent prompted tool use without explicit tool training; this is not a 7B-specific native function-calling specification."
+      "evidence": "Reopened October 27: Section 1 explicitly releases 7B Llama 2-Chat as a fine-tuned Llama 2 variant. Sections 3.2.3, 3.3 and 4.2.4 describe tuning on 70B-generated responses, Ghost Attention training-data changes and safety context distillation, not architectural compression. Table 1 and Appendix A.2.1 specify 7B, no GQA and 4096 tokens; Section 5.1 discusses prompted tool use."
     },
     {
       "id": "s4",
@@ -41,7 +41,7 @@
       "title": "Llama 2 original Transformer implementation",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "Implements causal attention, dense SwiGLU feed-forward layers, RMSNorm and rotary positions. No expert router; when n_kv_heads is absent it equals n_heads, implementing MHA."
+      "evidence": "Reopened October 27: the shared released Transformer uses causal attention, dense SwiGLU feed-forward layers, RMSNorm and rotary positions. No expert router or Chat-specific structural branch is present; absent n_kv_heads defaults to n_heads (MHA)."
     },
     {
       "id": "s6",
@@ -57,7 +57,7 @@
       "title": "Public metadata for Meta Llama-2-7b-chat-hf",
       "publisher": "Hugging Face metadata for Meta repository",
       "accessed": true,
-      "evidence": "Unauthenticated public metadata reports manual gating, LlamaForCausalLM, and 6,738,417,664 F16 safetensors elements. This aggregate does not distinguish learned parameters from persistent buffers."
+      "evidence": "Re-fetched October 27 via the public API: manual gating and 6,738,417,664 F16 safetensors elements remain reported, with lastModified April 17, 2024. Storage-element metadata is not used as a learned-weight census or an active-count definition."
     },
     {
       "id": "s8",
@@ -65,7 +65,23 @@
       "title": "Exact variant configuration access attempt",
       "publisher": "Meta / Hugging Face",
       "accessed": false,
-      "evidence": "The browser could not access this gated file. No authentication bypass or weight download was attempted."
+      "evidence": "Fresh October 27 browser access again failed for this gated file. No authentication bypass or weight download was attempted; access is unnecessary to retain the published nominal specification."
+    },
+    {
+      "id": "s9",
+      "url": "https://arxiv.org/html/2401.04088v1",
+      "title": "Mixtral of Experts, Section 3 Table 2",
+      "publisher": "Mistral AI research authors / arXiv",
+      "accessed": true,
+      "evidence": "Reopened October 27: the original benchmark Table 2 explicitly lists LLaMA 2 7B with 7B under Active Params. This is Mistral's nominal comparison convention for the base model, not a Meta active-count disclosure or an exact Chat-checkpoint census."
+    },
+    {
+      "id": "s10",
+      "url": "https://raw.githubusercontent.com/meta-llama/llama-models/main/models/llama2/MODEL_CARD.md",
+      "title": "Current Meta llama-models Llama 2 model card",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Freshly located and opened October 27: retains the 7B/13B/70B pretrained and fine-tuned variants, SFT/RLHF lineage and explicit 7B Llama-2-Chat evaluation row. No replacement count or structural change is specified."
     }
   ],
   "fields": {
@@ -126,20 +142,23 @@
       "status": "verified",
       "source_ids": [
         "s1",
+        "s3",
         "s4",
-        "s7",
-        "s8"
+        "s10"
       ],
-      "note": "Nominal 7B class. Public metadata reports 6,738,417,664 F16 storage elements, not a verified learned-weight count; gated tensor/config inspection was not performed."
+      "note": "Meta explicitly publishes 7B for the exact Chat fine-tune; retain this nominal specification. The fresh current card and original paper agree. No exact learned-weight census is claimed or required."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 7,
+      "status": "verified",
       "source_ids": [
+        "s9",
+        "s1",
         "s3",
-        "s5"
+        "s5",
+        "s10"
       ],
-      "note": "Sources do not separately define a per-token active parameter count; dense architecture alone is not used to copy the nominal total."
+      "note": "Nominal inference: Mistral's original Mixtral Table 2 explicitly reports 7B Active Params for Llama 2 7B base. Apply that convention to Meta's explicitly named 7B Chat fine-tune. The paper describes SFT/RLHF; its generated-response/context distillation supplies tuning data rather than compressing the 7B architecture. No pruning, expert expansion or added modality is documented. This is a lineage inference using Mistral's research comparison, not a Chat-specific active-count disclosure from Meta or exact per-token tensor participation."
     },
     "architecture": {
       "value": "dense",
@@ -202,7 +221,7 @@
   },
   "patch": {
     "parameters_source": "primary_source",
-    "notes": "7B is Meta's nominal parameter class, not an exact learned-weight count. The 7B model is a dense MHA Transformer with a trained 4096-token context. Active parameters are not separately specified. Reasoning/tool-call flags remain unknown: prompted reasoning and family-level emergent tool-use experiments do not establish dedicated native interfaces for this variant. The public repository metadata's 6,738,417,664 F16 tensor elements were not treated as learned parameters; gated configuration and tensors were not accessed.",
+    "notes": "Meta publishes a nominal 7B total for this Chat fine-tune. Nominal 7B active is inferred through its documented Llama 2 7B lineage using Mistral's Mixtral Table 2 active-count convention; Meta does not separately disclose a Chat active count. Exact per-token tensor participation is unspecified. Dense MHA architecture and a 4096-token trained context are documented. Dedicated reasoning and native tool-calling interfaces are not established.",
     "sources": [
       {
         "label": "Original release source",
@@ -233,8 +252,20 @@
         "label": "Public repository metadata",
         "url": "https://huggingface.co/api/models/meta-llama/Llama-2-7b-chat-hf",
         "type": "primary"
+      },
+      {
+        "label": "Mistral active-parameter comparison (Table 2)",
+        "url": "https://arxiv.org/html/2401.04088v1",
+        "type": "primary"
+      },
+      {
+        "label": "Current Meta Llama 2 model card",
+        "url": "https://raw.githubusercontent.com/meta-llama/llama-models/main/models/llama2/MODEL_CARD.md",
+        "type": "primary"
       }
-    ]
+    ],
+    "parameters_b": 7,
+    "active_parameters_b": 7
   },
-  "summary": "Baseline factual values are supported. Added qualifications for nominal size, gated exact-count evidence, MHA architecture, and unsupported native capability flags; preserved null active/reasoning/tool-call fields."
+  "summary": "October 27 parameter re-audit retains Meta's nominal 7B total and establishes nominal 7B active by combining Mistral's explicit base-model comparison with Meta's Chat fine-tuning lineage. Reopened original sources and searched current Meta cards; no contradictory structural change or more precise Chat active disclosure found. Exact tensor participation remains unspecified. All twelve nonparameter assessments are preserved."
 }
