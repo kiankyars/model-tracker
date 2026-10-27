@@ -1,7 +1,7 @@
 {
   "index": 221,
   "model_id": "google/gemma-3n-e4b-it",
-  "reviewed_at": "2026-10-26T20:16:17.685608+00:00",
+  "reviewed_at": "2026-10-27T13:19:18.947811+00:00",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Gemma 3n E4B IT launch model card",
       "publisher": "Google",
       "accessed": true,
-      "evidence": "Identifies this repository as the launch E4B instruction-tuned model for Transformers. Reports 8B raw parameters versus a 4B-comparable memory footprint and supports text, audio, image and video inputs.",
+      "evidence": "Reopened October 27, 2026. Identifies this repository as the launch E4B instruction-tuned model for Transformers. Reports 8B raw parameters versus a 4B-comparable memory footprint and supports text, audio, image and video inputs.",
       "type": "weights"
     },
     {
@@ -18,7 +18,7 @@
       "title": "Introducing Gemma 3n: The developer guide",
       "publisher": "Google",
       "accessed": true,
-      "evidence": "Dated June 26, 2025; announces the full release after the May preview. Reports E4B total 8B, nested MatFormer, PLE, LAuReL, AltUp, shared KV cache, audio and MobileNet-v5 vision encoders. Elastic switching was not part of launch implementations.",
+      "evidence": "Reopened October 27, 2026. Dated June 26, 2025; announces the full release after the May preview. Reports E4B total 8B, nested MatFormer, PLE, LAuReL, AltUp, shared KV cache, audio and MobileNet-v5 vision encoders. Elastic switching was not part of launch implementations.",
       "type": "primary"
     },
     {
@@ -27,7 +27,7 @@
       "title": "Gemma 3n model overview",
       "publisher": "Google",
       "accessed": true,
-      "evidence": "Defines effective parameters as reduced memory load obtained with PLE caching and conditional loading. Separates text, vision, audio and PLE groups. E4B contains an E2B submodel; audio/vision loading can be skipped. The linked parameter diagram describes E2B only.",
+      "evidence": "Reopened October 27, 2026. Defines effective parameters as reduced memory load obtained with PLE caching and conditional loading. Separates text, vision, audio and PLE groups. E4B contains an E2B submodel; audio/vision loading can be skipped. The linked parameter diagram describes E2B only.",
       "type": "primary"
     },
     {
@@ -81,7 +81,7 @@
       "title": "Gemma 3n MatFormer Lab",
       "publisher": "Google Gemma",
       "accessed": true,
-      "evidence": "Official notebook identifies E4B as 35 layers with 16384 FFN width. Its displayed main-model row labels 3.98B as Effective Params, while the nested E2B is 1.91B. These are not complete checkpoint totals or defined per-token active counts.",
+      "evidence": "Reopened October 27, 2026. Official notebook identifies E4B as 35 layers with 16384 FFN width. Its displayed main-model row labels 3.98B as Effective Params, while the nested E2B is 1.91B. These are not complete checkpoint totals or defined per-token active counts.",
       "type": "primary"
     },
     {
@@ -128,6 +128,51 @@
       "accessed": false,
       "evidence": "Returned HTTP 401. Exact stored tensor names/shapes and shared-weight omission could not be independently checked.",
       "type": "weights"
+    },
+    {
+      "id": "s15",
+      "url": "https://huggingface.co/api/models/google/gemma-3n-E4B-it/revision/c1221e9c62e34a43ab7ffacd1be0ea71f126ef10",
+      "title": "Pinned Gemma 3n E4B IT checkpoint metadata",
+      "publisher": "Hugging Face / Google",
+      "accessed": true,
+      "type": "weights",
+      "evidence": "Fetched October 27, 2026. Revision c1221e9c62e34a43ab7ffacd1be0ea71f126ef10 still reports 7,849,978,192 BF16 safetensors elements. This corroborates Google\u2019s nominal 8B complete-model specification; no weight files or new tensor census were used."
+    },
+    {
+      "id": "s16",
+      "url": "https://keras.io/keras_hub/api/base_classes/causal_lm_preprocessor/",
+      "title": "KerasHub model preset parameter table",
+      "publisher": "Keras",
+      "accessed": true,
+      "type": "primary",
+      "evidence": "Read October 27, 2026. Exact gemma3n_e4b_it preset lists 7.85B parameters and describes the instruction-tuned multimodal model as approximately 8B total and 4B effective parameters. The companion base E4B entry has the same counts; neither labels 4B an active-per-token count."
+    },
+    {
+      "id": "s17",
+      "url": "https://arxiv.org/html/2607.02770v1",
+      "title": "Gemma 4 technical report: Gemma 3n comparison",
+      "publisher": "Google DeepMind / Gemma Team",
+      "accessed": true,
+      "type": "primary",
+      "evidence": "Read the full fresh October 27 cached report, including architecture sections and Gemma 3n comparison tables. Section 2.2 identifies the Gemma 3n audio encoder as 680M parameters; Table 7 includes the E4B comparison. This is an audio-component specification, not a complete-model active count. The 3.8B activated count belongs to Gemma 4 26B-A4B; the newer E4B effective count likewise cannot be transferred to Gemma 3n."
+    },
+    {
+      "id": "s18",
+      "url": "https://arxiv.org/html/2507.13575v1",
+      "title": "Apple Intelligence Foundation Language Models: Gemma 3n E4B comparison",
+      "publisher": "Apple",
+      "accessed": true,
+      "type": "primary",
+      "evidence": "Read October 27, 2026. Section 8 explicitly evaluates instruct/non-thinking variants and Table 1 names Gemma-3n-E4B, but supplies only benchmark scores. The adjacent comparison of active parameter sizes concerns AFM Server and Llama 4 Scout, not Gemma 3n. No nominal active-count convention is stated for the E4B row."
+    },
+    {
+      "id": "s19",
+      "url": "https://bitpute.com/models/gemma-3n-e4b-it/",
+      "title": "Bitpute Gemma 3n E4B IT memory estimate (rejected active-count lead)",
+      "publisher": "Bitpute",
+      "accessed": true,
+      "type": "secondary",
+      "evidence": "Fresh exact-model active-parameter search found this page; read October 27, 2026. It claims 4.0B active per token while calling Gemma 3n a mixture-of-experts model and asserting every parameter must reside in memory. Those explanations conflict with Google\u2019s MatFormer, PLE offload and conditional-loading documentation. The page provides no count-specific primary basis that establishes 4B as a nominal active count; it is not used as specification evidence."
     }
   ],
   "fields": {
@@ -192,11 +237,10 @@
         "s1",
         "s2",
         "s6",
-        "s7",
-        "s13",
-        "s14"
+        "s15",
+        "s16"
       ],
-      "note": "Google explicitly publishes 8B as the rounded complete E4B total, including PLE and multimodal components. Hub metadata reports 7,849,978,192 BF16 elements. The released implementation uses tied output embeddings and nonpersistent buffers, but gated config/index/headers prevent a full tensor reconciliation; the aggregate is therefore not promoted to an exact learned-parameter count. No packed-weight or quantization-scale counts are used."
+      "note": "Fresh October 27 re-audit confirms Google\u2019s published nominal complete E4B total of 8B, including PLE and multimodal components. The exact E4B IT card, full-release guide, pinned Hub metadata and KerasHub preset agree: the latter lists 7.85B while describing it as approximately 8B total. Hub metadata reports 7,849,978,192 BF16 elements. Retain the developer\u2019s rounded specification without requiring a new tensor census. The instruction-tuned and base E4B presets share that nominal size; the nested E2B and Mix-n-Match slices alter layers/FFN widths and do not establish a substitute complete E4B total."
     },
     "active_parameters_b": {
       "value": null,
@@ -205,9 +249,13 @@
         "s2",
         "s3",
         "s7",
-        "s9"
+        "s9",
+        "s16",
+        "s17",
+        "s18",
+        "s19"
       ],
-      "note": "No single exact active count is defined for this checkpoint. E4B (~4B; MatFormer Lab 3.98B) describes effective accelerator-memory loading after PLE offload and modality skipping. Nested model selection, conditional encoders, shared KV paths and activation sparsity vary which computation is performed; effective-memory load is not equivalent to per-token active learned weights."
+      "note": "Fresh October 27 exact-name and checkpoint-ID searches covered total, active/activated, effective and component counts, named-base relationships and later original comparison tables. No supported nominal whole-model active count was found. Google defines E4B (~4B; MatFormer Lab 3.98B) as effective accelerator-memory loading after PLE offload and optional modality loading; Keras preserves that distinction. Nested model selection, conditional encoders, shared KV paths and activation sparsity do not themselves publish an active-weight count. Apple\u2019s exact E4B comparison gives benchmark scores only. The later Gemma 4 report discloses a 680M Gemma 3n audio component, not a complete active count. Bitpute\u2019s 4B active claim lacks primary support and misidentifies this architecture as MoE. Retain null because the nominal active specification remains unsupported, not because an exact census is missing."
     },
     "architecture": {
       "value": "transformer",
@@ -336,9 +384,15 @@
         "label": "Google AI Edge preview tool-calling announcement",
         "url": "https://developers.googleblog.com/google-ai-edge-small-language-models-multimodality-rag-function-calling/",
         "type": "primary"
+      },
+      {
+        "label": "KerasHub E4B total/effective parameter distinction",
+        "url": "https://keras.io/keras_hub/api/base_classes/causal_lm_preprocessor/",
+        "type": "primary"
       }
     ],
-    "notes": "8B is Google\u2019s rounded complete E4B count. E4B and the 3.98B figure describe effective memory loading, not per-token active parameters. Public checkpoint metadata reports 7,849,978,192 BF16 elements; raw tensor access was gated, so an exact unique count is not asserted. June 26 dates this complete launch checkpoint; May offered a limited preview. Dedicated reasoning-mode and exact-checkpoint tool support remain unverified."
+    "notes": "8B is Google\u2019s nominal complete E4B count. E4B and 3.98B describe effective memory loading; a separate active-parameter count is not disclosed. June 26 dates this complete launch checkpoint; May offered a limited preview. Dedicated reasoning-mode and exact-checkpoint tool support remain unverified.",
+    "active_parameters_b": null
   },
-  "summary": "Verified nominal complete total of 8B and MatFormer architecture; kept active count null because effective-memory figures are not active-weight counts. Confirmed June 26 full-release identity, open weights, license and 32768 context; added video input and replaced unsupported capability negatives with null. The precise Hub aggregate could not be reconciled against gated tensor metadata; exact launch reasoning/tool capability evidence remains unresolved."
+  "summary": "October 27 parameter re-audit retains Google\u2019s nominal 8B complete total and explicitly patches active parameters to null. Fresh original documentation, pinned checkpoint metadata and KerasHub distinguish total parameters from effective memory loading; later Apple and Gemma research comparisons do not establish an E4B active count. Rejected an unsupported secondary 4B active claim. No exact census is required to accept the nominal total. Prior non-parameter assessments remain unchanged, including June 26 launch identity, open weights, license, 32768 context, video input and unresolved dedicated reasoning/tool support."
 }
