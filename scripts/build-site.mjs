@@ -41,6 +41,7 @@ for (const [page, title] of [['about', 'About the data'], ['api', 'Data API']]) 
   const source = await readFile(resolve(root, 'public', `${page}.md`), 'utf8');
   const html = `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark"><meta name="theme-color" content="#f8f7f4" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#1c1c19" media="(prefers-color-scheme: dark)">
 <title>${title} · Model releases</title><meta name="description" content="${title} for the public language model release catalog.">
 <link rel="icon" href="./favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="./docs.css">
 <link rel="canonical" href="https://kiankyars.github.io/model-tracker/${page}.html">
