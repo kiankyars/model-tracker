@@ -1,0 +1,318 @@
+{
+  "index": 470,
+  "model_id": "poolside/laguna-m.1",
+  "reviewed_at": "2026-10-27T03:45:56.877733Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://poolside.ai/blog/introducing-laguna-xs2-m1",
+      "title": "Introducing Laguna XS.2 and Laguna M.1 — April 28, 2026",
+      "publisher": "Poolside",
+      "accessed": true,
+      "evidence": "Explicitly launches Laguna M.1 through the public API and OpenRouter on April 28. Original release calls it 225B total/23B active and offers weights on request; the subsequently edited announcement links public open weights. Do not mistake the later weight upload for first public model availability."
+    },
+    {
+      "id": "s2",
+      "url": "https://poolside.ai/assets/laguna/laguna-m1-xs2-technical-report.pdf",
+      "title": "Laguna M.1/XS.2 Technical Report — May 25, 2026",
+      "publisher": "Poolside",
+      "accessed": true,
+      "evidence": "Abstract and section 3.1 explicitly disclose M.1 as 225.8B total and 23.4B activated per token, including embeddings, using a pre-norm Transformer MoE with RMSNorm. M.1 uses global attention and three initial dense layers. Training and post-training research describes this exact model; the detailed XS.2 recipe is not transferred to M.1."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/poolside/Laguna-M.1/blob/2bf8a4ab6d2e8e1e0d92a41318532a0fee1640d6/README.md",
+      "title": "Laguna M.1 pinned official model card",
+      "publisher": "Poolside",
+      "accessed": true,
+      "evidence": "Describes the post-trained M.1 BF16 checkpoint: 70 layers, three dense and 67 sparse, 256 routed experts with top-16 selection plus one shared expert, global GQA, text-to-text, 262144-token context, optional interleaved reasoning and native tool calls; Apache 2.0. The exact M.1 benchmark row repeats rounded 225B-A23B."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/poolside/Laguna-M.1/blob/2bf8a4ab6d2e8e1e0d92a41318532a0fee1640d6/config.json",
+      "title": "Laguna M.1 pinned configuration",
+      "publisher": "Poolside",
+      "accessed": true,
+      "evidence": "Specifies vocabulary 100352, hidden width 4096, 70 layers, untied embeddings, 64 Q/8 KV heads of dimension 128, 256 routed experts with 16 active, expert width 1024, shared expert width 1024, dense width 16384 for layers 0–2. Configured context is 262144 with YaRN factor 64 and original_max_position_embeddings 4096; no quantization configuration."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/poolside/Laguna-M.1/blob/2bf8a4ab6d2e8e1e0d92a41318532a0fee1640d6/model.safetensors.index.json",
+      "title": "Laguna M.1 pinned weight index and all indexed shard headers",
+      "publisher": "Poolside",
+      "accessed": true,
+      "evidence": "All 89 index-listed BF16 shards were inspected only with bounded HTTP Range requests for the length prefix and JSON header. Every one of 52433 indexed tensors matched its designated shard. Total storage contains 225795725568 BF16 elements, including 17152 non-gradient router correction values. No full weight payload was downloaded."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/poolside/Laguna-M.1/blob/2bf8a4ab6d2e8e1e0d92a41318532a0fee1640d6/modeling_laguna.py",
+      "title": "Laguna M.1 pinned complete model implementation",
+      "publisher": "Poolside",
+      "accessed": true,
+      "evidence": "Enabled modules reconcile every checkpoint tensor shape: untied embeddings/head; global GQA with per-element output gate and QK norms; residual/final RMSNorm; dense and sparse SwiGLU with routed/shared experts. Fused runtime expert layout preserves the stored projections. Router correction bias is requires_grad=False and remapped from experts to gate. RoPE buffers are nonpersistent. No active MTP or adapters."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/poolside/Laguna-M.1/blob/2bf8a4ab6d2e8e1e0d92a41318532a0fee1640d6/configuration_laguna.py",
+      "title": "Laguna M.1 pinned configuration implementation",
+      "publisher": "Poolside",
+      "accessed": true,
+      "evidence": "Resolves absent configuration defaults to all-full-attention layers and disabled sliding-window attention sinks. Defaults and branch conditions were checked against the complete checkpoint/config reconciliation; no additional parameter-bearing enabled branch remains unaccounted for."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/poolside/Laguna-M.1/blob/2bf8a4ab6d2e8e1e0d92a41318532a0fee1640d6/LICENSE.md",
+      "title": "Laguna M.1 pinned Apache License 2.0",
+      "publisher": "Poolside",
+      "accessed": true,
+      "evidence": "The exact public checkpoint includes the Apache License, Version 2.0. The model card independently identifies Apache 2.0 for this M.1 release."
+    },
+    {
+      "id": "s9",
+      "url": "https://poolside.ai/blog/long-context-update-laguna-xs-2-and-m-1",
+      "title": "Long context update: Laguna XS.2 and M.1 — May 26, 2026",
+      "publisher": "Poolside",
+      "accessed": true,
+      "evidence": "Explicitly announces M.1 being served at 256K context on the Poolside API and OpenRouter on May 26, four weeks after original availability. This is a context update, not the original model launch."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/poolside/Laguna-M.1/blob/2bf8a4ab6d2e8e1e0d92a41318532a0fee1640d6/chat_template.jinja",
+      "title": "Laguna M.1 pinned chat template",
+      "publisher": "Poolside",
+      "accessed": true,
+      "evidence": "Provides enable_thinking control, preserves assistant reasoning, and serializes tool definitions, assistant function calls and tool replies. It is a text conversation format with no image/audio/video input processing."
+    },
+    {
+      "id": "s11",
+      "url": "https://poolside.ai/blog/introducing-laguna-s-2-1",
+      "title": "Introducing Laguna S 2.1 — July 21, 2026",
+      "publisher": "Poolside",
+      "accessed": true,
+      "evidence": "Later first-party model release timeline explicitly labels Laguna M.1 and XS.2 as the April 28 dual release and repeats M.1 225B-A23B. Its S 2.1 counts and 1M context describe the later sibling and are not attributed to M.1."
+    },
+    {
+      "id": "s12",
+      "url": "https://poolside.ai/blog/laguna-a-deeper-dive",
+      "title": "Laguna XS.2 and M.1: A Deeper Dive — April 28, 2026",
+      "publisher": "Poolside",
+      "accessed": true,
+      "evidence": "Exact M.1 comparison-table heading is 225B-A23B. Describes this model as an in-house MoE pretrained from scratch, with Muon and asynchronous agent RL. Establishes that M.1 belongs to the Laguna family. Searches for later first-party parameter and interpretability disclosures led to the May technical report and July model timeline rather than a different exact count."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Laguna M.1",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Exact original release and post-trained checkpoint name, distinct from M.1-base and quantized variants."
+    },
+    "developer": {
+      "value": "Poolside",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Original developer announcement and official Poolside checkpoint repository agree."
+    },
+    "family": {
+      "value": "laguna",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s12"
+      ],
+      "note": "Canonical lowercase family; first-party materials identify M.1 as a Laguna model."
+    },
+    "release_date": {
+      "value": "2026-04-28",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s11"
+      ],
+      "note": "Earliest explicit public API release. Public weight publication and the May 26 context expansion occurred later; neither resets the model release date."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s5",
+        "s8"
+      ],
+      "note": "Current official ungated BF16 checkpoint, index and all shard headers are publicly accessible. This is current availability, not a claim of public downloadable weights on April 28."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s8",
+        "s3"
+      ],
+      "note": "Canonical SPDX spelling for the current official M.1 weight release."
+    },
+    "parameters_b": {
+      "value": 225.8,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "note": "Poolside’s nominal total in billions, not an exact learned-parameter claim. Complete pinned header/config/module reconciliation independently yields 225795725568 stored BF16 elements: 225795708416 ordinary weight elements plus 17152 frozen router load-balancing correction values. No quantized packing, scales, tied-weight double-counting, MTP, adapters or unaccounted enabled modules. The catalog retains the explicitly published nominal total to avoid treating the frozen routing-state boundary as an undisclosed exact-count convention."
+    },
+    "active_parameters_b": {
+      "value": 23.4,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "note": "Official nominal active count, explicitly including embeddings in report section 3.1. Top-16 of 256 routed experts plus one shared expert is verified. A full-matrix configuration tally with all untied embeddings and frozen routing state excluded gives 23.462483456B; its difference from the reported 23.4B is recorded rather than claiming an exact equivalence or substituting an inferred activation definition."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s6",
+        "s7"
+      ],
+      "note": "70-layer decoder-only pre-norm Transformer: first 3 dense SwiGLU, then 67 MoE layers, 256 routed/top-16 and one shared expert. All layers use global GQA with 64 query/8 KV heads and per-element softplus output gates. No sliding attention or SSM branch for M.1."
+    },
+    "context_window": {
+      "value": 262144,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s9"
+      ],
+      "note": "Current supported checkpoint/API context. Config uses YaRN factor 64 from original_max_position_embeddings=4096; do not label 262144 as native unscaled pretraining context. The May 26 serving update independently verifies 256K; the detailed XS.2 long-context training recipe is not transferred to M.1."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s6",
+        "s10"
+      ],
+      "note": "Card explicitly says text-to-text and the enabled causal-LM modules contain no vision/audio encoder or modality adapter."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s10"
+      ],
+      "note": "Supports interleaved thinking and preserved reasoning between tool calls, with per-request enable/disable control."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s10"
+      ],
+      "note": "Native function-call templates, tool-result messages and the documented poolside_v1 tool-call parser establish explicit tool calling."
+    },
+    "description": {
+      "value": "Poolside's text-only mixture-of-experts model for agentic coding, with optional interleaved reasoning and tool calling.",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s10"
+      ],
+      "note": "Replaces the broad long-horizon phrase with directly documented model type and interfaces."
+    }
+  },
+  "patch": {
+    "license": "Apache-2.0",
+    "parameters_b": 225.8,
+    "active_parameters_b": 23.4,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "description": "Poolside's text-only mixture-of-experts model for agentic coding, with optional interleaved reasoning and tool calling.",
+    "source_url": "https://poolside.ai/blog/introducing-laguna-xs2-m1",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Introducing Laguna XS.2 and Laguna M.1 — April 28, 2026",
+        "url": "https://poolside.ai/blog/introducing-laguna-xs2-m1",
+        "type": "primary"
+      },
+      {
+        "label": "Laguna M.1/XS.2 Technical Report — May 25, 2026",
+        "url": "https://poolside.ai/assets/laguna/laguna-m1-xs2-technical-report.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Laguna M.1 pinned official model card",
+        "url": "https://huggingface.co/poolside/Laguna-M.1/blob/2bf8a4ab6d2e8e1e0d92a41318532a0fee1640d6/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Laguna M.1 pinned configuration",
+        "url": "https://huggingface.co/poolside/Laguna-M.1/blob/2bf8a4ab6d2e8e1e0d92a41318532a0fee1640d6/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Laguna M.1 pinned weight index and all indexed shard headers",
+        "url": "https://huggingface.co/poolside/Laguna-M.1/blob/2bf8a4ab6d2e8e1e0d92a41318532a0fee1640d6/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Laguna M.1 pinned complete model implementation",
+        "url": "https://huggingface.co/poolside/Laguna-M.1/blob/2bf8a4ab6d2e8e1e0d92a41318532a0fee1640d6/modeling_laguna.py",
+        "type": "primary"
+      },
+      {
+        "label": "Laguna M.1 pinned Apache License 2.0",
+        "url": "https://huggingface.co/poolside/Laguna-M.1/blob/2bf8a4ab6d2e8e1e0d92a41318532a0fee1640d6/LICENSE.md",
+        "type": "primary"
+      },
+      {
+        "label": "Long context update: Laguna XS.2 and M.1 — May 26, 2026",
+        "url": "https://poolside.ai/blog/long-context-update-laguna-xs-2-and-m-1",
+        "type": "primary"
+      }
+    ],
+    "notes": "Total and active parameter counts are Poolside’s nominal 225.8B and 23.4B; the active figure explicitly includes embeddings. Current BF16 checkpoint headers contain 225,795,725,568 elements, including 17,152 non-gradient router correction values; the storage total is not presented as an exact learned-parameter count. First publicly available by API on April 28, 2026; open-weight availability is later. The 262,144-token context was announced for serving on May 26 and uses YaRN (original position limit 4,096, factor 64), not unscaled native context."
+  },
+  "checkpoint_audit": {
+    "revision": "2bf8a4ab6d2e8e1e0d92a41318532a0fee1640d6",
+    "indexed_shards": 89,
+    "indexed_tensors": 52433,
+    "missing": [],
+    "extra": [],
+    "mismatched_shapes": {},
+    "unpacked_bf16_elements": 225795725568,
+    "payload_bytes_from_headers": 451591451136,
+    "non_gradient_router_correction_elements": 17152,
+    "remaining_weight_elements": 225795708416,
+    "routed_expert_elements": 215822106624,
+    "active_full_embedding_matrix_convention_excluding_router_correction_state": 23462483456,
+    "config_reconciliation": "70 decoder layers: 3 dense SwiGLU, 67 MoE each 256 routed plus one shared expert. All global GQA, per-element output gates, QK RMSNorm, both residual RMSNorms, untied input/output embeddings, final RMSNorm. Current implementation fuses three projections per routed expert into two tensors without changing dimensions. Router correction bias remapped to gate, requires_grad=False. RoPE buffers nonpersistent and absent. SWA/sinks disabled. No MTP, adapters, other enabled branches, packing, or quantization scales."
+  },
+  "summary": "All 14 fields reviewed against exact-model primary evidence. Adds Apache-2.0, MoE architecture and official nominal 225.8B total/23.4B active counts. Confirms April 28 API release, current open weights, 262144 context after the May update, text-only input/output, optional reasoning and tool calls. Complete pinned BF16 checkpoint reconciliation separates 17152 non-gradient routing-state elements from ordinary weights; exact active-count arithmetic is not substituted for the reported nominal convention."
+}
