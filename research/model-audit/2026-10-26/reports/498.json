@@ -1,7 +1,7 @@
 {
   "index": 498,
   "model_id": "swiss-ai/apertus-70b",
-  "reviewed_at": "2026-10-27T04:45:00.552411Z",
+  "reviewed_at": "2026-10-27T17:57:43.336407Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,8 @@
       "title": "Apertus-70B-Instruct-2509 model card",
       "publisher": "Swiss AI Initiative",
       "accessed": true,
-      "evidence": "Exact 2509 instruction-tuned checkpoint, based on Apertus-70B-2509. Card reports 70B nominal scale, 15T pretraining tokens, xIELU decoder-only Transformer, 65,536-token context, tool-use support, and Apache-2.0 open weights."
+      "evidence": "Exact 2509 instruction-tuned checkpoint, based on Apertus-70B-2509. Card reports 70B nominal scale, 15T pretraining tokens, xIELU decoder-only Transformer, 65,536-token context, tool-use support, and Apache-2.0 open weights.",
+      "rechecked_at": "2026-10-27T17:57:43.336407Z"
     },
     {
       "id": "s2",
@@ -25,7 +26,8 @@
       "title": "Apertus v1 Technical Report, revised 1 December 2025",
       "publisher": "Project Apertus / Swiss AI Initiative",
       "accessed": true,
-      "evidence": "Section 2.1 explicitly identifies dense decoder-only Transformers; the 70B model has 80 layers, width 8192, 64 query heads and 8 KV heads. The report identifies text-only modalities and describes tool-oriented instruction training."
+      "evidence": "Section 2.1 explicitly identifies dense decoder-only Transformers; the 70B model has 80 layers, width 8192, 64 query heads and 8 KV heads. The report identifies text-only modalities and describes tool-oriented instruction training.",
+      "rechecked_at": "2026-10-27T17:57:43.336407Z"
     },
     {
       "id": "s4",
@@ -33,7 +35,8 @@
       "title": "Apertus-70B-Instruct-2509 pinned model configuration",
       "publisher": "Swiss AI Initiative",
       "accessed": true,
-      "evidence": "ApertusForCausalLM; 80 layers, hidden width 8192, FFN width 43008, vocabulary 131072, 64 query/8 KV heads, 65,536 positions, xIELU, BF16 and untied embeddings. No quantization configuration."
+      "evidence": "ApertusForCausalLM; 80 layers, hidden width 8192, FFN width 43008, vocabulary 131072, 64 query/8 KV heads, 65,536 positions, xIELU, BF16 and untied embeddings. No quantization configuration.",
+      "rechecked_at": "2026-10-27T17:57:43.336407Z"
     },
     {
       "id": "s5",
@@ -41,7 +44,8 @@
       "title": "Apertus-70B-Instruct-2509 pinned weight index and indexed tensor headers",
       "publisher": "Swiss AI Initiative",
       "accessed": true,
-      "evidence": "All 30 indexed shard headers were retrieved with bounded HTTP Range requests and matched to all 1,123 indexed tensors. Shapes total 70,599,864,640 stored BF16 elements. Excluding 160 beta/eps buffer scalars leaves 70,599,864,480 learned parameters, also matching index total_parameters."
+      "evidence": "The earlier complete audit matched all 30 shard headers to 1,123 indexed tensors: 70,599,864,640 stored BF16 elements, excluding 160 beta/eps buffers to obtain 70,599,864,480 learned parameters. The fresh pinned index still explicitly reports total_parameters=70599864480; a fresh configured-module calculation independently agrees. No weight shards were requested in this re-audit.",
+      "rechecked_at": "2026-10-27T17:57:43.336407Z"
     },
     {
       "id": "s6",
@@ -49,7 +53,8 @@
       "title": "Transformers v4.56.0 Apertus model implementation",
       "publisher": "Hugging Face / Apertus contributors",
       "accessed": true,
-      "evidence": "Implementation recommended by the model card defines embeddings, 80 configured decoder blocks, attention/MLP/norm modules and output head. Every checkpoint tensor name and shape matches these modules; no expert or multi-token-prediction modules exist."
+      "evidence": "Implementation recommended by the model card defines embeddings, 80 configured decoder blocks, attention/MLP/norm modules and output head. Every checkpoint tensor name and shape matches these modules; no expert or multi-token-prediction modules exist.",
+      "rechecked_at": "2026-10-27T17:57:43.336407Z"
     },
     {
       "id": "s7",
@@ -57,7 +62,8 @@
       "title": "Transformers v4.56.0 xIELU activation implementation",
       "publisher": "Hugging Face / Apertus contributors",
       "accessed": true,
-      "evidence": "XIELUActivation defines alpha_p and alpha_n as learned scalar Parameters, while beta and eps are registered buffers. ACT2FN instantiates a fresh activation for each MLP, so 160 learned alpha scalars are distinct and 160 buffer scalars are excluded."
+      "evidence": "XIELUActivation defines alpha_p and alpha_n as learned scalar Parameters, while beta and eps are registered buffers. ACT2FN instantiates a fresh activation for each MLP, so 160 learned alpha scalars are distinct and 160 buffer scalars are excluded.",
+      "rechecked_at": "2026-10-27T17:57:43.336407Z"
     },
     {
       "id": "s8",
@@ -65,7 +71,8 @@
       "title": "Transformers v4.56.0 embedding tying implementation",
       "publisher": "Hugging Face",
       "accessed": true,
-      "evidence": "Input/output embedding tying is conditional on tie_word_embeddings, which is false in this checkpoint; both separately stored matrices count as parameters."
+      "evidence": "Input/output embedding tying is conditional on tie_word_embeddings, which is false in this checkpoint; both separately stored matrices count as parameters.",
+      "rechecked_at": "2026-10-27T17:57:43.336407Z"
     },
     {
       "id": "s9",
@@ -90,6 +97,24 @@
       "publisher": "Swiss AI Initiative",
       "accessed": true,
       "evidence": "The later model card says thinking mode and multimodal inputs are available for the first time in 1.5. Those additions and its larger context do not describe the 2509 checkpoint."
+    },
+    {
+      "id": "s12",
+      "url": "https://arxiv.org/pdf/2610.31945v1",
+      "title": "Kolibri technical report, Table 28 and Appendix E.1 Table 48",
+      "publisher": "Aleph Alpha",
+      "accessed": true,
+      "rechecked_at": "2026-10-27T17:57:43.336407Z",
+      "evidence": "Table 28 (page 97) explicitly lists Apertus 70B Instruct with total parameters (B)=70 and active parameters (B)=70. Appendix E.1 Table 48 (page 159) maps that column to swiss-ai/Apertus-70B-Instruct-2509. This is Aleph Alpha's nominal comparison convention, not a separate Swiss AI disclosure or an exact per-token tensor count."
+    },
+    {
+      "id": "s13",
+      "url": "https://arxiv.org/html/2610.15542v1",
+      "title": "Apertus 1.5 technical report: successor lineage and comparison counts",
+      "publisher": "Project Apertus / Swiss AI Initiative",
+      "accessed": true,
+      "rechecked_at": "2026-10-27T17:57:43.336407Z",
+      "evidence": "The successor starts from Apertus 1.0 and adds multimodal training and a larger vocabulary/context. Its Table I.2 gives active counts for some MoE comparison models, leaves dense-model active cells blank, and has no Apertus row. It supplies no separate active count for the original 2509 checkpoint."
     }
   ],
   "fields": {
@@ -149,22 +174,23 @@
       "value": 70.59986448,
       "status": "verified",
       "source_ids": [
+        "s1",
+        "s3",
         "s4",
         "s5",
         "s6",
         "s7",
         "s8"
       ],
-      "note": "Complete learned-parameter count at revision 0f2767662a013c0fb631079cea883155252bc3b6: 70,599,864,480 (70.59986448 billion). All 30 shard headers and configured module shapes agree. Excludes 160 beta/eps buffer scalars, includes separate embedding/head matrices and 160 learned xIELU alpha scalars. BF16, no packed quantization scales or MTP modules. The developer calls this the nominal 70B model."
+      "note": "Retain 70,599,864,480 learned parameters (70.59986448B) at revision 0f2767662a013c0fb631079cea883155252bc3b6. The freshly reopened index explicitly reports this total; configuration and v4.56.0 module shapes independently reproduce it. Includes untied embedding/head matrices and 160 learned xIELU alpha scalars; excludes 160 beta/eps buffers. The earlier complete header census is retained without requesting shards again. The developer's nominal model size remains 70B."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 70,
+      "status": "verified",
       "source_ids": [
-        "s1",
-        "s3"
+        "s12"
       ],
-      "note": "The reviewed first-party sources do not separately define or report active parameters. Dense architecture alone is not used to equate this with the total."
+      "note": "Nominal 70B active parameters under Aleph Alpha's Kolibri Table 28 comparison convention. Table 48 identifies the exact Apertus-70B-Instruct-2509 checkpoint. This does not establish literal per-token participation or an embedding/component breakdown; it is distinct from the precise total and is not attributed to Swiss AI."
     },
     "architecture": {
       "value": "dense",
@@ -241,7 +267,7 @@
     "description": "Instruction-tuned multilingual text model from the Swiss AI Initiative, using a dense decoder-only Transformer with xIELU activations. Pretrained on 15 trillion tokens; 65,536-token context, tool-use support and Apache-2.0 weights.",
     "source_url": "https://huggingface.co/swiss-ai/Apertus-70B-Instruct-2509",
     "source_type": "primary",
-    "notes": "Apertus-70B-Instruct-2509; nominally 70B. Complete checkpoint count is 70,599,864,480 learned parameters, excluding 160 activation-buffer scalars. Active parameters are not separately reported.",
+    "notes": "Apertus-70B-Instruct-2509: 70.59986448B learned parameters, including 160 learned activation scalars and excluding 160 buffers. Nominal 70B active parameters follow Aleph Alpha's Kolibri comparison convention for this exact checkpoint; no exact per-token participation count is established.",
     "sources": [
       {
         "label": "Apertus 70B Instruct model card",
@@ -292,8 +318,14 @@
         "label": "Swiss AI clarification on thinking support",
         "url": "https://huggingface.co/swiss-ai/Apertus-70B-Instruct-2509/discussions/18",
         "type": "primary"
+      },
+      {
+        "label": "Kolibri: exact Apertus 2509 nominal active-count comparison",
+        "url": "https://arxiv.org/pdf/2610.31945v1",
+        "type": "paper"
       }
-    ]
+    ],
+    "active_parameters_b": 70
   },
   "parameter_count_audit": {
     "revision": "0f2767662a013c0fb631079cea883155252bc3b6",
@@ -309,5 +341,30 @@
     "source_version": "Transformers v4.56.0, recommended by the checkpoint card",
     "cache_directory": "/tmp/model-audit-498"
   },
-  "summary": "Resolved the record to Apertus-70B-Instruct-2509, added the Apertus family and dense architecture, and replaced the nominal/model-name parameter claim with a complete verified 70.59986448B learned-parameter count. Confirmed 2025-09-02 release, Apache-2.0 open weights, 65,536-token text context and tool support. Thinking remains false based on explicit Swiss AI guidance; active parameters remain undisclosed. Replaced broad compliance wording with documented technical facts."
+  "summary": "Retained the verified 70.59986448B learned-parameter total after reopening the pinned index, configuration and implementation. Resolved active parameters to nominal 70B from Aleph Alpha's original Kolibri comparison, with exact 2509 checkpoint mapping. All 12 non-parameter assessments and the earlier header audit are preserved.",
+  "parameter_reaudit": {
+    "agent": "/root/parameters_498",
+    "reviewed_at": "2026-10-27T17:57:43.336407Z",
+    "outcome": "Retain precise total 70.59986448B; resolve nominal active parameters to 70B under the attributed comparison convention.",
+    "fresh_search_queries": [
+      "site.arxiv.org Apertus 70B activated parameters Kolibri",
+      "site.huggingface.co/swiss-ai/Apertus-70B-Instruct-2509 parameters active",
+      "site.swiss-ai.org Apertus 70B parameters",
+      "site.arxiv.org \"Apertus 70B\" \"active parameters\"",
+      "site.arxiv.org \"Apertus-70B-Instruct-2509\" parameters",
+      "site.swiss-ai.org Apertus 70B active parameters"
+    ],
+    "search_findings": "Reopened the original card and v1 report, pinned configuration/index and recommended Transformers implementation, then checked the newer original Apertus 1.5 report and Kolibri comparison. Successor counts were not transferred. Secondary provider/catalog estimates were not used as count evidence.",
+    "fresh_total_verification": {
+      "revision": "0f2767662a013c0fb631079cea883155252bc3b6",
+      "index_total_parameters": 70599864480,
+      "configured_module_count": 70599864480,
+      "formula": "2*131072*8192 + 80*(2*8192*8192 + 2*8192*1024 + 2*8192*43008 + 2*8192 + 2*128 + 2) + 8192",
+      "learned_activation_scalars": 160,
+      "excluded_activation_buffer_scalars": 160
+    },
+    "remaining_uncertainty": "No Swiss AI active-count definition or exact token-dependent participation count was found; the recorded active value is nominal.",
+    "access_limitations": "None for count evidence. Poppler emitted PDF dictionary warnings; both relevant rendered pages were inspected successfully.",
+    "weight_shards_requested": false
+  }
 }
