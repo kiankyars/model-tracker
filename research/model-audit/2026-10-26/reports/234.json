@@ -1,7 +1,7 @@
 {
   "index": 234,
   "model_id": "gryphe/mythomax-l2-13b",
-  "reviewed_at": "2026-10-26T20:43:47.220747Z",
+  "reviewed_at": "2026-10-27T13:37:48.722185+00:00",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "MythoMax-L2-13b original model card",
       "publisher": "Gryphe",
       "accessed": true,
-      "evidence": "Author identifies MythoMax as a tensor merge of MythoLogic-L2 and Huginn, intended for roleplay and storywriting, with Alpaca prompts. The card labels the license other and distinguishes external quantizations."
+      "evidence": "Author identifies MythoMax as a tensor merge of MythoLogic-L2 and Huginn, intended for roleplay and storywriting, with Alpaca prompts. The card labels the license other and distinguishes external quantizations. Fresh October 27 read of the exact pinned README confirms that every one of the 363 tensors is blended at an individual ratio and directly links the author\u2019s merge script and templates; it supplies no separate active figure."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "Exact original MythoMax configuration",
       "publisher": "Gryphe",
       "accessed": true,
-      "evidence": "LlamaForCausalLM: 40 layers, hidden size 5120, intermediate size 13824, 40 attention and KV heads, vocabulary 32000, untied word embeddings, FP16, maximum positions 4096 and no RoPE scaling. The August 10 upload has identical structural settings."
+      "evidence": "LlamaForCausalLM: 40 layers, hidden size 5120, intermediate size 13824, 40 attention and KV heads, vocabulary 32000, untied word embeddings, FP16, maximum positions 4096 and no RoPE scaling. The August 10 upload has identical structural settings. Freshly reopened October 27; structural dimensions agree with the named MythoLogic-L2 parent."
     },
     {
       "id": "s3",
@@ -25,7 +25,7 @@
       "title": "Original FP16 checkpoint index",
       "publisher": "Gryphe",
       "accessed": true,
-      "evidence": "Indexes 363 learned weight tensors across 13 original PyTorch shards; total_size is 26,031,728,640 bytes. Includes separate embedding and output-head weights; no rotary-frequency, quantization-scale or other buffer entries."
+      "evidence": "Indexes 363 learned weight tensors across 13 original PyTorch shards; total_size is 26,031,728,640 bytes. Includes separate embedding and output-head weights; no rotary-frequency, quantization-scale or other buffer entries. Fresh October 27 metadata read reconfirmed the 363-entry index and unchanged total_size; no shards or tensor census were retrieved in this pass."
     },
     {
       "id": "s4",
@@ -49,7 +49,7 @@
       "title": "MythoLogic-L2 original component card",
       "publisher": "Gryphe",
       "accessed": true,
-      "evidence": "Identifies the component as a Llama 2 merge of Nous-Hermes-Llama2-13b, chronos-13b-v2 and airoboros-l2-13b-gpt4-2.0."
+      "evidence": "Identifies the component as a Llama 2 merge of Nous-Hermes-Llama2-13b, chronos-13b-v2 and airoboros-l2-13b-gpt4-2.0. Freshly read the full raw card October 27; explicitly describes the Llama 2 gradient merge and its 40-layer structure."
     },
     {
       "id": "s7",
@@ -57,7 +57,7 @@
       "title": "Chronos-13b-v2 original component card",
       "publisher": "elinas",
       "accessed": true,
-      "evidence": "Explicitly identifies this component as an FP16 PyTorch/HF model based on LLaMA v2 Base; labels its license llama2."
+      "evidence": "Explicitly identifies this component as an FP16 PyTorch/HF model based on LLaMA v2 Base; labels its license llama2. Fresh October 27 original-card read confirms the named LLaMA v2 Base relationship."
     },
     {
       "id": "s8",
@@ -81,7 +81,7 @@
       "title": "Llama 2 technical report",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "Sections 2.2 and A.7 describe an autoregressive Transformer with RMSNorm, SwiGLU and RoPE, text input/output, and a 4K context for 13B. Table 1 uses nominal 13B and no grouped-query attention for that size. Exact derivative configuration and tensors establish structural inheritance."
+      "evidence": "Sections 2.2 and A.7 describe an autoregressive Transformer with RMSNorm, SwiGLU and RoPE, text input/output, and a 4K context for 13B. Table 1 uses nominal 13B and no grouped-query attention for that size. Exact derivative configuration and tensors establish structural inheritance. Freshly reopened October 27; its nominal total is retained as supporting lineage evidence, not independently relabeled as active."
     },
     {
       "id": "s11",
@@ -97,7 +97,7 @@
       "title": "Linked Huginn component card",
       "publisher": "The-Face-Of-Goonery",
       "accessed": false,
-      "evidence": "The original card links this component; its page returned HTTP 401 during this audit, so its present license and detailed lineage could not be checked."
+      "evidence": "The original card links this component; its page returned HTTP 401 during this audit, so its present license and detailed lineage could not be checked. The fresh October 27 attempt again returned HTTP 401. Active-size inference instead follows the accessible MythoLogic model1 architecture and the author\u2019s exact merge recipe; Huginn\u2019s undisclosed details are not silently asserted."
     },
     {
       "id": "s13",
@@ -106,6 +106,54 @@
       "publisher": "OpenRouter",
       "accessed": true,
       "evidence": "Lists July 2, 2023 and 8192 tokens. These conflict with the original August 10 checkpoint history and its 4096-position configuration; provider-specific context and catalog dates are not transferred to the original checkpoint."
+    },
+    {
+      "id": "s14",
+      "url": "https://arxiv.org/html/2401.04088v1",
+      "title": "Mixtral of Experts, original benchmark comparison",
+      "publisher": "Mistral AI / Jiang et al.",
+      "accessed": true,
+      "evidence": "Freshly read October 27. Section 2.1 defines active parameter count as parameters used to process a token; Section 3 says the authors rerun the comparison models themselves. Table 2 explicitly identifies LLaMA 2 13B with 13B Active Params. This is Mistral\u2019s original nominal comparison convention, not a Meta or Gryphe tensor-level activity disclosure."
+    },
+    {
+      "id": "s15",
+      "url": "https://github.com/Gryphe/BlockMerge_Gradient/blob/06bd1e0e7d07088394de2bb00fd0885a202b73cd/YAML/MythoMix-Variant-L2-13b.yaml",
+      "title": "Author\u2019s exact MythoMax tensor-merge recipe",
+      "publisher": "Gryphe",
+      "accessed": true,
+      "evidence": "Freshly inspected pinned recipe linked by the original model card. Despite the filename, output_model_path explicitly ends mythomax-L2-13b; model_path1 is mythologic-L2-13b and model_path2 is The-Face-Of-Goonery_Huginn-13b-FP16. Operations blend the existing LM head, embeddings, attention, MLP and normalization tensors rather than concatenate models or add experts."
+    },
+    {
+      "id": "s16",
+      "url": "https://github.com/Gryphe/BlockMerge_Gradient/blob/06bd1e0e7d07088394de2bb00fd0885a202b73cd/YAML/BlockMerge_Gradient_Tensors_YAML.py",
+      "title": "Author\u2019s tensor-merge implementation",
+      "publisher": "Gryphe",
+      "accessed": true,
+      "evidence": "Freshly read source without executing it. The implementation iterates model1 state-dictionary keys, forms weighted sums with model2 tensors, loads the result back into model1 and saves model1. Vocabulary blending explicitly retains model1 dimensions. No new layers, expert expansion, structural pruning or inference router are introduced. This directly supports architecture preservation for the named MythoLogic parent of the exact recipe."
+    },
+    {
+      "id": "s17",
+      "url": "https://github.com/Gryphe/BlockMerge_Gradient/blob/06bd1e0e7d07088394de2bb00fd0885a202b73cd/README.md",
+      "title": "Author\u2019s merge-method documentation",
+      "publisher": "Gryphe",
+      "accessed": true,
+      "evidence": "Freshly read October 27. Describes blending two fine-tuned Llama models into one model, with tensor ratios and model1 vocabulary preservation. It warns against mixing Llama 1 and Llama 2; the exact MythoMax recipe and original MythoLogic card identify the L2 lineage independently."
+    },
+    {
+      "id": "s18",
+      "url": "https://huggingface.co/Gryphe/MythoLogic-L2-13b/raw/main/config.json",
+      "title": "Named MythoLogic L2 parent configuration",
+      "publisher": "Gryphe",
+      "accessed": true,
+      "evidence": "Freshly read October 27. LlamaForCausalLM with 40 layers, hidden5120, intermediate13824, 40 attention/KV heads, vocabulary32000 and untied embeddings matches the exact MythoMax dimensions. Combined with explicit parent and merge code, this confirms no dimensional change; similarity alone is not the lineage evidence."
+    },
+    {
+      "id": "s19",
+      "url": "https://huggingface.co/NousResearch/Nous-Hermes-Llama2-13b",
+      "title": "Original Nous Hermes Llama 2 component card",
+      "publisher": "Nous Research",
+      "accessed": true,
+      "evidence": "Fresh full original raw-card read October 27. Identifies the Llama2-13B instruction fine-tune. Its distillation tag refers to training on synthetic GPT-4 outputs, not a pruned or structurally reduced student. Supports the explicitly named MythoLogic component lineage; it does not itself publish active parameters."
     }
   ],
   "fields": {
@@ -172,21 +220,38 @@
       "value": 13.01586432,
       "status": "verified",
       "source_ids": [
-        "s2",
-        "s3",
-        "s4"
-      ],
-      "note": "Complete unique learned checkpoint count: 13,015,864,320 = 2*32000*5120 + 40*(4*5120^2 + 3*5120*13824 + 2*5120) + 5120. Untied embedding and head each contribute 163,840,000. All 363 FP16 shapes and unique storage totals agree with index bytes/2; no quantization tensors or buffers included. 13B is nominal."
-    },
-    "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
-      "source_ids": [
         "s1",
         "s2",
-        "s10"
+        "s3",
+        "s4",
+        "s6",
+        "s7",
+        "s10",
+        "s15",
+        "s16",
+        "s18",
+        "s19"
       ],
-      "note": "No separate active-parameter count or counting convention was found in the author card, exact configuration, history or base report, including later card revisions. Dense structure alone is not evidence that an active count equals total."
+      "note": "Complete unique learned checkpoint count: 13,015,864,320 = 2*32000*5120 + 40*(4*5120^2 + 3*5120*13824 + 2*5120) + 5120. Untied embedding and head each contribute 163,840,000. All 363 FP16 shapes and unique storage totals agree with index bytes/2; no quantization tensors or buffers included. 13B is nominal. October 27 re-audit retains this supported exact total and reconfirms the original nominal 13B size through developer-named merge lineage. Pinned card/config/index and author merge source were freshly checked; no weight shards or repeat tensor census were needed."
+    },
+    "active_parameters_b": {
+      "value": 13,
+      "status": "verified",
+      "source_ids": [
+        "s14",
+        "s1",
+        "s2",
+        "s6",
+        "s7",
+        "s10",
+        "s12",
+        "s15",
+        "s16",
+        "s17",
+        "s18",
+        "s19"
+      ],
+      "note": "Inferred nominal 13B active under Mistral\u2019s published Llama 2 13B comparison convention in Mixtral Table 2. The original MythoMax card and exact author recipe explicitly merge MythoLogic-L2 with Huginn; the implementation preserves model1\u2019s structure and vocabulary, and the original MythoLogic card traces that model to named Llama 2 13B fine-tunes. Fresh exact configurations confirm unchanged dimensions, with no added experts, pruning or new modalities. Huginn remains inaccessible, but the explicit model1-preserving recipe establishes the relevant parameter structure without assuming its private details. This is attributed nominal lineage inference, not a direct Gryphe active-count disclosure or a claim that all 13.01586432B checkpoint elements participate per token. Fresh exact-model total, active and activated searches found no more precise original count; secondary dense-equals-total assertions are not the basis."
     },
     "architecture": {
       "value": "dense",
@@ -300,9 +365,30 @@
         "label": "Llama 2 technical report",
         "url": "https://arxiv.org/html/2307.09288v2",
         "type": "primary"
+      },
+      {
+        "label": "Original active-parameter comparison",
+        "url": "https://arxiv.org/html/2401.04088v1",
+        "type": "primary"
+      },
+      {
+        "label": "Exact author merge recipe",
+        "url": "https://github.com/Gryphe/BlockMerge_Gradient/blob/06bd1e0e7d07088394de2bb00fd0885a202b73cd/YAML/MythoMix-Variant-L2-13b.yaml",
+        "type": "primary"
+      },
+      {
+        "label": "Author tensor-merge implementation",
+        "url": "https://github.com/Gryphe/BlockMerge_Gradient/blob/06bd1e0e7d07088394de2bb00fd0885a202b73cd/YAML/BlockMerge_Gradient_Tensors_YAML.py",
+        "type": "primary"
+      },
+      {
+        "label": "Named MythoLogic parent card",
+        "url": "https://huggingface.co/Gryphe/MythoLogic-L2-13b",
+        "type": "primary"
       }
     ],
-    "notes": "Original Gryphe FP16 checkpoint, not a GGUF/GPTQ/AWQ conversion or reupload. Complete count is 13,015,864,320 unique learned parameters including untied input/output embeddings; no separate active count is published. License metadata is other, with inherited Llama 2 restrictions and unresolved additional component terms; commercial permission is conditional. Original weight release is 2023-08-10 and context is 4096, despite conflicting provider dates/context. Reasoning mode and tool calling remain unverified."
+    "notes": "Original Gryphe FP16 checkpoint contains 13,015,864,320 unique learned parameters, including untied input/output embeddings. Nominal active 13B follows Mistral\u2019s Llama 2 comparison convention through the documented MythoLogic tensor-merge lineage; it is not a separate Gryphe measurement. The merge preserves the parent architecture. License metadata is other, with inherited Llama 2 restrictions and unresolved component terms; commercial permission is conditional. Original release is 2023-08-10 with 4096 context, despite conflicting provider listings. Reasoning mode and tool calling remain unverified.",
+    "active_parameters_b": 13
   },
-  "summary": "Confirmed original identity, developer, August 10 release, open weights, text modalities, description and 4096 context. Added Llama 2 family and dense architecture; replaced nominal 13B with the exact 13.01586432B complete checkpoint count. Recorded conditional/ambiguous merge licensing with inherited Llama 2 restrictions. Kept active parameters undisclosed and cleared unsupported reasoning/tool-call false values. Huginn component card was inaccessible; complete merged-checkpoint metadata was accessible."
+  "summary": "October 27 parameter re-audit retains the exact 13.01586432B total and recovers nominal active 13B through explicit Llama 2 merge lineage and Mistral\u2019s original active-parameter comparison. Fresh author card, pinned config/index, exact merge YAML and implementation establish architecture preservation without a repeat tensor census. Huginn\u2019s card remains inaccessible and its details are not asserted. All nonparameter assessments and prior corrections are preserved."
 }
