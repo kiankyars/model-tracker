@@ -1,0 +1,341 @@
+{
+  "index": 541,
+  "model_id": "xiaomi/mimo-v2.5-pro",
+  "reviewed_at": "2026-10-27T05:53:02.664577Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://mimo.xiaomi.com/mimo-v2-5-pro",
+      "title": "MiMo-V2.5-Pro release and open-weight announcement",
+      "publisher": "Xiaomi MiMo",
+      "accessed": true,
+      "evidence": "Current page is dated April 27, 2026. Names this exact model, nominal 1.02T total/42B active, MoE hybrid attention, 1M context, and coding/tool-use capabilities. The open-weight event is later than its first announcement."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.5-Pro/blob/21d1ecfecd7bd70f31be25ca49d7edd21f003659/README.md",
+      "title": "MiMo-V2.5-Pro official model card at pinned revision",
+      "publisher": "Xiaomi MiMo",
+      "accessed": true,
+      "evidence": "MIT metadata; exact post-trained model has nominal 1.02T/42B, 70 layers, 384 routed experts with top-8 selection, 60 sliding-window and 10 full-attention layers, and three dense-FFN MTP modules. Distinguishes Pro from Base and the multimodal non-Pro model."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.5-Pro/blob/21d1ecfecd7bd70f31be25ca49d7edd21f003659/config.json",
+      "title": "MiMo-V2.5-Pro checkpoint configuration",
+      "publisher": "Xiaomi MiMo",
+      "accessed": true,
+      "evidence": "Text causal decoder with hidden size 6144, 70 layers (one dense and 69 MoE), 384 experts/top-8 routing, 128-position SWA window, and max_position_embeddings=1048576. No image/audio encoder configuration. Mixed FP8; embeddings are not tied."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.5-Pro/blob/21d1ecfecd7bd70f31be25ca49d7edd21f003659/tokenizer_config.json",
+      "title": "MiMo-V2.5-Pro chat template",
+      "publisher": "Xiaomi MiMo",
+      "accessed": true,
+      "evidence": "Only text content is rendered. Template explicitly implements thinking on/off, reasoning content, tool definitions, XML function calls and tool responses."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.5-Pro/blob/21d1ecfecd7bd70f31be25ca49d7edd21f003659/modeling_mimo_v2.py",
+      "title": "MiMo-V2.5-Pro official model implementation",
+      "publisher": "Xiaomi MiMo",
+      "accessed": true,
+      "evidence": "Language-token embeddings, decoder blocks and vocabulary output head; sparse MoE and hybrid attention implementation. Loader ignores model.mtp checkpoint keys, so enumerating this implementation alone would omit the published MTP modules. Quantization scales are not learned-weight counts."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/api/models/XiaomiMiMo/MiMo-V2.5-Pro",
+      "title": "Official MiMo-V2.5-Pro repository metadata",
+      "publisher": "XiaomiMiMo / Hugging Face",
+      "accessed": true,
+      "evidence": "Public ungated checkpoint repository created 2026-04-27T12:52:53Z; inspected revision 21d1ecfecd7bd70f31be25ca49d7edd21f003659. Raw safetensors metadata sums mixed-dtype storage elements; that automated total is not used as a learned parameter count."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.5-Pro/blob/21d1ecfecd7bd70f31be25ca49d7edd21f003659/model.safetensors.index.json",
+      "title": "MiMo-V2.5-Pro checkpoint tensor index",
+      "publisher": "Xiaomi MiMo",
+      "accessed": true,
+      "evidence": "Index maps 159581 tensors into 34 files, including three model.mtp.layers blocks in model_mtp.safetensors, separate input embeddings/output head, and many weight_scale_inv tensors. This is tensor-name coverage, not a full shape/module reconciliation."
+    },
+    {
+      "id": "s8",
+      "url": "https://mimo.mi.com/docs/en-US/news/latest/v2.5-open-sourced",
+      "title": "MiMo-V2.5 series open-weight license announcement",
+      "publisher": "Xiaomi MiMo",
+      "accessed": true,
+      "evidence": "Explicitly releases both V2.5 and Pro model weights, including Base, under MIT, permitting commercial deployment and further training. Separates public testing from April 23 from subsequent weight publication."
+    },
+    {
+      "id": "s9",
+      "url": "https://cdn.syndication.twimg.com/tweet-result?id=2046988157888209365&lang=en&token=1",
+      "title": "XiaomiMiMo original V2.5 series announcement via X syndication",
+      "publisher": "Xiaomi MiMo / X",
+      "accessed": true,
+      "evidence": "Official XiaomiMiMo post explicitly introduces MiMo-V2.5-Pro. Timestamp is 2026-04-22T16:23:02Z, April 23 in Beijing. X main page returned 403; its public syndication response supplies author, timestamp and introductory text, but truncates the long post."
+    },
+    {
+      "id": "s10",
+      "url": "https://mimo.mi.com/docs/en-US/updates/model",
+      "title": "Xiaomi model release changelog",
+      "publisher": "Xiaomi MiMo",
+      "accessed": true,
+      "evidence": "The exact mimo-v2.5-pro entry is dated April 23, 2026 and reports trillion-parameter scale, 42B active and 1M context. This Beijing calendar date is consistent with the April 22 UTC official announcement."
+    },
+    {
+      "id": "s11",
+      "url": "https://mimo.mi.com/docs/en-US/updates/deprecate",
+      "title": "Xiaomi model deprecation notice",
+      "publisher": "Xiaomi MiMo",
+      "accessed": true,
+      "evidence": "Explicitly states V2.5-Pro supports only text input; the V2.6-Pro replacement adds multimodal understanding. Documents October 14 routing to V2.6-Pro and October 21 identifier expiration. Table and prose disagree on the routing hour, so only dates are retained."
+    },
+    {
+      "id": "s12",
+      "url": "https://arxiv.org/html/2607.13095v1",
+      "title": "Full-Pipeline Inference Optimization for MiMo-V2.5 Series",
+      "publisher": "MiMo Team, Xiaomi",
+      "accessed": true,
+      "evidence": "First-party July 14 paper explicitly uses V2.5-Pro as the 70-layer example: 60 SWA/10 full attention, window 128. Describes three-layer MTP inference. Family-level multimodal sections do not establish visual/audio capability for Pro."
+    },
+    {
+      "id": "s13",
+      "url": "https://cdn.syndication.twimg.com/tweet-result?id=2048821516079661561&lang=en&token=1",
+      "title": "XiaomiMiMo open-weight announcement via X syndication",
+      "publisher": "Xiaomi MiMo / X",
+      "accessed": true,
+      "evidence": "Official post timestamp 2026-04-27T17:48:09Z (April 28 Beijing) announces MIT release and explicitly names Pro among the two models. Long-post body is truncated; full weights-license terms are independently established by Xiaomi documentation."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "MiMo-V2.5-Pro",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Exact post-trained Pro checkpoint; distinct from V2-Pro, V2.5, Pro-Base and the UltraSpeed variant."
+    },
+    "developer": {
+      "value": "Xiaomi",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s9"
+      ],
+      "note": "Official Xiaomi MiMo announcement and checkpoint publisher agree."
+    },
+    "family": {
+      "value": "mimo",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s9"
+      ],
+      "note": "Normalized Xiaomi MiMo family identifier."
+    },
+    "release_date": {
+      "value": "2026-04-22",
+      "status": "verified",
+      "source_ids": [
+        "s9",
+        "s10",
+        "s1",
+        "s13"
+      ],
+      "note": "Retain earliest official announcement date in UTC. The April 22 16:23 UTC post is April 23 in Beijing, matching the public-beta changelog. April 27 UTC concerns subsequent MIT weights, not the first model release."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s6",
+        "s8",
+        "s13"
+      ],
+      "note": "Exact checkpoint is public and ungated. Weights became available after the initial API/public-beta announcement."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s8"
+      ],
+      "note": "Xiaomi explicitly applies MIT to these weights; not inferred solely from implementation code. No separate LICENSE file exists at the inspected checkpoint revision."
+    },
+    "parameters_b": {
+      "value": 1020,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "note": "Author-reported rounded nominal model total, 1.02 trillion. This is not an exact learned-tensor count. Three MTP modules are present, but their separate contribution and rounding boundary are not reconciled; no extra subtotal is added. FP8 scale/storage elements are excluded from any claimed exact count, and no exact count is claimed."
+    },
+    "active_parameters_b": {
+      "value": 42,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Author-reported nominal active count for this exact model; top-8 expert routing is independently confirmed. This is not a measured per-step work count or a separately reconciled MTP-enabled inference total."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s5",
+        "s12"
+      ],
+      "note": "Decoder Transformer MoE with 69 MoE layers plus one dense layer; 384 experts, eight selected per token. Hybrid attention has 60 SWA and 10 full-attention layers, plus three MTP modules."
+    },
+    "context_window": {
+      "value": 1048576,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s2",
+        "s10"
+      ],
+      "note": "Exact checkpoint position limit is 1,048,576, advertised as 1M. Pro-Base has a different context limit. This describes model capacity rather than continued operation of the deprecated Xiaomi API identifier."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s5",
+        "s11"
+      ],
+      "note": "Text-only input and text generation. Xiaomi explicitly contrasts this with multimodal V2.6-Pro. Family-level multimodal discussion and API redirects must not be attributed to this historical checkpoint."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s2"
+      ],
+      "note": "Thinking mode and reasoning-content handling are explicit in the exact checkpoint template, with thinking enabled by default."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s1"
+      ],
+      "note": "Native tool definitions, structured function calls and tool responses are supported by the chat template; original announcement also demonstrates tool execution."
+    },
+    "description": {
+      "value": "Text reasoning model with a mixture-of-experts architecture, tool calling and a 1M-token context window.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4",
+        "s11"
+      ],
+      "note": "Replaces the unsupported multimodal claim and promotional tier phrasing with directly supported capabilities."
+    }
+  },
+  "patch": {
+    "license": "MIT",
+    "parameters_b": 1020,
+    "active_parameters_b": 42,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "description": "Text reasoning model with a mixture-of-experts architecture, tool calling and a 1M-token context window.",
+    "source_url": "https://mimo.xiaomi.com/mimo-v2-5-pro",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "MiMo-V2.5-Pro release and open-weight announcement",
+        "url": "https://mimo.xiaomi.com/mimo-v2-5-pro",
+        "type": "primary"
+      },
+      {
+        "label": "MiMo-V2.5-Pro official model card at pinned revision",
+        "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.5-Pro/blob/21d1ecfecd7bd70f31be25ca49d7edd21f003659/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "MiMo-V2.5-Pro checkpoint configuration",
+        "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.5-Pro/blob/21d1ecfecd7bd70f31be25ca49d7edd21f003659/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "MiMo-V2.5-Pro chat template",
+        "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.5-Pro/blob/21d1ecfecd7bd70f31be25ca49d7edd21f003659/tokenizer_config.json",
+        "type": "weights"
+      },
+      {
+        "label": "MiMo-V2.5-Pro official model implementation",
+        "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.5-Pro/blob/21d1ecfecd7bd70f31be25ca49d7edd21f003659/modeling_mimo_v2.py",
+        "type": "weights"
+      },
+      {
+        "label": "Official MiMo-V2.5-Pro repository metadata",
+        "url": "https://huggingface.co/api/models/XiaomiMiMo/MiMo-V2.5-Pro",
+        "type": "weights"
+      },
+      {
+        "label": "MiMo-V2.5-Pro checkpoint tensor index",
+        "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.5-Pro/blob/21d1ecfecd7bd70f31be25ca49d7edd21f003659/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "MiMo-V2.5 series open-weight license announcement",
+        "url": "https://mimo.mi.com/docs/en-US/news/latest/v2.5-open-sourced",
+        "type": "primary"
+      },
+      {
+        "label": "XiaomiMiMo original V2.5 series announcement via X syndication",
+        "url": "https://cdn.syndication.twimg.com/tweet-result?id=2046988157888209365&lang=en&token=1",
+        "type": "primary"
+      },
+      {
+        "label": "Xiaomi model release changelog",
+        "url": "https://mimo.mi.com/docs/en-US/updates/model",
+        "type": "primary"
+      },
+      {
+        "label": "Xiaomi model deprecation notice",
+        "url": "https://mimo.mi.com/docs/en-US/updates/deprecate",
+        "type": "primary"
+      },
+      {
+        "label": "Full-Pipeline Inference Optimization for MiMo-V2.5 Series",
+        "url": "https://arxiv.org/html/2607.13095v1",
+        "type": "primary"
+      },
+      {
+        "label": "XiaomiMiMo open-weight announcement via X syndication",
+        "url": "https://cdn.syndication.twimg.com/tweet-result?id=2048821516079661561&lang=en&token=1",
+        "type": "primary"
+      }
+    ],
+    "notes": "Xiaomi reports rounded nominal totals of 1.02T parameters and 42B active; these are not exact tensor counts or a reconciled MTP breakdown. Original announcement: April 22, 2026 UTC, April 23 Beijing. MIT weights followed April 27 UTC. This checkpoint accepts and generates text; later multimodal API behavior belongs to V2.6-Pro. Xiaomi documents redirection on October 14 and API identifier expiration on October 21, 2026; public weights remain available."
+  },
+  "summary": "Verified all 14 fields. Adds MIT, nominal 1020B total/42B active and MoE; corrects the multimodal description to text-only. Retains April 22 after resolving the official April 23 Beijing date to the April 22 UTC announcement. Confirms 1,048,576 context, reasoning and tools; distinguishes later open weights and V2.6 API redirection. No exact learned-tensor count or unsupported component subtotal is asserted."
+}
