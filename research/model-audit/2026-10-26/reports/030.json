@@ -1,7 +1,7 @@
 {
   "index": 30,
   "model_id": "alibaba/qwen3-8b",
-  "reviewed_at": "2026-10-26T14:23:42.565Z",
+  "reviewed_at": "2026-10-27T07:50:39.418Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Qwen3-8B model card",
       "publisher": "Qwen / Alibaba Cloud",
       "accessed": true,
-      "evidence": "Exact post-trained checkpoint: 8.2B total, 6.95B non-embedding; text generation, thinking switch, tool-use example; native 32768 context and validated 131072 with YaRN."
+      "evidence": "Reopened for the parameter re-audit: the exact Qwen3-8B post-trained model card still reports 8.2B total and 6.95B non-embedding parameters; the latter is not an activated count. Native context is 32768, with 131072 using YaRN."
     },
     {
       "id": "s2",
@@ -25,7 +25,7 @@
       "title": "Qwen3-8B configuration",
       "publisher": "Qwen / Alibaba Cloud",
       "accessed": true,
-      "evidence": "Qwen3ForCausalLM; 36 layers, 4096 hidden width, 32 query / 8 KV heads, untied embeddings, max_position_embeddings 40960 and no configured RoPE scaling."
+      "evidence": "Reopened exact configuration: Qwen3ForCausalLM, 36 layers, hidden size 4096, 32 query / 8 KV heads and untied embeddings. It agrees with the published dense architecture; no expert expansion or added modality is identified."
     },
     {
       "id": "s4",
@@ -33,7 +33,7 @@
       "title": "Qwen3 Technical Report",
       "publisher": "Qwen Team",
       "accessed": true,
-      "evidence": "Architecture section explicitly identifies Qwen3-8B as dense, using GQA, SwiGLU, RoPE, RMSNorm and QK-Norm. Active-per-token counts are specified for MoE models, not this dense variant."
+      "evidence": "The architecture section identifies Qwen3-8B as dense. Tables 17 and 18 explicitly publish 8B activated parameters for the exact post-trained model in both thinking and non-thinking comparisons, correcting the previous audit conclusion."
     },
     {
       "id": "s5",
@@ -50,6 +50,30 @@
       "publisher": "Qwen / Alibaba Cloud",
       "accessed": true,
       "evidence": "Exact checkpoint repository contains Apache License Version 2.0."
+    },
+    {
+      "id": "s7",
+      "url": "https://arxiv.org/html/2505.09388v1#S4.T17",
+      "title": "Qwen3 Technical Report \u2014 Table 17, thinking models",
+      "publisher": "Qwen Team",
+      "accessed": true,
+      "evidence": "The Qwen3-8B column lists dense architecture and nominal 8B under both activated and total parameter rows."
+    },
+    {
+      "id": "s8",
+      "url": "https://arxiv.org/html/2505.09388v1#S4.T18",
+      "title": "Qwen3 Technical Report \u2014 Table 18, non-thinking models",
+      "publisher": "Qwen Team",
+      "accessed": true,
+      "evidence": "The exact Qwen3-8B column independently lists nominal 8B activated parameters in non-thinking mode, matching Table 17."
+    },
+    {
+      "id": "s9",
+      "url": "https://arxiv.org/abs/2505.09388",
+      "title": "Qwen3 Technical Report \u2014 current arXiv version history",
+      "publisher": "Qwen Team / arXiv",
+      "accessed": true,
+      "evidence": "Checked during the fresh disclosure search; the submission history lists only version 1, submitted May 14, 2025."
     }
   ],
   "fields": {
@@ -110,16 +134,16 @@
       "source_ids": [
         "s1"
       ],
-      "note": "Developer-reported rounded total in billions; 8B is branding."
+      "note": "Fresh model-card check retains the developer-reported rounded total of 8.2B; the technical-report comparisons use coarser nominal 8B."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 8,
+      "status": "verified",
       "source_ids": [
-        "s1",
-        "s4"
+        "s7",
+        "s8"
       ],
-      "note": "No separate active-per-token count; 6.95B is non-embedding, not active."
+      "note": "Tables 17 and 18 explicitly report nominal 8B activated parameters for Qwen3-8B. This follows the developer convention rather than equating active count with the more precise 8.2B total or 6.95B non-embedding count."
     },
     "architecture": {
       "value": "dense",
@@ -189,7 +213,7 @@
     "description": "Dense 8.2B Qwen3 model with switchable thinking for chat, reasoning, and tool use",
     "source_url": "https://huggingface.co/Qwen/Qwen3-8B",
     "source_type": "primary",
-    "notes": "8.2B is the developer-rounded total; 6.95B non-embedding is not an active count. Active parameters are not separately reported. Native context is 32768 tokens; 131072 requires YaRN. The default 40960 positional allocation is explained in the model card.",
+    "notes": "8.2B is the developer-rounded total; the technical report publishes nominal 8B activated parameters in both thinking and non-thinking mode. The 6.95B non-embedding count is separate. Native context is 32768 tokens; 131072 requires YaRN. The model card explains the default 40960 positional allocation.",
     "sources": [
       {
         "label": "Qwen3-8B model card",
@@ -210,8 +234,19 @@
         "label": "Qwen3-8B configuration",
         "url": "https://huggingface.co/Qwen/Qwen3-8B/raw/main/config.json",
         "type": "primary"
+      },
+      {
+        "label": "Qwen3 Technical Report: thinking comparison (Table 17)",
+        "url": "https://arxiv.org/html/2505.09388v1#S4.T17",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3 Technical Report: non-thinking comparison (Table 18)",
+        "url": "https://arxiv.org/html/2505.09388v1#S4.T18",
+        "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": 8
   },
-  "summary": "Correct total from nominal 8B to developer-reported 8.2B and fill dense architecture. Retain native context and April 29 launch date. Active count remains null because the developer does not separately define it."
+  "summary": "Fresh model-card, configuration, release-post and technical-report checks retain 8.2B total and dense architecture. Previously missed Tables 17 and 18 disclose nominal 8B activated parameters for exact Qwen3-8B, resolving the active-count null. The arXiv version-history check found no newer report revision; remaining uncertainty is only finer active-count precision."
 }
