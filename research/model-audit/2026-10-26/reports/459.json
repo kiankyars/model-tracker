@@ -1,0 +1,357 @@
+{
+  "index": 459,
+  "model_id": "openbmb/minicpm-v-4.7-1b",
+  "reviewed_at": "2026-10-27T03:17:12.793482Z",
+  "sources": [
+    {
+      "id": "card",
+      "url": "https://huggingface.co/openbmb/MiniCPM-V-4.7-1B/blob/bb99eab4113676f30830ffa73bac1f0b2a5f1dea/README.md",
+      "title": "MiniCPM-V 4.7 1B model card",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "Exact official card declares Apache-2.0, downloadable model weights, single/multi-image and video understanding. Its serving example names the 1B model and provides a function-calling request. The separate DSpark and quantized repositories are linked rather than included in this checkpoint."
+    },
+    {
+      "id": "release",
+      "url": "https://openbmb.cn/docs/en/changelog",
+      "title": "OpenBMB release changelog",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "Explicitly dates the release of MiniCPM-V 4.7 in both 1B and 35B-A3B variants to October 12, 2026. This is a release announcement, not a repository creation timestamp."
+    },
+    {
+      "id": "github-release",
+      "url": "https://github.com/OpenBMB/MiniCPM-V/blob/1915c89a2508f1cb959991038173a993ea67ffb2/README.md",
+      "title": "MiniCPM-V project README and News",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "Current official News also dates the 4.7 release October 12 and separately dates DSpark heads October 15. The model table identifies the exact 1B base checkpoint separately from its draft model and quantizations."
+    },
+    {
+      "id": "config",
+      "url": "https://huggingface.co/openbmb/MiniCPM-V-4.7-1B/blob/bb99eab4113676f30830ffa73bac1f0b2a5f1dea/config.json",
+      "title": "Pinned MiniCPM-V 4.7 1B configuration",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "Native MiniCPMV4_7ForConditionalGeneration with qwen3_5_text: 24 text layers, 18 linear-attention and six full-attention, hidden size 1024, FFN 3584, vocab 248094, untied embeddings/head. Vision has 27 layers, hidden 1152, FFN 4304, patch 14 and image size 980. max_position_embeddings is 262144 with default RoPE, not a configured YaRN extrapolation. The mtp_num_hidden_layers metadata is checked against actual instantiation rather than counted blindly."
+    },
+    {
+      "id": "header",
+      "url": "https://huggingface.co/openbmb/MiniCPM-V-4.7-1B/resolve/bb99eab4113676f30830ffa73bac1f0b2a5f1dea/model.safetensors",
+      "title": "Complete singleton BF16 checkpoint tensor header",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "Read only byte ranges 0\u20137 and 8\u2013101935 (HTTP 206), not weight payloads. The 780 BF16 tensors reconstruct to 1,554,476,272 learned parameters: language including untied output head 1,006,209,856; vision tower including early merger 522,299,312; visual-to-language merger 25,967,104. Every expected name and shape matches native implementation, offsets are contiguous and payload size reconciles. No quantization scales, packed weights, persistent non-parameter buffers or MTP tensors occur."
+    },
+    {
+      "id": "inventory",
+      "url": "https://huggingface.co/api/models/openbmb/MiniCPM-V-4.7-1B/revision/bb99eab4113676f30830ffa73bac1f0b2a5f1dea",
+      "title": "Pinned official checkpoint inventory",
+      "publisher": "OpenBMB / Hugging Face",
+      "accessed": true,
+      "evidence": "The inspected repository inventory contains one model.safetensors file, not multiple indexed shards. It pins this audit to bb99eab4113676f30830ffa73bac1f0b2a5f1dea. The repository creation date is October 6, which does not establish when it became publicly available."
+    },
+    {
+      "id": "vision-code",
+      "url": "https://github.com/huggingface/transformers/blob/a906d3c4b65095f2308b6a6a193e934d03b8eb5d/src/transformers/models/minicpmv4_7/modeling_minicpmv4_7.py",
+      "title": "Native MiniCPM-V 4.7 model implementation",
+      "publisher": "OpenBMB / Hugging Face",
+      "accessed": true,
+      "evidence": "Inspected all enabled learned modules: patch/position embeddings, 27 vision attention/MLP blocks, final vision norm, early window-attention merger, visual-to-language merger, text backbone and output head. All 780 shapes were independently reconstructed with the Qwen text implementation. RoPE positions are computed; the base checkpoint instantiates no DSpark or MTP module. tie_word_embeddings=false keeps input/output matrices distinct."
+    },
+    {
+      "id": "vision-config-code",
+      "url": "https://github.com/huggingface/transformers/blob/a906d3c4b65095f2308b6a6a193e934d03b8eb5d/src/transformers/models/minicpmv4_7/configuration_minicpmv4_7.py",
+      "title": "Native MiniCPM-V 4.7 configuration defaults",
+      "publisher": "OpenBMB / Hugging Face",
+      "accessed": true,
+      "evidence": "Resolves omitted merger settings: a 2x2 window, window hidden/intermediate widths four times the vision widths, one post-vision merger round and untied embeddings. These defaults are necessary for complete reconstruction of the compression/projector parameters."
+    },
+    {
+      "id": "text-code",
+      "url": "https://github.com/huggingface/transformers/blob/a906d3c4b65095f2308b6a6a193e934d03b8eb5d/src/transformers/models/qwen3_5/modeling_qwen3_5.py",
+      "title": "Native Qwen3.5 text implementation used by the checkpoint",
+      "publisher": "Qwen / Hugging Face",
+      "accessed": true,
+      "evidence": "Qwen3_5TextModel instantiates embeddings, configured decoder layers, final RMSNorm and nonpersistent rotary buffers. Linear layers use GatedDeltaNet, learned depthwise convolution, A_log/dt_bias, gates and gated norm; full attention has gated query projection and Q/K norms. All decoder layers use dense gated MLPs. No MTP module is instantiated by this class, despite inert MTP metadata in config. No expert router is enabled."
+    },
+    {
+      "id": "template",
+      "url": "https://huggingface.co/openbmb/MiniCPM-V-4.7-1B/blob/bb99eab4113676f30830ffa73bac1f0b2a5f1dea/chat_template.jinja",
+      "title": "Pinned conversation template",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "The exact template supports text/image/video placeholders, structured function calls and tool results, and an enable_thinking switch. Combined with the primary card and knowledge-base documentation, this verifies optional thinking and tools without transferring sibling capability claims."
+    },
+    {
+      "id": "knowledge",
+      "url": "https://openbmb.cn/docs/en/guides/minicpm-v/minicpm-v-4.7",
+      "title": "MiniCPM-V 4.7 knowledge-base model table",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "Direct HTML fetch and indexed primary text were inspected. The exact 1B row reports 1.55B parameters, a dense qwen3_5_text backbone and 256K context, corroborating the full checkpoint reconstruction. The page documents single-checkpoint optional thinking. Its 35B-A3B active count belongs only to that sibling, not the 1B variant."
+    },
+    {
+      "id": "history",
+      "url": "https://huggingface.co/api/models/openbmb/MiniCPM-V-4.7-1B/commits/main",
+      "title": "Official checkpoint commit history",
+      "publisher": "OpenBMB / Hugging Face",
+      "accessed": true,
+      "evidence": "The repository was created October 6; an October 6 init commit already contains weights/config/tokenizer and the model card was added October 12. Historical files can now be retrieved, but the API history does not show whether the repository was public on October 6. Prefer the explicit October 12 release announcement and preserve the earlier upload-date conflict."
+    },
+    {
+      "id": "draft",
+      "url": "https://huggingface.co/openbmb/MiniCPM-V-4.7-1B-DSpark",
+      "title": "Later DSpark checkpoint for the exact 1B target",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "The later official card identifies MiniCPM-V-4.7-1B as its exact target, with five separate draft layers and 213,547,777 draft parameters. Its target-model comparisons report acceptance lengths and training usage, not target active parameters. These draft parameters are not part of the audited base checkpoint. Targeted searches of later primary reports and comparisons did not locate a separately defined per-token active count for the base model."
+    },
+    {
+      "id": "compression",
+      "url": "https://github.com/THUMAI-Lab/LLaVA-UHD-v4",
+      "title": "LLaVA-UHD v4 visual compression research",
+      "publisher": "THUMAI Lab",
+      "accessed": true,
+      "evidence": "Followed the exact card's research link. The method moves token compression into shallow vision-encoder layers. Its own checkpoints and performance comparisons do not specify MiniCPM-V 4.7 1B parameter counts; the audited count instead comes from exact config, code and complete header."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "MiniCPM-V 4.7 1B",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "config"
+      ],
+      "note": "Readable name for the exact OpenBMB MiniCPM-V-4.7-1B checkpoint, excluding quantizations and the separate DSpark draft."
+    },
+    "developer": {
+      "value": "OpenBMB",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "release"
+      ],
+      "note": "OpenBMB publishes and releases the exact checkpoint; backbone attribution does not change the model developer."
+    },
+    "family": {
+      "value": "minicpm-v",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "github-release"
+      ],
+      "note": "The official materials explicitly place this variant in the MiniCPM-V series, distinct from the audio-capable MiniCPM-o family."
+    },
+    "release_date": {
+      "value": "2026-10-12",
+      "status": "verified",
+      "source_ids": [
+        "release",
+        "github-release",
+        "history"
+      ],
+      "note": "Documented public release date. October 6 is the repository creation/initial-weight commit date; historical public visibility on that day is not established by the available API history. Preserve that conflict rather than present upload time as confirmed public release."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "inventory",
+        "header"
+      ],
+      "note": "Publicly downloadable full BF16 checkpoint under the declared Apache-2.0 license; actual bounded header access verified."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "card"
+      ],
+      "note": "The exact model-card license metadata explicitly declares Apache-2.0; retain the canonical license spelling."
+    },
+    "parameters_b": {
+      "value": 1.554476272,
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "header",
+        "inventory",
+        "vision-code",
+        "vision-config-code",
+        "text-code",
+        "knowledge"
+      ],
+      "note": "Exact complete learned-parameter count, not the nominal 1B label or the text-backbone count. All 780 tensors and shapes match code-derived expectations. Includes both untied token matrices, all vision/compression parameters and projector. BF16 elements need no unpacking; no scales/buffers or separate DSpark/MTP head are counted."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "config",
+        "text-code",
+        "vision-code",
+        "knowledge",
+        "draft"
+      ],
+      "note": "No separately defined per-token active count is supplied for this dense-MLP hybrid multimodal model. Vision encoding, text prefill and decoding execute different paths; total checkpoint size must not be copied into active parameters. The sibling's MoE and separate draft counts are inapplicable."
+    },
+    "architecture": {
+      "value": "hybrid",
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "vision-code",
+        "vision-config-code",
+        "text-code"
+      ],
+      "note": "Hybrid recurrent/attention language backbone: 18 GatedDeltaNet linear-attention layers and six gated full-attention layers, all with dense MLPs, coupled to a 27-layer SigLIP-style vision Transformer and two compression/projector stages. No MoE router. This is not a pure full-attention Transformer. The configured MTP field is inert for the instantiated class; no MTP tensors are present."
+    },
+    "context_window": {
+      "value": 262144,
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "knowledge"
+      ],
+      "note": "Documented 256K configured token window: max_position_embeddings=262144 and default RoPE. No extrapolation factor is enabled in the pinned config. This is a documented/configured maximum, not a claim of independently measured long-context quality or evidence of the full training sequence distribution."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "vision-code",
+        "template"
+      ],
+      "note": "Exact card and implementation support single/multi-image and sampled-video-frame input with text output. No audio encoder, speech head or image generator is instantiated; MiniCPM-o capabilities are not transferred. External PDF-page rendering is not a native additional modality."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "template",
+        "knowledge"
+      ],
+      "note": "The same checkpoint supports an explicit enable_thinking switch; false closes the thinking block and true opens it. This documents optional thinking behavior, without a reasoning-quality claim."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "template"
+      ],
+      "note": "Exact 1B card provides a function-calling serving example, and its template serializes tools, calls and results. This verifies the documented integration; it is not a tool-reliability benchmark."
+    },
+    "description": {
+      "value": "Vision-language model for single-image, multi-image and video understanding, with optional thinking and tool calling.",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "template",
+        "knowledge"
+      ],
+      "note": "Supported behavior in plain language; removes the nominal size implication and avoids comparative performance or hardware claims."
+    }
+  },
+  "patch": {
+    "family": "minicpm-v",
+    "release_date": "2026-10-12",
+    "date_precision": "day",
+    "parameters_b": 1.554476272,
+    "parameters_source": "primary_source",
+    "architecture": "hybrid",
+    "description": "Vision-language model for single-image, multi-image and video understanding, with optional thinking and tool calling.",
+    "source_url": "https://openbmb.cn/docs/en/changelog",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "MiniCPM-V 4.7 1B model card",
+        "url": "https://huggingface.co/openbmb/MiniCPM-V-4.7-1B/blob/bb99eab4113676f30830ffa73bac1f0b2a5f1dea/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "OpenBMB release changelog",
+        "url": "https://openbmb.cn/docs/en/changelog",
+        "type": "primary"
+      },
+      {
+        "label": "MiniCPM-V project README and News",
+        "url": "https://github.com/OpenBMB/MiniCPM-V/blob/1915c89a2508f1cb959991038173a993ea67ffb2/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned MiniCPM-V 4.7 1B configuration",
+        "url": "https://huggingface.co/openbmb/MiniCPM-V-4.7-1B/blob/bb99eab4113676f30830ffa73bac1f0b2a5f1dea/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Complete singleton BF16 checkpoint tensor header",
+        "url": "https://huggingface.co/openbmb/MiniCPM-V-4.7-1B/resolve/bb99eab4113676f30830ffa73bac1f0b2a5f1dea/model.safetensors",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned official checkpoint inventory",
+        "url": "https://huggingface.co/api/models/openbmb/MiniCPM-V-4.7-1B/revision/bb99eab4113676f30830ffa73bac1f0b2a5f1dea",
+        "type": "primary"
+      },
+      {
+        "label": "Native MiniCPM-V 4.7 model implementation",
+        "url": "https://github.com/huggingface/transformers/blob/a906d3c4b65095f2308b6a6a193e934d03b8eb5d/src/transformers/models/minicpmv4_7/modeling_minicpmv4_7.py",
+        "type": "primary"
+      },
+      {
+        "label": "Native MiniCPM-V 4.7 configuration defaults",
+        "url": "https://github.com/huggingface/transformers/blob/a906d3c4b65095f2308b6a6a193e934d03b8eb5d/src/transformers/models/minicpmv4_7/configuration_minicpmv4_7.py",
+        "type": "primary"
+      },
+      {
+        "label": "Native Qwen3.5 text implementation used by the checkpoint",
+        "url": "https://github.com/huggingface/transformers/blob/a906d3c4b65095f2308b6a6a193e934d03b8eb5d/src/transformers/models/qwen3_5/modeling_qwen3_5.py",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned conversation template",
+        "url": "https://huggingface.co/openbmb/MiniCPM-V-4.7-1B/blob/bb99eab4113676f30830ffa73bac1f0b2a5f1dea/chat_template.jinja",
+        "type": "primary"
+      },
+      {
+        "label": "MiniCPM-V 4.7 knowledge-base model table",
+        "url": "https://openbmb.cn/docs/en/guides/minicpm-v/minicpm-v-4.7",
+        "type": "primary"
+      },
+      {
+        "label": "Official checkpoint commit history",
+        "url": "https://huggingface.co/api/models/openbmb/MiniCPM-V-4.7-1B/commits/main",
+        "type": "primary"
+      },
+      {
+        "label": "Later DSpark checkpoint for the exact 1B target",
+        "url": "https://huggingface.co/openbmb/MiniCPM-V-4.7-1B-DSpark",
+        "type": "primary"
+      }
+    ],
+    "notes": "The complete BF16 checkpoint contains 1,554,476,272 learned parameters: 1,006,209,856 in the language backbone and untied output head, 522,299,312 in the vision tower and early merger, and 25,967,104 in the visual-to-language merger. The 1B name is nominal. Its dense-MLP language backbone combines 18 GatedDeltaNet layers with six full-attention layers; no MoE router is present. No separate MTP module is instantiated despite the retained config field, and the optional DSpark draft checkpoint is excluded. No phase-independent active-parameter count is documented. The 262,144-token window is the configured maximum, not an independently measured result. OpenBMB announces the release on October 12, 2026; October 6 is an earlier upload/creation timestamp whose public visibility is not established."
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "language_model_and_head": 1.006209856,
+      "vision_tower_with_early_merger": 0.522299312,
+      "visual_to_language_merger": 0.025967104
+    }
+  },
+  "summary": "Corrected nominal 1B to an exact complete 1.554476272B checkpoint count using all 780 tensor headers and a matching reconstruction of every instantiated learned module. Added MiniCPM-V family and hybrid architecture, distinguishing dense MLPs from the recurrent/full-attention mixture. Corrected release to the documented October 12 launch while recording the earlier October 6 upload timestamp. Confirmed Apache-2.0, 256K configured context, text/image/video input, optional thinking and tool calling. Active parameters remain undisclosed; inert MTP metadata and separate DSpark draft parameters are excluded."
+}
