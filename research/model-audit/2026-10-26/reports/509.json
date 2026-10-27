@@ -1,0 +1,263 @@
+{
+  "index": 509,
+  "model_id": "thinkingmachines/inkling",
+  "reviewed_at": "2026-10-27T05:01:10.752941Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://thinkingmachines.ai/model-card/inkling/",
+      "title": "Inkling Model Card",
+      "publisher": "Thinking Machines Lab",
+      "accessed": true,
+      "evidence": "Names the provider, July 15, 2026 release and Apache 2.0 license. Reports 975B total and 41B active, 66-layer sparse MoE, input text/images/audio and output text; links downloadable weights."
+    },
+    {
+      "id": "s2",
+      "url": "https://thinkingmachines.ai/news/introducing-inkling/",
+      "title": "Inkling: Our Open-Weights Model",
+      "publisher": "Thinking Machines Lab",
+      "accessed": true,
+      "evidence": "Dated July 15, 2026; explicitly announces weights and Tinker availability that day. Describes the new Inkling family, controllable reasoning, trained tool use, MoE routing, and separate hosted 64K/256K limits."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/thinkingmachines/Inkling/blob/828496eeae4c243ff1a22f7f28ff83694f2f7bc9/README.md",
+      "title": "Inkling official checkpoint card, pinned",
+      "publisher": "Thinking Machines Lab",
+      "accessed": true,
+      "evidence": "Exact Inkling BF16 card declares Apache-2.0 with a license link, 975B total/41B active and 66-layer MoE; explicitly lists text/image/audio inputs and text output."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/thinkingmachines/Inkling/blob/828496eeae4c243ff1a22f7f28ff83694f2f7bc9/config.json",
+      "title": "Inkling checkpoint configuration, pinned",
+      "publisher": "Thinking Machines Lab",
+      "accessed": true,
+      "evidence": "InklingForConditionalGeneration; 66 text layers, width 6144, 256 routed experts/top-6 and two shared experts, local/global attention, model_max_length 1048576, audio/vision configurations and eight MTP prediction layers."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/thinkingmachines/Inkling/blob/828496eeae4c243ff1a22f7f28ff83694f2f7bc9/chat_template.jinja",
+      "title": "Inkling chat template, pinned",
+      "publisher": "Thinking Machines Lab",
+      "accessed": true,
+      "evidence": "Implements reasoning effort 0.0\u20130.99 and reasoning content, tools declarations, model-selected named tool calls with argument objects, tool responses, and text/image/audio content."
+    },
+    {
+      "id": "s6",
+      "url": "https://tinker-docs.thinkingmachines.ai/cookbook/inkling/",
+      "title": "Using Inkling",
+      "publisher": "Thinking Machines Lab",
+      "accessed": true,
+      "evidence": "Exact thinkingmachines/Inkling guide states that it reasons, calls tools, takes image/audio input and uses configurable thinking effort."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/thinkingmachines/Inkling/blob/828496eeae4c243ff1a22f7f28ff83694f2f7bc9/model.safetensors.index.json",
+      "title": "Inkling checkpoint index, pinned",
+      "publisher": "Thinking Machines Lab",
+      "accessed": true,
+      "evidence": "Maps 1,552 tensor keys across 109 files, including mtp.safetensors. Index and config alone do not establish a complete unique learned-parameter count."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/api/models/thinkingmachines/Inkling",
+      "title": "Inkling repository metadata",
+      "publisher": "Thinking Machines Lab / Hugging Face",
+      "accessed": true,
+      "evidence": "Accessed repository metadata resolves to revision 828496eeae4c243ff1a22f7f28ff83694f2f7bc9 and reports 952,377,623,626 aggregate stored elements (952,377,607,178 BF16 and 16,448 F32). This automatic aggregate is not used as a reconciled parameter total."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Inkling",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Exact public model name; not Inkling-Small or a quantized derivative."
+    },
+    "developer": {
+      "value": "Thinking Machines Lab",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Official card identifies the legal provider as Thinking Machines Lab, Inc.; use its public brand name."
+    },
+    "family": {
+      "value": "inkling",
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "The developer introduces Inkling as the first member of its Inkling family; baseline ling is a mistaken grouping."
+    },
+    "release_date": {
+      "value": "2026-07-15",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Explicit release date and same-day downloadable-weight/API availability, rather than the previous-day repository creation."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s7"
+      ],
+      "note": "Developer explicitly makes the full weights available; the pinned public repository contains the checkpoint index."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Exact model card specifies Apache 2.0; repository front matter independently identifies Apache-2.0 and links its text. No separate LICENSE file exists at the inspected revision."
+    },
+    "parameters_b": {
+      "value": 975,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s7",
+        "s8"
+      ],
+      "note": "Developer-reported nominal total, not an exact tensor-derived count. HF automatic stored-element metadata reports 952.377623626B and the index includes separate MTP tensors; its discrepancy with 975B is not reconciled. No unsupported adjustment or component inclusion convention is inferred, and this audit did not count all shard headers or reconcile configured modules."
+    },
+    "active_parameters_b": {
+      "value": 41,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Developer-reported nominal active parameters per token. No exact active-count formula or MTP/modality-specific accounting convention is supplied; this is not equated to total parameters."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4"
+      ],
+      "note": "Native multimodal autoregressive Transformer with 66 decoder layers and sparse feed-forward routing: 256 routed experts, top-6 plus 2 shared. Config confirms local/global attention and separate MTP configuration."
+    },
+    "context_window": {
+      "value": 1048576,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s2"
+      ],
+      "note": "Exact checkpoint model_max_length is 1,048,576, resolving nominal 1M. Tinker hosted 64K/256K offerings are distinct service limits."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "audio"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "note": "The explicit input/output specification and template agree. Video in training data and temporal image encoding does not by itself establish a separately supported video input endpoint."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s5",
+        "s6"
+      ],
+      "note": "Developer documents trained controllable thinking; exact template supports reasoning_content and effort none/minimal/low/medium/high/max or 0.0\u20130.99."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s5",
+        "s6"
+      ],
+      "note": "Developer documents tool-use training and availability; the exact template serializes full tool declarations, model-selected calls and tool results. This establishes capability, not guaranteed reliability."
+    },
+    "description": {
+      "value": "Open-weight multimodal MoE model with text output, image and audio input, controllable reasoning effort, and tool calling.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5"
+      ],
+      "note": "Concise supported modality, architecture and capability description, without comparative performance claims."
+    }
+  },
+  "patch": {
+    "developer": "Thinking Machines Lab",
+    "family": "inkling",
+    "parameters_b": 975,
+    "active_parameters_b": 41,
+    "architecture": "moe",
+    "description": "Open-weight multimodal MoE model with text output, image and audio input, controllable reasoning effort, and tool calling.",
+    "parameters_source": "primary_source",
+    "source_url": "https://thinkingmachines.ai/model-card/inkling/",
+    "source_type": "primary",
+    "notes": "975B total and 41B active are developer-reported nominal figures, not exact checkpoint counts. The automatic Hugging Face stored-element total differs and has not been reconciled with the published nominal figure or MTP accounting. The 1,048,576-token checkpoint context differs from Tinker hosted 64K/256K limits.",
+    "sources": [
+      {
+        "label": "Inkling Model Card",
+        "url": "https://thinkingmachines.ai/model-card/inkling/",
+        "type": "primary"
+      },
+      {
+        "label": "Inkling: Our Open-Weights Model",
+        "url": "https://thinkingmachines.ai/news/introducing-inkling/",
+        "type": "primary"
+      },
+      {
+        "label": "Inkling official checkpoint card, pinned",
+        "url": "https://huggingface.co/thinkingmachines/Inkling/blob/828496eeae4c243ff1a22f7f28ff83694f2f7bc9/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Inkling checkpoint configuration, pinned",
+        "url": "https://huggingface.co/thinkingmachines/Inkling/blob/828496eeae4c243ff1a22f7f28ff83694f2f7bc9/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Inkling chat template, pinned",
+        "url": "https://huggingface.co/thinkingmachines/Inkling/blob/828496eeae4c243ff1a22f7f28ff83694f2f7bc9/chat_template.jinja",
+        "type": "primary"
+      },
+      {
+        "label": "Using Inkling",
+        "url": "https://tinker-docs.thinkingmachines.ai/cookbook/inkling/",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "Fills total 975B and active 41B from explicit primary nominal specifications, confirms MoE, and corrects family to inkling and developer to Thinking Machines Lab. Release, Apache license, open weights, checkpoint context and capabilities are verified. The exact complete learned-parameter total remains uncalculated; the HF automatic aggregate is not substituted for the author figure."
+}
