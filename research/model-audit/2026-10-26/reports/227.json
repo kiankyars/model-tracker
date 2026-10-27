@@ -1,7 +1,7 @@
 {
   "index": 227,
   "model_id": "google/lyria-3-clip-preview",
-  "reviewed_at": "2026-10-26T20:29:08.571610+00:00",
+  "reviewed_at": "2026-10-27T13:28:04.283084+00:00",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Lyria 3 Clip preview API specifications",
       "publisher": "Google",
       "accessed": true,
-      "evidence": "Exact identifier lyria-3-clip-preview: 30-second music clips; text/image input; MP3 audio and text lyrics output; 131,072 input tokens. Thinking and function calling explicitly unsupported. This page says 48 kHz."
+      "evidence": "Exact identifier lyria-3-clip-preview: 30-second music clips; text/image input; MP3 audio and text lyrics output; 131,072 input tokens. Thinking and function calling explicitly unsupported. This page says 48 kHz. Freshly reopened October 27: the complete exact-model specification lists API inputs, output length, token limit and capabilities, but no model-weight total, active count or named base checkpoint."
     },
     {
       "id": "s2",
@@ -25,7 +25,7 @@
       "title": "Lyria 3 model card, updated March 2026",
       "publisher": "Google DeepMind",
       "accessed": true,
-      "evidence": "The card explicitly covers Lyria 3 and subsequent versions. Architecture is latent diffusion over temporal audio latents; distribution is through hosted products and APIs. No total or active parameter count is disclosed. Read both HTML and linked PDF."
+      "evidence": "The card explicitly covers Lyria 3 and subsequent versions. Architecture is latent diffusion over temporal audio latents; distribution is through hosted products and APIs. No total or active parameter count is disclosed. Read both HTML and linked PDF. Fresh October 27 review reread the entire HTML card and all five linked PDF pages. Its architecture reference points to the general 2020 Denoising Diffusion Probabilistic Models paper, not a Lyria-specific architecture report or sized base model. The card gives no layer dimensions, total or active count."
     },
     {
       "id": "s4",
@@ -33,7 +33,7 @@
       "title": "Build with Lyria 3, our newest music generation model",
       "publisher": "Google",
       "accessed": true,
-      "evidence": "March 25, 2026 announcement identifies Lyria 3 Clip (lyria-3-clip-preview), its 30-second output and public Gemini API/AI Studio preview. Both Clip and Pro accept images and text; only Clip specifications are applied here."
+      "evidence": "March 25, 2026 announcement identifies Lyria 3 Clip (lyria-3-clip-preview), its 30-second output and public Gemini API/AI Studio preview. Both Clip and Pro accept images and text; only Clip specifications are applied here. Freshly reopened October 27. It explicitly calls Clip and Pro distinct Lyria 3 variants but gives neither a sized base model nor unchanged-weight lineage to a model with a published count."
     },
     {
       "id": "s5",
@@ -57,7 +57,7 @@
       "title": "Lyria 3.5 model card, July 2026",
       "publisher": "Google DeepMind",
       "accessed": true,
-      "evidence": "Later model card was checked for retrospective Lyria 3 specifications; it supplies no total or active count for Lyria 3 Clip. Its own architecture is not transferred to Clip."
+      "evidence": "Later model card was checked for retrospective Lyria 3 specifications; it supplies no total or active count for Lyria 3 Clip. Its own architecture is not transferred to Clip. Freshly reopened and reread the complete July card October 27. It reports latent diffusion and qualitative comparisons with Lyria 2, with no parameter table, retrospective Clip count or unchanged-weight relationship that supports inheriting a size."
     },
     {
       "id": "s8",
@@ -65,7 +65,7 @@
       "title": "Google Cloud Lyria 3 model specifications",
       "publisher": "Google",
       "accessed": true,
-      "evidence": "Separate 3 Clip Preview section names the exact model ID, March 25 preview release, 30-second MP3 output, image-to-music and lyrics support, and 44.1 kHz audio. Hosted access is subject to Google Cloud preview terms."
+      "evidence": "Separate 3 Clip Preview section names the exact model ID, March 25 preview release, 30-second MP3 output, image-to-music and lyrics support, and 44.1 kHz audio. Hosted access is subject to Google Cloud preview terms. Freshly reopened the exact Clip section October 27. No total or active-weight size is specified; the page\u2019s request quotas and generation controls are not neural parameter counts."
     },
     {
       "id": "s9",
@@ -74,6 +74,30 @@
       "publisher": "Google",
       "accessed": true,
       "evidence": "Lyria table gives lyria-3-clip-preview a March 25, 2026 release and no announced shutdown date as inspected. This documents lifecycle status, not a successful inference test."
+    },
+    {
+      "id": "s10",
+      "url": "https://storage.googleapis.com/deepmind-media/Model-Cards/Lyria-3-Model-Card.pdf",
+      "title": "Lyria 3 original model-card PDF",
+      "publisher": "Google DeepMind",
+      "accessed": true,
+      "evidence": "Freshly downloaded and read the complete five-page PDF October 27. Updated March 2026, it covers Lyria 3 and subsequent versions and discloses temporal-audio latent diffusion. Neither total nor active parameters are specified. The qualitative Lyria 2 comparison is not unchanged-checkpoint lineage."
+    },
+    {
+      "id": "s11",
+      "url": "https://magenta.tensorflow.org/magenta-realtime",
+      "title": "Magenta RealTime: An Open-Weights Live Music Model",
+      "publisher": "Google / Magenta",
+      "accessed": true,
+      "evidence": "Freshly read the original June 20, 2025 launch while checking possible sized-base lineage. Its 800-million-parameter autoregressive transformer is Magenta RealTime, described as a cousin of Lyria RealTime. It adapts MusicLM for block autoregression. This is not a claim that latent-diffusion Lyria 3 Clip is its fine-tune or shares its weight count."
+    },
+    {
+      "id": "s12",
+      "url": "https://magenta.tensorflow.org/magenta-realtime-2",
+      "title": "Magenta RealTime 2: Open & Local Live Music Models",
+      "publisher": "Google / Magenta",
+      "accessed": true,
+      "evidence": "Freshly read the original later-model comparison. The 2.4B/230M sizes refer to Magenta RealTime 2 codec language models with frame-level autoregression; older 760M/220M sizes refer to Magenta RealTime. No explicit unchanged-base link to Lyria 3 Clip is given, so these counts cannot fill Clip\u2019s missing parameters."
     }
   ],
   "fields": {
@@ -140,9 +164,14 @@
       "source_ids": [
         "s1",
         "s3",
-        "s7"
+        "s4",
+        "s7",
+        "s8",
+        "s10",
+        "s11",
+        "s12"
       ],
-      "note": "No total in the exact API documentation, original card/PDF or later 3.5 card. Targeted first-party research/report searches yielded no disclosed Clip count."
+      "note": "October 27 re-audit freshly reopened the exact Clip API and Cloud specifications, original launch, complete original card/PDF and later Lyria 3.5 card. Exact-model and family searches for parameter count, billion-scale sizes, technical reports and original benchmark comparisons found no supported published total. The explicit Clip-to-Lyria 3 family relationship supplies no sized base. Magenta RealTime\u2019s 800M and later 2.4B/230M releases are separate autoregressive models, not documented unchanged bases for this latent-diffusion model."
     },
     "active_parameters_b": {
       "value": null,
@@ -150,9 +179,14 @@
       "source_ids": [
         "s1",
         "s3",
-        "s7"
+        "s4",
+        "s7",
+        "s8",
+        "s10",
+        "s11",
+        "s12"
       ],
-      "note": "No active count or defined per-step parameter accounting is published in the reviewed primary material; do not derive one from the diffusion label."
+      "note": "October 27 fresh searches separately covered active/activated parameters and original comparison tables across arXiv, Google Research, DeepMind and model-card sources. The exact Clip documents and full original/later cards disclose no active-weight or per-diffusion-step counting convention. The generic diffusion-paper link and nearby RealTime-model sizes establish neither an active count nor transferable named-base lineage. Retained null rather than inferring active equals an unknown total."
     },
     "architecture": {
       "value": "latent-diffusion",
@@ -270,7 +304,9 @@
         "type": "primary"
       }
     ],
-    "notes": "Lyria 3 uses latent diffusion over audio latents. Total and active parameters are undisclosed in the reviewed primary sources. The 131,072-token value is the API input limit; Clip output is fixed at 30 seconds. The exact API page says 48 kHz, while the current generation guide and Google Cloud specification say 44.1 kHz. The March 25 date is the public Clip API preview release."
+    "notes": "Lyria 3 uses latent diffusion over audio latents. Google has not published total or active parameter counts for Clip. The 131,072-token value is the API input limit; Clip output is fixed at 30 seconds. The exact API page says 48 kHz, while the current generation guide and Google Cloud specification say 44.1 kHz. The March 25 date is the public Clip API preview release.",
+    "parameters_b": null,
+    "active_parameters_b": null
   },
-  "summary": "Verified all 14 fields; adds disclosed latent-diffusion architecture and proprietary license. Confirms March 25 API release, 131072 input-token limit, text/image input, lyrics/audio output, and explicit no-thinking/no-function-calling flags. Parameter totals remain undisclosed after primary card/PDF and later-card research. Records conflicting sample-rate specifications without asserting either."
+  "summary": "October 27 parameter re-audit: total and active counts remain undisclosed after fresh exact-model specifications, original card/PDF, release and later-card review, independent total/active searches and named-base checks. Magenta RealTime sizes do not transfer to the distinct latent-diffusion Clip model. Preserves the twelve nonparameter assessments, including API identity, release, modalities and the sample-rate conflict."
 }
