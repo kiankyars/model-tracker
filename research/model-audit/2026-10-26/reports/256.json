@@ -1,7 +1,7 @@
 {
   "index": 256,
   "model_id": "meta/llama-1-65b",
-  "reviewed_at": "2026-10-26T21:19:52.865881Z",
+  "reviewed_at": "2026-10-27T13:50:38.276596Z",
   "sources": [
     {
       "id": "s1",
@@ -83,6 +83,33 @@
       "type": "primary",
       "accessed": false,
       "evidence": "The historical access form was inaccessible through the web tool. Its complete model license text was not independently retrieved; the supported license classification comes from the announcement and original model card."
+    },
+    {
+      "id": "s10",
+      "url": "https://arxiv.org/pdf/2302.13971v1",
+      "title": "LLaMA: Open and Efficient Foundation Language Models, original PDF Table 2",
+      "publisher": "Meta AI / arXiv",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Freshly reopened October 27, 2026. PDF page 3, Table 2, reports 65.2B parameters for the 8192-dimensional, 64-head, 80-layer model. The original pinned version-1 model card identifies this configuration as the 65B base model. This retains the paper-rounded total and establishes no separate activated count."
+    },
+    {
+      "id": "s11",
+      "url": "https://arxiv.org/html/2405.04434v1",
+      "title": "DeepSeek-V2: A Strong, Economical, and Efficient Mixture-of-Experts Language Model, Figure 1(a)",
+      "publisher": "DeepSeek-AI / arXiv",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Freshly reopened October 27, 2026 and visually inspected original Figure 1(a) via its arXiv SVG at https://arxiv.org/html/2405.04434v1/mmlu.svg. The x-axis is Activated Parameters (Billions); the orange LLaMA 1 65B point is at approximately 65B, distinct from LLaMA 2 70B and LLaMA 3 70B. This is DeepSeek-AI's original benchmark plotting convention for the exactly identified first-generation model, not a Meta active-count specification or an exact per-token tensor census. The plot does not establish component inclusion."
+    },
+    {
+      "id": "s12",
+      "url": "https://arxiv.org/html/2401.04088v1",
+      "title": "Mixtral of Experts, active-parameter comparison tables",
+      "publisher": "Mistral AI / arXiv",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Freshly checked October 27, 2026. Table 2 has an Active Params column and a LLaMA 1 33B row, but no LLaMA 1 65B row; Table 4 likewise does not include the 65B model. No active count is transferred from these other models."
     }
   ],
   "fields": {
@@ -145,20 +172,19 @@
       "value": 65.2,
       "status": "verified",
       "source_ids": [
-        "s3"
+        "s3",
+        "s10",
+        "s2"
       ],
-      "note": "Table 2 explicitly reports 65.2 billion for this exact variant. This is the paper-rounded total, not an exact checkpoint tensor count; 65B is the model name. No weights were downloaded."
+      "note": "Freshly rechecked original Meta paper Table 2 and the pinned version-1 model card. Retain the published 65.2B rounded total for the 65B variant; it is not an exact tensor census."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 65,
+      "status": "verified",
       "source_ids": [
-        "s2",
-        "s3",
-        "s4",
-        "s7"
+        "s11"
       ],
-      "note": "Original materials and the later first-party comparison do not separately define an active-parameter total. Dense execution does not justify setting active parameters equal to total parameters."
+      "note": "Approximately 65B in DeepSeek-AI's Figure 1(a), which explicitly identifies LLaMA 1 65B on an Activated Parameters (Billions) axis. Retain nominal plot precision. This is DeepSeek's benchmark convention, not a separate Meta disclosure; no exact per-token count or embedding/component scope is established."
     },
     "architecture": {
       "value": "dense",
@@ -261,9 +287,20 @@
         "label": "Llama 2: Open Foundation and Fine-Tuned Chat Models, Table 1 comparison",
         "url": "https://arxiv.org/html/2307.09288v2",
         "type": "primary"
+      },
+      {
+        "label": "LLaMA: Open and Efficient Foundation Language Models, original PDF Table 2",
+        "url": "https://arxiv.org/pdf/2302.13971v1",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeek-V2: A Strong, Economical, and Efficient Mixture-of-Experts Language Model, Figure 1(a)",
+        "url": "https://arxiv.org/html/2405.04434v1",
+        "type": "primary"
       }
     ],
-    "notes": "Gated research weights; open_weights indicates released weights, not unrestricted access or an OSI-approved license. February 24, 2023 is the research-release announcement date; individual download access required approval. The original paper reports 65.2B total parameters, a rounded figure rather than an exact tensor count; 65B remains the variant name. Active parameters and dedicated thinking/tool-call capabilities are not separately documented. The model license is distinct from GPL for inference code."
+    "notes": "Gated research weights under a noncommercial model license; February 24, 2023 is the release announcement date. Meta reports 65.2B total parameters. Approximately 65B active follows DeepSeek-V2 Figure 1(a)'s benchmark convention for LLaMA 1 65B, not a Meta disclosure or exact per-token census. Dedicated thinking/tool-call capabilities remain unspecified; the model license differs from GPL for inference code.",
+    "active_parameters_b": 65
   },
-  "summary": "Reviewed all 14 factual fields against original first-party release materials and the exact Llama 1 comparison row in the later Llama 2 paper. Refine total parameters from the 65B variant label to the original paper's rounded 65.2B figure; confirm dense architecture and 2048-token context. Preserve the gated February 24 research release and noncommercial model-license classification. Active parameters, dedicated thinking and tool-calling remain unspecified. Complete historical access-agreement text and current download access were not verified."
+  "summary": "Fresh parameter re-audit on October 27, 2026: reopened the original Meta paper, pinned version-1 model card and Llama 2 comparison, and searched later active/activated-parameter comparisons. Preserve Meta's rounded 65.2B total. DeepSeek-V2 Figure 1(a), visually checked from its original SVG, explicitly places LLaMA 1 65B at approximately 65B activated parameters; record that nominal count with DeepSeek attribution. Mixtral's active tables do not list this 65B model and supply no transferable count. Exact per-token participation and component inclusion remain unspecified. Preserve the other twelve field assessments; no weight shards were downloaded."
 }
