@@ -10,7 +10,7 @@ test('published frontend assets and their imports share the release version', as
   const { version } = JSON.parse(await readFile(resolve(root, 'package.json'), 'utf8'));
   const checked = new Set();
   async function asset(reference, parent) {
-    const url = new URL(reference, `https://tracker.test/${parent}`);
+    const url = new URL(reference, new URL(parent, 'https://tracker.test/'));
     assert.equal(url.searchParams.get('v'), version, `${parent} → ${reference} can load a stale asset`);
     if (checked.has(url.pathname)) return;
     checked.add(url.pathname);
