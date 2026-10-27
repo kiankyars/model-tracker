@@ -1,7 +1,7 @@
 {
   "index": 49,
   "model_id": "alibaba/qwen3.5-2b",
-  "reviewed_at": "2026-10-26T14:50:36.572278Z",
+  "reviewed_at": "2026-10-27T09:44:40.221138Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Qwen3.5-2B model card",
       "publisher": "Qwen / Alibaba",
       "accessed": true,
-      "evidence": "Exact post-trained checkpoint. The overview places nominal 2B under Language Model, documents a vision encoder, hybrid attention, native 262,144-token context, optional thinking, text/image/video usage and tool calling."
+      "evidence": "Reopened October 27: exact post-trained checkpoint lists nominal 2B under Language Model, a vision encoder, dense FFNs, tied embeddings and multi-step MTP. Neither its overview nor benchmark tables supplies a separate activated-parameter count."
     },
     {
       "id": "s2",
@@ -25,7 +25,7 @@
       "title": "Official checkpoint repository metadata",
       "publisher": "Hugging Face, for Qwen repository",
       "accessed": true,
-      "evidence": "Safetensors metadata reports 2,274,069,824 stored parameters: 2,274,067,232 BF16 plus 2,592 F32. Repository is public and ungated. This is checkpoint metadata, not the rounded language-model figure."
+      "evidence": "Reopened October 27 at repository revision 15852e8c16360a2fea060d615a32b45270f8a8fc: safetensors metadata still reports 2,274,069,824 stored parameters (2,274,067,232 BF16 plus 2,592 F32). This full checkpoint count differs from the rounded language-model size."
     },
     {
       "id": "s4",
@@ -49,7 +49,39 @@
       "title": "Qwen3.5-2B checkpoint tensor index",
       "publisher": "Qwen / Alibaba",
       "accessed": true,
-      "evidence": "The checkpoint contains language-model, visual-encoder/merger and MTP tensors. Feed-forward tensors use gate/up/down projections; no expert tensor keys appear."
+      "evidence": "Reopened October 27: checkpoint tensor index contains language-model, 297 visual-encoder/merger tensor keys and 15 MTP tensor keys, with no expert keys; metadata total_size is 4,548,144,832 bytes. No weight shards were downloaded."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/Qwen/Qwen3.5-0.8B",
+      "title": "Qwen3.5-0.8B model card and comparison tables",
+      "publisher": "Qwen / Alibaba",
+      "accessed": true,
+      "evidence": "Fresh comparison-table check: language and vision benchmark tables explicitly include Qwen3.5-2B, but supply no total/activated-parameter row for it."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-27B",
+      "title": "Later Qwen3.8-27B model card",
+      "publisher": "Qwen / Alibaba",
+      "accessed": true,
+      "evidence": "Fresh later-release check: the overview and comparison tables do not include a Qwen3.5-2B activated-parameter disclosure. Qwen3.6-27B and Qwen3.6-35B-A3B cards were also checked with the same result; this card is not positive count evidence for 2B."
+    },
+    {
+      "id": "s9",
+      "url": "https://smartstudio.console.alibabacloud.com/guides/model-serving/docs/model-training/training",
+      "title": "Alibaba Cloud Smart Studio supported training models",
+      "publisher": "Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Current supported-model table lists Qwen/Qwen3.5-2B as a VLM with Model Size 2B alongside Qwen3.6 releases. The table has no activated-parameter column; it corroborates only the nominal size."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/IFM/K2-Horizon-0.9B",
+      "title": "IFM K2-Horizon-0.9B comparison table",
+      "publisher": "Institute of Foundation Models",
+      "accessed": true,
+      "evidence": "The reference-model table labels Qwen3.5-2B as 2B Params, 2B Activated params and Dense. This is a competitor-published comparison, not a Qwen developer disclosure; it gives no Qwen source or counting convention for that active figure, so it is retained as a secondary lead and does not establish a verified active count."
     }
   ],
   "fields": {
@@ -111,9 +143,10 @@
       "source_ids": [
         "s3",
         "s6",
-        "s1"
+        "s1",
+        "s9"
       ],
-      "note": "Full released checkpoint: 2,274,069,824 stored parameters / 1e9, including vision and MTP. Card nominal 2B is scoped to the language model, not this full tensor total."
+      "note": "Fresh metadata check confirms 2,274,069,824 stored parameters across the released language, vision and MTP tensors. Preserve this exact checkpoint total; Qwen and Alibaba Cloud separately advertise a nominal 2B model size, with the card explicitly scoping 2B to the language model."
     },
     "active_parameters_b": {
       "value": null,
@@ -121,9 +154,13 @@
       "source_ids": [
         "s1",
         "s2",
-        "s6"
+        "s6",
+        "s7",
+        "s8",
+        "s9",
+        "s10"
       ],
-      "note": "No separate active-per-token count is published. Dense FFNs do not establish one count across text, vision and optional MTP execution."
+      "note": "Fresh searches of exact and later Qwen cards and Alibaba Cloud model tables found no developer-published active count for 2B. IFM labels it 2B active in a competitor comparison without Qwen attribution or a counting convention. Dense FFNs and nominal size alone do not establish active parameters across language, vision and optional MTP execution."
     },
     "architecture": {
       "value": "dense",
@@ -225,9 +262,15 @@
         "label": "Qwen3.5-2B checkpoint tensor index",
         "url": "https://huggingface.co/Qwen/Qwen3.5-2B/raw/main/model.safetensors.index.json",
         "type": "primary"
+      },
+      {
+        "label": "Alibaba Cloud Smart Studio supported training models",
+        "url": "https://smartstudio.console.alibabacloud.com/guides/model-serving/docs/model-training/training",
+        "type": "primary"
       }
     ],
-    "notes": "The card nominal 2B refers to the language model. Full checkpoint metadata reports 2.274069824B stored parameters, including vision and MTP tensors. Architecture is dense FFN with hybrid linear/full attention. Active parameters are not separately reported; no total-to-active equivalence is assumed. Thinking is optional and off by default. Release date is the official open-weight announcement."
+    "notes": "Full checkpoint metadata reports 2.274069824B stored parameters, including vision and MTP; the card scopes nominal 2B to the language model. Dense FFNs use hybrid linear/full attention. Qwen has not separately disclosed an active count. Thinking is optional and off by default. Release date is the official open-weight announcement.",
+    "active_parameters_b": null
   },
-  "summary": "Correct total from nominal language-model 2B to full checkpoint 2.274069824B; establish dense architecture and replace unsupported speed wording. Confirm March 2 open-weight release, Apache-2.0, native context and modalities/capabilities. Separate active count remains undisclosed."
+  "summary": "October 27 parameter re-audit preserves the verified 2.274069824B checkpoint total and nominal 2B language-model context. Exact and later Qwen cards and current Alibaba Cloud tables do not disclose a separate active count; an unattributed 2B active figure in an IFM comparison is insufficient to replace null. Other audited fields are unchanged."
 }
