@@ -1,7 +1,7 @@
 {
   "index": 3,
   "model_id": "abacusai/dracarys-llama-3.1-70b-instruct",
-  "reviewed_at": "2026-10-26T13:46:18.752917Z",
+  "reviewed_at": "2026-10-27T19:29:54.122501Z",
   "sources": [
     {
       "id": "s1",
@@ -66,6 +66,30 @@
       "publisher": "NVIDIA",
       "accessed": true,
       "evidence": "The route resolved but the retrieved page contained only navigation and footer; it provided no usable technical or capability evidence."
+    },
+    {
+      "id": "date_s1",
+      "url": "https://huggingface.co/api/models/abacusai/Dracarys-Llama-3.1-70B-Instruct/commits/main",
+      "title": "Exact Dracarys checkpoint publication history",
+      "publisher": "Abacus.AI / Hugging Face",
+      "accessed": true,
+      "evidence": "Original history: repository/tokenizer created August 14, 2024 at 22:27:50Z; complete LlamaForCausalLM weight upload 1d6107e73d2b7d23f419dd27b7cc678e4359cebf at 22:45:28Z; model card updated August 15. Immutable upload tree retrieved without weight shards."
+    },
+    {
+      "id": "date_s2",
+      "url": "https://huggingface.co/api/models/abacusai/Dracarys-Llama-3.1-70B-Instruct/discussions/2",
+      "title": "Contemporaneous public discussion on exact Dracarys model",
+      "publisher": "Hugging Face, original discussion on Abacus repository",
+      "accessed": true,
+      "evidence": "An unaffiliated user opened Amazing model! on August 16, 2024 at 02:58:20Z, asking about an 8B version. Abacus organization member later answered. This establishes external public access within August, preceding the later marketing announcement."
+    },
+    {
+      "id": "date_s3",
+      "url": "https://cdn.syndication.twimg.com/tweet-result?id=1826757521635455115&lang=en&token=x",
+      "title": "Abacus founder Dracarys announcement",
+      "publisher": "Bindu Reddy / X",
+      "accessed": true,
+      "evidence": "Official syndication original author bindureddy and timestamp 2024-08-22T23:05:07Z; excerpt announces Dracarys as open-source coding model in 70B class. It follows the exact model's August 16 public discussion, so August 22 is not substituted for earliest public availability."
     }
   ],
   "fields": {
@@ -95,13 +119,14 @@
       "note": "Llama architecture lineage. Dracarys is the downstream fine-tune series."
     },
     "release_date": {
-      "value": null,
-      "status": "unverified",
+      "value": "2024-08",
+      "status": "verified",
       "source_ids": [
-        "s4",
-        "s5"
+        "date_s1",
+        "date_s2",
+        "date_s3"
       ],
-      "note": "Baseline 2024-08-14 matches checkpoint creation/upload. No explicit initial public-release date was established, so do not treat commit date as conclusive launch evidence."
+      "note": "Verified release month August 2024. Original checkpoint publication starts August 14; public interaction on the exact model exists August 16. The founder's August 22 announcement is later. These establish the month without inventing which day between initial upload and external access was the first public release."
     },
     "open_weights": {
       "value": true,
@@ -207,11 +232,11 @@
   "patch": {
     "parameters_source": "primary_source",
     "architecture": "dense",
-    "release_date": null,
+    "release_date": "2024-08",
     "license": null,
     "reasoning": null,
     "tool_call": null,
-    "notes": "70B is nominal; the published BF16 checkpoint contains 70,553,706,496 parameters. Dense model; active parameters are not separately reported. August 14, 2024 is the first checkpoint-upload date, not a verified public-launch date. License conflict: Abacus card declares Llama 3, while its named Llama 3.1 base declares Llama 3.1. Model config allows 131072 positions, but tokenizer model_max_length is 2048. Fine-tune-specific reasoning-mode and tool-call support remain unverified.",
+    "notes": "70B is nominal; the published BF16 checkpoint contains 70,553,706,496 parameters. Dense model; active parameters are not separately reported. Released in August 2024. The checkpoint was uploaded August 14 and had an external public discussion August 16; the founder announcement followed August 22. Exact first-public day remains unresolved. License conflict: Abacus card declares Llama 3, while its named Llama 3.1 base declares Llama 3.1. Model config allows 131072 positions, but tokenizer model_max_length is 2048. Fine-tune-specific reasoning-mode and tool-call support remain unverified.",
     "sources": [
       {
         "label": "Abacus model card",
@@ -247,8 +272,54 @@
         "label": "Abacus tokenizer configuration",
         "url": "https://huggingface.co/abacusai/Dracarys-Llama-3.1-70B-Instruct/raw/main/tokenizer_config.json",
         "type": "primary"
+      },
+      {
+        "label": "Exact Dracarys checkpoint publication history",
+        "url": "https://huggingface.co/api/models/abacusai/Dracarys-Llama-3.1-70B-Instruct/commits/main",
+        "type": "primary"
+      },
+      {
+        "label": "Contemporaneous public discussion on exact Dracarys model",
+        "url": "https://huggingface.co/api/models/abacusai/Dracarys-Llama-3.1-70B-Instruct/discussions/2",
+        "type": "primary"
+      },
+      {
+        "label": "Abacus founder Dracarys announcement",
+        "url": "https://cdn.syndication.twimg.com/tweet-result?id=1826757521635455115&lang=en&token=x",
+        "type": "primary"
       }
-    ]
+    ],
+    "date_precision": "month",
+    "source_type": "primary",
+    "source_url": "https://huggingface.co/api/models/abacusai/Dracarys-Llama-3.1-70B-Instruct/commits/main"
   },
-  "summary": "Confirmed exact fine-tune identity, nominal 70B size (70.553706496B exact checkpoint count), dense architecture, open weights, text-only I/O, and 131072 configured positions. Upgrade parameter provenance to primary_source. Flag unresolved license-version and tokenizer-length inconsistencies. The existing date matches first upload but is not a verified public launch; reasoning and tool-call negatives are unsupported. Proposed nulls preserve those uncertainties for parent review."
+  "summary": "Confirmed exact fine-tune identity, nominal 70B size (70.553706496B exact checkpoint count), dense architecture, open weights, text-only I/O, and 131072 configured positions. Upgrade parameter provenance to primary_source. Flag unresolved license-version and tokenizer-length inconsistencies. The release-date re-audit verifies August 2024 at month precision from original upload history and contemporaneous public access. Exact day remains unresolved; reasoning and tool-call negatives remain unsupported.",
+  "release_date_reaudit": {
+    "reviewed_at": "2026-10-27T19:29:54.122501Z",
+    "agent": "/root/date_checkpoints",
+    "searches": [
+      "Abacus Dracarys launch August 2024 Bindu",
+      "\"Dracarys\" \"bindureddy\" \"August\"",
+      "\"Dracarys\" \"August 23, 2024\"",
+      "Original checkpoint history and public discussion API; original founder post recovered from contemporary link"
+    ],
+    "accessed_originals": [
+      "https://huggingface.co/api/models/abacusai/Dracarys-Llama-3.1-70B-Instruct/commits/main",
+      "https://huggingface.co/api/models/abacusai/Dracarys-Llama-3.1-70B-Instruct/discussions/2",
+      "https://cdn.syndication.twimg.com/tweet-result?id=1826757521635455115&lang=en&token=x"
+    ],
+    "findings": [
+      "The original exact checkpoint was created/uploaded August 14 and an external user was discussing it August 16.",
+      "The founder announced Dracarys August 22, after public use was already evident.",
+      "Official Abacus press page incorrectly labels the VentureBeat article August 23, 2023; the linked article is 2024. That press-page typo is not used as evidence."
+    ],
+    "outcome": {
+      "release_date": "2024-08",
+      "date_precision": "month",
+      "status": "verified"
+    },
+    "limitations": [
+      "No source establishes the exact private-to-public switch between the original upload and first public discussion; only the release month is filled."
+    ]
+  }
 }
