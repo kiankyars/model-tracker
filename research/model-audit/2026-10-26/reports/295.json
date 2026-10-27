@@ -1,7 +1,7 @@
 {
   "index": 295,
   "model_id": "microsoft/phi-4-mini",
-  "reviewed_at": "2026-10-26T22:08:27.928502Z",
+  "reviewed_at": "2026-10-27T15:22:45.567447Z",
   "sources": [
     {
       "id": "s1",
@@ -25,7 +25,7 @@
       "title": "Phi-4-mini-instruct checkpoint configuration",
       "publisher": "Microsoft",
       "accessed": true,
-      "evidence": "Specifies 32 layers, hidden size 3072, intermediate size 8192, 24 query and 8 KV heads, vocabulary 200064, tied embeddings, BF16 and no attention/MLP/head biases. max_position_embeddings is 131072. No expert routing or quantization configuration."
+      "evidence": "Specifies 32 layers, hidden size 3072, intermediate size 8192, 24 query and 8 KV heads, vocabulary 200064, tied embeddings, BF16 and no attention/MLP/head biases. max_position_embeddings is 131072. No expert routing or quantization configuration. Reopened October 27, 2026 at the same pinned revision; these configuration, implementation and index facts are unchanged."
     },
     {
       "id": "s4",
@@ -33,7 +33,7 @@
       "title": "Phi-4-mini-instruct model implementation",
       "publisher": "Microsoft",
       "accessed": true,
-      "evidence": "Defines embedding, bias-free fused QKV/output and gated-MLP projections, two learned RMSNorms per block, final RMSNorm and tied language-model head. Rotary inverse frequencies are nonpersistent buffers. These modules establish which header entries are learned parameters and avoid counting the tied head twice."
+      "evidence": "Defines embedding, bias-free fused QKV/output and gated-MLP projections, two learned RMSNorms per block, final RMSNorm and tied language-model head. Rotary inverse frequencies are nonpersistent buffers. These modules establish which header entries are learned parameters and avoid counting the tied head twice. Reopened October 27, 2026 at the same pinned revision; these configuration, implementation and index facts are unchanged."
     },
     {
       "id": "s5",
@@ -41,7 +41,7 @@
       "title": "Phi-4-mini-instruct checkpoint tensor index",
       "publisher": "Microsoft",
       "accessed": true,
-      "evidence": "Maps 194 tensor keys to two shards. Every key and shape was reconciled with the implementation and configuration. The 7,672,043,520-byte tensor-data total agrees with the learned-parameter count at BF16; bytes alone were not used to infer the count."
+      "evidence": "Maps 194 tensor keys to two shards. Every key and shape was reconciled with the implementation and configuration. The 7,672,043,520-byte tensor-data total agrees with the learned-parameter count at BF16; bytes alone were not used to infer the count. Reopened October 27, 2026 at the same pinned revision; these configuration, implementation and index facts are unchanged."
     },
     {
       "id": "s6",
@@ -49,7 +49,7 @@
       "title": "Phi-4-mini-instruct first shard header",
       "publisher": "Microsoft",
       "accessed": true,
-      "evidence": "Read only the 8-byte length and 13,000-byte JSON header using HTTP 206 ranges. Contains 111 BF16 learned tensors totaling 2,451,812,352 parameters. All shapes match expected architecture tensors; no scales, packed weights or buffers appear."
+      "evidence": "Original October 26 audit: Read only the 8-byte length and 13,000-byte JSON header using HTTP 206 ranges. Contains 111 BF16 learned tensors totaling 2,451,812,352 parameters. All shapes match expected architecture tensors; no scales, packed weights or buffers appear. Not downloaded again during the parameter re-audit."
     },
     {
       "id": "s7",
@@ -57,7 +57,7 @@
       "title": "Phi-4-mini-instruct second shard header",
       "publisher": "Microsoft",
       "accessed": true,
-      "evidence": "Read only the 8-byte length and 9,680-byte JSON header using HTTP 206 ranges. Contains 83 BF16 learned tensors totaling 1,384,209,408 parameters. All shapes match expected architecture tensors; combined shard keys exactly match the index."
+      "evidence": "Original October 26 audit: Read only the 8-byte length and 9,680-byte JSON header using HTTP 206 ranges. Contains 83 BF16 learned tensors totaling 1,384,209,408 parameters. All shapes match expected architecture tensors; combined shard keys exactly match the index. Not downloaded again during the parameter re-audit."
     },
     {
       "id": "s8",
@@ -89,7 +89,31 @@
       "title": "Phi-4-mini-instruct repository metadata",
       "publisher": "Hugging Face / Microsoft repository",
       "accessed": true,
-      "evidence": "Current repository revision is cfbefacb99257ffa30c83adab238a50856ac3083. Repository creation was February 19, 2025, distinct from the February 26 public launch. The metadata reports 3,836,021,760 BF16 tensor elements, independently matched here to complete learned parameters using config, code and shard headers."
+      "evidence": "Reopened October 27, 2026: current revision remains cfbefacb99257ffa30c83adab238a50856ac3083 and metadata still reports 3,836,021,760 BF16 tensor elements. The original audit reconciled this with the complete learned count using config, code and shard headers; this re-audit rechecked config, code and index without requesting shards. Repository creation was February 19, 2025, distinct from the February 26 public launch."
+    },
+    {
+      "id": "s12",
+      "url": "https://arxiv.org/html/2505.09388v1#S4.T20",
+      "title": "Qwen3 Technical Report, Table 20",
+      "publisher": "Qwen Team / Alibaba",
+      "accessed": true,
+      "evidence": "Freshly opened October 27, 2026. Table 20 compares non-reasoning baselines and explicitly lists Phi-4-mini with 3.8B under both Activated Params and Total Params. This supports the Qwen Team's nominal active-count convention for the released instruction model; it is not a Microsoft disclosure or an exact accounting of individual tensors executed per token."
+    },
+    {
+      "id": "s13",
+      "url": "https://arxiv.org/html/2512.16248v2#S0.F1",
+      "title": "Sigma-MoE-Tiny Technical Report, Figure 1",
+      "publisher": "Sigma v-Team / Microsoft Research",
+      "accessed": true,
+      "evidence": "Freshly opened October 27, 2026. December 19, 2025 report by Microsoft Research. Visually inspected the original overview.svg: Figure 1 names Phi-4-mini-instruct and places it at approximately 3.8B on the Activated Parameters (Billions) axis. This later original research comparison corroborates the nominal scale, but supplies no exact component or per-token participation count. Qwen Table 20 supplies the explicit 3.8B tabular value."
+    },
+    {
+      "id": "s14",
+      "url": "https://azure.microsoft.com/en-us/blog/reasoning-reimagined-introducing-phi-4-mini-flash-reasoning/",
+      "title": "Reasoning reimagined: Introducing Phi-4-mini-flash-reasoning",
+      "publisher": "Microsoft",
+      "accessed": true,
+      "evidence": "Freshly opened during the October 27 search for later disclosures. The July 9, 2025 launch describes a separate 3.8B reasoning model with a new SambaY decoder-hybrid-decoder architecture. Its size and architecture do not revise the original Phi-4-mini-instruct checkpoint or establish a new active count for that checkpoint."
     }
   ],
   "fields": {
@@ -153,23 +177,28 @@
       "value": 3.83602176,
       "status": "verified",
       "source_ids": [
+        "s2",
         "s3",
         "s4",
         "s5",
         "s6",
-        "s7"
+        "s7",
+        "s9",
+        "s11"
       ],
-      "note": "Exact complete learned count: 200064×3072 + 32×[3072×5120 + 3072² + 3×3072×8192 + 2×3072] + 3072 = 3,836,021,760. All 194 header tensors reconcile with these trainable modules. Tied embedding/head counted once; nonpersistent RoPE buffers excluded. Microsoft's 3.8B is nominal."
+      "note": "Retain the previously reconciled exact complete learned count, 3,836,021,760. Freshly reopened pinned config, implementation and tensor index remain consistent with the original 194-tensor audit, and current repository metadata independently repeats the count. Tied embedding/head counted once; nonpersistent RoPE buffers excluded. Microsoft's card and report publish nominal 3.8B. No new shard download or tensor census was performed."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 3.8,
+      "status": "verified",
       "source_ids": [
         "s2",
         "s9",
-        "s10"
+        "s10",
+        "s12",
+        "s13"
       ],
-      "note": "No separate per-token active-parameter count is defined in the inspected first-party cards/reports. The model is dense, but total learned parameters are not automatically substituted for an undisclosed active count."
+      "note": "Qwen Team's original Table 20 explicitly reports 3.8B Activated Params for the Phi-4-mini non-reasoning baseline. Adopt that nominal research comparison convention, not an inference that dense total equals active. The later Microsoft Research Sigma report plots the exact Phi-4-mini-instruct checkpoint at approximately 3.8B active. The original Microsoft card, Mini report and Mini-Reasoning report do not separately define an exact per-token active count; neither comparison establishes exact component participation."
     },
     "architecture": {
       "value": "dense",
@@ -245,7 +274,7 @@
     "description": "Microsoft's multilingual text instruction model, released as Phi-4-mini-instruct, with native function calling.",
     "source_url": "https://huggingface.co/microsoft/Phi-4-mini-instruct",
     "source_type": "primary",
-    "notes": "Phi-4-mini is the launch name of Phi-4-mini-instruct. Exact checkpoint count is 3,836,021,760 learned parameters; 3.8B is the nominal published size. The tied input/output embedding is counted once. Active parameters are not separately reported. Config specifies 131,072 context tokens; launch prose says 128,000 and the card says 128K. The dedicated reasoning model is a separate release.",
+    "notes": "Phi-4-mini is the launch name of Phi-4-mini-instruct. Exact checkpoint count is 3,836,021,760 learned parameters with tied input/output embedding counted once; Microsoft publishes nominal 3.8B. Active 3.8B follows Qwen Team's explicit benchmark convention, corroborated approximately by Microsoft Research's later Sigma comparison; neither is an exact per-token tensor count. Config specifies 131,072 context tokens; launch prose says 128,000 and the card says 128K. The dedicated reasoning model is a separate release.",
     "sources": [
       {
         "label": "Empowering innovation: The next generation of the Phi family",
@@ -296,8 +325,24 @@
         "label": "Phi-4-Mini-Reasoning: Exploring the Limits of Small Reasoning Language Models in Math",
         "url": "https://arxiv.org/html/2504.21233v1",
         "type": "primary"
+      },
+      {
+        "label": "Phi-4-mini-instruct repository metadata",
+        "url": "https://huggingface.co/api/models/microsoft/Phi-4-mini-instruct",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3 Technical Report, Table 20",
+        "url": "https://arxiv.org/html/2505.09388v1#S4.T20",
+        "type": "primary"
+      },
+      {
+        "label": "Sigma-MoE-Tiny Technical Report, Figure 1",
+        "url": "https://arxiv.org/html/2512.16248v2#S0.F1",
+        "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": 3.8
   },
-  "summary": "Confirmed that the catalog short name denotes the February 26, 2025 Phi-4-mini-instruct release. Added MIT, dense architecture and exact 3.83602176B complete learned parameters, derived from architecture and reconciled against bounded headers of both BF16 shards. Corrected context to the configured 131072 tokens and narrowed the description. Native function calling and lack of a dedicated reasoning variant are supported; separate active parameters remain undisclosed. Recorded 128000 launch prose versus 128K/config context and repository-creation versus public-release distinctions."
+  "summary": "Parameter re-audit retained exact 3.83602176B total after reopening the unchanged official config, code, index, card and repository metadata. Replaced undisclosed active count with nominal 3.8B from Qwen Team's explicit Table 20, corroborated by Microsoft Research's later Sigma Figure 1 for Phi-4-mini-instruct. Attribution and plot precision are explicit; exact per-token participation remains unspecified. Later Mini-Reasoning and Mini-Flash-Reasoning sources concern distinct models. Preserved all 12 unrelated assessments; no shards downloaded or new tensor census performed."
 }
