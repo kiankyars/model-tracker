@@ -1,0 +1,370 @@
+{
+  "index": 544,
+  "model_id": "xiaomi/mimo-v2.6-pro",
+  "reviewed_at": "2026-10-27T05:57:57.091601Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://mimo.xiaomi.com/mimo-v2-6/article",
+      "title": "Introducing MiMo-V2.6 series",
+      "publisher": "Xiaomi MiMo",
+      "accessed": true,
+      "evidence": "September 22, 2026 research launch explicitly releases and open-sources Pro and Flash, with API/Studio/Desktop availability. Identifies multimodal perception, reasoning and tool use. Video, music and 3D demos involve code and external tools; they are not native generation modalities."
+    },
+    {
+      "id": "s2",
+      "url": "https://vercel.com/changelog/mimo-v2-6-models-now-available-on-ai-gateway",
+      "title": "MiMo V2.6 models now available on AI Gateway",
+      "publisher": "Vercel",
+      "accessed": true,
+      "evidence": "September 21, 2026 original provider announcement says exact xiaomi/mimo-v2.6-pro is now available. Visible date and HTML datePublished agree; midnight metadata is not treated as a measured launch time. Explicitly lists 1.02T/42B, multimodal inputs, reasoning and tools."
+    },
+    {
+      "id": "s3",
+      "url": "https://mimo.mi.com/docs/en-US/updates/feature/studio",
+      "title": "Xiaomi MiMo Studio changelog",
+      "publisher": "Xiaomi MiMo",
+      "accessed": true,
+      "evidence": "V3.4.0 entry dated September 21, 2026 explicitly adds mimo-v2.6-pro and Flash dialogue and multimodal visual understanding. Independently corroborates availability one calendar day before the research launch."
+    },
+    {
+      "id": "s4",
+      "url": "https://arxiv.org/html/2610.11959v1",
+      "title": "MiMo-V2.6: Scaling Reinforcement Learning Towards Self-Improvement",
+      "publisher": "LLM-Core Xiaomi",
+      "accessed": true,
+      "evidence": "October 8 first-party report explicitly labels Pro in Table 1: Main Block 1.02T total/42B active, 70 layers (60 SWA/10 global), 384 experts/top-8. Separate encoder counts are 681M vision, 308M audio tokenizer and 127M audio patch. Encoder counts include input embeddings but exclude projectors; audio tokenizer excludes EMA codebooks. Section 2.4 describes a separate five-layer dense DFlash speculative decoder."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Pro-RL/blob/b61f21852680ee02a29e946e18cf8697f4844061/README.md",
+      "title": "MiMo-V2.6-Pro-RL official model card",
+      "publisher": "XiaomiMiMo",
+      "accessed": true,
+      "evidence": "Public exact RL checkpoint card at pinned revision has MIT license metadata, nominal 1.02T/42B sparse MoE, 1M context and text/image/video/audio inputs. Public ungated repository was verified through Hugging Face API; its September 21 creation timestamp alone is not evidence of public release."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Pro-MOPD/blob/6a7f202e8dbd0e57b3fe1da03917d08d75abc4b8/README.md",
+      "title": "MiMo-V2.6-Pro-MOPD official model card",
+      "publisher": "XiaomiMiMo",
+      "accessed": true,
+      "evidence": "Public exact MOPD checkpoint identifies itself as the upgrade of Pro-RL. MIT metadata, nominal1.02T/42B, 1M context and the same multimodal architecture/components. Current public ungated MOPD repository was verified through the Hugging Face API."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Pro-MOPD/blob/6a7f202e8dbd0e57b3fe1da03917d08d75abc4b8/config.json",
+      "title": "MiMo-V2.6-Pro-MOPD checkpoint configuration",
+      "publisher": "XiaomiMiMo",
+      "accessed": true,
+      "evidence": "max_position_embeddings=1048576; MiMoV2ForCausalLM with 70 layers, one dense and69 MoE,384 experts/top8, separate vision/audio configs, untied embeddings and FP8 quantization metadata. Compared with pinned RL config: non-quantization configuration fields agree."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Pro-MOPD/blob/6a7f202e8dbd0e57b3fe1da03917d08d75abc4b8/chat_template.jinja",
+      "title": "MiMo-V2.6-Pro-MOPD chat template",
+      "publisher": "XiaomiMiMo",
+      "accessed": true,
+      "evidence": "Explicitly serializes text,image,audio and video inputs, reasoning_content and thinking control, tool definitions, structured tool_calls and tool-response roles. RL tokenizer template independently supports reasoning/tools."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Pro-MOPD/blob/6a7f202e8dbd0e57b3fe1da03917d08d75abc4b8/modeling_mimo_v2.py",
+      "title": "MiMo-V2.6-Pro-MOPD model implementation",
+      "publisher": "XiaomiMiMo",
+      "accessed": true,
+      "evidence": "Vision and audio encoders feed a causal decoder whose lm_head produces text vocabulary logits. Separate audio tokenizer is an input path. Loader ignores model.mtp checkpoint keys; enumerating this implementation alone is incomplete for full checkpoint accounting."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Pro-MOPD/blob/6a7f202e8dbd0e57b3fe1da03917d08d75abc4b8/model.safetensors.index.json",
+      "title": "MiMo-V2.6-Pro-MOPD tensor index",
+      "publisher": "XiaomiMiMo",
+      "accessed": true,
+      "evidence": "Read index only:160040 tensor entries in130 files, with mixed weight_scale_inv metadata and model.mtp.layers.0,1,2 in a separate MTP file. No whole weight shards downloaded. Tensor names are not a reconciled learned-parameter inventory."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Pro-MOPD/blob/6a7f202e8dbd0e57b3fe1da03917d08d75abc4b8/dflash/config.json",
+      "title": "MiMo-V2.6-Pro-MOPD DFlash configuration",
+      "publisher": "XiaomiMiMo",
+      "accessed": true,
+      "evidence": "Separate DFlashDraftModel has five layers, hidden size6144 and block size8. Distinguish this inference drafter from the three MTP blocks visible in the main checkpoint index. No numeric drafter subtotal inferred."
+    },
+    {
+      "id": "s12",
+      "url": "https://mimo.xiaomi.com/blog/mimo-v2-6-tool-call-repetition",
+      "title": "Diagnosing and Mitigating Tool-Call Repetition in MiMo-V2.6",
+      "publisher": "Xiaomi MiMo",
+      "accessed": true,
+      "evidence": "September27 technical post explicitly says updated MOPD checkpoints are open-sourced and API models were updated September25 at06:00UTC+8, retaining names mimo-v2.6-pro and mimo-v2.6-flash. Thus original RL weights and current API revision are not asserted byte-identical."
+    },
+    {
+      "id": "s13",
+      "url": "https://mimo.mi.com/models/en-US/mimo-v2.6-pro",
+      "title": "MiMo-V2.6-Pro native model specifications",
+      "publisher": "Xiaomi MiMo",
+      "accessed": true,
+      "evidence": "Exact native model page states text,image,video,audio input; text output; deep thinking and tool calls;1M context and128K maximum output. Context and output limits are separate."
+    },
+    {
+      "id": "s14",
+      "url": "https://mimo.mi.com/docs/en-US/updates/model",
+      "title": "Xiaomi model release changelog",
+      "publisher": "Xiaomi MiMo",
+      "accessed": true,
+      "evidence": "September22 entry lists exact Pro,Flash andUltraSpeed releases. Records the native release-log date without overriding the earlier September21 provider/Studio availability."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "MiMo-V2.6-Pro",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s12",
+        "s13"
+      ],
+      "note": "Public model/API name retained; RL and MOPD are separately downloadable post-training revisions, and UltraSpeed is a separate catalog assignment."
+    },
+    "developer": {
+      "value": "Xiaomi",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s5"
+      ],
+      "note": "Xiaomi MiMo / LLM-Core Xiaomi are the original developer and checkpoint publisher."
+    },
+    "family": {
+      "value": "mimo",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Normalized Xiaomi MiMo family identifier."
+    },
+    "release_date": {
+      "value": "2026-09-21",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s1",
+        "s14"
+      ],
+      "note": "Earliest documented public availability: Vercel original announcement and Xiaomi Studio changelog both September21. Xiaomi research launch and model changelog say September22. No precise launch hour or timezone explanation inferred; repository creation and internal research previews do not establish earlier public availability."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5",
+        "s6",
+        "s12"
+      ],
+      "note": "Both exact Pro-RL and Pro-MOPD have public ungated weights; later MOPD publication/update does not reset original model release date."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s6"
+      ],
+      "note": "MIT is explicitly declared in the official model-card metadata for both weight repositories. No inference from a generic implementation-code license."
+    },
+    "parameters_b": {
+      "value": 1020,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "note": "Author nominal1.02T=1020B, not an exact tensor count. Table1 places this under Main Block and lists separate encoders, so propose language_backbone scope. Encoder figures exclude projectors and audio EMA codebooks; MTP/drafter accounting and rounding are not reconciled. No false complete-system sum or packed-storage count."
+    },
+    "active_parameters_b": {
+      "value": 42,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s7"
+      ],
+      "note": "Author nominal42B active in Main Block with eight of384 routed experts. Proposed language_decode scope distinguishes backbone token generation from multimodal encoder work and DFlash speculation; no combined system-wide active count inferred."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s7",
+        "s9",
+        "s10",
+        "s11"
+      ],
+      "note": "Transformer decoder MoE with one dense plus69 MoE layers,60 SWA/10global attention and no shared experts, with vision/audio input encoders. Five-layer DFlash drafter is separate from three original MTP blocks in the main index."
+    },
+    "context_window": {
+      "value": 1048576,
+      "status": "verified",
+      "source_ids": [
+        "s7",
+        "s13"
+      ],
+      "note": "Exact checkpoint maximum1,048,576 positions, advertised as1M. Native128K maximum output is a separate constraint."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "audio",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s8",
+        "s9",
+        "s13"
+      ],
+      "note": "Exact native model page and checkpoint agree: multimodal understanding, text generation. Tool-created images, videos, MIDI or3D assets do not imply native media output."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s8",
+        "s13"
+      ],
+      "note": "Native deep-thinking capability and checkpoint reasoning-content/thinking-control template support this field."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s8",
+        "s12",
+        "s13"
+      ],
+      "note": "Native structured tool calls supported in exact chat template and API page; MOPD revision fixes repetition behavior, not first introduction of tools."
+    },
+    "description": {
+      "value": "Multimodal MoE model with text, image, audio and video input, text output, reasoning and tool calling.",
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s8",
+        "s13"
+      ],
+      "note": "Replaces relative promotional wording with supported input/output and model capabilities."
+    }
+  },
+  "patch": {
+    "release_date": "2026-09-21",
+    "date_precision": "day",
+    "license": "MIT",
+    "parameters_b": 1020,
+    "active_parameters_b": 42,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "description": "Multimodal MoE model with text, image, audio and video input, text output, reasoning and tool calling.",
+    "source_url": "https://vercel.com/changelog/mimo-v2-6-models-now-available-on-ai-gateway",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Introducing MiMo-V2.6 series",
+        "url": "https://mimo.xiaomi.com/mimo-v2-6/article",
+        "type": "primary"
+      },
+      {
+        "label": "MiMo V2.6 models now available on AI Gateway",
+        "url": "https://vercel.com/changelog/mimo-v2-6-models-now-available-on-ai-gateway",
+        "type": "primary"
+      },
+      {
+        "label": "Xiaomi MiMo Studio changelog",
+        "url": "https://mimo.mi.com/docs/en-US/updates/feature/studio",
+        "type": "primary"
+      },
+      {
+        "label": "MiMo-V2.6: Scaling Reinforcement Learning Towards Self-Improvement",
+        "url": "https://arxiv.org/html/2610.11959v1",
+        "type": "primary"
+      },
+      {
+        "label": "MiMo-V2.6-Pro-RL official model card",
+        "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Pro-RL/blob/b61f21852680ee02a29e946e18cf8697f4844061/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "MiMo-V2.6-Pro-MOPD official model card",
+        "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Pro-MOPD/blob/6a7f202e8dbd0e57b3fe1da03917d08d75abc4b8/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "MiMo-V2.6-Pro-MOPD checkpoint configuration",
+        "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Pro-MOPD/blob/6a7f202e8dbd0e57b3fe1da03917d08d75abc4b8/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "MiMo-V2.6-Pro-MOPD chat template",
+        "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Pro-MOPD/blob/6a7f202e8dbd0e57b3fe1da03917d08d75abc4b8/chat_template.jinja",
+        "type": "weights"
+      },
+      {
+        "label": "MiMo-V2.6-Pro-MOPD model implementation",
+        "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Pro-MOPD/blob/6a7f202e8dbd0e57b3fe1da03917d08d75abc4b8/modeling_mimo_v2.py",
+        "type": "weights"
+      },
+      {
+        "label": "MiMo-V2.6-Pro-MOPD tensor index",
+        "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Pro-MOPD/blob/6a7f202e8dbd0e57b3fe1da03917d08d75abc4b8/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "MiMo-V2.6-Pro-MOPD DFlash configuration",
+        "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Pro-MOPD/blob/6a7f202e8dbd0e57b3fe1da03917d08d75abc4b8/dflash/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Diagnosing and Mitigating Tool-Call Repetition in MiMo-V2.6",
+        "url": "https://mimo.xiaomi.com/blog/mimo-v2-6-tool-call-repetition",
+        "type": "primary"
+      },
+      {
+        "label": "MiMo-V2.6-Pro native model specifications",
+        "url": "https://mimo.mi.com/models/en-US/mimo-v2.6-pro",
+        "type": "primary"
+      },
+      {
+        "label": "Xiaomi model release changelog",
+        "url": "https://mimo.mi.com/docs/en-US/updates/model",
+        "type": "primary"
+      }
+    ],
+    "notes": "Public availability is documented on September 21, 2026 by Vercel and Xiaomi Studio; Xiaomi research and model launch pages are dated September 22. Nominal 1.02T/42B counts refer to the language backbone. Separately reported encoders: 681M vision, 308M audio tokenizer and 127M audio patch; these exclude projectors and the tokenizer EMA codebooks. MTP and five-layer DFlash accounting are not reconciled into an exact total. Pro-RL and Pro-MOPD weights are MIT; the native API changed to MOPD on September 25 at 06:00 UTC+8 without changing its model name. Native outputs are text; media-generation demos use external tools."
+  },
+  "proposed_fields": {
+    "parameters_scope": "language_backbone",
+    "parameter_components_b": {
+      "language_backbone": 1020,
+      "vision_encoder": 0.681,
+      "audio_tokenizer_encoder": 0.308,
+      "audio_patch_encoder": 0.127
+    },
+    "active_parameters_scope": "language_decode",
+    "active_parameters_by_phase_b": {
+      "language_decode": 42
+    }
+  },
+  "summary": "Verified all14 fields. Adds nominal1020B/42B backbone counts,MoE and MIT; corrects earliest public date toSeptember21 with independent Vercel/Xiaomi Studio evidence. Distinguishes RL/MOPD checkpoints and unchanged API name, multimodal input/text output, separate encoder components and MTP versusDFlash. No exact complete learned-parameter count claimed."
+}
