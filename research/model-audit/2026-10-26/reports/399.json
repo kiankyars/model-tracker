@@ -1,0 +1,290 @@
+{
+  "index": 399,
+  "model_id": "openai/gpt-2-355m",
+  "reviewed_at": "2026-10-27T01:18:39.494300Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://github.com/openai/gpt-2/commit/0503b1b24969ccbaf93a5d05f2c2588dabff1c46",
+      "title": "May 3, 2019 medium-model release commit",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "The May 3, 2019 commit adds download instructions and Docker downloads for the medium GPT-2 model, then labeled 345M, and updates the README to announce its release."
+    },
+    {
+      "id": "s2",
+      "url": "https://github.com/openai/gpt-2/commit/f35fa1d920e9d2d0690f66d03aa3f76b3c59230e",
+      "title": "Correction of original GPT-2 size labels",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "The August 20, 2019 commit changes the medium download identifier from 345M to 355M and explicitly explains that the earlier parameter counts were erroneous. This is a corrected label for the existing medium release, not a new model release."
+    },
+    {
+      "id": "s3",
+      "url": "https://github.com/openai/gpt-2/blob/9b63575ef42771a015060c964af2c3da4cf7c8ab/model_card.md",
+      "title": "GPT-2 model card, November 2019",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Identifies OpenAI as developer and includes the released 355 million parameter model. Documents WebText training, text generation uses and the GPT-2 family. Its generic February model date is not the medium checkpoint publication date."
+    },
+    {
+      "id": "s4",
+      "url": "https://openaipublic.blob.core.windows.net/gpt-2/models/355M/hparams.json",
+      "title": "Original 355M checkpoint configuration",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "The exact original medium checkpoint configuration specifies 24 Transformer blocks, width 1024, 16 attention heads, vocabulary 50257 and context 1024."
+    },
+    {
+      "id": "s5",
+      "url": "https://openaipublic.blob.core.windows.net/gpt-2/models/355M/model.ckpt.index",
+      "title": "Complete original 355M TensorFlow checkpoint index",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Read the complete 10,399-byte metadata index. Its 292 float32 tensors total 354,823,168 elements and match every expected learned module name and shape. Tensor ranges are contiguous and cover the exact 1,419,292,672-byte data file length reported by HEAD. No weight data was downloaded."
+    },
+    {
+      "id": "s6",
+      "url": "https://raw.githubusercontent.com/openai/gpt-2/9b63575ef42771a015060c964af2c3da4cf7c8ab/src/model.py",
+      "title": "Original GPT-2 implementation",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Dense causal self-attention and feed-forward modules, learned token/position embeddings, two norms per block and final norm account for the complete checkpoint. The output reuses token embeddings. The attention mask is computed at runtime; it is not a learned parameter. No expert routing, optimizer slots or quantization metadata appear in the checkpoint."
+    },
+    {
+      "id": "s7",
+      "url": "https://raw.githubusercontent.com/openai/gpt-2/9b63575ef42771a015060c964af2c3da4cf7c8ab/LICENSE",
+      "title": "Current published GPT-2 Modified MIT License",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "The official repository currently publishes a Modified MIT License, matching the README label. This includes GPT-2 output-specific provisions. Repository history shows the modification in January 2020; the original May 2019 license was plain MIT."
+    },
+    {
+      "id": "s8",
+      "url": "https://raw.githubusercontent.com/openai/gpt-2/0503b1b24969ccbaf93a5d05f2c2588dabff1c46/LICENSE",
+      "title": "MIT license at the original medium release",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "The May 3, 2019 release commit contains the standard MIT License. This historical fact is retained separately from the current published Modified MIT terms."
+    },
+    {
+      "id": "s9",
+      "url": "https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf",
+      "title": "Language Models are Unsupervised Multitask Learners",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Table 2 identifies the medium model as 24 layers and width 1024 under its original erroneous 345M label. Section 2 describes WebText training and GPT-style causal Transformer architecture, a 50257-token vocabulary, pre-block layer normalization, final normalization and a 1024-token context."
+    },
+    {
+      "id": "s10",
+      "url": "https://openai.com/index/gpt-2-6-month-follow-up/",
+      "title": "GPT-2: 6-month follow-up",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "The opening paragraph explicitly says the medium 355M model was released in May. The lower timeline puts it under April, and also mislabels other release months. Use the exact May 3 release commit and the original blog May interim update rather than that conflicting timeline."
+    },
+    {
+      "id": "s11",
+      "url": "https://openai.com/index/better-language-models/",
+      "title": "Original GPT-2 announcement and May 2019 interim update",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "The May 2019 interim update explicitly announces the medium model, still labeled 345M, as the next public stage. The initial February release covered the small model, not this medium checkpoint."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "GPT-2 355M",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "Use the corrected official medium-model size label. The old 345M label described the same checkpoint."
+    },
+    "developer": {
+      "value": "OpenAI",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s9"
+      ],
+      "note": "The original developer repository, model card and paper identify OpenAI."
+    },
+    "family": {
+      "value": "gpt-2",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "The exact medium model belongs to GPT-2."
+    },
+    "release_date": {
+      "value": "2019-05-03",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s10",
+        "s11"
+      ],
+      "note": "The exact UTC-dated May 3 release commit introduces the medium download. The original May interim update and later follow-up introduction corroborate May; the latter page has a conflicting lower timeline. The August corrected size label is not a second release."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s5"
+      ],
+      "note": "OpenAI publicly released this checkpoint. Its configuration and full index remain accessible, and a HEAD request verifies the original data file without downloading it."
+    },
+    "license": {
+      "value": "Modified MIT",
+      "status": "verified",
+      "source_ids": [
+        "s7",
+        "s8"
+      ],
+      "note": "Current published distribution terms are Modified MIT. The original May 2019 release used plain MIT; the official repository updated its license in January 2020."
+    },
+    "parameters_b": {
+      "value": 0.354823168,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "note": "Exact complete learned count is 354,823,168: 50257\u00d71024 token embeddings + 1024\u00d71024 position embeddings + 24\u00d7(12\u00d71024\u00b2 + 13\u00d71024) block parameters + 2\u00d71024 final-norm parameters. All 292 original float32 checkpoint tensors match the independently reconstructed module set. Tied output weights count once; there are no learned auxiliary heads, stored mask buffers, optimizer slots or quantization scales. This rounds to the official 355M label."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "not_applicable",
+      "source_ids": [
+        "s6",
+        "s9"
+      ],
+      "note": "The release defines no separate active-parameter metric for this dense Transformer. Its complete learned total must not be copied into a per-token active count."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s6",
+        "s9"
+      ],
+      "note": "The exact 24-layer, width-1024, 16-head checkpoint uses dense causal self-attention and dense 4096-wide feed-forward layers, without expert routing."
+    },
+    "context_window": {
+      "value": 1024,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s9"
+      ],
+      "note": "The exact configuration and learned position table both have 1024 positions, matching the paper context limit."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s6",
+        "s9"
+      ],
+      "note": "The checkpoint accepts tokenized text and predicts text-token logits; the release documents textual prompting and completion."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s3",
+        "s6",
+        "s9"
+      ],
+      "note": "Zero-shot language-task evaluations do not establish a dedicated reasoning mode. No explicit supported or unsupported mode is documented for this exact release."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s3",
+        "s6",
+        "s9"
+      ],
+      "note": "The released model and sampling workflow document text completion, not an explicit structured tool interface. Do not infer a false capability solely from the absence of such documentation."
+    },
+    "description": {
+      "value": "Medium GPT-2 text model, a 24-layer decoder-only Transformer trained on WebText.",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s6",
+        "s9"
+      ],
+      "note": "Names the exact size variant, architecture and documented pretraining dataset without transferring results from the largest GPT-2 model."
+    }
+  },
+  "patch": {
+    "license": "Modified MIT",
+    "parameters_b": 0.354823168,
+    "parameters_source": "primary_source",
+    "description": "Medium GPT-2 text model, a 24-layer decoder-only Transformer trained on WebText.",
+    "notes": "The medium GPT-2 checkpoint was released on May 3, 2019 under the erroneous 345M label, corrected to 355M in August. Its complete learned count is 354,823,168, with tied output embeddings counted once. Current repository terms are Modified MIT; the original release used MIT. Active parameters are not separately defined for this dense model.",
+    "sources": [
+      {
+        "label": "Original medium-model release",
+        "url": "https://github.com/openai/gpt-2/commit/0503b1b24969ccbaf93a5d05f2c2588dabff1c46",
+        "type": "announcement"
+      },
+      {
+        "label": "Correction of model size labels",
+        "url": "https://github.com/openai/gpt-2/commit/f35fa1d920e9d2d0690f66d03aa3f76b3c59230e",
+        "type": "repository"
+      },
+      {
+        "label": "GPT-2 model card",
+        "url": "https://github.com/openai/gpt-2/blob/9b63575ef42771a015060c964af2c3da4cf7c8ab/model_card.md",
+        "type": "model_card"
+      },
+      {
+        "label": "Exact medium-model configuration",
+        "url": "https://openaipublic.blob.core.windows.net/gpt-2/models/355M/hparams.json",
+        "type": "configuration"
+      },
+      {
+        "label": "Original medium checkpoint index",
+        "url": "https://openaipublic.blob.core.windows.net/gpt-2/models/355M/model.ckpt.index",
+        "type": "weights"
+      },
+      {
+        "label": "Original architecture implementation",
+        "url": "https://raw.githubusercontent.com/openai/gpt-2/9b63575ef42771a015060c964af2c3da4cf7c8ab/src/model.py",
+        "type": "repository"
+      },
+      {
+        "label": "Current model license",
+        "url": "https://raw.githubusercontent.com/openai/gpt-2/9b63575ef42771a015060c964af2c3da4cf7c8ab/LICENSE",
+        "type": "license"
+      },
+      {
+        "label": "Original GPT-2 technical report",
+        "url": "https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf",
+        "type": "paper"
+      }
+    ]
+  },
+  "summary": "Verified the complete original medium checkpoint at 354,823,168 learned parameters and dense 24-layer architecture. Retained May 3, 2019 public release, 1024-token context and text modalities. Distinguished the later corrected 355M label from the original erroneous 345M label, and current Modified MIT terms from original MIT. Reasoning and tool flags remain unverified; no per-token active count is inferred."
+}
