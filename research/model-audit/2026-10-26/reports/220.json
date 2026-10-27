@@ -1,7 +1,7 @@
 {
   "index": 220,
   "model_id": "google/gemma-3n-e2b-it",
-  "reviewed_at": "2026-10-26T20:13:44Z",
+  "reviewed_at": "2026-10-27T13:18:23Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "google/gemma-3n-E2B-it model card",
       "publisher": "Google",
       "accessed": true,
-      "evidence": "The public card identifies the E2B instruction-tuned model in Google's Gemma family and the Gemma license. Its statement that this model has 6B raw parameters conflicts with Google's E2B parameter diagram and the repository's BF16 metadata. The card is visible although raw files require authorization.",
+      "evidence": "The public card identifies the E2B instruction-tuned model in Google's Gemma family and the Gemma license. Its statement that this model has 6B raw parameters conflicts with Google's E2B parameter diagram and the repository's BF16 metadata. The card is visible although raw files require authorization. Reopened for the parameter re-audit: the card still calls the raw size 6B and the effective size 2B, with PLE memory offloading; it does not separately define a per-token active count.",
       "type": "weights"
     },
     {
@@ -18,7 +18,7 @@
       "title": "Gemma 3n model card",
       "publisher": "Google DeepMind",
       "accessed": true,
-      "evidence": "Describes open pretrained and instruction-tuned Gemma 3n models, text/image/video/audio input and text output, and a shared 32K input-plus-output budget. It reports reasoning benchmarks but does not establish a dedicated thinking mode or an E2B IT tool-use specification.",
+      "evidence": "Describes open pretrained and instruction-tuned Gemma 3n models, text/image/video/audio input and text output, and a shared 32K input-plus-output budget. It reports reasoning benchmarks but does not establish a dedicated thinking mode or an E2B IT tool-use specification. Fresh parameter review: its selective-activation language describes 2B/4B effective sizes and links the overview for the memory definition; its benchmark tables do not publish a separate E2B active-parameter count.",
       "type": "primary"
     },
     {
@@ -27,7 +27,7 @@
       "title": "Introducing Gemma 3n: The developer guide",
       "publisher": "Google",
       "accessed": true,
-      "evidence": "Dated June 26, 2025; announces the full release after May's preview and standalone E2B extraction from jointly trained E4B. Calls E2B's complete count approximately 5B and its accelerator-memory equivalent approximately 2B. Identifies MatFormer, PLE, LAuReL, AltUp, MobileNet-v5 vision and USM-derived audio.",
+      "evidence": "Dated June 26, 2025; announces the full release after May's preview and standalone E2B extraction from jointly trained E4B. Calls E2B's complete count approximately 5B and its accelerator-memory equivalent approximately 2B. Identifies MatFormer, PLE, LAuReL, AltUp, MobileNet-v5 vision and USM-derived audio. Freshly reopened: Mix-n-Match changes FFN width and skips layers, so the larger E4B total or any E4B-only count cannot be transferred unchanged to the extracted E2B.",
       "type": "primary"
     },
     {
@@ -36,7 +36,7 @@
       "title": "Gemma 3n model overview",
       "publisher": "Google",
       "accessed": true,
-      "evidence": "Explains that E2B is an effective-memory label rather than total size. PLE can be cached and visual/audio parameters skipped or loaded conditionally. The nested E2B path is contained in E4B; this does not make every complete E2B checkpoint parameter active for every token.",
+      "evidence": "Explains that E2B is an effective-memory label rather than total size. PLE can be cached and visual/audio parameters skipped or loaded conditionally. The nested E2B path is contained in E4B; this does not make every complete E2B checkpoint parameter active for every token. Freshly reopened for total, active, component and lineage checks: the E prefix explicitly denotes effective parameters that can be loaded in memory. MatFormer selects nested model configurations, rather than establishing token-wise MoE routing.",
       "type": "primary"
     },
     {
@@ -45,7 +45,7 @@
       "title": "Gemma 3n E2B parameter-usage diagram",
       "publisher": "Google",
       "accessed": true,
-      "evidence": "Visually inspected Figure 1 linked from the model overview: standard execution loads 5.44B parameters, split into text 1.91B, vision 0.30B, audio 0.68B and per-layer embedding 2.55B. Skipping vision/audio and caching PLE leaves 1.91B loaded. These are rounded parameter-memory categories, not a per-token active-count definition.",
+      "evidence": "Visually inspected Figure 1 linked from the model overview: standard execution loads 5.44B parameters, split into text 1.91B, vision 0.30B, audio 0.68B and per-layer embedding 2.55B. Skipping vision/audio and caching PLE leaves 1.91B loaded. These are rounded parameter-memory categories, not a per-token active-count definition. Downloaded and visually rechecked during this re-audit; both 5.44B and 1.91B are labeled parameters loaded.",
       "type": "primary"
     },
     {
@@ -128,6 +128,60 @@
       "accessed": true,
       "evidence": "The license linked by the Gemma 3n model card is titled Gemma Terms of Use; it governs use, modification and distribution of the model weights.",
       "type": "primary"
+    },
+    {
+      "id": "s15",
+      "url": "https://huggingface.co/api/models/google/gemma-3n-E2B-it/revision/5e092ebca197cdcd8d8b195040accf22693501bc",
+      "title": "Pinned E2B IT checkpoint public metadata",
+      "publisher": "Hugging Face hosting Google weights",
+      "accessed": true,
+      "evidence": "Fresh metadata request returned revision 5e092ebca197cdcd8d8b195040accf22693501bc and 5,439,438,272 BF16 safetensors elements. This corroborates the published rounded 5.44B complete count. No weight shard was downloaded and no repeated tensor census was attempted.",
+      "type": "weights"
+    },
+    {
+      "id": "s16",
+      "url": "https://keras.io/keras_hub/api/models/gemma3n/gemma3n_causal_lm/",
+      "title": "KerasHub Gemma3nCausalLM presets",
+      "publisher": "Keras",
+      "accessed": true,
+      "evidence": "Freshly opened preset table explicitly assigns gemma3n_e2b_it 5.44B parameters and describes approximately 5B total with approximately 2B effective size. The E2B pretrained preset has the same 5.44B nominal total; E4B is separately listed as 7.85B. This implementation documentation corroborates the Google diagram without establishing a per-token active count.",
+      "type": "primary"
+    },
+    {
+      "id": "s17",
+      "url": "https://arxiv.org/html/2607.02770v1",
+      "title": "Gemma 4 Technical Report",
+      "publisher": "Google DeepMind",
+      "accessed": true,
+      "evidence": "Later primary report checked for retrospective Gemma 3n specifications. Section 2.2 and the audio comparison table identify the Gemma 3n E2B audio encoder as 680M parameters, corroborating the 0.68B component. The comparison does not publish a full E2B active count. Gemma 4 26B-A4B active-size claims concern a different architecture/model and are not inherited.",
+      "type": "primary"
+    },
+    {
+      "id": "s18",
+      "url": "https://bitpute.com/models/gemma-3n-e2b-it/",
+      "title": "Gemma 3n E2B IT model listing",
+      "publisher": "Bitpute",
+      "accessed": true,
+      "evidence": "Numeric lead found by a fresh exact-model active-parameters search and opened. Claims 5.44B total and 2.0B active per token while incorrectly labeling Gemma 3n E2B as MoE. Its Sources link opens a generic methodology page rather than parameter-specific evidence. The 2B claim is not adopted: Google defines the E2B label as effective memory and no original nominal active-count convention is supplied here.",
+      "type": "secondary"
+    },
+    {
+      "id": "s19",
+      "url": "https://apxml.com/models/gemma-3n-e2b-it",
+      "title": "Gemma 3n E2B IT model listing",
+      "publisher": "ApX",
+      "accessed": true,
+      "evidence": "Fresh numeric lead claims 6B active parameters and a MoE architecture, without an explained active-count convention. Its Read the Paper link resolves to arXiv 2503.07827, Modern Models, Medieval Texts: A POS Tagging Study of Old Occitan, published before Gemma 3n and unrelated to it. The 6B active claim is therefore unsupported and conflicts with the primary MatFormer description.",
+      "type": "secondary"
+    },
+    {
+      "id": "s20",
+      "url": "https://raw.githubusercontent.com/google-gemini/gemma-cookbook/main/Gemma/%5BGemma_3n%5DMatFormer_Lab.ipynb",
+      "title": "Gemma 3n MatFormer Lab notebook",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Freshly fetched the notebook linked by Google. It explicitly defines E4B as effectively loading 4B parameters and E2B as its 30-layer, FFN-width-8192 nested model. The extraction code slices layers, FFNs and PLE projections/embeddings. Diagnostic comments show 5,976,833,408 total, 4,456,156,768 text and 1,905,495,648 effective parameters, with effective explicitly excluding vision, audio and per-layer embeddings. These comments are not a separately defined active count and do not identify the pinned current checkpoint revision; the total differs from the current 5.44B diagram, Keras preset and metadata. The documented extraction establishes lineage while also showing why E4B counts cannot transfer unchanged.",
+      "type": "primary"
     }
   ],
   "fields": {
@@ -193,24 +247,31 @@
       "value": 5.44,
       "status": "verified",
       "source_ids": [
+        "s1",
         "s3",
         "s4",
         "s5",
-        "s6",
-        "s12",
-        "s13"
+        "s15",
+        "s16",
+        "s20"
       ],
-      "note": "Published rounded complete E2B parameter count from Google's diagram, including text, vision, audio and PLE. HF reports 5,439,438,272 BF16 storage elements, which rounds to 5.44B; that number is not promoted to an exact unique learned count because gated headers prevent complete buffer/tie verification. Do not add a second tied LM-head matrix. Google's launch says approximately 5B; the exact variant card's 6B claim is conflicting. E2B/1.91B denotes effective memory, not this total."
+      "note": "Retain the published rounded 5.44B complete E2B count: Google’s diagram includes text, vision, audio and PLE, the exact Keras IT preset independently lists 5.44B, and pinned checkpoint metadata corroborates the rounding. A nominal published total does not require a new exact tensor census. The card’s 6B wording and MatFormer notebook diagnostic comments conflict with the diagram/current metadata and are not substituted. E2B/1.91B denotes effective memory, not this total; E4B has a structurally larger configuration."
     },
     "active_parameters_b": {
       "value": null,
       "status": "undisclosed",
       "source_ids": [
+        "s2",
         "s3",
         "s4",
-        "s5"
+        "s5",
+        "s16",
+        "s17",
+        "s18",
+        "s19",
+        "s20"
       ],
-      "note": "No single per-token active learned-parameter count is established. Google's 1.91B is a loaded-memory footprint after caching PLE and skipping audio/vision, not an active-per-token specification; modality encoders and cached embeddings participate conditionally. Neither 1.91B, nominal E2B nor the complete total is substituted."
+      "note": "Fresh exact-model total, active, component and named-base searches; reopened original Google material, Keras presets and MatFormer Lab, and checked the later Gemma 4 report’s comparison tables. No primary source or original research-team comparison establishes a separately defined nominal per-token active count for E2B IT. Google’s 1.91B is loaded memory after caching PLE and skipping audio/vision; the notebook likewise calls its count effective and excludes those components. This is not a demand for an exact census. The 2B-active and 6B-active aggregator leads supply no sound convention and misclassify MatFormer as MoE; ApX’s linked paper is unrelated. E2B’s documented extraction changes the E4B structure, and no supported active count for an identical named base was found. Keep active size null rather than convert memory loading into active computation."
     },
     "architecture": {
       "value": "transformer",
@@ -346,9 +407,15 @@
         "label": "Gemma Terms of Use",
         "url": "https://ai.google.dev/gemma/terms",
         "type": "primary"
+      },
+      {
+        "label": "Keras E2B IT parameter count",
+        "url": "https://keras.io/keras_hub/api/models/gemma3n/gemma3n_causal_lm/",
+        "type": "primary"
       }
     ],
-    "notes": "5.44B is Google\u2019s rounded complete E2B count, including text, vision, audio and per-layer embeddings. E2B and the 1.91B figure describe effective memory loading, not per-token active parameters. The model card\u2019s 6B figure conflicts with Google\u2019s diagram and public checkpoint metadata. Raw headers were inaccessible, so an exact count is not asserted. June 26 dates the complete release; May offered a separate text/vision LiteRT preview."
+    "notes": "5.44B is Google’s rounded complete E2B count, including text, vision, audio and per-layer embeddings, corroborated by Keras and checkpoint metadata. E2B and 1.91B describe effective memory loading; a separate per-token active count is undisclosed. The model card’s 6B figure conflicts with those sources. June 26 dates the complete release; May offered a separate text/vision LiteRT preview.",
+    "active_parameters_b": null
   },
   "proposed_fields": {
     "parameter_components_b": {
@@ -358,5 +425,5 @@
       "per_layer_embedding": 2.55
     }
   },
-  "summary": "Verified Google's rounded 5.44B complete E2B count and MatFormer Transformer architecture; retain active parameters as unknown because 1.91B is an effective-memory figure. Add video input and clear unsupported false reasoning/tool flags. Confirm June 26 complete-release identity rather than inherit the separate May LiteRT preview date. Proposed component values reproduce Google's rounded diagram and sum to 5.44B; they are not an independently deduplicated tensor breakdown. Exact unique learned count remains unresolved because config/index/range-header access returned 401; the current public BF16 aggregate is only corroborating evidence."
+  "summary": "Fresh parameter re-audit retains the supported nominal 5.44B complete total and explicitly keeps active parameters null. Reopened Google sources and inspected the parameter diagram; checked pinned metadata, Keras presets, MatFormer extraction lineage and later Google comparison tables. These establish total size and memory/component conventions, including the 680M audio encoder, but no separately supported E2B active count. Investigated and rejected concrete 2B-active and 6B-active aggregator leads because their MoE classification and attribution are unsupported. No weights downloaded or repeated tensor census. Existing nonparameter assessments and rounded component values are preserved."
 }
