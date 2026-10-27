@@ -1,7 +1,7 @@
 {
   "index": 493,
   "model_id": "sdaia/allam-2-7b",
-  "reviewed_at": "2026-10-27T04:32:30.805155Z",
+  "reviewed_at": "2026-10-27T17:57:54.392499Z",
   "sources": [
     {
       "id": "launch",
@@ -73,7 +73,7 @@
       "title": "Later preview card and revision distinction",
       "publisher": "SDAIA / ALLaM team, now hosted by HUMAIN",
       "accessed": true,
-      "evidence": "Later card explicitly distinguishes old v1.27.2.25 and newer v2.33.0.30. Keeps nominal 7B, 4096 context and Apache-2.0 metadata. Does not disclose separately defined active parameters or establish current provider revision equivalence. Its updated evaluation data are not transferred to the earlier model."
+      "evidence": "Later card explicitly distinguishes old v1.27.2.25 and newer v2.33.0.30. Keeps nominal 7B, 4096 context and Apache-2.0 metadata. Does not disclose separately defined active parameters or establish current provider revision equivalence. Its updated evaluation data are not transferred to the earlier model. October 27 parameter re-audit reread the current main card and found it byte-identical to this pinned July revision; no newer active-count disclosure appears."
     },
     {
       "id": "later_config",
@@ -81,7 +81,7 @@
       "title": "Later preview configuration",
       "publisher": "SDAIA / ALLaM team, now hosted by HUMAIN",
       "accessed": true,
-      "evidence": "Internal version v2.33.0.30 has RoPE theta 1000000 versus original 10000, while dimensions and 4096 maximum positions remain the same. This July 2025 updated checkpoint is not silently substituted for the September 2024 hosted identity."
+      "evidence": "Internal version v2.33.0.30 has RoPE theta 1000000 versus original 10000, while dimensions and 4096 maximum positions remain the same. This July 2025 updated checkpoint is not silently substituted for the September 2024 hosted identity. Current main configuration was freshly fetched and matches this pinned revision; all count-bearing dimensions match the original checkpoint."
     },
     {
       "id": "history",
@@ -154,6 +154,30 @@
       "publisher": "SDAIA researchers / OpenReview",
       "accessed": false,
       "evidence": "Direct fetch returned 403; web access reached a browser-verification challenge. No unseen claims from this later version were used; the accessible arXiv v1 and exact later model card were inspected."
+    },
+    {
+      "id": "tii_3lm_active_plot",
+      "url": "https://aclanthology.org/2025.arabicnlp-main.4.pdf",
+      "title": "TII 3LM original benchmark, Figure 11 active-parameter color scale",
+      "publisher": "Technology Innovation Institute researchers / ACL",
+      "accessed": true,
+      "evidence": "Freshly reopened the original paper and visually inspected Figure 11 (PDF page 17, printed page 58). Its colorbar explicitly reads Model active parameters (billions). The exactly labeled ALLaM-7B-Instruct-preview point is at the nearly white lower end, approximately 7B, below the first labeled 10B tick; accompanying benchmark tables identify the same preview as 7B. This is an approximate published comparison convention from TII, not an exact numerical active-count table or an SDAIA disclosure. Original preview card explicitly names this model ALLaM-2-7b-instruct. The plot does not establish component scope, per-token tensor participation, or the precise hosted checkpoint revision."
+    },
+    {
+      "id": "tii_3lm_repository",
+      "url": "https://github.com/tiiuae/3LM-benchmark/tree/6d4c796ecae897acf53d5a7b64e867fa469cb1d4",
+      "title": "TII 3LM benchmark repository at inspected revision",
+      "publisher": "Technology Innovation Institute",
+      "accessed": true,
+      "evidence": "Fresh complete recursive tree (not truncated), README, and candidate plotting file inspected. Repository contains evaluation frameworks, configs, tasks and result artwork; no Figure 11 numerical plot data or generation code was located. frameworks/evalplus-arabic/tools/evalperf/viz_by_params.py is an unrelated EvalPerf plotting utility, not the OALL/EvalPlus-Arabic correlation plot. Therefore the active value retains approximate figure precision."
+    },
+    {
+      "id": "tii_qimma_2026",
+      "url": "https://arxiv.org/pdf/2604.03395",
+      "title": "TII QIMMA 2026 original Arabic benchmark comparison",
+      "publisher": "Technology Innovation Institute researchers",
+      "accessed": true,
+      "evidence": "Fresh current PDF fetched and full text searched for ALLaM, parameter, active and model-size disclosures. Table 6 identifies humain-ai/ALLaM-7B-Instruct-preview with Size 7. It corroborates exact preview identity and nominal model size, but neither this Size column nor the Model Size (B) figure is an explicit active-parameter count. No more precise active value was located here."
     }
   ],
   "fields": {
@@ -215,22 +239,28 @@
       "status": "verified",
       "source_ids": [
         "launch",
-        "azure_card",
+        "groq",
+        "original_card",
+        "original_config",
         "original_index",
-        "implementation"
+        "implementation",
+        "later_card",
+        "later_config"
       ],
-      "note": "Official nominal total retained for the generic hosted model identity. Original published checkpoint has an independently reconciled exact total of 7,000,559,616 learned parameters (291 tensors, all three bounded headers; formula 2VH+H+L*(4H^2+3HI+2H), V=64000,H=4096,I=11008,L=32). Untied input and output matrices are both included; no quant scales, learned biases, MTP or persistent RoPE buffers occur. Hosted checkpoint equivalence is unresolved, so the checkpoint precision is not forced into this generic field."
+      "note": "Retain official nominal 7B for the generic ALLaM-2-7B hosted identity, freshly reconfirmed in Microsoft/Groq documentation and original/current creator cards. Original and current preview configs retain V=64000,H=4096,I=11008,L=32; formula 2VH+H+L*(4H^2+3HI+2H) again yields 7,000,559,616, consistent with the prior complete bounded-header reconciliation of 291 tensors. Untied input/output matrices are both included. No shards were read in this pass. Exact equivalence of published preview and hosted revisions remains undocumented, so checkpoint precision is not forced into this generic field."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 7,
+      "status": "verified",
       "source_ids": [
-        "azure_card",
+        "tii_3lm_active_plot",
         "original_card",
-        "later_card",
-        "paper"
+        "original_config",
+        "later_config",
+        "tii_3lm_repository",
+        "tii_qimma_2026"
       ],
-      "note": "No separately defined active-parameter count is disclosed in the exact model cards or family research inspected. Dense total is not automatically copied to active count."
+      "note": "Approximately 7B under TII's original 3LM Figure 11 active-parameter comparison convention: the exactly labeled preview has the lowest, nearly white color below the 10B tick, consistent with its nominal 7B size in the same paper. Preserve approximate plot precision; 7 is not an exact per-token tensor count. Original creator card explicitly identifies the preview as ALLaM-2-7b-instruct, trained from scratch; this does not inherit a Llama-2 active count. No numerical figure data was located in the benchmark repository, and newer QIMMA reports only model Size. SDAIA's separately defined active count, component participation and exact hosted revision remain unresolved."
     },
     "architecture": {
       "value": "dense",
@@ -351,9 +381,16 @@
         "label": "ALLaM: Large Language Models for Arabic and English",
         "url": "https://arxiv.org/html/2407.15390v1",
         "type": "primary"
+      },
+      {
+        "label": "TII 3LM Figure 11 approximate active-parameter comparison",
+        "url": "https://aclanthology.org/2025.arabicnlp-main.4.pdf",
+        "type": "primary"
       }
     ],
-    "notes": "7B is the official nominal total for ALLaM-2-7B. The original published checkpoint has 7.000559616B learned parameters, but its exact equivalence to hosted revisions is not documented. Microsoft announced availability on September 10, 2024; published preview weights appeared in February 2025 and were updated in July. Apache-2.0 describes the published checkpoint; API service terms are separate. Active count is undisclosed, and dedicated reasoning/tool support remains unverified."
+    "notes": "7B is the official nominal total; approximately 7B active follows TII's 3LM Figure 11 comparison convention, not an exact per-token count or SDAIA active-count disclosure. The original preview card identifies ALLaM-2-7b-instruct. Its 7.000559616B checkpoint total is not asserted for undocumented hosted revisions. Azure availability dates to September 10, 2024; published preview weights appeared in February 2025 and changed in July. Apache-2.0 applies to published weights; API terms are separate. Dedicated reasoning/tool support remains unverified.",
+    "parameters_b": 7,
+    "active_parameters_b": 7
   },
-  "summary": "Replaced later provider date with exact September 10, 2024 Azure availability; confirmed primary nominal 7B, dense architecture, Apache-2.0 published weights, 4096 text context and original SDAIA attribution. Counted the original public checkpoint independently but retained nominal hosted count because revision equivalence is unresolved. Kept active count undisclosed and cleared unsupported reasoning/tool assertions. Original and July 2025 preview revisions are distinguished."
+  "summary": "Fresh parameter re-audit retains official nominal 7B and verifies approximately 7B active using TII's original 3LM Figure 11 convention, with explicit plot precision and creator-card identity mapping. Reopened original/current cards, configurations, Microsoft/Groq documentation and original ALLaM research; current count-bearing dimensions reconfirm the prior 7.000559616B checkpoint calculation. Searched later comparisons, including TII QIMMA, and the 3LM repository; no more precise active definition or hosted revision equivalence was found. Preserved the other 12 assessments, including September 10, 2024 availability, Apache-2.0 published weights, 4096 context and unresolved reasoning/tool support."
 }
