@@ -1,7 +1,7 @@
 {
   "index": 507,
   "model_id": "thedrummer/skyfall-36b-v2",
-  "reviewed_at": "2026-10-27T04:57:41.813250Z",
+  "reviewed_at": "2026-10-27T18:06:58.235597Z",
   "sources": [
     {
       "id": "s1",
@@ -65,7 +65,7 @@
       "title": "Skyfall 36B v2 repository metadata",
       "publisher": "TheDrummer / Hugging Face",
       "accessed": true,
-      "evidence": "Public ungated repository at revision 8d5f36e2fbf323fc17157ba8d8bc9716927825a5 lists the 16 Safetensors shards and other configuration/tokenizer files. Its BF16 summary reports 36,910,535,680 parameters, independently corroborated by this audit. The repository contains no LICENSE file; its card metadata only says other."
+      "evidence": "Public ungated repository at revision 8d5f36e2fbf323fc17157ba8d8bc9716927825a5 lists the 16 Safetensors shards and other configuration/tokenizer files. Its BF16 summary reports 36,910,535,680 parameters, independently corroborated by this audit. The repository contains no LICENSE file; its card metadata only says other. Fresh October 27 API fetch reconfirms the same revision and safetensors.total = 36,910,535,680 (all BF16)."
     },
     {
       "id": "s9",
@@ -210,6 +210,62 @@
       "publisher": "TheDrummer",
       "accessed": true,
       "evidence": "Bounded HTTP byte-range requests retrieved only the length prefix and complete JSON header: 5 BF16 learned weight tensors, 838,876,160 elements. Names, shapes, dtype and two-byte element offsets agree with the index and configured module set."
+    },
+    {
+      "id": "pr1",
+      "url": "https://huggingface.co/TheDrummer/Skyfall-36B-v2/raw/main/README.md",
+      "title": "Skyfall 36B v2 current creator card, freshly reopened October 27",
+      "publisher": "TheDrummer",
+      "accessed": true,
+      "evidence": "Current card explicitly names Skyfall 36B v2 and describes it as an upscaled version of Mistral Small 2501 with continued training for creativity and roleplay. The 36B name is a developer-published nominal size. No separately labeled active-parameter count is stated; upscaling is a structural change that prevents unchanged-size inheritance from the 24B base."
+    },
+    {
+      "id": "pr2",
+      "url": "https://huggingface.co/TheDrummer/Skyfall-36B-v2/raw/main/config.json",
+      "title": "Skyfall 36B v2 current configuration, freshly reopened October 27",
+      "publisher": "TheDrummer",
+      "accessed": true,
+      "evidence": "Current configuration retains 64 Mistral decoder layers, hidden size 5120, intermediate size 32768, vocabulary 131072, 32 query heads, 8 KV heads, head_dim 128 and untied embeddings. Its complete learned-module formula gives 36,910,535,680 parameters, matching the prior tensor census and current repository metadata. No explicit active-count convention is supplied."
+    },
+    {
+      "id": "pr3",
+      "url": "https://huggingface.co/TheDrummer/Skyfall-36B-v2/raw/main/model.safetensors.index.json",
+      "title": "Skyfall 36B v2 current checkpoint index, freshly reopened October 27",
+      "publisher": "TheDrummer",
+      "accessed": true,
+      "evidence": "Current index still maps 579 tensors to 16 shards and reports total_size 73,821,071,360 bytes. This corroborates continuity with the previously audited BF16 checkpoint; no shard or header was requested in this re-audit."
+    },
+    {
+      "id": "pr4",
+      "url": "https://www.reddit.com/r/LocalLLaMA/comments/1irpozr/drummers_skyfall_36b_v2_an_upscale_of_mistrals/",
+      "title": "Creator Skyfall 36B v2 announcement, freshly reopened October 27",
+      "publisher": "TheDrummer via Reddit",
+      "accessed": true,
+      "evidence": "TheLocalDrummer announcement explicitly identifies Skyfall 36B v2 as an upscale of Mistral 24B 2501 with continued training and links the exact creator repository. It supplies no separate active-parameter count. The 70B-like performance description is not a parameter specification."
+    },
+    {
+      "id": "pr5",
+      "url": "https://benchable.ai/models/thedrummer/skyfall-36b-v2",
+      "title": "Benchable exact Skyfall 36B v2 benchmark page, checked October 27",
+      "publisher": "Benchable",
+      "accessed": true,
+      "evidence": "The exact-model page labels Parameters as 36B and presents original benchmark-performance categories. Its benchmark table columns are category, reasoning, strategy, executions, accuracy, cost and duration; neither specifications nor tables label active or activated parameters. Its nominal total corroborates the creator title but does not establish active count."
+    },
+    {
+      "id": "pr6",
+      "url": "https://llm-benchmark.tinybird.live/models/skyfall-36b-v2",
+      "title": "Tinybird original AI SQL Benchmark Skyfall 36B v2 results, checked October 27",
+      "publisher": "Tinybird",
+      "accessed": true,
+      "evidence": "Original exact-model results table lists question, valid query, first attempt, exactness, query latency, model generation, attempts, rows/data read, query length and tokens. It supplies neither a parameter-size column nor an active-count convention."
+    },
+    {
+      "id": "pr7",
+      "url": "https://huggingface.co/TheDrummer/Skyfall-39B-v1/discussions/1",
+      "title": "Creator original Skyfall 39B v1 upscaling experiment write-up",
+      "publisher": "TheDrummer",
+      "accessed": true,
+      "evidence": "Creator write-up linked from the v2 announcement concerns the earlier 39B v1 and Mistral Small Instruct 2409. It describes duplicated layers and further training, with no active-parameter convention. This different base/version is not used to assign a count to Skyfall 36B v2."
     }
   ],
   "fields": {
@@ -307,19 +363,26 @@
         "h13",
         "h14",
         "h15",
-        "h16"
+        "h16",
+        "s8",
+        "pr1",
+        "pr2",
+        "pr3"
       ],
-      "note": "Complete checkpoint count: 36,910,535,680 learned parameters / 1e9. All 579 indexed tensors across all 16 bounded headers match every configured parameter name and shape. Includes separate 131072 x 5120 embedding and output matrices because tie_word_embeddings=false. All tensors are unpacked BF16 weights; no quantization scales or stored buffers. Nonpersistent rotary inv_freq is not a learned parameter. The 36B title is nominal."
+      "note": "Retain 36,910,535,680 learned parameters / 1e9 from the prior complete 579-tensor, 16-header census. Fresh current API metadata reconfirms the same revision and exact total; the freshly reopened configuration independently reproduces it, including separate input embedding and output matrices. The creator-published 36B name is nominal and remains valid at that precision. No weight shards or headers were requested in this re-audit."
     },
     "active_parameters_b": {
       "value": null,
       "status": "undisclosed",
       "source_ids": [
-        "s1",
-        "s2",
-        "s4"
+        "pr1",
+        "pr2",
+        "pr4",
+        "pr5",
+        "pr6",
+        "pr7"
       ],
-      "note": "No exact-model source separately defines an active-per-token count; dense architecture is not used to equate active and total parameters."
+      "note": "No separately published nominal active-parameter count was found in the refreshed creator card/configuration/announcement or later exact-model benchmark pages. The creator explicitly upscaled Mistral Small 2501, so the base model's 24B active convention cannot be inherited unchanged. Dense architecture, nominal 36B naming and exact checkpoint total do not independently establish an active count; the earlier 39B v1 write-up concerns a different model."
     },
     "architecture": {
       "value": "dense",
@@ -397,7 +460,7 @@
     "description": "Open-weight Mistral Small 2501 upscale with continued training for creative writing and roleplay.",
     "source_url": "https://huggingface.co/TheDrummer/Skyfall-36B-v2/blob/8d5f36e2fbf323fc17157ba8d8bc9716927825a5/README.md",
     "source_type": "primary",
-    "notes": "The 36B name is nominal: the complete original BF16 checkpoint contains 36,910,535,680 learned parameters. Active parameters are not separately reported. License metadata only says other; no named terms were located in this repository. Reasoning and tool-calling capability remain unverified. February 17 is the developer public-announcement date; the earlier February 3 upload does not establish public availability, and March 10 is provider-derived.",
+    "notes": "The creator names this upscaled model 36B; the original BF16 checkpoint contains 36,910,535,680 learned parameters. Active parameters are undisclosed, and the expanded architecture prevents inheriting the 24B base count. License metadata says other without named terms; reasoning and tool calling remain unverified. February 17 is the developer announcement date; earlier weight upload does not establish public availability.",
     "sources": [
       {
         "label": "Skyfall 36B v2 model card at audited revision",
@@ -433,8 +496,14 @@
         "label": "Drummer official profile links",
         "url": "https://linktr.ee/thelocaldrummer",
         "type": "primary"
+      },
+      {
+        "label": "Skyfall 36B v2 repository metadata and exact BF16 parameter total",
+        "url": "https://huggingface.co/api/models/TheDrummer/Skyfall-36B-v2",
+        "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": null
   },
   "parameter_verification": {
     "revision": "8d5f36e2fbf323fc17157ba8d8bc9716927825a5",
@@ -451,5 +520,35 @@
     "nonpersistent_rope_inv_freq_is_buffer_not_parameter": true,
     "downloaded_bytes": 67808
   },
-  "summary": "Corrects the nominal 36B count to the fully reconciled 36.91053568B checkpoint total; establishes dense Mistral architecture and the February 17, 2025 developer announcement. Confirms open weights, text modalities and 32,768 configured context, adds the Skyfall family, and replaces the generic description. Active count and named license remain undisclosed; reasoning and tool-calling flags are cleared because primary evidence does not support binary claims."
+  "summary": "Fresh parameter re-audit retains the verified 36.91053568B checkpoint total and creator-published nominal 36B name. Active count remains undisclosed: the model was structurally upscaled from Mistral Small 2501, and checked creator sources and later benchmark tables provide no Skyfall-specific active convention. The other twelve field assessments are unchanged.",
+  "parameter_reaudit": {
+    "agent": "/root/parameters_507",
+    "reviewed_at": "2026-10-27T18:06:58.235597Z",
+    "outcome": "Retain verified total 36.91053568B and nominal 36B creator name; active count remains undisclosed after fresh source and later-benchmark checks.",
+    "fresh_source_ids": [
+      "pr1",
+      "pr2",
+      "pr3",
+      "s8",
+      "pr4",
+      "pr5",
+      "pr6",
+      "pr7"
+    ],
+    "fresh_search_queries": [
+      "\"Skyfall-36B-v2\" \"active\" parameters",
+      "\"Skyfall 36B\" \"activated\" parameters",
+      "\"Skyfall-36B-v2\" parameters benchmark table",
+      "\"Skyfall\" \"36B\" \"active parameters\"",
+      "\"Skyfall\" \"36B\" \"activated parameters\"",
+      "\"Skyfall\" \"36B\" site:arxiv.org",
+      "\"skyfall-36b-v2\" arxiv parameters",
+      "\"Skyfall\" \"36B\" benchmark parameter table",
+      "\"Skyfall\" \"36B\" \"active\" -site:models.dev -site:github.com -site:eachlabs.ai -site:getwaterfall.org -site:multigrid.ai"
+    ],
+    "search_findings": "Reopened current creator card, configuration, complete index and repository metadata; current revision remains 8d5f36e2fbf323fc17157ba8d8bc9716927825a5. Reopened the creator announcement and its linked original upscaling write-up, which concerns 39B v1 and cannot supply the v2 count. Later original Tinybird SQL results and Benchable exact-model benchmark tables contain no active-parameter column or convention. Bounded exact-name searches surfaced secondary total-size catalogs and an OpenReview medical-benchmark supplementary table, but no supported exact-model active disclosure.",
+    "access_limitations": "Hugging Face raw/API URLs were inaccessible through web.open but directly fetched successfully with HTTP 200. Reddit JSON returned HTTP 403; the original HTML announcement was readable through web.open. OpenReview supplementary attachment DVIHi5TFoc returned a browser-verification page, so its search excerpt was not treated as a reviewed active-count source.",
+    "remaining_uncertainty": "No exact-model nominal active convention found. Neither dense architecture nor the precise total substitutes for that evidence; the 24B base active count cannot survive the explicitly documented upscale unchanged.",
+    "weight_shards_requested": false
+  }
 }
