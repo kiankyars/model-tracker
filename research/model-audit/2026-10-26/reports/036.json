@@ -1,7 +1,7 @@
 {
   "index": 36,
   "model_id": "alibaba/qwen3-max",
-  "reviewed_at": "2026-10-26T14:33:10.936583Z",
+  "reviewed_at": "2026-10-27T09:37:40.807853Z",
   "sources": [
     {
       "id": "s1",
@@ -25,7 +25,7 @@
       "title": "Model pricing",
       "publisher": "Alibaba Cloud",
       "accessed": true,
-      "evidence": "The qwen3-max alias is documented as equivalent to qwen3-max-2026-01-23, supporting thinking and non-thinking. The separate September 23, 2025 snapshot is non-thinking only."
+      "evidence": "Reopened October 27, 2026. Current pricing documentation explicitly maps qwen3-max to qwen3-max-2026-01-23 in multiple regions and lists thinking/non-thinking support. It supplies no total or active parameter count."
     },
     {
       "id": "s4",
@@ -49,7 +49,7 @@
       "title": "Pushing Qwen3-Max-Thinking Beyond its Limits",
       "publisher": "Qwen Team / Alibaba",
       "accessed": true,
-      "evidence": "January 25, 2026 article identifies the thinking model API as qwen3-max-2026-01-23. It describes reasoning, coding and tools but gives no exact total or active parameter counts."
+      "evidence": "Reopened indexed primary article October 27, 2026; direct Qwen rendering yields no text. January 25 announcement identifies Qwen3-Max-Thinking as API qwen3-max-2026-01-23. The article discusses parameter scaling, reinforcement learning and test-time scaling but supplies neither a scalar total nor an activated-parameter count."
     },
     {
       "id": "s7",
@@ -66,6 +66,30 @@
       "publisher": "Alibaba Cloud",
       "accessed": true,
       "evidence": "Parent read the complete indexed primary page, including separately titled qwen3-max-preview and January2026 sections. Both explicitly list262144 context. Preview tables mark Function Calling unsupported across regions; the main alias supports it in Beijing. Direct parser exceeded size limit; current endpoint operation was not tested."
+    },
+    {
+      "id": "reaudit_alibaba_apsara",
+      "url": "https://home.alibabagroup.com/en-US/document-1911884625546838016",
+      "title": "Alibaba Cloud’s Apsara Conference 2025: Full Stack AI + Cloud Leads the Way to the Future of AI",
+      "publisher": "Alibaba Group",
+      "accessed": true,
+      "evidence": "September 29, 2025 corporate release calls Qwen3-Max a trillion-parameter model. Reopened through indexed primary content October 27, 2026 after direct fetch timed out. This supports the published scale, while the more specific Qwen and later Thinking statements preserve a strict greater-than-one-trillion bound."
+    },
+    {
+      "id": "reaudit_alizila_thinking",
+      "url": "https://www.alizila.com/alibabas-latest-thinking-model-excels-at-adaptive-tool-use/",
+      "title": "Alibaba’s Latest Thinking Model Excels at Adaptive Tool Use",
+      "publisher": "Alizila / Alibaba Group",
+      "accessed": true,
+      "evidence": "January 27, 2026 developer-owned newsroom article explicitly attributes over 1 trillion parameters to Qwen3-Max-Thinking itself and says its API is available through Model Studio. Reopened indexed primary article October 27, 2026; direct fetch returned 403. This extends the disclosed lower bound to the January snapshot, rather than relying only on the September base model. No active count is stated."
+    },
+    {
+      "id": "reaudit_qwen35_comparison",
+      "url": "https://qwen.ai/blog?id=qwen3.5",
+      "title": "Qwen3.5: Towards Native Multimodal Agents",
+      "publisher": "Qwen Team / Alibaba",
+      "accessed": true,
+      "evidence": "February 15, 2026 primary post, reopened in indexed primary content October 27. Its pretraining section describes Qwen3-Max-Base as >1T parameters and compares Qwen3.5 throughput against Qwen3-Max. The language benchmark table includes Qwen3-Max-Thinking, but no active parameter count for that model was recovered. The disclosed 397B total and 17B active counts belong to Qwen3.5 and cannot be transferred to Qwen3-Max."
     }
   ],
   "fields": {
@@ -126,18 +150,24 @@
       "status": "undisclosed",
       "source_ids": [
         "s1",
-        "s6"
+        "s3",
+        "s6",
+        "reaudit_alibaba_apsara",
+        "reaudit_alizila_thinking",
+        "reaudit_qwen35_comparison"
       ],
-      "note": "Launch article discloses only a strict lower bound above 1,000B for Qwen3-Max-Base. An exact scalar and a precise count for the later alias target are not disclosed; do not record 1,000B as an exact total."
+      "note": "The developer discloses over 1,000B parameters for Qwen3-Max-Base and explicitly for Qwen3-Max-Thinking, the January 23 snapshot currently behind this alias. The strict lower bound is verified and proposed separately; the scalar remains null because no point estimate is published. Alibaba’s less precise trillion-parameter description does not erase the greater-than qualifier."
     },
     "active_parameters_b": {
       "value": null,
       "status": "undisclosed",
       "source_ids": [
         "s1",
-        "s6"
+        "s6",
+        "reaudit_alizila_thinking",
+        "reaudit_qwen35_comparison"
       ],
-      "note": "No active parameter count in the reviewed exact-model announcements. Do not borrow figures from open Qwen checkpoints or Qwen3.8-Max."
+      "note": "No separately published active count was found after rechecking the exact-model announcements, January Thinking release and later Qwen3.5 comparison, plus targeted first-party active/activated-parameter searches. Qwen3.5 and Qwen3.8-Max counts describe different models."
     },
     "architecture": {
       "value": "moe",
@@ -206,7 +236,7 @@
     "architecture": "moe",
     "reasoning": true,
     "description": "Hosted Qwen3 text model for coding, reasoning, and tool-using agents.",
-    "notes": "First documented China availability is September 23, 2025; global rollout and launch post followed September 24. The alias now maps to the January 23, 2026 snapshot with thinking support. The original base is MoE with over 1 trillion parameters; exact total and active counts remain undisclosed. Exact context is 262144 in the indexed model card.",
+    "notes": "First documented China availability is September 23, 2025; global rollout and launch post followed September 24. The alias maps to the January 23, 2026 Thinking snapshot. Alibaba discloses over 1,000B total parameters for both the original base and this Thinking model; this is a strict lower bound, not a 1,000B point estimate. Active parameters are undisclosed. Exact context is 262144 in the indexed model card.",
     "sources": [
       {
         "label": "Qwen3-Max official launch",
@@ -232,9 +262,36 @@
         "label": "Official exact model and snapshot specifications",
         "url": "https://docs.modelstudio.console.alibabacloud.com/zh/model-studio/model-qwen3-max",
         "type": "primary"
+      },
+      {
+        "label": "Alibaba Group Qwen3-Max published scale",
+        "url": "https://home.alibabagroup.com/en-US/document-1911884625546838016",
+        "type": "primary"
+      },
+      {
+        "label": "Alibaba Qwen3-Max-Thinking parameter lower bound",
+        "url": "https://www.alizila.com/alibabas-latest-thinking-model-excels-at-adaptive-tool-use/",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3.5 comparison with Qwen3-Max-Base",
+        "url": "https://qwen.ai/blog?id=qwen3.5",
+        "type": "primary"
       }
     ],
-    "context_window": 262144
+    "context_window": 262144,
+    "parameters_b": null,
+    "active_parameters_b": null,
+    "parameters_source": "primary_source"
   },
-  "summary": "Confirmed MoE and later thinking support; exact total and active counts remain undisclosed. Parent resolved context to 262144 and earliest China launch to September 23 using primary model and release tables."
+  "summary": "Fresh parameter audit verifies the developer-published strict total bound above 1,000B for Qwen3-Max-Thinking, which is the current alias target, as well as the original base. Proposed explicit lower-bound fields preserve this supported size; no scalar point estimate or active count was found. Other prior field assessments are preserved.",
+  "proposed_fields": {
+    "parameters_lower_bound_b": 1000,
+    "parameters_lower_bound_exclusive": true
+  },
+  "parameter_reaudit": {
+    "agent": "/root/parameters_036_retry",
+    "outcome": "Verified strict total lower bound above 1,000B for current alias target; active count remains undisclosed.",
+    "schema_note": "Existing schema supports scalar counts and component/phase scopes, but no numeric bound. Proposed lower-bound and exclusivity fields preserve the developer disclosure without converting it to a point estimate. Parent must add schema/application/display support before accepting these proposed fields."
+  }
 }
