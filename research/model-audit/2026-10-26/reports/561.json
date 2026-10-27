@@ -1,0 +1,325 @@
+{
+  "index": 561,
+  "model_id": "zhipuai/glm-5.3",
+  "reviewed_at": "2026-10-27T06:22:57.335509+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://z.ai/blog/glm-5.3",
+      "title": "Original GLM-5.3 release announcement",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "The indexed original page is dated August 14, 2026 and explicitly announces release through GLM Coding Plan and ZCode. It states that GLM-5.3 uses the GLM-5.2 base and improves it through post-training, with IndexShare in the inherited training stack. Its local-serving section says weights would follow later. Direct page opening returned an empty shell; the search reader exposed the complete relevant original text."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/zai-org/GLM-5.3/blob/ba32f8c19c8738e2c57c71798c601d477a7bf844/README.md",
+      "title": "GLM-5.3 pinned model card",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Exact model card identifies the GLM family, public local deployment, text-generation pipeline, same base as GLM-5.2 and post-training changes. It specifies three reasoning-effort levels and links original vLLM/SGLang implementations. License metadata says other, license_name glm-5.3; the cited technical report concerns GLM-5 and does not establish a GLM-5.3 parameter-count convention."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/zai-org/GLM-5.3/blob/ba32f8c19c8738e2c57c71798c601d477a7bf844/config.json",
+      "title": "GLM-5.3 pinned checkpoint configuration",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "GlmMoeDsaForCausalLM with 78 main layers (3 dense, 75 sparse), 256 routed experts/top 8 plus 1 shared expert, MLA latent ranks and sparse indexer configuration, one next-token prediction module, untied embeddings and maximum positions 1048576. Indexer types alternate full/shared with index_topk_freq 4; sharing also applies to MTP iterations. Default checkpoint quantization is block FP8."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/zai-org/GLM-5.3/blob/ba32f8c19c8738e2c57c71798c601d477a7bf844/LICENSE",
+      "title": "GLM-5.3 License",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Exact checkpoint license is named GLM-5.3 License, copyright 2026 Z.AI. It permits weight use, modification and redistribution under stated conditions, including a security-review condition for qualifying large Model-as-a-Service businesses. This is a custom license, not the MIT license of earlier GLM releases."
+    },
+    {
+      "id": "s5",
+      "url": "https://github.com/zai-org/GLM-5/blob/83c03d317378f86f0a012f7c4cd48b6243c7e69b/README.md",
+      "title": "Original developer model download table",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "The exact GLM-5.3 FP8 and GLM-5.3-BF16 rows both directly report nominal 744B-A40B. GLM-5.3-Flash has its own separate row. The table does not define whether embeddings, output heads or MTP are included; no predecessor convention is imported."
+    },
+    {
+      "id": "s6",
+      "url": "https://docs.z.ai/guides/llm/glm-5.3",
+      "title": "GLM-5.3 native API guide",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Full Markdown page accessed at the .md URL. It specifies text-only inputs, 1M context, 128K maximum output, always-enabled reasoning with low/high/max effort, and function calling. Text responses are shown in exact-model examples. It describes current hosted access separately from open deployment."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/zai-org/GLM-5.3/blob/ba32f8c19c8738e2c57c71798c601d477a7bf844/chat_template.jinja",
+      "title": "GLM-5.3 pinned chat template",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Exact checkpoint template opens a think block, sets reasoning effort to low/high/max, serializes tool schemas and native function calls, and handles tool responses. The text model has no image/audio generation decoder; generic tokenizer special tokens do not establish extra modalities."
+    },
+    {
+      "id": "s8",
+      "url": "https://recipes.vllm.ai/zai-org/GLM-5.3",
+      "title": "Original vLLM GLM-5.3 serving recipe",
+      "publisher": "vLLM",
+      "accessed": true,
+      "evidence": "The serving recipe linked by the original model card reports approximately 743B total and 39B active, conflicting with the developer download table 744B-A40B. It agrees on text MoE, 1048576 context and native FP8 packaging. The developer-specific nominal table is retained; neither figure is presented as a reconciled exact learned-tensor count."
+    },
+    {
+      "id": "s9",
+      "url": "https://docs.z.ai/release-notes/new-released.md",
+      "title": "Native model release notes",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "The native API release log places GLM-5.3 under August 18, 2026, later than the August 14 original Coding Plan/ZCode release. This later service-entry date does not replace earliest public access."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/api/models/zai-org/GLM-5.3/revision/ba32f8c19c8738e2c57c71798c601d477a7bf844",
+      "title": "Pinned GLM-5.3 public repository metadata",
+      "publisher": "Z.ai on Hugging Face",
+      "accessed": true,
+      "evidence": "The accessed repository is public and ungated, with 141 safetensors shards and local deployment files. No full weight files were downloaded and storage-element metadata was not treated as learned parameter counts."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/zai-org/GLM-5.3/blob/ba32f8c19c8738e2c57c71798c601d477a7bf844/tokenizer_config.json",
+      "title": "GLM-5.3 pinned tokenizer configuration",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "model_max_length is 1048576, agreeing with the checkpoint position capacity. Image/video/audio special tokens are tokenizer vocabulary entries, not evidence that this text-only model accepts those modalities."
+    },
+    {
+      "id": "s12",
+      "url": "https://arxiv.org/html/2602.15763v2",
+      "title": "GLM-5 technical report referenced by the current card",
+      "publisher": "GLM Team / Z.ai",
+      "accessed": true,
+      "evidence": "The report was checked for GLM-5.3-specific counting and architecture statements. It does not mention GLM-5.3; its earlier-model table cannot establish the later release's embedding/output/MTP count boundary."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "GLM-5.3",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5"
+      ],
+      "note": "Exact full-size model, distinct from GLM-5.3-Flash and precision packaging suffixes."
+    },
+    "developer": {
+      "value": "Z.ai",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4"
+      ],
+      "note": "Original release and checkpoint are published by Z.ai."
+    },
+    "family": {
+      "value": "glm",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5"
+      ],
+      "note": "Official GLM series designation."
+    },
+    "release_date": {
+      "value": "2026-08-14",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s9"
+      ],
+      "note": "Earliest verified public Coding Plan/ZCode release. The August 18 native API-log entry and later weight publication are distinct distribution milestones."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s10"
+      ],
+      "note": "Currently public downloadable official weights. They were promised for later at the initial hosted release; true does not imply weights were downloadable on August 14."
+    },
+    "license": {
+      "value": "GLM-5.3 License",
+      "status": "verified",
+      "source_ids": [
+        "s4"
+      ],
+      "note": "Exact named custom license. Do not inherit MIT from GLM-5.2 or the separately licensed Flash variant."
+    },
+    "parameters_b": {
+      "value": 744,
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s8",
+        "s12"
+      ],
+      "note": "Original developer nominal 744B from the exact GLM-5.3 row. vLLM reports approximately 743B; this conflict is retained. Neither is an exact complete checkpoint count. No exact-model embedding/output/MTP boundary is disclosed."
+    },
+    "active_parameters_b": {
+      "value": 40,
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s8",
+        "s12"
+      ],
+      "note": "Original developer nominal A40B from the exact model row. The vLLM recipe reports 39B. No precise active-count convention or phase-specific accounting is inferred."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Causal text MoE Transformer with latent attention and sparse attention/index sharing. Configuration has 3 dense and 75 MoE main layers, 8 of 256 routed experts plus a shared expert, and one MTP module. Flash's hybrid linear-attention/mHC architecture is not transferred."
+    },
+    "context_window": {
+      "value": 1048576,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s6",
+        "s8",
+        "s11"
+      ],
+      "note": "Exact open-checkpoint and tokenizer capacity. Native API advertises 1M and may apply its own service limit; the baseline 1000000 is replaced by the configured capacity. 128K maximum output is separate."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s6",
+        "s7"
+      ],
+      "note": "Native guide explicitly states text-only input and shows text responses. No vision/audio modules occur in the config; tokenizer special tokens do not establish multimodality."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s6",
+        "s7"
+      ],
+      "note": "Always enabled in the documented interface, with low/high/max effort. Disabling reasoning is explicitly unsupported."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s6",
+        "s7"
+      ],
+      "note": "Exact-model native function calling and checkpoint tool-schema/call/response serialization."
+    },
+    "description": {
+      "value": "Text MoE model with sparse attention, adjustable reasoning effort and function calling.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s6",
+        "s7"
+      ],
+      "note": "Neutral description limited to verified architecture and interfaces."
+    }
+  },
+  "patch": {
+    "license": "GLM-5.3 License",
+    "parameters_b": 744,
+    "active_parameters_b": 40,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "context_window": 1048576,
+    "description": "Text MoE model with sparse attention, adjustable reasoning effort and function calling.",
+    "source_url": "https://z.ai/blog/glm-5.3",
+    "source_type": "primary",
+    "notes": "Released through GLM Coding Plan and ZCode on August 14, 2026; native API release notes are dated August 18 and public weights followed later. The developer lists nominal 744B total and 40B active; the linked vLLM recipe instead gives approximately 743B/39B. The developer figures are retained without claiming exact learned-tensor totals or importing an earlier model's embedding/MTP accounting. The checkpoint uses MoE with latent/sparse attention and shared sparse indexers. Context capacity is 1048576 in the checkpoint and tokenizer, while the hosted guide advertises 1M. Reasoning is always enabled with low/high/max effort. Weights use the custom GLM-5.3 License, not MIT.",
+    "sources": [
+      {
+        "label": "Original GLM-5.3 release announcement",
+        "url": "https://z.ai/blog/glm-5.3",
+        "type": "announcement"
+      },
+      {
+        "label": "GLM-5.3 pinned model card",
+        "url": "https://huggingface.co/zai-org/GLM-5.3/blob/ba32f8c19c8738e2c57c71798c601d477a7bf844/README.md",
+        "type": "docs"
+      },
+      {
+        "label": "GLM-5.3 pinned checkpoint configuration",
+        "url": "https://huggingface.co/zai-org/GLM-5.3/blob/ba32f8c19c8738e2c57c71798c601d477a7bf844/config.json",
+        "type": "docs"
+      },
+      {
+        "label": "GLM-5.3 License",
+        "url": "https://huggingface.co/zai-org/GLM-5.3/blob/ba32f8c19c8738e2c57c71798c601d477a7bf844/LICENSE",
+        "type": "docs"
+      },
+      {
+        "label": "Original developer model download table",
+        "url": "https://github.com/zai-org/GLM-5/blob/83c03d317378f86f0a012f7c4cd48b6243c7e69b/README.md",
+        "type": "docs"
+      },
+      {
+        "label": "GLM-5.3 native API guide",
+        "url": "https://docs.z.ai/guides/llm/glm-5.3",
+        "type": "docs"
+      },
+      {
+        "label": "GLM-5.3 pinned chat template",
+        "url": "https://huggingface.co/zai-org/GLM-5.3/blob/ba32f8c19c8738e2c57c71798c601d477a7bf844/chat_template.jinja",
+        "type": "docs"
+      },
+      {
+        "label": "Original vLLM GLM-5.3 serving recipe",
+        "url": "https://recipes.vllm.ai/zai-org/GLM-5.3",
+        "type": "docs"
+      },
+      {
+        "label": "Native model release notes",
+        "url": "https://docs.z.ai/release-notes/new-released.md",
+        "type": "docs"
+      },
+      {
+        "label": "Pinned GLM-5.3 public repository metadata",
+        "url": "https://huggingface.co/api/models/zai-org/GLM-5.3/revision/ba32f8c19c8738e2c57c71798c601d477a7bf844",
+        "type": "docs"
+      },
+      {
+        "label": "GLM-5.3 pinned tokenizer configuration",
+        "url": "https://huggingface.co/zai-org/GLM-5.3/blob/ba32f8c19c8738e2c57c71798c601d477a7bf844/tokenizer_config.json",
+        "type": "docs"
+      },
+      {
+        "label": "GLM-5 technical report referenced by the current card",
+        "url": "https://arxiv.org/html/2602.15763v2",
+        "type": "docs"
+      }
+    ]
+  },
+  "summary": "Verified all 14 fields. Added the exact custom license, author-nominal 744B/40B counts and independently configured MoE topology; corrected context to 1048576. Preserved the vLLM 743B/39B disagreement without inventing an exact counting boundary. Confirmed August 14 hosted release, later API/weight availability, text-only modalities, always-enabled reasoning and tools."
+}
