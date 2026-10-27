@@ -1,0 +1,341 @@
+{
+  "index": 362,
+  "model_id": "moonshotai/kimi-k2.7-code-highspeed",
+  "reviewed_at": "2026-10-27T00:03:20.730855Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://platform.kimi.ai/docs/guide/kimi-k2-7-code-quickstart",
+      "title": "Kimi K2.7 Code \u2014 official API guide",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Explicitly identifies kimi-k2.7-code-highspeed as the same model as Kimi K2.7 Code with faster output. Documents 256K context, mandatory thinking, multimodal examples and multi-step tool invocation."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/moonshotai/Kimi-K2.7-Code",
+      "title": "Kimi-K2.7-Code model card",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Official released checkpoint: nominal 1T total and 32B activated parameters, MoE, MLA, 61 layers, MoonViT vision encoder and native INT4 quantization. The card links downloadable weights and specifies Modified MIT licensing."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/moonshotai/Kimi-K2.7-Code/blob/main/LICENSE",
+      "title": "Kimi-K2.7-Code Modified MIT License",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Copyright 2026 Moonshot AI; Modified MIT terms add a prominent Kimi K2.7 Code attribution requirement above stated commercial scale thresholds."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/moonshotai/Kimi-K2.7-Code/raw/74797c9c62378b951a1f6fcf5c4631024e9b8bef/config.json",
+      "title": "Kimi-K2.7-Code configuration at pinned revision",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Pinned configuration identifies kimi_k2 text model, 61 layers, 384 routed experts with eight selected, one shared expert, 262144 positions and packed INT4 quantization. Includes vision/projector dimensions and no next-token-prediction layers."
+    },
+    {
+      "id": "s5",
+      "url": "https://publish.twitter.com/oembed?url=https%3A%2F%2Fx.com%2FKimi_Moonshot%2Fstatus%2F2066467110960959833",
+      "title": "Official Kimi HighSpeed launch post \u2014 X public embed",
+      "publisher": "Moonshot AI via X",
+      "accessed": true,
+      "evidence": "First-party X oEmbed fetched with curl returns the official Kimi_Moonshot post, dated June 15, 2026, announcing HighSpeed beta rollout. Direct X page returned HTTP 403; the accessible embed includes the dated announcement excerpt and canonical post URL."
+    },
+    {
+      "id": "s6",
+      "url": "https://www.kimi.com/code/docs/en/kimi-code/whats-new.html",
+      "title": "Kimi Code official changelog",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "June 12 releases standard K2.7 Code but says HighSpeed beta is forthcoming. July 9 announces general HighSpeed availability and confirms Standard and HighSpeed use the same model."
+    },
+    {
+      "id": "s7",
+      "url": "https://www.kimi.ai/help/kimi-code/models",
+      "title": "Kimi Code model configuration",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Maps kimi-for-coding-highspeed to K2.7 Code HighSpeed; specifies 262144 context, Thinking ON and image/video inputs. Explains model-output acceleration does not accelerate tool execution."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/moonshotai/Kimi-K2.7-Code/tree/main",
+      "title": "Official Kimi-K2.7-Code checkpoint files",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Public repository file tree lists configuration, license, tokenizer/model code and 64 safetensors weight shards. These are the underlying Code checkpoint, not a separately named HighSpeed download."
+    },
+    {
+      "id": "s9",
+      "url": "https://forum.moonshot.ai/t/here-comes-kimi-k2-7-code-better-coding-with-more-efficiency/441",
+      "title": "Here comes Kimi K2.7 Code: Better Coding with more efficiency",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Official June 16 announcement says Code and HighSpeed are live; describes HighSpeed capability equivalence, image/video support and tool use, and links the public Code weights."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/moonshotai/Kimi-K2.7-Code/raw/74797c9c62378b951a1f6fcf5c4631024e9b8bef/model.safetensors.index.json",
+      "title": "Underlying Code checkpoint complete tensor index at pinned revision",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Independently retrieved index contains 208550 keys across 64 shards. Reviewed completed parent census reconciles all index keys, dtype/shape byte spans and logical INT4 shapes; excludes 69120 weight_scale and 69120 weight_shape tensors."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/moonshotai/Kimi-K2.7-Code/raw/74797c9c62378b951a1f6fcf5c4631024e9b8bef/modeling_deepseek.py",
+      "title": "Underlying Code language implementation at pinned revision",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Declares router correction biases as nn.Parameter. Reviewed code/config arithmetic reconstructs 1026408232448 language parameters, matching the completed underlying checkpoint census."
+    },
+    {
+      "id": "s12",
+      "url": "https://huggingface.co/moonshotai/Kimi-K2.7-Code/raw/74797c9c62378b951a1f6fcf5c4631024e9b8bef/modeling_kimi_k25.py",
+      "title": "Underlying Code vision and projector implementation at pinned revision",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Spatial position weights are parameters; time_weight and freqs_cis are nonpersistent buffers. Configuration/code arithmetic yields 416866032 vision-encoder and 54277888 projector parameters, independently matched to their complete shard headers."
+    },
+    {
+      "id": "s13",
+      "url": "https://huggingface.co/moonshotai/Kimi-K2.7-Code/resolve/74797c9c62378b951a1f6fcf5c4631024e9b8bef/model-00001-of-000064.safetensors",
+      "title": "Underlying Code pinned safetensors headers and census review",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Reviewed the completed 64-header census and independently re-fetched representative headers 1, 2, 63 and 64 with bounded Range requests. Logical INT4 matrices count eight values per I32 element; metadata is excluded. Full underlying checkpoint total is 1026879376368. This is not a separate HighSpeed-hosting tensor census."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Kimi K2.7 Code HighSpeed",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "Uses the developer's HighSpeed capitalization."
+    },
+    "developer": {
+      "value": "Moonshot AI",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "Official moonshotai repository and copyright identify the developer."
+    },
+    "family": {
+      "value": "kimi-k2",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4"
+      ],
+      "note": "Underlying checkpoint explicitly uses kimi_k2 as its text model type."
+    },
+    "release_date": {
+      "value": "2026-06-15",
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s6",
+        "s9"
+      ],
+      "note": "First public beta rollout announced June 15. June 12 concerned standard Code; July 9 was later general availability."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s8"
+      ],
+      "note": "Official same-model mapping supports the public Code checkpoint. This does not mean the HighSpeed serving infrastructure is distributed."
+    },
+    "license": {
+      "value": "Modified MIT",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Applies to the mapped underlying checkpoint; hosted service access is separate."
+    },
+    "parameters_b": {
+      "value": 1026.879376368,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s10",
+        "s11",
+        "s12",
+        "s13"
+      ],
+      "note": "Exact released underlying Code checkpoint: 1026408232448 language + 416866032 vision + 54277888 projector = 1026879376368 parameters. The official API explicitly maps HighSpeed to the same model. Reviewed the completed 64-shard census and independently verified pinned metadata, arithmetic and representative headers; reconstruct logical INT4 weights, exclude quantization metadata/buffers, and include declared router parameters. This counts the public underlying model, not proprietary serving infrastructure."
+    },
+    "active_parameters_b": {
+      "value": 32,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Retain developer-reported nominal 32B activated for the explicitly mapped Code checkpoint; no exact vision-inclusive or hosted-infrastructure active count is asserted."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4"
+      ],
+      "note": "Same-model mapping plus checkpoint MoE declaration and routed-expert configuration."
+    },
+    "context_window": {
+      "value": 262144,
+      "status": "verified",
+      "source_ids": [
+        "s7",
+        "s4"
+      ],
+      "note": "Exact HighSpeed context value appears in the official configuration table."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7",
+        "s9"
+      ],
+      "note": "Official API chat examples and HighSpeed input table support text/image/video input and text responses."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7"
+      ],
+      "note": "Explicit Thinking ON classification; the mapped model does not support non-thinking mode."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7",
+        "s9"
+      ],
+      "note": "API guide documents multi-step tool invocation; HighSpeed guidance distinguishes generation from tool execution."
+    },
+    "description": {
+      "value": "High-throughput serving variant of Kimi K2.7 Code, using the same multimodal reasoning model for coding and tool use.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7"
+      ],
+      "note": "Replaces unsupported latency framing with documented output-throughput behavior."
+    }
+  },
+  "patch": {
+    "name": "Kimi K2.7 Code HighSpeed",
+    "release_date": "2026-06-15",
+    "date_precision": "day",
+    "license": "Modified MIT",
+    "parameters_b": 1026.879376368,
+    "active_parameters_b": 32,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "description": "High-throughput serving variant of Kimi K2.7 Code, using the same multimodal reasoning model for coding and tool use.",
+    "source_url": "https://platform.kimi.ai/docs/guide/kimi-k2-7-code-quickstart",
+    "source_type": "primary",
+    "notes": "Moonshot explicitly identifies HighSpeed as the same K2.7 Code model served faster. Exact released underlying checkpoint total is 1026.879376368B: language 1026.408232448B, vision encoder 0.416866032B, projector 0.054277888B. The complete pinned census reconstructs logical INT4 weights, excludes scales/shape metadata and nonpersistent buffers, and includes router correction-bias parameters. This is not a separate census of hosted HighSpeed infrastructure. The card total 1T and retained active count 32B are nominal. Open weights and Modified MIT apply to the underlying checkpoint, not the hosted acceleration stack or a self-hosted speed guarantee. June 15, 2026 was public beta rollout; July 9 was Kimi Code general availability.",
+    "sources": [
+      {
+        "label": "Official API guide and exact HighSpeed mapping",
+        "url": "https://platform.kimi.ai/docs/guide/kimi-k2-7-code-quickstart",
+        "type": "primary"
+      },
+      {
+        "label": "Official K2.7 Code model card",
+        "url": "https://huggingface.co/moonshotai/Kimi-K2.7-Code",
+        "type": "weights"
+      },
+      {
+        "label": "Official checkpoint license",
+        "url": "https://huggingface.co/moonshotai/Kimi-K2.7-Code/blob/main/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "Underlying checkpoint configuration at pinned revision",
+        "url": "https://huggingface.co/moonshotai/Kimi-K2.7-Code/raw/74797c9c62378b951a1f6fcf5c4631024e9b8bef/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "June 15 HighSpeed beta announcement",
+        "url": "https://x.com/Kimi_Moonshot/status/2066467110960959833",
+        "type": "primary"
+      },
+      {
+        "label": "Launch announcement accessible first-party embed",
+        "url": "https://publish.twitter.com/oembed?url=https%3A%2F%2Fx.com%2FKimi_Moonshot%2Fstatus%2F2066467110960959833",
+        "type": "primary"
+      },
+      {
+        "label": "Official release chronology",
+        "url": "https://www.kimi.com/code/docs/en/kimi-code/whats-new.html",
+        "type": "primary"
+      },
+      {
+        "label": "Official HighSpeed capabilities",
+        "url": "https://www.kimi.ai/help/kimi-code/models",
+        "type": "primary"
+      },
+      {
+        "label": "Underlying Code checkpoint complete tensor index at pinned revision",
+        "url": "https://huggingface.co/moonshotai/Kimi-K2.7-Code/raw/74797c9c62378b951a1f6fcf5c4631024e9b8bef/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Underlying Code language implementation at pinned revision",
+        "url": "https://huggingface.co/moonshotai/Kimi-K2.7-Code/raw/74797c9c62378b951a1f6fcf5c4631024e9b8bef/modeling_deepseek.py",
+        "type": "primary"
+      },
+      {
+        "label": "Underlying Code vision and projector implementation at pinned revision",
+        "url": "https://huggingface.co/moonshotai/Kimi-K2.7-Code/raw/74797c9c62378b951a1f6fcf5c4631024e9b8bef/modeling_kimi_k25.py",
+        "type": "primary"
+      },
+      {
+        "label": "Underlying Code pinned safetensors headers and census review",
+        "url": "https://huggingface.co/moonshotai/Kimi-K2.7-Code/resolve/74797c9c62378b951a1f6fcf5c4631024e9b8bef/model-00001-of-000064.safetensors",
+        "type": "weights"
+      }
+    ]
+  },
+  "summary": "All fourteen fields verified. Exact released underlying Code model totals 1026.879376368B with proposed language/vision/projector components, supported for HighSpeed by explicit same-model mapping and reviewed complete pinned checkpoint census. This is not a separate hosted-infrastructure count. Retain nominal active 32B, MoE, Modified MIT, public underlying weights and existing capabilities. Correct release to June 15 beta rollout and clarify throughput behavior.",
+  "proposed_fields": {
+    "parameter_components_b": {
+      "language_backbone": 1026.408232448,
+      "vision_encoder": 0.416866032,
+      "vision_projector": 0.054277888
+    }
+  }
+}
