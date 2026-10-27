@@ -1,7 +1,7 @@
 {
   "index": 257,
   "model_id": "meta/llama-1-7b",
-  "reviewed_at": "2026-10-26T21:22:12.886666Z",
+  "reviewed_at": "2026-10-27T13:51:47.714116Z",
   "sources": [
     {
       "id": "s1",
@@ -19,7 +19,7 @@
       "publisher": "Meta AI authors / arXiv",
       "type": "primary",
       "accessed": true,
-      "evidence": "Table 2 reports 6.7B parameters, width 4096, 32 heads, 32 layers and 1.0T training tokens for the 7B variant. Section 2.2 describes Transformer, RMSNorm, SwiGLU and RoPE. Sections 3.1 and 3.4 evaluate reasoning."
+      "evidence": "Freshly reopened October 27, 2026. Table 2 reports 6.7B parameters, width 4096, 32 heads, 32 layers and 1.0T training tokens for the original 7B variant. Section 2.2 describes Transformer, RMSNorm, SwiGLU and RoPE. Sections 3.1 and 3.4 evaluate reasoning. The paper does not separately report activated parameters."
     },
     {
       "id": "s3",
@@ -83,6 +83,15 @@
       "type": "primary",
       "accessed": true,
       "evidence": "The repository LICENSE contains GNU GPL version 3, consistent with the source-file software notices. This does not replace the separately documented model-weight license."
+    },
+    {
+      "id": "s10",
+      "url": "https://aclanthology.org/2024.acl-long.70.pdf",
+      "title": "DeepSeekMoE: Towards Ultimate Expert Specialization in Mixture-of-Experts Language Models",
+      "publisher": "DeepSeek-AI research team / ACL Anthology",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Freshly opened and visually checked October 27, 2026. Figure 7 on PDF page 18 (printed page 1297) plots original LLaMA 7B at approximately 6.7B on an axis explicitly labeled Number of Activated Parameters (Billions). LLaMA2 7B and Open LLaMA 7B are separately labeled points. This is the DeepSeekMoE team's published comparison convention, not a Meta disclosure of exact per-token participation. The figure supplies approximate graphical precision, without a coordinate table or component-level counting definition."
     }
   ],
   "fields": {
@@ -147,17 +156,15 @@
       "source_ids": [
         "s2"
       ],
-      "note": "Paper Table 2 explicitly reports 6.7B for the variant marketed as 7B. This is a rounded billions figure, not an exact checkpoint tensor census. No weights were downloaded."
+      "note": "Fresh review of original paper Table 2 confirms the developer-published rounded 6.7B total for the variant marketed as 7B. The original version-1 card and reference implementation were also reopened; no exact checkpoint tensor census is claimed."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 6.7,
+      "status": "verified",
       "source_ids": [
-        "s2",
-        "s3",
-        "s4"
+        "s10"
       ],
-      "note": "No separate active-per-token count or counting convention is given; dense architecture does not justify copying the total."
+      "note": "Approximately 6.7B under the DeepSeekMoE team's published activated-parameter comparison convention, read from Figure 7. The original LLaMA 7B point is explicitly distinct from LLaMA2 7B and Open LLaMA 7B. This is an approximate plot reading, not a Meta exact per-token specification or an inference from dense architecture; component scope and tensor-exact participation remain unspecified."
     },
     "architecture": {
       "value": "dense",
@@ -226,7 +233,7 @@
   "patch": {
     "parameters_b": 6.7,
     "parameters_source": "primary_source",
-    "notes": "Original LLaMA 7B: the paper reports a rounded 6.7B total, not a tensor-exact count; active parameters are not separately disclosed. February 24, 2023 is the public announcement and access-request date; checkpoint delivery required research approval. open_weights means released gated weights, not unrestricted access. Weights use a bespoke noncommercial research license; reference software uses GPLv3. The original context is 2048 tokens. Dedicated thinking mode and native tool calling are not documented.",
+    "notes": "Original LLaMA 7B: Meta reports a rounded 6.7B total; DeepSeekMoE's comparison plots approximately 6.7B activated parameters, a benchmark convention rather than a Meta tensor-exact specification. February 24, 2023 is the public announcement and access-request date; checkpoint delivery required research approval. open_weights means released gated weights, not unrestricted access. Weights use a bespoke noncommercial research license; reference software uses GPLv3. The original context is 2048 tokens. Dedicated thinking mode and native tool calling are not documented.",
     "sources": [
       {
         "label": "Introducing LLaMA: A foundational, 65-billion-parameter large language model",
@@ -272,8 +279,14 @@
         "label": "Original release repository software license",
         "url": "https://raw.githubusercontent.com/meta-llama/llama/1076b9c51c77ad06e9d7ba8a4c6df775741732bd/LICENSE",
         "type": "primary"
+      },
+      {
+        "label": "DeepSeekMoE: Towards Ultimate Expert Specialization in Mixture-of-Experts Language Models",
+        "url": "https://aclanthology.org/2024.acl-long.70.pdf",
+        "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": 6.7
   },
-  "summary": "Correct parameters from the 7B marketing label to the original paper's rounded 6.7B. Confirm original release, dense architecture, 2048 context, text modalities and research weight license. Keep active parameters, dedicated reasoning and native tool calling null because they are not separately specified. Reference code GPLv3 is distinct from the model license."
+  "summary": "Fresh parameter re-audit retains Meta's rounded 6.7B total and resolves the active-count null to approximately 6.7B using the DeepSeekMoE team's explicitly labeled comparison plot. Figure 7 distinguishes original LLaMA 7B from LLaMA2 7B and Open LLaMA 7B. The count is a published benchmark convention with approximate graphical precision; exact per-token participation and component scope remain unspecified. All twelve non-parameter field assessments are preserved."
 }
