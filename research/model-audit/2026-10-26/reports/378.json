@@ -1,7 +1,7 @@
 {
   "index": 378,
   "model_id": "nvidia/llama-3.3-nemotron-super-49b-v1.5",
-  "reviewed_at": "2026-10-27T00:31:31.943838+00:00",
+  "reviewed_at": "2026-10-27T15:57:18.286190+00:00",
   "sources": [
     {
       "id": "s1",
@@ -10,7 +10,7 @@
       "publisher": "NVIDIA",
       "type": "primary",
       "accessed": true,
-      "evidence": "Names this NVIDIA Llama Nemotron release, identifies its Llama 3.3 70B Instruct base and dense NAS architecture, states July 25, 2025 release and 131072-token text context, describes updated reasoning/tool training, and links both governing NVIDIA and additional Llama agreements."
+      "evidence": "Names this NVIDIA Llama Nemotron release, identifies its Llama 3.3 70B Instruct base and dense NAS architecture, states July 25, 2025 release and 131072-token text context, describes updated reasoning/tool training, and links both governing NVIDIA and additional Llama agreements. Reopened the pinned card on October 27 for the parameter re-audit: 49B remains its nominal name; it does not separately specify active parameters."
     },
     {
       "id": "s2",
@@ -19,7 +19,7 @@
       "publisher": "NVIDIA",
       "type": "weights",
       "accessed": true,
-      "evidence": "DeciLMForCausalLM, nemotron-nas, BF16, hidden width 8192, vocabulary 128256, untied embeddings, 64 query heads, 80 block configurations, 131072 positions. Exactly 49 attention blocks with 8 KV heads, 31 attention no-ops and 80 variable-width FFNs; no expert routing, linear replacements, sparsification or FFN no-ops."
+      "evidence": "DeciLMForCausalLM, nemotron-nas, BF16, hidden width 8192, vocabulary 128256, untied embeddings, 64 query heads, 80 block configurations, 131072 positions. Exactly 49 attention blocks with 8 KV heads, 31 attention no-ops and 80 variable-width FFNs; no expert routing, linear replacements, sparsification or FFN no-ops. Fresh comparison with NVIDIA’s pinned v1.5 FP8 config found all architecture fields identical; only _name_or_path differs."
     },
     {
       "id": "s3",
@@ -37,7 +37,7 @@
       "publisher": "NVIDIA",
       "type": "weights",
       "accessed": true,
-      "evidence": "Indexes 568 tensors in 21 shards and reports 99734290432 data bytes. Every indexed name was checked against configuration-derived shapes and the bounded headers."
+      "evidence": "Indexes 568 tensors in 21 shards and reports 99734290432 data bytes. Every indexed name was checked against configuration-derived shapes and the bounded headers. Fresh October 27 retrieval confirms the same total_size metadata; the earlier shard-header census is retained, not repeated."
     },
     {
       "id": "s5",
@@ -73,7 +73,7 @@
       "publisher": "NVIDIA",
       "type": "primary",
       "accessed": true,
-      "evidence": "The article says it originally ran July 25, 2025 and was updated July 29. It directly names Super 49B v1.5, describes its additional post-training and links the downloadable checkpoint. It distinguishes the then-available model from the forthcoming packaged NIM microservice."
+      "evidence": "The article says it originally ran July 25, 2025 and was updated July 29. It directly names Super 49B v1.5, describes its additional post-training and links the downloadable checkpoint. It distinguishes the then-available model from the forthcoming packaged NIM microservice. Reopened for this pass; no separate v1.5 active-count specification found."
     },
     {
       "id": "s9",
@@ -100,7 +100,43 @@
       "publisher": "NVIDIA researchers / arXiv",
       "type": "primary",
       "accessed": true,
-      "evidence": "Latest v5 was checked after the v1.5 release. Its named Super release is v1, and it does not separately report an active-per-token count for v1.5. Its nominal v1 counts and architecture details are not substituted for the independently checked v1.5 checkpoint."
+      "evidence": "Reopened September 9, 2025 v5 on October 27. Its named Super checkpoint remains v1; the report does not give an explicit active-per-token count for v1.5. Its v1 nominal size is not substituted for the exact v1.5 total."
+    },
+    {
+      "id": "s12",
+      "url": "https://docs.vultr.com/inference-cookbook/cuda/model-guides/nemotron-super-49b",
+      "title": "Vultr Nemotron Super 49B deployment and HGX B200 benchmarks",
+      "publisher": "Vultr",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Original infrastructure-provider guide, updated March 11, 2026. Its Model Overview names nvidia/Llama-3_3-Nemotron-Super-49B-v1_5-FP8 and explicitly lists Active Parameters as 49B per token. It reports its own HGX B200 FP8 and BF16 measurements with serving commands and benchmark settings. This establishes Vultr’s nominal deployment convention, not a NVIDIA active-count disclosure or exact tensor census."
+    },
+    {
+      "id": "s13",
+      "url": "https://huggingface.co/nvidia/Llama-3_3-Nemotron-Super-49B-v1_5-FP8/blob/04822723e77e036ddf2d24e83c6d469d3b009252/README.md",
+      "title": "NVIDIA exact v1.5 FP8 model card",
+      "publisher": "NVIDIA",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Pinned NVIDIA card identifies version 1.5, links the original v1.5 release, describes the same NAS-derived dense model, and supplies vLLM commands selecting ModelOpt quantization. Compared with the BF16 card and configurations, this supports treating FP8 as the precision variant of this model; it does not itself disclose active parameters."
+    },
+    {
+      "id": "s14",
+      "url": "https://huggingface.co/nvidia/Llama-3_3-Nemotron-Super-49B-v1_5-FP8/resolve/04822723e77e036ddf2d24e83c6d469d3b009252/config.json",
+      "title": "NVIDIA exact v1.5 FP8 checkpoint configuration",
+      "publisher": "NVIDIA",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Fresh JSON comparison with s2: every field is equal except _name_or_path (FP8 retains llama_nemotron_super_v1_1, BF16 says llama_nemotron_super_v1_5). Vocabulary, embeddings, all 80 block configurations, attention and FFN widths, and architecture class match. The stale internal name is outweighed by the exact repository/card identity; no learned-architecture change appears in the configurations."
+    },
+    {
+      "id": "s15",
+      "url": "https://huggingface.co/nvidia/Llama-3_3-Nemotron-Super-49B-v1_5-FP8/resolve/04822723e77e036ddf2d24e83c6d469d3b009252/hf_quant_config.json",
+      "title": "NVIDIA v1.5 FP8 quantization configuration",
+      "publisher": "NVIDIA",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "ModelOpt metadata declares FP8 weight and KV-cache quantization, excluding lm_head. Together with matching architecture configurations and the exact card, this supports transferring the provider’s nominal model-size convention across BF16/FP8 precision variants without treating quantization metadata as learned model parameters."
     }
   ],
   "fields": {
@@ -162,23 +198,28 @@
       "value": 49.867145216,
       "status": "verified",
       "source_ids": [
+        "s1",
         "s2",
         "s3",
         "s4",
         "s5"
       ],
-      "note": "Complete exact BF16 checkpoint count: 49867145216 learned parameters. Configuration/code reconstruction matched all 568 named tensor shapes. Formula: 2*128256*8192 + 49*(2*8192**2+2*8192*1024) + 3*8192*1642496 + (49+80+1)*8192. The 80 FFN intermediate widths sum to 1642496. Includes both embeddings and all norms; excludes nonpersistent RoPE buffers, with no quantization scales or packed storage present. 49B is the nominal model label."
+      "note": "Retain the prior verified BF16 checkpoint count of 49867145216 learned parameters (49.867145216B), including both embeddings and norms. The earlier configuration/code reconstruction matched all 568 tensor shapes and bounded shard headers. Fresh retrieval of the pinned card, config and index confirms the 49B nominal label, unchanged architecture and 99734290432 BF16 data bytes; no shard census was repeated in this pass. Prior reconstruction: 2*128256*8192 + 49*(2*8192**2+2*8192*1024) + 3*8192*1642496 + (49+80+1)*8192; FFN widths sum to 1642496. Nonpersistent RoPE buffers are excluded."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 49,
+      "status": "verified",
       "source_ids": [
-        "s1",
+        "s12",
+        "s13",
+        "s14",
+        "s15",
         "s2",
+        "s1",
         "s8",
         "s11"
       ],
-      "note": "No separately defined active-per-token count found in the exact card, release article or latest linked family report, including searches for later exact-model reports. Dense structure and the complete total do not by themselves define an active count; do not copy the total into this field."
+      "note": "49B is Vultr’s explicit nominal active-per-token convention for exact v1.5 FP8 in its original deployment/benchmark guide. NVIDIA’s FP8 and BF16 configs have identical architecture fields, with only a stale internal name differing; the card and ModelOpt metadata identify the precision variant. Apply that nominal convention to this unchanged model architecture. It is not a NVIDIA direct active-count disclosure or an exact measure of every tensor’s participation; the independently established total remains 49.867145216B. Fresh NVIDIA-card, release-article and family-report searches found no separate v1.5 active count."
     },
     "architecture": {
       "value": "dense",
@@ -256,7 +297,7 @@
     "description": "NVIDIA’s NAS-derived Llama 3.3 model, updated in v1.5 with supervised fine-tuning and reinforcement learning for reasoning, chat and tool calling.",
     "source_url": "https://huggingface.co/nvidia/Llama-3_3-Nemotron-Super-49B-v1_5/blob/420ba7d28211abf116b8b103ab700d92619daf98/README.md",
     "source_type": "primary",
-    "notes": "Total is the complete 49.867145216B BF16 checkpoint count; 49B is nominal. Active parameters are not separately defined. The NAS architecture has 49 full attention blocks, 31 attention skips and 80 variable-width dense FFNs. Reasoning is enabled by default and can be disabled with /no_think. The exact card names the NVIDIA governing license and the underlying Llama 3.3 agreement.",
+    "notes": "Total is the exact 49.867145216B BF16 checkpoint count; 49B is nominal. Active 49B follows Vultr’s nominal deployment convention for v1.5 FP8, whose architecture matches BF16; NVIDIA does not separately disclose an active count. The NAS architecture has 49 attention blocks, 31 attention skips and 80 variable-width dense FFNs. Reasoning defaults on; /no_think disables it. Both NVIDIA and Llama 3.3 licenses apply.",
     "sources": [
       {
         "label": "Exact v1.5 model card",
@@ -312,8 +353,29 @@
         "label": "Llama-Nemotron technical report, September 2025 revision",
         "url": "https://arxiv.org/html/2505.00949v5",
         "type": "primary"
+      },
+      {
+        "label": "Vultr Nemotron Super 49B deployment and HGX B200 benchmarks",
+        "url": "https://docs.vultr.com/inference-cookbook/cuda/model-guides/nemotron-super-49b",
+        "type": "primary"
+      },
+      {
+        "label": "NVIDIA exact v1.5 FP8 model card",
+        "url": "https://huggingface.co/nvidia/Llama-3_3-Nemotron-Super-49B-v1_5-FP8/blob/04822723e77e036ddf2d24e83c6d469d3b009252/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "NVIDIA exact v1.5 FP8 checkpoint configuration",
+        "url": "https://huggingface.co/nvidia/Llama-3_3-Nemotron-Super-49B-v1_5-FP8/resolve/04822723e77e036ddf2d24e83c6d469d3b009252/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "NVIDIA v1.5 FP8 quantization configuration",
+        "url": "https://huggingface.co/nvidia/Llama-3_3-Nemotron-Super-49B-v1_5-FP8/resolve/04822723e77e036ddf2d24e83c6d469d3b009252/hf_quant_config.json",
+        "type": "weights"
       }
-    ]
+    ],
+    "active_parameters_b": 49
   },
-  "summary": "Verified all 14 fields for v1.5 independently. Replaced nominal-name size with the exact 49.867145216B checkpoint census, supplied dense NAS architecture and named licenses, and made the description concrete. Confirmed July 25, 2025 release, 131072 context, text modalities, selectable reasoning and explicit tool support. Active count remains undisclosed rather than inferred from the dense total."
+  "summary": "Fresh parameter re-audit retains the exact 49.867145216B total and establishes nominal active 49B from Vultr’s original exact-v1.5 deployment benchmark convention. NVIDIA FP8/BF16 configurations match in every architecture field; ModelOpt metadata confirms the precision variant. No separate NVIDIA v1.5 active-count disclosure was found. The other 12 field assessments are unchanged."
 }

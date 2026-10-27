@@ -25448,7 +25448,7 @@
       "description": "NVIDIA’s NAS-derived Llama 3.3 model, updated in v1.5 with supervised fine-tuning and reinforcement learning for reasoning, chat and tool calling.",
       "source_url": "https://huggingface.co/nvidia/Llama-3_3-Nemotron-Super-49B-v1_5/blob/420ba7d28211abf116b8b103ab700d92619daf98/README.md",
       "source_type": "primary",
-      "notes": "Total is the complete 49.867145216B BF16 checkpoint count; 49B is nominal. Active parameters are not separately defined. The NAS architecture has 49 full attention blocks, 31 attention skips and 80 variable-width dense FFNs. Reasoning is enabled by default and can be disabled with /no_think. The exact card names the NVIDIA governing license and the underlying Llama 3.3 agreement.",
+      "notes": "Total is the exact 49.867145216B BF16 checkpoint count; 49B is nominal. Active 49B follows Vultr’s nominal deployment convention for v1.5 FP8, whose architecture matches BF16; NVIDIA does not separately disclose an active count. The NAS architecture has 49 attention blocks, 31 attention skips and 80 variable-width dense FFNs. Reasoning defaults on; /no_think disables it. Both NVIDIA and Llama 3.3 licenses apply.",
       "sources": [
         {
           "label": "Exact v1.5 model card",
@@ -25504,13 +25504,32 @@
           "label": "Llama-Nemotron technical report, September 2025 revision",
           "url": "https://arxiv.org/html/2505.00949v5",
           "type": "primary"
+        },
+        {
+          "label": "Vultr Nemotron Super 49B deployment and HGX B200 benchmarks",
+          "url": "https://docs.vultr.com/inference-cookbook/cuda/model-guides/nemotron-super-49b",
+          "type": "primary"
+        },
+        {
+          "label": "NVIDIA exact v1.5 FP8 model card",
+          "url": "https://huggingface.co/nvidia/Llama-3_3-Nemotron-Super-49B-v1_5-FP8/blob/04822723e77e036ddf2d24e83c6d469d3b009252/README.md",
+          "type": "primary"
+        },
+        {
+          "label": "NVIDIA exact v1.5 FP8 checkpoint configuration",
+          "url": "https://huggingface.co/nvidia/Llama-3_3-Nemotron-Super-49B-v1_5-FP8/resolve/04822723e77e036ddf2d24e83c6d469d3b009252/config.json",
+          "type": "weights"
+        },
+        {
+          "label": "NVIDIA v1.5 FP8 quantization configuration",
+          "url": "https://huggingface.co/nvidia/Llama-3_3-Nemotron-Super-49B-v1_5-FP8/resolve/04822723e77e036ddf2d24e83c6d469d3b009252/hf_quant_config.json",
+          "type": "weights"
         }
       ],
-      "field_status": {
-        "active_parameters_b": "undisclosed"
-      },
-      "audited_at": "2026-10-27T00:31:31.943838+00:00",
-      "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/378.json"
+      "field_status": {},
+      "audited_at": "2026-10-27T15:57:18.286190+00:00",
+      "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/378.json",
+      "active_parameters_b": 49
     },
     "nvidia/mistral-nemotron": {
       "developer_id": "mistral",
