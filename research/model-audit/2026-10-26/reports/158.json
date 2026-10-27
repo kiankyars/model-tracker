@@ -1,7 +1,7 @@
 {
   "index": 158,
   "model_id": "cohere/tiny-aya-fire",
-  "reviewed_at": "2026-10-26T18:40:01.067221+00:00",
+  "reviewed_at": "2026-10-27T12:32:32.919173+00:00",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Tiny Aya Fire model card",
       "publisher": "Cohere Labs",
       "accessed": true,
-      "evidence": "Exact Fire card identifies Cohere and Cohere Labs, South Asian specialization, open weights, CC-BY-NC-4.0 plus acceptable-use terms, nominal 3.35B size, and text input/output. Its isolated 111B terms paragraph conflicts with its explicit size and is a copy error, not a Fire count."
+      "evidence": "Exact Fire card identifies Cohere and Cohere Labs, South Asian specialization, open weights, CC-BY-NC-4.0 plus acceptable-use terms, nominal 3.35B size, and text input/output. Its isolated 111B terms paragraph conflicts with its explicit size and is a copy error, not a Fire count. Reopened October 27, 2026: the exact card still explicitly gives Model Size 3.35B and supplies no separate active count."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "Tiny Aya: Bridging Scale and Multilingual Depth",
       "publisher": "Cohere and Cohere Labs",
       "accessed": true,
-      "evidence": "Fire is the South Asian regional release. Section 3.1/Table 2 give a dense decoder-only Transformer, 36 layers, 2048 hidden width, GQA, 3:1 sliding/full attention, 3.35B total parameters and 8192-token input/output. Section 3.3 states regional checkpoints share architecture; section 5 compares against non-thinking models."
+      "evidence": "Fire is the South Asian regional release. Section 3.1/Table 2 give a dense decoder-only Transformer, 36 layers, 2048 hidden width, GQA, 3:1 sliding/full attention, 3.35B total parameters and 8192-token input/output. Section 3.3 states regional checkpoints share architecture; section 5 compares against non-thinking models. Independently inspected the full report freshly fetched October 27, including Table 2 and Section 3.3. The table labels 2.8B non-embedding and 3.35B total; neither is labeled active. Regional and global checkpoints share architecture and tokenizer for direct parameter-space merging."
     },
     {
       "id": "s3",
@@ -33,7 +33,7 @@
       "title": "Tiny Aya Fire repository metadata and published chat template",
       "publisher": "Cohere Labs / Hugging Face",
       "accessed": true,
-      "evidence": "Exact repository reports Cohere2ForCausalLM/cohere2, tiny-aya-base ancestry, gated BF16 weights and 3,349,227,520 safetensors elements. Its template handles system/user/assistant text with START_RESPONSE, without tools, tool_calls, tool-role rendering or thinking branches. Metadata is accessible although direct configuration/index downloads return HTTP 401."
+      "evidence": "Exact repository reports Cohere2ForCausalLM/cohere2, tiny-aya-base ancestry, gated BF16 weights and 3,349,227,520 safetensors elements. Its template handles system/user/assistant text with START_RESPONSE, without tools, tool_calls, tool-role rendering or thinking branches. Metadata is accessible although direct configuration/index downloads return HTTP 401. Fresh October 27 metadata at revision 73500c80fcb6c8bea3e830c21d5d2920249a0e1a still reports 3,349,227,520 BF16 elements and names CohereLabs/tiny-aya-base. The aggregate corroborates nominal size rather than an active-count convention."
     },
     {
       "id": "s5",
@@ -65,7 +65,7 @@
       "title": "Tiny Aya documentation",
       "publisher": "Cohere",
       "accessed": true,
-      "evidence": "Exact tiny-aya-fire row gives 3.35B, South Asian specialization and 8k input/output. Describes five Tiny Aya family members and identifies Fire as an instruction-tuned Chat model with downloadable open weights. No Fire-native tool-calling or dedicated thinking mode is documented."
+      "evidence": "Exact tiny-aya-fire row gives 3.35B, South Asian specialization and 8k input/output. Describes five Tiny Aya family members and identifies Fire as an instruction-tuned Chat model with downloadable open weights. No Fire-native tool-calling or dedicated thinking mode is documented. Reopened October 27: the exact Fire row still lists 3.35B under Parameters, without an active-parameter column."
     },
     {
       "id": "s9",
@@ -74,6 +74,38 @@
       "publisher": "Cohere",
       "accessed": true,
       "evidence": "Introduces native tool use for the Command family. This is not evidence that Tiny Aya Fire supports the same native interface."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/CohereLabs/tiny-aya-base",
+      "title": "Tiny Aya Base model card",
+      "publisher": "Cohere Labs",
+      "accessed": true,
+      "evidence": "Reopened October 27 for the exact named base. It states nominal 3.35B and links Fire as the South Asian chat variant. No separate active count is defined for the base, so the explicit fine-tuning lineage does not resolve the missing active field."
+    },
+    {
+      "id": "s11",
+      "url": "https://arxiv.org/html/2609.10445v1",
+      "title": "Building Multilingual Bridges: Data Mixing as the Pillar of Generalization for In-Language Reasoning",
+      "publisher": "Cohere Labs",
+      "accessed": true,
+      "evidence": "Independently inspected the complete later first-party report freshly fetched October 27, including Section 3.1, parameter terminology and comparisons. It describes a 3.35B Tiny Aya base and post-trained Thinker models, but gives no active/activated count for Fire or an applicable base-model counting convention. The later reasoning capability is not transferred to Fire."
+    },
+    {
+      "id": "s12",
+      "url": "https://cohere.com/blog/how-small-models-can-make-a-big-impact-for-enterprises",
+      "title": "How small AI models can make a big impact for enterprises",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "Fresh October 27 reading of the September 2, 2026 first-party comparison confirms the Tiny Aya family size as 3.35B. Its explicitly separated 30B total and 3B active values belong to North Mini Code, not Tiny Aya; it does not establish a dense-model active-count convention."
+    },
+    {
+      "id": "s13",
+      "url": "https://cohere.com/blog/building-multilingual-bridges",
+      "title": "Multilingual Bridges: How Data Mixing Unlocks In-Language Reasoning",
+      "publisher": "Cohere Labs",
+      "accessed": true,
+      "evidence": "Fresh October 27 reading of the October 2026 first-party article confirms 3.35B for the later L2-Thinker and names its Tiny Aya Base 32K lineage. Its comparison discusses performance and reasoning-token efficiency, not active-parameter counts for Fire or the original Tiny Aya base."
     }
   ],
   "fields": {
@@ -136,18 +168,25 @@
         "s1",
         "s2",
         "s4",
-        "s7"
+        "s8",
+        "s10",
+        "s12"
       ],
-      "note": "Nominal published total in billions. Repository BF16 metadata is consistent (3.349227520B), but gated headers prevent independent learned-tensor verification; do not substitute the card boilerplate 111B."
+      "note": "Fresh exact card, documentation, original report and later first-party comparison confirm the nominal 3.35B complete total. Current Hub metadata corroborates the scale at 3.349227520B. Preserve published precision without requiring an exact tensor census; the isolated 111B terms boilerplate is not a Fire specification."
     },
     "active_parameters_b": {
       "value": null,
       "status": "undisclosed",
       "source_ids": [
+        "s1",
         "s2",
-        "s5"
+        "s8",
+        "s10",
+        "s11",
+        "s12",
+        "s13"
       ],
-      "note": "Dense architecture; a separately defined active-per-token parameter count is not reported. Total parameters are not copied into this field."
+      "note": "Fresh exact-model total/active/lineage searches, reopened original evidence and later first-party comparisons found no separate active count or applicable developer convention. Table 2 explicitly labels 2.8B non-embedding, not active. The named base and unchanged regional merging architecture establish lineage, but supply no active count to inherit; the total is not copied into this field."
     },
     "architecture": {
       "value": "dense",
@@ -220,7 +259,7 @@
     "architecture": "dense",
     "context_window": 8192,
     "tool_call": null,
-    "notes": "Tiny Aya Fire is the South Asian regional instruction-tuned model. Parameter count is Cohere's nominal 3.35B total; active parameters are not separately defined for this dense model. Technical-report input context is 8,192 tokens (output is separately 8,192). The native Fire template has no thinking or tool-call branches; dedicated reasoning and native tool calling remain unverified. Direct configuration and tensor-index access was gated, so the Hub BF16 element total was not promoted to an independently verified exact learned-parameter count. Model-card 111B boilerplate conflicts with its explicit 3.35B specification.",
+    "notes": "Tiny Aya Fire is the South Asian regional instruction-tuned model. 3.35B is Cohere's nominal total; active parameters are not separately disclosed. Input context is 8,192 tokens, with output separately specified as 8,192. The native template has no thinking or tool-call branches; dedicated reasoning and native tool calling remain unverified. The model card's 111B terms boilerplate conflicts with its explicit 3.35B specification.",
     "sources": [
       {
         "label": "Tiny Aya Fire model card",
@@ -251,11 +290,32 @@
         "label": "Tiny Aya documentation",
         "url": "https://docs.cohere.com/docs/tiny-aya",
         "type": "primary"
+      },
+      {
+        "label": "Tiny Aya Base model card",
+        "url": "https://huggingface.co/CohereLabs/tiny-aya-base",
+        "type": "primary"
+      },
+      {
+        "label": "Building Multilingual Bridges: Data Mixing as the Pillar of Generalization for In-Language Reasoning",
+        "url": "https://arxiv.org/html/2609.10445v1",
+        "type": "primary"
+      },
+      {
+        "label": "How small AI models can make a big impact for enterprises",
+        "url": "https://cohere.com/blog/how-small-models-can-make-a-big-impact-for-enterprises",
+        "type": "primary"
+      },
+      {
+        "label": "Multilingual Bridges: How Data Mixing Unlocks In-Language Reasoning",
+        "url": "https://cohere.com/blog/building-multilingual-bridges",
+        "type": "primary"
       }
     ],
     "source_type": "primary",
     "source_url": "https://cohere.com/blog/cohere-labs-tiny-aya",
-    "reasoning": null
+    "reasoning": null,
+    "active_parameters_b": null
   },
-  "summary": "All 14 fields audited for Fire. Add tiny-aya family, nominal 3.35B parameters and dense architecture; correct input context from 8000 to 8192; clear unsupported native reasoning/tool flags to unknown. Confirm February 17 release, South Asian specialization, text-only modalities and CC-BY-NC-4.0 open weights. Active count remains null; configuration and tensor-header verification are access-limited."
+  "summary": "October 27 parameter re-audit confirms the nominal 3.35B total and retains an undisclosed active count. Fresh exact-model searches, reopened card/docs/base/metadata, the original report and later Thinker report and Cohere comparisons supply no separate active-count convention. The 2.8B non-embedding figure is not relabeled active. Added explicit patches and refreshed evidence while preserving unrelated assessments; no shards or repeat census requested."
 }
