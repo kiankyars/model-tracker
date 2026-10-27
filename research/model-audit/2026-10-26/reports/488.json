@@ -1,0 +1,838 @@
+{
+  "index": 488,
+  "model_id": "sao10k/l3.1-euryale-70b",
+  "reviewed_at": "2026-10-27T04:23:47.560246Z",
+  "sources": [
+    {
+      "id": "card",
+      "url": "https://huggingface.co/Sao10K/L3.1-70B-Euryale-v2.2/blob/62b47ff8c2c24d326a7b960773b9c853400150b6/README.md",
+      "title": "Exact Euryale v2.2 model card",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "Names Llama 3.1 70B Euryale v2.2 and declares CC-BY-NC-4.0. Describes a two-epoch fine-tune for multi-turn conversation, creative writing and roleplay, with human and Claude data. The English language tag and specialized purpose do not support the baseline generic multilingual/coding description. Mentions reasoning/spatial-awareness training data, without documenting a dedicated reasoning mode or tool-calling protocol."
+    },
+    {
+      "id": "config",
+      "url": "https://huggingface.co/Sao10K/L3.1-70B-Euryale-v2.2/blob/62b47ff8c2c24d326a7b960773b9c853400150b6/config.json",
+      "title": "Exact Euryale v2.2 configuration",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "LlamaForCausalLM, original path Meta-Llama-3.1-70B-Instruct, 80 layers, hidden size 8192, intermediate size 28672, 64 attention heads, 8 KV heads, vocabulary 128256, untied embeddings, no attention/MLP bias, FP16, max_position_embeddings 131072, Llama 3 RoPE scaling, Transformers 4.44.0. No quantization or custom-code configuration."
+    },
+    {
+      "id": "tokenizer",
+      "url": "https://huggingface.co/Sao10K/L3.1-70B-Euryale-v2.2/blob/62b47ff8c2c24d326a7b960773b9c853400150b6/tokenizer_config.json",
+      "title": "Exact Euryale v2.2 tokenizer configuration",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "model_max_length is 131072. The supplied Llama-role chat template serializes message roles and text content and an optional assistant header. It has no tools/tool_calls serialization or dedicated thinking-mode branch. This absence alone does not prove that every external serving wrapper rejects tools."
+    },
+    {
+      "id": "index",
+      "url": "https://huggingface.co/Sao10K/L3.1-70B-Euryale-v2.2/blob/62b47ff8c2c24d326a7b960773b9c853400150b6/pytorch_model.bin.index.json",
+      "title": "Original 30-shard PyTorch checkpoint index",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "Indexes 723 tensors in 30 original PyTorch shards. metadata.total_size is 141107412992 bytes. All indexed names and shard assignments were checked against bounded ZIP directory and data.pkl metadata for every shard; all tensors are unquantized FP16 learned weights and their shapes match the configuration. Byte size alone was not used as proof of parameter count."
+    },
+    {
+      "id": "implementation",
+      "url": "https://github.com/huggingface/transformers/blob/v4.44.0/src/transformers/models/llama/modeling_llama.py",
+      "title": "Transformers 4.44.0 Llama implementation selected by the configuration",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "LlamaForCausalLM uses a decoder-only dense Transformer with token embeddings, 80 standard Llama attention/SwiGLU MLP layers here, RMSNorm and a bias-free output head. Configured attention/MLP bias flags are false. RoPE inv_freq is a non-persistent buffer. No routed experts or MTP modules are selected. Checkpoint metadata separately establishes the actual complete tensor set."
+    },
+    {
+      "id": "repo_history",
+      "url": "https://huggingface.co/api/models/Sao10K/L3.1-70B-Euryale-v2.2/commits/main",
+      "title": "Developer repository commit history",
+      "publisher": "Sao10K / Hugging Face",
+      "accessed": true,
+      "evidence": "Repository creation and original weight upload are dated 2024-08-12; the first model card and its final edits are dated 2024-08-25. Commit dates establish upload history, not whether the repository was private before publication. They do not independently establish the exact first-public day."
+    },
+    {
+      "id": "discussion",
+      "url": "https://huggingface.co/Sao10K/L3.1-70B-Euryale-v2.2/discussions/2",
+      "title": "Contemporaneous public discussion in the developer repository",
+      "publisher": "Hugging Face / community participants",
+      "accessed": true,
+      "evidence": "Public users discuss using this exact v2.2 checkpoint on 2024-08-26. Used only as contemporaneous evidence that availability preceded the OpenRouter Aug 28 listing, not as authority for model specifications or a release-day announcement."
+    },
+    {
+      "id": "router",
+      "url": "https://openrouter.ai/api/v1/models/sao10k/l3.1-euryale-70b/endpoints",
+      "title": "Exact OpenRouter endpoint metadata",
+      "publisher": "OpenRouter",
+      "accessed": true,
+      "evidence": "Maps the catalog identifier to Euryale v2.2 and sets created=1724803200 (2024-08-28). The accessed response lists a DeepInfra FP8 route with 131072 context; supported_parameters omit tools and tool_choice, while a generic supports_tool_choice object sets all modes true. Those conflicting fields do not establish native model tool support. The later provider listing date is not the earliest model release."
+    },
+    {
+      "id": "deepinfra",
+      "url": "https://deepinfra.com/Sao10K/L3.1-70B-Euryale-v2.2",
+      "title": "Exact DeepInfra hosted model page",
+      "publisher": "DeepInfra",
+      "accessed": true,
+      "evidence": "Identifies this exact checkpoint as a creative-roleplay text-generation model; its hosted FP8 deployment lists 131072 context and JSON support. The page does not advertise tools. Hosted FP8 serving does not change the original FP16 checkpoint parameter count; no inference request was made."
+    },
+    {
+      "id": "base_license",
+      "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3_1/LICENSE",
+      "title": "Llama 3.1 Community License",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "The base-model license governs Llama 3.1 materials and derivatives; redistribution provisions require retaining the agreement and attribution. Recorded alongside the fine-tuner model card declaration, not treated as an alternative grant that removes either set of terms."
+    },
+    {
+      "id": "later_euryale",
+      "url": "https://huggingface.co/Sao10K/L3.3-70B-Euryale-v2.3/blob/main/README.md",
+      "title": "Later first-party Euryale v2.3 comparison",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "Explicitly calls v2.3 a direct successor/replacement of Euryale v2.2, built on Llama 3.3 Instruct. It provides no separately labeled active-parameter count or new native-tool/thinking specification for v2.2. Its own base model, LoRA and training settings are not transferred to this checkpoint."
+    },
+    {
+      "id": "later_hanami",
+      "url": "https://huggingface.co/Sao10K/L3.1-70B-Hanami-x1/blob/main/README.md",
+      "title": "Later first-party Hanami-x1 comparison",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "Describes Hanami-x1 as an experiment over Euryale v2.2 and compares settings. It does not disclose a v2.2 active-parameter count or resolve dedicated reasoning/tool support. Hanami-specific properties are not transferred."
+    },
+    {
+      "id": "shard_01",
+      "url": "https://huggingface.co/Sao10K/L3.1-70B-Euryale-v2.2/resolve/62b47ff8c2c24d326a7b960773b9c853400150b6/pytorch_model-00001-of-00030.bin",
+      "title": "Original checkpoint shard 1/30: bounded metadata",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "HTTP 206 reads of the ZIP64 tail, central directory, 30-byte data.pkl local header and data.pkl body only (3378 metadata bytes). Static pickletools opcode inspection yielded 15 FP16 tensors and 2292203520 learned elements. All storage sizes, offsets, contiguous strides and names reconcile; no tensor payload downloaded and no unpickling or remote code executed."
+    },
+    {
+      "id": "shard_02",
+      "url": "https://huggingface.co/Sao10K/L3.1-70B-Euryale-v2.2/resolve/62b47ff8c2c24d326a7b960773b9c853400150b6/pytorch_model-00002-of-00030.bin",
+      "title": "Original checkpoint shard 2/30: bounded metadata",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "HTTP 206 reads of the ZIP64 tail, central directory, 30-byte data.pkl local header and data.pkl body only (5388 metadata bytes). Static pickletools opcode inspection yielded 26 FP16 tensors and 2332082176 learned elements. All storage sizes, offsets, contiguous strides and names reconcile; no tensor payload downloaded and no unpickling or remote code executed."
+    },
+    {
+      "id": "shard_03",
+      "url": "https://huggingface.co/Sao10K/L3.1-70B-Euryale-v2.2/resolve/62b47ff8c2c24d326a7b960773b9c853400150b6/pytorch_model-00003-of-00030.bin",
+      "title": "Original checkpoint shard 3/30: bounded metadata",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "HTTP 206 reads of the ZIP64 tail, central directory, 30-byte data.pkl local header and data.pkl body only (5433 metadata bytes). Static pickletools opcode inspection yielded 26 FP16 tensors and 2499854336 learned elements. All storage sizes, offsets, contiguous strides and names reconcile; no tensor payload downloaded and no unpickling or remote code executed."
+    },
+    {
+      "id": "shard_04",
+      "url": "https://huggingface.co/Sao10K/L3.1-70B-Euryale-v2.2/resolve/62b47ff8c2c24d326a7b960773b9c853400150b6/pytorch_model-00004-of-00030.bin",
+      "title": "Original checkpoint shard 4/30: bounded metadata",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "HTTP 206 reads of the ZIP64 tail, central directory, 30-byte data.pkl local header and data.pkl body only (5083 metadata bytes). Static pickletools opcode inspection yielded 24 FP16 tensors and 2483077120 learned elements. All storage sizes, offsets, contiguous strides and names reconcile; no tensor payload downloaded and no unpickling or remote code executed."
+    },
+    {
+      "id": "shard_05",
+      "url": "https://huggingface.co/Sao10K/L3.1-70B-Euryale-v2.2/resolve/62b47ff8c2c24d326a7b960773b9c853400150b6/pytorch_model-00005-of-00030.bin",
+      "title": "Original checkpoint shard 5/30: bounded metadata",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "HTTP 206 reads of the ZIP64 tail, central directory, 30-byte data.pkl local header and data.pkl body only (5083 metadata bytes). Static pickletools opcode inspection yielded 24 FP16 tensors and 2332065792 learned elements. All storage sizes, offsets, contiguous strides and names reconcile; no tensor payload downloaded and no unpickling or remote code executed."
+    },
+    {
+      "id": "shard_06",
+      "url": "https://huggingface.co/Sao10K/L3.1-70B-Euryale-v2.2/resolve/62b47ff8c2c24d326a7b960773b9c853400150b6/pytorch_model-00006-of-00030.bin",
+      "title": "Original checkpoint shard 6/30: bounded metadata",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "HTTP 206 reads of the ZIP64 tail, central directory, 30-byte data.pkl local header and data.pkl body only (5416 metadata bytes). Static pickletools opcode inspection yielded 26 FP16 tensors and 2332082176 learned elements. All storage sizes, offsets, contiguous strides and names reconcile; no tensor payload downloaded and no unpickling or remote code executed."
+    },
+    {
+      "id": "shard_07",
+      "url": "https://huggingface.co/Sao10K/L3.1-70B-Euryale-v2.2/resolve/62b47ff8c2c24d326a7b960773b9c853400150b6/pytorch_model-00007-of-00030.bin",
+      "title": "Original checkpoint shard 7/30: bounded metadata",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "HTTP 206 reads of the ZIP64 tail, central directory, 30-byte data.pkl local header and data.pkl body only (5414 metadata bytes). Static pickletools opcode inspection yielded 26 FP16 tensors and 2332082176 learned elements. All storage sizes, offsets, contiguous strides and names reconcile; no tensor payload downloaded and no unpickling or remote code executed."
+    },
+    {
+      "id": "shard_08",
+      "url": "https://huggingface.co/Sao10K/L3.1-70B-Euryale-v2.2/resolve/62b47ff8c2c24d326a7b960773b9c853400150b6/pytorch_model-00008-of-00030.bin",
+      "title": "Original checkpoint shard 8/30: bounded metadata",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "HTTP 206 reads of the ZIP64 tail, central directory, 30-byte data.pkl local header and data.pkl body only (5459 metadata bytes). Static pickletools opcode inspection yielded 26 FP16 tensors and 2499854336 learned elements. All storage sizes, offsets, contiguous strides and names reconcile; no tensor payload downloaded and no unpickling or remote code executed."
+    },
+    {
+      "id": "shard_09",
+      "url": "https://huggingface.co/Sao10K/L3.1-70B-Euryale-v2.2/resolve/62b47ff8c2c24d326a7b960773b9c853400150b6/pytorch_model-00009-of-00030.bin",
+      "title": "Original checkpoint shard 9/30: bounded metadata",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "HTTP 206 reads of the ZIP64 tail, central directory, 30-byte data.pkl local header and data.pkl body only (5107 metadata bytes). Static pickletools opcode inspection yielded 24 FP16 tensors and 2483077120 learned elements. All storage sizes, offsets, contiguous strides and names reconcile; no tensor payload downloaded and no unpickling or remote code executed."
+    },
+    {
+      "id": "shard_10",
+      "url": "https://huggingface.co/Sao10K/L3.1-70B-Euryale-v2.2/resolve/62b47ff8c2c24d326a7b960773b9c853400150b6/pytorch_model-00010-of-00030.bin",
+      "title": "Original checkpoint shard 10/30: bounded metadata",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "HTTP 206 reads of the ZIP64 tail, central directory, 30-byte data.pkl local header and data.pkl body only (5083 metadata bytes). Static pickletools opcode inspection yielded 24 FP16 tensors and 2332065792 learned elements. All storage sizes, offsets, contiguous strides and names reconcile; no tensor payload downloaded and no unpickling or remote code executed."
+    },
+    {
+      "id": "shard_11",
+      "url": "https://huggingface.co/Sao10K/L3.1-70B-Euryale-v2.2/resolve/62b47ff8c2c24d326a7b960773b9c853400150b6/pytorch_model-00011-of-00030.bin",
+      "title": "Original checkpoint shard 11/30: bounded metadata",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "HTTP 206 reads of the ZIP64 tail, central directory, 30-byte data.pkl local header and data.pkl body only (5416 metadata bytes). Static pickletools opcode inspection yielded 26 FP16 tensors and 2332082176 learned elements. All storage sizes, offsets, contiguous strides and names reconcile; no tensor payload downloaded and no unpickling or remote code executed."
+    },
+    {
+      "id": "shard_12",
+      "url": "https://huggingface.co/Sao10K/L3.1-70B-Euryale-v2.2/resolve/62b47ff8c2c24d326a7b960773b9c853400150b6/pytorch_model-00012-of-00030.bin",
+      "title": "Original checkpoint shard 12/30: bounded metadata",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "HTTP 206 reads of the ZIP64 tail, central directory, 30-byte data.pkl local header and data.pkl body only (5414 metadata bytes). Static pickletools opcode inspection yielded 26 FP16 tensors and 2332082176 learned elements. All storage sizes, offsets, contiguous strides and names reconcile; no tensor payload downloaded and no unpickling or remote code executed."
+    },
+    {
+      "id": "shard_13",
+      "url": "https://huggingface.co/Sao10K/L3.1-70B-Euryale-v2.2/resolve/62b47ff8c2c24d326a7b960773b9c853400150b6/pytorch_model-00013-of-00030.bin",
+      "title": "Original checkpoint shard 13/30: bounded metadata",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "HTTP 206 reads of the ZIP64 tail, central directory, 30-byte data.pkl local header and data.pkl body only (5459 metadata bytes). Static pickletools opcode inspection yielded 26 FP16 tensors and 2499854336 learned elements. All storage sizes, offsets, contiguous strides and names reconcile; no tensor payload downloaded and no unpickling or remote code executed."
+    },
+    {
+      "id": "shard_14",
+      "url": "https://huggingface.co/Sao10K/L3.1-70B-Euryale-v2.2/resolve/62b47ff8c2c24d326a7b960773b9c853400150b6/pytorch_model-00014-of-00030.bin",
+      "title": "Original checkpoint shard 14/30: bounded metadata",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "HTTP 206 reads of the ZIP64 tail, central directory, 30-byte data.pkl local header and data.pkl body only (5107 metadata bytes). Static pickletools opcode inspection yielded 24 FP16 tensors and 2483077120 learned elements. All storage sizes, offsets, contiguous strides and names reconcile; no tensor payload downloaded and no unpickling or remote code executed."
+    },
+    {
+      "id": "shard_15",
+      "url": "https://huggingface.co/Sao10K/L3.1-70B-Euryale-v2.2/resolve/62b47ff8c2c24d326a7b960773b9c853400150b6/pytorch_model-00015-of-00030.bin",
+      "title": "Original checkpoint shard 15/30: bounded metadata",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "HTTP 206 reads of the ZIP64 tail, central directory, 30-byte data.pkl local header and data.pkl body only (5083 metadata bytes). Static pickletools opcode inspection yielded 24 FP16 tensors and 2332065792 learned elements. All storage sizes, offsets, contiguous strides and names reconcile; no tensor payload downloaded and no unpickling or remote code executed."
+    },
+    {
+      "id": "shard_16",
+      "url": "https://huggingface.co/Sao10K/L3.1-70B-Euryale-v2.2/resolve/62b47ff8c2c24d326a7b960773b9c853400150b6/pytorch_model-00016-of-00030.bin",
+      "title": "Original checkpoint shard 16/30: bounded metadata",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "HTTP 206 reads of the ZIP64 tail, central directory, 30-byte data.pkl local header and data.pkl body only (5416 metadata bytes). Static pickletools opcode inspection yielded 26 FP16 tensors and 2332082176 learned elements. All storage sizes, offsets, contiguous strides and names reconcile; no tensor payload downloaded and no unpickling or remote code executed."
+    },
+    {
+      "id": "shard_17",
+      "url": "https://huggingface.co/Sao10K/L3.1-70B-Euryale-v2.2/resolve/62b47ff8c2c24d326a7b960773b9c853400150b6/pytorch_model-00017-of-00030.bin",
+      "title": "Original checkpoint shard 17/30: bounded metadata",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "HTTP 206 reads of the ZIP64 tail, central directory, 30-byte data.pkl local header and data.pkl body only (5414 metadata bytes). Static pickletools opcode inspection yielded 26 FP16 tensors and 2332082176 learned elements. All storage sizes, offsets, contiguous strides and names reconcile; no tensor payload downloaded and no unpickling or remote code executed."
+    },
+    {
+      "id": "shard_18",
+      "url": "https://huggingface.co/Sao10K/L3.1-70B-Euryale-v2.2/resolve/62b47ff8c2c24d326a7b960773b9c853400150b6/pytorch_model-00018-of-00030.bin",
+      "title": "Original checkpoint shard 18/30: bounded metadata",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "HTTP 206 reads of the ZIP64 tail, central directory, 30-byte data.pkl local header and data.pkl body only (5459 metadata bytes). Static pickletools opcode inspection yielded 26 FP16 tensors and 2499854336 learned elements. All storage sizes, offsets, contiguous strides and names reconcile; no tensor payload downloaded and no unpickling or remote code executed."
+    },
+    {
+      "id": "shard_19",
+      "url": "https://huggingface.co/Sao10K/L3.1-70B-Euryale-v2.2/resolve/62b47ff8c2c24d326a7b960773b9c853400150b6/pytorch_model-00019-of-00030.bin",
+      "title": "Original checkpoint shard 19/30: bounded metadata",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "HTTP 206 reads of the ZIP64 tail, central directory, 30-byte data.pkl local header and data.pkl body only (5107 metadata bytes). Static pickletools opcode inspection yielded 24 FP16 tensors and 2483077120 learned elements. All storage sizes, offsets, contiguous strides and names reconcile; no tensor payload downloaded and no unpickling or remote code executed."
+    },
+    {
+      "id": "shard_20",
+      "url": "https://huggingface.co/Sao10K/L3.1-70B-Euryale-v2.2/resolve/62b47ff8c2c24d326a7b960773b9c853400150b6/pytorch_model-00020-of-00030.bin",
+      "title": "Original checkpoint shard 20/30: bounded metadata",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "HTTP 206 reads of the ZIP64 tail, central directory, 30-byte data.pkl local header and data.pkl body only (5083 metadata bytes). Static pickletools opcode inspection yielded 24 FP16 tensors and 2332065792 learned elements. All storage sizes, offsets, contiguous strides and names reconcile; no tensor payload downloaded and no unpickling or remote code executed."
+    },
+    {
+      "id": "shard_21",
+      "url": "https://huggingface.co/Sao10K/L3.1-70B-Euryale-v2.2/resolve/62b47ff8c2c24d326a7b960773b9c853400150b6/pytorch_model-00021-of-00030.bin",
+      "title": "Original checkpoint shard 21/30: bounded metadata",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "HTTP 206 reads of the ZIP64 tail, central directory, 30-byte data.pkl local header and data.pkl body only (5416 metadata bytes). Static pickletools opcode inspection yielded 26 FP16 tensors and 2332082176 learned elements. All storage sizes, offsets, contiguous strides and names reconcile; no tensor payload downloaded and no unpickling or remote code executed."
+    },
+    {
+      "id": "shard_22",
+      "url": "https://huggingface.co/Sao10K/L3.1-70B-Euryale-v2.2/resolve/62b47ff8c2c24d326a7b960773b9c853400150b6/pytorch_model-00022-of-00030.bin",
+      "title": "Original checkpoint shard 22/30: bounded metadata",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "HTTP 206 reads of the ZIP64 tail, central directory, 30-byte data.pkl local header and data.pkl body only (5414 metadata bytes). Static pickletools opcode inspection yielded 26 FP16 tensors and 2332082176 learned elements. All storage sizes, offsets, contiguous strides and names reconcile; no tensor payload downloaded and no unpickling or remote code executed."
+    },
+    {
+      "id": "shard_23",
+      "url": "https://huggingface.co/Sao10K/L3.1-70B-Euryale-v2.2/resolve/62b47ff8c2c24d326a7b960773b9c853400150b6/pytorch_model-00023-of-00030.bin",
+      "title": "Original checkpoint shard 23/30: bounded metadata",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "HTTP 206 reads of the ZIP64 tail, central directory, 30-byte data.pkl local header and data.pkl body only (5459 metadata bytes). Static pickletools opcode inspection yielded 26 FP16 tensors and 2499854336 learned elements. All storage sizes, offsets, contiguous strides and names reconcile; no tensor payload downloaded and no unpickling or remote code executed."
+    },
+    {
+      "id": "shard_24",
+      "url": "https://huggingface.co/Sao10K/L3.1-70B-Euryale-v2.2/resolve/62b47ff8c2c24d326a7b960773b9c853400150b6/pytorch_model-00024-of-00030.bin",
+      "title": "Original checkpoint shard 24/30: bounded metadata",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "HTTP 206 reads of the ZIP64 tail, central directory, 30-byte data.pkl local header and data.pkl body only (5107 metadata bytes). Static pickletools opcode inspection yielded 24 FP16 tensors and 2483077120 learned elements. All storage sizes, offsets, contiguous strides and names reconcile; no tensor payload downloaded and no unpickling or remote code executed."
+    },
+    {
+      "id": "shard_25",
+      "url": "https://huggingface.co/Sao10K/L3.1-70B-Euryale-v2.2/resolve/62b47ff8c2c24d326a7b960773b9c853400150b6/pytorch_model-00025-of-00030.bin",
+      "title": "Original checkpoint shard 25/30: bounded metadata",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "HTTP 206 reads of the ZIP64 tail, central directory, 30-byte data.pkl local header and data.pkl body only (5083 metadata bytes). Static pickletools opcode inspection yielded 24 FP16 tensors and 2332065792 learned elements. All storage sizes, offsets, contiguous strides and names reconcile; no tensor payload downloaded and no unpickling or remote code executed."
+    },
+    {
+      "id": "shard_26",
+      "url": "https://huggingface.co/Sao10K/L3.1-70B-Euryale-v2.2/resolve/62b47ff8c2c24d326a7b960773b9c853400150b6/pytorch_model-00026-of-00030.bin",
+      "title": "Original checkpoint shard 26/30: bounded metadata",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "HTTP 206 reads of the ZIP64 tail, central directory, 30-byte data.pkl local header and data.pkl body only (5416 metadata bytes). Static pickletools opcode inspection yielded 26 FP16 tensors and 2332082176 learned elements. All storage sizes, offsets, contiguous strides and names reconcile; no tensor payload downloaded and no unpickling or remote code executed."
+    },
+    {
+      "id": "shard_27",
+      "url": "https://huggingface.co/Sao10K/L3.1-70B-Euryale-v2.2/resolve/62b47ff8c2c24d326a7b960773b9c853400150b6/pytorch_model-00027-of-00030.bin",
+      "title": "Original checkpoint shard 27/30: bounded metadata",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "HTTP 206 reads of the ZIP64 tail, central directory, 30-byte data.pkl local header and data.pkl body only (5414 metadata bytes). Static pickletools opcode inspection yielded 26 FP16 tensors and 2332082176 learned elements. All storage sizes, offsets, contiguous strides and names reconcile; no tensor payload downloaded and no unpickling or remote code executed."
+    },
+    {
+      "id": "shard_28",
+      "url": "https://huggingface.co/Sao10K/L3.1-70B-Euryale-v2.2/resolve/62b47ff8c2c24d326a7b960773b9c853400150b6/pytorch_model-00028-of-00030.bin",
+      "title": "Original checkpoint shard 28/30: bounded metadata",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "HTTP 206 reads of the ZIP64 tail, central directory, 30-byte data.pkl local header and data.pkl body only (5459 metadata bytes). Static pickletools opcode inspection yielded 26 FP16 tensors and 2499854336 learned elements. All storage sizes, offsets, contiguous strides and names reconcile; no tensor payload downloaded and no unpickling or remote code executed."
+    },
+    {
+      "id": "shard_29",
+      "url": "https://huggingface.co/Sao10K/L3.1-70B-Euryale-v2.2/resolve/62b47ff8c2c24d326a7b960773b9c853400150b6/pytorch_model-00029-of-00030.bin",
+      "title": "Original checkpoint shard 29/30: bounded metadata",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "HTTP 206 reads of the ZIP64 tail, central directory, 30-byte data.pkl local header and data.pkl body only (5265 metadata bytes). Static pickletools opcode inspection yielded 25 FP16 tensors and 2483085312 learned elements. All storage sizes, offsets, contiguous strides and names reconcile; no tensor payload downloaded and no unpickling or remote code executed."
+    },
+    {
+      "id": "shard_30",
+      "url": "https://huggingface.co/Sao10K/L3.1-70B-Euryale-v2.2/resolve/62b47ff8c2c24d326a7b960773b9c853400150b6/pytorch_model-00030-of-00030.bin",
+      "title": "Original checkpoint shard 30/30: bounded metadata",
+      "publisher": "Sao10K",
+      "accessed": true,
+      "evidence": "HTTP 206 reads of the ZIP64 tail, central directory, 30-byte data.pkl local header and data.pkl body only (741 metadata bytes). Static pickletools opcode inspection yielded 1 FP16 tensors and 1050673152 learned elements. All storage sizes, offsets, contiguous strides and names reconcile; no tensor payload downloaded and no unpickling or remote code executed."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Llama 3.1 Euryale 70B v2.2",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "router"
+      ],
+      "note": "Exact v2.2 fine-tune. The 70B name is a nominal size label; this is neither v2.1, Hanami-x1 nor the later Llama 3.3-based v2.3."
+    },
+    "developer": {
+      "value": "Sao10K",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "repo_history"
+      ],
+      "note": "The model and original uploads are published by Sao10K; Meta is the base-model developer."
+    },
+    "family": {
+      "value": "llama",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "config"
+      ],
+      "note": "Exact configuration identifies the Llama 3.1 70B Instruct base and LlamaForCausalLM implementation."
+    },
+    "release_date": {
+      "value": "2024-08",
+      "status": "verified",
+      "source_ids": [
+        "repo_history",
+        "discussion",
+        "router"
+      ],
+      "note": "Month precision: weights were uploaded Aug 12, the developer model card appeared Aug 25, and public use is documented Aug 26. Public/private visibility history was not established, so no exact earliest release day is asserted. Aug 28 is OpenRouter listing metadata and is later than documented public use."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "index",
+        "shard_01",
+        "shard_02",
+        "shard_03",
+        "shard_04",
+        "shard_05",
+        "shard_06",
+        "shard_07",
+        "shard_08",
+        "shard_09",
+        "shard_10",
+        "shard_11",
+        "shard_12",
+        "shard_13",
+        "shard_14",
+        "shard_15",
+        "shard_16",
+        "shard_17",
+        "shard_18",
+        "shard_19",
+        "shard_20",
+        "shard_21",
+        "shard_22",
+        "shard_23",
+        "shard_24",
+        "shard_25",
+        "shard_26",
+        "shard_27",
+        "shard_28",
+        "shard_29",
+        "shard_30"
+      ],
+      "note": "All 30 original weight shards were publicly accessible through bounded metadata requests. Access to weights does not imply an OSI-open license or unrestricted commercial use."
+    },
+    "license": {
+      "value": "CC-BY-NC-4.0 + Llama 3.1 Community License",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "config",
+        "base_license"
+      ],
+      "note": "The fine-tuner explicitly declares CC-BY-NC-4.0 in its card. The checkpoint is derived from Meta Llama 3.1 Instruct, whose community license separately covers derivatives. This reports the published terms and underlying base obligation, not a legal finding about their compatibility."
+    },
+    "parameters_b": {
+      "value": 70.553706496,
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "index",
+        "implementation",
+        "shard_01",
+        "shard_02",
+        "shard_03",
+        "shard_04",
+        "shard_05",
+        "shard_06",
+        "shard_07",
+        "shard_08",
+        "shard_09",
+        "shard_10",
+        "shard_11",
+        "shard_12",
+        "shard_13",
+        "shard_14",
+        "shard_15",
+        "shard_16",
+        "shard_17",
+        "shard_18",
+        "shard_19",
+        "shard_20",
+        "shard_21",
+        "shard_22",
+        "shard_23",
+        "shard_24",
+        "shard_25",
+        "shard_26",
+        "shard_27",
+        "shard_28",
+        "shard_29",
+        "shard_30"
+      ],
+      "note": "Complete exact original-checkpoint count: 70,553,706,496 learned scalar parameters across all 723 tensors in all 30 indexed FP16 shards. The independent configuration calculation gives the same total. Includes distinct input embeddings and output head, all layer norms and final norm; no omitted biases, experts, MTP, quantization scales or persistent rotary buffers."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "card",
+        "config",
+        "later_euryale",
+        "later_hanami"
+      ],
+      "note": "No separately defined per-token active-parameter metric is published for this exact fine-tune in the checked original or later first-party comparison cards. Dense architecture does not by itself justify copying the total into this field."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "implementation",
+        "index",
+        "shard_01",
+        "shard_02",
+        "shard_03",
+        "shard_04",
+        "shard_05",
+        "shard_06",
+        "shard_07",
+        "shard_08",
+        "shard_09",
+        "shard_10",
+        "shard_11",
+        "shard_12",
+        "shard_13",
+        "shard_14",
+        "shard_15",
+        "shard_16",
+        "shard_17",
+        "shard_18",
+        "shard_19",
+        "shard_20",
+        "shard_21",
+        "shard_22",
+        "shard_23",
+        "shard_24",
+        "shard_25",
+        "shard_26",
+        "shard_27",
+        "shard_28",
+        "shard_29",
+        "shard_30"
+      ],
+      "note": "Dense decoder-only Llama Transformer: 80 layers, 8192 hidden dimensions, 64 query heads / 8 KV heads, SwiGLU width 28672, RMSNorm, scaled RoPE and untied vocabulary matrices. All tensor shapes match the enabled implementation. No expert-routing or MTP modules."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "tokenizer",
+        "deepinfra"
+      ],
+      "note": "Exact checkpoint configuration and tokenizer both specify 131072; the current DeepInfra page agrees. This is the configured context limit, not a claim that long-context quality was independently evaluated."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "config",
+        "tokenizer",
+        "router"
+      ],
+      "note": "The released causal language-model tokenizer, architecture and provider modality mapping are text-to-text; there is no multimodal encoder or projector in the complete checkpoint."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "card",
+        "tokenizer",
+        "later_euryale",
+        "later_hanami"
+      ],
+      "note": "The card mentions training data targeting general reasoning/spatial awareness. It does not establish a dedicated reasoning/thinking mode, and the supplied template has no such control. Neither true nor false is asserted for the catalog capability field."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "card",
+        "tokenizer",
+        "router",
+        "deepinfra",
+        "later_euryale",
+        "later_hanami"
+      ],
+      "note": "The fine-tune card supplies no native tool-calling claim, and its released template does not serialize tools or tool calls. Current OpenRouter supported parameters omit tools but generic tool-choice flags conflict; the exact DeepInfra page does not advertise tools. Do not inherit base-model tools or turn template absence into proof of impossibility. Clear the unsupported baseline true."
+    },
+    "description": {
+      "value": "Llama 3.1 70B Instruct fine-tune for multi-turn conversation, creative writing, and roleplay.",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "config"
+      ],
+      "note": "Replaces generic multilingual/reasoning/coding claims with this exact developer-described purpose and base model."
+    }
+  },
+  "patch": {
+    "release_date": "2024-08",
+    "date_precision": "month",
+    "license": "CC-BY-NC-4.0 + Llama 3.1 Community License",
+    "parameters_b": 70.553706496,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "reasoning": null,
+    "tool_call": null,
+    "description": "Llama 3.1 70B Instruct fine-tune for multi-turn conversation, creative writing, and roleplay.",
+    "notes": "Exact v2.2 checkpoint: 70,553,706,496 parameters counted from bounded metadata for all 30 original FP16 PyTorch shards and reconciled with configuration. Release month is August 2024; the Aug 28 provider listing is later than documented public use, and the first-public day is unresolved. Card declares CC-BY-NC-4.0; underlying Llama 3.1 Community License terms also apply to the base materials. Active parameters are not separately reported. Dedicated reasoning and native tool support remain unverified for this fine-tune.",
+    "sources": [
+      {
+        "label": "Exact Euryale v2.2 model card",
+        "url": "https://huggingface.co/Sao10K/L3.1-70B-Euryale-v2.2/blob/62b47ff8c2c24d326a7b960773b9c853400150b6/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Exact Euryale v2.2 configuration",
+        "url": "https://huggingface.co/Sao10K/L3.1-70B-Euryale-v2.2/blob/62b47ff8c2c24d326a7b960773b9c853400150b6/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Original checkpoint index",
+        "url": "https://huggingface.co/Sao10K/L3.1-70B-Euryale-v2.2/blob/62b47ff8c2c24d326a7b960773b9c853400150b6/pytorch_model.bin.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Developer repository history",
+        "url": "https://huggingface.co/api/models/Sao10K/L3.1-70B-Euryale-v2.2/commits/main",
+        "type": "primary"
+      },
+      {
+        "label": "Contemporaneous public use",
+        "url": "https://huggingface.co/Sao10K/L3.1-70B-Euryale-v2.2/discussions/2",
+        "type": "primary"
+      },
+      {
+        "label": "Llama 3.1 Community License",
+        "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3_1/LICENSE",
+        "type": "primary"
+      }
+    ]
+  },
+  "parameter_audit": {
+    "revision": "62b47ff8c2c24d326a7b960773b9c853400150b6",
+    "method": "Bounded ZIP64 central-directory and data.pkl metadata inspection with pickletools static opcode interpretation; no pickle.load, torch.load, remote code execution, or tensor-payload download. Every original indexed shard was inspected.",
+    "coverage": {
+      "shards": 30,
+      "tensors": 723,
+      "parameter_count": 70553706496,
+      "parameters_b": 70.553706496,
+      "dtype_counts": {
+        "HalfStorage": 723
+      },
+      "index_total_size": 141107412992,
+      "metadata_bytes_read": 152576,
+      "expected_config_shapes_match": true,
+      "all_index_names_and_shard_assignments_match": true,
+      "storage_aliases": 0,
+      "formula": 70553706496,
+      "parameters_by_group": {
+        "input_embeddings": 1050673152,
+        "output_head": 1050673152,
+        "final_norm": 8192,
+        "transformer_layers": 68452352000
+      }
+    },
+    "storage_reconciliation": "Every indexed tensor appears once at its indexed shard; every ZIP tensor storage is referenced once. All are contiguous FP16 tensors with storage offset zero and shape product equal to storage size. Each shape matches the configured LlamaForCausalLM graph.",
+    "formula": "2*128256*8192 + 8192 + 80*(2*8192 + 2*8192*(64+8)*128 + 3*8192*28672) = 70,553,706,496",
+    "scope": "Complete original causal-LM checkpoint, including separate input embeddings and output head. All 723 entries are learned weights; no quantization scales, persistent buffers, tied aliases, or MTP components.",
+    "shards": [
+      {
+        "file": "pytorch_model-00001-of-00030.bin",
+        "tensor_count": 15,
+        "parameter_count": 2292203520,
+        "metadata_bytes_read": 3378
+      },
+      {
+        "file": "pytorch_model-00002-of-00030.bin",
+        "tensor_count": 26,
+        "parameter_count": 2332082176,
+        "metadata_bytes_read": 5388
+      },
+      {
+        "file": "pytorch_model-00003-of-00030.bin",
+        "tensor_count": 26,
+        "parameter_count": 2499854336,
+        "metadata_bytes_read": 5433
+      },
+      {
+        "file": "pytorch_model-00004-of-00030.bin",
+        "tensor_count": 24,
+        "parameter_count": 2483077120,
+        "metadata_bytes_read": 5083
+      },
+      {
+        "file": "pytorch_model-00005-of-00030.bin",
+        "tensor_count": 24,
+        "parameter_count": 2332065792,
+        "metadata_bytes_read": 5083
+      },
+      {
+        "file": "pytorch_model-00006-of-00030.bin",
+        "tensor_count": 26,
+        "parameter_count": 2332082176,
+        "metadata_bytes_read": 5416
+      },
+      {
+        "file": "pytorch_model-00007-of-00030.bin",
+        "tensor_count": 26,
+        "parameter_count": 2332082176,
+        "metadata_bytes_read": 5414
+      },
+      {
+        "file": "pytorch_model-00008-of-00030.bin",
+        "tensor_count": 26,
+        "parameter_count": 2499854336,
+        "metadata_bytes_read": 5459
+      },
+      {
+        "file": "pytorch_model-00009-of-00030.bin",
+        "tensor_count": 24,
+        "parameter_count": 2483077120,
+        "metadata_bytes_read": 5107
+      },
+      {
+        "file": "pytorch_model-00010-of-00030.bin",
+        "tensor_count": 24,
+        "parameter_count": 2332065792,
+        "metadata_bytes_read": 5083
+      },
+      {
+        "file": "pytorch_model-00011-of-00030.bin",
+        "tensor_count": 26,
+        "parameter_count": 2332082176,
+        "metadata_bytes_read": 5416
+      },
+      {
+        "file": "pytorch_model-00012-of-00030.bin",
+        "tensor_count": 26,
+        "parameter_count": 2332082176,
+        "metadata_bytes_read": 5414
+      },
+      {
+        "file": "pytorch_model-00013-of-00030.bin",
+        "tensor_count": 26,
+        "parameter_count": 2499854336,
+        "metadata_bytes_read": 5459
+      },
+      {
+        "file": "pytorch_model-00014-of-00030.bin",
+        "tensor_count": 24,
+        "parameter_count": 2483077120,
+        "metadata_bytes_read": 5107
+      },
+      {
+        "file": "pytorch_model-00015-of-00030.bin",
+        "tensor_count": 24,
+        "parameter_count": 2332065792,
+        "metadata_bytes_read": 5083
+      },
+      {
+        "file": "pytorch_model-00016-of-00030.bin",
+        "tensor_count": 26,
+        "parameter_count": 2332082176,
+        "metadata_bytes_read": 5416
+      },
+      {
+        "file": "pytorch_model-00017-of-00030.bin",
+        "tensor_count": 26,
+        "parameter_count": 2332082176,
+        "metadata_bytes_read": 5414
+      },
+      {
+        "file": "pytorch_model-00018-of-00030.bin",
+        "tensor_count": 26,
+        "parameter_count": 2499854336,
+        "metadata_bytes_read": 5459
+      },
+      {
+        "file": "pytorch_model-00019-of-00030.bin",
+        "tensor_count": 24,
+        "parameter_count": 2483077120,
+        "metadata_bytes_read": 5107
+      },
+      {
+        "file": "pytorch_model-00020-of-00030.bin",
+        "tensor_count": 24,
+        "parameter_count": 2332065792,
+        "metadata_bytes_read": 5083
+      },
+      {
+        "file": "pytorch_model-00021-of-00030.bin",
+        "tensor_count": 26,
+        "parameter_count": 2332082176,
+        "metadata_bytes_read": 5416
+      },
+      {
+        "file": "pytorch_model-00022-of-00030.bin",
+        "tensor_count": 26,
+        "parameter_count": 2332082176,
+        "metadata_bytes_read": 5414
+      },
+      {
+        "file": "pytorch_model-00023-of-00030.bin",
+        "tensor_count": 26,
+        "parameter_count": 2499854336,
+        "metadata_bytes_read": 5459
+      },
+      {
+        "file": "pytorch_model-00024-of-00030.bin",
+        "tensor_count": 24,
+        "parameter_count": 2483077120,
+        "metadata_bytes_read": 5107
+      },
+      {
+        "file": "pytorch_model-00025-of-00030.bin",
+        "tensor_count": 24,
+        "parameter_count": 2332065792,
+        "metadata_bytes_read": 5083
+      },
+      {
+        "file": "pytorch_model-00026-of-00030.bin",
+        "tensor_count": 26,
+        "parameter_count": 2332082176,
+        "metadata_bytes_read": 5416
+      },
+      {
+        "file": "pytorch_model-00027-of-00030.bin",
+        "tensor_count": 26,
+        "parameter_count": 2332082176,
+        "metadata_bytes_read": 5414
+      },
+      {
+        "file": "pytorch_model-00028-of-00030.bin",
+        "tensor_count": 26,
+        "parameter_count": 2499854336,
+        "metadata_bytes_read": 5459
+      },
+      {
+        "file": "pytorch_model-00029-of-00030.bin",
+        "tensor_count": 25,
+        "parameter_count": 2483085312,
+        "metadata_bytes_read": 5265
+      },
+      {
+        "file": "pytorch_model-00030-of-00030.bin",
+        "tensor_count": 1,
+        "parameter_count": 1050673152,
+        "metadata_bytes_read": 741
+      }
+    ]
+  },
+  "summary": "Verified the exact Euryale v2.2 fine-tune and all 14 fields. Corrects nominal 70B to the complete 70.553706496B checkpoint count, adds dense architecture and published licensing, specializes the description, and changes release precision to August 2024 rather than treating a later provider listing as release day. Clears unsupported reasoning=false and tool_call=true; separately reported active parameters remain undisclosed. All 30 original FP16 shards were inspected through bounded metadata only."
+}
