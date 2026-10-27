@@ -1,0 +1,323 @@
+{
+  "index": 560,
+  "model_id": "zhipuai/glm-5.2",
+  "reviewed_at": "2026-10-27T06:22:20.974795+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://x.com/Zai_org/status/2065704919299235870",
+      "title": "Original GLM-5.2 Coding Plan availability announcement",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Original post retrieved via native X syndication: author Zai_org, timestamp June 13, 2026 at 07:56:46 UTC, explicitly says GLM-5.2 is now available to all GLM Coding Plan users, including Lite, Pro, Max and Team. Native text is truncated after the availability sentence; the full-text mirror additionally says API, chatbot and MIT weights will follow the next week. The release date relies on the native availability text and timestamp."
+    },
+    {
+      "id": "s2",
+      "url": "https://docs.z.ai/release-notes/new-released.md",
+      "title": "Z.ai release notes for the full GLM-5.2 launch",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Explicit June 16, 2026 GLM-5.2 release entry, separate from earlier June 13 Coding Plan availability. Documents 1M context and long-horizon coding improvements."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/zai-org/GLM-5.2/blob/cf457fa734ab149ffef225f80893eb38c6ff5cdc/README.md",
+      "title": "GLM-5.2 exact checkpoint card",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Exact pinned card declares MIT and public deployment, a 1M context, high/max reasoning effort, IndexShare across four sparse-attention layers and improved MTP. It links the earlier GLM-5 report, which does not contain GLM-5.2-specific accounting."
+    },
+    {
+      "id": "s4",
+      "url": "https://github.com/zai-org/GLM-5/blob/83c03d317378f86f0a012f7c4cd48b6243c7e69b/README.md",
+      "title": "Official GLM family download table at pinned revision",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Exact GLM-5.2 row directly reports 744B-A40B and BF16, separately from GLM-5.2-FP8 and other releases. These are author nominal figures; the row does not define embedding/output or MTP boundaries. The same README explicitly identifies the GLM-5.2 IndexShare architecture and its high/max reasoning settings."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/zai-org/GLM-5.2/blob/cf457fa734ab149ffef225f80893eb38c6ff5cdc/config.json",
+      "title": "GLM-5.2 exact checkpoint configuration",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "GlmMoeDsaForCausalLM with 78 main layers, first 3 dense, 256 routed experts/top 8 plus 1 shared expert, 6144 hidden width, MLA latent ranks, sparse-attention indexer sharing and one MTP module. max_position_embeddings=1048576; input/output embeddings untied; BF16 weights with router dtype float32."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/zai-org/GLM-5.2/blob/cf457fa734ab149ffef225f80893eb38c6ff5cdc/tokenizer_config.json",
+      "title": "GLM-5.2 tokenizer configuration",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "model_max_length=1048576, agreeing with checkpoint capacity. Generic image/audio special tokens do not establish multimodal model inputs."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/zai-org/GLM-5.2/blob/cf457fa734ab149ffef225f80893eb38c6ff5cdc/LICENSE",
+      "title": "GLM-5.2 checkpoint MIT license",
+      "publisher": "Zhipu AI",
+      "accessed": true,
+      "evidence": "Exact repository contains the MIT License, copyright 2026 Zhipu AI, matching the exact model-card declaration."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/zai-org/GLM-5.2/blob/cf457fa734ab149ffef225f80893eb38c6ff5cdc/chat_template.jinja",
+      "title": "GLM-5.2 exact chat template",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Template handles text content, tool definitions/calls/results, think blocks, enable_thinking, clear_thinking and high/max reasoning effort. Shared multimodal vocabulary is not used as proof of image/audio support."
+    },
+    {
+      "id": "s9",
+      "url": "https://docs.z.ai/guides/llm/glm-5.2",
+      "title": "GLM-5.2 native API guide",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Complete Markdown guide explicitly lists text input and text output, 1M context, 128K maximum output, thinking modes and function calling. Examples identify glm-5.2."
+    },
+    {
+      "id": "s10",
+      "url": "https://z.ai/blog/glm-5.2",
+      "title": "GLM-5.2 original technical launch article",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Indexed original article dated June 16, 2026 describes IndexShare: every four Transformer layers reuse a lightweight indexer. It discusses MTP index reuse and KV sharing. Direct HTML is an empty client-rendered shell; relevant original article text was accessed through web search."
+    },
+    {
+      "id": "s11",
+      "url": "https://arxiv.org/html/2602.15763v1",
+      "title": "Earlier GLM-5 technical report checked for counting scope",
+      "publisher": "GLM Team / Z.ai",
+      "accessed": true,
+      "evidence": "The report linked by the GLM-5.2 card contains no GLM-5.2 mention. Table 10 defines embedding/output exclusions and MTP inclusion for GLM-4.5 and GLM-5, so that convention is not silently applied to GLM-5.2."
+    },
+    {
+      "id": "s12",
+      "url": "https://huggingface.co/api/models/zai-org/GLM-5.2/revision/cf457fa734ab149ffef225f80893eb38c6ff5cdc",
+      "title": "Exact GLM-5.2 public checkpoint metadata",
+      "publisher": "Z.ai on Hugging Face",
+      "accessed": true,
+      "evidence": "Public ungated repository lists 282 safetensors weight shards. Its automatic BF16/F32 storage aggregates were not reconciled across every tensor header and are not treated as an exact learned parameter count."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "GLM-5.2",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Exact named release, separate from FP8 packaging and later GLM-5.3."
+    },
+    "developer": {
+      "value": "Z.ai",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s7"
+      ],
+      "note": "Original publisher is Z.ai; its checkpoint license names Zhipu AI."
+    },
+    "family": {
+      "value": "glm",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4"
+      ],
+      "note": "Official GLM model family and explicit GLM-5.1 successor."
+    },
+    "release_date": {
+      "value": "2026-06-13",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Earliest confirmed public availability was the Coding Plan release on June 13. The broader API/chatbot/open-weight launch is documented June 16; repository creation is not used as release evidence."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s12"
+      ],
+      "note": "Official public ungated checkpoint with BF16 shards and local deployment instructions. Open-weight status describes the subsequent named checkpoint, not availability on the initial Coding Plan release day."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s7"
+      ],
+      "note": "Verified exact checkpoint license file and matching model card; separate GitHub code licensing is not substituted."
+    },
+    "parameters_b": {
+      "value": 744,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s11",
+        "s12"
+      ],
+      "note": "Author-reported nominal 744B total from the exact GLM-5.2 download row. The row does not specify embeddings/output/MTP boundaries, and the earlier GLM-5 convention is not transferred. Automatic repository storage totals are not a reconciled unique learned count."
+    },
+    "active_parameters_b": {
+      "value": 40,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5"
+      ],
+      "note": "Author-reported nominal A40B. Exact checkpoint routes to 8 of 256 experts plus a shared expert per MoE layer; no precise activation phase or embedding/output/MTP accounting is claimed."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s5",
+        "s10"
+      ],
+      "note": "Causal text MoE Transformer with MLA and DSA/IndexShare. Exact config gives 3 dense and 75 MoE main layers, top 8 of 256 routed experts plus 1 shared expert, and one MTP module. IndexShare reuses top-k token selections across groups of four sparse-attention layers."
+    },
+    "context_window": {
+      "value": 1048576,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s5",
+        "s6",
+        "s9"
+      ],
+      "note": "Exact checkpoint and tokenizer capacity; native guide advertises rounded 1M. Corrects baseline 1000000. Maximum output is a separate 128K API limit."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s8",
+        "s9"
+      ],
+      "note": "Native text input/output, confirmed by exact config and template. Shared tokenizer image/video/audio tokens and applications that generate interface code do not establish native multimodal input."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s8",
+        "s9"
+      ],
+      "note": "Native thinking mode and exact template support think blocks, thinking on/off and high/max effort settings."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s8",
+        "s9"
+      ],
+      "note": "Native function calling plus exact checkpoint tool definitions, structured calls and tool responses."
+    },
+    "description": {
+      "value": "Text MoE model with IndexShare sparse attention, a 1M-token context and configurable reasoning effort.",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s5",
+        "s9",
+        "s10"
+      ],
+      "note": "Plain summary of verified architecture, context and reasoning controls; removes flagship and broad performance claims."
+    }
+  },
+  "patch": {
+    "license": "MIT",
+    "parameters_b": 744,
+    "active_parameters_b": 40,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "context_window": 1048576,
+    "description": "Text MoE model with IndexShare sparse attention, a 1M-token context and configurable reasoning effort.",
+    "source_url": "https://x.com/Zai_org/status/2065704919299235870",
+    "source_type": "primary",
+    "notes": "First available to all GLM Coding Plan tiers on June 13, 2026; the broader launch followed June 16. Z.ai reports nominal 744B total and 40B active for this exact model. Its model-specific download row does not resolve embedding/output/MTP accounting; the earlier GLM-5 counting convention is not assumed. The checkpoint uses MoE with MLA, DSA and IndexShare, plus one MTP module. Configured and tokenizer context capacity is 1048576 tokens, advertised as 1M; API maximum output is separate. MIT applies to the public weights.",
+    "sources": [
+      {
+        "label": "Original GLM-5.2 Coding Plan availability announcement",
+        "url": "https://x.com/Zai_org/status/2065704919299235870",
+        "type": "announcement"
+      },
+      {
+        "label": "Z.ai release notes for the full GLM-5.2 launch",
+        "url": "https://docs.z.ai/release-notes/new-released.md",
+        "type": "announcement"
+      },
+      {
+        "label": "GLM-5.2 exact checkpoint card",
+        "url": "https://huggingface.co/zai-org/GLM-5.2/blob/cf457fa734ab149ffef225f80893eb38c6ff5cdc/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "Official GLM family download table at pinned revision",
+        "url": "https://github.com/zai-org/GLM-5/blob/83c03d317378f86f0a012f7c4cd48b6243c7e69b/README.md",
+        "type": "docs"
+      },
+      {
+        "label": "GLM-5.2 exact checkpoint configuration",
+        "url": "https://huggingface.co/zai-org/GLM-5.2/blob/cf457fa734ab149ffef225f80893eb38c6ff5cdc/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "GLM-5.2 tokenizer configuration",
+        "url": "https://huggingface.co/zai-org/GLM-5.2/blob/cf457fa734ab149ffef225f80893eb38c6ff5cdc/tokenizer_config.json",
+        "type": "weights"
+      },
+      {
+        "label": "GLM-5.2 checkpoint MIT license",
+        "url": "https://huggingface.co/zai-org/GLM-5.2/blob/cf457fa734ab149ffef225f80893eb38c6ff5cdc/LICENSE",
+        "type": "weights"
+      },
+      {
+        "label": "GLM-5.2 exact chat template",
+        "url": "https://huggingface.co/zai-org/GLM-5.2/blob/cf457fa734ab149ffef225f80893eb38c6ff5cdc/chat_template.jinja",
+        "type": "weights"
+      },
+      {
+        "label": "GLM-5.2 native API guide",
+        "url": "https://docs.z.ai/guides/llm/glm-5.2",
+        "type": "docs"
+      },
+      {
+        "label": "GLM-5.2 original technical launch article",
+        "url": "https://z.ai/blog/glm-5.2",
+        "type": "announcement"
+      },
+      {
+        "label": "Earlier GLM-5 technical report checked for counting scope",
+        "url": "https://arxiv.org/html/2602.15763v1",
+        "type": "paper"
+      },
+      {
+        "label": "Exact GLM-5.2 public checkpoint metadata",
+        "url": "https://huggingface.co/api/models/zai-org/GLM-5.2/revision/cf457fa734ab149ffef225f80893eb38c6ff5cdc",
+        "type": "weights"
+      }
+    ]
+  },
+  "summary": "Verified all 14 fields. Confirmed June 13 Coding Plan release ahead of June 16 broader launch, MIT open weights, directly reported nominal 744B/40B, and exact MoE/MLA/DSA/IndexShare architecture. Corrected context to 1048576 and replaced unsupported descriptive language. No sibling counting convention or unreconciled storage aggregate is presented as an exact full parameter count."
+}
