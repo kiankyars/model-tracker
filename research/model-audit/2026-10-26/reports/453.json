@@ -1,0 +1,292 @@
+{
+  "index": 453,
+  "model_id": "openai/o3",
+  "reviewed_at": "2026-10-27T03:02:02.296237Z",
+  "sources": [
+    {
+      "id": "release",
+      "url": "https://openai.com/index/introducing-o3-and-o4-mini/",
+      "title": "Introducing OpenAI o3 and o4-mini",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "April 16, 2025 announcement explicitly makes o3 available that day to ChatGPT Plus, Pro and Team and through Chat Completions and Responses APIs. It identifies o3 as an o-series model trained to reason with reinforcement learning, with image analysis and tool use. The later o3-pro update is a separate variant."
+    },
+    {
+      "id": "original-card",
+      "url": "https://cdn.openai.com/pdf/2221c875-02dc-4789-800b-e7758f3722c1/o3-and-o4-mini-system-card.pdf",
+      "title": "OpenAI o3 and o4-mini System Card",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Downloaded the original full PDF and inspected its model-training discussion and structural/count matches throughout the extracted text. It describes o3 reasoning training and safety evaluations, but supplies no total or active production parameter count or dense/MoE specification."
+    },
+    {
+      "id": "api",
+      "url": "https://developers.openai.com/api/docs/models/o3",
+      "title": "o3 model reference",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "The complete Markdown reference identifies o3, default snapshot o3-2025-04-16, deprecated status, 200,000-token context, 100,000-token output limit, text/image input, text output, reasoning tokens, function calling, file uploads and prompt caching. Hosted image generation is a Responses tool; the native image-generation endpoint is unsupported. This documents specifications, not a tested live endpoint."
+    },
+    {
+      "id": "cache",
+      "url": "https://developers.openai.com/cookbook/examples/prompt_caching_201",
+      "title": "Prompt Caching 201",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "The archived guide explicitly applies to models before GPT-5.6 and mentions o3 when explaining caching support. Section 2.1 describes forward passes through Transformer layers and cached attention key/value projections across layers and heads. Combined with exact o3 prompt-caching support, this permits a qualified broad Transformer inference, without revealing dense/MoE topology or parameter counts."
+    },
+    {
+      "id": "files",
+      "url": "https://developers.openai.com/api/docs/guides/file-inputs",
+      "title": "File inputs",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "The complete guide explains that PDF inputs to vision-capable models are represented using extracted text and page images. Together with o3 image input and file-upload support, this supports PDF as an accepted API input format rather than a separate native modality."
+    },
+    {
+      "id": "terms",
+      "url": "https://openai.com/policies/services-agreement/",
+      "title": "OpenAI Services Agreement",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "The service agreement grants limited rights to use the API and retains OpenAI ownership of its services. Together with the hosted release and model documentation, this supports a descriptive proprietary classification, not a named open-weight license."
+    },
+    {
+      "id": "later-gpt5",
+      "url": "https://arxiv.org/pdf/2601.03267",
+      "title": "GPT-5 System Card",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Followed the official GPT-5 system-card page to this report and downloaded its full PDF. Exact o3 columns occur in safety, factuality, visual and other comparisons. Inspected those labeled comparisons and searched the report for parameter and architecture disclosures; they do not report o3 total/active counts. Helpful-only research checkpoints and GPT-5 successor models remain distinct from this production o3 alias."
+    },
+    {
+      "id": "later-oss",
+      "url": "https://arxiv.org/pdf/2508.10925",
+      "title": "gpt-oss-120b & gpt-oss-20b Model Card",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Downloaded the full report and inspected its architecture section, exact o3 comparison figures and Table 2 o3 column. Table 1 discloses only gpt-oss model counts, not o3 counts. Similar chain-of-thought reinforcement-learning techniques do not establish shared architecture or size."
+    },
+    {
+      "id": "training",
+      "url": "https://openai.com/index/detecting-and-reducing-scheming-in-ai-models/",
+      "title": "Detecting and reducing scheming in AI models",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "September 17, 2025 primary research describes deliberative anti-scheming training experiments involving o3 and o4-mini and inspection of their reasoning. It distinguishes experimental training from existing production models; the inspected training and behavioral analysis supplies no production o3 parameter counts or dense/MoE specification."
+    },
+    {
+      "id": "deprecations",
+      "url": "https://developers.openai.com/api/docs/deprecations",
+      "title": "Deprecations",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "The June 11, 2026 notice explicitly lists o3 and o3-2025-04-16 for removal on December 11, 2026. On the audit date this is a scheduled shutdown, separate from retired o3-mini and o3-deep-research variants. No API request was made to test endpoint operation."
+    },
+    {
+      "id": "catalog",
+      "url": "https://raw.githubusercontent.com/anomalyco/models.dev/dev/models/openai/o3.toml",
+      "title": "Models.dev o3 record",
+      "publisher": "Models.dev",
+      "accessed": true,
+      "evidence": "Read the exact upstream record as a discovery lead. Its release date, context and capabilities were checked against primary sources; its description and lack of technical architecture details are not treated as independent evidence."
+    },
+    {
+      "id": "model-index",
+      "url": "https://developers.openai.com/api/docs/models/all",
+      "title": "All models",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "The current documentation index lists o3 as a deprecated reasoning model separately from the open-weight gpt-oss section, o3-pro, o3-mini and o3-deep-research. This corroborates the hosted distribution and exact model identity."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "o3",
+      "status": "verified",
+      "source_ids": [
+        "release",
+        "api"
+      ],
+      "note": "The exact public model name and undated API alias are o3; o3-pro, o3-mini and o3-deep-research are separate variants."
+    },
+    "developer": {
+      "value": "OpenAI",
+      "status": "verified",
+      "source_ids": [
+        "release",
+        "api"
+      ],
+      "note": "OpenAI announced, trained and serves this model."
+    },
+    "family": {
+      "value": "o3",
+      "status": "verified",
+      "source_ids": [
+        "release",
+        "api",
+        "model-index"
+      ],
+      "note": "Uses o3 as the catalog generation/series grouping within OpenAI’s broader o-series. The launch and exact model references identify o3, while the model index separately names o3-pro, o3-mini and o3-deep-research. This grouping follows model naming and does not assert shared weights, parameter counts or topology among the variants."
+    },
+    "release_date": {
+      "value": "2025-04-16",
+      "status": "verified",
+      "source_ids": [
+        "release"
+      ],
+      "note": "The announcement explicitly grants same-day public access through paid ChatGPT plans and the API. This is release availability rather than an earlier preview announcement or a later organization rollout."
+    },
+    "open_weights": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "release",
+        "api",
+        "model-index",
+        "terms"
+      ],
+      "note": "Documented distribution is hosted ChatGPT/API access under service terms; the primary model index distinguishes the released open-weight gpt-oss models from o3."
+    },
+    "license": {
+      "value": "Proprietary",
+      "status": "verified",
+      "source_ids": [
+        "terms",
+        "release"
+      ],
+      "note": "Descriptive classification of the hosted proprietary model, not an SPDX or downloadable-weight license."
+    },
+    "parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "original-card",
+        "later-gpt5",
+        "later-oss",
+        "training",
+        "api"
+      ],
+      "note": "No production o3 total parameter count was found in the original card, later exact-model comparison tables, primary training research or exact API documentation. Sibling counts and research checkpoint results are not transferred."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "original-card",
+        "later-gpt5",
+        "later-oss",
+        "training",
+        "api"
+      ],
+      "note": "The inspected primary sources disclose no active production parameter count or routing topology for o3. Do not infer an active count from total counts, model performance or gpt-oss architecture."
+    },
+    "architecture": {
+      "value": "transformer",
+      "status": "verified",
+      "source_ids": [
+        "api",
+        "cache",
+        "original-card",
+        "training"
+      ],
+      "note": "Qualified broad inference: exact o3 supports prompt caching; the applicable pre-GPT-5.6 engineering guide explicitly includes o3 and describes Transformer attention/KV layers. The original card and training research do not disclose dense versus MoE, layer counts or other production topology."
+    },
+    "context_window": {
+      "value": 200000,
+      "status": "verified",
+      "source_ids": [
+        "api"
+      ],
+      "note": "The exact model reference documents a 200,000-token context window separately from its 100,000-token maximum output."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "pdf"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "api",
+        "files"
+      ],
+      "note": "Native modalities are text/image input and text output. PDF is retained as an accepted API file format represented as extracted text and page images. Hosted image generation does not imply native image output."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "release",
+        "original-card",
+        "api"
+      ],
+      "note": "The launch and original card describe reinforcement-learned reasoning; the exact reference confirms reasoning-token support."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "release",
+        "api"
+      ],
+      "note": "Function calling is explicitly documented for exact o3. Current hosted-tool support is distinguished from the original launch schedule and does not change native output modalities."
+    },
+    "description": {
+      "value": "OpenAI o-series reasoning model with text and image input, text output, and function calling.",
+      "status": "verified",
+      "source_ids": [
+        "release",
+        "api"
+      ],
+      "note": "Replaces promotional and imprecise wording with documented family, native modalities and function-calling capability."
+    }
+  },
+  "patch": {
+    "license": "Proprietary",
+    "architecture": "transformer",
+    "description": "OpenAI o-series reasoning model with text and image input, text output, and function calling.",
+    "source_url": "https://openai.com/index/introducing-o3-and-o4-mini/",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Introducing OpenAI o3 and o4-mini",
+        "url": "https://openai.com/index/introducing-o3-and-o4-mini/",
+        "type": "primary"
+      },
+      {
+        "label": "o3 model reference",
+        "url": "https://developers.openai.com/api/docs/models/o3",
+        "type": "primary"
+      },
+      {
+        "label": "Prompt Caching 201",
+        "url": "https://developers.openai.com/cookbook/examples/prompt_caching_201",
+        "type": "primary"
+      },
+      {
+        "label": "File inputs",
+        "url": "https://developers.openai.com/api/docs/guides/file-inputs",
+        "type": "primary"
+      },
+      {
+        "label": "OpenAI Services Agreement",
+        "url": "https://openai.com/policies/services-agreement/",
+        "type": "primary"
+      },
+      {
+        "label": "Deprecations",
+        "url": "https://developers.openai.com/api/docs/deprecations",
+        "type": "primary"
+      }
+    ],
+    "notes": "The o3 alias is documented as pointing to o3-2025-04-16. It is deprecated, with API removal scheduled for December 11, 2026; endpoint operation was not tested. Transformer is a broad inference from exact o3 prompt-caching support and OpenAI's applicable pre-GPT-5.6 KV-cache explanation, not a disclosed topology. Dense versus MoE, total parameters and active parameters remain undisclosed in the inspected primary sources. PDF is an API input format converted to text and page images. Image generation is a hosted tool, not native o3 image output.",
+    "family": "o3"
+  },
+  "summary": "Confirmed the April 16, 2025 public release, o3 generation grouping within the broader o-series, context, modalities, reasoning and function calling. Added descriptive Proprietary licensing, a qualified broad Transformer inference, primary provenance and retirement/input-format notes; replaced the promotional description. The generation grouping does not assert shared topology across variants. Total and active counts remain undisclosed after original and later primary technical-source checks. This audit does not establish current endpoint operation."
+}
