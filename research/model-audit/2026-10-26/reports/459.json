@@ -1,7 +1,7 @@
 {
   "index": 459,
   "model_id": "openbmb/minicpm-v-4.7-1b",
-  "reviewed_at": "2026-10-27T03:17:12.793482Z",
+  "reviewed_at": "2026-10-27T17:27:23.657767+00:00",
   "sources": [
     {
       "id": "card",
@@ -9,7 +9,7 @@
       "title": "MiniCPM-V 4.7 1B model card",
       "publisher": "OpenBMB",
       "accessed": true,
-      "evidence": "Exact official card declares Apache-2.0, downloadable model weights, single/multi-image and video understanding. Its serving example names the 1B model and provides a function-calling request. The separate DSpark and quantized repositories are linked rather than included in this checkpoint."
+      "evidence": "Exact official card declares Apache-2.0, downloadable model weights, single/multi-image and video understanding. Its serving example names the 1B model and provides a function-calling request. The separate DSpark and quantized repositories are linked rather than included in this checkpoint. Reopened the exact pinned raw card with HTTP 200 on October 27 for this parameter re-audit. It credits Qwen3.5/Qwen3.6 language backbones, compares against Qwen3.5-0.8B, and documents intra-ViT early compression with mixed 4x/16x modes; it does not report a separate active count for the 1B checkpoint."
     },
     {
       "id": "release",
@@ -33,7 +33,7 @@
       "title": "Pinned MiniCPM-V 4.7 1B configuration",
       "publisher": "OpenBMB",
       "accessed": true,
-      "evidence": "Native MiniCPMV4_7ForConditionalGeneration with qwen3_5_text: 24 text layers, 18 linear-attention and six full-attention, hidden size 1024, FFN 3584, vocab 248094, untied embeddings/head. Vision has 27 layers, hidden 1152, FFN 4304, patch 14 and image size 980. max_position_embeddings is 262144 with default RoPE, not a configured YaRN extrapolation. The mtp_num_hidden_layers metadata is checked against actual instantiation rather than counted blindly."
+      "evidence": "Native MiniCPMV4_7ForConditionalGeneration with qwen3_5_text: 24 text layers, 18 linear-attention and six full-attention, hidden size 1024, FFN 3584, vocab 248094, untied embeddings/head. Vision has 27 layers, hidden 1152, FFN 4304, patch 14 and image size 980. max_position_embeddings is 262144 with default RoPE, not a configured YaRN extrapolation. The mtp_num_hidden_layers metadata is checked against actual instantiation rather than counted blindly. Fresh October 27 HTTP 200 retrieval confirms these dimensions and the custom vision architecture; model_type alone is not a specification of unchanged Qwen parameter counts."
     },
     {
       "id": "header",
@@ -49,7 +49,7 @@
       "title": "Pinned official checkpoint inventory",
       "publisher": "OpenBMB / Hugging Face",
       "accessed": true,
-      "evidence": "The inspected repository inventory contains one model.safetensors file, not multiple indexed shards. It pins this audit to bb99eab4113676f30830ffa73bac1f0b2a5f1dea. The repository creation date is October 6, which does not establish when it became publicly available."
+      "evidence": "The inspected repository inventory contains one model.safetensors file, not multiple indexed shards. It pins this audit to bb99eab4113676f30830ffa73bac1f0b2a5f1dea. The repository creation date is October 6, which does not establish when it became publicly available. Fresh October 27 HTTP 200 retrieval returns the same revision and safetensors.parameters.BF16 = safetensors.total = 1554476272, independently corroborating the retained prior complete tensor reconstruction without fetching weights."
     },
     {
       "id": "vision-code",
@@ -89,7 +89,7 @@
       "title": "MiniCPM-V 4.7 knowledge-base model table",
       "publisher": "OpenBMB",
       "accessed": true,
-      "evidence": "Direct HTML fetch and indexed primary text were inspected. The exact 1B row reports 1.55B parameters, a dense qwen3_5_text backbone and 256K context, corroborating the full checkpoint reconstruction. The page documents single-checkpoint optional thinking. Its 35B-A3B active count belongs only to that sibling, not the 1B variant."
+      "evidence": "Direct HTML fetch and indexed primary text were inspected. The exact 1B row reports 1.55B parameters, a dense qwen3_5_text backbone and 256K context, corroborating the full checkpoint reconstruction. The page documents single-checkpoint optional thinking. Its 35B-A3B active count belongs only to that sibling, not the 1B variant. Fresh October 27 HTTP 200 full-page retrieval confirms the exact two rows: 1B = 1.55 B, 35B-A3B = 35.2 B total and approximately 3.5 B activated. The 1B row has no activated figure."
     },
     {
       "id": "history",
@@ -105,7 +105,7 @@
       "title": "Later DSpark checkpoint for the exact 1B target",
       "publisher": "OpenBMB",
       "accessed": true,
-      "evidence": "The later official card identifies MiniCPM-V-4.7-1B as its exact target, with five separate draft layers and 213,547,777 draft parameters. Its target-model comparisons report acceptance lengths and training usage, not target active parameters. These draft parameters are not part of the audited base checkpoint. Targeted searches of later primary reports and comparisons did not locate a separately defined per-token active count for the base model."
+      "evidence": "Fresh October 27 HTTP 200 full-card retrieval confirms exact target MiniCPM-V-4.7-1B, five separate draft layers and 213,547,777 draft parameters. Its specification and later comparison table give draft size and target acceptance lengths, not target active parameters. These draft parameters are excluded from the audited base checkpoint."
     },
     {
       "id": "compression",
@@ -114,6 +114,62 @@
       "publisher": "THUMAI Lab",
       "accessed": true,
       "evidence": "Followed the exact card's research link. The method moves token compression into shallow vision-encoder layers. Its own checkpoints and performance comparisons do not specify MiniCPM-V 4.7 1B parameter counts; the audited count instead comes from exact config, code and complete header."
+    },
+    {
+      "id": "reaudit-overview",
+      "url": "https://openbmb.cn/docs/en/guides/minicpm-v",
+      "title": "MiniCPM-V series overview",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "Fetched complete page with HTTP 200 on October 27. The exact 4.7 1B row states 1.55B and identifies SigLIP canvas M-RoPE plus Qwen3.5-0.8B. Only the 35B-A3B row states an active count. Named language-backbone lineage does not make the entire altered multimodal model an unchanged Qwen checkpoint or establish an active-count convention."
+    },
+    {
+      "id": "reaudit-vram",
+      "url": "https://openbmb.cn/docs/en/models/vram-and-performance",
+      "title": "OpenBMB VRAM and architecture reference",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "Fetched complete page with HTTP 200 on October 27. Exact 1B row reports 2.90 GiB BF16 weight memory; language configuration table matches hidden size 1024, intermediate 3584, 24 layers and vocabulary 248094. These are memory and architecture specifications, not a separately defined active-parameter count; no parameter count was inferred from memory usage."
+    },
+    {
+      "id": "reaudit-cookbook",
+      "url": "https://github.com/OpenSQZ/MiniCPM-V-CookBook/blob/main/docs/pages/v4.7/overview.md",
+      "title": "Officially linked MiniCPM-V 4.7 cookbook model table",
+      "publisher": "OpenSQZ / linked by OpenBMB",
+      "accessed": true,
+      "evidence": "Fetched complete raw overview with HTTP 200 on October 27 via the exact official-card link. Model table specifies 1.55 B for MiniCPM-V-4.7-1B and 35.2 B total / approximately 3.5 B active solely for 35B-A3B. Shared vision tower has 27 layers, patch 14 and mixed 4x/16x compression. There is no active count in the 1B row."
+    },
+    {
+      "id": "reaudit-apps",
+      "url": "https://github.com/OpenBMB/MiniCPM-V-Apps/blob/main/README.md",
+      "title": "OpenBMB on-device model comparison table",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "Fetched complete raw README with HTTP 200 on October 27. Hardware table explicitly labels its count column LLM params and gives 1B for MiniCPM-V 4.7 1B, with a separately listed vision projector file. The 35B-A3B row alone supplies 3B active. This nominal language-component count is compatible with the retained 1.006209856B language-and-head component; neither the table nor the dense label supplies an exact-target active count."
+    },
+    {
+      "id": "reaudit-performance-table",
+      "url": "https://raw.githubusercontent.com/OpenBMB/MiniCPM-o/main/assets/minicpmv4.7/overall_performance_1b_instruct.png",
+      "title": "OpenBMB MiniCPM-V 4.7 1B original benchmark image",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "Fetched HTTP 200 and visually inspected on October 27. The exact 1B card links this table under Overall Performance (1B, Instruct). Its Size row says 1.3B for MiniCPM-V4.7 and does not specify active parameters or component scope. This nominal label conflicts with the complete checkpoint count and current 1.55B developer/cookbook tables; retain the precisely corroborated 1.554476272B total and do not reinterpret 1.3B as active."
+    },
+    {
+      "id": "reaudit-frontier",
+      "url": "https://raw.githubusercontent.com/OpenBMB/MiniCPM-o/main/assets/minicpmv4.7/performance_efficiency_frontier.png",
+      "title": "OpenBMB MiniCPM-V 4.7 original efficiency comparison plot",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "Fetched HTTP 200 and visually inspected both panels on October 27. The exact MiniCPM-V 4.7 1B point is in the lower panel. Axes are Score and Inference time (seconds, log scale), not activated parameters, so neither the plotted point nor comparator names establish an active count."
+    },
+    {
+      "id": "reaudit-release-guide",
+      "url": "https://github.com/OpenBMB/MiniCPM-V/blob/main/docs/minicpm_v4dot7_en.md",
+      "title": "OpenBMB MiniCPM-V 4.7 release and evaluation guide",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "Fetched complete raw guide with HTTP 200 on October 27. Reopened its original comparison images, model-weights table, DSpark links and architecture description. Active-expert discussion concerns 35B-A3B; the 1B variant has early vision compression and the guide credits Qwen3.5/Qwen3.6 language backbones without a separately stated 1B active count. Ten bounded exact-name searches for total, active/activated parameters, Chinese activation terms and later research-team tables located no supported active count for this checkpoint."
     }
   ],
   "fields": {
@@ -182,21 +238,32 @@
         "vision-code",
         "vision-config-code",
         "text-code",
-        "knowledge"
+        "knowledge",
+        "reaudit-overview",
+        "reaudit-cookbook",
+        "reaudit-apps",
+        "reaudit-performance-table"
       ],
-      "note": "Exact complete learned-parameter count, not the nominal 1B label or the text-backbone count. All 780 tensors and shapes match code-derived expectations. Includes both untied token matrices, all vision/compression parameters and projector. BF16 elements need no unpacking; no scales/buffers or separate DSpark/MTP head are counted."
+      "note": "Retain exact complete learned-parameter count from the prior reconstruction of all 780 tensor shapes; fresh pinned API metadata independently repeats 1554476272 BF16 parameters. Includes both untied token matrices, vision/compression parameters and projector; excludes separate DSpark and inert MTP metadata. Current developer and linked cookbook tables report nominal 1.55B. The original benchmark image instead labels Size as 1.3B with unspecified scope, which does not override the complete count or define active parameters."
     },
     "active_parameters_b": {
       "value": null,
       "status": "undisclosed",
       "source_ids": [
+        "card",
         "config",
         "text-code",
         "vision-code",
         "knowledge",
-        "draft"
+        "draft",
+        "reaudit-overview",
+        "reaudit-cookbook",
+        "reaudit-apps",
+        "reaudit-performance-table",
+        "reaudit-frontier",
+        "reaudit-release-guide"
       ],
-      "note": "No separately defined per-token active count is supplied for this dense-MLP hybrid multimodal model. Vision encoding, text prefill and decoding execute different paths; total checkpoint size must not be copied into active parameters. The sibling's MoE and separate draft counts are inapplicable."
+      "note": "No separately reported nominal active count was located for this exact 1B checkpoint after reopening original sources, later DSpark and deployment comparison tables, and ten bounded searches. The 1.55B developer count and 1.3B benchmark Size label are not active disclosures; active figures in sibling rows apply only to 35B-A3B. The documented Qwen language-backbone relationship does not supply an active count for the altered multimodal checkpoint, and dense MLPs do not establish equality with total parameters. Retain null rather than derive a convention from modality paths or add the separate draft model."
     },
     "architecture": {
       "value": "hybrid",
@@ -272,6 +339,7 @@
     "release_date": "2026-10-12",
     "date_precision": "day",
     "parameters_b": 1.554476272,
+    "active_parameters_b": null,
     "parameters_source": "primary_source",
     "architecture": "hybrid",
     "description": "Vision-language model for single-image, multi-image and video understanding, with optional thinking and tool calling.",
@@ -342,9 +410,29 @@
         "label": "Later DSpark checkpoint for the exact 1B target",
         "url": "https://huggingface.co/openbmb/MiniCPM-V-4.7-1B-DSpark",
         "type": "primary"
+      },
+      {
+        "label": "MiniCPM-V series overview",
+        "url": "https://openbmb.cn/docs/en/guides/minicpm-v",
+        "type": "primary"
+      },
+      {
+        "label": "Officially linked MiniCPM-V 4.7 cookbook model table",
+        "url": "https://github.com/OpenSQZ/MiniCPM-V-CookBook/blob/main/docs/pages/v4.7/overview.md",
+        "type": "primary"
+      },
+      {
+        "label": "OpenBMB on-device model comparison table",
+        "url": "https://github.com/OpenBMB/MiniCPM-V-Apps/blob/main/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "OpenBMB MiniCPM-V 4.7 1B original benchmark image",
+        "url": "https://raw.githubusercontent.com/OpenBMB/MiniCPM-o/main/assets/minicpmv4.7/overall_performance_1b_instruct.png",
+        "type": "primary"
       }
     ],
-    "notes": "The complete BF16 checkpoint contains 1,554,476,272 learned parameters: 1,006,209,856 in the language backbone and untied output head, 522,299,312 in the vision tower and early merger, and 25,967,104 in the visual-to-language merger. The 1B name is nominal. Its dense-MLP language backbone combines 18 GatedDeltaNet layers with six full-attention layers; no MoE router is present. No separate MTP module is instantiated despite the retained config field, and the optional DSpark draft checkpoint is excluded. No phase-independent active-parameter count is documented. The 262,144-token window is the configured maximum, not an independently measured result. OpenBMB announces the release on October 12, 2026; October 6 is an earlier upload/creation timestamp whose public visibility is not established."
+    "notes": "Complete BF16 checkpoint: 1,554,476,272 learned parameters, comprising 1,006,209,856 in the language model and output head, 522,299,312 in the vision tower and early merger, and 25,967,104 in the visual-to-language merger. OpenBMB currently reports nominal 1.55B; its benchmark image labels Size as 1.3B without defining the scope. Retain the exact complete count. No separate active count was found for this checkpoint; sibling MoE and separate DSpark counts do not apply. The language backbone combines dense MLPs with 18 GatedDeltaNet and six full-attention layers. Inert MTP metadata adds no module. Context is configured at 262,144 tokens. Public release is documented October 12, 2026; the earlier October 6 upload does not establish public availability."
   },
   "proposed_fields": {
     "parameter_components_b": {
@@ -353,5 +441,5 @@
       "visual_to_language_merger": 0.025967104
     }
   },
-  "summary": "Corrected nominal 1B to an exact complete 1.554476272B checkpoint count using all 780 tensor headers and a matching reconstruction of every instantiated learned module. Added MiniCPM-V family and hybrid architecture, distinguishing dense MLPs from the recurrent/full-attention mixture. Corrected release to the documented October 12 launch while recording the earlier October 6 upload timestamp. Confirmed Apache-2.0, 256K configured context, text/image/video input, optional thinking and tool calling. Active parameters remain undisclosed; inert MTP metadata and separate DSpark draft parameters are excluded."
+  "summary": "October 27 parameter re-audit retains verified complete total 1.554476272B: fresh pinned API metadata agrees with the prior full tensor reconstruction, and current OpenBMB/cookbook tables report nominal 1.55B. Visually checked the original benchmark image and recorded its conflicting, scope-unspecified 1.3B Size label. Reopened original card/config, model-team plots and later DSpark/deployment tables; bounded searches found no separately stated active count for the exact 1B model, so active remains explicitly null/undisclosed. Preserved all twelve other field assessments and the complete component breakdown."
 }
