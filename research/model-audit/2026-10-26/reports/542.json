@@ -1,0 +1,287 @@
+{
+  "index": 542,
+  "model_id": "xiaomi/mimo-v2.5-pro-ultraspeed",
+  "reviewed_at": "2026-10-27T05:54:32.574667Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://mimo.xiaomi.com/blog/mimo-tilert-1000tps",
+      "title": "MiMo-V2.5-Pro-UltraSpeed launch",
+      "publisher": "Xiaomi MiMo",
+      "accessed": true,
+      "evidence": "June 8, 2026 launch with TileRT. Describes expert-only FP4 quantization-aware training and DFlash speculative decoding; says their checkpoint is open. Application-based API trial window starts June 9 Beijing time."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.5-Pro-FP4-DFlash/blob/b754e6c86008bdb5cc901308dda5a38173ec7276/README.md",
+      "title": "MiMo-V2.5-Pro-FP4-DFlash checkpoint card",
+      "publisher": "XiaomiMiMo",
+      "accessed": true,
+      "evidence": "Explicitly identifies this checkpoint as the model powering UltraSpeed. MIT metadata; backbone nominal 1.02T total/42B active and separate five-layer BF16 DFlash drafter. Released expert FP4 weights underwent quantization-aware training."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.5-Pro-FP4-DFlash/blob/b754e6c86008bdb5cc901308dda5a38173ec7276/config.json",
+      "title": "UltraSpeed underlying backbone configuration",
+      "publisher": "XiaomiMiMo",
+      "accessed": true,
+      "evidence": "70 layers, 69 MoE layers, 384 routed experts with eight selected, mixed full/sliding-window attention, MXFP4 expert storage, max_position_embeddings=1048576. Text causal language-model configuration."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.5-Pro-FP4-DFlash/blob/b754e6c86008bdb5cc901308dda5a38173ec7276/dflash/config.json",
+      "title": "DFlash drafter configuration",
+      "publisher": "XiaomiMiMo",
+      "accessed": true,
+      "evidence": "Separate five-layer, hidden-size 6144 drafter, block size 8 and sliding-window 1024. Its configured max_position_embeddings is 262144; this is not used to override the backbone and product 1M context specification."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.5-Pro-FP4-DFlash/blob/b754e6c86008bdb5cc901308dda5a38173ec7276/tokenizer_config.json",
+      "title": "UltraSpeed checkpoint chat template",
+      "publisher": "XiaomiMiMo",
+      "accessed": true,
+      "evidence": "Processes text content, optional reasoning enabled by default, tool definitions, structured calls and responses; identifies the underlying model as MiMo-v2.5-pro."
+    },
+    {
+      "id": "s6",
+      "url": "https://mimo.mi.com/models/en-US/mimo-v2.5-pro-ultraspeed",
+      "title": "MiMo-V2.5-Pro-UltraSpeed product page",
+      "publisher": "Xiaomi MiMo",
+      "accessed": true,
+      "evidence": "Indexed primary page calls UltraSpeed an experience mode of V2.5-Pro and lists text input/output, Deep Thinking and Tool Calling. Current page says its limited beta ended. Direct HTML is a client-rendered shell; detailed product copy was available in the search index."
+    },
+    {
+      "id": "s7",
+      "url": "https://mimo.mi.com/docs/en-US/news/latest/beta-extended",
+      "title": "UltraSpeed trial extension and ending notice",
+      "publisher": "Xiaomi MiMo",
+      "accessed": true,
+      "evidence": "Documents extension after June 23 and a later banner stating the limited trial concluded. Page update date September 8, 2026; no precise trial-closure date inferred."
+    },
+    {
+      "id": "s8",
+      "url": "https://cdn.syndication.twimg.com/tweet-result?id=2063993790587904362&lang=en&token=x",
+      "title": "XiaomiMiMo UltraSpeed announcement via X syndication",
+      "publisher": "Xiaomi MiMo",
+      "accessed": true,
+      "evidence": "Official post timestamp 2026-06-08T14:37:21Z announces release of the exact UltraSpeed model with TileRT. Syndication returns only the initial portion of the long post; the blog separately provides complete technical and access details."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/api/models/XiaomiMiMo/MiMo-V2.5-Pro-FP4-DFlash",
+      "title": "Official checkpoint repository metadata",
+      "publisher": "XiaomiMiMo / Hugging Face",
+      "accessed": true,
+      "evidence": "Public ungated repository containing backbone, MTP and DFlash weight files. Created June 8, 2026, revision b754e6c86008bdb5cc901308dda5a38173ec7276. Creation timestamp alone is not used as public-release proof."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "MiMo-V2.5-Pro-UltraSpeed",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s6"
+      ],
+      "note": "Public service name retained; its published checkpoint is MiMo-V2.5-Pro-FP4-DFlash."
+    },
+    "developer": {
+      "value": "Xiaomi",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Xiaomi MiMo model team, with TileRT providing inference-system collaboration."
+    },
+    "family": {
+      "value": "mimo",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "MiMo family; direct V2.5-Pro derivative."
+    },
+    "release_date": {
+      "value": "2026-06-08",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8"
+      ],
+      "note": "Original release announcement June 8 UTC, with open checkpoint linked in the launch article. Application-approved hosted trial starts June 9 Beijing time; this is not a general-availability API launch."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s9"
+      ],
+      "note": "Exact underlying FP4-QAT backbone and separate DFlash drafter are publicly distributed. Hosted trial access is separately restricted."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s9"
+      ],
+      "note": "Checkpoint license metadata is MIT; this does not make TileRT infrastructure or hosted service terms MIT."
+    },
+    "parameters_b": {
+      "value": 1020,
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Author nominal count for the target backbone, not an exact combined count including the DFlash drafter or a storage-element count. Proposed backbone scope preserves that distinction."
+    },
+    "active_parameters_b": {
+      "value": 42,
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Author nominal backbone active count; excludes speculative drafter work and is not a total for the combined inference system."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4"
+      ],
+      "note": "Hybrid-attention MoE target plus a separate dense block-diffusion drafter. Configuration has 69 MoE layers, 384 routed experts/top 8; quantization does not reduce the parameter count."
+    },
+    "context_window": {
+      "value": 1048576,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s2"
+      ],
+      "note": "Backbone configured position limit; card advertises 1M. The separate drafter config says 262144; deployment example 65536 is a serving setting. No current endpoint operation claimed."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s5",
+        "s6"
+      ],
+      "note": "Exact product specifies text input/output and checkpoint template processes text. Remove unsupported multimodal description."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s6"
+      ],
+      "note": "Deep Thinking on the exact product page; checkpoint has a configurable thinking template."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s6"
+      ],
+      "note": "Product and checkpoint support tool definitions, structured calls and tool responses."
+    },
+    "description": {
+      "value": "Text reasoning model using an FP4-quantized MiMo-V2.5-Pro MoE backbone and a DFlash speculative-decoding drafter.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4",
+        "s6"
+      ],
+      "note": "Technical description replaces unsupported multimodality and subjective capability wording."
+    }
+  },
+  "patch": {
+    "license": "MIT",
+    "parameters_b": 1020,
+    "active_parameters_b": 42,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "description": "Text reasoning model using an FP4-quantized MiMo-V2.5-Pro MoE backbone and a DFlash speculative-decoding drafter.",
+    "source_url": "https://mimo.xiaomi.com/blog/mimo-tilert-1000tps",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "MiMo-V2.5-Pro-UltraSpeed launch",
+        "url": "https://mimo.xiaomi.com/blog/mimo-tilert-1000tps",
+        "type": "primary"
+      },
+      {
+        "label": "MiMo-V2.5-Pro-FP4-DFlash checkpoint card",
+        "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.5-Pro-FP4-DFlash/blob/b754e6c86008bdb5cc901308dda5a38173ec7276/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "UltraSpeed underlying backbone configuration",
+        "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.5-Pro-FP4-DFlash/blob/b754e6c86008bdb5cc901308dda5a38173ec7276/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "DFlash drafter configuration",
+        "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.5-Pro-FP4-DFlash/blob/b754e6c86008bdb5cc901308dda5a38173ec7276/dflash/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "UltraSpeed checkpoint chat template",
+        "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.5-Pro-FP4-DFlash/blob/b754e6c86008bdb5cc901308dda5a38173ec7276/tokenizer_config.json",
+        "type": "weights"
+      },
+      {
+        "label": "MiMo-V2.5-Pro-UltraSpeed product page",
+        "url": "https://mimo.mi.com/models/en-US/mimo-v2.5-pro-ultraspeed",
+        "type": "primary"
+      },
+      {
+        "label": "UltraSpeed trial extension and ending notice",
+        "url": "https://mimo.mi.com/docs/en-US/news/latest/beta-extended",
+        "type": "primary"
+      },
+      {
+        "label": "XiaomiMiMo UltraSpeed announcement via X syndication",
+        "url": "https://cdn.syndication.twimg.com/tweet-result?id=2063993790587904362&lang=en&token=x",
+        "type": "primary"
+      },
+      {
+        "label": "Official checkpoint repository metadata",
+        "url": "https://huggingface.co/api/models/XiaomiMiMo/MiMo-V2.5-Pro-FP4-DFlash",
+        "type": "weights"
+      }
+    ],
+    "notes": "Nominal 1.02T total and 42B active refer to the target backbone; the separate five-layer DFlash drafter and MTP weights are not reconciled into an exact combined parameter count. UltraSpeed uses separately published expert FP4-QAT weights plus the drafter, so it is retained as a distinct derivative despite experience-mode branding. Original announcement and linked open checkpoint: June 8, 2026; approved hosted trial window began June 9 Beijing time and was later extended, then ended. The backbone supports 1,048,576 positions; the drafter configuration separately lists 262144. Current availability of the former hosted endpoint is not asserted."
+  },
+  "proposed_fields": {
+    "parameters_scope": "language_backbone",
+    "parameter_components_b": {
+      "language_backbone": 1020
+    },
+    "active_parameters_scope": "backbone_forward",
+    "active_parameters_by_phase_b": {
+      "backbone_forward": 42
+    }
+  },
+  "summary": "Verified all 14 fields. Adds MIT, nominal target-backbone 1020B/42B and MoE architecture, with proposed component and phase scopes. Corrects multimodal description to text-only. Keeps June 8 announcement, distinguishing June 9 Beijing trial access. Retains separate release because the exact identified checkpoint includes FP4-QAT weights and a separately trained drafter; no catalog exclusion proposed. Complete system count and current hosted availability are not asserted."
+}
