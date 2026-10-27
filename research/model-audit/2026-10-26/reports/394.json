@@ -1,7 +1,7 @@
 {
   "index": 394,
   "model_id": "nvidia/nemotron-voicechat",
-  "reviewed_at": "2026-10-27T01:10:04Z",
+  "reviewed_at": "2026-10-27T16:10:04Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Nemotron 3 VoiceChat model card",
       "publisher": "NVIDIA",
       "accessed": true,
-      "evidence": "The exact endpoint's complete Markdown card identifies the March 16, 2026 early-access v1.0 release as a nominal 12B integrated full-duplex speech model. Its architecture combines a Fast Conformer encoder, Nemotron Nano v2 9B language backbone and speech decoder/codec; the architecture label is hybrid Mamba/Transformer. It accepts and emits text and audio, lists the Evaluation License, describes training audio context of up to two minutes, and explicitly states it was not trained for reasoning or alignment. The function-calling reference is a training dataset, not a supported tool interface."
+      "evidence": "Reopened the exact Markdown endpoint on October 27, 2026 (HTTP 200). It still identifies the March 16, 2026 early-access v1.0 release as a nominal 12B integrated full-duplex speech model, explicitly naming and linking the NVIDIA-Nemotron-Nano-9B-v2 language backbone. Architecture includes a Fast Conformer speech encoder and speech decoder/codec. It accepts and emits text and audio, lists the Evaluation License, describes training audio context of up to two minutes, and explicitly states it was not trained for reasoning or alignment. The function-calling reference is a training dataset, not a supported tool interface. It supplies no separate active-parameter count."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "NVIDIA Nemotron 3 VoiceChat Early Access Program",
       "publisher": "NVIDIA",
       "accessed": true,
-      "evidence": "Identifies the early-access model as 12B and describes speech recognition, language modeling and speech generation integrated into one architecture. Advertises inspectable weights but describes model and container access through a qualified-developer early-access program. This is not direct verification of a public downloadable checkpoint."
+      "evidence": "Reopened October 27, 2026 (HTTP 200). The early-access program explicitly describes the model as 12B parameters with speech recognition, language modeling and speech generation integrated in one architecture. It advertises inspectable weights through access for qualified developers, not a separately verified public checkpoint. No active-parameter count is stated."
     },
     {
       "id": "s3",
@@ -41,7 +41,7 @@
       "title": "NVIDIA NemotronLabs VoiceChat 11B model card",
       "publisher": "NVIDIA",
       "accessed": true,
-      "evidence": "The later public NemotronLabs VoiceChat card names an 11B model, reports an August 3, 2026 release, uses OpenMDW 1.1 and explicitly supports tool calling through a separate output channel. The card does not bind these different specifications to the March 12B early-access checkpoint, so its weights, license and tools cannot fill this frozen record. The downloaded card was checked alongside repository metadata identifying this revision."
+      "evidence": "Reopened the pinned card and current card on October 27, 2026 (HTTP 200). Both call the later public NemotronLabs VoiceChat model 11B, give August 3, 2026 as its release date, specify OpenMDW 1.1, and document a separate tool-output channel. These different specifications are not bound to the March 12B early-access checkpoint; neither its total nor its architecture details establish the original release's active count."
     },
     {
       "id": "s6",
@@ -49,7 +49,7 @@
       "title": "NemotronLabs VoiceChat: An Open Full-duplex Speech-to-Speech Model with Tool Calling Capabilities",
       "publisher": "NVIDIA authors, arXiv",
       "accessed": true,
-      "evidence": "The later October 1, 2026 report revision describes the NemotronLabs model's unified streaming components and native tool outputs. Its component descriptions and counts do not establish a complete learned-parameter census or active count for the exact March 12B release."
+      "evidence": "Freshly reread the full October 1 report revision and its architecture/training sections. The later NemotronLabs model uses NVIDIA-Nemotron-Nano-9B-v2-Base, a 600M speech encoder, and a TTS module with a 778M Gemma 3-based decoder plus 199M codec (977M combined). It has separate agent-text and function heads, an auxiliary RNN-T branch and independently trained STT/TTS components. These are later-model component totals, not an explicit active-parameter convention or an identity mapping to the March 12B model."
     },
     {
       "id": "s7",
@@ -57,7 +57,55 @@
       "title": "SALM-Duplex: Efficient and Direct Duplex Modeling for Speech-to-Speech Language Model",
       "publisher": "NVIDIA authors, arXiv",
       "accessed": true,
-      "evidence": "This research paper is linked by the exact model card and describes the integrated duplex speech-modeling method. It predates the March 2026 release and does not identify the exact production checkpoint's complete or active learned-parameter count."
+      "evidence": "Freshly reread the full linked method paper, especially Section 3. Its experiment initializes TinyLlama-1.1B-chat with a 100M speech encoder and extends its vocabulary for speech tokens. This is a methodological predecessor with a different backbone, not an active-count disclosure for the March Nemotron VoiceChat checkpoint."
+    },
+    {
+      "id": "s8",
+      "url": "https://developer.nvidia.com/blog/building-nvidia-nemotron-3-agents-for-reasoning-multimodal-rag-voice-and-safety/",
+      "title": "Building NVIDIA Nemotron 3 Agents for Reasoning, Multimodal RAG, Voice, and Safety",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "The March 24, 2026 article's authored VoiceChat section explicitly describes the early-access integrated speech model as 12B parameters, built on the Nemotron Nano v2 LLM with speech encoder and TTS decoder. The 12B active-per-pass statement elsewhere in this article describes Nemotron 3 Super, not VoiceChat; it cannot supply VoiceChat activity."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-9B-v2/blob/main/README.md",
+      "title": "NVIDIA-Nemotron-Nano-9B-v2 model card",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Retrieved the full original backbone card October 27, 2026 (HTTP 200). This is the exact named checkpoint linked from the March VoiceChat card. It establishes a nominal 9B hybrid language model and references the Nano 2 report, but supplies no explicit active-parameter count; its total alone is not an activity convention."
+    },
+    {
+      "id": "s10",
+      "url": "https://arxiv.org/html/2508.14444v4",
+      "title": "NVIDIA Nemotron Nano 2: An Accurate and Efficient Hybrid Mamba-Transformer Reasoning Model",
+      "publisher": "NVIDIA authors, arXiv",
+      "accessed": true,
+      "evidence": "Freshly reread the original Nano 2 report, including architecture and Section 4.4. The nominal 9B model is compressed from a 12B model by pruning full layers, FFN widths and embedding channels; the resulting model retains 56 layers. Its comparisons, architecture and pruning sections do not explicitly give an activated-parameter count for the named 9B backbone. The 12B pre-pruning language model is not VoiceChat's integrated 12B total."
+    },
+    {
+      "id": "s11",
+      "url": "https://arxiv.org/html/2507.08128v1",
+      "title": "Audio Flamingo 3: Advancing Audio Intelligence with Fully Open Large Audio Language Models",
+      "publisher": "NVIDIA authors and collaborators, arXiv",
+      "accessed": true,
+      "evidence": "Read the original paper linked as the March VoiceChat TTS reference, including Section 3.1 and Appendix I. It explains a streaming decoder/codec and gives 644M for its three-layer MLP block, but no complete VoiceChat total or explicit active-parameter convention. The method reference does not identify an unchanged exact March speech-decoder checkpoint, so its component details cannot determine an integrated or per-phase active count."
+    },
+    {
+      "id": "s12",
+      "url": "https://directive4.ai/st4ts",
+      "title": "ST4TS: historical local inference measurements",
+      "publisher": "Directive4",
+      "accessed": true,
+      "evidence": "Freshly read the original hardware-benchmark page, exact Nemotron-Nano-9B-v2 row and methodology. The row lists 9B total and 9B active alongside August 12, 2026 measurements for a community Q4_K_M checkpoint on an R9700. The page documents throughput benchmarking, but does not identify a source or counting method for this active-parameter figure. It is an unresolved independent lead, not accepted as an established active convention for the backbone or the March VoiceChat model."
+    },
+    {
+      "id": "s13",
+      "url": "https://openreview.net/pdf?id=5LDnMNmuss",
+      "title": "Untangling Input Language from Reasoning Language",
+      "publisher": "OpenReview submission authors",
+      "accessed": false,
+      "evidence": "The search index exposes Table 26 with Nemotron-Nano-9B at 9B total/9B active, but the full primary PDF request encounters a browser-verification challenge. The same indexed table incorrectly labels GPT-OSS-20B as dense with 20B active, undermining its parameter convention. This unverified, internally suspect lead is not adopted."
     }
   ],
   "fields": {
@@ -122,12 +170,9 @@
       "source_ids": [
         "s1",
         "s2",
-        "s4",
-        "s5",
-        "s6",
-        "s7"
+        "s8"
       ],
-      "note": "NVIDIA reports 12B for the integrated early-access speech model. This is a nominal total, not an exact tensor census or the 9B backbone count. No accessible exact-release checkpoint was located for bounded-header counting; later public 11B weights and component counts cannot establish the March total."
+      "note": "Retain NVIDIA's explicit nominal 12B total for the integrated March 16 early-access model, independently repeated in its March 24 launch article. The identified 9B language backbone is a component; the later 11B NemotronLabs release does not replace this count. A tensor census is unnecessary to retain the published nominal specification."
     },
     "active_parameters_b": {
       "value": null,
@@ -136,9 +181,15 @@
         "s1",
         "s2",
         "s6",
-        "s7"
+        "s7",
+        "s8",
+        "s9",
+        "s10",
+        "s11",
+        "s12",
+        "s13"
       ],
-      "note": "The exact model card and program do not disclose per-token or per-phase active learned parameters. The linked method paper and later Labs report do not supply an exact March-release active count. Do not equate the nominal total or backbone size with activity across speech encoding, language decoding and speech synthesis."
+      "note": "Fresh original-source review found no supported active count for the March model or its named 9B backbone. The newer Labs report supplies component totals for a different release; SALM-Duplex uses TinyLlama, and Audio Flamingo 3 is a TTS method reference. Directive4 lists 9B active for the backbone without parameter-count provenance, while an inaccessible OpenReview comparison has an erroneous GPT-OSS activity row; neither establishes a reliable convention. Do not equate the integrated 12B total or 9B backbone size with activity or invent phase counts."
     },
     "architecture": {
       "value": "hybrid-ssm-transformer",
@@ -239,9 +290,15 @@
         "label": "NVIDIA Software and Model Evaluation License",
         "url": "https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-software-and-model-evaluation-license/",
         "type": "primary"
+      },
+      {
+        "label": "NVIDIA March 2026 VoiceChat launch details",
+        "url": "https://developer.nvidia.com/blog/building-nvidia-nemotron-3-agents-for-reasoning-multimodal-rag-voice-and-safety/",
+        "type": "primary"
       }
     ],
-    "notes": "March 2026 early-access Nemotron 3 VoiceChat, advertised as 12B total parameters. The later public 11B NemotronLabs VoiceChat is a different release. Training audio context is up to two minutes; a token limit and active parameter count are not disclosed. Public availability of the exact early-access weights and supported tool calling remain unverified."
+    "notes": "March 2026 early-access Nemotron 3 VoiceChat: NVIDIA reports 12B total parameters, including a named 9B Nano v2 language backbone. An active count is not disclosed. The later public 11B NemotronLabs release is distinct. Training audio context is up to two minutes; a token limit, public availability of the exact early-access weights and supported tool calling remain unverified.",
+    "active_parameters_b": null
   },
-  "summary": "Verified the exact March 16 early-access Nemotron 3 VoiceChat identity, nominal 12B integrated model, hybrid Mamba/Transformer architecture, evaluation license, text/audio inputs and text/audio outputs. Corrected the name and unsupported visual-reasoning description; cleared unsupported public-open weights, 128K-token context and tool-calling assertions. Retained no dedicated reasoning mode from the explicit card limitation. Exact learned and active counts remain unavailable; the later public 11B NemotronLabs release was inspected but not substituted."
+  "summary": "Fresh October 27 parameter review retains the directly published nominal 12B integrated total from the exact March 16 card, early-access page and March 24 launch article. Active parameters remain undisclosed after reviewing the Nano 2 backbone, original speech-model methods, later NemotronLabs report and two insufficiently supported active-count leads. The later 11B model and predecessor/component totals are not substituted. The other twelve field assessments are preserved."
 }
