@@ -1,0 +1,366 @@
+{
+  "index": 447,
+  "model_id": "openai/gpt-oss-20b",
+  "reviewed_at": "2026-10-27T02:49:16.964809Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://openai.com/index/introducing-gpt-oss/",
+      "title": "Introducing gpt-oss \u2014 August 5, 2025",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Explicit release of gpt-oss-20b on August 5, 2025, under Apache 2.0; identifies the gpt-oss family, text-only training, reasoning and tool use. Its 21B total and 3.6B active figures are rounded launch figures."
+    },
+    {
+      "id": "s2",
+      "url": "https://cdn.openai.com/pdf/419b6906-9da6-406c-a19d-1bb078ac7637/oai_gpt-oss_model_card.pdf",
+      "title": "gpt-oss-120b & gpt-oss-20b Model Card \u2014 August 5, 2025",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Exact 20b column of Table 1 reports 20.91B total and 3.61B active per token per forward pass; active includes unembedding and excludes embedding. Sections 2 and 2.2 describe 24-layer autoregressive MoE Transformer, 32 experts with top-4 routing, GQA, alternating local/full attention, learned attention sinks, and 131,072-token context. Sections 1 and 2.5 establish text-only I/O, reasoning, tools, and Harmony format."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/openai/gpt-oss-20b/resolve/6cee5e81ee83917806bbde320786a8fb61efebee/README.md",
+      "title": "Pinned gpt-oss-20b model card",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Official exact model name, open downloadable weights, Apache 2.0, configurable low/medium/high reasoning, native function calling, and required Harmony format. Describes MXFP4 quantization of MoE weights."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/openai/gpt-oss-20b/resolve/6cee5e81ee83917806bbde320786a8fb61efebee/config.json",
+      "title": "Pinned gpt-oss-20b Transformers configuration",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "24 layers; hidden/intermediate width 2880; 32 experts, 4 selected; 64 query and 8 KV heads of width 64; vocabulary 201088; max_position_embeddings 131072; tie_word_embeddings false; attention biases enabled; alternating local/full attention; MXFP4 expert quantization."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/openai/gpt-oss-20b/resolve/6cee5e81ee83917806bbde320786a8fb61efebee/original/config.json",
+      "title": "Pinned gpt-oss-20b reference configuration",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Original checkpoint independently specifies 24 layers, 32 experts, top-4 routing, hidden and intermediate size 2880, vocabulary 201088, 64 query heads, 8 KV heads and head size 64; matches converted configuration."
+    },
+    {
+      "id": "s6",
+      "url": "https://raw.githubusercontent.com/openai/gpt-oss/5681a6b6552635e7b29cde94a61ca6a7aee90ebd/gpt_oss/torch/model.py",
+      "title": "Pinned OpenAI PyTorch reference model",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "All enabled modules were reconstructed from this implementation and the 20B configuration: separate embedding and bias-free unembedding; two norms per layer and final norm; biased QKV/output attention projections, learned sinks, biased router, two biased expert projections. Rotary frequencies and lookup constants are computed non-parameter values. Original checkpoint header matches all 315 logical parameter tensors."
+    },
+    {
+      "id": "s7",
+      "url": "https://raw.githubusercontent.com/openai/gpt-oss/5681a6b6552635e7b29cde94a61ca6a7aee90ebd/gpt_oss/torch/weights.py",
+      "title": "Pinned OpenAI MXFP4 checkpoint loader",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Each U8 packed block holds two 4-bit logical weights per byte; 16 bytes represent 32 weights. Paired scales are quantization metadata used to reconstruct those weights, not additional learned parameters. All 48 packed expert matrices have matching scale shapes and no padding beyond configured logical dimensions."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/openai/gpt-oss-20b/resolve/6cee5e81ee83917806bbde320786a8fb61efebee/model.safetensors.index.json",
+      "title": "Pinned full checkpoint shard index",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "All 459 indexed tensor entries across three named shards were matched exactly to their bounded headers, with no missing or duplicate tensors. Indexed total_size 13,761,264,768 bytes equals all tensor data byte spans; this storage size is not the parameter count."
+    },
+    {
+      "id": "s90",
+      "url": "https://huggingface.co/openai/gpt-oss-20b/resolve/6cee5e81ee83917806bbde320786a8fb61efebee/model-00000-of-00002.safetensors",
+      "title": "Pinned checkpoint shard 00000 bounded tensor header",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Read only bytes 0\u20137 and 8\u201322247, with HTTP 206 Content-Range verified. Header enumerates 196 tensors. Every name, shape and dtype matches the index and the mapped original-reference modules; data offsets cover the declared file payload contiguously. No weight payload downloaded."
+    },
+    {
+      "id": "s91",
+      "url": "https://huggingface.co/openai/gpt-oss-20b/resolve/6cee5e81ee83917806bbde320786a8fb61efebee/model-00001-of-00002.safetensors",
+      "title": "Pinned checkpoint shard 00001 bounded tensor header",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Read only bytes 0\u20137 and 8\u201322311, with HTTP 206 Content-Range verified. Header enumerates 197 tensors. Every name, shape and dtype matches the index and the mapped original-reference modules; data offsets cover the declared file payload contiguously. No weight payload downloaded."
+    },
+    {
+      "id": "s92",
+      "url": "https://huggingface.co/openai/gpt-oss-20b/resolve/6cee5e81ee83917806bbde320786a8fb61efebee/model-00002-of-00002.safetensors",
+      "title": "Pinned checkpoint shard 00002 bounded tensor header",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Read only bytes 0\u20137 and 8\u20137575, with HTTP 206 Content-Range verified. Header enumerates 66 tensors. Every name, shape and dtype matches the index and the mapped original-reference modules; data offsets cover the declared file payload contiguously. No weight payload downloaded."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/openai/gpt-oss-20b/resolve/6cee5e81ee83917806bbde320786a8fb61efebee/original/model.safetensors",
+      "title": "Pinned original checkpoint bounded tensor header",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Read only bytes 0\u20137 and 8\u201336215 with HTTP 206 Content-Range verified. All 363 storage tensors reconstruct exactly 315 parameter tensors matching every reference module. Paired MXFP4 scales excluded; packed weights expanded. Converted three-shard inventory independently reconciles to this original inventory and the same total. All four headers together required 88,352 bytes, with no weight payload downloaded."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/openai/gpt-oss-20b/resolve/6cee5e81ee83917806bbde320786a8fb61efebee/LICENSE",
+      "title": "Pinned gpt-oss-20b license",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Repository license file is Apache License Version 2.0; the release announcement and official model card expressly apply it to the released weights."
+    },
+    {
+      "id": "s12",
+      "url": "https://deploymentsafety.openai.com/gpt-oss",
+      "title": "Current official gpt-oss model card publication",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "The currently available official model-card table retains the exact 20b column: 20.91B total, 3.61B active, with its embedding convention. Confirms the original technical report rather than transferring specifications from the separate safeguard fine-tunes."
+    },
+    {
+      "id": "s13",
+      "url": "https://developers.openai.com/api/docs/models/gpt-oss-20b",
+      "title": "Current OpenAI gpt-oss-20b model reference",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Current exact-model documentation lists 131,072 context, text input/output, reasoning and function calling. Its 21B/3.6B summary remains rounded. The generic API navigation is not treated as evidence that OpenAI hosts this open checkpoint."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "gpt-oss-20b",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Official model spelling; replaces catalog title casing."
+    },
+    "developer": {
+      "value": "OpenAI",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Original developer and publisher."
+    },
+    "family": {
+      "value": "gpt-oss",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Original gpt-oss release family; this is the base 20b reasoning model, not the separate safeguard fine-tune."
+    },
+    "release_date": {
+      "value": "2025-08-05",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Original release announcement and dated model card both explicitly establish August 5, 2025; later arXiv submission is not the release date."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s8"
+      ],
+      "note": "Official checkpoint is publicly distributed by OpenAI; bounded header access succeeded."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s11"
+      ],
+      "note": "Named license verified in the released repository and announcement; a separate gpt-oss usage policy is also published."
+    },
+    "parameters_b": {
+      "value": 20.914757184,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s90",
+        "s91",
+        "s92",
+        "s10"
+      ],
+      "note": "Complete logical learned-parameter count: 20,914,757,184 / 1e9 = 20.914757184B, derived from pinned config, reference implementation and every tensor header. All 459 indexed converted tensors and all 363 original storage tensors reconcile to 315 original parameter tensors. Count = 2 \u00d7 (201088 \u00d7 2880) untied embedding/output weights + 49 \u00d7 2880 norm scales + 24 \u00d7 [26,550,144 attention parameters including QKV/output biases and 64 learned sinks + 92,192 router weight/bias parameters + 796,538,880 expert weights/biases]. Equivalently: embedding 579,133,440; unembedding 579,133,440; norms 141,120; attention 637,203,456; routers 2,212,608; experts 19,116,933,120. The 9,555,148,800 packed U8 elements expand to 19,110,297,600 logical weights; 597,196,800 auxiliary scale elements are excluded. RoPE values and decoding lookup constants add no learned parameters. All shapes, dtype byte lengths, contiguous offsets, index membership and file payload extents were checked using 88,352 header bytes only. This complete count agrees with the model card rounded 20.91B; the model name 20B is not the count."
+    },
+    "active_parameters_b": {
+      "value": 3.61,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s12"
+      ],
+      "note": "Official rounded figure from the exact 20b Table 1 column, in billions per token per forward pass. The publisher explicitly includes the output/unembedding matrix but excludes the input embedding; four of 32 experts are selected per layer. This is a scoped source-reported nominal active count, not a storage count or a claim that every parameter is active."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "note": "24-layer autoregressive MoE Transformer; hidden width 2880, 32 SwiGLU experts per layer, top-4 router. GQA uses 64 query/8 KV heads of width 64; full attention alternates with 128-token sliding attention. Includes learned attention sinks, RMSNorm and YaRN-scaled RoPE."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s13"
+      ],
+      "note": "Exact configured and documented context in tokens; 128K launch shorthand means 131,072 here."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s13"
+      ],
+      "note": "Text-only model; tool invocation and text reasoning do not establish image/audio/video input."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3"
+      ],
+      "note": "Post-trained chain-of-thought reasoning with low, medium and high effort; Harmony analysis channel carries reasoning."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s13"
+      ],
+      "note": "Native developer function calling is documented, alongside browsing and Python tools; Harmony carries tool calls and responses."
+    },
+    "description": {
+      "value": "Open-weight text reasoning model with 32 experts per layer, four selected per token, and function calling in Harmony format.",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "note": "Replaces vague deployment language with verified architecture, text reasoning and function-calling behavior."
+    }
+  },
+  "patch": {
+    "name": "gpt-oss-20b",
+    "license": "Apache-2.0",
+    "parameters_b": 20.914757184,
+    "active_parameters_b": 3.61,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "description": "Open-weight text reasoning model with 32 experts per layer, four selected per token, and function calling in Harmony format.",
+    "source_url": "https://openai.com/index/introducing-gpt-oss/",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Introducing gpt-oss \u2014 August 5, 2025",
+        "url": "https://openai.com/index/introducing-gpt-oss/",
+        "type": "primary"
+      },
+      {
+        "label": "gpt-oss-120b & gpt-oss-20b Model Card \u2014 August 5, 2025",
+        "url": "https://cdn.openai.com/pdf/419b6906-9da6-406c-a19d-1bb078ac7637/oai_gpt-oss_model_card.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned gpt-oss-20b model card",
+        "url": "https://huggingface.co/openai/gpt-oss-20b/resolve/6cee5e81ee83917806bbde320786a8fb61efebee/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "Pinned gpt-oss-20b Transformers configuration",
+        "url": "https://huggingface.co/openai/gpt-oss-20b/resolve/6cee5e81ee83917806bbde320786a8fb61efebee/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Pinned gpt-oss-20b reference configuration",
+        "url": "https://huggingface.co/openai/gpt-oss-20b/resolve/6cee5e81ee83917806bbde320786a8fb61efebee/original/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Pinned OpenAI PyTorch reference model",
+        "url": "https://raw.githubusercontent.com/openai/gpt-oss/5681a6b6552635e7b29cde94a61ca6a7aee90ebd/gpt_oss/torch/model.py",
+        "type": "technical"
+      },
+      {
+        "label": "Pinned OpenAI MXFP4 checkpoint loader",
+        "url": "https://raw.githubusercontent.com/openai/gpt-oss/5681a6b6552635e7b29cde94a61ca6a7aee90ebd/gpt_oss/torch/weights.py",
+        "type": "technical"
+      },
+      {
+        "label": "Pinned full checkpoint shard index",
+        "url": "https://huggingface.co/openai/gpt-oss-20b/resolve/6cee5e81ee83917806bbde320786a8fb61efebee/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Pinned checkpoint shard 00000 bounded tensor header",
+        "url": "https://huggingface.co/openai/gpt-oss-20b/resolve/6cee5e81ee83917806bbde320786a8fb61efebee/model-00000-of-00002.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Pinned checkpoint shard 00001 bounded tensor header",
+        "url": "https://huggingface.co/openai/gpt-oss-20b/resolve/6cee5e81ee83917806bbde320786a8fb61efebee/model-00001-of-00002.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Pinned checkpoint shard 00002 bounded tensor header",
+        "url": "https://huggingface.co/openai/gpt-oss-20b/resolve/6cee5e81ee83917806bbde320786a8fb61efebee/model-00002-of-00002.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Pinned original checkpoint bounded tensor header",
+        "url": "https://huggingface.co/openai/gpt-oss-20b/resolve/6cee5e81ee83917806bbde320786a8fb61efebee/original/model.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Pinned gpt-oss-20b license",
+        "url": "https://huggingface.co/openai/gpt-oss-20b/resolve/6cee5e81ee83917806bbde320786a8fb61efebee/LICENSE",
+        "type": "weights"
+      },
+      {
+        "label": "Current official gpt-oss model card publication",
+        "url": "https://deploymentsafety.openai.com/gpt-oss",
+        "type": "primary"
+      },
+      {
+        "label": "Current OpenAI gpt-oss-20b model reference",
+        "url": "https://developers.openai.com/api/docs/models/gpt-oss-20b",
+        "type": "primary"
+      }
+    ],
+    "notes": "Complete checkpoint count: 20,914,757,184 logical parameters, including separate input/output embeddings, norms, attention biases/sinks, routers and expert biases. MXFP4 packed weights are expanded; quantization scales are excluded. Official active count is rounded 3.61B per token per forward pass, including unembedding but excluding input embedding (model-card Table 1). Harmony format is required. Release: August 5, 2025; Apache 2.0 weights."
+  },
+  "summary": "All 14 fields independently verified. Correct name, fill Apache-2.0 and MoE architecture, replace name-derived 20B with the complete 20.914757184B logical checkpoint count, and add official scoped nominal 3.61B active count. Every original and indexed converted tensor header was checked against pinned configuration and official implementation; no full weights downloaded. Preserve August 5, 2025 release, 131072 context, text modalities, reasoning and tool calling; replace unsupported promotional description."
+}
