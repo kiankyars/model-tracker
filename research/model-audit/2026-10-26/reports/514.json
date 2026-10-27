@@ -1,7 +1,7 @@
 {
   "index": 514,
   "model_id": "upstage/solar-10.7b-instruct-v1.0",
-  "reviewed_at": "2026-10-27T05:09:15.768561Z",
+  "reviewed_at": "2026-10-27T18:13:04.841177+00:00",
   "sources": [
     {
       "id": "s1",
@@ -146,6 +146,30 @@
       "publisher": "Hugging Face exact-model repository",
       "accessed": true,
       "evidence": "Accessed through the discussion API. A community pull request opened December 13 at 05: 30UTC and merged shortly afterward establishes public repository interaction that day. The December 12 repository/weight-upload timestamp alone cannot establish public availability."
+    },
+    {
+      "id": "s14",
+      "url": "https://arxiv.org/html/2604.09048v1",
+      "title": "Watt Counts: original inference-energy benchmark, Section 5.2 and Table 11",
+      "publisher": "Mauricio Fadel Argerich, Jonathan F\u00fcrst and Marta Pati\u00f1o-Mart\u00ednez; Universidad Polit\u00e9cnica de Madrid and Zurich University of Applied Sciences",
+      "accessed": true,
+      "evidence": "Fresh original HTML and full PDF inspected, including a visual check of Table 11 on PDF page 17. The exact upstage/SOLAR-10.7B-Instruct-v1.0 row reports Total Params (B) 10.700 and Active Params (B) 10.700, with evaluation on eight GPUs. Section 5.2 defines the authors\u2019 dense-model benchmark convention as active equal to total. Appendix C reports actual Solar measurements and explicitly recognizes its depth-upscaled architecture. This supports nominal active 10.7B under this independent research convention, not an Upstage disclosure or a measured token-specific tensor census."
+    },
+    {
+      "id": "s15",
+      "url": "https://arxiv.org/html/2606.05170v1",
+      "title": "ERRORQUAKE: active-size plot and model-identification limitations",
+      "publisher": "Jason Z Wang, independent researcher",
+      "accessed": true,
+      "evidence": "Fresh full HTML reviewed. Figure 2 plots active size and includes solar-10.7b, but the source does not identify the exact Solar repository/checkpoint. Appendix D directs readers to Appendix N for active counts and architecture labels; Appendix N instead supplies leave-one-out correlations. The study also includes mistral-medium-3 within its open-weight dense roster without resolving that identity. Its untraced Solar plot label is not used to establish this exact checkpoint\u2019s active count."
+    },
+    {
+      "id": "s16",
+      "url": "https://ceur-ws.org/Vol-4070/short1.pdf",
+      "title": "Instruction-tuned Quantized Small Language Models: original Solar/Mixtral comparison",
+      "publisher": "Elijah Soba, Harika Abburi, Nirmala Pudota and colleagues, Deloitte; CEUR Workshop Proceedings",
+      "accessed": true,
+      "evidence": "Fresh full seven-page original proceedings paper reviewed. Sections 3.3/4 and the conclusion describe Solar 10.7B and Mixtral 8x7B as having fewer than 15B active parameters. That is only a bound, not an exact Solar active size; the paper also studies separately quantized and QDoRA-tuned derivatives. It is not the source of the adopted 10.7B active count."
     }
   ],
   "fields": {
@@ -223,19 +247,19 @@
         "h3",
         "h4",
         "h5",
-        "s4"
+        "s4",
+        "s1",
+        "s6"
       ],
-      "note": "Complete learned count: 10, 731, 524, 096 parameters, not merely the nominal 10.7B name. All 435 F 16 tensors across five bounded headers reconcile exactly with the index and configured Llama modules. Formula: 2\u00d732000\u00d74096+4096+48\u00d7[2\u00d74096\u00d7(4096+1024)+3\u00d74096\u00d714336+2\u00d74096]. Embedding/output matrices are untied and both counted. Nonpersistent RoPE caches/frequencies are excluded; no quantization metadata, persistent buffers, adapters, multimodal encoders, or MTP modules exist in this checkpoint. Only 50, 184 header bytes were fetched, with offsets/file lengths checked; no weight payloads downloaded."
+      "note": "Retain the original audit\u2019s complete count of 10,731,524,096 learned parameters (10.731524096B), reconciled across all 435 F16 tensors and five bounded headers. Freshly reopened pinned config and index still specify 48 layers, width 4096, intermediate width 14336, 32000 vocabulary, untied embeddings and 21,463,048,192 F16 payload bytes. Recomputed configured count: 2\u00d732000\u00d74096+4096+48\u00d7[2\u00d74096\u00d7(4096+1024)+3\u00d74096\u00d714336+2\u00d74096]. Both embedding/output matrices are counted; nonpersistent RoPE buffers are excluded. The creator card and original report separately support nominal 10.7B. The previous header reconciliation is retained; no weight shards or headers were requested in this re-audit."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 10.7,
+      "status": "verified",
       "source_ids": [
-        "s1",
-        "s6",
-        "s7"
+        "s14"
       ],
-      "note": "No independently defined active-per-token count is stated in the exact card or first-party training reports checked. Dense architecture does not justify copying total parameters into an active field."
+      "note": "Nominal 10.7B under the Watt Counts authors\u2019 published benchmark convention: Table 11 explicitly identifies upstage/SOLAR-10.7B-Instruct-v1.0 and lists 10.700B active; Section 5.2 defines its convention for dense models. The study reports this exact checkpoint\u2019s inference measurements on eight GPUs and recognizes the DUS architecture. Attribute this to Fadel Argerich, F\u00fcrst and Pati\u00f1o-Mart\u00ednez, not Upstage. It is not a claim that precisely 10.7B individual learned parameters participate for every token; the exact total remains 10.731524096B. No active-count transfer from the structurally smaller Mistral 7B ancestor is used."
     },
     "architecture": {
       "value": "dense",
@@ -317,7 +341,7 @@
     "reasoning": null,
     "tool_call": null,
     "description": "Instruction-tuned SOLAR text model built with depth up-scaling and optimized for single-turn conversation.",
-    "notes": "Exact original F 16 checkpoint contains 10, 731, 524, 096 learned parameters across 435 tensors in five shards; 10.7B is the nominal name. It is a dense 48-layer Llama model, but an active-per-token count is not separately disclosed. CC-BY-NC-4.0 applies to Instruct; the base model uses Apache-2.0. December 13, 2023 is the explicit model-release date reported by NVIDIA and corroborated by the mirrored creator announcement; December 12 is only an upload timestamp, and direct access to the original announcement was unavailable. Dedicated reasoning/tool-calling support is unverified.",
+    "notes": "Exact original F16 checkpoint contains 10,731,524,096 learned parameters across 435 tensors; 10.7B is the nominal name. Watt Counts Table 11 reports this exact checkpoint at 10.7B active under the authors\u2019 nominal dense-model benchmark convention, not an Upstage per-token disclosure. CC-BY-NC-4.0 applies to Instruct; the base model uses Apache-2.0. December 13, 2023 is the explicit model-release date reported by NVIDIA and corroborated by the mirrored creator announcement; December 12 is only an upload timestamp, and direct access to the original announcement was unavailable. Dedicated reasoning/tool-calling support is unverified.",
     "sources": [
       {
         "label": "Exact Upstage Instruct model card",
@@ -348,8 +372,60 @@
         "label": "Upstage developer license clarification",
         "url": "https://huggingface.co/upstage/SOLAR-10.7B-Instruct-v1.0/discussions/16",
         "type": "primary"
+      },
+      {
+        "label": "Watt Counts exact-checkpoint nominal active-count convention",
+        "url": "https://arxiv.org/html/2604.09048v1",
+        "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": 10.7
   },
-  "summary": "Verified all 14 public fields against the exact original checkpoint and first-party research. Replaces nominal 10.7B with complete 10.731524096B learned count after all-five-shard/module reconciliation, identifies dense architecture, preserves 4096 text context and CC-BY-NC-4.0, corrects December 12 upload-derived date to documented December 13 release with secondary provenance, clears unsupported reasoning/tool-call false values, and clarifies single-turn intended use. Active parameters remain undisclosed; direct original launch-post access is unavailable."
+  "summary": "Fresh parameter re-audit retains the complete 10.731524096B learned total and resolves nominal active size to 10.7B from the exact checkpoint row in the original Watt Counts benchmark, with its counting convention and independent authorship stated explicitly. Creator card/config/index and original SOLAR/sDPO reports were rechecked; ERRORQUAKE\u2019s ambiguous plot and the CEUR less-than-15B bound are not used as exact-count evidence. All twelve other field assessments are preserved, including dense architecture, 4096 text context, CC-BY-NC-4.0, December 13 release with secondary provenance, single-turn intended use and unverified dedicated reasoning/tool-calling support.",
+  "parameter_reaudit": {
+    "agent": "/root/parameters_514",
+    "reviewed_at": "2026-10-27T18:13:04.841177+00:00",
+    "outcome": "Retain precise 10.731524096B total; establish nominal active 10.7B from an original exact-checkpoint research benchmark.",
+    "fresh_search_queries": [
+      "\"SOLAR-10.7B-Instruct\" \"active\" parameters",
+      "\"Solar\" \"10.7\" \"activated\" parameters",
+      "\"SOLAR-10.7B-Instruct-v1.0\" parameters total",
+      "\"SOLAR\" \"10.7\" \"active parameters\"",
+      "\"SOLAR\" \"10.7\" \"activated parameters\"",
+      "\"SOLAR-10.7B\" \"Active Params\"",
+      "\"SOLAR\" \"10.7\" \"Active\" arxiv",
+      "\"SOLAR-10.7B\" \"energy\" \"active\"",
+      "\"SOLAR-10.7B\" \"Energy Per Token\" \"335\"",
+      "\"SOLAR\" \"10.7\" \"active parameter count\""
+    ],
+    "original_sources_checked": [
+      "s1",
+      "s2",
+      "s3",
+      "s6",
+      "s7",
+      "s14",
+      "s15",
+      "s16"
+    ],
+    "fresh_total_verification": {
+      "pinned_revision": "090d405e6fe7b4c7b0b999a67f5c6dee0514a7ad",
+      "configured_count": 10731524096,
+      "index_tensors": 435,
+      "index_f16_payload_bytes": 21463048192,
+      "prior_header_reconciliation_retained": true
+    },
+    "lineage_assessment": "The exact creator card identifies an instruction fine-tune of SOLAR-10.7B-v1.0. The original technical report explicitly constructs the base by expanding 32 Mistral-initialized layers to 48 and then continuing pretraining; therefore an unchanged 7B active-count transfer would be invalid. The accepted active evidence directly names the Solar Instruct checkpoint and requires no ancestor transfer.",
+    "search_findings": "Fresh creator/card/index/config and original SOLAR/sDPO reports retain nominal 10.7B and do not separately disclose active counts. A fresh search led through a paper index to the original Watt Counts arXiv HTML/PDF. Table 11 supplies an explicit exact-ID active column and Section 5.2 states the authors\u2019 convention; Appendix C contains Solar measurements. The adopted 10.7 is nominal, despite the table\u2019s padded three-decimal formatting. ERRORQUAKE lacks exact checkpoint identification and its referenced numeric appendix; CEUR provides only a less-than-15B bound. Secondary model directories were not used as active-count evidence.",
+    "source_quality_assessment": "Watt Counts is an original inference study, with exact Hub IDs and measurements, rather than a model directory. Some unrelated rows misclassify MoE models (including Qwen1.5-MoE-A2.7B-Chat) as dense; this cautions against transferring its table wholesale. The Solar row\u2019s dense classification, identity and nominal size independently agree with Upstage\u2019s exact artifacts, and the study explicitly discusses Solar\u2019s depth up-scaling. Thus its stated nominal active convention is usable for this row only, with attribution; it is not an independent active-tensor census.",
+    "access_limitations": "The web reader could not open the raw pinned Hugging Face README, but a direct original URL fetch returned HTTP 200. All three fresh pinned card/config/index fetches succeeded. No gated artifacts or weight shards were requested.",
+    "remaining_uncertainty": "No Upstage separately defined active-per-token count or exact token-dependent participation census was found. The catalog value is the explicitly attributed nominal research convention.",
+    "cache_directory": "/tmp/parameter-514-reaudit",
+    "original_report_caches": [
+      "/tmp/remaining-parameter-primary-cache/17.txt",
+      "/tmp/remaining-parameter-primary-cache/18.txt"
+    ],
+    "visual_verification": "/tmp/parameter-514-reaudit/watt-counts-table11.png",
+    "weight_shards_requested": false
+  }
 }
