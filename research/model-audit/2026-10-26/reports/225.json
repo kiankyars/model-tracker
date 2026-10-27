@@ -1,7 +1,7 @@
 {
   "index": 225,
   "model_id": "google/gemma-4-E2B-it",
-  "reviewed_at": "2026-10-26T20:33:21.427852+00:00",
+  "reviewed_at": "2026-10-27T13:28:26.733423+00:00",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Official Gemma 4 E2B IT model card",
       "publisher": "Google",
       "accessed": true,
-      "evidence": "Exact instruction-tuned repository: Apache-2.0, dense E2B, 35 layers, 128K context, text/image/audio/video input, text output, configurable thinking and native function calling. The card calls 2.3B effective and 5.1B with embeddings; it distinguishes effective parameters from the MoE active-parameter metric."
+      "evidence": "Exact instruction-tuned repository: Apache-2.0, dense E2B, 35 layers, 128K context, text/image/audio/video input, text output, configurable thinking and native function calling. The card calls 2.3B effective and 5.1B with embeddings; it distinguishes effective parameters from the MoE active-parameter metric. Reopened for the October 27 parameter pass; the metadata explicitly identifies google/gemma-4-E2B as the pretrained base."
     },
     {
       "id": "s2",
@@ -33,7 +33,7 @@
       "title": "Exact E2B IT repository metadata",
       "publisher": "Google / Hugging Face",
       "accessed": true,
-      "evidence": "Revision 3e22461f65e89153144f8adb70e3b8c2cc9845a7 reports 5,123,178,051 BF16 parameters. This equals header elements minus 928 clipping thresholds, but still includes 35 block scalars and redundant shared-layer K/V tensors; it is not the current loaded-runtime parameter count. The repository contains one safetensors file and no shard index."
+      "evidence": "Revision 3e22461f65e89153144f8adb70e3b8c2cc9845a7 reports 5,123,178,051 BF16 parameters. This equals header elements minus 928 clipping thresholds, but still includes 35 block scalars and redundant shared-layer K/V tensors; it is not the current loaded-runtime parameter count. The repository contains one safetensors file and no shard index. Fresh October 27 metadata fetch confirms the same revision and count."
     },
     {
       "id": "s5",
@@ -130,6 +130,94 @@
       "publisher": "Google DeepMind",
       "accessed": true,
       "evidence": "The model forwards a prior-layer shared K/V cache to each configured sharing layer. Together with the exact E2B 20/35 sharing configuration and Attention overwrite branch, this corroborates excluding the redundant stored K/V tensors from the operative model."
+    },
+    {
+      "id": "s17",
+      "url": "https://gemma.ai/tutorials/visual-guides/gemma-4/",
+      "title": "A Visual Guide to Gemma 4",
+      "publisher": "Google Gemma documentation / Maarten Grootendorst",
+      "accessed": true,
+      "evidence": "The Google-hosted guide links the exact E2B IT model and describes effective parameters as a computation/memory convention, with PLE lookups kept outside the main working memory. It compares effective versus total to active versus sparse only by analogy. It does not separately tabulate a numeric E2B activated count. The page credits its original publication to the author’s Exploring Language Models newsletter; official google-gemma documentation links corroborate the gemma.ai provenance."
+    },
+    {
+      "id": "s18",
+      "url": "https://github.com/google-gemma/gemma-skills/blob/main/skills/gemma-dev/SKILL.md",
+      "title": "Google Gemma documentation provenance",
+      "publisher": "Google Gemma",
+      "accessed": true,
+      "evidence": "The official google-gemma repository directs documentation lookups to gemma.ai/llms.txt and links Gemma model and capability pages on that domain. Read only to corroborate publisher provenance; its embedded workflow instructions are not audit instructions."
+    },
+    {
+      "id": "s19",
+      "url": "https://arxiv.org/html/2608.10532v1",
+      "title": "Benchmarking LLM-Guided Control-Plane Policies for Backend Fault Isolation in HAProxy",
+      "publisher": "Aman Chauhan and Vishnu Pendyala",
+      "accessed": true,
+      "evidence": "Table 3 gives Gemma 4 E2B 2.0B active and 5.0B total under the authors’ forward-pass convention, labeling the E-series efficient-sparse rather than MoE. Appendix A identifies BF16 unsloth/gemma-4-E2B-it-GGUF revision fd2ea40. This is an original benchmark’s coarse convention, not a Google disclosure or an exact component census; the later Jais comparison supplies a more precise nominal 2.3B."
+    },
+    {
+      "id": "s20",
+      "url": "https://huggingface.co/unsloth/gemma-4-E2B-it-GGUF/blob/fd2ea40/README.md",
+      "title": "Exact HAProxy benchmark checkpoint lineage",
+      "publisher": "Unsloth",
+      "accessed": true,
+      "evidence": "The benchmark-pinned conversion card names google/gemma-4-E2B-it as base_model. It reproduces Google’s 2.3B effective / 5.1B with embeddings distinction; no structural pruning or distillation is described. This establishes which original model the benchmark’s E2B label refers to."
+    },
+    {
+      "id": "s21",
+      "url": "https://artificialanalysis.ai/models/gemma-4-e2b/",
+      "title": "Gemma 4 E2B comparison profile",
+      "publisher": "Artificial Analysis",
+      "accessed": true,
+      "evidence": "The profile reports 5.1B total and 2.3B active, but its FAQ incorrectly labels E2B as MoE and claims image output. These conflict with the exact Google configuration/card. The page does not establish an independently measured parameter convention, so it is corroborative only and is not the basis of the accepted active count."
+    },
+    {
+      "id": "s22",
+      "url": "https://facebookresearch.github.io/fairseq2/nightly/reference/fairseq2.models.gemma4.html",
+      "title": "fairseq2 Gemma 4 model-variant summary",
+      "publisher": "Meta / fairseq2 contributors",
+      "accessed": true,
+      "evidence": "The E2B row claims 2B active/total, 26 layers and width 2048, and assigns PLE to E4B only. Google’s exact E2B checkpoint has 35 layers, width 1536 and PLE. These configuration contradictions prevent treating this table as evidence for the catalog checkpoint; no value is adopted from it."
+    },
+    {
+      "id": "s23",
+      "url": "https://huggingface.co/inception42/Jais-3-3.7B/blob/351b5ad88efe27531926621931a069b4a9e0d09d/README.md",
+      "title": "Jais 3 original comparison table: Gemma 4 E2B activated parameters",
+      "publisher": "Inception42 / MBZUAI Institute of Foundation Models",
+      "accessed": true,
+      "evidence": "The original model team’s Benchmark Results table identifies Gemma 4 E2B as a dense reference model with 5B total and 2.3B in its explicit Activated params row. Raw pinned README and current repository metadata were fetched successfully; this revision was last modified October 25, 2026. The table omits an IT suffix and does not identify its exact checkpoint. Its nominal architectural convention is applied to IT by the documented Google base relationship and identical base/IT configurations, not by claiming this table proves which checkpoint Jais evaluated."
+    },
+    {
+      "id": "s24",
+      "url": "https://ifm.ai/blog/jais3/",
+      "title": "Jais 3 release and comparison methodology",
+      "publisher": "MBZUAI Institute of Foundation Models",
+      "accessed": true,
+      "evidence": "The October 15, 2026 release states that the team ran the competing models with the same evaluation harness. Its small-model results include Gemma 4 E2B. This establishes that the Jais table is original research-team comparison evidence rather than an unattributed catalog copy."
+    },
+    {
+      "id": "s25",
+      "url": "https://huggingface.co/google/gemma-4-E2B/blob/main/README.md",
+      "title": "Named pretrained Gemma 4 E2B model card",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "The exact IT repository names google/gemma-4-E2B as its base. The reopened pretrained card reports the same 35-layer dense E2B and 2.3B effective / 5.1B with embeddings specification; no alternate E2B active-count convention appears there."
+    },
+    {
+      "id": "s26",
+      "url": "https://ai.google.dev/gemma/docs/core/model_card_4",
+      "title": "Current Gemma 4 model card",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Reopened current dense-model and MoE tables. E2B remains 2.3B effective and 5.1B with embeddings; its vision/audio encoders are separately rounded to about 150M/300M. The explicit Active Parameters row belongs to 26B A4B, not E2B. No correction to the previously verified complete-model total is indicated."
+    },
+    {
+      "id": "s27",
+      "url": "https://huggingface.co/google/gemma-4-E2B/resolve/main/config.json",
+      "title": "Named Gemma 4 E2B base configuration compared with IT",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Freshly fetched base config and pinned E2B IT config have identical text_config, vision_config and audio_config objects and the same Gemma4ForConditionalGeneration architecture. The IT card explicitly identifies this pretrained base; both cards publish the same E2B nominal size. This supports transferring a nominal architectural convention to IT without asserting that the Jais benchmark itself names IT."
     }
   ],
   "fields": {
@@ -201,21 +289,28 @@
         "s8",
         "s9",
         "s13",
-        "s16"
+        "s16",
+        "s1",
+        "s25",
+        "s26"
       ],
-      "note": "Rounded complete usable-model count for the pinned Transformers architecture, including text, full PLE, audio/vision encoders and both projectors. Header total 5,123,178,979 minus 928 clipping buffers, 35 block scalars and 18,880,512 unused shared-layer K/V-projection and K-norm values gives 5,104,297,504 parameters. Components: text 4,628,569,344 (including PLE 2,348,810,240), vision 167,364,608, audio 304,824,608, vision projector 1,179,648 and audio projector 2,359,296. The 60 unused tensors remain serialized but are ignored by Transformers; their computed outputs are overwritten by Google JAX. Google stores block scalars as params while HF treats them as buffers; the unresolved 35-element convention does not change 5.1043B at 0.0001B precision. Count tied input/output embeddings once and exclude the separate MTP assistant. Stored parameter-like elements before removing redundant K/V total 5,123,178,016, approximately 5.1232B; the card gives nominal 5.1B. No packed quantization elements, vocabulary padding or vision standardization buffers were found."
+      "note": "Rounded complete usable-model count for the pinned Transformers architecture, including text, full PLE, audio/vision encoders and both projectors. Header total 5,123,178,979 minus 928 clipping buffers, 35 block scalars and 18,880,512 unused shared-layer K/V-projection and K-norm values gives 5,104,297,504 parameters. Components: text 4,628,569,344 (including PLE 2,348,810,240), vision 167,364,608, audio 304,824,608, vision projector 1,179,648 and audio projector 2,359,296. The 60 unused tensors remain serialized but are ignored by Transformers; their computed outputs are overwritten by Google JAX. Google stores block scalars as params while HF treats them as buffers; the unresolved 35-element convention does not change 5.1043B at 0.0001B precision. Count tied input/output embeddings once and exclude the separate MTP assistant. Stored parameter-like elements before removing redundant K/V total 5,123,178,016, approximately 5.1232B; the card gives nominal 5.1B. No packed quantization elements, vocabulary padding or vision standardization buffers were found. The October 27 re-audit reopened the pinned card/configuration, current metadata, named-base card, current Google card and July report component table; they do not contradict the retained count. The prior header census was not repeated and no weights were downloaded."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 2.3,
+      "status": "verified",
       "source_ids": [
+        "s23",
+        "s24",
         "s1",
-        "s2",
-        "s5",
         "s9",
-        "s15"
+        "s17",
+        "s19",
+        "s20",
+        "s25",
+        "s27"
       ],
-      "note": "Sources call 2.3B an effective size, not a separately defined E2B per-token active count. PLE lookup/caching and modality-specific encoder use make it inappropriate to copy the complete total or effective footprint into this field. Runtime text parameters excluding the full PLE table total 2,279,759,104, which rounds to 2.3B; this is a component/footprint calculation, not a published universal active count."
+      "note": "Inferred nominal 2.3B activated-parameter convention for IT. The IFM/Inception42 Jais 3 comparison explicitly lists dense Gemma 4 E2B at 2.3B activated, but omits the IT suffix and exact repository. Google identifies the pretrained E2B as IT’s base; fresh base/IT text, vision and audio configurations are identical and both cards publish the same nominal architecture/size. That relationship supports applying the architecture’s nominal comparison convention to IT. The separate HAProxy benchmark names the exact IT conversion and uses a coarser 2B active convention; it does not prove which checkpoint Jais evaluated. Attribute 2.3B to IFM/Inception42’s convention, not a new Google disclosure: Google calls 2.3B effective. Exact per-token participation and modality coverage remain unspecified. No count is computed by copying totals, subtracting embeddings or adding encoders. AA/fairseq2 leads contain material architecture contradictions."
     },
     "architecture": {
       "value": "dense",
@@ -357,9 +452,25 @@
         "label": "Gemma 4 multi-token prediction documentation",
         "url": "https://ai.google.dev/gemma/docs/mtp/mtp",
         "type": "primary"
+      },
+      {
+        "label": "A Visual Guide to Gemma 4",
+        "url": "https://gemma.ai/tutorials/visual-guides/gemma-4/",
+        "type": "primary"
+      },
+      {
+        "label": "Jais 3 original comparison table: Gemma 4 E2B activated parameters",
+        "url": "https://huggingface.co/inception42/Jais-3-3.7B/blob/351b5ad88efe27531926621931a069b4a9e0d09d/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Jais 3 release and comparison methodology",
+        "url": "https://ifm.ai/blog/jais3/",
+        "type": "primary"
       }
     ],
-    "notes": "Approximately 5.1043B parameters in the complete usable model under the pinned Transformers architecture, including PLE, audio, vision and projectors. The checkpoint stores about 5.1232B parameter-like values because it retains 18.88M unused shared-layer K/V and normalization values; the card rounds the total to 5.1B. E2B/2.3B is an effective size, not a separately reported active count. Tied embeddings count once; separate MTP assistant excluded. Video uses image frames. April 2, 2026 is retained from contemporaneous release evidence; the current family chronology says March 31."
+    "notes": "Approximately 5.1043B complete usable-model parameters, including PLE, audio, vision and projectors; stored checkpoint values total about 5.1232B because unused shared-layer tensors remain. Active 2.3B applies IFM/Inception42’s E2B comparison convention to IT through Google’s documented shared base/IT architecture; the comparison omits the IT suffix. Google calls 2.3B effective. Exact per-token and modality coverage are unspecified. Tied embeddings count once; separate MTP assistant excluded. Video uses image frames. April 2, 2026 is retained from contemporaneous release evidence; the current family chronology says March 31.",
+    "active_parameters_b": 2.3
   },
-  "summary": "Verified all 14 fields. Added Apache-2.0, dense architecture, video input and approximately 5.1043B complete usable-model parameters. Header count reconciles buffers, tied embeddings and 60 retained but unused shared-layer K/V tensors. Stored checkpoint size is separately documented as approximately 5.1232B. Effective 2.3B is distinguished from total and an undisclosed active count. April 2 launch retained with March 31 chronology conflict recorded."
+  "summary": "October 27 parameter re-audit retained the verified 5.1043B complete usable-model total. Nominal 2.3B active is inferred for IT from IFM/Inception42’s E2B comparison convention and Google’s explicit base relationship with identical configurations; the Jais table itself omits IT. Google’s effective-size terminology remains distinct. All unrelated assessments and earlier corrections are preserved."
 }
