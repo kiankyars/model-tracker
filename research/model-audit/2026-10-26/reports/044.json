@@ -1,7 +1,7 @@
 {
   "index": 44,
   "model_id": "alibaba/qwen3-vl-flash",
-  "reviewed_at": "2026-10-26T14:42:25Z",
+  "reviewed_at": "2026-10-27T09:40:55Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "qwen3-vl-flash model information",
       "publisher": "Alibaba Cloud",
       "accessed": true,
-      "evidence": "Complete indexed model-card text identifies the hosted alias, thinking/non-thinking modes, text/image/video input, text output and 262144-token context. It compares Flash with open-source Qwen3-VL-30B-A3B without identifying Flash's parameter counts or architecture. Direct opening exceeded the browser tool's content-size limit; these are last documented specifications, not a live API test."
+      "evidence": "Rechecked October 27: indexed official card describes a small-scale visual model outperforming Qwen3-VL-30B-A3B, and explicitly maps the alias to qwen3-vl-flash-2026-01-22. Neither the alias nor snapshot description states total or active parameters, or identifies a named size-bearing base model. The 30B-A3B statement is a performance comparison. Direct opening again exceeded the reader content-size limit; indexed text was read."
     },
     {
       "id": "s2",
@@ -33,7 +33,7 @@
       "title": "Update Notice for Qwen3-VL-Flash Models",
       "publisher": "Alibaba Cloud",
       "accessed": true,
-      "evidence": "March 19, 2026 notice schedules the Beijing and Singapore alias upgrade from qwen3-vl-flash-2025-10-15 to qwen3-vl-flash-2026-01-22 for March 24, 2026. Establishes that this is a rolling hosted alias."
+      "evidence": "Reopened October 27: the March 19, 2026 notice maps the Beijing/Singapore alias from qwen3-vl-flash-2025-10-15 to qwen3-vl-flash-2026-01-22, effective March 24. This establishes snapshot lineage, but neither snapshot has a parameter count in the notice."
     },
     {
       "id": "s5",
@@ -41,7 +41,7 @@
       "title": "Qwen3-VL official repository",
       "publisher": "Qwen team, Alibaba Cloud",
       "accessed": true,
-      "evidence": "Names the developer and enumerates released open checkpoints. No Flash checkpoint or exact mapping to one is documented. The repository's Apache-2.0 license and dense/MoE configurations cannot be transferred to the hosted Flash alias."
+      "evidence": "Reopened October 27: official repository enumerates the open Qwen3-VL sizes and dense/MoE configurations, without identifying Flash as a variant of a named open model. Family architecture and open-model counts therefore do not establish Flash specifications; the repository license remains inapplicable to this hosted alias."
     },
     {
       "id": "s6",
@@ -66,6 +66,38 @@
       "publisher": "Models.dev contributors",
       "accessed": true,
       "evidence": "Original catalog source was inspected as a lead. It records October 15 and open_weights=false; it does not independently establish weights availability or first regional release."
+    },
+    {
+      "id": "s9",
+      "url": "https://arxiv.org/pdf/2511.21631",
+      "title": "Qwen3-VL Technical Report",
+      "publisher": "Qwen team, Alibaba",
+      "accessed": true,
+      "evidence": "Fresh review of the architecture section and comparison tables: the report names dense 2B/4B/8B/32B and MoE 30B-A3B/235B-A22B variants and publishes activated counts for named MoE models. It does not identify Qwen3-VL-Flash with any of those variants or give a Flash total/active count. Published open-model nominal counts remain valid for those named models, but provide no Flash lineage inference."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/Qwen/Qwen3.5-35B-A3B",
+      "title": "Qwen3.5-35B-A3B official model card and later comparison tables",
+      "publisher": "Qwen",
+      "accessed": true,
+      "evidence": "Later first-party card explicitly links Qwen3.5-Flash to 35B-A3B and gives 35B total/3B activated language-model parameters. Its comparison table names Qwen3-VL-235B-A22B, not Qwen3-VL-Flash. This is an explicit mapping for a different Flash model, not evidence of lineage or counts for this entry. No activated-parameter table entry for Qwen3-VL-Flash was found."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/Qwen/Qwen3.5-9B",
+      "title": "Qwen3.5-9B official model card and later vision-language table",
+      "publisher": "Qwen",
+      "accessed": true,
+      "evidence": "Later first-party vision-language comparison table names Qwen3-VL-30B-A3B as a baseline. Neither Qwen3-VL-Flash nor an activated-parameter entry for it appears. Direct raw README checks corroborated the rendered table; no weight files were downloaded."
+    },
+    {
+      "id": "s12",
+      "url": "https://www.qianwenai.com/models/qwen3-vl-flash",
+      "title": "Qwen3-VL-Flash on the Qianwen AI platform",
+      "publisher": "Alibaba Qianwen AI platform",
+      "accessed": true,
+      "evidence": "Fresh indexed official platform card repeats the performance comparison with Qwen3-VL-30B-A3B, without a total/active count or named-base relationship. Direct opening returned 404, so this evidence is limited to indexed text. English and Chinese searches for parameter counts, activated parameters, base-model relationships and fine-tuning found no additional first-party Flash disclosure."
     }
   ],
   "fields": {
@@ -127,17 +159,26 @@
       "value": null,
       "status": "undisclosed",
       "source_ids": [
-        "s1"
+        "s1",
+        "s4",
+        "s5",
+        "s9",
+        "s10",
+        "s12"
       ],
-      "note": "No total count disclosed. Comparison with 30B-A3B is not identity."
+      "note": "Fresh primary-source review found no nominal total or explicit relationship to a size-bearing base. The documented lineage is to a Flash snapshot whose size is also undisclosed; outperforming 30B-A3B does not identify the base."
     },
     "active_parameters_b": {
       "value": null,
       "status": "undisclosed",
       "source_ids": [
-        "s1"
+        "s1",
+        "s9",
+        "s10",
+        "s11",
+        "s12"
       ],
-      "note": "No active count disclosed; do not borrow 3B from the comparator."
+      "note": "No active count found in the Flash card, Qwen3-VL report or later first-party comparison tables. The 3B figure belongs to named open models or Qwen3.5-Flash and cannot be assigned to Qwen3-VL-Flash."
     },
     "architecture": {
       "value": null,
@@ -219,7 +260,7 @@
     },
     "reasoning": true,
     "description": "Alibaba Cloud hosted Qwen3-VL model for image, video and document understanding, with optional thinking mode.",
-    "notes": "Hosted rolling alias; total/active parameter counts and dense/MoE architecture are undisclosed. Do not identify it with Qwen3-VL-30B-A3B. Last documented model-card specifications are available through the search index; the public help card now redirects and the console mirror exceeds the reader limit. Function calling is documented for Beijing but unsupported in Singapore, Frankfurt and Virginia. Beijing availability began 2025-10-14; international/global availability began 2025-10-15. The March 2026 notice schedules the Beijing/Singapore alias upgrade to the 2026-01-22 snapshot. Current endpoint availability was not tested.",
+    "notes": "Hosted rolling alias; total and active parameter counts and dense/MoE architecture remain undisclosed. The official card compares performance with Qwen3-VL-30B-A3B without identifying it as the base. Function calling is documented for Beijing but unsupported in Singapore, Frankfurt and Virginia. Beijing availability began 2025-10-14; international/global availability began 2025-10-15. The documented alias maps to the 2026-01-22 snapshot. Model-card specifications were read through the search index; current endpoint availability was not tested.",
     "sources": [
       {
         "label": "Alibaba Cloud model lifecycle",
@@ -240,9 +281,27 @@
         "label": "Alibaba Cloud Flash alias update",
         "url": "https://www.alibabacloud.com/en/notice/model_studio_update_notice_for_qwen3vlflash_models_6e1?_p_lc=1",
         "type": "primary"
+      },
+      {
+        "label": "Qwen3-VL technical report",
+        "url": "https://arxiv.org/pdf/2511.21631",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3.5 later comparison and distinct Flash mapping",
+        "url": "https://huggingface.co/Qwen/Qwen3.5-35B-A3B",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3.5 later vision-language comparison",
+        "url": "https://huggingface.co/Qwen/Qwen3.5-9B",
+        "type": "primary"
       }
     ],
-    "open_weights": null
+    "open_weights": null,
+    "parameters_b": null,
+    "active_parameters_b": null,
+    "parameters_source": null
   },
-  "summary": "Correct release to first Beijing availability on 2025-10-14, add Qwen3-VL family and video input, enable reasoning, and narrow the description. Retain 262144 context and tool_call=true with an explicit Beijing-only qualification. Total/active parameters and architecture remain undisclosed. Exact-model weight release status was not independently established. Sources support last documented specifications, not a current availability claim."
+  "summary": "Fresh October 27 parameter re-audit retains explicit nulls for total and active parameters. Official Flash cards disclose snapshot lineage and performance superiority to 30B-A3B, but no size-bearing base relationship; the Qwen3-VL technical report and later Qwen3.5 comparison tables do not supply Flash counts. The separate Qwen3.5-Flash mapping cannot be transferred. Prior release, modality, reasoning, context, regional tool and weight-status assessments are preserved."
 }
