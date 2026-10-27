@@ -1,7 +1,7 @@
 {
   "index": 167,
   "model_id": "deepseek/deepseek-ocr-2",
-  "reviewed_at": "2026-10-26T18:56:08.024296+00:00",
+  "reviewed_at": "2026-10-27T12:37:43.440555+00:00",
   "sources": [
     {
       "id": "s1",
@@ -17,7 +17,7 @@
       "title": "DeepSeek-OCR 2: Visual Causal Flow",
       "publisher": "DeepSeek",
       "accessed": true,
-      "evidence": "The exact-model technical report identifies DeepSeek-AI authors, describes DeepEncoder V2 and the MoE decoder, and labels the retained decoder nominally 3B with about 500M active parameters. This is a decoder component disclosure, not a complete multimodal active count."
+      "evidence": "The exact-model technical report identifies DeepSeek-AI authors, describes DeepEncoder V2 and the MoE decoder, and labels the retained decoder nominally 3B with about 500M active parameters. This is a decoder component disclosure, not a complete multimodal active count. Reopened October 27: section 3.3 explicitly retains the prior 3B MoE decoder with about 500M active parameters, and section 4.2.2 names DeepSeek-3B-A500M as the final language decoder. This directly supports a nominal 0.5B active field scoped to language_decoder."
     },
     {
       "id": "s3",
@@ -25,7 +25,7 @@
       "title": "Official DeepSeek-OCR-2 model card",
       "publisher": "DeepSeek",
       "accessed": true,
-      "evidence": "The original model card publishes weights and text-prompt/image inference examples for free OCR and grounded document-to-Markdown conversion. It lists the per-image visual-token budget as 256 plus up to six 144-token crops."
+      "evidence": "The original model card publishes weights and text-prompt/image inference examples for free OCR and grounded document-to-Markdown conversion. It lists the per-image visual-token budget as 256 plus up to six 144-token crops. Fresh October 27 card read still links the exact OCR2 report and checkpoint; it introduces no conflicting complete-model active count."
     },
     {
       "id": "s4",
@@ -33,7 +33,7 @@
       "title": "Official checkpoint configuration",
       "publisher": "DeepSeek",
       "accessed": true,
-      "evidence": "Configuration sets max_position_embeddings=8192, 12 language layers, first_k_dense_replace=1, 64 routed experts, 2 shared experts, and 6 routed experts per token. It uses a SAM/Qwen2 vision stack and an 896-to-1280 linear projector; use_mla=false."
+      "evidence": "Configuration sets max_position_embeddings=8192, 12 language layers, first_k_dense_replace=1, 64 routed experts, 2 shared experts, and 6 routed experts per token. It uses a SAM/Qwen2 vision stack and an 896-to-1280 linear projector; use_mla=false. Fresh current configuration on October 27 retains the same 12-layer decoder and 64/6 routed, 2 shared-expert configuration."
     },
     {
       "id": "s5",
@@ -65,7 +65,7 @@
       "title": "Official OCR2 multimodal implementation",
       "publisher": "DeepSeek",
       "accessed": true,
-      "evidence": "The released model combines SAM, Qwen2 vision encoder, linear projector and learned view separator with the language decoder. Vision runs on prefill; the inference interface accepts images and text and emits generated text. No dedicated thinking control or tool-schema interface is documented here."
+      "evidence": "The released model combines SAM, Qwen2 vision encoder, linear projector and learned view separator with the language decoder. Vision runs on prefill; the inference interface accepts images and text and emits generated text. No dedicated thinking control or tool-schema interface is documented here. Fresh October 27 implementation read confirms image encoding is guarded by input_ids.shape[1] != 1 (or training), with nonzero image input, before the autoregressive language path. The nominal decoder active count is not a full image-prefill count."
     },
     {
       "id": "s9",
@@ -89,7 +89,7 @@
       "title": "Official repository metadata and checkpoint summary",
       "publisher": "DeepSeek / Hugging Face",
       "accessed": true,
-      "evidence": "The original repository was created on 2026-01-27. Its reported revision is aaa02f3811945a91062062994c5c4a3f4c0af2b0 and safetensors total is 3389119360 BF16 elements, independently matching the bounded-header sum."
+      "evidence": "The original repository was created on 2026-01-27. Its reported revision is aaa02f3811945a91062062994c5c4a3f4c0af2b0 and safetensors total is 3389119360 BF16 elements, independently matching the bounded-header sum. Fresh October 27 metadata remains at the same revision and 3,389,119,360 BF16 aggregate, supporting retention of the prior exact census without repeating header or shard retrieval."
     },
     {
       "id": "s12",
@@ -98,6 +98,38 @@
       "publisher": "DeepSeek",
       "accessed": true,
       "evidence": "The index references one safetensors shard and exactly the 2707 tensor keys present in its header. Index metadata.total_size is inconsistent with the actual header tensor-byte sum, so the count uses tensor shapes rather than index file-size arithmetic."
+    },
+    {
+      "id": "s13",
+      "url": "https://github.com/deepseek-ai/DeepSeek-OCR-2",
+      "title": "Current official DeepSeek-OCR 2 repository",
+      "publisher": "DeepSeek",
+      "accessed": true,
+      "evidence": "Fresh October 27 read of the current official repository and release instructions links the same paper and checkpoint. No later active-parameter comparison or replacement specification is published there."
+    },
+    {
+      "id": "s14",
+      "url": "https://arxiv.org/abs/2601.20552",
+      "title": "DeepSeek-OCR 2 report version history",
+      "publisher": "DeepSeek authors via arXiv",
+      "accessed": true,
+      "evidence": "Fresh October 27 check lists only the January 28 v1 submission. No revised developer paper supersedes its nominal decoder-only 500M active disclosure."
+    },
+    {
+      "id": "s15",
+      "url": "https://jina.ai/news/jina-ocr-v1-faster-document-parsing-on-low-budget-gpus/",
+      "title": "Jina OCR v1 release and later OCR comparison",
+      "publisher": "Jina AI",
+      "accessed": true,
+      "evidence": "Fresh exact-model count search led to the September 14, 2026 release. It describes about 570M active decoder parameters for Jina\u2019s DeepSeek-OCR-derived model and lists DeepSeek-OCR-2 as 3B/570M in its comparison. This is a later independent developer comparison, not a revised DeepSeek specification; retain DeepSeek\u2019s own approximate 500M convention for the exact OCR2 language decoder rather than substituting a different precision or claiming a whole-model active count."
+    },
+    {
+      "id": "s16",
+      "url": "https://selfhost.directory/models/deepseek-ai/deepseek-ocr-2",
+      "title": "Independent DeepSeek-OCR-2 hardware directory entry",
+      "publisher": "selfhost.directory",
+      "accessed": true,
+      "evidence": "Fresh search and October 27 read found a 1.2B active claim alongside generic links to the model card and paper. The page supplies no exact-model active-count derivation or scope explaining its difference from the original paper. It is recorded as an uncorroborated secondary lead and is not adopted."
     }
   ],
   "fields": {
@@ -166,17 +198,21 @@
         "s11",
         "s12"
       ],
-      "note": "Complete learned checkpoint count: 3389119360 parameters / 1e9. Includes text embeddings/head, all routed/shared experts, both vision components, learned query/position embeddings, projector and view separator. All 2707 tensors are BF16 learned tensors; no quantization scales or persistent buffers are counted. Header range and component arithmetic are cached in /tmp/model-audit-167/parameter-summary.json."
+      "note": "Complete learned checkpoint count: 3389119360 parameters / 1e9. Includes text embeddings/head, all routed/shared experts, both vision components, learned query/position embeddings, projector and view separator. All 2707 tensors are BF16 learned tensors; no quantization scales or persistent buffers are counted. Header range and component arithmetic are cached in /tmp/model-audit-167/parameter-summary.json. Fresh metadata remains unchanged on October 27; the prior complete count is retained without a repeat tensor census."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 0.5,
+      "status": "verified",
       "source_ids": [
         "s2",
         "s4",
-        "s8"
+        "s8",
+        "s13",
+        "s14",
+        "s15",
+        "s16"
       ],
-      "note": "No single full-multimodal active count is defined. The paper gives about 0.5B for the language decoder alone; vision runs separately during image prefill. Preserve that nominal component/phase disclosure in proposed_fields without applying it to the whole model."
+      "note": "Approximately 0.5B active language-decoder parameters, explicitly published in sections 3.3 and 4.2.2 of the exact-model report. Scope is language_decoder, whose complete parameter component is separately recorded; this excludes the vision tokenizer, causal vision encoder and projector and does not claim a full image-prefill active count. Fresh searches, current repository evidence and later comparisons found no superseding DeepSeek disclosure. Jina\u2019s 570M comparison and an independent 1.2B claim do not replace the developer\u2019s nominal convention."
     },
     "architecture": {
       "value": "moe",
@@ -259,7 +295,7 @@
     "description": "Open-weight OCR vision-language model that combines DeepEncoder V2 with a mixture-of-experts language decoder for text extraction and grounded document-to-Markdown conversion.",
     "source_url": "https://huggingface.co/deepseek-ai/DeepSeek-OCR-2",
     "source_type": "primary",
-    "notes": "Complete released checkpoint: 3.38911936B learned parameters, including vision encoder, projector and language decoder. The paper reports approximately 0.5B active parameters for the language decoder only; whole-model activation varies by processing phase. Configured decoder context is 8192; the 256\u20131120 tokens per image are a separate visual budget. Native thinking mode and tool calling are not established by the developer materials.",
+    "notes": "Complete released checkpoint: 3.38911936B learned parameters. Approximately 0.5B active parameters refers only to the language decoder, per the developer report; image encoding is separate. Decoder context is 8192; the 256\u20131120 tokens per image are a separate visual budget. Native thinking mode and tool calling are not established by the developer materials.",
     "sources": [
       {
         "label": "Official DeepSeek-OCR release history",
@@ -321,7 +357,8 @@
         "url": "https://huggingface.co/deepseek-ai/DeepSeek-OCR-2/blob/aaa02f3811945a91062062994c5c4a3f4c0af2b0/model.safetensors.index.json",
         "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": 0.5
   },
   "proposed_fields": {
     "parameter_components_b": {
@@ -333,7 +370,8 @@
     },
     "active_parameters_by_phase_b": {
       "decoder": 0.5
-    }
+    },
+    "active_parameters_scope": "language_decoder"
   },
-  "summary": "Audited all 14 fields against primary materials. Add the complete 3.38911936B learned checkpoint total, MoE architecture, Apache-2.0 license and DeepSeek-OCR family; confirm January 27 release and 8192 decoder context. Preserve the paper's nominal decoder-only active disclosure separately. Native thinking and tool calling remain undisclosed; both catalog-only negative assertions are cleared. Exact component counts and source cache are in /tmp/model-audit-167."
+  "summary": "October 27 parameter re-audit retains the exact 3.38911936B complete total and exposes the developer\u2019s nominal 0.5B active language-decoder count with explicit component scope. Fresh searches, reopened original paper/card/configuration/implementation, current metadata and later comparison leads confirm the basis and preserve the distinction from image encoding. Existing component and decoder-phase data remain; unrelated assessments are unchanged. No weight shards or repeat census requested."
 }
