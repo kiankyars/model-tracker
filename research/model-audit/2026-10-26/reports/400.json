@@ -1,7 +1,7 @@
 {
   "index": 400,
   "model_id": "openai/gpt-2-774m",
-  "reviewed_at": "2026-10-27T01:19:50.042565Z",
+  "reviewed_at": "2026-10-27T16:14:34.557948Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "GPT-2: 6-month follow-up",
       "publisher": "OpenAI",
       "accessed": true,
-      "evidence": "Dated August 20, 2019. Explicitly announces the public 774M GPT-2 release after the February small and May medium releases. Distinguishes the newly released 774M model from the still unreleased largest model and earlier partner research."
+      "evidence": "Dated August 20, 2019. Explicitly announces the public 774M GPT-2 release after the February small and May medium releases. Distinguishes the newly released 774M model from the still unreleased largest model and earlier partner research. Reopened October 27: the first paragraph directly calls this the 774 million parameter model; no separate active-parameter count is stated."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "Original 774M release commit",
       "publisher": "OpenAI",
       "accessed": true,
-      "evidence": "The August 20, 2019 commit adds the 774M checkpoint to download instructions and Docker builds. Its README corrects earlier erroneous parameter labels and identifies the large 774M version as released."
+      "evidence": "The August 20, 2019 commit adds the 774M checkpoint to download instructions and Docker builds. Its README corrects earlier erroneous parameter labels and identifies the large 774M version as released. The README at this exact commit was fetched again on October 27 and explicitly lists large (774M parameter), with the footnote correcting erroneous earlier counts."
     },
     {
       "id": "s3",
@@ -25,7 +25,7 @@
       "title": "GPT-2 model card, November 2019",
       "publisher": "OpenAI",
       "accessed": true,
-      "evidence": "Identifies OpenAI as developer, lists the released 774M variant, and describes WebText-trained generative text models. Its February model date is not the public release date of this checkpoint."
+      "evidence": "Identifies OpenAI as developer, lists the released 774M variant, and describes WebText-trained generative text models. Its February model date is not the public release date of this checkpoint. Reopened the complete original card on October 27; it names the 774 million parameter model but gives no activated-parameter convention."
     },
     {
       "id": "s4",
@@ -33,7 +33,7 @@
       "title": "Original 774M checkpoint hyperparameters",
       "publisher": "OpenAI",
       "accessed": true,
-      "evidence": "Exact checkpoint configuration specifies 50,257 vocabulary entries, 1,024 context positions, 36 blocks, hidden width 1,280 and 20 attention heads."
+      "evidence": "Exact checkpoint configuration specifies 50,257 vocabulary entries, 1,024 context positions, 36 blocks, hidden width 1,280 and 20 attention heads. Fresh HTTP 200 retrieval on October 27 reconfirmed all five values."
     },
     {
       "id": "s5",
@@ -41,7 +41,7 @@
       "title": "Original GPT-2 model implementation",
       "publisher": "OpenAI",
       "accessed": true,
-      "evidence": "Complete implementation constructs dense causal attention and biasful fourfold MLPs, two learned norms per block, final learned norm, learned token and position embeddings. Output logits reuse token embeddings; causal masks and key/value caches are computed rather than learned checkpoint variables."
+      "evidence": "Complete implementation constructs dense causal attention and biasful fourfold MLPs, two learned norms per block, final learned norm, learned token and position embeddings. Output logits reuse token embeddings; causal masks and key/value caches are computed rather than learned checkpoint variables. Fresh October 27 reading independently reconfirmed the learned-parameter formula, yielding 774,030,080 from the original 774M hyperparameters; no checkpoint data or new tensor census was used in this pass."
     },
     {
       "id": "s6",
@@ -57,7 +57,7 @@
       "title": "Language Models are Unsupervised Multitask Learners",
       "publisher": "OpenAI",
       "accessed": true,
-      "evidence": "Section 2.3 and Table 2 describe the 36-layer, width-1280 Transformer under its earlier erroneous 762M label, with a 50,257-token vocabulary and 1,024-token context. The report describes WebText training and text completion. Commonsense reasoning benchmarks do not establish a dedicated reasoning mode."
+      "evidence": "Section 2.3 and Table 2 describe the 36-layer, width-1280 Transformer under its earlier erroneous 762M label, with a 50,257-token vocabulary and 1,024-token context. The report describes WebText training and text completion. Commonsense reasoning benchmarks do not establish a dedicated reasoning mode. Rechecked Section 2.3 and Table 2 against the full PDF fetched October 27; these are architecture/total-size specifications, not an active-parameter table."
     },
     {
       "id": "s8",
@@ -90,6 +90,22 @@
       "publisher": "OpenAI",
       "accessed": true,
       "evidence": "The February announcement releases only a smaller checkpoint. The May update describes sharing the then-labelled 762M model with selected research partners, not a general public weight release."
+    },
+    {
+      "id": "s12",
+      "url": "https://arxiv.org/html/2504.15471v2",
+      "title": "Bigram Subnetworks: Mapping to Next Tokens in Transformer Language Models",
+      "publisher": "Tyler A. Chang and Benjamin K. Bergen, UC San Diego",
+      "accessed": true,
+      "evidence": "Fresh October 27 inspection of Section 3.1 and Figure 1: GPT-2 large is the original 774M model, but the active-parameter figures measure learned binary masks over frozen model parameters for sparse bigram subnetworks. The masks exclude embeddings and layer norms. These are modified-subnetwork counts, not a published active count for the complete released GPT-2 large checkpoint."
+    },
+    {
+      "id": "s13",
+      "url": "https://arxiv.org/html/2507.07101v1",
+      "title": "Small Batch Size Training for Language Models: When Vanilla SGD Works, and Why Gradient Accumulation Is Wasteful",
+      "publisher": "Martin Marek et al., New York University and Columbia University",
+      "accessed": true,
+      "evidence": "Fresh October 27 inspection of Appendix A.1 and Table 1: the explicit active count concerns a newly trained GPT-2-labelled 124M experiment, with 162M total parameters, untied embeddings, RMSNorm, RoPE, QK-norm and changed head dimensions. Neither checkpoint identity nor architecture matches the original GPT-2 large; its active-count convention cannot establish this model's value."
     }
   ],
   "fields": {
@@ -157,11 +173,14 @@
       "value": 0.77403008,
       "status": "verified",
       "source_ids": [
+        "s1",
+        "s2",
+        "s3",
         "s4",
         "s5",
         "s6"
       ],
-      "note": "Exact complete learned count: 50,257×1,280 token embeddings + 1,024×1,280 position embeddings + 36×(12×1,280² + 13×1,280) block parameters + 2×1,280 final norm parameters = 774,030,080. Every one of 436 original F32 variable names and shapes matches the module reconstruction and file storage lengths. Tied input/output embeddings count once; no learned components are omitted. The paper’s earlier 762M label was erroneous, and 774M is nominal."
+      "note": "Retain 774,030,080 learned parameters, corroborated on October 27 by the original configuration and implementation: 50,257×1,280 + 1,024×1,280 + 36×(12×1,280² + 13×1,280) + 2×1,280. Tied input/output embeddings count once. The prior complete checkpoint-index census remains supporting evidence; this pass did not repeat it or download weights. OpenAI directly publishes the corrected nominal 774M size, superseding the paper's erroneous 762M label."
     },
     "active_parameters_b": {
       "value": null,
@@ -169,9 +188,11 @@
       "source_ids": [
         "s3",
         "s5",
-        "s7"
+        "s7",
+        "s12",
+        "s13"
       ],
-      "note": "No separately defined active-per-token metric is disclosed. Dense architecture does not justify equating activity with the complete checkpoint total."
+      "note": "Fresh October 27 review of the original card, implementation and report, plus targeted later active/activated-parameter searches for GPT-2 large, 774M, 762M and 0.774B, found no supported active-count convention for the complete original checkpoint. Chang and Bergen measure sparse masked subnetworks; Marek et al. report a structurally modified GPT-2 small training experiment. Neither transfers to the released large model. Dense architecture alone does not establish total-equals-active."
     },
     "architecture": {
       "value": "dense",
@@ -291,9 +312,15 @@
         "label": "January 2020 license update",
         "url": "https://github.com/openai/gpt-2/commit/0f97760ebe1ccad5778a6d5957b2be9800e4efd8",
         "type": "primary"
+      },
+      {
+        "label": "Language Models are Unsupervised Multitask Learners",
+        "url": "https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf",
+        "type": "primary"
       }
     ],
-    "notes": "Publicly released on August 20, 2019 after earlier selected-partner sharing. The complete original checkpoint has exactly 774,030,080 learned parameters; 774M is its corrected nominal label, replacing the earlier erroneous 762M figure. Tied token embeddings count once; active parameters are not separately disclosed. The release originally carried MIT; the current official repository publishes Modified MIT terms introduced in January 2020."
+    "notes": "Publicly released on August 20, 2019 after earlier selected-partner sharing. The original configuration and implementation support exactly 774,030,080 learned parameters, counting tied token embeddings once; 774M is OpenAI's corrected nominal label, replacing 762M. Active parameters are not separately established for this checkpoint. The release originally carried MIT; the current official repository publishes Modified MIT terms introduced in January 2020.",
+    "active_parameters_b": null
   },
-  "summary": "Verified August 20, 2019 public release, dense 36-layer architecture, 1024-token context and text modalities. Replaced nominal size with the exact 774,030,080 learned-parameter count from a complete original checkpoint-index census and module reconstruction. Recorded current Modified MIT terms while preserving the original MIT license history. Active count, dedicated reasoning and structured tool calling remain unasserted."
+  "summary": "October 27 parameter re-audit retains the precise 774,030,080 total after fresh original configuration/code corroboration and confirms OpenAI's corrected nominal 774M specification. Active parameters remain undisclosed: targeted later research yields sparse-subnetwork counts or modified GPT-2 small experiments, not a convention for the complete original large checkpoint. The other 12 field assessments are preserved."
 }
