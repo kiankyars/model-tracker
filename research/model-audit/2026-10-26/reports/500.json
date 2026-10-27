@@ -1,0 +1,331 @@
+{
+  "index": 500,
+  "model_id": "tencent/hy-mt2-1.8b",
+  "reviewed_at": "2026-10-27T04:48:03.165041Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/tencent/Hy-MT2-1.8B/blob/9a341cd1b679d3efd23b46e847b01745a71ed792/README.md",
+      "title": "Hy-MT2-1.8B model card, pinned revision",
+      "publisher": "Tencent",
+      "accessed": true,
+      "evidence": "Names Hy-MT2-1.8B within the Hy-MT2 translation family, reports the nominal 1.8B scale and translation among 33 languages, and explicitly says the exact model was open-sourced on 2026-05-21."
+    },
+    {
+      "id": "s2",
+      "url": "https://github.com/Tencent-Hunyuan/Hy-MT2/blob/ff1903ecaa724e10951a23c16817a2413c752b35/README.md",
+      "title": "Hy-MT2 official deployment README",
+      "publisher": "Tencent Hunyuan",
+      "accessed": true,
+      "evidence": "Lists this exact model, explicitly sets max_context:8192, recommends transformers>=5.6.0 and documents translation instructions for terminology, style, structured text and context."
+    },
+    {
+      "id": "s3",
+      "url": "https://arxiv.org/html/2605.22064v2",
+      "title": "Hy-MT2 technical report, revised 25 May 2026",
+      "publisher": "Tencent Hunyuan Team",
+      "accessed": true,
+      "evidence": "Later v2 report describes the 1.8B, 7B and 30B-A3B translation models, nominal model sizes and training pipeline. It does not separately define an active-parameter count for the exact 1.8B model."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/tencent/Hy-MT2-1.8B/blob/9a341cd1b679d3efd23b46e847b01745a71ed792/config.json",
+      "title": "Hy-MT2-1.8B checkpoint configuration",
+      "publisher": "Tencent",
+      "accessed": true,
+      "evidence": "HunYuanDenseV1ForCausalLM; 32 layers, hidden size 2048, intermediate size 6144, 16 query and 4 KV heads, head dimension 128, QK normalization, vocab 120818, BF16, tie_word_embeddings:true, max_position_embeddings:262144. No quantization_config."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/tencent/Hy-MT2-1.8B/blob/9a341cd1b679d3efd23b46e847b01745a71ed792/LICENSE.txt",
+      "title": "Hy-MT2-1.8B model license",
+      "publisher": "Tencent",
+      "accessed": true,
+      "evidence": "Explicitly licenses Hy-MT2-1.8B under Apache License Version 2.0."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/api/models/tencent/Hy-MT2-1.8B",
+      "title": "Official model repository file inventory",
+      "publisher": "Tencent / Hugging Face",
+      "accessed": true,
+      "evidence": "Inspected revision 9a341cd1b679d3efd23b46e847b01745a71ed792. Complete sibling list has one unsharded model.safetensors and no safetensors shard index. Hub automatic count is 2038515712 BF16 storage elements; this is not independently a unique-parameter count."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/tencent/Hy-MT2-1.8B/resolve/9a341cd1b679d3efd23b46e847b01745a71ed792/model.safetensors",
+      "title": "Complete bounded safetensors tensor header",
+      "publisher": "Tencent",
+      "accessed": true,
+      "evidence": "HTTP206 byte ranges 0-7 and 8-41359 retrieved the complete 41352-byte header only. All 355 tensor entries sum to 2038515712 BF16 elements, with no quantization scales or buffer entries. Both lm_head.weight and model.embed_tokens.weight are separately stored 120818x2048 matrices; each contains 247435264 elements."
+    },
+    {
+      "id": "s8",
+      "url": "https://github.com/huggingface/transformers/blob/v5.6.0/src/transformers/models/hunyuan_v1_dense/modeling_hunyuan_v1_dense.py",
+      "title": "Configured HunYuanDenseV1 model implementation, Transformers v5.6.0",
+      "publisher": "Tencent / Hugging Face",
+      "accessed": true,
+      "evidence": "Tencent-copyright implementation matches the checkpoint architecture and header shapes: dense gated MLP, causal grouped-query attention, learned RMS/QK norms and embedding/output projections. Rotary inv_freq buffers are nonpersistent. Its tie mapping links lm_head.weight to model.embed_tokens.weight."
+    },
+    {
+      "id": "s9",
+      "url": "https://github.com/huggingface/transformers/blob/v5.6.0/src/transformers/modeling_utils.py",
+      "title": "Transformers v5.6.0 weight-tying loader behavior",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "get_expanded_tied_weights_keys requires tie_word_embeddings; tie_weights checks equality when both stored keys exist and does not tie unequal tensors. Header shapes alone cannot establish whether the two stored matrices are equal."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/tencent/Hy-MT2-1.8B/blob/9a341cd1b679d3efd23b46e847b01745a71ed792/chat_template.jinja",
+      "title": "Exact checkpoint chat template",
+      "publisher": "Tencent",
+      "accessed": true,
+      "evidence": "Formats system, user and assistant text and a direct assistant generation prefix. It has no tools/tool-response handling or reasoning-mode switch. This documents the provided interface but does not categorically establish model-wide absence of those capabilities."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/tencent/Hy-MT2-1.8B/blob/9a341cd1b679d3efd23b46e847b01745a71ed792/train/README.md",
+      "title": "Official training guide for the exact dense variant",
+      "publisher": "Tencent",
+      "accessed": true,
+      "evidence": "Explicitly labels Hy-MT2-1.8B as Dense, separately from the 30B-A3B MoE model."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Hy-MT2-1.8B",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Official spelling identifies the standard BF16 model, distinct from separately named FP8 and GGUF variants."
+    },
+    "developer": {
+      "value": "Tencent",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s5"
+      ],
+      "note": "The model repository, report and model-specific copyright identify Tencent."
+    },
+    "family": {
+      "value": "hy-mt2",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "Normalized catalog label for the explicitly named Hy-MT2 translation model family, within the broader Hy series."
+    },
+    "release_date": {
+      "value": "2026-05-21",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "The developer explicitly states that Hy-MT2-1.8B was open-sourced on this date. Earlier repository creation and later API-provider listing dates are not public-release evidence."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6",
+        "s7"
+      ],
+      "note": "Tencent publishes a downloadable unquantized BF16 checkpoint; the repository and bounded weight-file access were verified."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "s5"
+      ],
+      "note": "Model-specific license names Apache License Version 2.0."
+    },
+    "parameters_b": {
+      "value": 1.8,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4",
+        "s6",
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "note": "Developer-reported nominal 1.8 billion parameters, not an exact unique-parameter count. The complete single-file header contains 2,038,515,712 BF16 storage elements, including two separately stored 247,435,264-element embedding/output matrices. Configuration requests tying; the recommended loader ties them only if their tensor values agree. Header metadata cannot establish equality, so neither the storage sum nor a deduplicated 1,791,080,448 figure is asserted as the exact total. No complete weight tensor was downloaded."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4"
+      ],
+      "note": "The examined card and later technical report do not separately report active parameters for the exact 1.8B model. Dense architecture is not used to equate active and total parameters."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s8",
+        "s11"
+      ],
+      "note": "Official training guide explicitly calls this variant Dense. Its configured decoder-only Transformer has 32 layers, grouped-query attention, QK normalization and dense gated MLPs; no expert routing."
+    },
+    "context_window": {
+      "value": 8192,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4"
+      ],
+      "note": "Official deployment README explicitly gives max_context:8192. The configuration has max_position_embeddings:262144, but positional capacity alone does not override the documented supported deployment context."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s10"
+      ],
+      "note": "The exact checkpoint is a text causal language model with textual translation prompts and textual outputs; no image/audio encoder or multimodal input path is configured."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s10"
+      ],
+      "note": "Tencent calls the family fast-thinking and demonstrates direct translation, but these sources do not unambiguously specify a separate reasoning-mode capability or its categorical absence. The shared tokenizer vocabulary alone would not establish support; clear the unsupported baseline false."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s1",
+        "s10"
+      ],
+      "note": "The provided template handles system/user/assistant messages and has no tool-definition or tool-response protocol. No explicit model-wide capability statement was found in the examined primary sources; clear the baseline false rather than infer categorical absence from omitted documentation."
+    },
+    "description": {
+      "value": "Tencent Hy-MT2 dense multilingual translation model supporting 33 languages and translation instructions for terminology, style, formatting and context.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Replace the unsupported generic coding/reasoning/agent description with the documented translation purpose and instruction types."
+    }
+  },
+  "patch": {
+    "family": "hy-mt2",
+    "license": "Apache-2.0",
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "reasoning": null,
+    "tool_call": null,
+    "description": "Tencent Hy-MT2 dense multilingual translation model supporting 33 languages and translation instructions for terminology, style, formatting and context.",
+    "source_url": "https://huggingface.co/tencent/Hy-MT2-1.8B/blob/9a341cd1b679d3efd23b46e847b01745a71ed792/README.md",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Hy-MT2-1.8B model card, pinned revision",
+        "url": "https://huggingface.co/tencent/Hy-MT2-1.8B/blob/9a341cd1b679d3efd23b46e847b01745a71ed792/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Hy-MT2 official deployment README",
+        "url": "https://github.com/Tencent-Hunyuan/Hy-MT2/blob/ff1903ecaa724e10951a23c16817a2413c752b35/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Hy-MT2 technical report, revised 25 May 2026",
+        "url": "https://arxiv.org/html/2605.22064v2",
+        "type": "primary"
+      },
+      {
+        "label": "Hy-MT2-1.8B checkpoint configuration",
+        "url": "https://huggingface.co/tencent/Hy-MT2-1.8B/blob/9a341cd1b679d3efd23b46e847b01745a71ed792/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Hy-MT2-1.8B model license",
+        "url": "https://huggingface.co/tencent/Hy-MT2-1.8B/blob/9a341cd1b679d3efd23b46e847b01745a71ed792/LICENSE.txt",
+        "type": "primary"
+      },
+      {
+        "label": "Official model repository file inventory",
+        "url": "https://huggingface.co/api/models/tencent/Hy-MT2-1.8B",
+        "type": "primary"
+      },
+      {
+        "label": "Complete bounded safetensors tensor header",
+        "url": "https://huggingface.co/tencent/Hy-MT2-1.8B/resolve/9a341cd1b679d3efd23b46e847b01745a71ed792/model.safetensors",
+        "type": "primary"
+      },
+      {
+        "label": "Configured HunYuanDenseV1 model implementation, Transformers v5.6.0",
+        "url": "https://github.com/huggingface/transformers/blob/v5.6.0/src/transformers/models/hunyuan_v1_dense/modeling_hunyuan_v1_dense.py",
+        "type": "primary"
+      },
+      {
+        "label": "Transformers v5.6.0 weight-tying loader behavior",
+        "url": "https://github.com/huggingface/transformers/blob/v5.6.0/src/transformers/modeling_utils.py",
+        "type": "primary"
+      },
+      {
+        "label": "Exact checkpoint chat template",
+        "url": "https://huggingface.co/tencent/Hy-MT2-1.8B/blob/9a341cd1b679d3efd23b46e847b01745a71ed792/chat_template.jinja",
+        "type": "primary"
+      },
+      {
+        "label": "Official training guide for the exact dense variant",
+        "url": "https://huggingface.co/tencent/Hy-MT2-1.8B/blob/9a341cd1b679d3efd23b46e847b01745a71ed792/train/README.md",
+        "type": "primary"
+      }
+    ],
+    "notes": "Tencent reports a nominal 1.8B model. Complete BF16 header storage is 2.038515712B elements, but duplicated embedding/output entries and conditional loader tying prevent an exact unique-total claim without tensor-equality evidence. Active parameters are not separately disclosed. Official supported deployment context is 8192 tokens despite a 262144 positional configuration. Reasoning-mode and tool-calling support remain unverified."
+  },
+  "evidence_cache": {
+    "directory": "/tmp/model-audit-500-evidence",
+    "files": [
+      "model-api.json",
+      "README.md",
+      "github-main-commit.json",
+      "github-readme.md",
+      "config.json",
+      "LICENSE.txt",
+      "chat_template.jinja",
+      "tokenizer_config.json",
+      "report-v2.html",
+      "report-v2.txt",
+      "train-README.md",
+      "model.safetensors.header.json",
+      "tensor-count-summary.json",
+      "modeling_hunyuan_v1_dense.py",
+      "configuration_hunyuan_v1_dense.py",
+      "modeling_utils.py",
+      "hf-train-dense.py"
+    ]
+  },
+  "summary": "Confirmed the exact Tencent Hy-MT2-1.8B BF16 release on 2026-05-21, open weights and documented 8192-token context. Add Apache-2.0 and dense architecture, identify Hy-MT2 family, and correct the description to multilingual translation. Keep explicitly qualified developer-nominal 1.8B with primary provenance; the complete bounded header reveals duplicate embedding/output storage whose equality cannot be proved from metadata, so no exact unique total is asserted. Active count remains undisclosed. Clear unsupported categorical reasoning/tool booleans to null."
+}

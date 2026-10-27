@@ -11441,16 +11441,16 @@
     "name": "Hy-MT2-1.8B",
     "developer": "Tencent",
     "developer_id": "tencent",
-    "family": "Hy",
-    "description": "Tencent Hy reasoning model for coding, instruction following, and agent tasks",
+    "family": "hy-mt2",
+    "description": "Tencent Hy-MT2 dense multilingual translation model supporting 33 languages and translation instructions for terminology, style, formatting and context.",
     "release_date": "2026-05-21",
     "date_precision": "day",
     "open_weights": true,
-    "license": null,
+    "license": "Apache-2.0",
     "parameters_b": 1.8,
     "active_parameters_b": null,
-    "parameters_source": "model_name",
-    "architecture": null,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
     "context_window": 8192,
     "modalities": {
       "input": [
@@ -11460,11 +11460,66 @@
         "text"
       ]
     },
-    "reasoning": false,
-    "tool_call": false,
-    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/tencent/hy-mt2-1.8b.toml",
-    "source_type": "catalog",
+    "reasoning": null,
+    "tool_call": null,
+    "source_url": "https://huggingface.co/tencent/Hy-MT2-1.8B/blob/9a341cd1b679d3efd23b46e847b01745a71ed792/README.md",
+    "source_type": "primary",
     "sources": [
+      {
+        "label": "Hy-MT2-1.8B model card, pinned revision",
+        "url": "https://huggingface.co/tencent/Hy-MT2-1.8B/blob/9a341cd1b679d3efd23b46e847b01745a71ed792/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Hy-MT2 official deployment README",
+        "url": "https://github.com/Tencent-Hunyuan/Hy-MT2/blob/ff1903ecaa724e10951a23c16817a2413c752b35/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Hy-MT2 technical report, revised 25 May 2026",
+        "url": "https://arxiv.org/html/2605.22064v2",
+        "type": "primary"
+      },
+      {
+        "label": "Hy-MT2-1.8B checkpoint configuration",
+        "url": "https://huggingface.co/tencent/Hy-MT2-1.8B/blob/9a341cd1b679d3efd23b46e847b01745a71ed792/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Hy-MT2-1.8B model license",
+        "url": "https://huggingface.co/tencent/Hy-MT2-1.8B/blob/9a341cd1b679d3efd23b46e847b01745a71ed792/LICENSE.txt",
+        "type": "primary"
+      },
+      {
+        "label": "Official model repository file inventory",
+        "url": "https://huggingface.co/api/models/tencent/Hy-MT2-1.8B",
+        "type": "primary"
+      },
+      {
+        "label": "Complete bounded safetensors tensor header",
+        "url": "https://huggingface.co/tencent/Hy-MT2-1.8B/resolve/9a341cd1b679d3efd23b46e847b01745a71ed792/model.safetensors",
+        "type": "primary"
+      },
+      {
+        "label": "Configured HunYuanDenseV1 model implementation, Transformers v5.6.0",
+        "url": "https://github.com/huggingface/transformers/blob/v5.6.0/src/transformers/models/hunyuan_v1_dense/modeling_hunyuan_v1_dense.py",
+        "type": "primary"
+      },
+      {
+        "label": "Transformers v5.6.0 weight-tying loader behavior",
+        "url": "https://github.com/huggingface/transformers/blob/v5.6.0/src/transformers/modeling_utils.py",
+        "type": "primary"
+      },
+      {
+        "label": "Exact checkpoint chat template",
+        "url": "https://huggingface.co/tencent/Hy-MT2-1.8B/blob/9a341cd1b679d3efd23b46e847b01745a71ed792/chat_template.jinja",
+        "type": "primary"
+      },
+      {
+        "label": "Official training guide for the exact dense variant",
+        "url": "https://huggingface.co/tencent/Hy-MT2-1.8B/blob/9a341cd1b679d3efd23b46e847b01745a71ed792/train/README.md",
+        "type": "primary"
+      },
       {
         "label": "Models.dev record",
         "url": "https://github.com/anomalyco/models.dev/blob/dev/models/tencent/hy-mt2-1.8b.toml",
@@ -11474,7 +11529,15 @@
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
+    "upstream_present": true,
+    "notes": "Tencent reports a nominal 1.8B model. Complete BF16 header storage is 2.038515712B elements, but duplicated embedding/output entries and conditional loader tying prevent an exact unique-total claim without tensor-equality evidence. Active parameters are not separately disclosed. Official supported deployment context is 8192 tokens despite a 262144 positional configuration. Reasoning-mode and tool-calling support remain unverified.",
+    "field_status": {
+      "active_parameters_b": "undisclosed",
+      "reasoning": "unverified",
+      "tool_call": "unverified"
+    },
+    "audited_at": "2026-10-27T04:48:03.165041Z",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/500.json"
   },
   {
     "id": "tencent/hy-mt2-30b-a3b",
