@@ -1,7 +1,7 @@
 {
   "index": 150,
   "model_id": "cohere/command-a-vision-07-2025",
-  "reviewed_at": "2026-10-26T18:22:16.333Z",
+  "reviewed_at": "2026-10-27T12:27:55.783775+00:00",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Introducing Command A Vision: Multimodal AI built for Business",
       "publisher": "Cohere Labs",
       "accessed": true,
-      "evidence": "July 31, 2025 release: 112B dense full model; separate 111B Command A text tower, SigLIP2-patch16-512 encoder and MLP adapter. Architecture and training discussion concern this exact release."
+      "evidence": "July 31, 2025 release: 112B dense full model; separate 111B Command A text tower, SigLIP2-patch16-512 encoder and MLP adapter. Architecture and training discussion concern this exact release. Reopened October 27, 2026: the complete release article still explicitly gives 112B dense full model and a separate 111B Command A text tower. Its staged alignment, SFT and RL description does not supply an active-count convention."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "Model Card for Cohere Labs Command A Vision",
       "publisher": "Cohere Labs",
       "accessed": true,
-      "evidence": "Public model card identifies the exact release, Cohere/Cohere Labs developers, open weights, nominal 112B, text/image input and text output, CC-BY-NC with acceptable-use terms, and 128K support despite a 32K downloadable default."
+      "evidence": "Public model card identifies the exact release, Cohere/Cohere Labs developers, open weights, nominal 112B, text/image input and text output, CC-BY-NC with acceptable-use terms, and 128K support despite a 32K downloadable default. Reopened October 27: the exact model summary and size field both retain 112B; the architecture explicitly combines Command A with a SigLIP2 encoder and multimodal adapter. No separate active count is given."
     },
     {
       "id": "s3",
@@ -57,7 +57,7 @@
       "title": "Official Command A Vision repository metadata",
       "publisher": "Cohere Labs / Hugging Face",
       "accessed": true,
-      "evidence": "Repository revision e1016a8105950a626e7dd91b0a3030f7ae522411 exposes a Safetensors aggregate of 111,867,525,360 F16 elements and 50 weight shards. Metadata still declares cc-by-nc-4.0 and a non-commercial license gate. Aggregate metadata is not a tensor-by-tensor learned-parameter audit."
+      "evidence": "Repository revision e1016a8105950a626e7dd91b0a3030f7ae522411 exposes a Safetensors aggregate of 111,867,525,360 F16 elements and 50 weight shards. Metadata still declares cc-by-nc-4.0 and a non-commercial license gate. Aggregate metadata is not a tensor-by-tensor learned-parameter audit. Fresh October 27 metadata returns the same revision and 111,867,525,360-element aggregate; this corroborates the nominal 112B total without establishing an active count."
     },
     {
       "id": "s8",
@@ -73,7 +73,7 @@
       "title": "Introducing Command A+: Making sovereign agentic capabilities available to all",
       "publisher": "Cohere",
       "accessed": true,
-      "evidence": "May 20, 2026 comparison table explicitly gives Command A Vision 112B and marks reasoning and tool use unsupported. It gives 218B total/25B active only for A+, not Vision; there is no separate Vision active count."
+      "evidence": "May 20, 2026 comparison table explicitly gives Command A Vision 112B and marks reasoning and tool use unsupported. It gives 218B total/25B active only for A+, not Vision; there is no separate Vision active count. Reopened October 27: the comparison row is labeled Size, not active parameters. Its speed paragraph contrasts A+ with the separate Command A Reasoning model, not Vision, and defines no Vision or language-backbone active-count convention."
     },
     {
       "id": "s10",
@@ -105,7 +105,31 @@
       "title": "Later Command A+ model card",
       "publisher": "Cohere Labs",
       "accessed": true,
-      "evidence": "Reviewed later first-party model card for possible comparison disclosures. Its total/active counts and sparse architecture describe A+, not Command A Vision, and are not transferred to this record."
+      "evidence": "Reviewed later first-party model card for possible comparison disclosures. Its total/active counts and sparse architecture describe A+, not Command A Vision, and are not transferred to this record. Reopened October 27: its 218B total and 25B active fields remain specific to A+; no Vision active-count comparison is present."
+    },
+    {
+      "id": "s14",
+      "url": "https://huggingface.co/CohereLabs/c4ai-command-a-03-2025",
+      "title": "Command A language-backbone model card",
+      "publisher": "Cohere Labs",
+      "accessed": true,
+      "evidence": "Fresh October 27 read of the exact language model linked by the Vision card. It gives 111B nominal parameters and describes its post-training and local/global attention, but publishes no separate active count. The named-base relationship supports the documented language component, not an inferred complete multimodal active count."
+    },
+    {
+      "id": "s15",
+      "url": "https://arxiv.org/pdf/2504.00698v2",
+      "title": "Command A: An Enterprise-Ready Large Language Model",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "Independently inspected the complete v2 report freshly fetched October 27, including architecture section 2.3, parameter passages and comparison tables. It identifies the 111B Command A language model but does not define an active-parameter convention that can transfer to Vision."
+    },
+    {
+      "id": "s16",
+      "url": "https://arxiv.org/html/2603.11510v1",
+      "title": "Tiny Aya: Bridging Scale and Multilingual Depth",
+      "publisher": "Cohere Labs",
+      "accessed": true,
+      "evidence": "Independently searched the full later first-party report freshly fetched October 27 for Command A Vision, active/activated parameters and relevant comparison disclosures. No exact Vision active count is present; Tiny Aya embedding/non-embedding totals concern another model and do not establish this field."
     }
   ],
   "fields": {
@@ -174,10 +198,9 @@
         "s1",
         "s2",
         "s7",
-        "s9",
-        "s11"
+        "s9"
       ],
-      "note": "Published nominal full-model billions. The 111B language tower is a component. Hub's 111.867525360B F16 aggregate is corroborative metadata, not an independently checked exact learned count; gated tensor files preclude validating buffers/components."
+      "note": "Fresh October 27 exact card, release and later comparison confirm the developer-published nominal 112B complete model. The 111B Command A language tower is a documented component. Current Hub metadata remains 111.867525360B F16 elements; retained as corroboration without replacing published nominal precision or repeating an exact tensor census."
     },
     "active_parameters_b": {
       "value": null,
@@ -186,9 +209,12 @@
         "s1",
         "s2",
         "s9",
-        "s13"
+        "s13",
+        "s14",
+        "s15",
+        "s16"
       ],
-      "note": "No separate active-per-token count for this exact Vision release in reviewed primary sources or later comparison. Dense topology does not justify copying total parameters into this field; visual encoding and text decoding also use different paths."
+      "note": "Fresh exact-model total/active/activated and named-base searches, reopened release/card/backbone evidence, and later first-party comparisons found no separate active-count disclosure for Vision or its language component. The A+ table labels Vision 112B as Size; A+ 25B active and Reasoning 111B dense are not Vision specifications. Dense topology and the 111B language total do not establish per-token active parameters, especially across separate image encoding and language decoding."
     },
     "architecture": {
       "value": "dense",
@@ -316,12 +342,13 @@
         "type": "primary"
       }
     ],
-    "notes": "112B is the nominal full-model count; the published 111B language tower is only a component. Exact learned totals and separate vision/projector counts were not independently audited because checkpoint files require access. Active parameters are not separately reported. API context is 128,000 tokens; downloadable configuration defaults to 32K according to the card. License records the exact checkpoint card/gate declaration and linked public CC-BY-NC-4.0 terms with acceptable-use addendum; Cohere's current overview contradictorily says Apache 2.0 for the same repository. Relicensing was not verified. Native reasoning and tool use are explicitly disabled. The baseline c4ai-prefixed weights URL is not the release's canonical repository."
+    "notes": "112B is Cohere\u2019s nominal complete-model total, including a 111B language tower. Active parameters are not separately disclosed for either scope. API context is 128,000 tokens; downloadable configuration defaults to 32K according to the card. License records the exact checkpoint card/gate declaration and linked public CC-BY-NC-4.0 terms with acceptable-use addendum; Cohere's current overview contradictorily says Apache 2.0 for the same repository. Relicensing was not verified. Native reasoning and tool use are explicitly disabled. The baseline c4ai-prefixed weights URL is not the release's canonical repository.",
+    "active_parameters_b": null
   },
   "proposed_fields": {
     "parameter_components_b": {
       "language_model": 111
     }
   },
-  "summary": "Adds nominal full-model 112B, verified dense architecture and the exact artifact's CC-BY-NC-4.0 license declaration. Confirms release date, 128K API context and both native capability flags false. Separates nominal 111B language component and leaves active count undisclosed. Contradictory Apache 2.0 marketing overview is recorded; relicensing and exact learned/component counts remain unresolved."
+  "summary": "October 27 parameter re-audit confirmed nominal 112B complete model and the documented 111B language component. Fresh exact-model total/active/lineage searches, reopened primary release/card/metadata, the language-backbone card/report, and later Cohere comparisons yielded no separate supported active count. Preserved null active, component data, prior gated-file limitations and all unrelated assessments; no weight shards or repeat census requested."
 }
