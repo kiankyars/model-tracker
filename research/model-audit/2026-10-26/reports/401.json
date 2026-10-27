@@ -1,7 +1,7 @@
 {
   "index": 401,
   "model_id": "openai/gpt-3-175b",
-  "reviewed_at": "2026-10-27T01:22:23.481190Z",
+  "reviewed_at": "2026-10-27T16:15:38.183467Z",
   "sources": [
     {
       "id": "s1",
@@ -50,6 +50,22 @@
       "publisher": "OpenAI",
       "accessed": true,
       "evidence": "January 2022 comparison explicitly labels its baseline 175B GPT-3 and explains that InstructGPT models are later human-feedback fine-tunes. It corroborates the nominal size but does not provide an original-checkpoint census or separately defined active count. Later instruction tuning is not attributed to the original GPT-3 model."
+    },
+    {
+      "id": "s7",
+      "url": "https://research.google/blog/more-efficient-in-context-learning-with-glam/",
+      "title": "More Efficient In-Context Learning with GLaM",
+      "publisher": "Google Research, Andrew M. Dai and Nan Du",
+      "accessed": true,
+      "evidence": "Freshly reopened October 27, 2026. The December 9, 2021 Results table explicitly identifies GPT-3 (175B) and reports Total Parameters 0.175T and Activated Parameters 0.175T. The post links the original Brown et al. GPT-3 paper. This is Google Research's nominal comparison convention, not an OpenAI active-count disclosure."
+    },
+    {
+      "id": "s8",
+      "url": "https://proceedings.mlr.press/v162/du22c/du22c.pdf",
+      "title": "GLaM: Efficient Scaling of Language Models with Mixture-of-Experts, ICML 2022",
+      "publisher": "Google authors, PMLR",
+      "accessed": true,
+      "evidence": "Freshly reopened and Table 2 visually checked on PDF page 3, October 27, 2026. The table defines total trainable parameters and activated model parameters per input token, then lists GPT-3 as a dense decoder-only model with 175B in both columns. The introduction and reference identify Brown et al. (2020), Language Models are Few-Shot Learners, establishing the original GPT-3 identity. The count is the Google authors' published nominal comparison convention, without an exact component census."
     }
   ],
   "fields": {
@@ -118,19 +134,19 @@
         "s1",
         "s3",
         "s5",
-        "s6"
+        "s6",
+        "s8"
       ],
-      "note": "Published nominal total: Table 2.1 reports 175.0B and explicitly defines total trainable parameters. Retain this precision; no public original checkpoint or complete tensor census was available for an exact integer. The paper's separate scaling plot excludes embeddings, but that plot-specific convention does not redefine the table total."
+      "note": "Freshly rechecked original Table 2.1: GPT-3 175B or GPT-3 is reported at 175.0B total trainable parameters. Preserve OpenAI's nominal total; Google's GLaM comparison also reports 175B. Neither source establishes an exact integer tensor census."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 175,
+      "status": "verified",
       "source_ids": [
-        "s1",
-        "s3",
-        "s6"
+        "s7",
+        "s8"
       ],
-      "note": "No separately defined active-per-token count is provided in the original paper/card or reviewed later GPT-3 comparison. Dense weights and local sparse attention do not justify equating active parameters with the nominal total."
+      "note": "Google's original GLaM paper Table 2 explicitly reports 175B activated model parameters per input token for the original GPT-3, citing Brown et al. (2020); its release blog also tabulates 0.175T activated. Adopt that nominal Google comparison convention, not an OpenAI disclosure or an exact tensor-participation claim. This is not inferred from dense architecture or the GPT-3 Appendix D training-FLOP assumptions."
     },
     "architecture": {
       "value": "dense",
@@ -199,7 +215,7 @@
     "context_window": 2048,
     "parameters_source": "primary_source",
     "description": "Largest original GPT-3 model, a 96-layer Transformer for text completion and learning from examples in its prompt.",
-    "notes": "June 11, 2020 marks the initial API private-beta announcement and access requests; the paper was announced May 28. The published 175B size is nominal. The original model has a 2048-token context and alternating dense/local sparse attention; a separate active-parameter count is not disclosed. The September 2020 retraining and later InstructGPT models are distinct versions.",
+    "notes": "June 11, 2020 marks the initial API private-beta announcement and access requests; the paper was announced May 28. OpenAI reports a nominal 175B total; Google's GLaM comparison reports a nominal 175B activated per input token. The original model has a 2048-token context and alternating dense/local sparse attention. The September 2020 retraining and later InstructGPT models are distinct versions.",
     "sources": [
       {
         "label": "GPT-3 original technical report, revision 4",
@@ -225,8 +241,20 @@
         "label": "Original GPT-3 research announcement",
         "url": "https://openai.com/index/language-models-are-few-shot-learners/",
         "type": "announcement"
+      },
+      {
+        "label": "Google GLaM comparison: GPT-3 activated parameters",
+        "url": "https://proceedings.mlr.press/v162/du22c/du22c.pdf",
+        "type": "technical_report"
+      },
+      {
+        "label": "Google GLaM announcement: total and activated parameters",
+        "url": "https://research.google/blog/more-efficient-in-context-learning-with-glam/",
+        "type": "primary"
       }
-    ]
+    ],
+    "parameters_b": 175,
+    "active_parameters_b": 175
   },
-  "summary": "Filled the missing 2048-token context and made the description model-specific. Verified the published nominal 175B count and dense Transformer architecture, distinguishing sparse attention from MoE. Retained June 11 as the stated API private-beta milestone with its scope explicit. Original closed/proprietary text model remains distinct from September retraining and InstructGPT. Active count, dedicated reasoning and native tool calling remain unasserted."
+  "summary": "Fresh parameter re-audit retains OpenAI's nominal 175B total and establishes nominal 175B active using Google's explicit GLaM comparison table for the original GPT-3. Attribution and counting precision remain explicit; this is not an exact tensor census or OpenAI active-count disclosure. The other 12 field assessments are unchanged, including the API private-beta milestone, context, architecture and unresolved reasoning/tool-call claims."
 }
