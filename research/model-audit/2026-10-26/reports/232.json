@@ -1,7 +1,7 @@
 {
   "index": 232,
   "model_id": "google/t5-large",
-  "reviewed_at": "2026-10-26T20:42:38.438621+00:00",
+  "reviewed_at": "2026-10-27T13:35:32.500376+00:00",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Original T5 release README",
       "publisher": "Google Research",
       "accessed": true,
-      "evidence": "The October 23, 2019 repository revision explicitly says the pretrained checkpoints have been released and links the exact large checkpoint directory. It names T5-Large with a nominal 770 million parameters, distinct from Base, 3B and 11B."
+      "evidence": "The October 23, 2019 repository revision explicitly says the pretrained checkpoints have been released and links the exact large checkpoint directory. It names T5-Large with a nominal 770 million parameters, distinct from Base, 3B and 11B. Freshly reopened the original raw release README on October 27; the nominal 770M Large identity is unchanged."
     },
     {
       "id": "s2",
@@ -41,7 +41,7 @@
       "title": "Original T5-Large operative configuration",
       "publisher": "Google Research",
       "accessed": true,
-      "evidence": "The released Large configuration specifies d_model=1024, d_ff=4096, d_kv=64, num_heads=16 and 24 layers per stack. Bitransformer.shared_embedding and shared_embedding_and_softmax_weights are true. Inputs and targets are configured to 512 tokens for this training run. This identifies the original T5 Large checkpoint, not T5 v1.1 or Flan."
+      "evidence": "The released Large configuration specifies d_model=1024, d_ff=4096, d_kv=64, num_heads=16 and 24 layers per stack. Bitransformer.shared_embedding and shared_embedding_and_softmax_weights are true. Inputs and targets are configured to 512 tokens for this training run. This identifies the original T5 Large checkpoint, not T5 v1.1 or Flan. Freshly fetched and read the exact operative configuration on October 27; its 24-layer stacks, width, ReLU layers and tied embeddings still identify the original released architecture."
     },
     {
       "id": "s6",
@@ -73,7 +73,7 @@
       "title": "Pinned T5 Large model card",
       "publisher": "T5 community / Hugging Face",
       "accessed": true,
-      "evidence": "The exact Large card attributes the model to the original T5 authors, declares Apache 2.0, describes text-to-text tasks and reiterates nominal 770M. It describes a mixture of denoising and supervised text tasks. It provides no dedicated thinking, tool-calling, inference-active parameter count or fixed maximum-context specification."
+      "evidence": "The exact Large card attributes the model to the original T5 authors, declares Apache 2.0, describes text-to-text tasks and reiterates nominal 770M. It describes a mixture of denoising and supervised text tasks. It provides no dedicated thinking, tool-calling, inference-active parameter count or fixed maximum-context specification. Freshly retrieved the complete pinned raw card on October 27; it still states 770 million total parameters and supplies no separate active count."
     },
     {
       "id": "s10",
@@ -98,6 +98,54 @@
       "publisher": "OpenAI",
       "accessed": true,
       "evidence": "Later paper Table D.1 labels T5-Large as 770M with 0.5 fraction of parameters active per token for an approximate training-compute calculation. The appendix explicitly simplifies away attention costs. This is not a Google-disclosed inference-active parameter count and is not multiplied into the catalog field."
+    },
+    {
+      "id": "s13",
+      "url": "https://jmlr.org/papers/volume21/20-074/20-074.pdf",
+      "title": "Original T5 JMLR paper, section 3.7",
+      "publisher": "Google Research / JMLR",
+      "accessed": true,
+      "evidence": "Read the full paper from the October 27 fresh primary-source cache. Section 3.7 specifies the original Large dimensions and approximately 770M total parameters. Neither the model-size discussion nor the comparisons define a separate Large active-parameter convention. This corroborates the nominal label without replacing the previously verified exact total."
+    },
+    {
+      "id": "s14",
+      "url": "https://aclanthology.org/2022.emnlp-demos.40.pdf",
+      "title": "BMCook: A Task-agnostic Compression Toolkit for Big Models",
+      "publisher": "Tsinghua University / ModelBest / ACL",
+      "accessed": true,
+      "evidence": "Freshly read the original paper, especially section 3 and Table 2. The T5-Large baseline is labeled 0.60GB Activated Model Size. The authors explicitly define that metric from attention and FFN layers, exclude embeddings, and reduce it fourfold under eight-bit quantization. It is a byte-size theoretical-compute proxy, not a published total number of active parameters; converting it into a whole-model active count would add an unsupported convention."
+    },
+    {
+      "id": "s15",
+      "url": "https://research.google/blog/alternating-updates-for-efficient-transformers/",
+      "title": "Alternating updates for efficient transformers",
+      "publisher": "Google Research",
+      "accessed": true,
+      "evidence": "Freshly reopened Google’s November 7, 2023 original research post and its linked paper arxiv.org/html/2301.13310v2. The 770M T5-Large figure is total size. AltUp changes representations and updates, while conditional-activation discussion concerns its altered models; no separate active count for the original T5-Large checkpoint is published."
+    },
+    {
+      "id": "s16",
+      "url": "https://aclanthology.org/2022.findings-acl.71.pdf",
+      "title": "MoEfication: Transformer Feed-forward Layers are Mixtures of Experts",
+      "publisher": "Tsinghua University / WeChat AI / ACL",
+      "accessed": true,
+      "evidence": "Freshly inspected the original study. Its T5-Large example measures the fraction of FFN neurons with positive ReLU outputs, and its converted MoE models use selected FFN experts. Those activation ratios and changed routing do not establish a separately published whole-model parameter count for original dense T5-Large."
+    },
+    {
+      "id": "s17",
+      "url": "https://tac.nist.gov/publications/2020/presentations/TAC2020.KEYNOTE.Bikel.presentation.pdf",
+      "title": "Entities: what are they, where are they and how do we model them?",
+      "publisher": "Daniel M. Bikel / Google Research / NIST TAC",
+      "accessed": true,
+      "evidence": "Freshly reopened the original presentation and visually inspected slide 74. Its All and Activated parameter columns identify T5 3B and T5 11B, including a separate 11B salient-span-masking row. T5-Large is absent. This valid comparison convention cannot be transferred to an unlisted differently sized sibling."
+    },
+    {
+      "id": "s18",
+      "url": "https://huggingface.co/google/flan-t5-large/raw/main/config.json",
+      "title": "Official Flan-T5-Large configuration",
+      "publisher": "Google",
+      "accessed": true,
+      "evidence": "Freshly fetched original Google configuration after the MTEB Flan-Large profile surfaced a 750M active figure. Flan-Large uses gated-GELU, d_ff=2816 and untied output embeddings, whereas original Large uses ReLU, d_ff=4096 and tied embeddings. It is not an unchanged original-Large fine-tune, so its parameter figures cannot be inherited."
     }
   ],
   "fields": {
@@ -166,20 +214,31 @@
         "s5",
         "s6",
         "s7",
-        "s8"
+        "s8",
+        "s1",
+        "s9",
+        "s13"
       ],
-      "note": "Exact unique full-model count: 737,668,096 = encoder 302,040,576 + decoder 402,728,448 + shared embedding 32,899,072. Original checkpoint index excludes optimizer slots and global_step; all 509 model tensors are BF16. Independent shape formula with both 24-layer stacks, feed-forward and attention matrices, normalization vectors and two relative-bias tables agrees. Tied encoder/decoder input and output embedding counted once. Converted HF storage adds an unused 512-element cross-attention bias, explicitly ignored by the implementation. The published 770M label is approximate and is not treated as the exact unique count. No weight shards were downloaded."
+      "note": "Exact unique full-model count: 737,668,096 = encoder 302,040,576 + decoder 402,728,448 + shared embedding 32,899,072. Original checkpoint index excludes optimizer slots and global_step; all 509 model tensors are BF16. Independent shape formula with both 24-layer stacks, feed-forward and attention matrices, normalization vectors and two relative-bias tables agrees. Tied encoder/decoder input and output embedding counted once. Converted HF storage adds an unused 512-element cross-attention bias, explicitly ignored by the implementation. The published 770M label is approximate and is not treated as the exact unique count. No weight shards were downloaded. October 27 re-audit freshly confirms the nominal 770M label and exact released configuration. Retain the existing supported 737,668,096 total; no tensor census or weight download was repeated."
     },
     "active_parameters_b": {
       "value": null,
       "status": "undisclosed",
       "source_ids": [
+        "s1",
         "s3",
+        "s5",
         "s9",
         "s11",
-        "s12"
+        "s12",
+        "s13",
+        "s14",
+        "s15",
+        "s16",
+        "s17",
+        "s18"
       ],
-      "note": "No separately defined inference-active count in the reviewed original or later Google sources. Encoder processing and autoregressive decoder steps involve different components. OpenAI Appendix D uses an approximate 0.5 fraction for training FLOPs, not a developer-disclosed inference count; do not equate total with active or publish 385M from that estimate."
+      "note": "Fresh October 27 exact-model active/activated searches, original-source rereads and later research comparisons found no supported separate active-parameter count for original T5-Large. Google’s Bikel table supplies counts only for 3B/11B, not Large. BMCook’s 0.60GB activated model size is a precision-dependent attention/FFN byte proxy excluding embeddings; MoEfication measures neuron-output sparsity and altered routed models. AltUp adds structural changes. Flan-Large’s active lead belongs to a gated-GELU, untied-embedding architecture rather than this original checkpoint. GPT-3 Appendix D’s half-active fraction remains approximate training-FLOP accounting. Keep null rather than converting byte sizes, percentages, or sibling conventions into a whole-model count."
     },
     "architecture": {
       "value": "dense",
@@ -304,7 +363,8 @@
         "type": "primary"
       }
     ],
-    "notes": "The original checkpoint has 737,668,096 unique parameters across encoder, decoder and shared embeddings; the published 770M figure is nominal. Optimizer state and an unused 512-value cross-attention bias in the Hugging Face conversion are excluded. Tied embeddings count once. A 512-token training/default length does not establish a fixed maximum context. Active parameters are not separately reported. Release date comes from the original checkpoint release README and paper."
+    "notes": "The original checkpoint has 737,668,096 unique parameters across encoder, decoder and shared embeddings; Google’s 770M label is nominal. Tied embeddings count once; optimizer state and an unused 512-value conversion bias are excluded. No separate active-parameter count was found in the checked primary sources. A 512-token training/default length does not establish a fixed maximum context. Release date follows the original checkpoint release README and paper.",
+    "active_parameters_b": null
   },
-  "summary": "Verified all 14 fields. Replaces nominal 0.77B with exact 0.737668096B full unique count, corroborated by the original Google checkpoint index and independent shape calculation. Records unused conversion bias and tied embedding treatment. Confirms dense encoder-decoder architecture, Apache-2.0 and October 23 release. Maximum context, active count and dedicated reasoning/tool support remain explicitly unspecified."
+  "summary": "October 27 parameter re-audit retains the verified 0.737668096B original T5-Large total and freshly confirms Google’s nominal 770M label. Explicit active null remains after checking later original research: byte-size proxies, neuron sparsity, structurally changed variants and unlisted sibling comparisons do not establish an applicable count. All twelve nonparameter assessments are unchanged. No weights or repeated tensor census."
 }
