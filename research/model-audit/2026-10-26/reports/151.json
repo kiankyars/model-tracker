@@ -1,7 +1,7 @@
 {
   "index": 151,
   "model_id": "cohere/command-r-08-2024",
-  "reviewed_at": "2026-10-26T18:21:13.803933Z",
+  "reviewed_at": "2026-10-27T12:28:26.119375+00:00",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Model Card for C4AI Command R 08-2024",
       "publisher": "Cohere / Cohere Labs",
       "accessed": true,
-      "evidence": "Exact dated open-weight release: nominal 32 billion parameters; autoregressive Transformer with GQA; text input/output; 128K context; tool use; CC-BY-NC license and acceptable-use terms."
+      "evidence": "Exact dated open-weight release: nominal 32 billion parameters; autoregressive Transformer with GQA; text input/output; 128K context; tool use; CC-BY-NC license and acceptable-use terms. Reopened October 27, 2026: the exact dated card still explicitly states 32 billion parameters and describes pretraining followed by SFT and preference training. It provides no separate active count or named external base with a transferable activation specification."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "Command models get an August refresh",
       "publisher": "Cohere",
       "accessed": true,
-      "evidence": "August 30, 2024 announcement explicitly identifies command-r-08-2024 as the updated Command R and describes multilingual RAG and tool-use improvements."
+      "evidence": "August 30, 2024 announcement explicitly identifies command-r-08-2024 as the updated Command R and describes multilingual RAG and tool-use improvements. Reopened October 27: throughput and memory-footprint improvements are not accompanied by a total/active breakdown; the March release is a different checkpoint."
     },
     {
       "id": "s3",
@@ -53,11 +53,11 @@
     },
     {
       "id": "s7",
-      "url": "https://arxiv.org/pdf/2504.00698",
+      "url": "https://arxiv.org/pdf/2504.00698v2",
       "title": "Command A: An Enterprise-Ready Large Language Model",
       "publisher": "Cohere",
       "accessed": true,
-      "evidence": "Later first-party report compares Command R Refresh, but does not supply a separately labeled active-parameter count for that model. Architecture details for Command A/R7B are not transferred to Command R Refresh."
+      "evidence": "Independently inspected the full v2 report freshly fetched October 27, including all parameter references and the Command R Refresh comparison rows and table headings. The report supplies no active/activated-parameter column or separately defined count for this exact model. Its architecture and expert-merging descriptions concern Command A/R7B and do not identify a count-bearing base for Command R Refresh."
     },
     {
       "id": "s8",
@@ -73,7 +73,7 @@
       "title": "Exact checkpoint public architecture metadata",
       "publisher": "Cohere Labs / Hugging Face",
       "accessed": true,
-      "evidence": "At revision dc835b893cd3fb8f14b24970dbc2a0a6d3c22ee3, the exact dated checkpoint declares CohereForCausalLM and model_type cohere. Public aggregate tensor metadata is not used as an independently verified learned count."
+      "evidence": "At revision dc835b893cd3fb8f14b24970dbc2a0a6d3c22ee3, the exact dated checkpoint declares CohereForCausalLM and model_type cohere. Public aggregate tensor metadata is not used as an independently verified learned count. Fresh October 27 metadata returns the same revision and 32,296,476,672 F16 elements, corroborating the nominal 32B total without defining active parameters."
     },
     {
       "id": "s10",
@@ -82,6 +82,38 @@
       "publisher": "Cohere / Hugging Face",
       "accessed": true,
       "evidence": "The architecture selected by exact checkpoint metadata uses CohereMLP in every decoder layer, with dense gate, up and down projections and no expert router. This establishes dense decoder Transformer classification."
+    },
+    {
+      "id": "s11",
+      "url": "https://arxiv.org/html/2412.04261v1",
+      "title": "Aya Expanse: Combining Research Breakthroughs for a New Multilingual Frontier",
+      "publisher": "Cohere Labs and Cohere",
+      "accessed": true,
+      "evidence": "Independently inspected the complete report from the October 27 fetch, including Command-family lineage, architecture and comparison paragraphs. It describes Expanse models built on the recent Command series but supplies no active count for Command R 08-2024. The only explicit 39B active figure describes Mixtral-8x22B."
+    },
+    {
+      "id": "s12",
+      "url": "https://arxiv.org/html/2603.11510v1",
+      "title": "Tiny Aya: Bridging Scale and Multilingual Depth",
+      "publisher": "Cohere Labs and Cohere",
+      "accessed": true,
+      "evidence": "Independently inspected the complete later report from the October 27 fetch, including model comparisons, references and parameter terminology. It publishes Tiny Aya total and non-embedding counts, not an active count for Command R 08-2024. No applicable exact-model activation convention is supplied."
+    },
+    {
+      "id": "s13",
+      "url": "https://cohere.com/blog/command-a-plus",
+      "title": "Introducing Command A+",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "Reopened October 27. The May 2026 release supplies 218B total and 25B active for Command A+ and a Size comparison for the Command A family. Command R 08-2024 is absent, so this does not resolve its active count."
+    },
+    {
+      "id": "s14",
+      "url": "https://huggingface.co/spaces/kaizuberbuehler/ai-progress-charts/commit/03738e4b703ddd3d1021ebb7c8de82eb50c32013",
+      "title": "Independent AI progress charts parameter data",
+      "publisher": "kaizuberbuehler, Hugging Face Space",
+      "accessed": true,
+      "evidence": "Fresh exact-model active-count search found and reopened this independent JSON data snapshot. It assigns Command R 08-2024 32B total and 32B active without a field-level source or count derivation. Other rows also copy totals into active, including DeepSeek-V2.5. It does not establish a developer-published count or applicable convention and is recorded only as an unresolved secondary lead."
     }
   ],
   "fields": {
@@ -140,18 +172,23 @@
       "value": 32,
       "status": "verified",
       "source_ids": [
-        "s1"
+        "s1",
+        "s9"
       ],
-      "note": "Developer-stated nominal total in billions, not an exact tensor count or the original March model size."
+      "note": "Fresh October 27 checks confirm the exact August release’s published nominal 32B total. Public metadata corroborates approximately 32.296B, but the developer’s nominal precision is retained. This is not the original March 35B release; an exact census is unnecessary for the nominal specification."
     },
     "active_parameters_b": {
       "value": null,
       "status": "undisclosed",
       "source_ids": [
         "s1",
-        "s7"
+        "s7",
+        "s11",
+        "s12",
+        "s13",
+        "s14"
       ],
-      "note": "No separately defined active count was located in the card or later report; total is not copied into this field."
+      "note": "Fresh exact-model total/active/activated/base searches and independently inspected original and later Cohere comparisons found no separately defined active count or applicable named-base inference. An independent chart’s 32B active field has no count provenance. Dense architecture, total metadata and family resemblance are insufficient to assign this field."
     },
     "architecture": {
       "value": "dense",
@@ -220,7 +257,7 @@
     "parameters_source": "primary_source",
     "architecture": "dense",
     "description": "Cohere's August 2024 text-generation model for long-context chat, multilingual RAG and tool use.",
-    "notes": "32B is the developer-stated nominal total for the August 2024 release, not an exact checkpoint count. Active parameters are not separately reported. Architecture is an autoregressive Transformer with GQA. Research weights use CC-BY-NC-4.0 with acceptable-use terms; hosted API access has separate terms. Exact public architecture metadata and its CohereForCausalLM implementation establish dense decoder layers despite gated full configuration access.",
+    "notes": "32B is Cohere’s nominal total for the August 2024 release; active parameters are not separately disclosed. The checkpoint is a dense autoregressive Transformer with GQA. Research weights use CC-BY-NC-4.0 with acceptable-use terms; hosted API access has separate terms.",
     "sources": [
       {
         "label": "Cohere model card: Command R 08-2024",
@@ -264,8 +301,9 @@
       }
     ],
     "source_url": "https://docs.cohere.com/changelog/command-gets-refreshed",
-    "source_type": "primary"
+    "source_type": "primary",
+    "active_parameters_b": null
   },
-  "summary": "All 14 fields audited for the exact August 2024 variant. Add nominal 32B total, CC-BY-NC-4.0 and Transformer architecture, and clarify the generative description. Preserve verified release date, text modalities, context, open weights, tool use and disabled dedicated reasoning capability. Active count remains undisclosed; gated configuration was not available. Parent review verified dense classification from exact repository architecture metadata and the corresponding implementation.",
+  "summary": "October 27 parameter re-audit confirms nominal 32B and retains an undisclosed active count. Reopened the exact card, release and metadata; ran fresh total/active/base searches; checked original and later Cohere comparisons. An independent 32B-active chart lacks count provenance and is not promoted to a specification. Added explicit parameter patches and preserved unrelated assessments.",
   "notes": "The later Command A report was checked for Command R Refresh comparisons. Its architecture discussion concerns Command A and R7B and was not used to infer details for this model. Repository creation dates and later hosting announcements were not substituted for the explicit August 30 release date."
 }
