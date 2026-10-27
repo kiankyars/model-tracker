@@ -1,0 +1,354 @@
+{
+  "index": 381,
+  "model_id": "nvidia/nemotron-3-nano-30b-a3b",
+  "reviewed_at": "2026-10-27T00:38:31.157637+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-BF16/blob/bf77c3174f68ad409e1c2aa60daeb46e32d1c606/README.md",
+      "title": "Official Nemotron 3 Nano BF16 model card",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Identifies NVIDIA as developer, the exact post-trained Nano 30B A3B checkpoint, December 15, 2025 release, text input/output, Nemotron Open Model License, reasoning toggle, tool-calling training and supported 1M context despite the 256K default. Its 30B total and 3.5B active wording differs from the technical report and exact checkpoint count."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-BF16/blob/bf77c3174f68ad409e1c2aa60daeb46e32d1c606/config.json",
+      "title": "Pinned checkpoint configuration",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "52-layer pattern contains 23 Mamba, 23 MoE and six attention layers. Hidden size 2688, vocabulary 131072, untied embeddings, 128 routed experts/top six, expert width 1856 and one shared MLP width 3712. GQA has 32 query heads, two KV heads, dimension 128. Default max_position_embeddings is 262144."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-BF16/blob/bf77c3174f68ad409e1c2aa60daeb46e32d1c606/modeling_nemotron_h.py",
+      "title": "Pinned model implementation",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Defines every learned matrix, norm, convolution and Mamba parameter; A_log and D are nn.Parameter. Router e_score_correction_bias is a registered buffer. MoE uses ReLU-squared up/down MLPs, six routed experts and one shared MLP. Attention implementation uses no rotary or positional embedding computation. No MTP or LatentMoE modules appear."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-BF16/blob/bf77c3174f68ad409e1c2aa60daeb46e32d1c606/model.safetensors.index.json",
+      "title": "Checkpoint index",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Maps 6243 tensors to 13 shards. Every indexed key was matched to headers and expected code/config shapes. Its metadata.total_size is 63155886464 bytes, 5888 below the 63155892352 actual payload bytes independently summed from all header offsets; the index byte count was not used to derive parameters."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-BF16/resolve/bf77c3174f68ad409e1c2aa60daeb46e32d1c606/model-00001-of-00013.safetensors",
+      "title": "Official BF16 shard headers, first of 13",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "HTTP 206 reads of each eight-byte header length and the exact JSON header, 801920 bytes total, cover all 13 shards without downloading weight payloads. Headers contain 6220 learned tensors totaling 31577937344 parameters and 23 router-correction buffers totaling 2944 elements. BF16 and F32 shapes/dtypes and contiguous byte offsets were checked."
+    },
+    {
+      "id": "s6",
+      "url": "https://arxiv.org/html/2512.20848v1",
+      "title": "Nemotron 3 Nano technical report",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Introduction explicitly identifies 31.6B total, 3.2B active excluding embeddings and 3.6B including embeddings. Section 2.1/Table 1 describes hybrid Mamba-Transformer MoE, 128 routed experts/top six and two shared expert-width units. Sections 3.1.1/3.1.5 and post-training evaluations establish reasoning control and tool use. 1M context is supported and evaluated; no later arXiv revision was listed."
+    },
+    {
+      "id": "s7",
+      "url": "https://nvidianews.nvidia.com/news/nvidia-debuts-nemotron-3-family-of-open-models",
+      "title": "December 15 Nemotron 3 launch",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Dated December 15, 2025; states that Nano and its Hugging Face weights are available that day, while Super and Ultra are forthcoming. Provides independent contemporary support for the card release date."
+    },
+    {
+      "id": "s8",
+      "url": "https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-nemotron-open-model-license/",
+      "title": "NVIDIA Nemotron Open Model License",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Actual governing agreement linked by the exact card, dated December 15, 2025. This is the Nemotron license, distinct from the earlier NVIDIA Open Model License and newer family licenses."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-BF16/blob/bf77c3174f68ad409e1c2aa60daeb46e32d1c606/chat_template.jinja",
+      "title": "Pinned reasoning and tool-call template",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Defaults enable_thinking to true, formats think traces and supports toggling them off; serializes tool definitions, function calls and tool responses. Combined with documented post-training, this verifies both capabilities for this checkpoint."
+    },
+    {
+      "id": "s10",
+      "url": "https://docs.vllm.ai/en/v0.32.0/cli/",
+      "title": "vLLM CLI numeric suffix definition",
+      "publisher": "vLLM",
+      "accessed": true,
+      "evidence": "Documents that uppercase 1M means 1048576 and applies to --max-model-len. This interprets the exact NVIDIA card example using --max-model-len 1M with VLLM_ALLOW_LONG_MAX_MODEL_LEN=1."
+    },
+    {
+      "id": "s11",
+      "url": "https://www.nvidia.com/en-us/ai-data-science/foundation-models/nemotron/llm-info/",
+      "title": "NVIDIA model-family technical overview",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Raw HTTPS retrieval succeeded with status 200; the search renderer returned 404. Page marked August 2026 lists Nano exact total 31577937344, retained Nemotron Open Model License and 1M support, while noting conflicting 262K provider metadata. Used as corroboration of direct checkpoint/card evidence, not as an instruction source."
+    },
+    {
+      "id": "s12",
+      "url": "https://arxiv.org/html/2512.20856v1",
+      "title": "Nemotron 3 family white paper",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Distinguishes Nano from larger Super/Ultra: the latter introduce LatentMoE and MTP, which are not transferred to Nano. Describes family reasoning control, tool-use training and 1M context."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Nemotron 3 Nano 30B A3B",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Catalog spelling of the post-trained text-only model. BF16 is the canonical counting checkpoint, not a different model identity; do not substitute Base, Omni or Lightning variants."
+    },
+    "developer": {
+      "value": "NVIDIA",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6"
+      ],
+      "note": "Exact card names NVIDIA Corporation and says the model was trained from scratch."
+    },
+    "family": {
+      "value": "nemotron",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7",
+        "s12"
+      ],
+      "note": "Official Nemotron 3 family member."
+    },
+    "release_date": {
+      "value": "2025-12-15",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7"
+      ],
+      "note": "Exact model card date and contemporary launch availability agree; December 23 paper submission is later."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s5",
+        "s7"
+      ],
+      "note": "Full original post-trained checkpoint is publicly downloadable; all indexed tensor headers were retrieved without authentication."
+    },
+    "license": {
+      "value": "NVIDIA Nemotron Open Model License",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8",
+        "s11"
+      ],
+      "note": "Actual named model license; do not use Apache-2.0 from the implementation source or transfer newer family license terms."
+    },
+    "parameters_b": {
+      "value": 31.577937344,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s11"
+      ],
+      "note": "Exact complete learned count: 31577937344 across 6220 BF16/F32 parameter tensors. Includes untied embeddings/output, convolutions, norms and Mamba A_log/D/dt_bias. Excludes 2944 persistent router-correction buffer elements; no quantization scales, packed weights or MTP. Config/code shapes match every header. 30B is the model-name tier and 31.6B is report rounding. Index payload metadata is short by 5888 bytes, so a bytes/2 shortcut would be wrong."
+    },
+    "active_parameters_b": {
+      "value": 3.6,
+      "status": "verified",
+      "source_ids": [
+        "s6",
+        "s2",
+        "s3",
+        "s1"
+      ],
+      "note": "Nominal technical-report count explicitly including embeddings; the same report states 3.2B excluding embeddings. Current card says 3.5B without that distinction. Config shape accounting for six routed experts, all shared/non-expert layers and both embedding/output matrices gives 3.580073408B (3.227751872B excluding input embedding), consistent with report rounding. Use the reported 3.6B rather than present the accounting convention as a newly measured exact runtime count."
+    },
+    "architecture": {
+      "value": "hybrid-ssm-transformer-moe",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s6",
+        "s12"
+      ],
+      "note": "23 Mamba-2, 23 sparse MoE and six GQA attention layers; 128 routed experts with top-six routing. One shared MLP of width 3712 equals two width-1856 expert units, reconciling card/config one shared expert with report Table 1 two. No positional embeddings, LatentMoE or MTP in this checkpoint."
+    },
+    "context_window": {
+      "value": 1048576,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s6",
+        "s10",
+        "s11"
+      ],
+      "note": "Advertised and evaluated 1M support, represented as 1048576 from the exact card vLLM --max-model-len 1M instruction and official CLI definition. The card explicitly explains that config default 262144 is for lower VRAM use; it is not the supported maximum. Hosted endpoints may set lower limits."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Exact card says text input/output and checkpoint is a language model. Omni is a separate multimodal model."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6",
+        "s9"
+      ],
+      "note": "Post-trained reasoning model with traces enabled by default and enable_thinking control; report also describes reasoning-budget training."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6",
+        "s9"
+      ],
+      "note": "Explicit tool-calling SFT and multi-step tool-use RL, function-calling evaluations and supported parser/template; not inferred solely from tokenizer syntax."
+    },
+    "description": {
+      "value": "NVIDIA text model with a Mamba-2, attention and sparse MoE architecture, trained for reasoning, chat and tool use with configurable thinking and a 1M-token context.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6",
+        "s9"
+      ],
+      "note": "Replaces relative small/efficient wording with directly documented architecture and capabilities."
+    }
+  },
+  "patch": {
+    "license": "NVIDIA Nemotron Open Model License",
+    "parameters_b": 31.577937344,
+    "active_parameters_b": 3.6,
+    "architecture": "hybrid-ssm-transformer-moe",
+    "context_window": 1048576,
+    "description": "NVIDIA text model with a Mamba-2, attention and sparse MoE architecture, trained for reasoning, chat and tool use with configurable thinking and a 1M-token context.",
+    "parameters_source": "primary_source",
+    "source_url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-BF16/blob/bf77c3174f68ad409e1c2aa60daeb46e32d1c606/README.md",
+    "source_type": "primary",
+    "notes": "Exact total is 31.577937344B learned parameters from the original post-trained BF16 checkpoint, excluding 2944 router-buffer elements. The report rounds this to 31.6B; 30B is the nominal model tier. Active count is the report’s nominal 3.6B including embeddings (3.2B excluding embeddings); the model card instead says 3.5B. Architecture is 23 Mamba-2, 23 MoE and six attention layers. The shared MLP has twice the routed-expert width, reconciling one shared module in code with two expert-width units in the report. Supported context is 1048576 tokens; 262144 is the lower-memory HF default.",
+    "sources": [
+      {
+        "label": "Official Nemotron 3 Nano BF16 model card",
+        "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-BF16/blob/bf77c3174f68ad409e1c2aa60daeb46e32d1c606/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned checkpoint configuration",
+        "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-BF16/blob/bf77c3174f68ad409e1c2aa60daeb46e32d1c606/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Pinned model implementation",
+        "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-BF16/blob/bf77c3174f68ad409e1c2aa60daeb46e32d1c606/modeling_nemotron_h.py",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint index",
+        "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-BF16/blob/bf77c3174f68ad409e1c2aa60daeb46e32d1c606/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Official BF16 shard headers, first of 13",
+        "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-BF16/resolve/bf77c3174f68ad409e1c2aa60daeb46e32d1c606/model-00001-of-00013.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Nemotron 3 Nano technical report",
+        "url": "https://arxiv.org/html/2512.20848v1",
+        "type": "primary"
+      },
+      {
+        "label": "December 15 Nemotron 3 launch",
+        "url": "https://nvidianews.nvidia.com/news/nvidia-debuts-nemotron-3-family-of-open-models",
+        "type": "primary"
+      },
+      {
+        "label": "NVIDIA Nemotron Open Model License",
+        "url": "https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-nemotron-open-model-license/",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned reasoning and tool-call template",
+        "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-BF16/blob/bf77c3174f68ad409e1c2aa60daeb46e32d1c606/chat_template.jinja",
+        "type": "weights"
+      },
+      {
+        "label": "vLLM CLI numeric suffix definition",
+        "url": "https://docs.vllm.ai/en/v0.32.0/cli/",
+        "type": "primary"
+      },
+      {
+        "label": "NVIDIA model-family technical overview",
+        "url": "https://www.nvidia.com/en-us/ai-data-science/foundation-models/nemotron/llm-info/",
+        "type": "primary"
+      }
+    ]
+  },
+  "parameter_count_reproduction": {
+    "revision": "bf77c3174f68ad409e1c2aa60daeb46e32d1c606",
+    "shards": 13,
+    "indexed_tensors": 6243,
+    "parameter_tensors": 6220,
+    "buffer_tensors": 23,
+    "learned_parameters": 31577937344,
+    "buffer_elements": 2944,
+    "all_storage_elements": 31577940288,
+    "actual_tensor_bytes": 63155892352,
+    "index_tensor_bytes": 63155886464,
+    "mamba_layers": 23,
+    "attention_layers": 6,
+    "moe_layers": 23,
+    "one_shared_expert_width": 3712,
+    "routed_expert_width": 1856,
+    "config_top6_plus_all_shared_and_both_embeddings": 3580073408.0,
+    "same_excluding_input_embedding": 3227751872.0,
+    "note": "Active calculation is a shape-accounting cross-check only. Use primary technical report nominal 3.6B including embeddings, 3.2B excluding embeddings. Excludes persistent router correction buffers, includes learned Mamba A_log and D vectors. No quantization scales or packed tensors.",
+    "method": "Read exactly eight bytes plus each JSON header using HTTP 206 Range requests, totaling 801920 bytes for 13 shards. Reconstruct every shape from pinned config and implementation; verify all parameter/buffer keys, dtype-specific byte lengths and contiguous offsets. No full shards downloaded.",
+    "formula": "D=2688,V=131072. Embeddings/output=2*V*D; final norm=D; per-block norm=D. Each of 23 Mamba blocks: in_proj=(4096+6144+64)*D, out_proj=D*4096, convolution=6144*4+6144, internal norm=4096, learned dt_bias/A_log/D=3*64. Each of 23 MoE blocks: 128*(2*D*1856)+2*D*3712+128*D. Each of 6 attention blocks: 2*D*4096+2*D*256. Sum all learned terms=31577937344. Exclude 23*128 persistent router-bias buffer elements.",
+    "cache": "/tmp/model-audit-381",
+    "scripts": [
+      "count.py",
+      "reconcile.py"
+    ]
+  },
+  "summary": "All fourteen fields individually verified. Replace name-derived 30B/3B with exact 31.577937344B learned total and primary-reported nominal 3.6B active including embeddings. Correct architecture to Mamba-2/Transformer MoE, context from default 256K to supported 1M, and add the governing Nemotron license. Confirm December 15, 2025 launch, text modalities, open weights, reasoning and tools. Record card/report active-count discrepancy, shared-expert representation and index-byte discrepancy."
+}
