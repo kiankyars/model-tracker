@@ -1,0 +1,290 @@
+{
+  "index": 553,
+  "model_id": "zhipuai/glm-4.6v-flash",
+  "reviewed_at": "2026-10-27T06:12:10.159068+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://z.ai/blog/glm-4.6v",
+      "title": "GLM-4.6V: Open Source Multimodal Models with Native Tool Use",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Original announcement dated December 8, 2025 introduces GLM-4.6V and GLM-4.6V-Flash, describes Flash as nominally 9B and locally deployable, and announces open weights and native multimodal function calling. Accessed through indexed first-party page text; direct HTML opening returned an empty shell."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/zai-org/GLM-4.6V-Flash/blob/411bb4d77144a3f03accbf4b780f5acb8b7cde4e/README.md",
+      "title": "GLM-4.6V-Flash model card, pinned revision",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Exact Flash model card identifies the GLM-V family, nominal 9B designation, MIT license metadata, open deployment instructions, visual understanding, and tool-supported document and visual workflows."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/zai-org/GLM-4.6V-Flash/blob/411bb4d77144a3f03accbf4b780f5acb8b7cde4e/config.json",
+      "title": "GLM-4.6V-Flash checkpoint configuration",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Glm4vForConditionalGeneration dense configuration: 40 language layers, hidden size 4096, MLP size 13696, 32 query heads and 2 key/value heads; 24 vision blocks, width 1536. Embeddings are untied. Text max_position_embeddings is 131072."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/zai-org/GLM-4.6V-Flash/blob/411bb4d77144a3f03accbf4b780f5acb8b7cde4e/model.safetensors.index.json",
+      "title": "GLM-4.6V-Flash indexed BF16 checkpoint and bounded shard headers",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Independently read only the 8-byte length prefix and bounded JSON header of all 4 indexed shards at the pinned revision, with HTTP 206 and Content-Range checks. Headers contained 704 BF16 tensors and no other dtypes. Every indexed name matched exactly one shard and the implementation-derived expected parameter name and shape. Complete learned total is 10,292,777,472: 523 language/output tensors totaling 9,400,279,040 and 181 vision/projector tensors totaling 892,498,432. No weight payload was downloaded."
+    },
+    {
+      "id": "s5",
+      "url": "https://github.com/huggingface/transformers/blob/v5.0.0rc0/src/transformers/models/glm4v/modeling_glm4v.py",
+      "title": "Transformers GLM4V implementation at the checkpoint declared version",
+      "publisher": "Hugging Face / Z.ai model implementation",
+      "accessed": true,
+      "evidence": "Module constructors reconcile all checkpoint names/shapes to learned embeddings, dense attention and gated MLP weights/biases, norms, vision convolution, learned positions and merger. Vision MLP width uses out_hidden_size, while merger MLP width uses intermediate_size. RoPE inverse frequencies and vision position IDs are nonpersistent buffers and absent from the checkpoint. Input/output embeddings are separate with this config. No expert, router, quantization or MTP modules occur."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/zai-org/GLM-4.6V-Flash/blob/411bb4d77144a3f03accbf4b780f5acb8b7cde4e/chat_template.jinja",
+      "title": "GLM-4.6V-Flash chat template",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Exact checkpoint template handles image/video content, tool schemas, native tool-call and tool-response serialization, reasoning content, and enable_thinking=false."
+    },
+    {
+      "id": "s7",
+      "url": "https://docs.z.ai/guides/vlm/glm-4.6v",
+      "title": "GLM-4.6V series developer documentation",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "The separately labeled GLM-4.6V-Flash variant accepts video/image/text/file input and produces text, with a documented 128K context. Series documentation describes native multimodal tools. Interleaved images are retrieved or cropped by external tools, not directly generated image pixels."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/zai-org/GLM-4.6V-Flash/blob/411bb4d77144a3f03accbf4b780f5acb8b7cde4e/tokenizer_config.json",
+      "title": "GLM-4.6V-Flash tokenizer configuration",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Exact checkpoint tokenizer sets model_max_length to 128000, documenting the tokenizer limit separately from the 131072 position capacity in the model config."
+    },
+    {
+      "id": "s9",
+      "url": "https://github.com/zai-org/GLM-V",
+      "title": "Official GLM-V repository and model download table",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Names GLM-4.6V-Flash as an open-download GLM-V model and explicitly labels its type Hybrid Reasoning. The repository code license is Apache-2.0; the exact weight card instead declares MIT."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "GLM-4.6V-Flash",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Exact released Flash checkpoint, distinct from the larger GLM-4.6V and the FlashX API variant."
+    },
+    "developer": {
+      "value": "Z.ai",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "First-party release and zai-org weight publisher."
+    },
+    "family": {
+      "value": "glm",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s9"
+      ],
+      "note": "The exact model card places Flash in the GLM-V series; normalize to the GLM family rather than treating all Flash branding as a separate lineage."
+    },
+    "release_date": {
+      "value": "2025-12-08",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Explicit first-party public release date. The earlier repository creation timestamp is not evidence of earlier public availability."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4",
+        "s9"
+      ],
+      "note": "Official public BF16 checkpoint, index and all four shard headers are accessible."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s2"
+      ],
+      "note": "Exact weight card declares MIT. Do not substitute the separate GitHub code repository Apache-2.0 license."
+    },
+    "parameters_b": {
+      "value": 10.292777472,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "note": "Complete learned checkpoint total, independently derived at revision 411bb4d77144a3f03accbf4b780f5acb8b7cde4e. All 704 BF16 tensor names and shapes reconcile to the implementation. Sum includes 9.400279040B language parameters with separate input and output embeddings, plus 0.892498432B vision encoder/projector. All saved tensors are learned weights or biases; nonpersistent RoPE/position-ID buffers are absent, with no quantization scales, packed weights, tied aliases or MTP modules. The developer uses the nominal 9B designation; it is not the full vision-language total."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "not_applicable",
+      "source_ids": [
+        "s3",
+        "s5"
+      ],
+      "note": "Dense model with no routed expert subset. No separate active-parameter figure is specified; vision encoding and autoregressive decoding use different components, so the full checkpoint total is not copied into active parameters."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s4",
+        "s5"
+      ],
+      "note": "Dense Transformer language decoder with grouped-query attention and gated MLPs, plus a vision Transformer and projector. Exact Flash config and all module/tensor shapes exclude MoE routing; the larger GLM-4.6V architecture is not transferred to Flash."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s7",
+        "s8"
+      ],
+      "note": "Exact open-checkpoint configured model capacity: text_config.max_position_embeddings=131072. Official API documentation advertises 128K and the tokenizer declares model_max_length=128000; these route/tokenizer limits are documented separately from the model capacity. No evidence found that the configured 131072 capacity is unsupported for this checkpoint."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "note": "Text, image and video inputs and text output. File is an API input container, and externally retrieved/cropped visuals in interleaved reports do not establish native image generation."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s6",
+        "s9"
+      ],
+      "note": "Official download table labels this exact model Hybrid Reasoning; the exact template supports reasoning content and a switch to disable thinking."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s6",
+        "s7"
+      ],
+      "note": "Native function/tool support is confirmed by the release and exact Flash tool-schema/call/result template."
+    },
+    "description": {
+      "value": "Dense vision-language model with hybrid reasoning and native tool calling for text, images, and video.",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s6",
+        "s7",
+        "s9"
+      ],
+      "note": "Plain description limited to verified architecture and capabilities."
+    }
+  },
+  "patch": {
+    "family": "glm",
+    "license": "MIT",
+    "parameters_b": 10.292777472,
+    "active_parameters_b": null,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "description": "Dense vision-language model with hybrid reasoning and native tool calling for text, images, and video.",
+    "source_url": "https://z.ai/blog/glm-4.6v",
+    "source_type": "primary",
+    "notes": "Released December 8, 2025. Advertised as 9B; the complete BF16 checkpoint contains 10.292777472B learned parameters: 9.400279040B language/output and 0.892498432B vision/projector. Dense architecture; active parameters are not separately defined. Checkpoint model context capacity is 131072 tokens; the documented API/tokenizer limit is 128000. MIT applies to weights.",
+    "sources": [
+      {
+        "label": "GLM-4.6V: Open Source Multimodal Models with Native Tool Use",
+        "url": "https://z.ai/blog/glm-4.6v",
+        "type": "primary"
+      },
+      {
+        "label": "GLM-4.6V-Flash model card, pinned revision",
+        "url": "https://huggingface.co/zai-org/GLM-4.6V-Flash/blob/411bb4d77144a3f03accbf4b780f5acb8b7cde4e/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "GLM-4.6V-Flash checkpoint configuration",
+        "url": "https://huggingface.co/zai-org/GLM-4.6V-Flash/blob/411bb4d77144a3f03accbf4b780f5acb8b7cde4e/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "GLM-4.6V-Flash indexed BF16 checkpoint and bounded shard headers",
+        "url": "https://huggingface.co/zai-org/GLM-4.6V-Flash/blob/411bb4d77144a3f03accbf4b780f5acb8b7cde4e/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Transformers GLM4V implementation at the checkpoint declared version",
+        "url": "https://github.com/huggingface/transformers/blob/v5.0.0rc0/src/transformers/models/glm4v/modeling_glm4v.py",
+        "type": "primary"
+      },
+      {
+        "label": "GLM-4.6V-Flash chat template",
+        "url": "https://huggingface.co/zai-org/GLM-4.6V-Flash/blob/411bb4d77144a3f03accbf4b780f5acb8b7cde4e/chat_template.jinja",
+        "type": "weights"
+      },
+      {
+        "label": "GLM-4.6V series developer documentation",
+        "url": "https://docs.z.ai/guides/vlm/glm-4.6v",
+        "type": "primary"
+      },
+      {
+        "label": "GLM-4.6V-Flash tokenizer configuration",
+        "url": "https://huggingface.co/zai-org/GLM-4.6V-Flash/blob/411bb4d77144a3f03accbf4b780f5acb8b7cde4e/tokenizer_config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Official GLM-V repository and model download table",
+        "url": "https://github.com/zai-org/GLM-V",
+        "type": "primary"
+      }
+    ],
+    "context_window": 131072
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "language_model_and_output": 9.40027904,
+      "vision_encoder_and_projector": 0.892498432
+    }
+  },
+  "summary": "Verified all 14 fields from original release, exact official weight files, implementation and API documentation. Correct family to GLM, fill MIT and dense architecture, and record the complete 10.292777472B learned checkpoint total rather than nominal 9B. All four bounded headers and 704 tensors reconcile to code/config; no full weights fetched. Dense active count stays null. Confirm December 8, 2025 release, hybrid reasoning, native tools, text/image/video inputs, and 131072 configured model context with the 128000 API/tokenizer limit distinguished."
+}
