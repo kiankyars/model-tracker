@@ -1,4 +1,4 @@
-import { cp, mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
+import { cp, mkdir, readFile, readdir, rm, stat, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { execFileSync } from 'node:child_process';
 
@@ -58,6 +58,18 @@ for (const name of ['index.html', 'app.js', 'styles.css', 'favicon.svg', 'lib'])
 }
 for (const name of ['LICENSE', 'THIRD_PARTY_NOTICES']) {
   await cp(resolve(root, name), resolve(out, name));
+}
+// Version the whole module graph so a new page cannot load cached, incompatible code.
+const { version } = JSON.parse(await readFile(resolve(root, 'package.json'), 'utf8'));
+for (const name of ['index.html', 'about.html', 'api.html']) {
+  const path = resolve(out, name);
+  const source = await readFile(path, 'utf8');
+  await writeFile(path, source.replace(/((?:src|href)="\.\/[^"?]+\.(?:css|js))"/g, `$1?v=${encodeURIComponent(version)}"`));
+}
+for (const name of ['app.js', ...(await readdir(resolve(out, 'lib'))).filter(name => name.endsWith('.js')).map(name => `lib/${name}`)]) {
+  const path = resolve(out, name);
+  const source = await readFile(path, 'utf8');
+  await writeFile(path, source.replace(/(from\s+['"])(\.{1,2}\/[^'"?]+\.js)(['"])/g, `$1$2?v=${encodeURIComponent(version)}$3`));
 }
 await writeFile(resolve(out, '.nojekyll'), '');
 for (const required of ['index.html', 'api.html', 'about.html', 'llms.txt', 'api/v1/models.json', 'api/v1/index.json']) {

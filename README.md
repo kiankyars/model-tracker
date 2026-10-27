@@ -32,6 +32,8 @@ npm run check
 
 The vendored skill retains its [Apache 2.0 license](.agents/skills/impeccable/LICENSE) and [third-party notices](.agents/skills/impeccable/NOTICE.md). Preserve the project-local launcher changes when updating it.
 
+Bump `package.json`'s version when changing the frontend. The build uses it in CSS and JavaScript URLs, including module imports, to keep cached files from different releases from mixing.
+
 ## Data
 
 The primary source is the MIT-licensed [Models.dev](https://github.com/anomalyco/models.dev) canonical model catalog, supplemented by source-linked historical releases and corrections. The dataset is broad but incomplete. Open weights does not mean open source. Unknown fields are null; explicitly named parameter sizes are labeled as name-derived. Known aliases are merged; separately released revisions remain distinct. Read [methodology](public/about.md) before interpreting statistics.

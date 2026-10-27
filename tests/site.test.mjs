@@ -6,6 +6,28 @@ import { resolve, dirname } from 'node:path';
 const root = resolve(import.meta.dirname, '..');
 const dist = resolve(root, 'dist');
 
+test('published frontend assets and their imports share the release version', async () => {
+  const { version } = JSON.parse(await readFile(resolve(root, 'package.json'), 'utf8'));
+  const checked = new Set();
+  async function asset(reference, parent) {
+    const url = new URL(reference, `https://tracker.test/${parent}`);
+    assert.equal(url.searchParams.get('v'), version, `${parent} → ${reference} can load a stale asset`);
+    if (checked.has(url.pathname)) return;
+    checked.add(url.pathname);
+    const source = await readFile(resolve(dist, url.pathname.slice(1)), 'utf8');
+    if (url.pathname.endsWith('.js')) {
+      for (const match of source.matchAll(/\bfrom\s+['"]([^'"]+)['"]/g)) {
+        if (match[1].startsWith('.')) await asset(match[1], url.pathname);
+      }
+    }
+  }
+  for (const page of ['index.html', 'about.html', 'api.html']) {
+    const html = await readFile(resolve(dist, page), 'utf8');
+    for (const match of html.matchAll(/(?:src|href)="([^"#]+\.(?:js|css)(?:\?[^"#]*)?)"/g)) await asset(match[1], page);
+  }
+  assert.ok(checked.has('/app.js') && checked.has('/lib/chart-view.js') && checked.has('/lib/chart-data.js'));
+});
+
 test('published pages and agent documentation link to existing project-relative resources', async () => {
   for (const page of ['index.html', 'api.html', 'about.html', 'llms.txt', 'index.md', 'api.md', 'about.md']) {
     const source = await readFile(resolve(dist, page), 'utf8');
