@@ -1,7 +1,7 @@
 {
   "index": 224,
   "model_id": "google/gemma-4-31b-it",
-  "reviewed_at": "2026-10-26T20:23:56.464121Z",
+  "reviewed_at": "2026-10-27T13:25:24.305201+00:00",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Gemma 4 31B IT model card",
       "publisher": "Google",
       "accessed": true,
-      "evidence": "Identifies the instruction-tuned Gemma 4 31B checkpoint, Apache-2.0 license, text/image inputs and text output, configurable thinking and native function calling. Its video example explicitly loads google/gemma-4-31B-it."
+      "evidence": "Identifies the instruction-tuned Gemma 4 31B checkpoint, Apache-2.0 license, text/image inputs and text output, configurable thinking and native function calling. Its video example explicitly loads google/gemma-4-31B-it. Fresh October 27 read also confirms base_model: google/gemma-4-31B; no count transfer from an unrelated family or derivative is needed."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "Gemma 4 31B IT configuration",
       "publisher": "Google",
       "accessed": true,
-      "evidence": "Gemma4ForConditionalGeneration: 60-layer dense text decoder, hidden size 5376, MLP width 21504, vocabulary 262144, 262144 positions, tied word embeddings, 50 sliding and 10 full-attention layers. Includes a 27-layer vision encoder; audio_config is null."
+      "evidence": "Gemma4ForConditionalGeneration: 60-layer dense text decoder, hidden size 5376, MLP width 21504, vocabulary 262144, 262144 positions, tied word embeddings, 50 sliding and 10 full-attention layers. Includes a 27-layer vision encoder; audio_config is null. Reopened on October 27: same pinned configuration; no weight payload fetched."
     },
     {
       "id": "s3",
@@ -25,7 +25,7 @@
       "title": "Gemma 4 31B IT tensor index",
       "publisher": "Google",
       "accessed": true,
-      "evidence": "Maps 1188 tensors to two BF16 shards. total_size is 62546177752 bytes. metadata.total_parameters is 32682372656, which exceeds the Transformers parameter-only count (31,273,086,512) by exactly the tied 1409286144-element token embedding; it is not the unique full-model total."
+      "evidence": "Maps 1188 tensors to two BF16 shards. total_size is 62546177752 bytes. metadata.total_parameters is 32682372656, which exceeds the Transformers parameter-only count (31,273,086,512) by exactly the tied 1409286144-element token embedding; it is not the unique full-model total. Reopened on October 27: 1188 entries, two shards and both metadata values unchanged; the earlier header census was not repeated."
     },
     {
       "id": "s4",
@@ -73,7 +73,7 @@
       "title": "Gemma 4 Technical Report",
       "publisher": "Google DeepMind",
       "accessed": true,
-      "evidence": "July 2026 report confirms decoder-only Transformers, dense 31B, and separate approximate counts: 1410M embedder, 29290M einsums, 550M vision encoder and 500M optional drafter. The 30.7B text figure is not the complete multimodal checkpoint. Does not give a separate active count for 31B."
+      "evidence": "July 2026 report confirms decoder-only Transformers, dense 31B, and separate approximate counts: 1410M embedder, 29290M einsums, 550M vision encoder and 500M optional drafter. The 30.7B text figure is not the complete multimodal checkpoint. Does not give a separate active count for 31B. Reopened on October 27 alongside the current developer model card; this absence of a Google active figure does not negate the independently attributed nominal benchmark convention in s17."
     },
     {
       "id": "s10",
@@ -130,6 +130,54 @@
       "publisher": "Google DeepMind",
       "accessed": true,
       "evidence": "Standardize applies (x - bias) * scale. Google represents these arrays in the Flax params collection; Transformers distinguishes them as standardization buffers. These 2304 values are separated in the accounting; their learning history is not independently established."
+    },
+    {
+      "id": "s17",
+      "url": "https://arxiv.org/html/2606.08340v1",
+      "title": "Alem: Benchmarking Open-Ended Multi-Agent Coordination in Language Agents, Figure 11 and Table 1",
+      "publisher": "Kale-ab Abebe Tessera et al. (University of Edinburgh, University of Oxford and University College London)",
+      "accessed": true,
+      "evidence": "Original June 6, 2026 research paper. Table 1 identifies gemma-4-31b-it among the evaluated models. Figure 11 plots its Gemma 4 31B point at approximately 31 billion on an axis explicitly labeled Active parameters (billions, log scale). The original PDF page 24 was visually inspected; this is the authors' nominal comparison convention, not a Google disclosure or a component-resolved count of every parameter used on each generated token."
+    },
+    {
+      "id": "s18",
+      "url": "https://arxiv.org/pdf/2606.08340v1",
+      "title": "Alem original PDF, page 24 active-parameter plot",
+      "publisher": "Kale-ab Abebe Tessera et al.",
+      "accessed": true,
+      "evidence": "Figure 11 visually distinguishes Gemma 4 31B at approximately 31B active from Gemma 4 26B/A4B and E4B near 4B. Nominal plot precision is retained; no exact value is reverse-engineered from pixels. The same paper's Table 1 disambiguates the plotted 31B model as the instruction-tuned variant."
+    },
+    {
+      "id": "s19",
+      "url": "https://vercel.com/changelog/gemma-4-on-ai-gateway",
+      "title": "Gemma 4 on AI Gateway",
+      "publisher": "Vercel (Walter Korman and Jerilyn Zheng)",
+      "accessed": true,
+      "evidence": "April 2, 2026 original provider announcement explicitly names google/gemma-4-31b-it and states that all parameters of its 31B Dense model are active during inference. Corroborates the nominal dense inference convention but does not resolve vision-prefill versus text-decode participation or establish the precise 31.2731B full checkpoint as an active count."
+    },
+    {
+      "id": "s20",
+      "url": "https://aws.amazon.com/blogs/machine-learning/introducing-gemma-4-models-on-amazon-bedrock/",
+      "title": "Introducing Gemma 4 models on Amazon Bedrock",
+      "publisher": "Amazon Web Services",
+      "accessed": true,
+      "evidence": "June 15, 2026 original serving announcement identifies instruction-tuned Gemma 4 31B with 30.7B in a combined Total / Active parameters row. Because that cell does not separately distinguish total from active, it corroborates the published text-model size but is not used to assert a more precise active count."
+    },
+    {
+      "id": "s21",
+      "url": "https://certant.ai/blog/the-gemma-4-experiment-one-model-for-chat-ocr-and-reranking",
+      "title": "The Gemma-4 experiment: one model for chat, OCR and reranking",
+      "publisher": "Certant (Daniel Voyce)",
+      "accessed": true,
+      "evidence": "August 24, 2026 original deployment experiment labels 31B dense as 30.7B Active params/token. Not used to establish precision: the adjacent bandwidth explanation divides 260 GB/s by 15.4 GB yet claims about 7 tokens/s, and uses a four-bit-ish assumption while the table labels the configuration BF16. It does not expose a component-resolved active census or link the named underlying benchmark report."
+    },
+    {
+      "id": "s22",
+      "url": "https://gemma.ai/tutorials/visual-guides/gemma-4/",
+      "title": "A Visual Guide to Gemma 4",
+      "publisher": "Gemma Documentation / Maarten Grootendorst (Google DeepMind)",
+      "accessed": true,
+      "evidence": "Reopened the developer visual guide, originally published by its Google DeepMind author. It explicitly identifies the 31B dense variant and its separate vision encoder, but its numeric active-count discussion concerns 26B A4B. Dense architecture alone is not the basis for the active value recorded here."
     }
   ],
   "fields": {
@@ -205,16 +253,22 @@
         "s14",
         "s16"
       ],
-      "note": "Complete unique target-model count rounded to 0.0001B, robust to small scalar/buffer classification differences. Header elements: 31,273,088,876 = text 30,697,345,340 + vision tower 569,550,384 + projection 6,193,152. Transformers classifies 60 block scalars and 2,304 vision standardization values as buffers, leaving 31,273,086,512 nn.Parameter elements. Google stores corresponding scalars/standardization arrays in Flax params; their optimization history is not established, so no exact learned count is asserted. Both conventions round to 31.2731B. Tied token embedding/output head counted once. Index total_parameters exceeds the Transformers parameter-only count by the 1,409,286,144-element tied table; total_size/2 agrees with headers. Includes the complete vision component. Separate optional MTP assistant excluded. The official 30.7B text figure omits the vision component."
+      "note": "Complete unique target-model count rounded to 0.0001B, robust to small scalar/buffer classification differences. Header elements: 31,273,088,876 = text 30,697,345,340 + vision tower 569,550,384 + projection 6,193,152. Transformers classifies 60 block scalars and 2,304 vision standardization values as buffers, leaving 31,273,086,512 nn.Parameter elements. Google stores corresponding scalars/standardization arrays in Flax params; their optimization history is not established, so no exact learned count is asserted. Both conventions round to 31.2731B. Tied token embedding/output head counted once. Index total_parameters exceeds the Transformers parameter-only count by the 1,409,286,144-element tied table; total_size/2 agrees with headers. Includes the complete vision component. Separate optional MTP assistant excluded. The official 30.7B text figure omits the vision component. October 27 re-audit reopened the pinned card, configuration and index plus current Google documentation and the original technical report; no supported change to the complete total was found. Named-base searches resolve to google/gemma-4-31B; no pruning, distillation or resizing was established for this IT record. Previous header accounting is retained without downloading weights or repeating the census."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 31,
+      "status": "verified",
       "source_ids": [
+        "s17",
+        "s18",
+        "s19",
         "s9",
-        "s13"
+        "s13",
+        "s20",
+        "s21",
+        "s22"
       ],
-      "note": "No separately defined active-parameter count is reported for the dense 31B model. Do not copy either text or multimodal total into a per-token active count. Vision computation also depends on input modality."
+      "note": "Approximately 31B under the active-model-size convention used by Tessera et al. in the original Alem research paper, Figure 11; Table 1 identifies gemma-4-31b-it. The plot was visually checked in the PDF on page 24. Vercel independently identifies the exact IT model and explicitly describes all parameters of its nominal 31B Dense variant as active during inference. This is an attributed nominal benchmark convention, not a separately published Google per-token measurement and not the precise 31.2731B full checkpoint total. No component scope is assigned because the plot does not decompose text, vision, embeddings or inference phases. Fresh exact-model total/active/component and named-base searches also checked later primary material: Google's report/card and visual guide give no distinct 31B active figure; AWS's combined Total / Active cell is ambiguous; Certant's 30.7B active table has inconsistent neighboring bandwidth arithmetic and precision assumptions. Unsupported aggregator active figures are not used. Exact modality-dependent participation remains unresolved."
     },
     "architecture": {
       "value": "dense",
@@ -379,9 +433,20 @@
         "label": "Google vision standardization implementation",
         "url": "https://github.com/google-deepmind/gemma/blob/9e1f74131ba9d45e5fe6ae7bb3941d9f2abb39c3/gemma/gm/nn/gemma4/vision/_layers.py",
         "type": "primary"
+      },
+      {
+        "label": "Alem research paper: nominal active-model-size comparison",
+        "url": "https://arxiv.org/html/2606.08340v1",
+        "type": "primary"
+      },
+      {
+        "label": "Vercel exact-model inference announcement",
+        "url": "https://vercel.com/changelog/gemma-4-on-ai-gateway",
+        "type": "primary"
       }
     ],
-    "notes": "Full unique multimodal target checkpoint is approximately 31.2731B parameters; the official 30.7B figure covers the text backbone. Tied output/token embedding counted once; optional separate MTP assistant excluded. Active count is not separately reported. Video is processed as image frames; no native audio. Retain April 2, 2026 for the exact IT public launch; current family chronology instead lists March 31."
+    "notes": "Full unique multimodal target checkpoint is approximately 31.2731B parameters; Google's 30.7B figure covers the text backbone. Active ~31B follows the nominal comparison convention in Tessera et al.'s Alem paper, not a Google measurement of modality-specific participation. Tied output/token embedding counted once; optional separate MTP assistant excluded. Video is processed as image frames; no native audio. Retain April 2, 2026 for the exact IT public launch; current family chronology instead lists March 31.",
+    "active_parameters_b": 31
   },
-  "summary": "Replaces nominal 31B with complete checkpoint-derived ~31.2731B; verifies dense architecture and Apache-2.0; adds documented video input and a plain description. All 1188 tensors reconciled from two headers without weight downloads and tied head counted once. Rounded total is invariant to the unresolved learning history of 60 block scalars and 2304 vision standardization values. Later technical report confirms the text/vision/drafter distinction. Active parameters remain undisclosed. April 2 is supported for the exact IT public release, with the conflicting March 31 family chronology documented."
+  "summary": "October 27 parameter re-audit retains the supported ~31.2731B unique multimodal target total after reopening pinned metadata and original Google sources, without repeating the tensor census or downloading weights. Recovers a nominal ~31B active count from Tessera et al.'s original Alem Figure 11, with the exact IT identity established in Table 1 and corroboration from Vercel's explicit dense-inference statement. This is the research authors' approximate comparison convention, not a Google per-token disclosure or a component-resolved count. Exact modality-dependent activity remains unresolved. All non-parameter assessments, including video without audio and the April 2 versus March 31 release-date conflict, are preserved."
 }
