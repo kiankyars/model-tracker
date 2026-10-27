@@ -1,7 +1,7 @@
 {
   "index": 461,
   "model_id": "openbmb/minicpm5-1b",
-  "reviewed_at": "2026-10-27T03:18:34.312982Z",
+  "reviewed_at": "2026-10-27T17:29:27.253741Z",
   "sources": [
     {
       "id": "card",
@@ -9,7 +9,7 @@
       "title": "MiniCPM5-1B model card",
       "publisher": "OpenBMB",
       "accessed": true,
-      "evidence": "The pinned final BF16 model card explicitly gives 1,080,632,832 total parameters and 679,552,512 non-embedding parameters, standard LlamaForCausalLM, 24 layers, 16 query/2 KV heads, 131,072 native context and Apache-2.0 metadata. It identifies the first MiniCPM5 model, distinct from Base and SFT checkpoints, and describes text generation, Think/No Think modes, XML function calls and SFT/RL/OPD training."
+      "evidence": "Freshly reopened October 27: the pinned and current final BF16 model cards both explicitly give 1,080,632,832 total parameters and 679,552,512 non-embedding parameters. They identify the final MiniCPM5-1B checkpoint separately from Base/SFT, use standard LlamaForCausalLM, and document 24 layers, 16 query/2 KV heads, 131,072 native context, Apache-2.0, text generation, Think/No Think, XML function calls and SFT/RL/OPD training. Neither card supplies a separate active-parameter count."
     },
     {
       "id": "config",
@@ -17,7 +17,7 @@
       "title": "MiniCPM5-1B pinned configuration",
       "publisher": "OpenBMB",
       "accessed": true,
-      "evidence": "LlamaForCausalLM with 24 layers, hidden width 1536, intermediate width 4608, 16 query/2 KV heads, explicit head_dim=128, vocabulary 130560, untied embeddings, BF16, max_position_embeddings=131072, RoPE theta=5000000 and no rope scaling. No vision/audio modules, expert router or custom architecture is enabled."
+      "evidence": "Freshly reopened October 27: the exact pinned config remains LlamaForCausalLM with 24 layers, hidden width 1536, intermediate width 4608, 16 query/2 KV heads, head_dim=128, vocabulary 130560, untied embeddings, BF16, max_position_embeddings=131072, RoPE theta=5000000 and no rope scaling. No vision/audio modules, expert router or custom architecture is enabled. This corroborates the retained total; dense architecture alone is not used to infer active parameters."
     },
     {
       "id": "index",
@@ -25,7 +25,7 @@
       "title": "MiniCPM5-1B checkpoint index",
       "publisher": "OpenBMB",
       "accessed": true,
-      "evidence": "The index maps all 219 tensors to one BF16 shard and gives total_size=2161265664 bytes. Every indexed tensor was checked against the bounded shard header and independently reconstructed expected learned-module shapes."
+      "evidence": "Freshly reopened October 27: the index still maps 219 tensors to one BF16 shard and reports total_size=2161265664 bytes. The original audit matched every indexed tensor to the bounded shard header and reconstructed learned-module shapes; no shard or header was fetched again during this parameter re-audit."
     },
     {
       "id": "header",
@@ -97,7 +97,7 @@
       "title": "MiniCPM5-2B later model card",
       "publisher": "OpenBMB",
       "accessed": true,
-      "evidence": "Inspected the later card and its model/evaluation tables. It names MiniCPM5-1B as the preceding release and says 2B scales the same training recipe; its 2,516,756,480 total and 1,981,982,720 non-embedding counts belong to 2B. It supplies no separate active-parameter convention for the 1B checkpoint, and no sibling specification is transferred."
+      "evidence": "Freshly reopened October 27: the later 2B card names MiniCPM5-1B as the preceding release and describes scaling the training recipe. Its 2,516,756,480 total and 1,981,982,720 non-embedding parameters belong to 2B. Full-text checks found no explicit active-parameter count for 1B; no sibling count is transferred."
     },
     {
       "id": "old-report",
@@ -105,7 +105,7 @@
       "title": "MiniCPM4: Ultra-Efficient LLMs on End Devices",
       "publisher": "OpenBMB MiniCPM Team",
       "accessed": true,
-      "evidence": "The technical report linked from the exact model card is the full MiniCPM4/4.1 report, not a MiniCPM5 specification. Read its scope and architecture sections and searched the extracted text for MiniCPM5; the sparse InfLLM v2 and BitCPM descriptions do not override the published dense Llama MiniCPM5 checkpoint."
+      "evidence": "Freshly reopened October 27 and searched the complete cached text: the linked paper concerns MiniCPM4/4.1, not MiniCPM5. Its sparse InfLLM v2, BitCPM and parameter-size tables provide no active-count convention for this exact 1B checkpoint."
     },
     {
       "id": "training",
@@ -113,7 +113,31 @@
       "title": "Data Science and Technology Towards AGI, Part I: Tiered Data Management",
       "publisher": "Tsinghua University and ModelBest",
       "accessed": true,
-      "evidence": "Downloaded the full report linked as the training data-management basis and inspected its scope, Section 3.1 and Table 3. Its MiniCPM-1.2B experimental architecture has 52 layers and a different vocabulary/FFN/head configuration; that is not MiniCPM5-1B. The exact model card supplies the applicable SFT/RL/OPD training description; no active-count convention is disclosed here."
+      "evidence": "Freshly reopened October 27 and checked Section 3.1/Table 3 against the complete cached text: the MiniCPM-1.2B experimental model has 52 layers and different vocabulary/FFN/head dimensions, so it is not MiniCPM5-1B. The training-method connection supplies no separate active count for the audited checkpoint."
+    },
+    {
+      "id": "paiton-selection",
+      "url": "https://huggingface.co/EliovpAI/MiniCPM5-2B-W4A16-Paiton-RDNA4/raw/4bcf80e1bcf1bc8f5c2d657086121958cfe145cb/SELECTION.md",
+      "title": "Paiton small-model qualification: exact-checkpoint parameter comparison",
+      "publisher": "EliovpAI / Paiton",
+      "accessed": true,
+      "evidence": "The September 10 original runtime-selection table explicitly labels Total/active dense parameters and lists openbmb/MiniCPM5-1B at revision 87179e5c1f455ef22e6223592d2d61351b525bfc as 1,080,632,832. The 1B model is expressly an unmeasured research alternative. This establishes the runtime team's published counting convention, not OpenBMB disclosure or literal per-token embedding participation. Reopened October 27 and pinned the unchanged file."
+    },
+    {
+      "id": "paiton-benchmarks",
+      "url": "https://huggingface.co/EliovpAI/MiniCPM5-2B-W4A16-Paiton-RDNA4/raw/4bcf80e1bcf1bc8f5c2d657086121958cfe145cb/BENCHMARKS.md",
+      "title": "Paiton MiniCPM5-2B original runtime benchmark methodology",
+      "publisher": "EliovpAI / Paiton",
+      "accessed": true,
+      "evidence": "Freshly read the complete original evaluation. It documents stock and Paiton W4 MiniCPM5-2B experiments on Radeon R9700, controlled serving settings, repeated latency/quality measurements, limitations and linked raw records. This supports treating the paired selection table as an original runtime-team comparison rather than a generic model catalog. It does not turn the listed 1B alternative into a measured model."
+    },
+    {
+      "id": "paiton-publisher",
+      "url": "https://huggingface.co/EliovpAI",
+      "title": "EliovpAI organization and Paiton runtime provenance",
+      "publisher": "EliovpAI",
+      "accessed": true,
+      "evidence": "The organization identifies its team as AI performance specialists developing custom kernels and names Paiton as its optimization platform. This establishes the publisher attribution for the runtime-selection convention; it is a separate team from OpenBMB."
     }
   ],
   "fields": {
@@ -184,18 +208,22 @@
         "implementation",
         "defaults"
       ],
-      "note": "Complete learned-parameter total 1,080,632,832, independently reconstructed and matched to all 219 BF16 header tensors and the model-card count. Includes untied input/output vocabulary matrices; the card's 679,552,512 non-embedding total excludes both. No quantization storage or RoPE buffers counted. Formula: 2VH+H+L(2H+2H(Q+K)D+3HI), with V=130560, H=1536, L=24, Q=16, K=2, D=128, I=4608."
+      "note": "OpenBMB's exact 1,080,632,832 total is freshly reconfirmed by the pinned/current cards and config/index. The original complete 219-tensor reconstruction includes separate input/output vocabulary matrices; 679,552,512 excludes both matrices and is not an active count. No weights were downloaded in this re-audit."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 1.080632832,
+      "status": "verified",
       "source_ids": [
+        "paiton-selection",
+        "paiton-benchmarks",
+        "paiton-publisher",
         "card",
-        "implementation",
+        "config",
         "later",
+        "old-report",
         "training"
       ],
-      "note": "Dense feed-forward blocks have no expert routing. The inspected sources do not define a separate per-token active count, including how vocabulary lookup and the output head are counted; do not copy total or non-embedding parameters into this field."
+      "note": "1.080632832B follows EliovpAI/Paiton's explicit dense-count convention for the exact pinned checkpoint. The 1B row is an unmeasured research alternative within their original runtime study. OpenBMB does not separately disclose active parameters; this is not a claim that every embedding entry executes per token."
     },
     "architecture": {
       "value": "dense",
@@ -272,6 +300,7 @@
     "date_precision": "month",
     "license": "Apache-2.0",
     "parameters_b": 1.080632832,
+    "active_parameters_b": 1.080632832,
     "parameters_source": "primary_source",
     "architecture": "dense",
     "description": "Dense text model with optional reasoning, function calling, and a 131,072-token context.",
@@ -332,9 +361,19 @@
         "label": "MiniCPM5-1B checkpoint history",
         "url": "https://huggingface.co/openbmb/MiniCPM5-1B/commits/main",
         "type": "primary"
+      },
+      {
+        "label": "Paiton small-model qualification: exact-checkpoint parameter comparison",
+        "url": "https://huggingface.co/EliovpAI/MiniCPM5-2B-W4A16-Paiton-RDNA4/raw/4bcf80e1bcf1bc8f5c2d657086121958cfe145cb/SELECTION.md",
+        "type": "primary"
+      },
+      {
+        "label": "Paiton MiniCPM5-2B original runtime benchmark methodology",
+        "url": "https://huggingface.co/EliovpAI/MiniCPM5-2B-W4A16-Paiton-RDNA4/raw/4bcf80e1bcf1bc8f5c2d657086121958cfe145cb/BENCHMARKS.md",
+        "type": "primary"
       }
     ],
-    "notes": "Complete BF16 checkpoint: 1,080,632,832 learned parameters, including separate input and output vocabulary matrices. The published 679,552,512 non-embedding count excludes both vocabulary matrices. All 219 indexed tensors match the enabled dense Llama modules; computed RoPE buffers are excluded. A separate per-token active count is not defined by the checked sources. Native context is 131,072 tokens with no configured RoPE scaling. Release month is May 2026: the repository changelog says May 19, while the formal GitHub release was published May 26; the exact earliest public day remains unresolved. HF repository creation and upload dates do not prove public availability."
+    "notes": "OpenBMB publishes 1,080,632,832 total learned parameters, including separate input/output vocabulary matrices; its 679,552,512 non-embedding count excludes both. Active 1.080632832B uses EliovpAI/Paiton's published convention for this pinned model, an unmeasured comparison alternative, rather than an OpenBMB per-token disclosure. Native context is 131,072 tokens. Release month is May 2026: the changelog says May 19, while the formal release was May 26; earliest public day remains unresolved. HF creation/upload dates do not prove public availability."
   },
-  "summary": "Verified complete 1.080632832B parameter count from the final pinned BF16 checkpoint, all 219 tensor headers and a full dense Llama module reconstruction. Added MiniCPM5 family and dense architecture, normalized Apache-2.0 and simplified the description. Confirmed 131072 native context, text modalities, thinking toggle and function calling. Active count stays null with the missing convention explained. Reduced release precision to May 2026 because the publisher's May 19 changelog and May 26 formal release do not establish one consistent earliest public day."
+  "summary": "Fresh parameter re-audit preserves OpenBMB's exact 1.080632832B total and accepts the same active value under EliovpAI/Paiton's explicitly attributed runtime-selection convention. The 1B alternative was not benchmarked. Reopened original cards, config/index, guide and linked papers, and searched for later total/active disclosures; found no separate OpenBMB active specification. All twelve other field assessments remain unchanged."
 }
