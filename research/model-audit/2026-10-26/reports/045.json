@@ -1,7 +1,7 @@
 {
   "index": 45,
   "model_id": "alibaba/qwen3-vl-plus",
-  "reviewed_at": "2026-10-26T14:42:09Z",
+  "reviewed_at": "2026-10-27T09:41:11Z",
   "sources": [
     {
       "id": "s1",
@@ -17,7 +17,7 @@
       "title": "Model lifecycle and updates",
       "publisher": "Alibaba Cloud",
       "accessed": true,
-      "evidence": "Release table explicitly lists qwen3-vl-plus and qwen3-vl-plus-2025-09-23 on 2025-09-23; describes thinking/non-thinking modes, visual agents, spatial perception and long-video understanding. Later regional/update rows do not replace initial availability."
+      "evidence": "Release table explicitly lists qwen3-vl-plus and qwen3-vl-plus-2025-09-23 on 2025-09-23; describes thinking/non-thinking modes, visual agents, spatial perception and long-video understanding. Later regional/update rows do not replace initial availability. Reopened on 2026-10-27: the Plus release/update entries describe capabilities and snapshots, without total/active counts or a size-specific base model."
     },
     {
       "id": "s3",
@@ -33,7 +33,7 @@
       "title": "Qwen3-VL official repository",
       "publisher": "Qwen team, Alibaba Cloud",
       "accessed": true,
-      "evidence": "Identifies Qwen3-VL as developed by Qwen team, Alibaba Cloud. Lists separately named open checkpoints, including 235B-A22B Instruct and Thinking; does not identify either as the Plus API alias. Its Apache-2.0 repository license does not establish a Plus weights license."
+      "evidence": "Reopened on 2026-10-27. Official Qwen repository lists dense and MoE size-named checkpoints; its API example uses qwen3-vl-235b-a22b-instruct. Plus is not named in the README, so the repository supplies no Plus-to-checkpoint lineage. Its Apache-2.0 repository license does not establish a Plus weights license."
     },
     {
       "id": "s5",
@@ -42,6 +42,38 @@
       "publisher": "Qwen",
       "accessed": true,
       "evidence": "Indexed platform page names Qwen3-VL-Plus and text/image/video-to-text modalities, but lists 131027 context length. This conflicts with the exact Alibaba Cloud model card's 262144; no reconciliation is supplied. Direct page extraction returned no text."
+    },
+    {
+      "id": "s6",
+      "url": "https://www.alibabacloud.com/help/en/model-studio/qwen3-vl-plus",
+      "title": "qwen3-vl-plus Model Info, current public documentation",
+      "publisher": "Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Reopened on 2026-10-27; page updated 2026-10-11. Exact Plus model card lists modalities, regional capabilities, context limits and prices but no total count, activated count, dense/MoE architecture or named size-specific base. The original console mirror timed out; this public documentation version was readable."
+    },
+    {
+      "id": "s7",
+      "url": "https://arxiv.org/html/2511.21631v1",
+      "title": "Qwen3-VL Technical Report, Model Architecture and comparison tables",
+      "publisher": "Qwen Team",
+      "accessed": true,
+      "evidence": "Read on 2026-10-27. Section 2 explicitly gives the flagship Qwen3-VL-235B-A22B 235B total parameters and 22B activated per token in its language-model subsection. The report covers 2B/4B/8B/32B dense and 30B-A3B/235B-A22B MoE variants, with a vision encoder and mergers. It never names Plus, so these nominal counts cannot identify Plus or establish its structural lineage."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/Qwen/Qwen3.5-397B-A17B",
+      "title": "Qwen3.5-397B-A17B official model card and later multimodal comparison table",
+      "publisher": "Qwen",
+      "accessed": true,
+      "evidence": "Read on 2026-10-27 while checking later primary parameter/comparison disclosures. The multimodal table names Qwen3-VL-235B-A22B, not Qwen3-VL-Plus, and gives no Plus activated-parameter count. An explicit hosted-version mapping on this card applies to Qwen3.5-Plus and cannot be transferred to Qwen3-VL-Plus."
+    },
+    {
+      "id": "s9",
+      "url": "https://www.alibabacloud.com/help/en/model-studio/model-pricing",
+      "title": "Alibaba Cloud Model Studio model pricing, fresh public documentation",
+      "publisher": "Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Reopened on 2026-10-27. Current public English pricing lists qwen3-vl-plus, both thinking modes and regional token prices without parameter counts, a size-specific base or an exact snapshot mapping. The Chinese public pricing page likewise omits a mapping in the fetched version, although indexed older pricing still associates Plus with the 2025-12-19 snapshot. No newer lineage or count was found by English/Chinese exact-name searches for parameters, activation, 235B and base-model relationships."
     }
   ],
   "fields": {
@@ -101,19 +133,27 @@
       "value": null,
       "status": "undisclosed",
       "source_ids": [
-        "s1",
-        "s4"
+        "s6",
+        "s4",
+        "s7",
+        "s8",
+        "s9",
+        "s2"
       ],
-      "note": "No total count published for Plus; 235B belongs to separately named checkpoints."
+      "note": "Fresh primary-source review found no nominal total for Plus and no explicit size-specific base relationship. Published 235B belongs to Qwen3-VL-235B-A22B; family membership alone does not transfer that count. The missing evidence is model identity, not an exact tensor census."
     },
     "active_parameters_b": {
       "value": null,
       "status": "undisclosed",
       "source_ids": [
-        "s1",
-        "s4"
+        "s6",
+        "s4",
+        "s7",
+        "s8",
+        "s9",
+        "s2"
       ],
-      "note": "No active count published for Plus; do not import A22B."
+      "note": "No Plus activated count found in current documentation, the Qwen3-VL report or later Qwen comparison tables. The report explicitly publishes 22B per token for Qwen3-VL-235B-A22B, but supplies no mapping to Plus. No active count is inferred from a presumed total or architecture."
     },
     "architecture": {
       "value": null,
@@ -192,7 +232,7 @@
     },
     "source_url": "https://docs.modelstudio.console.alibabacloud.com/en/model-studio/qwen3-vl-plus",
     "source_type": "primary",
-    "notes": "Hosted alias currently documented as equivalent to qwen3-vl-plus-2025-12-19. Parameter counts and architecture are undisclosed; no equivalence to an open Qwen3-VL checkpoint is established. Function calling is documented for Beijing but unsupported in the other listed regional deployments. Context is the exact Alibaba Cloud card's indexed specification; Qwen's platform page lists a conflicting 131027. Open-weight status was not independently established.",
+    "notes": "Total/active parameter counts and architecture are undisclosed; no size-specific base is identified for Plus. Published Qwen3-VL-235B-A22B counts cannot be assigned to this alias. Function calling is documented for Beijing but unsupported in the other listed regional deployments. Context follows the Alibaba Cloud card; Qwen's platform lists a conflicting 131027. Open-weight status remains unverified.",
     "sources": [
       {
         "label": "Alibaba Cloud exact model card",
@@ -223,9 +263,31 @@
         "label": "Models.dev record",
         "url": "https://github.com/anomalyco/models.dev/blob/dev/models/alibaba/qwen3-vl-plus.toml",
         "type": "catalog"
+      },
+      {
+        "label": "qwen3-vl-plus Model Info, current public documentation",
+        "url": "https://www.alibabacloud.com/help/en/model-studio/qwen3-vl-plus",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3-VL Technical Report, Model Architecture and comparison tables",
+        "url": "https://arxiv.org/html/2511.21631v1",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3.5-397B-A17B official model card and later multimodal comparison table",
+        "url": "https://huggingface.co/Qwen/Qwen3.5-397B-A17B",
+        "type": "primary"
+      },
+      {
+        "label": "Alibaba Cloud Model Studio model pricing, fresh public documentation",
+        "url": "https://www.alibabacloud.com/help/en/model-studio/model-pricing",
+        "type": "primary"
       }
     ],
-    "open_weights": null
+    "open_weights": null,
+    "parameters_b": null,
+    "active_parameters_b": null
   },
-  "summary": "Adds omitted video input and a description grounded in exact-alias documentation. Confirms 2025-09-23 release, optional thinking and 262144 context subject to the recorded primary-source conflict. Tool calling is region-dependent. Total/active parameters, architecture and license remain undisclosed; open-weight status remains unverified. No open-checkpoint counts or architecture are transferred to Plus."
+  "summary": "Fresh parameter re-audit retains explicit null total and active counts. Reopened exact Plus documentation, release history and repository; read the Qwen3-VL technical report and later Qwen3.5 comparison table; searched English/Chinese named-base and activated-count disclosures. The primary 235B/22B figures identify Qwen3-VL-235B-A22B, with no published mapping to Plus. No supported structural lineage permits inheritance. Removed stale current-snapshot wording because the freshly fetched pricing pages no longer provide that mapping. Other audited fields remain unchanged."
 }
