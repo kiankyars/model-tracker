@@ -1,0 +1,262 @@
+{
+  "index": 396,
+  "model_id": "openai/gpt-1",
+  "reviewed_at": "2026-10-27T01:13:46.889506Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://openai.com/index/language-unsupervised/",
+      "title": "Improving language understanding with unsupervised learning",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "The original announcement is dated June 11, 2018, links the paper and release repository, releases the underlying language model, and describes 12 Transformer blocks with sequences up to 512 tokens."
+    },
+    {
+      "id": "s2",
+      "url": "https://cdn.openai.com/research-covers/language-unsupervised/language_understanding_paper.pdf",
+      "title": "Improving Language Understanding by Generative Pre-Training",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "Sections 3 and 4 describe text language modeling followed by supervised task fine-tuning, BooksCorpus pretraining, a 12-layer decoder-only Transformer with width 768, 12 attention heads, 3072-wide feed-forward layers, learned position embeddings, and 512-token sequences. Task fine-tuning introduces delimiter embeddings and a classifier."
+    },
+    {
+      "id": "s3",
+      "url": "https://github.com/openai/finetune-transformer-lm/blob/f7c13308472857da7317a8b6628e9e628d9f6a73/README.md",
+      "title": "Original code and model release README",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "The June 11, 2018 release commit identifies this repository as the code and model for the original paper. The release contains the pretrained checkpoint and its shape metadata."
+    },
+    {
+      "id": "s4",
+      "url": "https://raw.githubusercontent.com/openai/finetune-transformer-lm/a69b5c43b0452462890bca8ff92fb75dee9290cf/model/params_shapes.json",
+      "title": "Original GPT checkpoint tensor shapes",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "The 146 parameter shapes contain [512,768] learned positions, [40478,768] token embeddings, and twelve identical groups of twelve Transformer tensors. Their products sum to 116,534,784. This file is unchanged from the original June 11 release."
+    },
+    {
+      "id": "s5",
+      "url": "https://raw.githubusercontent.com/openai/finetune-transformer-lm/a69b5c43b0452462890bca8ff92fb75dee9290cf/train.py",
+      "title": "GPT architecture and pretrained checkpoint loading code",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "The loader concatenates ten NumPy checkpoint shards and reshapes them using params_shapes.json. Attention, dense feed-forward layers, biases and two learned layer norms account for every block. The language-model output reuses the embedding matrix. Fine-tuning separately initializes three special-token embeddings and a 768-by-1 classifier with one bias, which are absent from the pretrained checkpoint."
+    },
+    {
+      "id": "s6",
+      "url": "https://raw.githubusercontent.com/openai/finetune-transformer-lm/f7c13308472857da7317a8b6628e9e628d9f6a73/LICENSE",
+      "title": "MIT license in the original model release",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "The original code-and-model release carries the MIT License with OpenAI copyright. The complete repository tree contains its checkpoint shards under model/ and no separate checkpoint license or terms file. The license text is unchanged in the inspected current revision."
+    },
+    {
+      "id": "s7",
+      "url": "https://github.com/openai/finetune-transformer-lm/tree/a69b5c43b0452462890bca8ff92fb75dee9290cf/model",
+      "title": "Original GPT checkpoint shards",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "All ten params_0.npy through params_9.npy headers were read through HTTP 206 requests for bytes 0-255. They contain unquantized little-endian float32 vectors: four with 11,653,479 elements and six with 11,653,478, totaling 116,534,784. File lengths match the header lengths plus four bytes per element, and the complete shapes account for every element."
+    },
+    {
+      "id": "s8",
+      "url": "https://progress.openai.com/",
+      "title": "OpenAI Progress model timeline",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "OpenAI retrospectively labels its 2018 text model GPT-1 and places it before GPT-2 in its model timeline, with text prompt and completion examples."
+    },
+    {
+      "id": "s9",
+      "url": "https://api.github.com/repos/openai/finetune-transformer-lm/git/trees/a69b5c43b0452462890bca8ff92fb75dee9290cf?recursive=1",
+      "title": "Complete official release repository file tree",
+      "publisher": "OpenAI",
+      "accessed": true,
+      "evidence": "The complete tree lists the root LICENSE, model shape metadata, tokenizer, ten NumPy checkpoint shards and model code. The checkpoint files are part of the same published repository, not a separately licensed external download."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "GPT-1",
+      "status": "verified",
+      "source_ids": [
+        "s8"
+      ],
+      "note": "OpenAI uses GPT-1 retrospectively for the original 2018 release."
+    },
+    "developer": {
+      "value": "OpenAI",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "The announcement and paper identify OpenAI as the developer."
+    },
+    "family": {
+      "value": "gpt",
+      "status": "verified",
+      "source_ids": [
+        "s8"
+      ],
+      "note": "Catalog normalization of the GPT lineage shown by OpenAI, with GPT-1 preceding GPT-2."
+    },
+    "release_date": {
+      "value": "2018-06-11",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
+      "note": "The explicit announcement date agrees with the original public release commit."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s7"
+      ],
+      "note": "OpenAI released the pretrained model in its public repository; all ten checkpoint headers were accessible during this audit."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s3",
+        "s6",
+        "s9"
+      ],
+      "note": "MIT is the published license of the original code-and-model package, including the checkpoint files in that repository. No separate checkpoint license appears in the complete tree."
+    },
+    "parameters_b": {
+      "value": 0.116534784,
+      "status": "verified",
+      "source_ids": [
+        "s4",
+        "s5",
+        "s7"
+      ],
+      "note": "Exact complete pretrained count: 40,478×768 token embeddings + 512×768 positions + 12×7,087,872 block parameters = 116,534,784. Each block has 12×768² + 13×768 learned scalars. All 146 tensor shapes and ten float32 shard headers agree. This rounds to 117 million; it is not an exact 117,000,000 count. Tied output weights count once. No optimizer slots, quantization scales or buffers are included. The three new fine-tuning token embeddings and 768-weight, one-bias classifier are excluded."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "not_applicable",
+      "source_ids": [
+        "s2",
+        "s5"
+      ],
+      "note": "This dense decoder has no expert routing or separately defined active-parameter metric. Do not copy the complete checkpoint total into a per-token active count."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s5"
+      ],
+      "note": "The original paper and complete implementation show a dense decoder-only Transformer: 12 blocks, width 768, 12 attention heads and 3072-wide feed-forward layers."
+    },
+    "context_window": {
+      "value": 512,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4",
+        "s5"
+      ],
+      "note": "The original training sequence length, released learned-position table and default model context are all 512 tokens. Task-specific fine-tuning may truncate the position table; it does not enlarge the pretrained context."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5",
+        "s8"
+      ],
+      "note": "The released base model processes text tokens and predicts text tokens; the paper and OpenAI examples confirm text generation."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5"
+      ],
+      "note": "The paper evaluates commonsense reasoning after task fine-tuning. That does not establish the catalog feature of a dedicated reasoning mode, nor is it sufficient evidence for an explicit false capability flag."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s5"
+      ],
+      "note": "The inspected release documents text language modeling and task classifiers. They do not establish an explicit function-calling capability or a tested lack of one; leave this flag unknown."
+    },
+    "description": {
+      "value": "OpenAI's original 12-layer decoder-only Transformer, pretrained on BooksCorpus.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s8"
+      ],
+      "note": "The paper establishes decoder-only structure, twelve layers and BooksCorpus pretraining; OpenAI identifies the model as its original GPT release."
+    }
+  },
+  "patch": {
+    "parameters_b": 0.116534784,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "description": "OpenAI's original 12-layer decoder-only Transformer, pretrained on BooksCorpus.",
+    "notes": "The original pretrained checkpoint contains exactly 116,534,784 parameters (about 117 million). The count includes learned token and position embeddings and all twelve Transformer blocks, with tied output weights counted once. Fine-tuning adds three token embeddings and a classifier; these are excluded. Active parameters are not separately defined for this dense model. Commonsense reasoning benchmark results do not establish a dedicated reasoning mode.",
+    "sources": [
+      {
+        "label": "Original release announcement",
+        "url": "https://openai.com/index/language-unsupervised/",
+        "type": "announcement"
+      },
+      {
+        "label": "Original technical report",
+        "url": "https://cdn.openai.com/research-covers/language-unsupervised/language_understanding_paper.pdf",
+        "type": "paper"
+      },
+      {
+        "label": "Original checkpoint tensor shapes",
+        "url": "https://raw.githubusercontent.com/openai/finetune-transformer-lm/a69b5c43b0452462890bca8ff92fb75dee9290cf/model/params_shapes.json",
+        "type": "weights"
+      },
+      {
+        "label": "Original architecture and checkpoint loader",
+        "url": "https://raw.githubusercontent.com/openai/finetune-transformer-lm/a69b5c43b0452462890bca8ff92fb75dee9290cf/train.py",
+        "type": "repository"
+      },
+      {
+        "label": "Original checkpoint files",
+        "url": "https://github.com/openai/finetune-transformer-lm/tree/a69b5c43b0452462890bca8ff92fb75dee9290cf/model",
+        "type": "weights"
+      },
+      {
+        "label": "Original model release license",
+        "url": "https://raw.githubusercontent.com/openai/finetune-transformer-lm/f7c13308472857da7317a8b6628e9e628d9f6a73/LICENSE",
+        "type": "license"
+      }
+    ]
+  },
+  "summary": "Added the exact 116,534,784-parameter pretrained checkpoint count and verified dense architecture. Confirmed the June 11, 2018 release, 512-token context, text modalities, open weights and MIT release license. Excluded extra fine-tuning embeddings and classifier parameters. Dedicated reasoning and function-calling flags remain unverified; active parameters are not separately applicable."
+}
