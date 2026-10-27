@@ -1,0 +1,357 @@
+{
+  "index": 478,
+  "model_id": "rekaai/reka-edge",
+  "reviewed_at": "2026-10-27T03:57:15.501093Z",
+  "sources": [
+    {
+      "id": "release",
+      "url": "https://reka.ai/labs/research/reka-edge-frontier-level-edge-intelligence-for-physical-ai",
+      "title": "Reka Edge: Frontier-Level Edge Intelligence for Physical AI — March 11, 2026",
+      "publisher": "Reka",
+      "accessed": true,
+      "evidence": "Dated March 11; explicitly introduces the latest Edge version and says it is now available via Playground, API and linked Hugging Face checkpoint. Discloses nominal 7B total, 657M ConvNeXt V2 encoder and 6.4B Transformer backbone trained from scratch; text/image/video understanding and agentic tools. This is the March 2026 revision, not the earlier Edge in the 2024 report. Full indexed primary body was read; direct Python fetch returned 403."
+    },
+    {
+      "id": "card",
+      "url": "https://huggingface.co/RekaAI/reka-edge-2603/blob/492c81c225fbf5f3263a8245b00827721b119a13/README.md",
+      "title": "Reka Edge 2603 pinned model card",
+      "publisher": "Reka",
+      "accessed": true,
+      "evidence": "Exact checkpoint card identifies 7B multimodal text/image/video-to-text Edge, local Transformers/vLLM deployment and native tool use. Its general under-$1M commercial summary is qualified by the actual license file. No separately defined active-parameter count."
+    },
+    {
+      "id": "config",
+      "url": "https://huggingface.co/RekaAI/reka-edge-2603/blob/492c81c225fbf5f3263a8245b00827721b119a13/config.json",
+      "title": "Reka Edge 2603 pinned configuration",
+      "publisher": "Reka",
+      "accessed": true,
+      "evidence": "Yasa2ForConditionalGeneration with a dense 32-layer Yasa decoder: width 4096, intermediate 10880, 32 query/8 KV heads, head dimension 128 and vocabulary 100352. ConvNeXt V2 vision stages have widths 352/704/1408/2816 and depths 3/3/27/3 with GRN. 64 pooled visual tokens. Text limit 16384 uses YaRN factor 2 from 8192; BF16, no quantization configuration."
+    },
+    {
+      "id": "code",
+      "url": "https://huggingface.co/RekaAI/reka-edge-2603/blob/492c81c225fbf5f3263a8245b00827721b119a13/modeling_yasa2.py",
+      "title": "Selected Yasa2 multimodal implementation",
+      "publisher": "Reka",
+      "accessed": true,
+      "evidence": "All enabled parameter branches were inspected: untied embedding/head, dense GQA/SwiGLU decoder and RMSNorm; ConvNeXt patch/downsample convolutions, norms, GRN and pointwise layers; two biased projection layers. Vision pooling LayerNorm is instantiated and saved but bypassed by generation return_pooled=False. Vision position arrays are non-learned sine/cosine values, RoPE nonpersistent. No MoE, MTP, draft, scale or other enabled learned branch is omitted."
+    },
+    {
+      "id": "defaults",
+      "url": "https://huggingface.co/RekaAI/reka-edge-2603/blob/492c81c225fbf5f3263a8245b00827721b119a13/configuration_yasa2.py",
+      "title": "Yasa2 configuration defaults",
+      "publisher": "Reka",
+      "accessed": true,
+      "evidence": "Confirms untied language embeddings, bias-free attention/MLP, ConvNeXt GRN and disabled layer-scale parameters when layer_scale_init_value=0. Exact configuration overrides select the instantiated dense language/vision stack; no inherited generic default is substituted."
+    },
+    {
+      "id": "headers",
+      "url": "https://huggingface.co/RekaAI/reka-edge-2603/blob/492c81c225fbf5f3263a8245b00827721b119a13/model.safetensors.index.json",
+      "title": "Complete checkpoint index and all three pinned BF16 shard headers",
+      "publisher": "Reka",
+      "accessed": true,
+      "evidence": "Fetched only 8-byte lengths and bounded JSON headers with HTTP 206 from all three indexed shards, no weight payloads. All 673 indexed names occur exactly once; every name/shape matches an independent enabled-code/config reconstruction. All BF16: 7,128,509,568 learned checkpoint elements, 14,257,019,136 bytes matching index metadata. Language plus untied head6,442,717,184; vision657,472,640; projection28,319,744. Includes 5,632 learned vision pooling norm parameters bypassed in generation. No packed storage, quantization scales, tied duplication or persistent non-learned buffers."
+    },
+    {
+      "id": "license",
+      "url": "https://huggingface.co/RekaAI/reka-edge-2603/blob/492c81c225fbf5f3263a8245b00827721b119a13/LICENSE",
+      "title": "Reka Edge 2603 Business Source License 1.1",
+      "publisher": "Reka",
+      "accessed": true,
+      "evidence": "Actual model-materials license names Business Source License 1.1 with Reka-specific additional-use and usage limitations. Small for-profit organizations under $1M annual gross revenue have a conditional commercial grant; government/public/academic production, hosted service and other uses have additional restrictions. License specifies change to Apache 2.0 two years after public release. It is not an unrestricted Apache release today; card shorthand is not the full license."
+    },
+    {
+      "id": "template",
+      "url": "https://huggingface.co/RekaAI/reka-edge-2603/blob/492c81c225fbf5f3263a8245b00827721b119a13/chat_template.jinja",
+      "title": "Reka Edge 2603 chat template",
+      "publisher": "Reka",
+      "accessed": true,
+      "evidence": "Formats text, image and video markers, caller-provided function signatures, tool_call JSON and tool_response messages. Video is processed as frames; no audio encoder or visual-output generator is present. Supports native caller-executed tools; no separate thinking-mode switch is defined."
+    },
+    {
+      "id": "api",
+      "url": "https://docs.reka.ai/chat/models",
+      "title": "Reka API model table and exact Edge2603 example",
+      "publisher": "Reka",
+      "accessed": true,
+      "evidence": "Exact reka-edge-2603 row states text/image/video inputs, tools and structured outputs, and no reasoning. Example binds this API model to RekaAI/reka-edge-2603 and specifies 16384 context. Public documentation establishes capabilities, not authenticated live account access. Full indexed primary page was read; direct Markdown fetch returned 403."
+    },
+    {
+      "id": "reasoning",
+      "url": "https://developer.reka.ai/chat/reasoning",
+      "title": "Reka Gateway reasoning documentation",
+      "publisher": "Reka",
+      "accessed": true,
+      "evidence": "Explicitly identifies reka-edge-2603 as a non-reasoning model. This resolves marketing language about visual reasoning: the catalog boolean describes a dedicated reasoning mode, not absence of general problem-solving ability."
+    },
+    {
+      "id": "edgeq",
+      "url": "https://reka.ai/labs/research/reka-edgeq",
+      "title": "Reka EdgeQ, On-Device — September 22, 2026",
+      "publisher": "Reka",
+      "accessed": true,
+      "evidence": "Later first-party research explicitly compares canonical BF16 Edge with separately quantized EdgeQ. Confirms 657M ConvNeXt V2 encoder and architecture continuity but publishes no canonical active-parameter convention. Quantization/performance figures for EdgeQ are not assigned to the BF16 checkpoint. Read complete indexed primary article; direct Python fetch returned 403."
+    },
+    {
+      "id": "rho",
+      "url": "https://reka.ai/labs/research/rho-1-collapsing-the-multimodal-stack",
+      "title": "Rho-1 research — October 5, 2026",
+      "publisher": "Reka",
+      "accessed": true,
+      "evidence": "Checked later first-party architecture/training disclosure and named comparisons. Its 19B two-stream omni model is Rho-1, with visual generation and reasoning; it does not establish those components or an active count for Edge2603. No sibling specifications transferred. Indexed primary architecture sections were read."
+    },
+    {
+      "id": "old",
+      "url": "https://arxiv.org/abs/2404.12387",
+      "title": "Reka Core, Flash, and Edge technical report — April 2024",
+      "publisher": "Reka Team",
+      "accessed": true,
+      "evidence": "Read abstract and version date to resolve reused Edge name. This 2024 series predates the explicitly new March 2026 checkpoint; its broader audio claims and architecture are not used as exact 2603 evidence."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Reka Edge",
+      "status": "verified",
+      "source_ids": [
+        "release",
+        "card",
+        "license"
+      ],
+      "note": "Official display name; this record is the March 2026 reka-edge-2603 release, explicitly equated with Reka Edge in its license."
+    },
+    "developer": {
+      "value": "Reka AI",
+      "status": "verified",
+      "source_ids": [
+        "release",
+        "card",
+        "license"
+      ],
+      "note": "Reka publishes the checkpoint; license copyright names Reka AI, Inc."
+    },
+    "family": {
+      "value": "reka",
+      "status": "verified",
+      "source_ids": [
+        "release",
+        "card"
+      ],
+      "note": "Retain normalized Reka family; version 2603 distinguishes the checkpoint from the earlier Edge series."
+    },
+    "release_date": {
+      "value": "2026-03-11",
+      "status": "verified",
+      "source_ids": [
+        "release",
+        "card"
+      ],
+      "note": "Explicit first-party date and public-access announcement for the latest Edge revision; do not use later distributor listing or the unrelated 2024 series date."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "headers",
+        "license"
+      ],
+      "note": "Official publicly downloadable BF16 checkpoint and three indexed shard headers accessed. Open weights does not imply an unrestricted open-source license."
+    },
+    "license": {
+      "value": "Reka Edge Business Source License 1.1",
+      "status": "verified",
+      "source_ids": [
+        "license"
+      ],
+      "note": "Descriptive exact-model license name. Reka-specific commercial/production/hosted-service conditions apply; future Apache 2.0 change does not apply today. The actual LICENSE controls over the simplified card summary."
+    },
+    "parameters_b": {
+      "value": 7.128509568,
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "code",
+        "defaults",
+        "headers",
+        "release"
+      ],
+      "note": "Exact complete pinned checkpoint count in decimal billions, independently reconciled across all 673 tensors. Includes dense language model and untied output head 6.442717184B, vision encoder 0.65747264B and projector 0.028319744B. Includes 5,632 serialized learned vision pooling-norm values bypassed by current generation. Nominal 7B full model and 6.4B backbone are rounded developer figures, not interchangeable totals."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "release",
+        "card",
+        "code",
+        "api",
+        "edgeq",
+        "rho"
+      ],
+      "note": "No separately defined per-token active count found for exact 2603 in the reviewed original and later first-party material. Dense decoder structure does not justify equating full multimodal total with active parameters: vision encoding depends on input/prefill, and the pooling norm is bypassed in generation."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "release",
+        "config",
+        "code",
+        "defaults"
+      ],
+      "note": "Dense decoder-only Transformer language backbone plus ConvNeXt V2 convolutional vision encoder and two-layer MLP projector. No routed experts or SSM. Dense is the catalog language-architecture category; it does not mean the vision encoder is a Transformer."
+    },
+    "context_window": {
+      "value": 16384,
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "api"
+      ],
+      "note": "Supported combined input/output limit 16384; configured YaRN factor 2 from original 8192 positions. Do not call this unscaled native 16K training or conflate 64 visual tokens per tile with context size."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "image",
+          "text",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "api",
+        "template",
+        "code"
+      ],
+      "note": "Text, images and video frames are accepted; text and structured coordinate/tool outputs. Documents can be processed as text/images but are not an additional native modality; no audio or generated-image/video output is established."
+    },
+    "reasoning": {
+      "value": false,
+      "status": "verified",
+      "source_ids": [
+        "api",
+        "reasoning"
+      ],
+      "note": "Exact API table and reasoning guide explicitly classify 2603 as non-reasoning. General visual-reasoning marketing does not establish a dedicated thinking mode."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "release",
+        "api",
+        "template"
+      ],
+      "note": "Exact native template provides caller function schemas, emitted calls and returned results; official exact-model API row confirms tools. External execution remains the caller responsibility."
+    },
+    "description": {
+      "value": "Vision-language model for image and video understanding, object grounding and tool calling, with a dense language decoder and ConvNeXt V2 vision encoder.",
+      "status": "verified",
+      "source_ids": [
+        "release",
+        "card",
+        "code",
+        "template"
+      ],
+      "note": "Replaces vague rich-media wording with supported inputs, tasks and architecture; no benchmark superiority or hardware guarantee."
+    }
+  },
+  "patch": {
+    "license": "Reka Edge Business Source License 1.1",
+    "parameters_b": 7.128509568,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "description": "Vision-language model for image and video understanding, object grounding and tool calling, with a dense language decoder and ConvNeXt V2 vision encoder.",
+    "source_url": "https://reka.ai/labs/research/reka-edge-frontier-level-edge-intelligence-for-physical-ai",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Reka Edge: Frontier-Level Edge Intelligence for Physical AI — March 11, 2026",
+        "url": "https://reka.ai/labs/research/reka-edge-frontier-level-edge-intelligence-for-physical-ai",
+        "type": "primary"
+      },
+      {
+        "label": "Reka Edge 2603 pinned model card",
+        "url": "https://huggingface.co/RekaAI/reka-edge-2603/blob/492c81c225fbf5f3263a8245b00827721b119a13/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Reka Edge 2603 pinned configuration",
+        "url": "https://huggingface.co/RekaAI/reka-edge-2603/blob/492c81c225fbf5f3263a8245b00827721b119a13/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Selected Yasa2 multimodal implementation",
+        "url": "https://huggingface.co/RekaAI/reka-edge-2603/blob/492c81c225fbf5f3263a8245b00827721b119a13/modeling_yasa2.py",
+        "type": "primary"
+      },
+      {
+        "label": "Yasa2 configuration defaults",
+        "url": "https://huggingface.co/RekaAI/reka-edge-2603/blob/492c81c225fbf5f3263a8245b00827721b119a13/configuration_yasa2.py",
+        "type": "primary"
+      },
+      {
+        "label": "Complete checkpoint index and all three pinned BF16 shard headers",
+        "url": "https://huggingface.co/RekaAI/reka-edge-2603/blob/492c81c225fbf5f3263a8245b00827721b119a13/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Reka Edge 2603 Business Source License 1.1",
+        "url": "https://huggingface.co/RekaAI/reka-edge-2603/blob/492c81c225fbf5f3263a8245b00827721b119a13/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "Reka Edge 2603 chat template",
+        "url": "https://huggingface.co/RekaAI/reka-edge-2603/blob/492c81c225fbf5f3263a8245b00827721b119a13/chat_template.jinja",
+        "type": "primary"
+      },
+      {
+        "label": "Reka API model table and exact Edge2603 example",
+        "url": "https://docs.reka.ai/chat/models",
+        "type": "primary"
+      },
+      {
+        "label": "Reka Gateway reasoning documentation",
+        "url": "https://developer.reka.ai/chat/reasoning",
+        "type": "primary"
+      },
+      {
+        "label": "Reka EdgeQ, On-Device — September 22, 2026",
+        "url": "https://reka.ai/labs/research/reka-edgeq",
+        "type": "primary"
+      }
+    ],
+    "notes": "This is the March 2026 reka-edge-2603 release, not the earlier Edge series. Exact pinned BF16 total is 7,128,509,568 parameters: 6,442,717,184 in the language model and untied output head, 657,472,640 in ConvNeXt V2 and 28,319,744 in the vision projector. All three shard headers and 673 tensor shapes reconcile with enabled code/configuration. The checkpoint includes 5,632 learned vision pooling-norm parameters bypassed in generation. Active parameters are not separately disclosed. Context 16384 uses YaRN from 8192 positions. The model has no dedicated reasoning mode. Model materials use Reka’s Business Source License 1.1 with additional commercial/production/hosted-service restrictions; the stated Apache 2.0 change occurs two years after release."
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "language_with_head": 6.442717184,
+      "vision_encoder": 0.65747264,
+      "vision_projector": 0.028319744
+    }
+  },
+  "checkpoint_audit": {
+    "revision": "492c81c225fbf5f3263a8245b00827721b119a13",
+    "shards": 3,
+    "tensors": 673,
+    "all_names_shapes_match": true,
+    "missing": [],
+    "extra": [],
+    "shape_mismatches": {},
+    "parameters": 7128509568,
+    "components_elements": {
+      "language_with_head": 6442717184,
+      "vision_encoder": 657472640,
+      "vision_projector": 28319744
+    },
+    "checkpoint_pooling_norm_elements_bypassed_in_generation": 5632,
+    "dtype": "BF16",
+    "notes": "Complete checkpoint includes instantiated learned vision pooling LayerNorm, 5632 parameters, though generation requests return_pooled=False. Vision positional embeddings are non-learned sinusoidal arrays; RoPE is nonpersistent. No scales, packed weights, MoE, tied embeddings, auxiliary/MTP/draft modules or additional parameter branches."
+  },
+  "summary": "Audited all 14 fields. Added complete 7.128509568B checkpoint count, dense language architecture with ConvNeXt V2 and exact Reka Business Source license. Confirmed March 11 release, multimodal inputs, non-reasoning classification, tools and16384 extended context. All 673 tensors across three BF16 shards reconcile, including unused learned pooling norm; active count remains undisclosed rather than inferred from dense/full size."
+}
