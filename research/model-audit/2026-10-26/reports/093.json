@@ -1,7 +1,7 @@
 {
   "index": 93,
   "model_id": "anthropic/claude-3-haiku-20240307",
-  "reviewed_at": "2026-10-26T16:33:34.000Z",
+  "reviewed_at": "2026-10-27T10:20:18.112972Z",
   "sources": [
     {
       "id": "s1",
@@ -25,7 +25,7 @@
       "title": "The Claude 3 Model Family: Opus, Sonnet, Haiku, including June and October 2024 addenda",
       "publisher": "Anthropic",
       "accessed": true,
-      "evidence": "Fetched directly and extracted with pdftotext after the web reader could not fetch the redirect. Names Anthropic as developer, specifies text/image input with text output and 200K production context. Original and later addendum comparisons include Claude 3 Haiku but report no numeric total or active parameter count. Relative parameter scaling is discussed without counts."
+      "evidence": "Fresh official PDF retrieved 2026-10-27T10:09:00.971358+00:00 from https://www-cdn.anthropic.com/c6a80a657af445f40e31afac050f3bf76d3b1404.pdf and independently inspected in the cached text. Section 5.8 describes relative parameter scaling from Haiku to Opus without numeric sizes. Original and June/October addendum tables include Claude 3 Haiku, but their numbers are evaluation results, not total or activated parameters. Model details and training sections do not identify a named, numerically sized parent model. Text/image input, text output and 200K production context remain documented."
     },
     {
       "id": "s4",
@@ -41,7 +41,7 @@
       "title": "Unsupervised Elicitation of Language Models — original Anthropic-hosted paper",
       "publisher": "Anthropic and collaborators",
       "accessed": true,
-      "evidence": "Section 3.3 explicitly contrasts open-weight Llama models with proprietary Claude 3 Haiku and Claude 3.5 Haiku. The experimental default is pretrained models before post-training; section 4.4 distinguishes the Haiku 3 reward model from the Haiku 3.5 assistant. No numeric Haiku parameter counts are supplied. This wording was verified in the original 13-page hosted paper, not assumed from the newer 18-page arXiv revision."
+      "evidence": "Section 3.3 explicitly contrasts open-weight Llama models with proprietary Claude 3 Haiku and Claude 3.5 Haiku. The experimental default is pretrained models before post-training; section 4.4 distinguishes the Haiku 3 reward model from the Haiku 3.5 assistant. No numeric Haiku parameter counts are supplied. This wording was verified in the original 13-page hosted paper, not assumed from the newer 18-page arXiv revision. Reopened on October 27: section 3.3 supplies Llama 3.1 8B/70B sizes but no Claude size; section 4.4 does not establish a sized-base lineage for the public Haiku 3 assistant."
     },
     {
       "id": "s6",
@@ -49,7 +49,7 @@
       "title": "Emergent Introspective Awareness in Large Language Models",
       "publisher": "Anthropic",
       "accessed": true,
-      "evidence": "Methods Notes explicitly includes production Haiku 3 among the studied Claude models and describes recording and injecting activations into layer residual streams. The introduction and discussion describe the studied model architectures as Transformer-based. This supports only the coarse Transformer classification, not dense/MoE routing or numeric size."
+      "evidence": "Methods Notes explicitly includes production Haiku 3 among the studied Claude models and describes recording and injecting activations into layer residual streams. The introduction and discussion describe the studied model architectures as Transformer-based. This supports only the coarse Transformer classification, not dense/MoE routing or numeric size. Reopened on October 27: exact production-model methods provide no numeric total or active count and no named, numerically sized base."
     },
     {
       "id": "s7",
@@ -90,91 +90,223 @@
       "publisher": "Anomaly / Models.dev",
       "accessed": true,
       "evidence": "Followed the baseline source. It lists PDF input and the compatibility description; used only to identify assertions requiring independent verification."
+    },
+    {
+      "id": "s12",
+      "url": "https://claude.com/resources/articles/trainium2-and-distillation",
+      "title": "Claude 3.5 Haiku on AWS Trainium2 and model distillation in Amazon Bedrock",
+      "publisher": "Anthropic",
+      "accessed": true,
+      "evidence": "Reopened October 27 via the original Anthropic news URL. The December 2024 post distinguishes Trainium2 optimization of Claude 3.5 Haiku from custom distillation into Claude 3 Haiku using Claude 3.5 Sonnet-generated training data. The latter produces a customer-specific distilled model, not a numeric specification for the standard March 2024 release. Neither student nor teacher size is given; a teacher model does not establish the student parameter count."
+    },
+    {
+      "id": "s13",
+      "url": "https://claude.com/resources/articles/fine-tune-claude-3-haiku",
+      "title": "Fine-tune Claude 3 Haiku in Amazon Bedrock",
+      "publisher": "Anthropic",
+      "accessed": true,
+      "evidence": "Reopened October 27 via the original Anthropic news URL. Describes creation of custom Claude 3 Haiku versions from customer prompt-completion pairs. This is downstream customization of Haiku, not evidence that the standard release inherits a specified nominal size from a named parent; no numeric total or activated count is given."
+    },
+    {
+      "id": "s14",
+      "url": "https://www-cdn.anthropic.com/9ff93dfa8f445c932415d335c88852ef47f1201e.pdf",
+      "title": "Claude 3.7 Sonnet System Card",
+      "publisher": "Anthropic",
+      "accessed": true,
+      "evidence": "Official PDF retrieved 2026-10-27T10:08:59.439841+00:00; independently checked introduction/training and searched the full extracted text for Haiku and parameter disclosures. The card does not name Claude 3 Haiku and supplies no retroactive total/active count or sized lineage for it."
+    },
+    {
+      "id": "s15",
+      "url": "https://assets.anthropic.com/m/99128ddd009bdcb/original/Claude-Haiku-4-5-System-Card.pdf",
+      "title": "Claude Haiku 4.5 System Card",
+      "publisher": "Anthropic",
+      "accessed": true,
+      "evidence": "Official PDF retrieved 2026-10-27T10:11:46.552765+00:00; independently inspected sections 1 and 2.1 and searched the text for parameter disclosures. The predecessor comparison is Haiku 3.5, not Haiku 3. Its smaller-model language and safety evaluation percentages supply neither a nominal Haiku 3 size nor an activated-parameter column."
+    },
+    {
+      "id": "s16",
+      "url": "https://www.anthropic.com/claude-haiku-5-5-system-card",
+      "title": "Claude Haiku 5.5 System Card",
+      "publisher": "Anthropic",
+      "accessed": true,
+      "evidence": "Official PDF retrieved 2026-10-27T10:11:48.624710+00:00; independently inspected the training section and searched the full text for Haiku 3 and parameter counts. It does not identify Claude 3 Haiku or publish a retroactive nominal total, active count or sized-base relationship for that model."
+    },
+    {
+      "id": "s17",
+      "url": "https://www.llmreference.com/model/claude-3-haiku",
+      "title": "Claude 3 Haiku — LLM Reference",
+      "publisher": "LLM Reference / Data Advantage",
+      "accessed": true,
+      "evidence": "Secondary lead reopened October 27. Lists 20B but gives no developer citation for that value; the page also labels the model fine-tuned without identifying a numerically sized base. Used only to trace a possible missed disclosure, not as verified parameter evidence."
+    },
+    {
+      "id": "s18",
+      "url": "https://arxiv.org/html/2602.09362v1",
+      "title": "Behavioral Economics of AI: LLM Biases and Corrections",
+      "publisher": "Pietro Bini, Lin William Cong, Xing Huang and Lawrence J. Jin",
+      "accessed": true,
+      "evidence": "Followed the 20B lead to the authors' original paper. Table 2 lists Claude 3 Haiku as 20B with an asterisk and explicitly labels the starred counts unofficial estimates. This is secondary evidence about Anthropic specifications, not a developer-published nominal size, and does not justify a verified count."
     }
   ],
   "fields": {
     "name": {
       "value": "Claude Haiku 3",
       "status": "verified",
-      "source_ids": ["s1", "s4"],
+      "source_ids": [
+        "s1",
+        "s4"
+      ],
       "note": "Anthropic's current lifecycle naming is Claude Haiku 3; launch-era naming was Claude 3 Haiku. Both identify this exact API model."
     },
     "developer": {
       "value": "Anthropic",
       "status": "verified",
-      "source_ids": ["s1", "s3"],
+      "source_ids": [
+        "s1",
+        "s3"
+      ],
       "note": "Confirmed by the developer announcement and model card."
     },
     "family": {
       "value": "claude-haiku",
       "status": "verified",
-      "source_ids": ["s1", "s2", "s4"],
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4"
+      ],
       "note": "Retains the catalog's Haiku-line family key; the model belongs to the Claude 3 generation."
     },
     "release_date": {
       "value": "2024-03-13",
       "status": "verified",
-      "source_ids": ["s1", "s2", "s8", "s9"],
+      "source_ids": [
+        "s1",
+        "s2",
+        "s8",
+        "s9"
+      ],
       "note": "Earliest explicit public availability is March 13. March 4 was the family announcement with Haiku forthcoming; 20240307 is the snapshot identifier, and March 19 was Google Cloud's later launch."
     },
     "open_weights": {
       "value": false,
       "status": "verified",
-      "source_ids": ["s5", "s4"],
+      "source_ids": [
+        "s5",
+        "s4"
+      ],
       "note": "Anthropic's paper explicitly classifies Claude 3 Haiku as proprietary in contrast to open-weight models. Its experimental default concerns the pretrained model; the public API snapshot is the post-trained product. This is not inferred solely from API hosting."
     },
     "license": {
       "value": "proprietary",
       "status": "verified",
-      "source_ids": ["s5"],
+      "source_ids": [
+        "s5"
+      ],
       "note": "Proprietary is the explicit developer classification, not a named open-weight redistribution license."
     },
     "parameters_b": {
       "value": null,
       "status": "undisclosed",
-      "source_ids": ["s3", "s5", "s6"],
-      "note": "No numeric total is disclosed in the original card, later Claude 3.5 addendum comparisons naming Haiku 3, or the reviewed exact-model training and interpretability papers. Unofficial estimates are not accepted."
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s5",
+        "s6",
+        "s8",
+        "s12",
+        "s13",
+        "s14",
+        "s15",
+        "s16",
+        "s17",
+        "s18"
+      ],
+      "note": "Fresh October 27 review found no developer-published nominal total or explicitly identified, numerically sized parent model. Claude 3 card section 5.8 supplies only relative scale; later comparisons supply evaluation scores. Fine-tuning and distillation announcements concern customized Haiku derivatives and provide no standard-release count. The 20B lead is unattributed in an aggregator and explicitly an unofficial estimate in the original economics paper; it is not promoted to a specification."
     },
     "active_parameters_b": {
       "value": null,
       "status": "undisclosed",
-      "source_ids": ["s3", "s5", "s6"],
-      "note": "No active-parameter count or dense/MoE routing disclosure was found in the reviewed primary sources; it cannot be equated to an unknown total."
+      "source_ids": [
+        "s3",
+        "s5",
+        "s6",
+        "s8",
+        "s12",
+        "s13",
+        "s14",
+        "s15",
+        "s16"
+      ],
+      "note": "Checked separately in the freshly retrieved original/addendum card, later comparison cards and exact-model research. No numeric active/activated count or activated-parameter table column was found for Claude 3 Haiku. Dense/MoE routing remains undisclosed; neither relative model scale, teacher/student relationship nor evaluation percentages establish a per-token count."
     },
     "architecture": {
       "value": "transformer",
       "status": "verified",
-      "source_ids": ["s6"],
+      "source_ids": [
+        "s6"
+      ],
       "note": "Coarse classification supported by the first-party paper's explicit production Haiku 3 scope, residual-stream layer interventions and Transformer-based architecture discussion. Dense versus MoE, layer count, and other internal dimensions remain undisclosed."
     },
     "context_window": {
       "value": 200000,
       "status": "verified",
-      "source_ids": ["s2", "s3", "s8", "s9"],
+      "source_ids": [
+        "s2",
+        "s3",
+        "s8",
+        "s9"
+      ],
       "note": "Public production context is 200K tokens; the research demonstration beyond 1M tokens does not establish a public 1M window."
     },
     "modalities": {
-      "value": {"input": ["text", "image", "pdf"], "output": ["text"]},
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "pdf"
+        ],
+        "output": [
+          "text"
+        ]
+      },
       "status": "verified",
-      "source_ids": ["s3", "s8", "s9", "s10"],
+      "source_ids": [
+        "s3",
+        "s8",
+        "s9",
+        "s10"
+      ],
       "note": "Text/image input and text output are explicit. PDF is retained narrowly as a provider-documented input format: Google's exact Haiku 3 Documents row links PDF support. It is not a separate neural modality or proof of native Anthropic Messages PDF blocks. AWS's June 2025 PDF launch excludes Haiku 3 from its listed scope, so PDF handling is provider-dependent and less directly documented than text/image."
     },
     "reasoning": {
       "value": false,
       "status": "verified",
-      "source_ids": ["s9"],
+      "source_ids": [
+        "s9"
+      ],
       "note": "The exact Haiku 3 capability table explicitly marks extended thinking unsupported. False denotes absence of that dedicated reasoning mode, not inability to solve reasoning tasks or follow chain-of-thought prompts."
     },
     "tool_call": {
       "value": true,
       "status": "verified",
-      "source_ids": ["s3", "s7", "s9"],
+      "source_ids": [
+        "s3",
+        "s7",
+        "s9"
+      ],
       "note": "Tool/function calling is explicitly documented for the Claude 3 family and Haiku 3; general availability followed the model launch on May 30, 2024."
     },
     "description": {
       "value": "Anthropic's compact Claude 3 model for fast text and image tasks, with a 200K-token context window and tool use. Retired from the Claude API on April 20, 2026.",
       "status": "verified",
-      "source_ids": ["s1", "s3", "s4", "s7"],
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4",
+        "s7"
+      ],
       "note": "Replaces the unsupported present-tense claim that the model remains available for compatibility. Retirement is scoped to the Claude API because partner schedules differ."
     }
   },
@@ -184,16 +316,62 @@
     "description": "Anthropic's compact Claude 3 model for fast text and image tasks, with a 200K-token context window and tool use. Retired from the Claude API on April 20, 2026.",
     "source_url": "https://www.anthropic.com/news/claude-3-haiku",
     "source_type": "primary",
-    "notes": "Publicly released March 13, 2024 after the March 4 family announcement; 20240307 is the snapshot identifier. Total and active parameter counts and dense/MoE routing remain undisclosed. Transformer classification is supported by Anthropic's exact-model interpretability research. PDF is retained as a provider-documented input format from Google's Haiku 3 Documents row; native PDF-block support on the Anthropic API is not established, and AWS's June 2025 PDF launch listed newer models only. Claude API retirement was April 20, 2026; historical capability documentation does not establish current partner endpoint availability.",
+    "notes": "Publicly released March 13, 2024 after the March 4 family announcement; 20240307 is the snapshot identifier. Nominal total and active parameter counts remain undisclosed; no named, numerically sized base supports a lineage inference. The circulating 20B figure is an unofficial estimate. Dense/MoE routing is undisclosed. Transformer classification is supported by Anthropic's exact-model interpretability research. PDF is retained as a provider-documented input format from Google's Haiku 3 Documents row; native PDF-block support on the Anthropic API is not established, and AWS's June 2025 PDF launch listed newer models only. Claude API retirement was April 20, 2026; historical capability documentation does not establish current partner endpoint availability.",
     "sources": [
-      {"label": "Anthropic Haiku release announcement", "url": "https://www.anthropic.com/news/claude-3-haiku", "type": "primary"},
-      {"label": "Claude 3 model card and later comparisons", "url": "https://assets.claude.com/c6a80a657af445f40e31afac050f3bf76d3b1404.pdf", "type": "primary"},
-      {"label": "Anthropic model deprecations", "url": "https://platform.claude.com/docs/en/about-claude/model-deprecations", "type": "primary"},
-      {"label": "Unsupervised Elicitation proprietary-model classification", "url": "https://alignment.anthropic.com/2025/unsupervised-elicitation/paper.pdf", "type": "primary"},
-      {"label": "Anthropic production-model interpretability research", "url": "https://transformer-circuits.pub/2025/introspection/index.html", "type": "primary"},
-      {"label": "Google Cloud retained Haiku 3 capabilities", "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/deprecations/partner-models", "type": "primary"},
-      {"label": "AWS PDF launch support scope", "url": "https://aws.amazon.com/about-aws/whats-new/2025/06/citations-api-pdf-claude-models-amazon-bedrock/", "type": "primary"}
-    ]
+      {
+        "label": "Anthropic Haiku release announcement",
+        "url": "https://www.anthropic.com/news/claude-3-haiku",
+        "type": "primary"
+      },
+      {
+        "label": "Claude 3 model card and later comparisons",
+        "url": "https://assets.claude.com/c6a80a657af445f40e31afac050f3bf76d3b1404.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Anthropic model deprecations",
+        "url": "https://platform.claude.com/docs/en/about-claude/model-deprecations",
+        "type": "primary"
+      },
+      {
+        "label": "Unsupervised Elicitation proprietary-model classification",
+        "url": "https://alignment.anthropic.com/2025/unsupervised-elicitation/paper.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "Anthropic production-model interpretability research",
+        "url": "https://transformer-circuits.pub/2025/introspection/index.html",
+        "type": "primary"
+      },
+      {
+        "label": "Google Cloud retained Haiku 3 capabilities",
+        "url": "https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/deprecations/partner-models",
+        "type": "primary"
+      },
+      {
+        "label": "AWS PDF launch support scope",
+        "url": "https://aws.amazon.com/about-aws/whats-new/2025/06/citations-api-pdf-claude-models-amazon-bedrock/",
+        "type": "primary"
+      },
+      {
+        "label": "Claude 3.5 Haiku on AWS Trainium2 and model distillation in Amazon Bedrock",
+        "url": "https://claude.com/resources/articles/trainium2-and-distillation",
+        "type": "primary"
+      },
+      {
+        "label": "Fine-tune Claude 3 Haiku in Amazon Bedrock",
+        "url": "https://claude.com/resources/articles/fine-tune-claude-3-haiku",
+        "type": "primary"
+      },
+      {
+        "label": "Claude Haiku 4.5 System Card",
+        "url": "https://assets.anthropic.com/m/99128ddd009bdcb/original/Claude-Haiku-4-5-System-Card.pdf",
+        "type": "primary"
+      }
+    ],
+    "parameters_b": null,
+    "active_parameters_b": null,
+    "parameters_source": null
   },
-  "summary": "All 14 fields reviewed. Confirms March 13, 2024 public release, 200K context, text/image-to-text capability, tool use and no extended-thinking mode. Adds explicit proprietary classification and coarse Transformer architecture; leaves total/active counts undisclosed after later comparison and exact-model research checks. Corrects the compatibility description to the documented Claude API retirement. PDF is retained only under the catalog's provider-input-format interpretation, with Google/AWS documentation differences and lack of verified native Anthropic PDF-block support clearly recorded for parent review."
+  "summary": "Parameter-only re-audit completed October 27, 2026; all other field assessments and patch values are preserved. Reopened the exact launch/family pages, original elicitation and introspection research, and AWS model card; independently inspected the freshly retrieved Claude 3 combined card, Claude 3.7 card, and Haiku 4.5/5.5 cards. Fresh searches covered nominal/billion/active/activated counts and named sized lineage. October 2024 comparison tables report evaluation results, not parameters. Followed fine-tuning and distillation announcements: they describe custom Haiku derivatives with no published size, and a teacher model does not establish a student count. Traced the circulating 20B lead to an unattributed aggregator and an original paper explicitly marking it unofficial and estimated. No supported nominal total or separately reported active count was found; both remain undisclosed with explicit null patches. No weight downloads or tensor census were required."
 }
