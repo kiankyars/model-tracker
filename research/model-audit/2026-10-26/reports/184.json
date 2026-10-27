@@ -1,7 +1,7 @@
 {
   "index": 184,
   "model_id": "eleutherai/gpt-j-6b",
-  "reviewed_at": "2026-10-27T12:38:59.857530+00:00",
+  "reviewed_at": "2026-10-27T13:53:59.517708+00:00",
   "sources": [
     {
       "id": "s1",
@@ -106,6 +106,14 @@
       "publisher": "EleutherAI via Hugging Face",
       "accessed": true,
       "evidence": "Fresh October 27 metadata returns revision 47e169305d2e8376be1d31e765533382721b2cc1, matching the previously audited consolidated checkpoint. No repeat checkpoint or tensor-header census was performed."
+    },
+    {
+      "id": "s14",
+      "url": "https://aclanthology.org/2024.acl-long.70.pdf",
+      "title": "DeepSeekMoE: Towards Ultimate Expert Specialization in Mixture-of-Experts Language Models",
+      "publisher": "DeepSeek-AI research team / ACL 2024",
+      "accessed": true,
+      "evidence": "Reopened and visually inspected Figure 7 on PDF page 18 (printed 1297): GPT-J 6B is plotted at approximately 6B on the activated-parameter axis. Appendix E identifies this comparison model by the original Wang and Komatsuzaki release citation. This is DeepSeek\u2019s benchmark convention."
     }
   ],
   "fields": {
@@ -179,17 +187,14 @@
       "note": "Complete official consolidated checkpoint count: 6,050,882,784 learned parameters = 206,438,400 input embeddings + 5,637,947,392 blocks + 8,192 final normalization + 206,488,800 output head. Untied embeddings counted separately; 56 nonlearned buffers excluded. The published 6,053,381,344 original JAX total is 2,498,560 higher: 1,662,976 extra LayerNorm shard elements, 802,816 extra MLP output-bias shard elements and 32,768 embedding-bias shard elements. These representation differences are not additional parameters in the official consolidated checkpoint. October 27 original-card/config/metadata checks preserve this prior exact accounting and the original-versus-consolidated representation distinction; no repeat tensor census was performed."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 6,
+      "status": "verified",
       "source_ids": [
+        "s14",
         "s1",
-        "s2",
-        "s6",
-        "s10",
-        "s11",
-        "s12"
+        "s6"
       ],
-      "note": "Fresh exact-model total/active/activated and lineage searches, reopened original release/card/config, and later EleutherAI Pythia and GPT-NeoX comparison tables yield no separately defined active count. Later reports distinguish total and non-embedding sizes, not active parameters. Neither dense architecture nor another suite\u2019s non-embedding convention establishes GPT-J\u2019s active field."
+      "note": "Approximately 6B under DeepSeek\u2019s original benchmark convention in Figure 7. The named GPT-J 6B comparison and its original-release citation establish model identity. Preserve plot-level precision; this is not an EleutherAI disclosure or an exact per-token tensor census. No narrower component scope is asserted."
     },
     "architecture": {
       "value": "dense",
@@ -259,7 +264,7 @@
   "patch": {
     "parameters_b": 6.050882784,
     "parameters_source": "primary_source",
-    "notes": "The consolidated Hugging Face checkpoint has 6,050,882,784 learned parameters, with untied embeddings and output head counted separately and causal-mask buffers excluded. The original eight-shard JAX representation reports 6,053,381,344 elements because of replicated normalization and shard-specific biases. Active parameters are not separately disclosed.",
+    "notes": "The consolidated Hugging Face checkpoint has 6,050,882,784 learned parameters, with untied embeddings and output head counted separately and causal-mask buffers excluded. The original eight-shard JAX representation reports 6,053,381,344 elements because of replicated normalization and shard-specific biases. Approximately 6B active follows DeepSeek\u2019s Figure 7 benchmark convention, not an EleutherAI active-count disclosure or an exact tensor count.",
     "sources": [
       {
         "label": "Official GPT-J model card",
@@ -300,9 +305,14 @@
         "label": "Later GPT-NeoX comparison tables",
         "url": "https://arxiv.org/html/2204.06745v1",
         "type": "primary"
+      },
+      {
+        "label": "DeepSeekMoE activated-parameter comparison, Figure 7",
+        "url": "https://aclanthology.org/2024.acl-long.70.pdf",
+        "type": "primary"
       }
     ],
-    "active_parameters_b": null
+    "active_parameters_b": 6
   },
-  "summary": "October 27 parameter re-audit preserves the exact 6.050882784B consolidated learned total and its distinction from the original JAX representation. Reopened original card/release/config and current metadata; ran fresh count/lineage searches and inspected later EleutherAI Pythia and GPT-NeoX reports and comparisons. No separate active-count convention was found. Added explicit null patch and refreshed evidence while preserving unrelated assessments; no weight shards or repeat census requested."
+  "summary": "Additional October 27 evidence resolves active parameters to approximately 6B under DeepSeek\u2019s original Figure 7 benchmark convention. Independently verified the plotted identity and approximate precision. Preserved the exact 6.050882784B consolidated total, representation distinction and all unrelated assessments; no weights requested."
 }
