@@ -11545,15 +11545,15 @@
     "name": "Hy-MT2-30B-A3B",
     "developer": "Tencent",
     "developer_id": "tencent",
-    "family": "Hy",
-    "description": "Tencent Hy reasoning model for coding, instruction following, and agent tasks",
+    "family": "hy-mt2",
+    "description": "Tencent Hy-MT2 multilingual text translation model with a mixture-of-experts architecture and support for terminology, style, context and structured-translation instructions.",
     "release_date": "2026-05-21",
     "date_precision": "day",
     "open_weights": true,
-    "license": null,
-    "parameters_b": 30,
+    "license": "Apache-2.0",
+    "parameters_b": 30.064719872,
     "active_parameters_b": 3,
-    "parameters_source": "model_name",
+    "parameters_source": "primary_source",
     "architecture": "moe",
     "context_window": 8192,
     "modalities": {
@@ -11564,11 +11564,61 @@
         "text"
       ]
     },
-    "reasoning": false,
-    "tool_call": false,
-    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/tencent/hy-mt2-30b-a3b.toml",
-    "source_type": "catalog",
+    "reasoning": null,
+    "tool_call": true,
+    "source_url": "https://huggingface.co/tencent/Hy-MT2-30B-A3B/blob/d3ead4dba61c09aac60a261a96ad1df3e705febb/README.md",
+    "source_type": "primary",
     "sources": [
+      {
+        "label": "Tencent Hy-MT2-30B-A3B model card",
+        "url": "https://huggingface.co/tencent/Hy-MT2-30B-A3B/blob/d3ead4dba61c09aac60a261a96ad1df3e705febb/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Hy-MT2 official repository README",
+        "url": "https://github.com/Tencent-Hunyuan/Hy-MT2/blob/ff1903ecaa724e10951a23c16817a2413c752b35/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Hy-MT2-30B-A3B license",
+        "url": "https://huggingface.co/tencent/Hy-MT2-30B-A3B/blob/d3ead4dba61c09aac60a261a96ad1df3e705febb/LICENSE.txt",
+        "type": "primary"
+      },
+      {
+        "label": "Hy-MT2-30B-A3B checkpoint configuration",
+        "url": "https://huggingface.co/tencent/Hy-MT2-30B-A3B/blob/d3ead4dba61c09aac60a261a96ad1df3e705febb/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Complete indexed checkpoint and all 51 safetensors headers",
+        "url": "https://huggingface.co/tencent/Hy-MT2-30B-A3B/blob/d3ead4dba61c09aac60a261a96ad1df3e705febb/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Tencent checkpoint conversion implementation",
+        "url": "https://huggingface.co/tencent/Hy-MT2-30B-A3B/blob/d3ead4dba61c09aac60a261a96ad1df3e705febb/train/tools/convert_ckpt_to_outer.py",
+        "type": "primary"
+      },
+      {
+        "label": "HYV3 model implementation",
+        "url": "https://github.com/huggingface/transformers/blob/c0d024fbc873ab0325e1b40fc1bd69069609de65/src/transformers/models/hy_v3/modeling_hy_v3.py",
+        "type": "primary"
+      },
+      {
+        "label": "HYV3 configuration defaults and layer construction",
+        "url": "https://github.com/huggingface/transformers/blob/c0d024fbc873ab0325e1b40fc1bd69069609de65/src/transformers/models/hy_v3/configuration_hy_v3.py",
+        "type": "primary"
+      },
+      {
+        "label": "Exact released checkpoint chat template",
+        "url": "https://huggingface.co/tencent/Hy-MT2-30B-A3B/blob/d3ead4dba61c09aac60a261a96ad1df3e705febb/chat_template.jinja",
+        "type": "primary"
+      },
+      {
+        "label": "Hy-MT2 technical report, revision 2 (May 25, 2026)",
+        "url": "https://arxiv.org/html/2605.22064v2",
+        "type": "primary"
+      },
       {
         "label": "Models.dev record",
         "url": "https://github.com/anomalyco/models.dev/blob/dev/models/tencent/hy-mt2-30b-a3b.toml",
@@ -11578,7 +11628,13 @@
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
+    "upstream_present": true,
+    "notes": "Total parameters (30.064719872B) are a complete checkpoint count after excluding 6,016 non-parameter router-bias buffer elements; all 51 shard headers and the configured module graph were reconciled. Active 3B is Tencent's nominal A3B designation, with no exact activation-count convention disclosed. Documented deployment context is 8,192 tokens; config permits 262,144 positions. Exact template supports tool-call protocol and optional reasoning modes, but trained reasoning capability is unresolved.",
+    "field_status": {
+      "reasoning": "unverified"
+    },
+    "audited_at": "2026-10-27T04:49:47.246456Z",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/501.json"
   },
   {
     "id": "tencent/hy-mt2-7b",
