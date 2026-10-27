@@ -1,0 +1,361 @@
+{
+  "index": 460,
+  "model_id": "openbmb/minicpm-v-4.7-35b-a3b",
+  "reviewed_at": "2026-10-27T03:18:52.341072Z",
+  "sources": [
+    {
+      "id": "card",
+      "url": "https://huggingface.co/openbmb/MiniCPM-V-4.7-35B-A3B/blob/ee2d0a272c9d55db52a8b6841b6b24c9d0dda0a3/README.md",
+      "title": "MiniCPM-V 4.7 35B-A3B model card",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "The pinned official card identifies the released 35B-A3B vision-language MoE, supplies downloadable BF16 weights and explicitly declares Apache-2.0 in its model metadata. It documents image/multi-image/video understanding and conditional text generation. The separate DSpark draft and quantized repositories are different artifacts. No standalone LICENSE file exists at this revision (404); licensing here is established by the explicit model-card declaration, not inferred from code licensing."
+    },
+    {
+      "id": "release",
+      "url": "https://openbmb.cn/docs/en/changelog",
+      "title": "OpenBMB changelog: MiniCPM-V 4.7",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "The primary changelog explicitly dates the public release of both the 35B-A3B and 1B variants to October 12, 2026. Read the complete HTML directly after web-tool access failed."
+    },
+    {
+      "id": "repo",
+      "url": "https://github.com/OpenBMB/MiniCPM-V/blob/main/README.md",
+      "title": "MiniCPM-V repository news and model overview",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "The official News section independently dates MiniCPM-V 4.7 release to October 12, 2026. Its October 15 entry separately releases DSpark speculative heads. The model overview distinguishes image/video MiniCPM-V from audio-capable MiniCPM-o."
+    },
+    {
+      "id": "history",
+      "url": "https://huggingface.co/api/models/openbmb/MiniCPM-V-4.7-35B-A3B/commits/main",
+      "title": "Official checkpoint commit history",
+      "publisher": "OpenBMB / Hugging Face",
+      "accessed": true,
+      "evidence": "The repository was created October 7 and has initialization commits October 7\u20138, with model-card publication and Apache metadata on October 12. These timestamps do not establish when an initially private or incomplete repository became publicly usable. The explicit October 12 release announcement controls over the baseline October 7 date."
+    },
+    {
+      "id": "config",
+      "url": "https://huggingface.co/openbmb/MiniCPM-V-4.7-35B-A3B/blob/ee2d0a272c9d55db52a8b6841b6b24c9d0dda0a3/config.json",
+      "title": "Pinned MiniCPM-V 4.7 35B-A3B configuration",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "The exact revision selects MiniCPMV4_7ForConditionalGeneration and qwen3_5_moe_text: 40 language layers (30 linear Gated DeltaNet and 10 full attention), H=2048, vocabulary 248144, 256 routed experts/top 8 with 512-wide experts and a 512-wide shared expert. It enables an untied output head, 27-layer 1152-wide vision encoder with 4304-wide MLPs, patch 14/image 980, intermediate visual compression, and 262144 positions with default RoPE. mtp_num_hidden_layers=1 is present but not instantiated by the selected inference classes."
+    },
+    {
+      "id": "headers",
+      "url": "https://huggingface.co/openbmb/MiniCPM-V-4.7-35B-A3B/tree/ee2d0a272c9d55db52a8b6841b6b24c9d0dda0a3",
+      "title": "Pinned BF16 shards and safetensors index",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "Read the 8-byte length and bounded JSON header of every one of the 16 indexed shards using verified HTTP 206 Content-Range responses: 151800 bytes in total, no weight payloads. All 1152 indexed tensors occur once and are BF16. Full independent module/shape reconstruction matches every tensor and gives 35,212,875,824 learned parameters. Language including untied head 34659889792; vision 522299312; visual projector 30686720. The index 70425751648-byte metadata independently reconciles at 2 bytes per parameter. There are no stored quantization scales, packed tensors, duplicate tied weights or unrelated buffers."
+    },
+    {
+      "id": "implementation",
+      "url": "https://github.com/huggingface/transformers/blob/v5.18.0/src/transformers/models/minicpmv4_7/modeling_minicpmv4_7.py",
+      "title": "OpenBMB-contributed Transformers MiniCPM-V 4.7 implementation",
+      "publisher": "OpenBMB / Hugging Face",
+      "accessed": true,
+      "evidence": "Read all instantiated constructors and feature paths. Conditional generation contains the exact language model, full 27-layer SigLIP-style vision tower, learned patch/position embeddings, post norm, window-attention compression module, visual merger/projector and untied language head. The 16x path uses the intermediate vision merger; 4x skips it. Video uses sampled visual frames. No audio module, DSpark or MTP module is instantiated."
+    },
+    {
+      "id": "configuration-code",
+      "url": "https://github.com/huggingface/transformers/blob/v5.18.0/src/transformers/models/minicpmv4_7/configuration_minicpmv4_7.py",
+      "title": "MiniCPM-V 4.7 configuration defaults",
+      "publisher": "OpenBMB / Hugging Face",
+      "accessed": true,
+      "evidence": "Reconciled implicit defaults used in module reconstruction: 2x2 window kernel, window hidden size 4\u00d7 vision hidden, window intermediate 4\u00d7 vision MLP width, one visual projection merger, and intermediate merger insertion at layer 6. Text model type is taken from this checkpoint configuration."
+    },
+    {
+      "id": "language-code",
+      "url": "https://github.com/huggingface/transformers/blob/v5.18.0/src/transformers/models/qwen3_5_moe/modeling_qwen3_5_moe.py",
+      "title": "Selected Qwen3.5-MoE text implementation",
+      "publisher": "Qwen / Hugging Face",
+      "accessed": true,
+      "evidence": "Read instantiated TextModel, decoder, GatedDeltaNet, gated attention, router, fused experts, shared expert/gate and norm classes. Matched every learned shape including A_log, dt_bias, depthwise convolution, Q/K norms and doubled gated query projection. Rotary frequencies are generated nonpersistent buffers and absent from checkpoint headers. TextModel does not instantiate MTP despite the inherited config field. Top 8 selects routed experts; the shared expert executes for each language token."
+    },
+    {
+      "id": "kb",
+      "url": "https://openbmb.cn/docs/en/guides/minicpm-v/minicpm-v-4.7",
+      "title": "MiniCPM-V 4.7 model list and capabilities",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "The exact 35B-A3B row reports 35.2B total and approximately 3.5B activated, with 256 experts/8 per token and 256K context. It names image/multi-image/video support and opt-in thinking. The active figure is nominal; the page does not define embedding or vision-phase accounting. Its statement that thinking is enabled by default is superseded by the pinned October 19 template update, which defaults it off."
+    },
+    {
+      "id": "apps",
+      "url": "https://github.com/OpenBMB/MiniCPM-V-Apps/blob/main/README.md",
+      "title": "OpenBMB on-device model table",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "The hardware table labels its parameter column LLM params and describes this variant as 35B(3B active), while listing a separate mmproj containing vision/projector weights. This establishes that the 3B naming/table shorthand does not provide an exact complete multimodal activation count. Download sizes and resident RAM are not parameter counts."
+    },
+    {
+      "id": "usage",
+      "url": "https://github.com/OpenBMB/MiniCPM-V/blob/main/docs/minicpm_v4dot7_en.md",
+      "title": "MiniCPM-V 4.7 inference and tool-calling examples",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "The official guide uses the exact 35B-A3B identifier for image and video generation and a concrete custom-function-calling example. It documents mixed 4x/16x visual compression, thinking control and separate DSpark draft checkpoints. These examples independently establish tools rather than relying only on template syntax."
+    },
+    {
+      "id": "template",
+      "url": "https://huggingface.co/openbmb/MiniCPM-V-4.7-35B-A3B/blob/ee2d0a272c9d55db52a8b6841b6b24c9d0dda0a3/chat_template.jinja",
+      "title": "Pinned 35B-A3B chat template",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "The exact template serializes function definitions/calls/results. It emits an open think block only when enable_thinking is explicitly true; otherwise it emits an empty closed block. This confirms a request-level thinking switch, with current default off rather than a separately trained Thinking model."
+    },
+    {
+      "id": "les",
+      "url": "https://github.com/OpenBMB/llama.cpp-omni/blob/main/docs/les/lookahead-expert-scheduling.md",
+      "title": "Lookahead Expert Scheduling",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "The exact-variant inference research explains prefetching likely experts and still loading/computing any router-selected missing expert. It explicitly says no additional training is needed and treats DSpark separately. It does not justify changing the checkpoint expert count or treating resident memory as active parameters."
+    },
+    {
+      "id": "srft",
+      "url": "https://openbmb.cn/en/blog/self-replay-fine-tuning",
+      "title": "Self-Replay Fine-Tuning",
+      "publisher": "OpenBMB",
+      "accessed": true,
+      "evidence": "Followed the exact model-card training-research link. The October 12 article evaluates MiniCPM-V 4.5, MiniCPM-o 4.5, GLM4.1V and Qwen3-VL 4B, not this 4.7 variant. Its architecture-preserving fine-tuning recipe and comparison table cannot supply additional 4.7 counts or establish this checkpoint training history."
+    },
+    {
+      "id": "prior-paper",
+      "url": "https://arxiv.org/abs/2509.18154",
+      "title": "MiniCPM-V 4.5: Cooking Efficient MLLMs via Architecture, Data, and Training Recipe",
+      "publisher": "OpenBMB authors",
+      "accessed": true,
+      "evidence": "Inspected the abstract/version record of the paper linked by the 4.7 Transformers documentation. It is the September 16, 2025 MiniCPM-V 4.5 report, not a 4.7 report or release announcement. No 4.7 specification is borrowed from it. Targeted later first-party report/interpretability searches did not locate a separate 4.7 report; exact current weights/configuration and official documentation provide the evidence here."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "MiniCPM-V 4.7 35B-A3B",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "kb"
+      ],
+      "note": "Exact released variant; retain the nominal 35B-A3B product name while correcting numerical counts separately."
+    },
+    "developer": {
+      "value": "OpenBMB",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "repo",
+        "implementation"
+      ],
+      "note": "Official OpenBMB repository, model publication and contributed implementation."
+    },
+    "family": {
+      "value": "minicpm-v",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "repo",
+        "kb"
+      ],
+      "note": "The primary sources explicitly place 4.7 in the MiniCPM-V multimodal series; do not merge it with omnimodal MiniCPM-o."
+    },
+    "release_date": {
+      "value": "2026-10-12",
+      "status": "verified",
+      "source_ids": [
+        "release",
+        "repo",
+        "history"
+      ],
+      "note": "Earliest explicitly documented public release. October 7 repository creation and October 7\u20138 initialization commits do not establish earlier public availability. Prefer the independently consistent official October 12 announcements."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "headers"
+      ],
+      "note": "All 16 BF16 checkpoint shards are publicly downloadable; all indexed tensor headers were accessed anonymously."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "card"
+      ],
+      "note": "The exact pinned model-card metadata declares Apache-2.0. This is a weight-release declaration, independent of implementation-source licensing."
+    },
+    "parameters_b": {
+      "value": 35.212875824,
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "headers",
+        "implementation",
+        "configuration-code",
+        "language-code"
+      ],
+      "note": "Complete learned checkpoint count 35212875824: language incl untied output head 34659889792 + vision 522299312 + visual projector 30686720. Independently reconstructed all 1152 parameter shapes and matched every indexed tensor in 16 BF16 shards. Includes all routed/shared experts, gates, norms, convolution/state parameters, vision compression and embeddings. Generated RoPE buffers are not learned; no stored buffers, quantization metadata or packing are present. Inherited MTP config is not instantiated; separate DSpark draft is excluded. This is a full model count, not a language-only or storage count."
+    },
+    "active_parameters_b": {
+      "value": 3.5,
+      "status": "verified",
+      "source_ids": [
+        "kb",
+        "apps",
+        "config",
+        "implementation",
+        "language-code"
+      ],
+      "note": "Official approximate 3.5B activated count, replacing model-name-derived 3B. Primary app documentation labels its 3B shorthand as LLM parameters. The KB does not specify embedding or vision-phase accounting, so 3.5 is retained only at published approximate precision. Top 8 of 256 routed experts plus a shared expert are explicit; vision/projector modules run on visual input and are not re-executed for every cached text decoding token. Do not interpret 3.5B as an exact phase-independent per-token count."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "implementation",
+        "language-code",
+        "configuration-code"
+      ],
+      "note": "Multimodal hybrid architecture: 40-layer MoE language backbone with 256 routed experts/top 8 and one shared expert per layer; 30 GatedDeltaNet linear-attention layers and 10 gated full-attention layers. Vision is a 27-layer SigLIP-style Transformer with learned compression and projection. The existing moe enum records expert routing without erasing this hybrid-attention qualification."
+    },
+    "context_window": {
+      "value": 262144,
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "kb"
+      ],
+      "note": "Official 256K documentation is resolved to 262144 tokens by the exact configuration. Default RoPE is configured with theta 10000000 and no extension/scaling factor. This records the documented/configured limit; it is not a separately run long-context quality evaluation."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "usage",
+        "implementation"
+      ],
+      "note": "Exact input pipeline supports text, single/multiple images and sampled video frames; conditional generation outputs text. No native audio or image generation is established. Document screenshots/OCR are image processing, not an additional native PDF encoder."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "kb",
+        "template",
+        "usage"
+      ],
+      "note": "Thinking is an explicit enable_thinking request switch for the same checkpoint. Current pinned template defaults it off; this supersedes stale KB wording. Capability is confirmed without claiming unreported reasoning training details."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "usage",
+        "template"
+      ],
+      "note": "Exact 35B-A3B official custom-function example and matching function-call/template serialization support the capability. No inference request or benchmark was run."
+    },
+    "description": {
+      "value": "Multimodal MoE model for text, image and video input, with optional thinking and function calling.",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "usage",
+        "template",
+        "config"
+      ],
+      "note": "Plain exact-variant capabilities, replacing the comparative first-MoE wording."
+    }
+  },
+  "patch": {
+    "family": "minicpm-v",
+    "release_date": "2026-10-12",
+    "date_precision": "day",
+    "parameters_b": 35.212875824,
+    "active_parameters_b": 3.5,
+    "parameters_source": "primary_source",
+    "description": "Multimodal MoE model for text, image and video input, with optional thinking and function calling.",
+    "source_url": "https://openbmb.cn/docs/en/changelog",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "MiniCPM-V 4.7 35B-A3B model card",
+        "url": "https://huggingface.co/openbmb/MiniCPM-V-4.7-35B-A3B/blob/ee2d0a272c9d55db52a8b6841b6b24c9d0dda0a3/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "OpenBMB changelog: MiniCPM-V 4.7",
+        "url": "https://openbmb.cn/docs/en/changelog",
+        "type": "primary"
+      },
+      {
+        "label": "MiniCPM-V repository news and model overview",
+        "url": "https://github.com/OpenBMB/MiniCPM-V/blob/main/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned MiniCPM-V 4.7 35B-A3B configuration",
+        "url": "https://huggingface.co/openbmb/MiniCPM-V-4.7-35B-A3B/blob/ee2d0a272c9d55db52a8b6841b6b24c9d0dda0a3/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned BF16 shards and safetensors index",
+        "url": "https://huggingface.co/openbmb/MiniCPM-V-4.7-35B-A3B/tree/ee2d0a272c9d55db52a8b6841b6b24c9d0dda0a3",
+        "type": "primary"
+      },
+      {
+        "label": "OpenBMB-contributed Transformers MiniCPM-V 4.7 implementation",
+        "url": "https://github.com/huggingface/transformers/blob/v5.18.0/src/transformers/models/minicpmv4_7/modeling_minicpmv4_7.py",
+        "type": "primary"
+      },
+      {
+        "label": "MiniCPM-V 4.7 configuration defaults",
+        "url": "https://github.com/huggingface/transformers/blob/v5.18.0/src/transformers/models/minicpmv4_7/configuration_minicpmv4_7.py",
+        "type": "primary"
+      },
+      {
+        "label": "Selected Qwen3.5-MoE text implementation",
+        "url": "https://github.com/huggingface/transformers/blob/v5.18.0/src/transformers/models/qwen3_5_moe/modeling_qwen3_5_moe.py",
+        "type": "primary"
+      },
+      {
+        "label": "MiniCPM-V 4.7 model list and capabilities",
+        "url": "https://openbmb.cn/docs/en/guides/minicpm-v/minicpm-v-4.7",
+        "type": "primary"
+      },
+      {
+        "label": "OpenBMB on-device model table",
+        "url": "https://github.com/OpenBMB/MiniCPM-V-Apps/blob/main/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "MiniCPM-V 4.7 inference and tool-calling examples",
+        "url": "https://github.com/OpenBMB/MiniCPM-V/blob/main/docs/minicpm_v4dot7_en.md",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned 35B-A3B chat template",
+        "url": "https://huggingface.co/openbmb/MiniCPM-V-4.7-35B-A3B/blob/ee2d0a272c9d55db52a8b6841b6b24c9d0dda0a3/chat_template.jinja",
+        "type": "primary"
+      }
+    ],
+    "notes": "Released October 12, 2026; October 7 repository creation and early initialization commits do not establish earlier public availability. Complete BF16 checkpoint: 35.212875824B parameters, including 34.659889792B language model/output head, 0.522299312B vision tower and 0.030686720B visual projector. OpenBMB reports approximately 3.5B activated; the A3B name and 3B app-table figure refer to language-model shorthand. The active figure does not define embedding or visual-prefill accounting and is not an exact per-token count. Language layers combine 30 GatedDeltaNet and 10 gated full-attention blocks, with 256 routed experts/top 8 plus a shared expert. MTP is not instantiated by the selected inference model; DSpark draft weights are separate. Context is documented/configured at 262144 tokens. Thinking is optional and defaults off in the pinned October 19 template update."
+  },
+  "summary": "Corrected public release to October 12 and family to minicpm-v. Replaced name-derived 35B/3B with a fully reconstructed 35.212875824B total and the official approximate 3.5B activated figure, preserving accounting caveats. Confirmed Apache-2.0 open weights, hybrid-attention MoE architecture, 262144-token documented context, text/image/video inputs, optional thinking and function calling. Replaced the description with direct capabilities; separated MTP/DSpark and visual processing from language decoding."
+}
