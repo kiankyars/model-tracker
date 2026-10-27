@@ -20354,7 +20354,7 @@
       },
       "source_url": "https://huggingface.co/mindlab-research/Macaron-V1-Tall/raw/main/README.md",
       "source_type": "primary",
-      "notes": "Complete released checkpoint has 51.054430064B learned parameters: 35.951822704B base-checkpoint parameters including 0.844640768B auxiliary MTP, plus four 3.775651840B LoRA adapters. Excluding auxiliary MTP gives 50.209789296B. These counts come from bounded tensor headers with parameter/buffer and tying checks, not file-byte division. The developer 50B release label and report ~50.1B calculation use a nominal 35B base. HF ~36B metadata excludes the adapters but includes MTP. Whole-model active parameters are undisclosed; 3B applies only to the base. Card declares MIT with inherited base requirements; bundled LICENSE and Qwen base are Apache-2.0. Vision/video is inherited; specialist training is text-only. Hosted docs incorrectly list Tall adapters as four times 1B.",
+      "notes": "Released checkpoint totals 51.054430064B learned parameters including four 3.775651840B LoRA adapters and 0.844640768B auxiliary MTP; excluding MTP gives 50.209789296B. MindLab labels the release 50B; its ~50.1B calculation uses a nominal 35B base. Active 3B is Qwen's nominal language-backbone count, retained through MindLab's explicit frozen Qwen3.6-35B-A3B lineage; it excludes Macaron adapters, and complete active parameters remain undisclosed. Stored adapter sizes are not token-active counts. Card declares MIT with inherited Apache-2.0 base terms. Vision/video is inherited; specialist training is text-only. Hosted docs conflict with the Tall card/report on adapter sizes.",
       "sources": [
         {
           "label": "Macaron-V1-Tall official model card",
@@ -20450,10 +20450,25 @@
           "label": "PEFT LoRA and parameter-wrapper implementation",
           "url": "https://raw.githubusercontent.com/huggingface/peft/main/src/peft/tuners/lora/layer.py",
           "type": "primary"
+        },
+        {
+          "label": "Official Macaron-V1 family architecture and parameter accounting",
+          "url": "https://raw.githubusercontent.com/MindLab-Research/Macaron-V1/main/README.md",
+          "type": "primary"
+        },
+        {
+          "label": "Official Mixture-of-LoRA harness model profiles",
+          "url": "https://raw.githubusercontent.com/MindLab-Research/Mixture-of-LoRA-Harness/main/README.md",
+          "type": "primary"
+        },
+        {
+          "label": "Macaron-V1 technical report revision history",
+          "url": "https://arxiv.org/abs/2608.09819",
+          "type": "primary"
         }
       ],
       "parameter_components_b": {
-        "language_model": 34.660610688,
+        "base_language_model": 34.660610688,
         "mtp": 0.844640768,
         "lora_l0": 3.77565184,
         "lora_l1": 3.77565184,
@@ -20461,11 +20476,11 @@
         "lora_l3": 3.77565184,
         "vision_encoder_projector": 0.446571248
       },
-      "field_status": {
-        "active_parameters_b": "undisclosed"
-      },
-      "audited_at": "2026-10-26T22:25:48.032799Z",
-      "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/298.json"
+      "field_status": {},
+      "audited_at": "2026-10-27T15:25:34.955643Z",
+      "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/298.json",
+      "active_parameters_b": 3,
+      "active_parameters_scope": "base_language_model"
     },
     "mindlab/macaron-v1-venti": {
       "family": "macaron-v1",

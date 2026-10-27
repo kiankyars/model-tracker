@@ -1,7 +1,7 @@
 {
   "index": 298,
   "model_id": "mindlab/macaron-v1-tall",
-  "reviewed_at": "2026-10-26T22:25:48.032799Z",
+  "reviewed_at": "2026-10-27T15:25:34.955643Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Macaron-V1-Tall official model card",
       "publisher": "MindLab Research",
       "accessed": true,
-      "evidence": "Identifies the Macaron-V1 family, Qwen3.6-35B-A3B MoE base, four routed specialists, nominal 50B release footprint, 262K context, text-only specialist training with inherited vision, and MIT declaration subject to base terms. Raw card was accessible although the rendered page failed in the browser reader."
+      "evidence": "Reopened October 27. Tall card explicitly calls 50B a release label, approximately 50.1B from a nominal 35B Qwen3.6-35B-A3B base plus four adapters of 3,775,651,840 stored values each. Rank-64 adapters target expert-specific projections. The card does not disclose complete active parameters. Other original modality, context and license evidence remains unchanged."
     },
     {
       "id": "s2",
@@ -25,7 +25,7 @@
       "title": "Macaron-V1 technical report, revision 2",
       "publisher": "Mind Lab",
       "accessed": true,
-      "evidence": "August 24 revision, sections 2.2 and 6.1 and Tables 9/11, labels Tall 50B and explains approximately 50.1B using a nominal 35B base plus four 3,775,651,840-value adapters. Stored adapter values are explicitly distinguished from token-active parameters. Tall adapters use rank 64 and expert-specific projections."
+      "evidence": "Reopened October 27; arXiv still lists August 24 revision 2 as latest. Sections 2.1/2.2 identify a frozen Qwen3.6-35B-A3B base and nominal 50B Tall release. Section 2.2 and Table 11 report 3,775,651,840 stored values per Tall adapter and expert-specific targets; the appendix explicitly distinguishes stored tensors from token-active counts. No complete Tall active-parameter figure appears."
     },
     {
       "id": "s4",
@@ -49,7 +49,7 @@
       "title": "Qwen3.6-35B-A3B base-model card",
       "publisher": "Qwen",
       "accessed": true,
-      "evidence": "The exact declared base has Apache-2.0 licensing and nominal 35B total/3B active parameters. Includes image/video input examples and reasoning/tool-call serving support. These base counts do not include Macaron adapters."
+      "evidence": "Reopened October 27. The Model Overview explicitly labels the Language Model as 35B total and 3B activated, with eight routed plus one shared expert. This nominal 3B convention scopes to the named language backbone, excluding Macaron adapters and not establishing complete multimodal active parameters. Apache-2.0 and original serving/modality evidence remain unchanged."
     },
     {
       "id": "s7",
@@ -81,7 +81,7 @@
       "title": "Official Macaron hosted-model lineup",
       "publisher": "MindLab",
       "accessed": true,
-      "evidence": "Lists macaron-v1-tall separately from Venti and V1.1, with 50B aggregate and Qwen3.6-35B-A3B base. Its four-times-1B adapter description conflicts with the Tall-specific card/report; the latter supply exact rank and adapter values."
+      "evidence": "Reopened October 27. Exact macaron-v1-tall row retains 50B aggregate and frozen Qwen3.6-35B-A3B base without an active-count column. Its four-times-1B adapter description conflicts with the Tall-specific card and report, which supply rank 64 and exact stored counts."
     },
     {
       "id": "s11",
@@ -89,7 +89,7 @@
       "title": "Official Tall repository metadata and file listing",
       "publisher": "MindLab Research / Hugging Face",
       "accessed": true,
-      "evidence": "Public repository lists 26 base safetensor shards plus four adapter files; metadata reports 35,951,822,704 BF16 base-checkpoint values, including auxiliary MTP, and July 22 creation. Independent bounded-header inspection reproduced that count. This excludes all adapters; repository creation is later than the July 21 announcement."
+      "evidence": "Rechecked October 27 via the Hugging Face API after browser-reader failure. Current SHA remains e64d7387f78f2bb20c729b836319b12db6a3a553 and safetensors metadata reports 35,951,822,704 BF16 base-checkpoint values. This matches the original pinned base count and excludes all four adapters. Original July 22 repository-creation and file-listing evidence is retained; no shards or headers were requested in this pass."
     },
     {
       "id": "s12",
@@ -154,6 +154,30 @@
       "publisher": "Hugging Face PEFT",
       "accessed": true,
       "evidence": "LoRA A/B tensors are trainable linear weights; the expert-parameter wrapper constructs rank times number-of-experts dimensions, explaining Tall adapter shapes such as 16384=64x256. These are learned adapter coefficients, not duplicate base parameters or storage scales."
+    },
+    {
+      "id": "s20",
+      "url": "https://raw.githubusercontent.com/MindLab-Research/Macaron-V1/main/README.md",
+      "title": "Official Macaron-V1 family architecture and parameter accounting",
+      "publisher": "MindLab Research",
+      "accessed": true,
+      "evidence": "Checked October 27. Choose a model table names Tall as frozen Qwen3.6 35B-A3B plus four rank-64 adapters, each with 3,775,651,840 stored values. Architecture says the base is frozen and receives no gradients, and that L0 handles routing without a separate router model. Distinguishes 50B release label from base-only HF metadata. No whole-Tall active count is supplied."
+    },
+    {
+      "id": "s21",
+      "url": "https://raw.githubusercontent.com/MindLab-Research/Mixture-of-LoRA-Harness/main/README.md",
+      "title": "Official Mixture-of-LoRA harness model profiles",
+      "publisher": "MindLab Research",
+      "accessed": true,
+      "evidence": "Checked October 27. Identifies exact Tall profile as nominal 50B from Qwen3.6-35B-A3B plus four 3.7B rank-64 LoRA specialists. Describes one selected adapter for each answer and a route/answer/summary lifecycle, but does not publish active-parameter counts for any phase."
+    },
+    {
+      "id": "s22",
+      "url": "https://arxiv.org/abs/2608.09819",
+      "title": "Macaron-V1 technical report revision history",
+      "publisher": "arXiv / Mind Lab",
+      "accessed": true,
+      "evidence": "Checked October 27. Submission history identifies August 24, 2026 revision 2 as the latest report, confirming the reopened v2 is current."
     }
   ],
   "fields": {
@@ -215,8 +239,11 @@
       "value": 51.054430064,
       "status": "verified",
       "source_ids": [
+        "s1",
+        "s2",
         "s3",
         "s4",
+        "s11",
         "s12",
         "s13",
         "s14",
@@ -224,19 +251,25 @@
         "s16",
         "s17",
         "s18",
-        "s19"
+        "s19",
+        "s20",
+        "s21"
       ],
-      "note": "Derived complete released learned-parameter count: 35,951,822,704 base-checkpoint parameters + 4 x 3,775,651,840 LoRA parameters = 51,054,430,064. Header-only scan covered all 30 files at pinned revision e64d7387f78f2bb20c729b836319b12db6a3a553, transferring 583,520 header bytes. All base/L0/L1/L3 tensors are BF16; L2 is F32, which changes bytes but not parameter count. Reference implementations identify non-weight-suffixed A_log, dt_bias and expert projections as learned; no persistent buffers or quantization storage tensors were counted. Untied input embedding and output head are separately stored and both count. Includes 844,640,768 auxiliary MTP parameters, with no duplicate embedding/head; excluding MTP gives 50,209,789,296. Developer 50B is a release label; report ~50.1B uses nominal 35B base rather than the measured checkpoint."
+      "note": "Retain the previously audited complete released count: 35,951,822,704 base-checkpoint parameters plus four 3,775,651,840-value LoRA adapters = 51,054,430,064. Includes 844,640,768 auxiliary MTP parameters; excluding MTP gives 50,209,789,296. The prior pinned header audit established learned-parameter, buffer and tying treatment; it was not repeated. Fresh October 27 API metadata retains the same revision and base count, while the current card/report reconfirm all four adapter sizes. Developer 50B remains a supported nominal release label; approximately 50.1B in the report uses a nominal 35B base. The exact stored total is retained rather than rounded to that label."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 3,
+      "status": "verified",
       "source_ids": [
+        "s1",
         "s3",
         "s6",
-        "s10"
+        "s10",
+        "s20",
+        "s21",
+        "s22"
       ],
-      "note": "Focused checks of the exact card, latest technical report including Tables 9/11, and hosted lineup found no whole-Tall token-active count. The base-only 3B activated figure excludes adapters; one selected specialist and stored adapter sizes do not establish active parameters."
+      "note": "Nominal 3B for the frozen Qwen3.6-35B-A3B language backbone only, using Qwen's explicit Language Model activated-parameter convention and MindLab's explicit frozen-base relationship; proposed scope is base_language_model. This is a component-level lineage inference, not a complete Macaron active count. Fresh October 27 searches for Tall active/activated parameters and checks of the card, latest report, launch, official family/harness repositories and hosted lineup found no complete count including adapters. Expert-specific adapter stored sizes cannot be added as active parameters. Routing stages do not establish phase-dependent counts; no such values are inferred."
     },
     "architecture": {
       "value": "moe",
@@ -323,7 +356,7 @@
     },
     "source_url": "https://huggingface.co/mindlab-research/Macaron-V1-Tall/raw/main/README.md",
     "source_type": "primary",
-    "notes": "Complete released checkpoint has 51.054430064B learned parameters: 35.951822704B base-checkpoint parameters including 0.844640768B auxiliary MTP, plus four 3.775651840B LoRA adapters. Excluding auxiliary MTP gives 50.209789296B. These counts come from bounded tensor headers with parameter/buffer and tying checks, not file-byte division. The developer 50B release label and report ~50.1B calculation use a nominal 35B base. HF ~36B metadata excludes the adapters but includes MTP. Whole-model active parameters are undisclosed; 3B applies only to the base. Card declares MIT with inherited base requirements; bundled LICENSE and Qwen base are Apache-2.0. Vision/video is inherited; specialist training is text-only. Hosted docs incorrectly list Tall adapters as four times 1B.",
+    "notes": "Released checkpoint totals 51.054430064B learned parameters including four 3.775651840B LoRA adapters and 0.844640768B auxiliary MTP; excluding MTP gives 50.209789296B. MindLab labels the release 50B; its ~50.1B calculation uses a nominal 35B base. Active 3B is Qwen's nominal language-backbone count, retained through MindLab's explicit frozen Qwen3.6-35B-A3B lineage; it excludes Macaron adapters, and complete active parameters remain undisclosed. Stored adapter sizes are not token-active counts. Card declares MIT with inherited Apache-2.0 base terms. Vision/video is inherited; specialist training is text-only. Hosted docs conflict with the Tall card/report on adapter sizes.",
     "sources": [
       {
         "label": "Macaron-V1-Tall official model card",
@@ -419,19 +452,36 @@
         "label": "PEFT LoRA and parameter-wrapper implementation",
         "url": "https://raw.githubusercontent.com/huggingface/peft/main/src/peft/tuners/lora/layer.py",
         "type": "primary"
+      },
+      {
+        "label": "Official Macaron-V1 family architecture and parameter accounting",
+        "url": "https://raw.githubusercontent.com/MindLab-Research/Macaron-V1/main/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Official Mixture-of-LoRA harness model profiles",
+        "url": "https://raw.githubusercontent.com/MindLab-Research/Mixture-of-LoRA-Harness/main/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Macaron-V1 technical report revision history",
+        "url": "https://arxiv.org/abs/2608.09819",
+        "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": 3
   },
-  "summary": "All 14 fields audited. Revised total to exact complete-checkpoint 51.054430064B after reading only 583,520 bytes of headers across all 26 base shards and four adapters and checking learned parameters, buffers, tying and auxiliary scope. Includes 0.844640768B MTP; without MTP the total is 50.209789296B. The developer 50B label is nominal, and the report ~50.1B uses a nominal base. Normalized family to macaron-v1. MoE, native inherited video and combined MIT/Apache-2.0 terms are supported. Whole-system active parameters remain undisclosed. No weight payloads were downloaded.",
+  "summary": "October 27 parameter re-audit retained the previously verified 51.054430064B complete checkpoint total and the documented nominal 50B release label. Current API metadata confirms the original pinned revision/base count, and current developer card/report confirm stored adapter sizes. Replaced active null with nominal 3B scoped to the frozen Qwen3.6-35B-A3B language backbone, based on explicit first-party lineage and Qwen's activated-parameter disclosure. Complete Macaron active parameters including LoRAs remain undisclosed; no stored-to-active or phase-count inference was made. All 12 other assessments are preserved. No shard/header reads or new tensor census occurred.",
   "proposed_fields": {
     "parameter_components_b": {
-      "language_model": 34.660610688,
+      "base_language_model": 34.660610688,
       "mtp": 0.844640768,
       "lora_l0": 3.77565184,
       "lora_l1": 3.77565184,
       "lora_l2": 3.77565184,
       "lora_l3": 3.77565184,
       "vision_encoder_projector": 0.446571248
-    }
+    },
+    "active_parameters_scope": "base_language_model"
   }
 }
