@@ -1,0 +1,573 @@
+{
+  "index": 491,
+  "model_id": "sarvam/sarvam-30b",
+  "reviewed_at": "2026-10-27T04:32:25.172371Z",
+  "sources": [
+    {
+      "id": "card",
+      "url": "https://huggingface.co/sarvamai/sarvam-30b/blob/071ae95e933605ca1104a6b4524a36a98488efa4/README.md",
+      "title": "Sarvam-30B model card",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "Declares Apache-2.0, 2.4B non-embedding active parameters, 19 layers with 128 routed experts and one shared expert, top-6 routing, GQA and auxiliary-loss-free balancing. Identifies Indian-language reasoning, coding and conversational purposes and provides thinking-mode inference examples. The voice-call application is a pipeline use case, not a native audio-input declaration."
+    },
+    {
+      "id": "config",
+      "url": "https://huggingface.co/sarvamai/sarvam-30b/blob/071ae95e933605ca1104a6b4524a36a98488efa4/config.json",
+      "title": "Exact published checkpoint configuration",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "SarvamMoEForCausalLM custom code, 4096 hidden width, 262144 vocabulary, 19 layers, first dense FFN width 8192, remaining 18 MoE layers with 128 routed experts of width 1024 plus one shared expert, top 6; 64 query heads and 4 KV heads of width 64. Untied embeddings; no linear biases or quantization configuration; max_position_embeddings 131072, no RoPE scaling, theta 8000000; float32 and Transformers 4.57.2."
+    },
+    {
+      "id": "code",
+      "url": "https://huggingface.co/sarvamai/sarvam-30b/blob/071ae95e933605ca1104a6b4524a36a98488efa4/modeling_sarvam_moe.py",
+      "title": "Exact model implementation",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "Enabled modules are token embeddings, 19 GQA decoder layers with RMSNorm/QK normalization and SwiGLU dense or sparse FFNs, final RMSNorm and output head. The 18 router expert_bias vectors contain 128 values each, are created with requires_grad=False, and are explicitly described as a buffer represented as Parameter for vLLM compatibility. RoPE inv_freq is non-persistent. No MTP, vision, audio, adapter or quantization modules are selected."
+    },
+    {
+      "id": "configuration",
+      "url": "https://huggingface.co/sarvamai/sarvam-30b/blob/071ae95e933605ca1104a6b4524a36a98488efa4/configuration_sarvam_moe.py",
+      "title": "Exact configuration implementation",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "Confirms head_dim, expert counts, dense-layer replacement, shared-expert and word-embedding tie settings consumed by the model. Explicit config.json values override constructor defaults; no extra learned modules are introduced here."
+    },
+    {
+      "id": "index",
+      "url": "https://huggingface.co/sarvamai/sarvam-30b/blob/071ae95e933605ca1104a6b4524a36a98488efa4/model.safetensors.index.json",
+      "title": "Complete original F32 checkpoint index",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "Indexes 7122 tensors across 26 shards, with 32152650368 stored elements and 128610601472 data bytes. Every indexed name, shard assignment, dtype, shape and contiguous data offset was reconciled against bounded HTTP 206 headers and enabled code. Excluding 2304 auxiliary router-bias elements yields 32152648064 learned parameters; this includes both untied vocabulary matrices."
+    },
+    {
+      "id": "template",
+      "url": "https://huggingface.co/sarvamai/sarvam-30b/blob/071ae95e933605ca1104a6b4524a36a98488efa4/chat_template.jinja",
+      "title": "Shipped chat template",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "Serializes text messages, tool declarations, model-selected tool calls and tool observations. Supports reasoning_content and think tags; enable_thinking=False appends the dedicated nothink token. No native audio/image input handling is provided. Template is a separate repository file; tokenizer_config.json has no embedded chat_template."
+    },
+    {
+      "id": "tokenizer",
+      "url": "https://huggingface.co/sarvamai/sarvam-30b/blob/071ae95e933605ca1104a6b4524a36a98488efa4/tokenizer_config.json",
+      "title": "Tokenizer configuration",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "The tokenizer has a very large unset model_max_length sentinel, not a real supported context capacity. Context is taken from model configuration and qualified against API documentation."
+    },
+    {
+      "id": "release",
+      "url": "https://www.sarvam.ai/blogs/sarvam-30b-105b",
+      "title": "Open-Sourcing Sarvam 30B and 105B, March 6, 2026",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "Explicitly releases both models with downloadable weights and API access. Names Sarvam 30B as a GQA MoE model trained from scratch, with native tool use. Notes prior production use in Samvaad but does not date that integration. This is the earliest explicit public availability statement for 30B located in this audit. Web text was accessible; direct anonymous HTTP fetch returned 403."
+    },
+    {
+      "id": "history",
+      "url": "https://huggingface.co/api/models/sarvamai/sarvam-30b/commits/main",
+      "title": "Developer repository history",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "Initial repository and weight upload occurred March 3, 2026; no repository-publication timestamp is provided. Configuration changed to 32768 on March 4, then to 131072 on March 6. Current 131072 value is unchanged in the inspected revision. Upload dates are not substituted for first-public release."
+    },
+    {
+      "id": "nvidia_feb",
+      "url": "https://developer.nvidia.com/blog/how-nvidia-extreme-hardware-software-co-design-delivered-a-large-inference-boost-for-sarvam-ais-sovereign-models/",
+      "title": "Sarvam/NVIDIA engineering report, February 18, 2026",
+      "publisher": "NVIDIA / Sarvam AI",
+      "accessed": true,
+      "evidence": "Coauthored by Sarvam engineers. Describes exact 30B architecture as one dense plus 18 MoE layers, 128 experts, top 6, GQA and a shared expert. This is contemporaneous technical disclosure, but does not state public model/API availability on February 18. Its FP8/NVFP4 performance experiments are separate from the original F32 checkpoint audited here."
+    },
+    {
+      "id": "indus",
+      "url": "https://www.sarvam.ai/blogs/introducing-indus",
+      "title": "Introducing Indus, February 20, 2026",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "The explicitly opened limited beta is powered by 105B. It does not establish a February 20 release date for 30B; that sibling date is not transferred."
+    },
+    {
+      "id": "api",
+      "url": "https://docs.sarvam.ai/api/getting-started/models/sarvam-30b",
+      "title": "Sarvam 30B archived API specification",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "Names sarvam-30b, Apache 2.0, GQA MoE, native tool calling, enabled reasoning, and a 64K hosted context window. It is marked deprecated and retained for reference. This narrower service limit is distinguished from the 131072 checkpoint configuration; no live inference request was made."
+    },
+    {
+      "id": "deprecated",
+      "url": "https://docs.sarvam.ai/changelog/2026/8/18",
+      "title": "August 18, 2026 API changelog",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "States that sarvam-30b is fully deprecated and no longer available through Sarvam Chat Completions. This is hosted-service retirement, not withdrawal of the downloadable checkpoint."
+    },
+    {
+      "id": "bridge",
+      "url": "https://docs.nvidia.com/nemo/megatron-bridge/nightly/models/sarvam/sarvam.html",
+      "title": "Current NVIDIA Megatron Bridge Sarvam integration",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Lists exact sarvamai/sarvam-30b as 128 experts/top 6, 30B total and 3B active, without an accounting convention. The author card explicitly specifies 2.4B non-embedding active and the exact checkpoint calculation agrees with that rounded value; the integration-table 3B number is not preferred over those sources."
+    },
+    {
+      "id": "shard_01",
+      "url": "https://huggingface.co/sarvamai/sarvam-30b/resolve/071ae95e933605ca1104a6b4524a36a98488efa4/model-00001-of-00026.safetensors",
+      "title": "Original F32 checkpoint shard 1/26, bounded header",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "HTTP 206 header and 8-byte prefix only: 1744 bytes; 15 tensors, 1249911040 stored elements. Names/shard assignments and shapes match the complete index and code; contiguous offsets match the full object size. No weight payload downloaded."
+    },
+    {
+      "id": "shard_02",
+      "url": "https://huggingface.co/sarvamai/sarvam-30b/resolve/071ae95e933605ca1104a6b4524a36a98488efa4/model-00002-of-00026.safetensors",
+      "title": "Original F32 checkpoint shard 2/26, bounded header",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "HTTP 206 header and 8-byte prefix only: 36632 bytes; 298 tensors, 1249902592 stored elements. Names/shard assignments and shapes match the complete index and code; contiguous offsets match the full object size. No weight payload downloaded."
+    },
+    {
+      "id": "shard_03",
+      "url": "https://huggingface.co/sarvamai/sarvam-30b/resolve/071ae95e933605ca1104a6b4524a36a98488efa4/model-00003-of-00026.safetensors",
+      "title": "Original F32 checkpoint shard 3/26, bounded header",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "HTTP 206 header and 8-byte prefix only: 36520 bytes; 297 tensors, 1248338176 stored elements. Names/shard assignments and shapes match the complete index and code; contiguous offsets match the full object size. No weight payload downloaded."
+    },
+    {
+      "id": "shard_04",
+      "url": "https://huggingface.co/sarvamai/sarvam-30b/resolve/071ae95e933605ca1104a6b4524a36a98488efa4/model-00004-of-00026.safetensors",
+      "title": "Original F32 checkpoint shard 4/26, bounded header",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "HTTP 206 header and 8-byte prefix only: 36520 bytes; 297 tensors, 1248338176 stored elements. Names/shard assignments and shapes match the complete index and code; contiguous offsets match the full object size. No weight payload downloaded."
+    },
+    {
+      "id": "shard_05",
+      "url": "https://huggingface.co/sarvamai/sarvam-30b/resolve/071ae95e933605ca1104a6b4524a36a98488efa4/model-00005-of-00026.safetensors",
+      "title": "Original F32 checkpoint shard 5/26, bounded header",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "HTTP 206 header and 8-byte prefix only: 36544 bytes; 297 tensors, 1248338176 stored elements. Names/shard assignments and shapes match the complete index and code; contiguous offsets match the full object size. No weight payload downloaded."
+    },
+    {
+      "id": "shard_06",
+      "url": "https://huggingface.co/sarvamai/sarvam-30b/resolve/071ae95e933605ca1104a6b4524a36a98488efa4/model-00006-of-00026.safetensors",
+      "title": "Original F32 checkpoint shard 6/26, bounded header",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "HTTP 206 header and 8-byte prefix only: 36640 bytes; 298 tensors, 1249902592 stored elements. Names/shard assignments and shapes match the complete index and code; contiguous offsets match the full object size. No weight payload downloaded."
+    },
+    {
+      "id": "shard_07",
+      "url": "https://huggingface.co/sarvamai/sarvam-30b/resolve/071ae95e933605ca1104a6b4524a36a98488efa4/model-00007-of-00026.safetensors",
+      "title": "Original F32 checkpoint shard 7/26, bounded header",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "HTTP 206 header and 8-byte prefix only: 36520 bytes; 297 tensors, 1248338176 stored elements. Names/shard assignments and shapes match the complete index and code; contiguous offsets match the full object size. No weight payload downloaded."
+    },
+    {
+      "id": "shard_08",
+      "url": "https://huggingface.co/sarvamai/sarvam-30b/resolve/071ae95e933605ca1104a6b4524a36a98488efa4/model-00008-of-00026.safetensors",
+      "title": "Original F32 checkpoint shard 8/26, bounded header",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "HTTP 206 header and 8-byte prefix only: 36520 bytes; 297 tensors, 1248338176 stored elements. Names/shard assignments and shapes match the complete index and code; contiguous offsets match the full object size. No weight payload downloaded."
+    },
+    {
+      "id": "shard_09",
+      "url": "https://huggingface.co/sarvamai/sarvam-30b/resolve/071ae95e933605ca1104a6b4524a36a98488efa4/model-00009-of-00026.safetensors",
+      "title": "Original F32 checkpoint shard 9/26, bounded header",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "HTTP 206 header and 8-byte prefix only: 36544 bytes; 297 tensors, 1248338176 stored elements. Names/shard assignments and shapes match the complete index and code; contiguous offsets match the full object size. No weight payload downloaded."
+    },
+    {
+      "id": "shard_10",
+      "url": "https://huggingface.co/sarvamai/sarvam-30b/resolve/071ae95e933605ca1104a6b4524a36a98488efa4/model-00010-of-00026.safetensors",
+      "title": "Original F32 checkpoint shard 10/26, bounded header",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "HTTP 206 header and 8-byte prefix only: 36648 bytes; 298 tensors, 1249902592 stored elements. Names/shard assignments and shapes match the complete index and code; contiguous offsets match the full object size. No weight payload downloaded."
+    },
+    {
+      "id": "shard_11",
+      "url": "https://huggingface.co/sarvamai/sarvam-30b/resolve/071ae95e933605ca1104a6b4524a36a98488efa4/model-00011-of-00026.safetensors",
+      "title": "Original F32 checkpoint shard 11/26, bounded header",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "HTTP 206 header and 8-byte prefix only: 36512 bytes; 297 tensors, 1248338176 stored elements. Names/shard assignments and shapes match the complete index and code; contiguous offsets match the full object size. No weight payload downloaded."
+    },
+    {
+      "id": "shard_12",
+      "url": "https://huggingface.co/sarvamai/sarvam-30b/resolve/071ae95e933605ca1104a6b4524a36a98488efa4/model-00012-of-00026.safetensors",
+      "title": "Original F32 checkpoint shard 12/26, bounded header",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "HTTP 206 header and 8-byte prefix only: 36520 bytes; 297 tensors, 1248338176 stored elements. Names/shard assignments and shapes match the complete index and code; contiguous offsets match the full object size. No weight payload downloaded."
+    },
+    {
+      "id": "shard_13",
+      "url": "https://huggingface.co/sarvamai/sarvam-30b/resolve/071ae95e933605ca1104a6b4524a36a98488efa4/model-00013-of-00026.safetensors",
+      "title": "Original F32 checkpoint shard 13/26, bounded header",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "HTTP 206 header and 8-byte prefix only: 36576 bytes; 297 tensors, 1248338176 stored elements. Names/shard assignments and shapes match the complete index and code; contiguous offsets match the full object size. No weight payload downloaded."
+    },
+    {
+      "id": "shard_14",
+      "url": "https://huggingface.co/sarvamai/sarvam-30b/resolve/071ae95e933605ca1104a6b4524a36a98488efa4/model-00014-of-00026.safetensors",
+      "title": "Original F32 checkpoint shard 14/26, bounded header",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "HTTP 206 header and 8-byte prefix only: 36952 bytes; 298 tensors, 1249902592 stored elements. Names/shard assignments and shapes match the complete index and code; contiguous offsets match the full object size. No weight payload downloaded."
+    },
+    {
+      "id": "shard_15",
+      "url": "https://huggingface.co/sarvamai/sarvam-30b/resolve/071ae95e933605ca1104a6b4524a36a98488efa4/model-00015-of-00026.safetensors",
+      "title": "Original F32 checkpoint shard 15/26, bounded header",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "HTTP 206 header and 8-byte prefix only: 36808 bytes; 297 tensors, 1248338176 stored elements. Names/shard assignments and shapes match the complete index and code; contiguous offsets match the full object size. No weight payload downloaded."
+    },
+    {
+      "id": "shard_16",
+      "url": "https://huggingface.co/sarvamai/sarvam-30b/resolve/071ae95e933605ca1104a6b4524a36a98488efa4/model-00016-of-00026.safetensors",
+      "title": "Original F32 checkpoint shard 16/26, bounded header",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "HTTP 206 header and 8-byte prefix only: 36824 bytes; 297 tensors, 1248338176 stored elements. Names/shard assignments and shapes match the complete index and code; contiguous offsets match the full object size. No weight payload downloaded."
+    },
+    {
+      "id": "shard_17",
+      "url": "https://huggingface.co/sarvamai/sarvam-30b/resolve/071ae95e933605ca1104a6b4524a36a98488efa4/model-00017-of-00026.safetensors",
+      "title": "Original F32 checkpoint shard 17/26, bounded header",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "HTTP 206 header and 8-byte prefix only: 36832 bytes; 297 tensors, 1248338176 stored elements. Names/shard assignments and shapes match the complete index and code; contiguous offsets match the full object size. No weight payload downloaded."
+    },
+    {
+      "id": "shard_18",
+      "url": "https://huggingface.co/sarvamai/sarvam-30b/resolve/071ae95e933605ca1104a6b4524a36a98488efa4/model-00018-of-00026.safetensors",
+      "title": "Original F32 checkpoint shard 18/26, bounded header",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "HTTP 206 header and 8-byte prefix only: 36960 bytes; 298 tensors, 1249902592 stored elements. Names/shard assignments and shapes match the complete index and code; contiguous offsets match the full object size. No weight payload downloaded."
+    },
+    {
+      "id": "shard_19",
+      "url": "https://huggingface.co/sarvamai/sarvam-30b/resolve/071ae95e933605ca1104a6b4524a36a98488efa4/model-00019-of-00026.safetensors",
+      "title": "Original F32 checkpoint shard 19/26, bounded header",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "HTTP 206 header and 8-byte prefix only: 36808 bytes; 297 tensors, 1248338176 stored elements. Names/shard assignments and shapes match the complete index and code; contiguous offsets match the full object size. No weight payload downloaded."
+    },
+    {
+      "id": "shard_20",
+      "url": "https://huggingface.co/sarvamai/sarvam-30b/resolve/071ae95e933605ca1104a6b4524a36a98488efa4/model-00020-of-00026.safetensors",
+      "title": "Original F32 checkpoint shard 20/26, bounded header",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "HTTP 206 header and 8-byte prefix only: 36816 bytes; 297 tensors, 1248338176 stored elements. Names/shard assignments and shapes match the complete index and code; contiguous offsets match the full object size. No weight payload downloaded."
+    },
+    {
+      "id": "shard_21",
+      "url": "https://huggingface.co/sarvamai/sarvam-30b/resolve/071ae95e933605ca1104a6b4524a36a98488efa4/model-00021-of-00026.safetensors",
+      "title": "Original F32 checkpoint shard 21/26, bounded header",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "HTTP 206 header and 8-byte prefix only: 36832 bytes; 297 tensors, 1248338176 stored elements. Names/shard assignments and shapes match the complete index and code; contiguous offsets match the full object size. No weight payload downloaded."
+    },
+    {
+      "id": "shard_22",
+      "url": "https://huggingface.co/sarvamai/sarvam-30b/resolve/071ae95e933605ca1104a6b4524a36a98488efa4/model-00022-of-00026.safetensors",
+      "title": "Original F32 checkpoint shard 22/26, bounded header",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "HTTP 206 header and 8-byte prefix only: 36968 bytes; 298 tensors, 1249902592 stored elements. Names/shard assignments and shapes match the complete index and code; contiguous offsets match the full object size. No weight payload downloaded."
+    },
+    {
+      "id": "shard_23",
+      "url": "https://huggingface.co/sarvamai/sarvam-30b/resolve/071ae95e933605ca1104a6b4524a36a98488efa4/model-00023-of-00026.safetensors",
+      "title": "Original F32 checkpoint shard 23/26, bounded header",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "HTTP 206 header and 8-byte prefix only: 36800 bytes; 297 tensors, 1248338176 stored elements. Names/shard assignments and shapes match the complete index and code; contiguous offsets match the full object size. No weight payload downloaded."
+    },
+    {
+      "id": "shard_24",
+      "url": "https://huggingface.co/sarvamai/sarvam-30b/resolve/071ae95e933605ca1104a6b4524a36a98488efa4/model-00024-of-00026.safetensors",
+      "title": "Original F32 checkpoint shard 24/26, bounded header",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "HTTP 206 header and 8-byte prefix only: 36824 bytes; 297 tensors, 1248338176 stored elements. Names/shard assignments and shapes match the complete index and code; contiguous offsets match the full object size. No weight payload downloaded."
+    },
+    {
+      "id": "shard_25",
+      "url": "https://huggingface.co/sarvamai/sarvam-30b/resolve/071ae95e933605ca1104a6b4524a36a98488efa4/model-00025-of-00026.safetensors",
+      "title": "Original F32 checkpoint shard 25/26, bounded header",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "HTTP 206 header and 8-byte prefix only: 33352 bytes; 269 tensors, 1107832960 stored elements. Names/shard assignments and shapes match the complete index and code; contiguous offsets match the full object size. No weight payload downloaded."
+    },
+    {
+      "id": "shard_26",
+      "url": "https://huggingface.co/sarvamai/sarvam-30b/resolve/071ae95e933605ca1104a6b4524a36a98488efa4/model-00026-of-00026.safetensors",
+      "title": "Original F32 checkpoint shard 26/26, bounded header",
+      "publisher": "Sarvam AI",
+      "accessed": true,
+      "evidence": "HTTP 206 header and 8-byte prefix only: 128 bytes; 1 tensors, 1073741824 stored elements. Names/shard assignments and shapes match the complete index and code; contiguous offsets match the full object size. No weight payload downloaded."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Sarvam 30B",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "release"
+      ],
+      "note": "Official model name; 30B is the nominal name, not the complete learned-checkpoint total."
+    },
+    "developer": {
+      "value": "Sarvam AI",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "release"
+      ],
+      "note": "Original developer; NVIDIA contributed training/inference tooling, not an alternative model identity."
+    },
+    "family": {
+      "value": "sarvam",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "release"
+      ],
+      "note": "Member of the developer Sarvam model family."
+    },
+    "release_date": {
+      "value": "2026-03-06",
+      "status": "verified",
+      "source_ids": [
+        "release",
+        "history",
+        "nvidia_feb",
+        "indus"
+      ],
+      "note": "Documented weights/API release. February 18 technical disclosure does not establish public availability; the February 20 Indus beta explicitly served 105B. Earlier Samvaad production use is undated in the primary launch article, and March 3 uploads do not establish public visibility."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "index",
+        "release"
+      ],
+      "note": "All original 26 weight shards remain publicly accessible. Hosted API retirement does not change open-weight status."
+    },
+    "license": {
+      "value": "Apache-2.0",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "api",
+        "release"
+      ],
+      "note": "Explicit model-card metadata and primary release/API documentation. A standalone LICENSE path returned 404; the license claim is based on the explicit developer declarations."
+    },
+    "parameters_b": {
+      "value": 32.152648064,
+      "status": "verified",
+      "source_ids": [
+        "index",
+        "config",
+        "code",
+        "configuration",
+        "shard_01",
+        "shard_02",
+        "shard_03",
+        "shard_04",
+        "shard_05",
+        "shard_06",
+        "shard_07",
+        "shard_08",
+        "shard_09",
+        "shard_10",
+        "shard_11",
+        "shard_12",
+        "shard_13",
+        "shard_14",
+        "shard_15",
+        "shard_16",
+        "shard_17",
+        "shard_18",
+        "shard_19",
+        "shard_20",
+        "shard_21",
+        "shard_22",
+        "shard_23",
+        "shard_24",
+        "shard_25",
+        "shard_26"
+      ],
+      "note": "Exact complete learned-checkpoint count: 32152650368 F32 stored elements minus 2304 auxiliary router-bias values = 32152648064. Router biases are registered as frozen Parameter only for compatibility and described as buffers by the code. All 26 shards / 7122 tensors reconcile with expected module shapes and index; no packed quantization, scale tensors, MTP, adapters or duplicated tied matrices. Includes 1073741824 input-embedding and 1073741824 output-head parameters. Non-embedding learned total 30005164416 explains the nominal 30B label; no full tensor payload was downloaded."
+    },
+    "active_parameters_b": {
+      "value": 2.4,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "config",
+        "code",
+        "bridge"
+      ],
+      "note": "Author-rounded non-embedding active count. Configuration/code gives 2373089664 learned elements along a token path after excluding both vocabulary matrices: all attention/norms/dense FFN/router weights plus 6 of 128 routed experts and the shared expert per MoE layer. Counting both full vocabulary matrices would give 4520573312, a different convention. Preserve the published 2.4B with explicit non-embedding scope rather than imply a complete-model active count or use the unqualified 3B integration-table value."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "config",
+        "code",
+        "nvidia_feb"
+      ],
+      "note": "Decoder-only sparse MoE Transformer: 1 dense FFN layer plus 18 MoE layers, 128 routed experts with top 6 and one shared expert, GQA (64 query / 4 KV heads, 64-dimensional heads), QK RMSNorm, SwiGLU and RoPE. Distinct from 105B MLA; all details verified on 30B configuration and tensors."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "history",
+        "tokenizer",
+        "api"
+      ],
+      "note": "Maximum configured checkpoint context, present in the current and March 6 release configuration. Sarvam hosted API advertised 64K and has since retired this model. The model card evaluates at 65536 tokens; this audit does not claim evaluated 131072-token quality. The tokenizer sentinel is not used as capacity."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "code",
+        "template"
+      ],
+      "note": "Exact checkpoint is text-only causal language modeling. Voice-agent pipelines pair it with separate speech models; those applications do not establish native audio I/O."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "template",
+        "api"
+      ],
+      "note": "Dedicated thinking token/protocol and author inference example verify reasoning support; the template exposes enable_thinking and the API documents reasoning control. No generation-quality test was performed."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "template",
+        "api",
+        "release"
+      ],
+      "note": "The exact shipped template supports tool declarations, assistant function calls and tool responses; primary model/API documentation explicitly identifies native tool calling."
+    },
+    "description": {
+      "value": "Mixture-of-experts language model trained from scratch for Indian-language conversation, reasoning, coding and tool use.",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "release",
+        "config"
+      ],
+      "note": "Neutral description of documented training origin and supported workloads; avoids unsupported performance superlatives and native-audio implications."
+    }
+  },
+  "patch": {
+    "release_date": "2026-03-06",
+    "license": "Apache-2.0",
+    "parameters_b": 32.152648064,
+    "active_parameters_b": 2.4,
+    "architecture": "moe",
+    "context_window": 131072,
+    "description": "Mixture-of-experts language model trained from scratch for Indian-language conversation, reasoning, coding and tool use.",
+    "date_precision": "day",
+    "parameters_source": "primary_source",
+    "source_url": "https://www.sarvam.ai/blogs/sarvam-30b-105b",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Sarvam-30B model card",
+        "url": "https://huggingface.co/sarvamai/sarvam-30b/blob/071ae95e933605ca1104a6b4524a36a98488efa4/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Exact published checkpoint configuration",
+        "url": "https://huggingface.co/sarvamai/sarvam-30b/blob/071ae95e933605ca1104a6b4524a36a98488efa4/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Exact model implementation",
+        "url": "https://huggingface.co/sarvamai/sarvam-30b/blob/071ae95e933605ca1104a6b4524a36a98488efa4/modeling_sarvam_moe.py",
+        "type": "primary"
+      },
+      {
+        "label": "Complete original F32 checkpoint index",
+        "url": "https://huggingface.co/sarvamai/sarvam-30b/blob/071ae95e933605ca1104a6b4524a36a98488efa4/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Shipped chat template",
+        "url": "https://huggingface.co/sarvamai/sarvam-30b/blob/071ae95e933605ca1104a6b4524a36a98488efa4/chat_template.jinja",
+        "type": "primary"
+      },
+      {
+        "label": "Open-Sourcing Sarvam 30B and 105B, March 6, 2026",
+        "url": "https://www.sarvam.ai/blogs/sarvam-30b-105b",
+        "type": "primary"
+      },
+      {
+        "label": "Sarvam 30B archived API specification",
+        "url": "https://docs.sarvam.ai/api/getting-started/models/sarvam-30b",
+        "type": "primary"
+      },
+      {
+        "label": "August 18, 2026 API changelog",
+        "url": "https://docs.sarvam.ai/changelog/2026/8/18",
+        "type": "primary"
+      }
+    ],
+    "notes": "Complete learned checkpoint: 32.152648064B parameters, including separate input and output vocabulary matrices; the nominal 30B label corresponds approximately to non-embedding weights. Active 2.4B is the author-rounded non-embedding count (configuration-derived 2.373089664B); it excludes both vocabulary matrices. The 26 original F32 shards contain 2304 additional frozen router-bias values, excluded as auxiliary balancing state. Checkpoint context is configured at 131072; the retired Sarvam API documented 64K, and published evaluations used 65536. March 6, 2026 is the explicit weights/API release; February 18 was technical disclosure and earlier Samvaad use is undated. Sarvam API retirement was documented on August 18, 2026; downloadable weights remain available."
+  },
+  "proposed_fields": {
+    "parameter_components_b": {
+      "input_embeddings": 1.073741824,
+      "output_head": 1.073741824,
+      "decoder_layers": 30.00516032,
+      "final_norm": 4.096e-06
+    },
+    "active_parameters_scope": "non_embedding",
+    "active_parameters_by_phase_b": {
+      "non_embedding": 2.4
+    }
+  },
+  "summary": "Corrected total to 32.152648064B learned parameters after all 26 original-shard headers and exact code/config reconciliation; added author-rounded 2.4B non-embedding active count and MoE/GQA architecture. Added Apache 2.0, corrected configured context to 131072 with 64K hosted API qualification, and used the explicit March 6, 2026 weights/API release. Confirmed text-only reasoning and native tool support. Recorded August 2026 hosted retirement and removed promotional description. Earlier undated Samvaad availability and actual 131072-token quality remain unestablished."
+}
