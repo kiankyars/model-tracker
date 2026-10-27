@@ -14012,16 +14012,16 @@
     "developer": "NVIDIA",
     "developer_id": "nvidia",
     "family": "nemotron",
-    "description": "Nemotron model for efficient reasoning, coding, and specialized AI agents",
+    "description": "Text model combining Mamba-2, attention and sparse MoE layers, post-trained with Cascade RL and multi-domain on-policy distillation for reasoning and tool use.",
     "release_date": "2026-03-19",
     "date_precision": "day",
     "open_weights": true,
-    "license": null,
-    "parameters_b": 30,
+    "license": "NVIDIA Open Model License",
+    "parameters_b": 31.577937344,
     "active_parameters_b": 3,
-    "parameters_source": "model_name",
-    "architecture": "moe",
-    "context_window": 256000,
+    "parameters_source": "primary_source",
+    "architecture": "hybrid-ssm-transformer-moe",
+    "context_window": 1000000,
     "modalities": {
       "input": [
         "text"
@@ -14032,9 +14032,39 @@
     },
     "reasoning": true,
     "tool_call": true,
-    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/nvidia/nemotron-cascade-2-30b-a3b.toml",
-    "source_type": "catalog",
+    "source_url": "https://huggingface.co/nvidia/Nemotron-Cascade-2-30B-A3B/blob/6327cdbcf907e1c7cec9cb29fb6e6cebdf8feaf7/README.md",
+    "source_type": "primary",
     "sources": [
+      {
+        "label": "Nemotron-Cascade-2-30B-A3B model card",
+        "url": "https://huggingface.co/nvidia/Nemotron-Cascade-2-30B-A3B/blob/6327cdbcf907e1c7cec9cb29fb6e6cebdf8feaf7/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Nemotron-Cascade 2 technical report, revision 2",
+        "url": "https://arxiv.org/html/2603.19220v2",
+        "type": "primary"
+      },
+      {
+        "label": "Exact Cascade 2 checkpoint configuration",
+        "url": "https://huggingface.co/nvidia/Nemotron-Cascade-2-30B-A3B/blob/6327cdbcf907e1c7cec9cb29fb6e6cebdf8feaf7/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Exact Cascade 2 model implementation",
+        "url": "https://huggingface.co/nvidia/Nemotron-Cascade-2-30B-A3B/blob/6327cdbcf907e1c7cec9cb29fb6e6cebdf8feaf7/modeling_nemotron_h.py",
+        "type": "primary"
+      },
+      {
+        "label": "Cascade 2 BF16 checkpoint index and bounded shard headers",
+        "url": "https://huggingface.co/nvidia/Nemotron-Cascade-2-30B-A3B/blob/6327cdbcf907e1c7cec9cb29fb6e6cebdf8feaf7/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "NVIDIA Open Model License Agreement",
+        "url": "https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-open-model-license/",
+        "type": "primary"
+      },
       {
         "label": "Models.dev record",
         "url": "https://github.com/anomalyco/models.dev/blob/dev/models/nvidia/nemotron-cascade-2-30b-a3b.toml",
@@ -14044,7 +14074,11 @@
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
+    "upstream_present": true,
+    "notes": "Total is an independently reconstructed complete learned BF16 checkpoint count (31.577937344B), excluding 23 routing buffers; active 3B remains the developer’s nominal exact-model claim. Context is the advertised nominal 1M maximum; checkpoint config and example serving commands use 262144. The technical report evaluates this exact model at 1M. March 19 is the explicit model-card release date; NVIDIA’s research page bears a March 16 publication date.",
+    "field_status": {},
+    "audited_at": "2026-10-27T00:56:02.227066Z",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/389.json"
   },
   {
     "id": "minimax/MiniMax-M2.7",

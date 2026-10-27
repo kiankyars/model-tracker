@@ -1,0 +1,403 @@
+{
+  "index": 389,
+  "model_id": "nvidia/nemotron-cascade-2-30b-a3b",
+  "reviewed_at": "2026-10-27T00:56:02.227066Z",
+  "sources": [
+    {
+      "id": "card",
+      "url": "https://huggingface.co/nvidia/Nemotron-Cascade-2-30B-A3B/blob/6327cdbcf907e1c7cec9cb29fb6e6cebdf8feaf7/README.md",
+      "title": "Nemotron-Cascade-2-30B-A3B model card",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Exact model: nominal 30B total and 3B activated, thinking/instruct modes, 1M context claim, tool deployment, explicit March 19, 2026 release date and NVIDIA Open Model License link. July 9 parser update is present."
+    },
+    {
+      "id": "report",
+      "url": "https://arxiv.org/html/2603.19220v2",
+      "title": "Nemotron-Cascade 2 technical report, revision 2",
+      "publisher": "NVIDIA authors / arXiv",
+      "accessed": true,
+      "evidence": "Latest listed revision (March 22, 2026): 30B/3B nominal model, Cascade RL and multi-domain on-policy distillation. Introduction states 1M context; Appendix A.5 evaluates NIAH/RULER with 1M-token context. Text reasoning, coding and tool-use training/evaluation are described."
+    },
+    {
+      "id": "report-history",
+      "url": "https://arxiv.org/abs/2603.19220",
+      "title": "Nemotron-Cascade 2 submission history",
+      "publisher": "arXiv / NVIDIA authors",
+      "accessed": true,
+      "evidence": "First submitted March 19, 2026; revision 2 submitted March 22, 2026. Exact model release link accompanies the report."
+    },
+    {
+      "id": "announcement",
+      "url": "https://research.nvidia.com/labs/nemotron/nemotron-cascade-2/",
+      "title": "Nemotron-Cascade 2 research announcement",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Names the exact 30B-A3B model and NVIDIA authors, links weights, and describes Cascade RL/distillation. Page is dated March 16, 2026, conflicting with the model card\u2019s explicit March 19 release date; this page date is not silently substituted for weight release."
+    },
+    {
+      "id": "config",
+      "url": "https://huggingface.co/nvidia/Nemotron-Cascade-2-30B-A3B/blob/6327cdbcf907e1c7cec9cb29fb6e6cebdf8feaf7/config.json",
+      "title": "Exact Cascade 2 checkpoint configuration",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "NemotronHForCausalLM; 52 blocks (23 Mamba, 23 MoE, 6 attention); hidden width 2688; vocabulary 131072; untied embeddings. Top-6 of 128 routed experts, shared expert width 3712, routed width 1856. Configuration default maximum is 262144 tokens."
+    },
+    {
+      "id": "code",
+      "url": "https://huggingface.co/nvidia/Nemotron-Cascade-2-30B-A3B/blob/6327cdbcf907e1c7cec9cb29fb6e6cebdf8feaf7/modeling_nemotron_h.py",
+      "title": "Exact Cascade 2 model implementation",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Defines Mamba-2 mixers, attention and ReLU2 two-matrix expert MLPs. A_log, D and dt_bias are learned parameters; router e_score_correction_bias is explicitly a registered buffer. Native model contains no MTP module."
+    },
+    {
+      "id": "configuration-code",
+      "url": "https://huggingface.co/nvidia/Nemotron-Cascade-2-30B-A3B/blob/6327cdbcf907e1c7cec9cb29fb6e6cebdf8feaf7/configuration_nemotron_h.py",
+      "title": "Cascade 2 configuration implementation",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Maps M/*/E symbols to Mamba/attention/MoE blocks; identifies the dimensions and default bias behavior used to independently reconstruct indexed shapes."
+    },
+    {
+      "id": "index",
+      "url": "https://huggingface.co/nvidia/Nemotron-Cascade-2-30B-A3B/blob/6327cdbcf907e1c7cec9cb29fb6e6cebdf8feaf7/model.safetensors.index.json",
+      "title": "Cascade 2 BF16 checkpoint index and bounded shard headers",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "All 13 indexed shards read by bounded HTTP 206 ranges for their eight-byte prefixes and JSON headers only. All 6243 names/shapes/offsets match independently reconstructed code/config tensors. 6220 learned BF16 tensors contain 31577937344 parameters; 23 FP32 routing buffers contain 2944 excluded elements. Index metadata matches learned count and 63155886464 payload bytes."
+    },
+    {
+      "id": "template",
+      "url": "https://huggingface.co/nvidia/Nemotron-Cascade-2-30B-A3B/blob/6327cdbcf907e1c7cec9cb29fb6e6cebdf8feaf7/chat_template.jinja",
+      "title": "Cascade 2 chat template",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Text messages, enable_thinking control, structured function schemas/calls and wrapped tool responses are implemented. Tool handling is supported despite rendering responses inside user turns."
+    },
+    {
+      "id": "license",
+      "url": "https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-open-model-license/",
+      "title": "NVIDIA Open Model License Agreement",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Exact governing license URL linked by this model card. Current terms are headed NVIDIA Open Model License Agreement and dated October 24, 2025; commercial use, derivative models and redistribution are permitted subject to its conditions."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Nemotron Cascade 2 30B A3B",
+      "status": "verified",
+      "source_ids": [
+        "card"
+      ],
+      "note": "Readable formatting of the exact checkpoint name; retained."
+    },
+    "developer": {
+      "value": "NVIDIA",
+      "status": "verified",
+      "source_ids": [
+        "announcement",
+        "card"
+      ],
+      "note": "Official NVIDIA research announcement and model organization."
+    },
+    "family": {
+      "value": "nemotron",
+      "status": "verified",
+      "source_ids": [
+        "announcement"
+      ],
+      "note": "Explicit Nemotron family identity; retained."
+    },
+    "release_date": {
+      "value": "2026-03-19",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "report-history",
+        "announcement"
+      ],
+      "note": "Retain the explicit model-card release day, also the first arXiv submission day. Research-page publication date is March 16; public checkpoint availability on that earlier day is not established by its page timestamp."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "index",
+        "card"
+      ],
+      "note": "Original checkpoint shards are publicly accessible; complete bounded header census succeeded."
+    },
+    "license": {
+      "value": "NVIDIA Open Model License",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "license"
+      ],
+      "note": "Use the exact model-card-linked agreement, rather than another Nemotron-family license."
+    },
+    "parameters_b": {
+      "value": 31.577937344,
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "code",
+        "configuration-code",
+        "index"
+      ],
+      "note": "Complete unique learned checkpoint count: 31577937344. Includes untied input/output embeddings, learned Mamba parameters, all routed/shared experts and norms. Excludes 2944 routing-buffer elements; no MTP, scale or packed-weight tensors. Nominal 30B is superseded by the independent census."
+    },
+    "active_parameters_b": {
+      "value": 3,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "report"
+      ],
+      "note": "Retain exact-model published nominal 3B activated figure. No exact embedding-count convention is given; do not substitute a Nano-family 3.6B figure. Structural selected-expert inventories are recorded separately as crosschecks, not silently relabeled as the published activation count."
+    },
+    "architecture": {
+      "value": "hybrid-ssm-transformer-moe",
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "code",
+        "configuration-code"
+      ],
+      "note": "Exact architecture is 23 Mamba-2 + 6 GQA attention + 23 sparse MoE blocks, with six of 128 routed experts and one shared expert per MoE block. This is not solely Transformer MoE."
+    },
+    "context_window": {
+      "value": 1000000,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "report",
+        "config"
+      ],
+      "note": "Nominal advertised 1M supported context, independently supported by exact-model RULER evaluation at 1M. Config and example commands default to 262144 despite the card describing a 1M maximum. No exact 1048576 maximum is asserted here."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "template"
+      ],
+      "note": "Text-generation checkpoint and text chat/tool template; no image/audio/video encoders or output modules."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "template",
+        "report"
+      ],
+      "note": "Explicit thinking/instruct modes, configurable thinking template and reasoning post-training."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "template",
+        "report"
+      ],
+      "note": "Template serializes function definitions, calls and responses; report documents conversational tool-use training and function-calling evaluations."
+    },
+    "description": {
+      "value": "Text model combining Mamba-2, attention and sparse MoE layers, post-trained with Cascade RL and multi-domain on-policy distillation for reasoning and tool use.",
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "code",
+        "report"
+      ],
+      "note": "Replaces generic efficiency/specialized-agent wording with supported architecture and training method."
+    }
+  },
+  "patch": {
+    "license": "NVIDIA Open Model License",
+    "parameters_b": 31.577937344,
+    "parameters_source": "primary_source",
+    "architecture": "hybrid-ssm-transformer-moe",
+    "context_window": 1000000,
+    "description": "Text model combining Mamba-2, attention and sparse MoE layers, post-trained with Cascade RL and multi-domain on-policy distillation for reasoning and tool use.",
+    "source_url": "https://huggingface.co/nvidia/Nemotron-Cascade-2-30B-A3B/blob/6327cdbcf907e1c7cec9cb29fb6e6cebdf8feaf7/README.md",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Nemotron-Cascade-2-30B-A3B model card",
+        "url": "https://huggingface.co/nvidia/Nemotron-Cascade-2-30B-A3B/blob/6327cdbcf907e1c7cec9cb29fb6e6cebdf8feaf7/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Nemotron-Cascade 2 technical report, revision 2",
+        "url": "https://arxiv.org/html/2603.19220v2",
+        "type": "primary"
+      },
+      {
+        "label": "Exact Cascade 2 checkpoint configuration",
+        "url": "https://huggingface.co/nvidia/Nemotron-Cascade-2-30B-A3B/blob/6327cdbcf907e1c7cec9cb29fb6e6cebdf8feaf7/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Exact Cascade 2 model implementation",
+        "url": "https://huggingface.co/nvidia/Nemotron-Cascade-2-30B-A3B/blob/6327cdbcf907e1c7cec9cb29fb6e6cebdf8feaf7/modeling_nemotron_h.py",
+        "type": "primary"
+      },
+      {
+        "label": "Cascade 2 BF16 checkpoint index and bounded shard headers",
+        "url": "https://huggingface.co/nvidia/Nemotron-Cascade-2-30B-A3B/blob/6327cdbcf907e1c7cec9cb29fb6e6cebdf8feaf7/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "NVIDIA Open Model License Agreement",
+        "url": "https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-open-model-license/",
+        "type": "primary"
+      }
+    ],
+    "notes": "Total is an independently reconstructed complete learned BF16 checkpoint count (31.577937344B), excluding 23 routing buffers; active 3B remains the developer\u2019s nominal exact-model claim. Context is the advertised nominal 1M maximum; checkpoint config and example serving commands use 262144. The technical report evaluates this exact model at 1M. March 19 is the explicit model-card release date; NVIDIA\u2019s research page bears a March 16 publication date."
+  },
+  "checkpoint_reconstruction": {
+    "repo": "nvidia/Nemotron-Cascade-2-30B-A3B",
+    "revision": "6327cdbcf907e1c7cec9cb29fb6e6cebdf8feaf7",
+    "learned_parameters": 31577937344,
+    "learned_tensors": 6220,
+    "buffer_elements": 2944,
+    "buffer_tensors": 23,
+    "all_tensors": 6243,
+    "shards": 13,
+    "learned_dtypes": {
+      "BF16": 31577937344
+    },
+    "buffer_dtypes": {
+      "F32": 2944
+    },
+    "storage_dtypes": {
+      "F32": 2944,
+      "BF16": 31577937344
+    },
+    "payload_bytes": 63155886464,
+    "index_metadata": {
+      "total_parameters": 31577937344,
+      "total_size": 63155886464
+    },
+    "header_bytes": 802544,
+    "layer_pattern": {
+      "M": 23,
+      "E": 23,
+      "*": 6
+    },
+    "selected_expert_inventory_including_both_embedding_matrices": 3580073408,
+    "same_excluding_input_embedding": 3227751872,
+    "per_shard": [
+      {
+        "file": "model-00001-of-00013.safetensors",
+        "header_bytes": 55496,
+        "payload_bytes": 4991149056,
+        "file_bytes": 4991204552
+      },
+      {
+        "file": "model-00002-of-00013.safetensors",
+        "header_bytes": 64440,
+        "payload_bytes": 4992536576,
+        "file_bytes": 4992601016
+      },
+      {
+        "file": "model-00003-of-00013.safetensors",
+        "header_bytes": 64784,
+        "payload_bytes": 4992536576,
+        "file_bytes": 4992601360
+      },
+      {
+        "file": "model-00004-of-00013.safetensors",
+        "header_bytes": 65024,
+        "payload_bytes": 4995627776,
+        "file_bytes": 4995692800
+      },
+      {
+        "file": "model-00005-of-00013.safetensors",
+        "header_bytes": 64760,
+        "payload_bytes": 4980480768,
+        "file_bytes": 4980545528
+      },
+      {
+        "file": "model-00006-of-00013.safetensors",
+        "header_bytes": 65040,
+        "payload_bytes": 4999344768,
+        "file_bytes": 4999409808
+      },
+      {
+        "file": "model-00007-of-00013.safetensors",
+        "header_bytes": 64912,
+        "payload_bytes": 4992536576,
+        "file_bytes": 4992601488
+      },
+      {
+        "file": "model-00008-of-00013.safetensors",
+        "header_bytes": 64944,
+        "payload_bytes": 4992536576,
+        "file_bytes": 4992601520
+      },
+      {
+        "file": "model-00009-of-00013.safetensors",
+        "header_bytes": 65024,
+        "payload_bytes": 4995627776,
+        "file_bytes": 4995692800
+      },
+      {
+        "file": "model-00010-of-00013.safetensors",
+        "header_bytes": 64944,
+        "payload_bytes": 4992536576,
+        "file_bytes": 4992601520
+      },
+      {
+        "file": "model-00011-of-00013.safetensors",
+        "header_bytes": 65024,
+        "payload_bytes": 4995627776,
+        "file_bytes": 4995692800
+      },
+      {
+        "file": "model-00012-of-00013.safetensors",
+        "header_bytes": 65040,
+        "payload_bytes": 4995627776,
+        "file_bytes": 4995692816
+      },
+      {
+        "file": "model-00013-of-00013.safetensors",
+        "header_bytes": 33112,
+        "payload_bytes": 3239717888,
+        "file_bytes": 3239751000
+      }
+    ],
+    "all_shapes_names_offsets_file_sizes_match": true,
+    "method": "Build every expected tensor name and shape independently from exact config and implementation, then compare every indexed tensor with freshly fetched bounded shard JSON headers. Validate HTTP 206 Content-Range, exact read length, dtype, contiguous byte offsets, file size, index membership and metadata totals. No weight payload is fetched.",
+    "learned_component_counts": {
+      "input_embedding": 352321536,
+      "output_head": 352321536,
+      "mamba_mixers": 891070784,
+      "attention_mixers": 140378112,
+      "moe_mixers": 29841702912,
+      "block_norms": 139776,
+      "final_norm": 2688
+    },
+    "shape_derivation": {
+      "common": "D=2688, V=131072; independent input/output [V,D]; each block norm [D], final norm [D].",
+      "mamba": "I=64*64=4096; C=I+2*8*128=6144. Each of 23 mixers: in_proj [I+C+64,D], out_proj [D,I], conv [C,1,4] and bias [C], mixer norm [I], A_log/D/dt_bias each [64].",
+      "attention": "Each of 6 attention mixers: q/o matrices [4096,2688]/[2688,4096]; k/v each [256,2688]; no biases.",
+      "moe": "Each of 23 MoE mixers: router [128,2688]; 128 experts each up [1856,2688] and down [2688,1856]; shared expert up [3712,2688] and down [2688,3712]. Exclude router correction buffer [128]."
+    },
+    "active_crosscheck_note": "Subtracting 122 unselected routed experts per MoE layer from full learned inventory leaves 3580073408 elements including both full embedding matrices, or 3227751872 excluding input embedding. These are explicitly scoped structural inventories, not a documented exact active-count convention. Published exact Cascade figure remains nominal 3B.",
+    "local_reproduction_script": "/tmp/model-audit-389/count.py"
+  },
+  "summary": "Verified all 14 fields against exact Cascade 2 primary sources. Correct total to 31.577937344B from complete independently reconstructed BF16 headers, architecture to hybrid SSM/Transformer/MoE, license and nominal 1M context; retain published nominal 3B active. Record 262144 config/example versus 1M supported-context distinction and March16 research-page versus explicit March19 model-release date."
+}
