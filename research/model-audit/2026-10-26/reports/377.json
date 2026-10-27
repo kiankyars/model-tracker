@@ -1,0 +1,307 @@
+{
+  "index": 377,
+  "model_id": "nvidia/llama-3.3-nemotron-super-49b-v1",
+  "reviewed_at": "2026-10-27T00:30:48.915141+00:00",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/nvidia/Llama-3_3-Nemotron-Super-49B-v1/blob/387156d8d6868c19f3472fa607aa9bfc4f662333/README.md",
+      "title": "Exact NVIDIA Super v1 model card",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Identifies NVIDIA’s Llama 3.3 70B Instruct derivative, released March 18, 2025, dense decoder-only Transformer with NAS-modified blocks, 131072-token text input/output, reasoning on/off and explicit tool-calling training. It names the NVIDIA and Llama 3.3 licenses.",
+      "type": "primary"
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/nvidia/Llama-3_3-Nemotron-Super-49B-v1/resolve/387156d8d6868c19f3472fa607aa9bfc4f662333/config.json",
+      "title": "Pinned Super v1 configuration",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Specifies nemotron-nas / DeciLMForCausalLM, BF16, hidden width 8192, vocabulary 128256, untied embeddings, 80 block slots and 131072 maximum positions. There are 49 ordinary attention blocks, 31 skipped attention blocks and 80 dense FFNs with six intermediate widths; no expert routing or quantization.",
+      "type": "weights"
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/nvidia/Llama-3_3-Nemotron-Super-49B-v1/resolve/387156d8d6868c19f3472fa607aa9bfc4f662333/modeling_decilm.py",
+      "title": "Official custom architecture implementation",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Defines learned embedding/head matrices, attention projections, dense gated FFNs and RMSNorms. Intermediate FFN width is ceil256(int(2*ffn_mult*hidden_size/3)). Skipped attention omits its input norm. RoPE inv_freq is a nonpersistent buffer, not a learned parameter.",
+      "type": "weights"
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/nvidia/Llama-3_3-Nemotron-Super-49B-v1/resolve/387156d8d6868c19f3472fa607aa9bfc4f662333/model.safetensors.index.json",
+      "title": "Official complete checkpoint tensor index",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "The index maps 568 tensors to 21 shards and records 99734290432 data bytes. Every indexed tensor was reconciled with a header tensor and its configuration/code-derived shape.",
+      "type": "weights"
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/nvidia/Llama-3_3-Nemotron-Super-49B-v1/resolve/387156d8d6868c19f3472fa607aa9bfc4f662333/model-00001-of-00021.safetensors",
+      "title": "Official safetensors headers (first of 21 shards)",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Bounded bytes 0–65535 requests to all 21 shards returned HTTP 206. All 568 tensors are BF16 learned weights; shape products total 49867145216. Byte offsets are contiguous within each shard and each tensor uses two bytes per element. No scales, packed weights or buffers were counted.",
+      "type": "weights"
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/api/models/nvidia/Llama-3_3-Nemotron-Super-49B-v1",
+      "title": "Official Hugging Face checkpoint metadata",
+      "publisher": "NVIDIA / Hugging Face",
+      "accessed": true,
+      "evidence": "Reports pinned revision 387156d8d6868c19f3472fa607aa9bfc4f662333 and independently reports 49867145216 BF16 parameters. This matches the header census and independent configuration formula.",
+      "type": "weights"
+    },
+    {
+      "id": "s7",
+      "url": "https://arxiv.org/html/2505.00949v5",
+      "title": "Llama-Nemotron technical report, September 2025 revision",
+      "publisher": "NVIDIA researchers / arXiv",
+      "accessed": true,
+      "evidence": "Names and links this exact Super v1 model, reports nominal 49B and explains Puzzle NAS, variable FFN dimensions, attention removal, distillation and reasoning training. Section 2 reserves FFN Fusion for Ultra. No separate active-per-token count for Super is defined.",
+      "type": "primary"
+    },
+    {
+      "id": "s8",
+      "url": "https://forums.developer.nvidia.com/t/ai-reasoning-with-llama-nemotron-at-gtc25-announcements/327509",
+      "title": "Contemporaneous NVIDIA launch announcement",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "The March 18, 2025 NVIDIA announcement identifies Super as 49B distilled from Llama 3.3 70B and distinguishes it from the then-forthcoming Ultra. This corroborates the exact card’s explicit release date.",
+      "type": "primary"
+    },
+    {
+      "id": "s9",
+      "url": "https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-open-model-license/",
+      "title": "NVIDIA Open Model License Agreement",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "The actual agreement linked as governing terms by the exact model card. The currently served page is marked last modified October 24, 2025; this is not used as a model release date.",
+      "type": "primary"
+    },
+    {
+      "id": "s10",
+      "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3_3/LICENSE",
+      "title": "Llama 3.3 Community License Agreement",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "The exact underlying Llama agreement additionally linked by the model card. The agreement addresses Llama materials and derivative works.",
+      "type": "primary"
+    },
+    {
+      "id": "s11",
+      "url": "https://developer.nvidia.com/blog/build-enterprise-ai-agents-with-advanced-open-nvidia-llama-nemotron-reasoning-models/",
+      "title": "NVIDIA Llama Nemotron training and launch article",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "The article states it was originally published March 18, 2025 and identifies Super as the 49B Llama 3.3 70B derivative. It describes the reasoning toggle and training process. Current text includes later updates, so the contemporaneous forum and explicit card date are the release-day evidence.",
+      "type": "primary"
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Llama 3.3 Nemotron Super 49B v1",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Display spelling matches the exact v1 checkpoint; it is separate from v1.5 and later Nemotron Super generations."
+    },
+    "developer": {
+      "value": "NVIDIA",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "NVIDIA is the model developer; Meta supplies the underlying Llama 3.3 model."
+    },
+    "family": {
+      "value": "nemotron",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7"
+      ],
+      "note": "The official card places this exact model in the Llama Nemotron collection."
+    },
+    "release_date": {
+      "value": "2025-03-18",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s8"
+      ],
+      "note": "Explicit exact-model release date in the card agrees with the contemporaneous NVIDIA announcement. This is not the technical report’s later publication date."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s5"
+      ],
+      "note": "Full official BF16 checkpoint is downloadable; all 21 shard headers were accessed."
+    },
+    "license": {
+      "value": "NVIDIA Open Model License + Llama 3.3 Community License",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s9",
+        "s10"
+      ],
+      "note": "The model card names NVIDIA Open Model License as governing terms and additionally links Llama 3.3 Community License. The combined value records both named agreements."
+    },
+    "parameters_b": {
+      "value": 49.867145216,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "note": "Exact complete BF16 checkpoint: 49,867,145,216 learned parameters in 568 tensors. Independently reproduced from code/config and every header shape. Let D=8192 and V=128256. Count = 2*V*D + D + 49*(2*D*D + 2*D*1024 + D) + sum(3*D*I + D) over 80 FFNs. I frequencies: 28672×49, 14336×6, 17920×1, 7168×10, 5632×8, 2816×6. Includes input/output embeddings and all norms; excludes nonpersistent RoPE buffers. The name’s 49B is nominal."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s7"
+      ],
+      "note": "The exact card and later September 2025 technical report do not define or separately publish a per-token active count. The dense checkpoint total is not automatically substituted."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s7"
+      ],
+      "note": "Dense decoder-only Transformer customized with Puzzle NAS. Of 80 block slots, 49 retain GQA (64 query heads, 8 KV heads), 31 omit attention, and all 80 retain dense SwiGLU FFNs with variable widths. No experts or router. The report specifically applies FFN Fusion to Ultra; it is not attributed to this Super v1 checkpoint."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Exact model card and configuration agree on 131072 tokens; rounded 128K labels do not change the value. Example serving commands using 32768 are deployment settings."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Exact card explicitly specifies text input and output; this is a language-only causal model."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7"
+      ],
+      "note": "The model is trained for reasoning and supports detailed thinking on/off in the system prompt, with think-tag output. This is documented model behavior rather than a generic prompting inference."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Exact card documents tool-calling SFT and BFCL V2 Live evaluation with a tool-call format; this establishes model capability beyond inherited tokenizer syntax."
+    },
+    "description": {
+      "value": "NVIDIA’s dense Llama 3.3 70B Instruct derivative, compressed through neural architecture search and post-trained for reasoning, chat and tool calling.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7"
+      ],
+      "note": "Replaces the generic claim about specialized agents with the documented base, NAS compression and post-training tasks."
+    }
+  },
+  "patch": {
+    "license": "NVIDIA Open Model License + Llama 3.3 Community License",
+    "parameters_b": 49.867145216,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "description": "NVIDIA’s dense Llama 3.3 70B Instruct derivative, compressed through neural architecture search and post-trained for reasoning, chat and tool calling.",
+    "notes": "Total is the exact 49.867145216B complete BF16 checkpoint; 49B is the nominal model label. The dense NAS architecture has 49 attention blocks and 80 FFNs of varying widths. Active parameters are not separately reported. This is Super v1, not v1.5; the technical report’s FFN Fusion applies to Ultra.",
+    "sources": [
+      {
+        "label": "Exact NVIDIA Super v1 model card",
+        "url": "https://huggingface.co/nvidia/Llama-3_3-Nemotron-Super-49B-v1/blob/387156d8d6868c19f3472fa607aa9bfc4f662333/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned Super v1 configuration",
+        "url": "https://huggingface.co/nvidia/Llama-3_3-Nemotron-Super-49B-v1/resolve/387156d8d6868c19f3472fa607aa9bfc4f662333/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Official custom architecture implementation",
+        "url": "https://huggingface.co/nvidia/Llama-3_3-Nemotron-Super-49B-v1/resolve/387156d8d6868c19f3472fa607aa9bfc4f662333/modeling_decilm.py",
+        "type": "weights"
+      },
+      {
+        "label": "Official complete checkpoint tensor index",
+        "url": "https://huggingface.co/nvidia/Llama-3_3-Nemotron-Super-49B-v1/resolve/387156d8d6868c19f3472fa607aa9bfc4f662333/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Official safetensors headers (first of 21 shards)",
+        "url": "https://huggingface.co/nvidia/Llama-3_3-Nemotron-Super-49B-v1/resolve/387156d8d6868c19f3472fa607aa9bfc4f662333/model-00001-of-00021.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Llama-Nemotron technical report, September 2025 revision",
+        "url": "https://arxiv.org/html/2505.00949v5",
+        "type": "primary"
+      },
+      {
+        "label": "Contemporaneous NVIDIA launch announcement",
+        "url": "https://forums.developer.nvidia.com/t/ai-reasoning-with-llama-nemotron-at-gtc25-announcements/327509",
+        "type": "primary"
+      },
+      {
+        "label": "NVIDIA Open Model License Agreement",
+        "url": "https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-open-model-license/",
+        "type": "primary"
+      },
+      {
+        "label": "Llama 3.3 Community License Agreement",
+        "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3_3/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "NVIDIA Llama Nemotron training and launch article",
+        "url": "https://developer.nvidia.com/blog/build-enterprise-ai-agents-with-advanced-open-nvidia-llama-nemotron-reasoning-models/",
+        "type": "primary"
+      }
+    ]
+  },
+  "summary": "Verified all 14 fields against exact Super v1 primary sources. Replaced nominal name-derived size with the complete 49.867145216B parameter count, supplied dense NAS architecture and both named licenses, and made the description specific. Confirmed March 18, 2025 release, 131072 context, reasoning toggle and tool calling. Active count remains undisclosed; no sibling FFN-fusion claim was transferred."
+}
