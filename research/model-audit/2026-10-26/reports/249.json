@@ -1,7 +1,7 @@
 {
   "index": 249,
   "model_id": "lightonai/lightonocr-3-0.8b",
-  "reviewed_at": "2026-10-26T21:10:06.839494Z",
+  "reviewed_at": "2026-10-27T13:47:47.771911Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "LightOnOCR-3-0.8B exact checkpoint model card",
       "publisher": "LightOn",
       "accessed": true,
-      "evidence": "Identifies the smallest LightOnOCR-3 model, Apache-2.0 release, Qwen3.5 VLM architecture, image/text prompts and text outputs. Supports empty-prompt transcription and grounding; other instructions are out of distribution. It was trained and evaluated with thinking disabled. Examples set 1,024 or 4,096 new output tokens."
+      "evidence": "Identifies the smallest LightOnOCR-3 model, Apache-2.0 release, Qwen3.5 VLM architecture, image/text prompts and text outputs. Supports empty-prompt transcription and grounding; other instructions are out of distribution. It was trained and evaluated with thinking disabled. Examples set 1,024 or 4,096 new output tokens. Reopened October 27: the card identifies the Qwen3.5 architecture but does not name Qwen3.5-0.8B as its base checkpoint or define active parameters."
     },
     {
       "id": "s2",
@@ -41,7 +41,7 @@
       "title": "LightOnOCR-3: High-Performance OCR and Layout Extraction in One Model",
       "publisher": "LightOn",
       "accessed": true,
-      "evidence": "Official release article dated October 8, 2026 lists the exact 0.8B, 1B and 4B variants. Its comparison tables label this variant nominally 0.8B. It distinguishes the 0.8B/4B Qwen3.5 architecture from the 1B predecessor architecture. Discusses packed SFT and GRPO but does not specify this model's training sequence length or an active-parameter count."
+      "evidence": "Official October 8, 2026 release article, reopened October 27. Tables list this exact variant at nominal Size (B) 0.8, without an active column. Says the 0.8B/4B variants adopt Qwen3.5 architecture; explicitly identifies Qwen3.5-4B as the 4B variant base, but supplies no corresponding named-base statement for 0.8B. Describes SFT and GRPO without a separate active count or this variant's training sequence length."
     },
     {
       "id": "s6",
@@ -57,7 +57,7 @@
       "title": "Official model repository metadata",
       "publisher": "LightOn / Hugging Face",
       "accessed": true,
-      "evidence": "Public, ungated repository; current revision 36d8636925327c671bd8e479c517a004f7566bd9, updated October 9, 2026. Repository creation on October 7 does not establish public release. Hub safetensors metadata independently reports 852,985,920 BF16 elements, matching the bounded header count."
+      "evidence": "Reopened October 27: public, ungated repository remains at 36d8636925327c671bd8e479c517a004f7566bd9, last modified October 9, 2026. Hub safetensors metadata still reports 852,985,920 BF16 elements, corroborating the previously verified unique-parameter total. Card metadata has no named base-model relationship. No weights or headers were downloaded during this re-audit."
     },
     {
       "id": "s8",
@@ -66,6 +66,70 @@
       "publisher": "LightOn",
       "accessed": true,
       "evidence": "Default generation prefix closes an empty thinking block; thinking can be enabled syntactically. Template contains tools and video branches inherited from the underlying VLM. Those code paths alone do not establish supported OCR fine-tune capabilities beyond the card's two prompt modes."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/Qwen/Qwen3.5-0.8B/raw/main/README.md",
+      "title": "Qwen3.5-0.8B official model card: language-model scope",
+      "publisher": "Qwen",
+      "accessed": true,
+      "evidence": "Reopened October 27. Model overview places the nominal 0.8B count specifically under Language Model, followed by decoder dimensions and multi-step MTP training. Does not define a separate active count. This scoped Qwen specification alone cannot replace the complete LightOnOCR checkpoint total or establish its active count."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/Qwen/Qwen3.5-0.8B/raw/main/config.json",
+      "title": "Qwen3.5-0.8B official configuration compared with OCR checkpoint",
+      "publisher": "Qwen",
+      "accessed": true,
+      "evidence": "Main decoder and vision dimensions match LightOnOCR-3-0.8B: 24 decoder layers, width 1024, FFN 3584, tied 248320-token embeddings; 12 vision layers, width 768, FFN 3072 and output width 1024. Qwen config has one MTP layer whereas OCR has zero. This difference does not itself define nominal active participation; no count is inherited from architecture similarity."
+    },
+    {
+      "id": "s11",
+      "url": "https://lightonai-lightonocr-benchmark-plots.static.hf.space/",
+      "title": "LightOnOCR-3 original interactive benchmark size plot",
+      "publisher": "LightOn",
+      "accessed": true,
+      "evidence": "Reopened October 27. Exact LightOnOCR-3-0.8B point has size 0.8 on an axis labeled Model parameters (B); method says table counts include nominal backbone sizes where specified. Neither plotted data nor accompanying table labels these as active parameters."
+    },
+    {
+      "id": "s12",
+      "url": "https://app.datalab.to/blog/open-ocr-models-omniparsebench",
+      "title": "Open-source OCR models on OmniParseBench, October 23, 2026",
+      "publisher": "Datalab / Vik Paruchuri",
+      "accessed": true,
+      "evidence": "Original model-research-team benchmark table identifies LightOnOCR-3-0.8B with 0.85B in its parameters column, consistent with the complete 0.85298592B count at rounded precision. The table has no active column; its parameter axis includes the 35.1B full-size Infinity-Parser2-Pro MoE entry. This is comparison-team corroboration, not a LightOn active-count disclosure."
+    },
+    {
+      "id": "s13",
+      "url": "https://www.elastic.co/search-labs/blog/ocr-model-jina-ocr-v1-document-parsing",
+      "title": "Jina-ocr-v1 original research-team comparison with active-parameter columns",
+      "publisher": "Jina AI / Elastic",
+      "accessed": true,
+      "evidence": "Original OCR comparison Table 1 separately lists total and active parameters, including LightOnOCR-2-1B at 1B total and 596M active. It does not identify LightOnOCR-3-0.8B. The predecessor entry cannot establish an active convention for this different Qwen3.5-based variant."
+    },
+    {
+      "id": "s14",
+      "url": "https://arxiv.org/abs/2601.14251",
+      "title": "LightOnOCR paper linked by the current OCR3 model card",
+      "publisher": "LightOn authors / arXiv",
+      "accessed": true,
+      "evidence": "Current linked paper is version 2, revised June 30, 2026, describing LightOnOCR-2-1B. It predates OCR3 and supplies no exact OCR3-0.8B active count or named Qwen3.5-0.8B lineage statement."
+    },
+    {
+      "id": "s15",
+      "url": "https://www.lighton.ai/research/lightonocr-3",
+      "title": "LightOnOCR-3 official research landing page",
+      "publisher": "LightOn",
+      "accessed": true,
+      "evidence": "Reopened October 27. The exact 0.8B variant appears in developer benchmark data at nominal 0.8B model parameters. No distinct active-parameter definition or exact named-base relationship is provided."
+    },
+    {
+      "id": "s16",
+      "url": "https://huggingface.co/lightonai/LightOnOCR-3-0.8B/discussions/2",
+      "title": "Exact model repository discussion: Base models release",
+      "publisher": "Hugging Face community discussion in LightOn repository",
+      "accessed": true,
+      "evidence": "Checked as a lineage lead. The only comment is a non-LightOn user asking for the pre-RL/post-SFT checkpoint; no developer reply identifies an upstream base checkpoint or provides parameter counts. Not treated as developer evidence."
     }
   ],
   "fields": {
@@ -126,12 +190,16 @@
       "value": 0.85298592,
       "status": "verified",
       "source_ids": [
+        "s1",
         "s2",
         "s3",
         "s4",
-        "s7"
+        "s5",
+        "s7",
+        "s11",
+        "s12"
       ],
-      "note": "Complete unique learned-parameter count at revision 36d8636925327c671bd8e479c517a004f7566bd9: 752,393,024 text + 88,004,352 vision encoder + 12,588,544 merger/projector = 852,985,920. Includes text embeddings and learned vision positions; tied output head counted once. A_log/dt_bias are parameters, not buffers. No packed quantization tensors or persistent non-parameter buffers were counted. 0.8B is the nominal release name."
+      "note": "Retain the previously verified complete unique learned-parameter total, 0.85298592B, at unchanged revision 36d8636925327c671bd8e479c517a004f7566bd9. October 27 Hub metadata still reports 852,985,920 BF16 elements. Existing breakdown remains 752,393,024 text + 88,004,352 vision encoder + 12,588,544 merger/projector; tied output head counted once. LightOn separately publishes nominal 0.8B, and Datalab's October 23 comparison reports rounded 0.85B. Qwen's nominal language-model count is component-scoped and does not supersede this complete total. No census was rerun."
     },
     "active_parameters_b": {
       "value": null,
@@ -139,10 +207,17 @@
       "source_ids": [
         "s1",
         "s2",
-        "s4",
-        "s5"
+        "s5",
+        "s9",
+        "s10",
+        "s11",
+        "s12",
+        "s13",
+        "s14",
+        "s15",
+        "s16"
       ],
-      "note": "No separate active-parameter count is defined for this dense OCR VLM in the examined exact card, architecture or first-party comparison tables. Do not copy total into active: vision processing and autoregressive text decoding use different components."
+      "note": "Fresh October 27 search found no separately defined active count for this exact variant. LightOn tables/plot give nominal size; the newer Datalab table gives 0.85B parameters without an active column. Jina/Elastic's explicit active column covers LightOnOCR-2-1B, not OCR3-0.8B. LightOn documents Qwen3.5 architecture but no exact Qwen3.5-0.8B base relationship was found in its card, release, landing page, linked paper or repository discussion. Configs match main decoder and vision dimensions but differ in MTP layers (OCR 0, Qwen 1); that difference alone neither disproves a shared nominal convention nor establishes one. Qwen's card also lacks a separate active count. Neither the complete total nor the 0.752393024B text component is substituted for an undocumented active convention."
     },
     "architecture": {
       "value": "dense",
@@ -213,7 +288,7 @@
     "parameters_b": 0.85298592,
     "parameters_source": "primary_source",
     "architecture": "dense",
-    "notes": "Complete BF16 checkpoint count is 852,985,920 parameters at revision 36d8636925327c671bd8e479c517a004f7566bd9; 0.8B is its nominal name. Includes 752,393,024 text parameters, 88,004,352 vision-encoder parameters and 12,588,544 merger/projector parameters, counting tied embeddings/output head once. Dense Qwen3.5 VLM with a hybrid linear/full-attention decoder; active parameters are not separately disclosed. Context 262,144 is the configured positional capacity; official OCR serving guidance uses 18,000 total sequence tokens. OCR training length and supported long-context OCR quality at 262,144 are not established by the examined primary sources. Thinking is disabled for the trained OCR task; supported prompts are empty or grounding.",
+    "notes": "Complete checkpoint: 852,985,920 parameters; developer nominal size: 0.8B. The count includes text, vision and projection components, with tied embeddings counted once. Active parameters are not separately specified for this variant. Dense Qwen3.5 vision-language architecture. Context 262,144 is configured positional capacity; official OCR serving guidance uses 18,000 total sequence tokens. OCR training length and long-context quality at 262,144 are unestablished. Thinking is disabled for the trained OCR task; supported prompts are empty or grounding.",
     "sources": [
       {
         "label": "LightOnOCR-3-0.8B model card",
@@ -244,9 +319,20 @@
         "label": "Official OCR serving guidance",
         "url": "https://github.com/lightonai/LightOnOCR/blob/36755d461be079737860a5f03ae0c803501269e9/README.md",
         "type": "primary"
+      },
+      {
+        "label": "Official checkpoint metadata, rechecked October 27",
+        "url": "https://huggingface.co/api/models/lightonai/LightOnOCR-3-0.8B",
+        "type": "primary"
+      },
+      {
+        "label": "LightOnOCR-3 developer parameter-size plot",
+        "url": "https://lightonai-lightonocr-benchmark-plots.static.hf.space/",
+        "type": "primary"
       }
     ],
-    "description": "Vision-language model for page transcription, document layout extraction, image descriptions and chart-to-table conversion."
+    "description": "Vision-language model for page transcription, document layout extraction, image descriptions and chart-to-table conversion.",
+    "active_parameters_b": null
   },
   "proposed_fields": {
     "parameter_components_b": {
@@ -255,5 +341,5 @@
       "vision_projector": 0.012588544
     }
   },
-  "summary": "Correct nominal 0.8B to the complete 0.85298592B checkpoint count; verify dense Qwen3.5 hybrid decoder/vision architecture and populate LightOnOCR-3 family. Confirm October 8 release, Apache-2.0 weights, text/image input and OCR modes. Retain configured 262,144-token positional capacity with explicit 18,000-token serving and unknown training-length qualifications. Active parameters remain undisclosed; thinking and tools are not supported OCR modes. All 14 fields audited; only bounded safetensors headers were read."
+  "summary": "October 27 parameter re-audit preserves the verified 0.85298592B complete checkpoint total and the developer's nominal 0.8B designation. Current Hub metadata confirms the same revision and count; the October 23 Datalab comparison corroborates rounded 0.85B. Active parameters remain undisclosed after checking current LightOn sources, original benchmark tables/plot, Qwen card/configuration and the Jina/Elastic active-count comparison (which names the predecessor only). No exact named-base relationship or applicable active convention supports inheritance. All other 12 field assessments and the existing component breakdown are preserved; no weights or headers were downloaded."
 }
