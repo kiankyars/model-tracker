@@ -1,7 +1,7 @@
 {
   "index": 375,
   "model_id": "nvidia/llama-3.1-nemotron-safety-guard-8b-v3",
-  "reviewed_at": "2026-10-27T00:25:41.671189Z",
+  "reviewed_at": "2026-10-27T15:53:54.652585Z",
   "sources": [
     {
       "id": "s1",
@@ -146,6 +146,30 @@
       "publisher": "NVIDIA",
       "accessed": true,
       "evidence": "August 23 card calls this checkpoint Llama-3.1-Nemotron-Safety-Guard-Multilingual-8B-v1 and explicitly dates release August 26, 2025; later renamed in the same repository without changing its four weight shards."
+    },
+    {
+      "id": "s19",
+      "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-Safety-Guard-8B-v3/raw/main/README.md",
+      "title": "Current Safety Guard v3 model card, reopened October 27",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Freshly retrieved October 27, 2026. Explicitly reports 8.03B model parameters and identifies Llama-3.1-8B-Instruct as the base. Describes PEFT with rank 8, alpha 32, q_proj/v_proj LoRA and separately distributed adapters; no pruning, expert expansion or new modality is described. The published nominal total agrees with the retained previously verified merged-checkpoint total."
+    },
+    {
+      "id": "s20",
+      "url": "https://arxiv.org/html/2505.09388v1",
+      "title": "Qwen3 Technical Report, Table 18: exact Llama 3.1 8B Instruct activated count",
+      "publisher": "Qwen Team, Alibaba",
+      "accessed": true,
+      "evidence": "Table 18 explicitly identifies LLaMA-3.1-8B-Instruct and lists 8B under # Activated Params, separately from # Total Params. This is the Qwen research team's nominal benchmark convention for the named base model, not an NVIDIA disclosure for Safety Guard v3. NVIDIA's documented LoRA lineage supports transferring the nominal convention as a labeled inference."
+    },
+    {
+      "id": "s21",
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2025/file/a9ed43fa31dc8b4a7d7a673d713dcb5f-Paper-Conference.pdf",
+      "title": "Jamba-1.5: Hybrid Transformer-Mamba Models at Scale, ICLR 2025 Table 1",
+      "publisher": "AI21 Labs research team",
+      "accessed": true,
+      "evidence": "Freshly downloaded the full original proceedings PDF and read Table 1 (PDF page 5). It independently lists Llama-3.1 8B with 8B Available params and 8B Active params. This corroborates the nominal AI21 comparison convention; Table 18 of Qwen3 more specifically names the Instruct checkpoint used by NVIDIA."
     }
   ],
   "fields": {
@@ -222,19 +246,23 @@
         "s7",
         "s8",
         "s15",
-        "s16"
+        "s16",
+        "s19"
       ],
-      "note": "Exact merged checkpoint count: 8030261248 parameters across 291 BF16 learned tensors; agrees with 8.03B rounded disclosure. Header census matches configuration formula and index bytes. Separate 3407872-parameter LoRA adapter is not added again; no buffers, scales or packed quantized elements counted."
+      "note": "Retain the previously verified merged-checkpoint total of 8.030261248B; the freshly reopened NVIDIA card independently publishes the compatible nominal count 8.03B. The separate LoRA adapter is an alternative distribution, not an additional component of the merged model. This pass did not request weight shards or repeat the earlier tensor census."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 8,
+      "status": "verified",
       "source_ids": [
-        "s1",
+        "s19",
+        "s10",
         "s3",
-        "s10"
+        "s15",
+        "s20",
+        "s21"
       ],
-      "note": "No separately defined active count in the exact cards, configuration or technical report. Dense architecture and exact total do not justify equating active with total; LoRA trainable parameters are not an inference-active count."
+      "note": "Nominal 8B active is a labeled lineage inference. Qwen3 Table 18 explicitly reports 8B activated parameters for the exact Llama-3.1-8B-Instruct base; AI21 Jamba-1.5 Table 1 independently gives Llama-3.1 8B an 8B active count. NVIDIA's card and CultureGuard section 3.3 document LoRA fine-tuning of that named base. Freshly reopened model and adapter configurations retain the Llama architecture, q_proj/v_proj LoRA and no layer replication; no pruning, routed experts or new modalities were found. Transfer the research teams' nominal convention through this unchanged lineage. NVIDIA does not separately publish an exact Safety Guard v3 active count; LoRA trainable parameters are not the active count."
     },
     "architecture": {
       "value": "dense",
@@ -321,7 +349,7 @@
     "description": "Open-weight Llama 3.1 safety fine-tune that generates JSON assessments of prompts and responses across nine languages and 23 safety categories.",
     "source_url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-Safety-Guard-8B-v3",
     "source_type": "primary",
-    "notes": "Exact merged BF16 total is 8,030,261,248 parameters; rounded by NVIDIA to 8.03B. Active count is not separately disclosed. Separate LoRA weights are an alternative distribution and are not added to the merged total. Cards advertise 8K moderation context, although inherited config/tokenizer permit 131072 positions. Earliest release month is August 2025: primary sources disagree between August 1 and August 26; October 28 is the later NIM/Build launch. Same four checkpoint shard objects were verified before and after its rename from Multilingual-8B-v1. This causal LM generates safety JSON; tool-calling capability is unresolved despite inherited template syntax. Dedicated reasoning support is not established by the safety documentation.",
+    "notes": "NVIDIA publishes nominal 8.03B; the previously verified merged-checkpoint total is 8.030261248B. Nominal active 8B follows the Qwen team's explicit Llama-3.1-8B-Instruct comparison count, corroborated by AI21, and is inferred through NVIDIA's documented LoRA lineage. NVIDIA does not separately disclose an exact active count. Separate LoRA weights are not added to the merged total. Cards advertise 8K moderation context, although inherited config/tokenizer permit 131072 positions. Earliest release month is August 2025: primary sources disagree between August 1 and August 26; October 28 is the later NIM/Build launch. Same four checkpoint shard objects were verified before and after its rename from Multilingual-8B-v1. This causal LM generates safety JSON; tool-calling capability is unresolved despite inherited template syntax. Dedicated reasoning support is not established by the safety documentation.",
     "sources": [
       {
         "label": "Llama 3.1 Nemotron Safety Guard 8B v3 model card",
@@ -382,9 +410,25 @@
         "label": "August card for the same checkpoint under its former name",
         "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-Safety-Guard-8B-v3/blob/dd2ec523d8ec5d3af03bd1a3b7e9b1656777164a/README.md",
         "type": "primary"
+      },
+      {
+        "label": "Current Safety Guard v3 model card, reopened October 27",
+        "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-Safety-Guard-8B-v3/raw/main/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Qwen3 Technical Report, Table 18: exact Llama 3.1 8B Instruct activated count",
+        "url": "https://arxiv.org/html/2505.09388v1",
+        "type": "primary"
+      },
+      {
+        "label": "Jamba-1.5: Hybrid Transformer-Mamba Models at Scale, ICLR 2025 Table 1",
+        "url": "https://proceedings.iclr.cc/paper_files/paper/2025/file/a9ed43fa31dc8b4a7d7a673d713dcb5f-Paper-Conference.pdf",
+        "type": "primary"
       }
     ],
-    "reasoning": null
+    "reasoning": null,
+    "active_parameters_b": 8
   },
   "parameter_count_validation": {
     "revision": "8fdc246ba3d56db9c469d534233b9f582d3afafa",
@@ -431,5 +475,5 @@
     "tensor_inventory": "Each of 32 layers: q/o [4096,4096], k/v [1024,4096], gate/up [14336,4096], down [4096,14336], two norm [4096]; plus untied embedding and lm_head [128256,4096] each, final norm [4096]. All 291 entries are learned weights.",
     "adapter_exclusion": "Separate lora_adapter/adapter_model.safetensors has 128 F32 tensors, 3407872 parameters, header bytes 16944. Do not add to already-merged model. Formula: 32*8*((4096+4096)+(4096+1024))."
   },
-  "summary": "Assessed all fourteen fields for the exact v3 model. Establish exact 8.030261248B merged total and dense causal Transformer; active count remains undisclosed. Add both model-license names; correct context to advertised 8K with inherited 128K configuration discrepancy recorded. Correct earliest release to August month precision using explicit primary dates and verified unchanged checkpoint identity; October 28 is a later service launch. Confirm text generation for moderation; clear unsupported reasoning=false and tool_call=false because direct safety JSON and inherited syntax do not establish model-wide capability claims. Dedicated reasoning, tool calling and precise August release day remain unresolved."
+  "summary": "October 27 parameter re-audit retains the previously verified 8.030261248B merged total, freshly corroborated by NVIDIA's nominal 8.03B disclosure. Establishes nominal active 8B as an explicit lineage inference from Qwen3 Table 18's exact Llama-3.1-8B-Instruct activated count, corroborated by AI21 Jamba-1.5 Table 1. Reopened NVIDIA's current card, CultureGuard v4, model configuration and adapter configuration; these document LoRA training of the named base without a structural change that defeats the nominal inference. NVIDIA's exact derivative-specific active count remains unpublished. Preserves the other twelve field assessments and earlier release/context/capability qualifications. No weight shards were requested and no tensor census was performed in this pass."
 }
