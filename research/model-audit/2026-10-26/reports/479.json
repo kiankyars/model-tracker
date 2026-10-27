@@ -1,7 +1,7 @@
 {
   "index": 479,
   "model_id": "rekaai/reka-flash-3",
-  "reviewed_at": "2026-10-27T04:02:21.956940Z",
+  "reviewed_at": "2026-10-27T17:43:07.163845+00:00",
   "sources": [
     {
       "id": "launch",
@@ -9,7 +9,7 @@
       "title": "Reasoning with Reka Flash 3",
       "publisher": "Reka",
       "accessed": true,
-      "evidence": "Dated March 10, 2025. Announces public Flash 3 weights under Apache 2.0 and explicitly attributes function calling to the released model. Separately identifies an improved internal Nexus variant. Gives original release context as 32k."
+      "evidence": "Dated March 10, 2025. Announces public Flash 3 weights under Apache 2.0 and explicitly attributes function calling to the released model. Separately identifies an improved internal Nexus variant. Gives original release context as 32k. Reopened October 27, 2026: directly states nominal 21B and scratch pretraining; its benchmark graphic was visually checked and has performance scores, not an active-parameter measure."
     },
     {
       "id": "card",
@@ -17,7 +17,7 @@
       "title": "Reka Flash 3 model card at pinned release revision",
       "publisher": "RekaAI",
       "accessed": true,
-      "evidence": "Names the model, gives nominal 21B parameters, text conversation format, Llama compatibility and reasoning tags. Describes scratch pretraining and SFT followed by RLOO. Card metadata declares apache-2.0. Nexus application capabilities are not specifications of this checkpoint."
+      "evidence": "Names the model, gives nominal 21B parameters, text conversation format, Llama compatibility and reasoning tags. Describes scratch pretraining and SFT followed by RLOO. Card metadata declares apache-2.0. Nexus application capabilities are not specifications of this checkpoint. Fresh pinned raw card fetched HTTP 200 at 2026-10-27T17:19:21Z and read in this re-audit; still explicitly 21B, with no separate active count."
     },
     {
       "id": "config",
@@ -25,7 +25,7 @@
       "title": "Flash 3 checkpoint configuration",
       "publisher": "RekaAI",
       "accessed": true,
-      "evidence": "LlamaForCausalLM with 44 layers, hidden size 6144, MLP width 19648, 64 query and 8 KV heads, vocabulary 100352, untied word embeddings, no attention bias, BF16, max_position_embeddings 32768 and rope_scaling null. No custom architecture or quantization configuration."
+      "evidence": "LlamaForCausalLM with 44 layers, hidden size 6144, MLP width 19648, 64 query and 8 KV heads, vocabulary 100352, untied word embeddings, no attention bias, BF16, max_position_embeddings 32768 and rope_scaling null. No custom architecture or quantization configuration. Fresh pinned raw configuration fetched HTTP 200 at 2026-10-27T17:19:21Z and read in this re-audit. Independent arithmetic on its count-bearing dimensions reconfirms 20,905,482,240 complete learned parameters."
     },
     {
       "id": "tokenizer",
@@ -41,7 +41,7 @@
       "title": "Flash 3 complete five-shard tensor index",
       "publisher": "RekaAI",
       "accessed": true,
-      "evidence": "Maps 399 learned tensors across five shards; metadata total_size is 41,810,964,480 bytes. Index coverage was checked against every bounded shard header and all enabled Llama modules, not used alone as a parameter count."
+      "evidence": "Maps 399 learned tensors across five shards; metadata total_size is 41,810,964,480 bytes. Index coverage was checked against every bounded shard header and all enabled Llama modules, not used alone as a parameter count. Reopened October 27, 2026 with HTTP 200: still 399 tensor names across five shards. No weight-shard request was made in this re-audit; the prior bounded-header census is retained."
     },
     {
       "id": "shard1",
@@ -121,7 +121,7 @@
       "title": "Later Flash 3.1 reinforcement-learning research",
       "publisher": "Reka",
       "accessed": true,
-      "evidence": "July 10, 2025 post explicitly identifies original Flash 3 as a 21B reasoning model. Its subsequent training changes concern Flash 3.1; it gives no separately defined original Flash 3 active-parameter count."
+      "evidence": "Reopened October 27, 2026. July 10, 2025 post explicitly calls Flash 3.1 an updated version of the original 21B Flash 3 and attributes improvements to a new RL algorithm and infrastructure. The exact named lineage is post-training, not an inferred family resemblance. No active-parameter count is stated; its original comparison graphic was separately inspected."
     },
     {
       "id": "later-quant",
@@ -129,7 +129,7 @@
       "title": "Later Reka quantization research",
       "publisher": "Reka",
       "accessed": true,
-      "evidence": "Reviewed later primary technical material: the quantized release and experiments concern Flash 3.1, not the original Flash 3 checkpoint. Its packing/scales or storage size cannot be transferred to this BF16 release."
+      "evidence": "Reviewed later primary technical material: the quantized release and experiments concern Flash 3.1, not the original Flash 3 checkpoint. Its packing/scales or storage size cannot be transferred to this BF16 release. Reopened October 27, 2026: describes full-network self-distillation while quantizing Flash 3.1, not pruning or an active-parameter census for original Flash 3."
     },
     {
       "id": "later-release",
@@ -137,7 +137,39 @@
       "title": "Later Flash 3.1 release and application variants",
       "publisher": "Reka",
       "accessed": true,
-      "evidence": "Distinguishes Flash 3.1, its quantized release, and customized multimodal/orchestrator application variants. These do not supply missing modality or active-parameter specifications for original Flash 3."
+      "evidence": "Distinguishes Flash 3.1, its quantized release, and customized multimodal/orchestrator application variants. These do not supply missing modality or active-parameter specifications for original Flash 3. Reopened October 27, 2026: explicitly repeats 21B for Flash 3.1 and names the RL update from Flash 3. The separately customized multimodal and orchestrator variants have no demonstrated complete-count equivalence to the public text checkpoint."
+    },
+    {
+      "id": "later-card-reaudit",
+      "url": "https://huggingface.co/RekaAI/reka-flash-3.1/raw/main/README.md",
+      "title": "Flash 3.1 official card: explicit Flash 3 post-training lineage",
+      "publisher": "RekaAI",
+      "accessed": true,
+      "evidence": "Fetched HTTP 200 and read October 27, 2026. Explicitly an update to Reka Flash 3, post-trained using supervised finetuning and large-scale RLOO. It adds no separately stated active count. This named post-training relationship corroborates the size lineage; the BF16 model is distinguished from its quantized release."
+    },
+    {
+      "id": "later-config-reaudit",
+      "url": "https://huggingface.co/RekaAI/reka-flash-3.1/raw/main/config.json",
+      "title": "Flash 3.1 official configuration compared with Flash 3",
+      "publisher": "RekaAI",
+      "accessed": true,
+      "evidence": "Fetched HTTP 200 and read October 27, 2026. Same 44 layers, hidden size 6144, MLP size 19648, 64 query/8 KV heads, head dimension 96, vocabulary 100352 and untied embeddings as original Flash 3. Explicit attention_bias and mlp_bias false. Context increases to 98304, with rotary rather than learned positions; no new count-bearing module or routed-expert active-count definition. Corroborates unchanged text-model dimensions without transferring multimodal application variants."
+    },
+    {
+      "id": "later-comparison-reaudit",
+      "url": "https://framerusercontent.com/images/dPKdD8mHy6IiLchA1JTxv4eYqLI.png",
+      "title": "Original Flash 3.1 research comparison graphic",
+      "publisher": "Reka",
+      "accessed": true,
+      "evidence": "Linked by the July 10, 2025 RL post; fetched HTTP 200 and visually inspected October 27, 2026. Five panels compare Flash 3, Flash 3.1, its quantized variant and other models on LCB-v5/v6, HumanEval+, MBPP+ and BCB-Hard. Axes and figures are benchmark performance, not parameter counts; the graph does not disclose an active-count convention."
+    },
+    {
+      "id": "legacy-report-reaudit",
+      "url": "https://arxiv.org/pdf/2404.12387",
+      "title": "Reka Core, Flash, and Edge: 2024 model identities",
+      "publisher": "Reka team",
+      "accessed": true,
+      "evidence": "Fresh HTTP 200 PDF cache from October 27, 2026 was read, including introduction, Table 2, architecture and version history. Its 21B dense Flash is the 2024 multimodal v1/v1.5 series with sentencepiece tokenizer, 8k standard context and multimodal encoders. It predates the March 2025 scratch-trained Flash 3; no explicit unchanged checkpoint lineage or Flash 3 active count is established, so its size convention is not transferred."
     }
   ],
   "fields": {
@@ -207,9 +239,12 @@
         "llama-code",
         "llama-config",
         "card",
-        "later-rl"
+        "later-rl",
+        "launch",
+        "later-card-reaudit",
+        "later-config-reaudit"
       ],
-      "note": "Exact complete learned parameter count: 20,905,482,240, consistent with nominal 21B. All 399 BF16 tensors across all five indexed shards reconcile to the configured modules. Per layer: q/o weights [6144,6144], k/v [768,6144], gate/up [19648,6144], down [6144,19648], and two [6144] norms; 44 layers contribute 19,672,350,720. Untied input and output matrices [100352,6144] contribute 616,562,688 each, plus final norm 6,144. No missing or extra tensor names, shape mismatches, offset gaps or overlaps. Config/code disable biases and ties; no quantization scales/packing, learned position tensors, MTP or auxiliary heads are enabled. Nonpersistent rotary-frequency buffer is not a learned parameter. Count is from headers/config/code, not file-size division or nominal sibling transfer."
+      "note": "Exact complete learned parameter count: 20,905,482,240, consistent with nominal 21B. All 399 BF16 tensors across all five indexed shards reconcile to the configured modules. Per layer: q/o weights [6144,6144], k/v [768,6144], gate/up [19648,6144], down [6144,19648], and two [6144] norms; 44 layers contribute 19,672,350,720. Untied input and output matrices [100352,6144] contribute 616,562,688 each, plus final norm 6,144. No missing or extra tensor names, shape mismatches, offset gaps or overlaps. Config/code disable biases and ties; no quantization scales/packing, learned position tensors, MTP or auxiliary heads are enabled. Nonpersistent rotary-frequency buffer is not a learned parameter. Count is from headers/config/code, not file-size division or nominal sibling transfer. October 27 re-audit freshly read the pinned card/config and reopened the complete index; independent config arithmetic reconfirms this total without new shard downloads. Reka directly publishes nominal 21B for original Flash 3; the named Flash 3.1 post-training update retains the same count-bearing dimensions and also carries nominal 21B, corroborating rather than replacing the original checkpoint evidence."
     },
     "active_parameters_b": {
       "value": null,
@@ -217,12 +252,16 @@
       "source_ids": [
         "card",
         "config",
-        "llama-code",
+        "launch",
         "later-rl",
         "later-quant",
-        "later-release"
+        "later-release",
+        "later-card-reaudit",
+        "later-config-reaudit",
+        "later-comparison-reaudit",
+        "legacy-report-reaudit"
       ],
-      "note": "No separately defined active-parameter count for original Flash 3 was found in the original card or checked later first-party training/comparison/quantization material. Dense execution does not justify copying complete total into a per-token active-count field; no routed-expert active convention applies."
+      "note": "Remains undisclosed after the October 27 fresh original-source review and bounded searches for exact Flash 3/Flash-3/Flash 3.1 active or activated counts, including later research comparisons and arXiv/ACL leads. Original launch and later RL graphics report benchmark scores only. The explicit Flash 3.1 post-training lineage and unchanged count-bearing dimensions corroborate total size but supply no published active count to transfer. The 2024 multimodal Flash is a different release. Secondary catalog dense-equals-total conventions are not adopted as an original model-team disclosure; no active value is derived from architecture alone."
     },
     "architecture": {
       "value": "dense",
@@ -301,7 +340,7 @@
     "description": "Dense text reasoning model with 20.9B parameters, pretrained from scratch and post-trained with supervised learning and reinforcement learning.",
     "source_url": "https://reka.ai/news/introducing-reka-flash",
     "source_type": "primary",
-    "notes": "Public checkpoint revision 8d251ecb02eca9f0f4aa052b29ef922628d2806f has 20,905,482,240 learned BF16 parameters (nominal 21B), including separate input and output embeddings; no separately defined active count is published. Its config/tokenizer context is 32,768 tokens; current Gateway advertises 64k hosted context. Function calling is an original developer claim about the model, while the current Gateway does not return native tool_calls for this identifier. Nexus and later Flash 3.1 application variants are separate.",
+    "notes": "Public checkpoint revision 8d251ecb02eca9f0f4aa052b29ef922628d2806f has 20,905,482,240 learned parameters (Reka nominal 21B), including separate input and output embeddings. No separately supported active count was found in the original release or later Flash 3.1 research. Its config/tokenizer context is 32,768 tokens; current Gateway advertises 64k hosted context. Function calling is an original developer claim about the model, while the current Gateway does not return native tool_calls for this identifier. Nexus and multimodal application variants are separate.",
     "sources": [
       {
         "label": "Reasoning with Reka Flash 3",
@@ -332,8 +371,14 @@
         "label": "Current Gateway native tool-calling support",
         "url": "https://developer.reka.ai/tool-calling/patterns",
         "type": "primary"
+      },
+      {
+        "label": "Flash 3.1 research: explicit Flash 3 update and nominal size",
+        "url": "https://reka.ai/news/reinforcement-learning-for-reka-flash-3-1",
+        "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": null
   },
   "proposed_fields": {
     "parameter_components_b": {
@@ -343,5 +388,5 @@
       "final_rmsnorm": 6.144e-06
     }
   },
-  "summary": "Verified Apache-2.0 and dense architecture; established exact complete 20.90548224B parameters with all five bounded headers and full module reconciliation. Corrected context to original checkpoint 32768 and tool capability to the original affirmative developer claim, preserving the distinct current Gateway 64k/no-native-tools behavior in notes. Active count remains undisclosed. Replaced unsupported generic description; verified remaining fields."
+  "summary": "October 27 parameter re-audit retained verified 20.90548224B total, consistent with Reka's nominal 21B. Fresh pinned card/config/index and independent config arithmetic reconfirm it without new shard downloads. Reopened Flash 3.1 RL/release/quantization material and current card/config establish explicit post-training lineage and unchanged count-bearing dimensions, but no active count. Original comparison graphics contain only benchmark scores; bounded later-disclosure searches found no qualifying active-count evidence. Active remains explicitly null/undisclosed. The twelve other field assessments and existing component breakdown are unchanged."
 }
