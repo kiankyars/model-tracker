@@ -1,0 +1,435 @@
+{
+  "index": 375,
+  "model_id": "nvidia/llama-3.1-nemotron-safety-guard-8b-v3",
+  "reviewed_at": "2026-10-27T00:25:41.671189Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-Safety-Guard-8B-v3/blob/8fdc246ba3d56db9c469d534233b9f582d3afafa/README.md",
+      "title": "Llama 3.1 Nemotron Safety Guard 8B v3 model card",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Names NVIDIA and the exact v3 Llama-derived safety model; publishes 8.03B total, Transformer architecture, 8K context, text-to-JSON moderation and current license terms. Current release-date line is October 28, 2025."
+    },
+    {
+      "id": "s2",
+      "url": "https://build.nvidia.com/nvidia/llama-3_1-nemotron-safety-guard-8b-v3/modelcard",
+      "title": "Exact v3 NVIDIA NIM model card",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Separately dates Hugging Face release August 1, 2025 and Build/NGC October 28, 2025; gives 8.03B, up to 8K context, nine languages and 23 safety categories."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-Safety-Guard-8B-v3/blob/8fdc246ba3d56db9c469d534233b9f582d3afafa/config.json",
+      "title": "Exact v3 checkpoint configuration",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "LlamaForCausalLM; 32 layers, hidden size 4096, intermediate size 14336, 32 attention heads and eight KV heads of dimension 128; vocabulary 128256, untied embeddings, BF16, no projection biases or quantization; max_position_embeddings 131072."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-Safety-Guard-8B-v3/blob/8fdc246ba3d56db9c469d534233b9f582d3afafa/model.safetensors.index.json",
+      "title": "Exact v3 merged BF16 checkpoint index",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Maps 291 learned weight tensors to four shards; total tensor bytes 16060522496. Header names exactly match this index, with no extras or omissions."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-Safety-Guard-8B-v3/resolve/8fdc246ba3d56db9c469d534233b9f582d3afafa/model-00001-of-00004.safetensors",
+      "title": "Exact v3 BF16 shard 1: tensor header",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "HTTP Range read of the eight-byte header length and JSON header only (9520 bytes total) found 82 BF16 learned weight tensors containing 2488344576 parameters; no scale tensors, buffers, packed tensors or adapter tensors."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-Safety-Guard-8B-v3/resolve/8fdc246ba3d56db9c469d534233b9f582d3afafa/model-00002-of-00004.safetensors",
+      "title": "Exact v3 BF16 shard 2: tensor header",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "HTTP Range read of the eight-byte header length and JSON header only (12128 bytes total) found 104 BF16 learned weight tensors containing 2499895296 parameters; no scale tensors, buffers, packed tensors or adapter tensors."
+    },
+    {
+      "id": "s7",
+      "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-Safety-Guard-8B-v3/resolve/8fdc246ba3d56db9c469d534233b9f582d3afafa/model-00003-of-00004.safetensors",
+      "title": "Exact v3 BF16 shard 3: tensor header",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "HTTP Range read of the eight-byte header length and JSON header only (11664 bytes total) found 100 BF16 learned weight tensors containing 2457952256 parameters; no scale tensors, buffers, packed tensors or adapter tensors."
+    },
+    {
+      "id": "s8",
+      "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-Safety-Guard-8B-v3/resolve/8fdc246ba3d56db9c469d534233b9f582d3afafa/model-00004-of-00004.safetensors",
+      "title": "Exact v3 BF16 shard 4: tensor header",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "HTTP Range read of the eight-byte header length and JSON header only (568 bytes total) found 5 BF16 learned weight tensors containing 584069120 parameters; no scale tensors, buffers, packed tensors or adapter tensors."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-Safety-Guard-8B-v3/blob/8fdc246ba3d56db9c469d534233b9f582d3afafa/inference_script.py",
+      "title": "Exact v3 causal language generation example",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Loads AutoModelForCausalLM and calls model.generate to decode safety JSON. The classification task is implemented through autoregressive text generation, not a sequence-classification head."
+    },
+    {
+      "id": "s10",
+      "url": "https://arxiv.org/html/2508.01710v4",
+      "title": "CultureGuard technical report, version 4",
+      "publisher": "NVIDIA authors",
+      "accessed": true,
+      "evidence": "Explicitly identifies the released final CultureGuard model as Llama-3.1-Nemotron-Safety-Guard-8B-v3. Section 3.3 describes Llama-3.1-8B-Instruct LoRA training with rank 8 and alpha 32. Tables distinguish this model from prior Safety-Guard-V2 and other reasoning models; no active-parameter count is defined."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-Safety-Guard-8B-v3/blob/e85652ef382441d5acb1577466d741314bf671ba/README.md",
+      "title": "October 17 model card with exact v3 name",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "This historical primary card already names Llama-3.1-Nemotron-Safety-Guard-8B-v3 and explicitly gives August 26, 2025 as release date, preceding the later NIM launch."
+    },
+    {
+      "id": "s12",
+      "url": "https://developer.nvidia.com/blog/develop-specialized-ai-agents-with-new-nvidia-nemotron-vision-rag-and-guardrail-models/",
+      "title": "October 28 Nemotron and Safety Guard v3 launch announcement",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "October 28, 2025 announcement introduces Safety Guard v3, nine languages and 23 moderation categories, downloadable weights, NVIDIA NIM availability and NeMo Guardrails integration."
+    },
+    {
+      "id": "s13",
+      "url": "https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-open-model-license/",
+      "title": "NVIDIA Open Model License Agreement",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Agreement permits use, modification and distribution subject to its terms; exact model card separately identifies the additional Llama 3.1 Community License."
+    },
+    {
+      "id": "s14",
+      "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-Safety-Guard-8B-v3/blob/8fdc246ba3d56db9c469d534233b9f582d3afafa/tokenizer_config.json",
+      "title": "Exact v3 tokenizer configuration",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Inherited Llama chat template contains tools and tool_calls branches and model_max_length 131072, but no thinking-mode template. This syntax alone does not establish tool-calling proficiency after the safety fine-tune."
+    },
+    {
+      "id": "s15",
+      "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-Safety-Guard-8B-v3/blob/8fdc246ba3d56db9c469d534233b9f582d3afafa/lora_adapter/adapter_config.json",
+      "title": "Separately distributed LoRA adapter configuration",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "CAUSAL_LM LoRA adapter for meta-llama/Llama-3.1-8B-Instruct: rank 8, alpha 32, targets q_proj and v_proj. Separate adapter is an alternative to the merged checkpoint, not an additional component of it."
+    },
+    {
+      "id": "s16",
+      "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-Safety-Guard-8B-v3/resolve/8fdc246ba3d56db9c469d534233b9f582d3afafa/lora_adapter/adapter_model.safetensors",
+      "title": "Separate LoRA adapter tensor header",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "A 16944-byte header-only range census found 128 F32 low-rank weight tensors containing 3407872 parameters. They are excluded from the merged checkpoint total."
+    },
+    {
+      "id": "s17",
+      "url": "https://huggingface.co/api/models/nvidia/Llama-3.1-Nemotron-Safety-Guard-8B-v3/tree/8fdc246ba3d56db9c469d534233b9f582d3afafa",
+      "title": "Current v3 repository tree and checkpoint continuity",
+      "publisher": "NVIDIA via Hugging Face",
+      "accessed": true,
+      "evidence": "Compared tree metadata for the four safetensors shards at current revision, October 17 e85652ef382441d5acb1577466d741314bf671ba, and August 23 dd2ec523d8ec5d3af03bd1a3b7e9b1656777164a: all four shard objects are identical. The August card used the former Multilingual-8B-v1 name; this is verified repository continuity, not transfer from an unrelated earlier model."
+    },
+    {
+      "id": "s18",
+      "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-Safety-Guard-8B-v3/blob/dd2ec523d8ec5d3af03bd1a3b7e9b1656777164a/README.md",
+      "title": "August card for the same checkpoint under its former name",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "August 23 card calls this checkpoint Llama-3.1-Nemotron-Safety-Guard-Multilingual-8B-v1 and explicitly dates release August 26, 2025; later renamed in the same repository without changing its four weight shards."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Llama 3.1 Nemotron Safety Guard 8B v3",
+      "status": "verified",
+      "source_ids": [
+        "s1"
+      ],
+      "note": "Exact v3 variant; normalize publisher hyphenation to the catalog display name."
+    },
+    "developer": {
+      "value": "NVIDIA",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s10"
+      ],
+      "note": "NVIDIA developed this safety fine-tune; Meta developed its Llama base."
+    },
+    "family": {
+      "value": "nemotron",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s12"
+      ],
+      "note": "NVIDIA markets this model in the Nemotron family."
+    },
+    "release_date": {
+      "value": "2025-08",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s11",
+        "s12",
+        "s17",
+        "s18"
+      ],
+      "note": "Earliest release month supported by explicit primary release dates and unchanged-checkpoint continuity. NVIDIA NIM says Hugging Face August 1; the October 17 exact-v3 card and August card say August 26. Preserve month precision because the day conflicts. October 28 is the later Build/NGC launch and current-card date. Repository creation and paper submission were not used as release evidence."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8"
+      ],
+      "note": "Public original merged BF16 weights and a separate LoRA adapter; tensor headers were retrieved without authentication."
+    },
+    "license": {
+      "value": "NVIDIA Open Model License + Llama 3.1 Community License",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s13"
+      ],
+      "note": "Exact model card names the governing NVIDIA agreement and additional Llama 3.1 license; API trial and NIM container licenses are separate."
+    },
+    "parameters_b": {
+      "value": 8.030261248,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4",
+        "s5",
+        "s6",
+        "s7",
+        "s8",
+        "s15",
+        "s16"
+      ],
+      "note": "Exact merged checkpoint count: 8030261248 parameters across 291 BF16 learned tensors; agrees with 8.03B rounded disclosure. Header census matches configuration formula and index bytes. Separate 3407872-parameter LoRA adapter is not added again; no buffers, scales or packed quantized elements counted."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s10"
+      ],
+      "note": "No separately defined active count in the exact cards, configuration or technical report. Dense architecture and exact total do not justify equating active with total; LoRA trainable parameters are not an inference-active count."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s4",
+        "s9",
+        "s10"
+      ],
+      "note": "Dense decoder-only Llama Transformer with grouped-query attention and dense gated MLPs. Checkpoint has a full language-model head, no routed experts or classifier head. Generates moderation JSON autoregressively."
+    },
+    "context_window": {
+      "value": 8192,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3",
+        "s14"
+      ],
+      "note": "Use the exact safety model cards' advertised up-to-8K context, represented as 8192 tokens. Inherited config/tokenizer allow 131072 positions; that architectural capacity is not evidence that this safety fine-tune is supported or validated at 128K. Baseline 128000 conflicts with the specialized cards."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s9"
+      ],
+      "note": "Text conversations produce JSON text through causal generation. Build card has a stray Video input-format entry, but its input type, exact HF card, config and inference code all establish text-only operation."
+    },
+    "reasoning": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s1",
+        "s9",
+        "s10",
+        "s14"
+      ],
+      "note": "The documented safety task emits direct JSON; the exact card, inference example, tokenizer and technical report do not describe dedicated reasoning training or a thinking control. This supports the documented moderation interface but does not establish a model-wide negative capability claim. Clear the unsupported baseline false."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s1",
+        "s9",
+        "s14"
+      ],
+      "note": "Exact safety documentation specifies moderation JSON, not function calls; however the inherited tokenizer includes tool-call syntax. Neither positive nor categorical negative capability is established for this fine-tune, so clear the baseline false rather than infer capability from the base model or template."
+    },
+    "description": {
+      "value": "Open-weight Llama 3.1 safety fine-tune that generates JSON assessments of prompts and responses across nine languages and 23 safety categories.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s9",
+        "s12"
+      ],
+      "note": "Replace unsupported risk-aware-routing wording with documented scope; retain this autoregressive safety model in the catalog."
+    }
+  },
+  "patch": {
+    "release_date": "2025-08",
+    "date_precision": "month",
+    "license": "NVIDIA Open Model License + Llama 3.1 Community License",
+    "parameters_b": 8.030261248,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "context_window": 8192,
+    "tool_call": null,
+    "description": "Open-weight Llama 3.1 safety fine-tune that generates JSON assessments of prompts and responses across nine languages and 23 safety categories.",
+    "source_url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-Safety-Guard-8B-v3",
+    "source_type": "primary",
+    "notes": "Exact merged BF16 total is 8,030,261,248 parameters; rounded by NVIDIA to 8.03B. Active count is not separately disclosed. Separate LoRA weights are an alternative distribution and are not added to the merged total. Cards advertise 8K moderation context, although inherited config/tokenizer permit 131072 positions. Earliest release month is August 2025: primary sources disagree between August 1 and August 26; October 28 is the later NIM/Build launch. Same four checkpoint shard objects were verified before and after its rename from Multilingual-8B-v1. This causal LM generates safety JSON; tool-calling capability is unresolved despite inherited template syntax. Dedicated reasoning support is not established by the safety documentation.",
+    "sources": [
+      {
+        "label": "Llama 3.1 Nemotron Safety Guard 8B v3 model card",
+        "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-Safety-Guard-8B-v3/blob/8fdc246ba3d56db9c469d534233b9f582d3afafa/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Exact v3 NVIDIA NIM model card",
+        "url": "https://build.nvidia.com/nvidia/llama-3_1-nemotron-safety-guard-8b-v3/modelcard",
+        "type": "primary"
+      },
+      {
+        "label": "Exact v3 checkpoint configuration",
+        "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-Safety-Guard-8B-v3/blob/8fdc246ba3d56db9c469d534233b9f582d3afafa/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Exact v3 merged BF16 checkpoint index",
+        "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-Safety-Guard-8B-v3/blob/8fdc246ba3d56db9c469d534233b9f582d3afafa/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Exact v3 causal language generation example",
+        "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-Safety-Guard-8B-v3/blob/8fdc246ba3d56db9c469d534233b9f582d3afafa/inference_script.py",
+        "type": "primary"
+      },
+      {
+        "label": "CultureGuard technical report, version 4",
+        "url": "https://arxiv.org/html/2508.01710v4",
+        "type": "primary"
+      },
+      {
+        "label": "October 17 model card with exact v3 name",
+        "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-Safety-Guard-8B-v3/blob/e85652ef382441d5acb1577466d741314bf671ba/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "October 28 Nemotron and Safety Guard v3 launch announcement",
+        "url": "https://developer.nvidia.com/blog/develop-specialized-ai-agents-with-new-nvidia-nemotron-vision-rag-and-guardrail-models/",
+        "type": "primary"
+      },
+      {
+        "label": "NVIDIA Open Model License Agreement",
+        "url": "https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-open-model-license/",
+        "type": "primary"
+      },
+      {
+        "label": "Exact v3 tokenizer configuration",
+        "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-Safety-Guard-8B-v3/blob/8fdc246ba3d56db9c469d534233b9f582d3afafa/tokenizer_config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Current v3 repository tree and checkpoint continuity",
+        "url": "https://huggingface.co/api/models/nvidia/Llama-3.1-Nemotron-Safety-Guard-8B-v3/tree/8fdc246ba3d56db9c469d534233b9f582d3afafa",
+        "type": "primary"
+      },
+      {
+        "label": "August card for the same checkpoint under its former name",
+        "url": "https://huggingface.co/nvidia/Llama-3.1-Nemotron-Safety-Guard-8B-v3/blob/dd2ec523d8ec5d3af03bd1a3b7e9b1656777164a/README.md",
+        "type": "primary"
+      }
+    ],
+    "reasoning": null
+  },
+  "parameter_count_validation": {
+    "revision": "8fdc246ba3d56db9c469d534233b9f582d3afafa",
+    "method": "For each indexed safetensors shard, HTTP Range bytes=0-7 yields little-endian uint64 header length; bytes=8-(7+length) yields JSON header. Require HTTP 206 and exact requested length. Exclude __metadata__, sum product(shape), verify name set equals index, and inspect all names/dtypes for non-parameters. No whole weight shard was downloaded.",
+    "tensor_count": 291,
+    "dtype": "BF16",
+    "parameter_count": 8030261248,
+    "header_bytes_read": 33880,
+    "per_shard": [
+      {
+        "file": "model-00001-of-00004.safetensors",
+        "tensor_count": 82,
+        "parameter_count": 2488344576,
+        "header_bytes_read": 9520
+      },
+      {
+        "file": "model-00002-of-00004.safetensors",
+        "tensor_count": 104,
+        "parameter_count": 2499895296,
+        "header_bytes_read": 12128
+      },
+      {
+        "file": "model-00003-of-00004.safetensors",
+        "tensor_count": 100,
+        "parameter_count": 2457952256,
+        "header_bytes_read": 11664
+      },
+      {
+        "file": "model-00004-of-00004.safetensors",
+        "tensor_count": 5,
+        "parameter_count": 584069120,
+        "header_bytes_read": 568
+      }
+    ],
+    "configuration_values": {
+      "vocabulary": 128256,
+      "hidden": 4096,
+      "intermediate": 14336,
+      "layers": 32,
+      "kv_projection_width": 1024
+    },
+    "formula": "2*128256*4096 + 32*(2*4096*4096 + 2*4096*1024 + 3*4096*14336 + 2*4096) + 4096 = 8030261248",
+    "byte_cross_check": "8030261248 * 2 BF16 bytes = 16060522496, exactly index metadata.total_size",
+    "tensor_inventory": "Each of 32 layers: q/o [4096,4096], k/v [1024,4096], gate/up [14336,4096], down [4096,14336], two norm [4096]; plus untied embedding and lm_head [128256,4096] each, final norm [4096]. All 291 entries are learned weights.",
+    "adapter_exclusion": "Separate lora_adapter/adapter_model.safetensors has 128 F32 tensors, 3407872 parameters, header bytes 16944. Do not add to already-merged model. Formula: 32*8*((4096+4096)+(4096+1024))."
+  },
+  "summary": "Assessed all fourteen fields for the exact v3 model. Establish exact 8.030261248B merged total and dense causal Transformer; active count remains undisclosed. Add both model-license names; correct context to advertised 8K with inherited 128K configuration discrepancy recorded. Correct earliest release to August month precision using explicit primary dates and verified unchanged checkpoint identity; October 28 is a later service launch. Confirm text generation for moderation; clear unsupported reasoning=false and tool_call=false because direct safety JSON and inherited syntax do not establish model-wide capability claims. Dedicated reasoning, tool calling and precise August release day remain unresolved."
+}
