@@ -1,7 +1,7 @@
 {
   "index": 260,
   "model_id": "meta/llama-2-70b",
-  "reviewed_at": "2026-10-26T21:24:15Z",
+  "reviewed_at": "2026-10-27T13:56:00.652304Z",
   "sources": [
     {
       "id": "s1",
@@ -17,7 +17,7 @@
       "title": "Llama-2-70b-hf official model card",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "Explicitly identifies this repository as the 70B pretrained model converted to Transformers. Lists Meta as developer, text input/output, nominal 70B, 4k context and GQA; distinguishes Chat variants. Weights require license acceptance."
+      "evidence": "Freshly reopened October 27, 2026. Explicitly identifies this repository as the 70B pretrained model converted to Transformers and lists the released 7B/13B/70B parameter sizes. Lists Meta as developer, text input/output, 4k context and GQA; distinguishes Chat variants. The published size is nominal, and the card does not separately give an active count. Weights require license acceptance."
     },
     {
       "id": "s3",
@@ -25,7 +25,7 @@
       "title": "Original Llama 2 model card, llama_v2 branch",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "Documents the Llama 2 family, pretrained and tuned variants, text-only modalities, custom license, and the 70B row with 4k context and GQA. Does not separately define active parameter counts."
+      "evidence": "Freshly reopened October 27, 2026. Documents the Llama 2 family, pretrained and tuned variants, text-only modalities, custom license, and the 70B Params row with 4k context and GQA. Does not separately define active parameter counts."
     },
     {
       "id": "s4",
@@ -33,7 +33,7 @@
       "title": "Llama 2: Open Foundation and Fine-Tuned Chat Models",
       "publisher": "Meta research authors",
       "accessed": true,
-      "evidence": "Section 2.2 describes standard Transformer, RMSNorm, SwiGLU and RoPE. Appendix A.2.1 specifies 4096-token context and GQA for 70B. Section 5.1 tool-emergence examples concern Llama 2-Chat, not the base checkpoint."
+      "evidence": "Freshly reopened October 27, 2026. Introduction and Table 1 explicitly publish the released Llama 2 7B, 13B and 70B parameter variants. Full-paper searches found no separately reported active/activated parameter count. Section 2.2 describes standard Transformer, RMSNorm, SwiGLU and RoPE. Appendix A.2.1 specifies 4096-token context and GQA for 70B. Section 5.1 tool-emergence examples concern Llama 2-Chat, not the base checkpoint."
     },
     {
       "id": "s5",
@@ -66,6 +66,22 @@
       "publisher": "Meta",
       "accessed": false,
       "evidence": "Unauthenticated direct request returned HTTP 401 requiring approved access. No gated content or weight tensors were downloaded; exact config and checkpoint count are not claimed."
+    },
+    {
+      "id": "s9",
+      "url": "https://arxiv.org/html/2401.04088v1",
+      "title": "Mixtral of Experts \u2014 Tables 2 and 4",
+      "publisher": "Mistral AI research authors",
+      "accessed": true,
+      "evidence": "Freshly reopened October 27, 2026. Section 3 Table 2 explicitly labels its column Active Params and gives LLaMA 2 70B a value of 70B; Table 4 repeats that value. These are base-model benchmark comparisons, separately from Section 4 instruction fine-tuning and its Llama 2 70B Chat comparison. This establishes Mistral's published nominal active-count convention for the exact base model; it is not a Meta activation disclosure or an exact tensor-participation census."
+    },
+    {
+      "id": "s10",
+      "url": "https://arxiv.org/html/2405.04434v1",
+      "title": "DeepSeek-V2 \u2014 Figure 1(a), MMLU versus activated parameters",
+      "publisher": "DeepSeek-AI",
+      "accessed": true,
+      "evidence": "Freshly reopened October 27, 2026 and visually inspected Figure 1(a). The axis is Activated Parameters (Billions), with the explicitly labeled LLaMA 2 70B point at approximately 70B. This independently corroborates the nominal comparison convention at plot precision; it does not supply a more precise count or a Meta-authored disclosure."
     }
   ],
   "fields": {
@@ -126,18 +142,19 @@
       "status": "verified",
       "source_ids": [
         "s2",
-        "s3"
+        "s3",
+        "s4"
       ],
-      "note": "Explicit nominal total in billions for the exact pretrained 70B model. Not a precise tensor count; gated config access is unnecessary to verify the published nominal size."
+      "note": "Fresh Meta model-card and technical-report checks confirm the exact pretrained model's nominal 70B total. Preserve the developer's published precision; no exact checkpoint tensor count is claimed."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 70,
+      "status": "verified",
       "source_ids": [
-        "s3",
-        "s5"
+        "s9",
+        "s10"
       ],
-      "note": "No separately defined active count is supplied. Dense block execution does not establish a unique per-token learned-parameter count, especially for embedding lookup; do not copy total into active."
+      "note": "Mistral's Mixtral paper Tables 2 and 4 explicitly list LLaMA 2 70B at 70B Active Params in base-model comparisons. DeepSeek-V2 Figure 1(a) corroborates approximately 70B activated parameters. The recorded value follows Mistral's nominal benchmark convention, not an inference from dense architecture or a Meta-authored exact per-token count. Meta's original card and report do not separately define active parameters or component participation."
     },
     "architecture": {
       "value": "dense",
@@ -201,7 +218,7 @@
   },
   "patch": {
     "parameters_source": "primary_source",
-    "notes": "70B is Meta's nominal total, not an independently counted checkpoint total. Active parameters and dedicated reasoning/native tool-call support are not separately documented. This is the original pretrained base model with GQA and a 4,096-token context, distributed under the custom Llama 2 Community License. The exact Hugging Face config required authorized access (HTTP 401).",
+    "notes": "70B total is Meta's nominal specification. The nominal 70B active count follows Mistral's Mixtral comparison tables, corroborated approximately by DeepSeek-V2; it is not a Meta disclosure of exact per-token participation. This is the original pretrained base model with GQA and 4,096-token context under the Llama 2 Community License. Dedicated reasoning and native tool-call support remain undocumented.",
     "sources": [
       {
         "label": "Original release announcement",
@@ -237,8 +254,20 @@
         "label": "Original inference README",
         "url": "https://raw.githubusercontent.com/meta-llama/llama/llama_v2/README.md",
         "type": "primary"
+      },
+      {
+        "label": "Mixtral paper: nominal active-parameter comparison",
+        "url": "https://arxiv.org/html/2401.04088v1",
+        "type": "primary"
+      },
+      {
+        "label": "DeepSeek-V2: activated-parameter comparison plot",
+        "url": "https://arxiv.org/html/2405.04434v1",
+        "type": "primary"
       }
-    ]
+    ],
+    "parameters_b": 70,
+    "active_parameters_b": 70
   },
-  "summary": "Confirmed all existing factual values for the exact Llama 2 70B base checkpoint. Added primary provenance and explicit nominal-count/access caveats. Total remains nominal 70B; active count, dedicated reasoning and native tools remain null. Exact gated config was unavailable, with no access bypass or weight download."
+  "summary": "Fresh parameter re-audit confirms Meta's nominal 70B total and changes active parameters from undisclosed to verified nominal 70B using Mistral's original Mixtral Tables 2 and 4 for the exact Llama 2 70B base model. DeepSeek-V2 Figure 1(a) independently corroborates approximately 70B at plot precision. Reopened Meta's official card, original release card and full technical report; searched exact active/activated-count wording and later original comparisons. No separate Meta activation definition or exact tensor-participation count was found, and secondary search results were not used to establish the values. All twelve non-parameter assessments remain unchanged; no weights were downloaded or counted."
 }
