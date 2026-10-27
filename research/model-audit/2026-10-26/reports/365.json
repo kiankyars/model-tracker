@@ -1,7 +1,7 @@
 {
   "index": 365,
   "model_id": "moonshotai/kimi-k3.1-pro",
-  "reviewed_at": "2026-10-27T00:06:46Z",
+  "reviewed_at": "2026-10-27T06:31:00Z",
   "sources": [
     {
       "id": "s1",
@@ -134,10 +134,10 @@
       "note": "No Pro-specific active count is disclosed in the accessed launch/API/model-comparison sources. Original K3's 104.2B table value and rounded 104B card value cannot establish Pro's count without exact equivalence. No packed tensor, scale or storage-element count is substituted."
     },
     "architecture": {
-      "value": null,
-      "status": "unverified",
-      "source_ids": ["s1", "s3", "s6", "s7", "s8"],
-      "note": "The post-training lineage suggests inherited K3 architecture, whose MoE hybrid KDA-MLA structure is documented. The accessed Pro technical blog and comparison table do not explicitly specify its architecture or say that the structure is unchanged; no Pro checkpoint/config was available for verification. Retain null pending exact-variant evidence."
+      "value": "moe",
+      "status": "verified",
+      "source_ids": ["s1", "s6", "s7"],
+      "note": "Architecture classification follows the developer's explicit identification of K3.1 Pro as a post-trained K3 model, combined with K3's documented MoE architecture. This is a lineage-based derivation, not a Pro checkpoint/config inspection; exact tensor dimensions and parameter counts are not independently confirmed."
     },
     "context_window": {
       "value": 1048576,
@@ -172,6 +172,7 @@
   },
   "patch": {
     "license": "proprietary",
+    "architecture": "moe",
     "source_url": "https://www.kimi.com/en/blog/kimi-k3-1-pro",
     "source_type": "primary",
     "sources": [
@@ -179,9 +180,11 @@
       {"label": "Dated Kimi Code launch", "url": "https://www.kimi.com/code/docs/en/kimi-code/whats-new.html", "type": "primary"},
       {"label": "Kimi Code model comparison", "url": "https://www.kimi.com/code/docs/en/kimi-code/models.html", "type": "primary"},
       {"label": "Kimi K3.1 Pro API guide", "url": "https://platform.kimi.ai/docs/guide/kimi-k3-1-pro-quickstart", "type": "primary"},
-      {"label": "Moonshot API service terms", "url": "https://platform.kimi.ai/docs/agreement/modeluse", "type": "primary"}
+      {"label": "Moonshot API service terms", "url": "https://platform.kimi.ai/docs/agreement/modeluse", "type": "primary"},
+      {"label": "Kimi K3 technical report, architecture and Table 1", "url": "https://arxiv.org/html/2607.24653v1", "type": "primary"},
+      {"label": "Kimi K3 original model card", "url": "https://huggingface.co/moonshotai/Kimi-K3", "type": "primary"}
     ],
-    "notes": "As of October 27, 2026, Pro is hosted under proprietary service terms and its full weights are scheduled by November 4; the future weight license is not established. The developer describes Pro as further post-training of K3 and 3T-class, but does not explicitly confirm unchanged exact counts or architecture. Original K3's 2.78T/104.2B report values are not asserted for Pro."
+    "notes": "Moonshot describes K3.1 Pro as a 3T-class model; this scale designation is not an exact 3000B parameter count. MoE architecture follows its explicitly documented post-training lineage from K3 and K3's primary architecture report. Exact Pro total/active counts are not separately established, so original K3's 2.78T/104.2B report values are not asserted for Pro. As of October 27, 2026, Pro is hosted under proprietary service terms and its full weights are scheduled by November 4; the future weight license is not established."
   },
-  "summary": "Confirmed the October 23 hosted launch, model identity, K3 lineage, context, modalities, required reasoning, tools and description. Added proprietary current-service license and primary provenance. Exact total/active counts remain undisclosed for Pro; architecture remains unverified rather than importing the original K3 specifications. Open weights remain false pending the announced November release."
+  "summary": "Confirmed the October 23 hosted launch, model identity, K3 lineage, context, modalities, required reasoning, tools and description. Corrected architecture to MoE through the explicit post-trained-K3 relationship and K3's primary architecture evidence. The developer discloses 3T-class scale; exact Pro total/active counts remain null without transferring original K3's figures. Current hosted-service license is proprietary, and open weights remain false pending the announced November release."
 }
