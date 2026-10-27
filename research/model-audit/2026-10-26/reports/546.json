@@ -1,0 +1,435 @@
+{
+  "index": 546,
+  "model_id": "zhipuai/autoglm-phone-9b-multilingual",
+  "reviewed_at": "2026-10-27T06:00:27.305858Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://huggingface.co/zai-org/AutoGLM-Phone-9B-Multilingual/blob/832ab5e014b965268dafd944e64cbc8e4bade892/README.md",
+      "title": "Exact multilingual model card",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Names AutoGLM-Phone-9B-Multilingual, declares MIT license metadata, identifies GLM-4.1V-9B-Base as its base and identical architecture to GLM-4.1V-9B-Thinking. Includes a research/educational-use warning and links project terms. The warning is recorded rather than interpreting it away."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/zai-org/AutoGLM-Phone-9B-Multilingual/blob/832ab5e014b965268dafd944e64cbc8e4bade892/config.json",
+      "title": "Exact multilingual checkpoint configuration",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Dense GLM4V conditional generation:40 language layers, hidden4096, intermediate13696,32 query/2 KV heads, untied embeddings;24 vision layers, hidden1536. Position limit65536; no MoE routing or quantization config."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/zai-org/AutoGLM-Phone-9B-Multilingual/blob/832ab5e014b965268dafd944e64cbc8e4bade892/model.safetensors.index.json",
+      "title": "Complete multilingual tensor index",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Maps704 learned weight/bias tensors to five BF16 shards. Index metadata total_parameters=934400 is inconsistent with tensors; total_size20585554944 bytes agrees with10,292,777,472 BF16 elements. All indexed names and shapes were reconciled with the model implementation."
+    },
+    {
+      "id": "h1",
+      "url": "https://huggingface.co/zai-org/AutoGLM-Phone-9B-Multilingual/resolve/832ab5e014b965268dafd944e64cbc8e4bade892/model-00001-of-00005.safetensors",
+      "title": "Checkpoint shard1 bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Read only the eight-byte header length and bounded JSON header using HTTP206 ranges, not weight payload. Contains242 indexed BF16 tensors. Across all five headers, all704 unique indexed names/shapes reconcile; no scale, packed, MTP or persistent-buffer entries."
+    },
+    {
+      "id": "h2",
+      "url": "https://huggingface.co/zai-org/AutoGLM-Phone-9B-Multilingual/resolve/832ab5e014b965268dafd944e64cbc8e4bade892/model-00002-of-00005.safetensors",
+      "title": "Checkpoint shard2 bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Read only the eight-byte header length and bounded JSON header using HTTP206 ranges, not weight payload. Contains156 indexed BF16 tensors. Across all five headers, all704 unique indexed names/shapes reconcile; no scale, packed, MTP or persistent-buffer entries."
+    },
+    {
+      "id": "h3",
+      "url": "https://huggingface.co/zai-org/AutoGLM-Phone-9B-Multilingual/resolve/832ab5e014b965268dafd944e64cbc8e4bade892/model-00003-of-00005.safetensors",
+      "title": "Checkpoint shard3 bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Read only the eight-byte header length and bounded JSON header using HTTP206 ranges, not weight payload. Contains156 indexed BF16 tensors. Across all five headers, all704 unique indexed names/shapes reconcile; no scale, packed, MTP or persistent-buffer entries."
+    },
+    {
+      "id": "h4",
+      "url": "https://huggingface.co/zai-org/AutoGLM-Phone-9B-Multilingual/resolve/832ab5e014b965268dafd944e64cbc8e4bade892/model-00004-of-00005.safetensors",
+      "title": "Checkpoint shard4 bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Read only the eight-byte header length and bounded JSON header using HTTP206 ranges, not weight payload. Contains149 indexed BF16 tensors. Across all five headers, all704 unique indexed names/shapes reconcile; no scale, packed, MTP or persistent-buffer entries."
+    },
+    {
+      "id": "h5",
+      "url": "https://huggingface.co/zai-org/AutoGLM-Phone-9B-Multilingual/resolve/832ab5e014b965268dafd944e64cbc8e4bade892/model-00005-of-00005.safetensors",
+      "title": "Checkpoint shard5 bounded tensor header",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Read only the eight-byte header length and bounded JSON header using HTTP206 ranges, not weight payload. Contains1 indexed BF16 tensors. Across all five headers, all704 unique indexed names/shapes reconcile; no scale, packed, MTP or persistent-buffer entries."
+    },
+    {
+      "id": "s4",
+      "url": "https://raw.githubusercontent.com/huggingface/transformers/v5.0.0rc0/src/transformers/models/glm4v/modeling_glm4v.py",
+      "title": "GLM4V reference implementation matching checkpoint configuration",
+      "publisher": "Hugging Face Transformers",
+      "accessed": true,
+      "evidence": "Reviewed all parameter-bearing modules against704 checkpoint tensors:40 dense text decoder blocks,24 vision blocks, patch/position embeddings, downsampler, merger/projector, norms and untied language head. RoPE and position-ID buffers are nonpersistent. Vision MLP width uses out_hidden_size4096; merger uses13696. The complete shape inventory matches exactly."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/zai-org/AutoGLM-Phone-9B-Multilingual/blob/832ab5e014b965268dafd944e64cbc8e4bade892/chat_template.jinja",
+      "title": "Exact multilingual chat template",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Serializes text, image and video content for user/observation messages. Assistant output is textual; no standard tools or tool_calls serialization branches are provided. This does not establish a universal inability to generate calls under other prompting."
+    },
+    {
+      "id": "s6",
+      "url": "https://huggingface.co/zai-org/AutoGLM-Phone-9B-Multilingual/blob/832ab5e014b965268dafd944e64cbc8e4bade892/video_preprocessor_config.json",
+      "title": "Exact multilingual video processor configuration",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Ships Glm4vVideoProcessor configuration with temporal patch2 and sampled video frames. Alongside explicit video branches in the exact chat template, supports checkpoint video input; screenshot-focused agent documentation does not benchmark video performance."
+    },
+    {
+      "id": "s7",
+      "url": "https://github.com/zai-org/Open-AutoGLM/blob/86f55382982fb054e8fc98ca80609dff8a2cdc3c/phone_agent/config/prompts_en.py",
+      "title": "Official multilingual agent prompt",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "English workflow explicitly asks for a think section followed by a single answer action such as do(action=Tap,element=[x,y]) or finish(message=...). It documents reasoning output and the fixed GUI action language, not a general function-calling API."
+    },
+    {
+      "id": "s8",
+      "url": "https://github.com/zai-org/Open-AutoGLM/blob/86f55382982fb054e8fc98ca80609dff8a2cdc3c/phone_agent/model/client.py",
+      "title": "Official agent model client",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Sends ordinary chat-completion messages without a tools parameter; parses textual thinking and do()/finish() actions. Native model output is text; external handler executes device actions."
+    },
+    {
+      "id": "s9",
+      "url": "https://github.com/zai-org/Open-AutoGLM/commit/d4fbb4649c8ca49f8467d95b2fb33f53616c60c8",
+      "title": "Original developer multilingual download announcement",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "December9,2025 15:30:39UTC commit replaces coming-soon wording with exact multilingual HF/ModelScope download links and supported English scenarios. Its preceding December9 README lacks the multilingual release. Used as dated publication of download instructions, not as a bare repository-creation timestamp."
+    },
+    {
+      "id": "s10",
+      "url": "https://github.com/zai-org/Open-AutoGLM/blob/cff3bf97dbb4f5b840230617e1759142b190c295/README_en.md",
+      "title": "December8 project README",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "The December8 project release links only AutoGLM-Phone-9B and explicitly says multilingual version is coming soon. Therefore the December8 general project blog does not date this exact variant."
+    },
+    {
+      "id": "s11",
+      "url": "https://autoglm.z.ai/blog/",
+      "title": "AutoGLM Goes Open Source",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "December8 general project announcement states models MIT and code Apache2.0. Distinguishes model license from framework license; its Chinese-app release predates the exact multilingual download announcement."
+    },
+    {
+      "id": "s12",
+      "url": "https://huggingface.co/api/models/zai-org/AutoGLM-Phone-9B-Multilingual",
+      "title": "Exact checkpoint metadata",
+      "publisher": "Z.ai / Hugging Face",
+      "accessed": true,
+      "evidence": "Public ungated repository, createdDecember9,2025. Inspected revision832ab5e014b965268dafd944e64cbc8e4bade892. Automated safetensors total934400 is erroneous; its BF16 type subtotal agrees with complete header count. Creation timestamp alone is not used for release date."
+    },
+    {
+      "id": "s13",
+      "url": "https://docs.z.ai/guides/vlm/autoglm-phone-multilingual",
+      "title": "Official multilingual product documentation",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Identifies English and Chinese language support, screen understanding, task planning and fixed phone actions. Distinguishes surrounding ADB framework from native model output; it does not document standard function-schema tools support."
+    },
+    {
+      "id": "s14",
+      "url": "https://huggingface.co/zai-org/AutoGLM-Phone-9B-Multilingual/blob/832ab5e014b965268dafd944e64cbc8e4bade892/tokenizer_config.json",
+      "title": "Exact tokenizer configuration",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Contains think/answer tokens and sets tokenizer model_max_length64000. This differs from text model maximum65536 positions; deployment examples can further cap to25480. These are distinct configured limits."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "AutoGLM Phone 9B Multilingual",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s9"
+      ],
+      "note": "Readable catalog name for exact hyphenated checkpoint; not the earlier Chinese-only release."
+    },
+    "developer": {
+      "value": "Z.ai",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s9",
+        "s13"
+      ],
+      "note": "Official zai-org/Z.ai publication; Zhipu developer identifier retained."
+    },
+    "family": {
+      "value": "glm",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "AutoGLM variant derived from GLM-4.1V; normalized GLM family."
+    },
+    "release_date": {
+      "value": "2025-12-09",
+      "status": "verified",
+      "source_ids": [
+        "s9",
+        "s10",
+        "s12"
+      ],
+      "note": "Earliest located original developer publication of exact multilingual download instructions is December 9. December 8 blog is Chinese-only project release; December 10 catalog date is not retained. Repository creation alone is not release proof."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s3",
+        "s12"
+      ],
+      "note": "Complete exact checkpoint is public and ungated, including all five indexed shards."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s11"
+      ],
+      "note": "Explicit checkpoint license metadata and project model-license announcement support MIT; framework code is Apache2.0. Card also contains a research/educational-use warning and linked terms; no legal interpretation or unrestricted-commercial-use claim is made."
+    },
+    "parameters_b": {
+      "value": 10.292777472,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s4",
+        "h1",
+        "h2",
+        "h3",
+        "h4",
+        "h5"
+      ],
+      "note": "Exact learned-parameter inventory at pinned revision: all 704 names/shapes across all five bounded BF16 headers match configured modules. 9,400,279,040 language parameters including separate untied input/output matrices + 892,498,432 visual encoder/projector parameters =10,292,777,472. All tensors are learned weight/bias; nonpersistent RoPE/position buffers, scales and MTP are absent. 9B is a nominal name, not full multimodal total. No full weights downloaded; erroneous934400 index metadata rejected."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "not_applicable",
+      "source_ids": [
+        "s2",
+        "s4"
+      ],
+      "note": "Dense architecture has no routed expert active subset; developer does not define a separate active count. Vision is used during visual input processing, not every text decode step, so total is not copied into active parameters."
+    },
+    "architecture": {
+      "value": "dense",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4"
+      ],
+      "note": "Dense decoder Transformer plus vision Transformer and projector. 40 text layers with dense gated MLPs and 24 vision blocks; no sparse expert routing."
+    },
+    "context_window": {
+      "value": 65536,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s14"
+      ],
+      "note": "Exact checkpoint model position limit; tokenizer advertises 64000 and official serving example caps 25480. Model capacity is recorded, without promising every hosted route accepts 65536."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s5",
+        "s6",
+        "s7"
+      ],
+      "note": "Exact checkpoint template and processor explicitly support video as well as images/text. Product examples specialize in screenshots; this is input-path support, not measured general video quality. Actions are emitted as text and executed externally."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s7",
+        "s8",
+        "s14"
+      ],
+      "note": "Official multilingual workflow explicitly emits a think section and client extracts thinking before action. This is a model workflow capability, not a claim of a standard reasoning-effort API parameter."
+    },
+    "tool_call": {
+      "value": null,
+      "status": "unverified",
+      "source_ids": [
+        "s5",
+        "s7",
+        "s8",
+        "s13"
+      ],
+      "note": "Fixed GUI do()/finish() action generation is verified, but standard function-schema/tool_calls support is not documented in the shipped template/client. Clear unsupported blanket false rather than infer general absence or conflate ADB execution with model API tool calling."
+    },
+    "description": {
+      "value": "Multilingual dense vision-language model that reasons over phone screens and generates text actions for a mobile-control framework.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s7",
+        "s8",
+        "s13"
+      ],
+      "note": "Separates text action generation from external device execution; avoids broad performance claims."
+    }
+  },
+  "patch": {
+    "release_date": "2025-12-09",
+    "date_precision": "day",
+    "parameters_b": 10.292777472,
+    "parameters_source": "primary_source",
+    "architecture": "dense",
+    "reasoning": true,
+    "tool_call": null,
+    "modalities": {
+      "input": [
+        "text",
+        "image",
+        "video"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "description": "Multilingual dense vision-language model that reasons over phone screens and generates text actions for a mobile-control framework.",
+    "source_url": "https://github.com/zai-org/Open-AutoGLM/commit/d4fbb4649c8ca49f8467d95b2fb33f53616c60c8",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Exact multilingual model card",
+        "url": "https://huggingface.co/zai-org/AutoGLM-Phone-9B-Multilingual/blob/832ab5e014b965268dafd944e64cbc8e4bade892/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "Exact multilingual checkpoint configuration",
+        "url": "https://huggingface.co/zai-org/AutoGLM-Phone-9B-Multilingual/blob/832ab5e014b965268dafd944e64cbc8e4bade892/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Complete multilingual tensor index",
+        "url": "https://huggingface.co/zai-org/AutoGLM-Phone-9B-Multilingual/blob/832ab5e014b965268dafd944e64cbc8e4bade892/model.safetensors.index.json",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard1 bounded tensor header",
+        "url": "https://huggingface.co/zai-org/AutoGLM-Phone-9B-Multilingual/resolve/832ab5e014b965268dafd944e64cbc8e4bade892/model-00001-of-00005.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard2 bounded tensor header",
+        "url": "https://huggingface.co/zai-org/AutoGLM-Phone-9B-Multilingual/resolve/832ab5e014b965268dafd944e64cbc8e4bade892/model-00002-of-00005.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard3 bounded tensor header",
+        "url": "https://huggingface.co/zai-org/AutoGLM-Phone-9B-Multilingual/resolve/832ab5e014b965268dafd944e64cbc8e4bade892/model-00003-of-00005.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard4 bounded tensor header",
+        "url": "https://huggingface.co/zai-org/AutoGLM-Phone-9B-Multilingual/resolve/832ab5e014b965268dafd944e64cbc8e4bade892/model-00004-of-00005.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "Checkpoint shard5 bounded tensor header",
+        "url": "https://huggingface.co/zai-org/AutoGLM-Phone-9B-Multilingual/resolve/832ab5e014b965268dafd944e64cbc8e4bade892/model-00005-of-00005.safetensors",
+        "type": "weights"
+      },
+      {
+        "label": "GLM4V reference implementation matching checkpoint configuration",
+        "url": "https://raw.githubusercontent.com/huggingface/transformers/v5.0.0rc0/src/transformers/models/glm4v/modeling_glm4v.py",
+        "type": "primary"
+      },
+      {
+        "label": "Exact multilingual chat template",
+        "url": "https://huggingface.co/zai-org/AutoGLM-Phone-9B-Multilingual/blob/832ab5e014b965268dafd944e64cbc8e4bade892/chat_template.jinja",
+        "type": "weights"
+      },
+      {
+        "label": "Exact multilingual video processor configuration",
+        "url": "https://huggingface.co/zai-org/AutoGLM-Phone-9B-Multilingual/blob/832ab5e014b965268dafd944e64cbc8e4bade892/video_preprocessor_config.json",
+        "type": "weights"
+      },
+      {
+        "label": "Official multilingual agent prompt",
+        "url": "https://github.com/zai-org/Open-AutoGLM/blob/86f55382982fb054e8fc98ca80609dff8a2cdc3c/phone_agent/config/prompts_en.py",
+        "type": "primary"
+      },
+      {
+        "label": "Official agent model client",
+        "url": "https://github.com/zai-org/Open-AutoGLM/blob/86f55382982fb054e8fc98ca80609dff8a2cdc3c/phone_agent/model/client.py",
+        "type": "primary"
+      },
+      {
+        "label": "Original developer multilingual download announcement",
+        "url": "https://github.com/zai-org/Open-AutoGLM/commit/d4fbb4649c8ca49f8467d95b2fb33f53616c60c8",
+        "type": "primary"
+      },
+      {
+        "label": "December8 project README",
+        "url": "https://github.com/zai-org/Open-AutoGLM/blob/cff3bf97dbb4f5b840230617e1759142b190c295/README_en.md",
+        "type": "primary"
+      },
+      {
+        "label": "AutoGLM Goes Open Source",
+        "url": "https://autoglm.z.ai/blog/",
+        "type": "primary"
+      },
+      {
+        "label": "Exact checkpoint metadata",
+        "url": "https://huggingface.co/api/models/zai-org/AutoGLM-Phone-9B-Multilingual",
+        "type": "weights"
+      },
+      {
+        "label": "Official multilingual product documentation",
+        "url": "https://docs.z.ai/guides/vlm/autoglm-phone-multilingual",
+        "type": "primary"
+      },
+      {
+        "label": "Exact tokenizer configuration",
+        "url": "https://huggingface.co/zai-org/AutoGLM-Phone-9B-Multilingual/blob/832ab5e014b965268dafd944e64cbc8e4bade892/tokenizer_config.json",
+        "type": "weights"
+      }
+    ],
+    "notes": "Exact checkpoint count is 10,292,777,472 learned parameters: 9,400,279,040 language parameters including the untied LM head, plus 892,498,432 vision/projector parameters. All 704 tensors across five bounded BF16 headers were reconciled; the published 934400 metadata total is erroneous. Dense active parameters are not separately defined. Multilingual download instructions were published December 9, 2025, after the December 8 Chinese-only release. The model position limit of 65536 differs from the tokenizer limit of 64000 and example serving cap of 25480. Native checkpoint video input is supported, while documented phone use focuses on screenshots. Reasoning and fixed GUI actions are documented; standard function-calling support remains unverified. MIT is declared for weights, alongside a research/educational-use warning; framework code uses Apache 2.0."
+  },
+  "summary": "Audited all 14 fields. Corrects full multimodal total from nominal 9B to exact 10.292777472B after complete bounded-header/module reconciliation, adds dense architecture, corrects multilingual release to December 9, reasoning to true and unverified generic tool support to null. Adds checkpoint video input while qualifying screenshot workflow; retains MIT and 65536 model capacity with documented limitations. No active count equated to dense total."
+}
