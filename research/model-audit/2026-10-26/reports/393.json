@@ -1,0 +1,364 @@
+{
+  "index": 393,
+  "model_id": "nvidia/nemotron-nano-9b-v2",
+  "reviewed_at": "2026-10-27T01:07:03.272149Z",
+  "sources": [
+    {
+      "id": "card",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-9B-v2/blob/6533e8de2c68e4536bf7c411d7a3ce5734111476/README.md",
+      "title": "Pinned Nemotron Nano 9B v2 model card",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Identifies exact aligned NVIDIA model, August 18, 2025 release on Hugging Face and API Catalog, NVIDIA Open Model License, text input/output and 128K context. Explicit hybrid Mamba-2/MLP/four-attention architecture, reasoning controls, function-call serving examples and BFCL evaluation."
+    },
+    {
+      "id": "config",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-9B-v2/blob/6533e8de2c68e4536bf7c411d7a3ce5734111476/config.json",
+      "title": "Pinned Nano 9B v2 checkpoint configuration",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "NemotronHForCausalLM with 56 blocks: 27 Mamba, 25 dense MLP and four attention. Width 4480, vocabulary 131072, untied input/output matrices, MLP width 15680, 40 query/eight KV heads with explicit head dimension 128. Mamba uses 128 heads of width 80, eight groups and state width 128. Context maximum 131072; BF16."
+    },
+    {
+      "id": "code",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-9B-v2/blob/6533e8de2c68e4536bf7c411d7a3ce5734111476/modeling_nemotron_h.py",
+      "title": "Pinned exact-model implementation",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Defines all enabled embedding, norm, Mamba, attention and dense MLP constructors. Mamba A_log, D and dt_bias are learned nn.Parameters, as are gated norm weights. No routers, experts, quantization scales, MTP modules or persistent buffers are instantiated by this exact model. Attention honors explicit 128 head dimension after width pruning."
+    },
+    {
+      "id": "configuration",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-9B-v2/blob/6533e8de2c68e4536bf7c411d7a3ce5734111476/configuration_nemotron_h.py",
+      "title": "Pinned configuration implementation",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Maps M, -, * symbols to Mamba, MLP and attention. Confirms default bias and convolution settings, untied embeddings and explicit attention head dimension used in reconstruction."
+    },
+    {
+      "id": "index",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-9B-v2/blob/6533e8de2c68e4536bf7c411d7a3ce5734111476/model.safetensors.index.json",
+      "title": "Pinned checkpoint tensor index",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Maps 341 tensor names to four original BF16 shards; total_size is 17776454656 bytes. No serialized parameter total is assumed."
+    },
+    {
+      "id": "headers",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-9B-v2/resolve/6533e8de2c68e4536bf7c411d7a3ce5734111476/model-00001-of-00004.safetensors",
+      "title": "Bounded headers from all four original shards",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Read all four eight-byte prefixes and exact JSON headers with verified HTTP 206 Content-Range, reading 37856 bytes total. Independently reconstructed every name/shape/dtype and checked contiguous offsets and physical lengths. All 341 tensors are learned BF16 weights totaling 8888227328 parameters; no full weight payload downloaded."
+    },
+    {
+      "id": "tokenizer",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-9B-v2/blob/6533e8de2c68e4536bf7c411d7a3ce5734111476/tokenizer_config.json",
+      "title": "Pinned reasoning and tool-call template",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Embedded chat_template implements /think and /no_think, serializes available function definitions, TOOLCALL JSON and TOOL_RESPONSE results. Reasoning prefix is enabled by default."
+    },
+    {
+      "id": "report",
+      "url": "https://arxiv.org/html/2508.14444v4",
+      "title": "Nano 2 technical report, revision 4",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Latest listed revision dated September 2, 2025. Section 4 selects the 56-layer, width-4480, FFN-15680 candidate with rounded 8.89B parameters and describes its post-training and distillation. Four attention layers and exact model reasoning/tool evaluations support the card. Training used some 262144-token sequences, but supported deployment context is explicitly 128K. No separately defined active-parameter count is given."
+    },
+    {
+      "id": "history",
+      "url": "https://arxiv.org/abs/2508.14444",
+      "title": "Nano 2 report revision history",
+      "publisher": "NVIDIA authors / arXiv",
+      "accessed": true,
+      "evidence": "First submitted August 20, 2025; current version 4 September 2. The paper date is later than the explicit model release, so is not substituted for it."
+    },
+    {
+      "id": "announcement",
+      "url": "https://research.nvidia.com/labs/adlr/NVIDIA-Nemotron-Nano-2/",
+      "title": "August 18 Nano 2 release announcement",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Dated August 18, 2025 and explicitly releases this exact aligned and pruned reasoning checkpoint alongside separately named base models. All three are documented as 128K-capable; exact identity is linked."
+    },
+    {
+      "id": "license",
+      "url": "https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-open-model-license/",
+      "title": "NVIDIA Open Model License Agreement",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Governing URL named by this exact card resolves to NVIDIA Open Model License Agreement, last modified October 24, 2025. This is distinct from later OpenMDW and NVIDIA Open Model Agreement terms."
+    },
+    {
+      "id": "ngc",
+      "url": "https://catalog.ngc.nvidia.com/orgs/nim/nvidia/containers/nvidia-nemotron-nano-9b-v2/latest",
+      "title": "Experimental NGC container listing",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Listing describes the exact model but claims August 15, 2025 Hugging Face/NGC release using generic homepage links. It is labeled Experimental, shows a staging container tag and an October 15 update. This conflicts with exact checkpoint/API cards and the contemporary August 18 release announcement; earlier public availability is not independently established."
+    },
+    {
+      "id": "api",
+      "url": "https://docs.api.nvidia.com/nim/reference/nvidia-nvidia-nemotron-nano-9b-v2",
+      "title": "NVIDIA API model reference",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Exact-model primary API reference explicitly gives August 18, 2025 HF/API release, Mamba2-Transformer hybrid, 128K text context, reasoning budget control, BFCL tool evaluation and governing model license. Accessed full indexed primary page; the obsolete /re/reference path returned 404."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Nemotron Nano 9B v2",
+      "status": "verified",
+      "source_ids": [
+        "card"
+      ],
+      "note": "Readable formatting of the exact released aligned/pruned 9B v2 identifier; not the base model or 12B parent."
+    },
+    "developer": {
+      "value": "NVIDIA",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "announcement"
+      ],
+      "note": "Exact card names NVIDIA Corporation; retained."
+    },
+    "family": {
+      "value": "nemotron",
+      "status": "verified",
+      "source_ids": [
+        "card"
+      ],
+      "note": "Explicit Nemotron family identity; retained."
+    },
+    "release_date": {
+      "value": "2025-08-18",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "announcement",
+        "api",
+        "ngc"
+      ],
+      "note": "Exact checkpoint card, API reference and contemporary announcement agree on August 18. Experimental NGC container says August 15 with generic links and staging tag; discrepancy retained, without treating an uncorroborated earlier listing date as confirmed availability."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "index",
+        "headers"
+      ],
+      "note": "Original BF16 shards are publicly accessible without authentication; all four bounded header requests succeeded."
+    },
+    "license": {
+      "value": "NVIDIA Open Model License",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "license"
+      ],
+      "note": "Uses the exact model-card-linked governing agreement, not a later sibling license."
+    },
+    "parameters_b": {
+      "value": 8.888227328,
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "code",
+        "configuration",
+        "index",
+        "headers",
+        "report"
+      ],
+      "note": "Complete unique learned checkpoint count of 8888227328 BF16 elements across 341 tensors. Includes both untied embeddings, all norms and learned Mamba A_log/D/dt_bias. No stored buffers, quantization or MTP. Independently reconstructed shapes and payload sizes agree; report selected candidate rounds to 8.89B."
+    },
+    "active_parameters_b": {
+      "value": null,
+      "status": "undisclosed",
+      "source_ids": [
+        "card",
+        "config",
+        "code",
+        "report",
+        "api"
+      ],
+      "note": "No separately defined active-parameter count found in exact-model primary documentation or latest technical report. This hybrid uses dense MLPs and no expert routing; total is not silently substituted for per-token activity."
+    },
+    "architecture": {
+      "value": "hybrid-ssm-transformer",
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "code",
+        "configuration",
+        "report"
+      ],
+      "note": "27 Mamba-2, 25 dense two-matrix ReLU2 MLP and four GQA attention blocks. No MoE router or routed experts. Explicit head dimension is 128 even though the pruned hidden width divided by query heads is 112."
+    },
+    "context_window": {
+      "value": 131072,
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "card",
+        "report"
+      ],
+      "note": "Exact config maximum is 131072, resolving the advertised 128K. The report describes longer training sequences but does not claim them as this released model\u2019s supported maximum."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "config",
+        "code"
+      ],
+      "note": "Exact card and implementation are text-only; no vision/audio/video encoder or generation component."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "tokenizer",
+        "report"
+      ],
+      "note": "Explicit trained reasoning traces, configurable /think and /no_think and thinking budgets; exact checkpoint template implements them."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "tokenizer",
+        "report"
+      ],
+      "note": "Exact card provides native tool-serving and client examples, template serializes tool calls/results, and model is evaluated on BFCL. Not inferred solely from agent branding."
+    },
+    "description": {
+      "value": "Text model pruned and distilled from Nemotron Nano 12B v2, combining Mamba-2, attention and dense MLP layers with configurable reasoning and tool calling.",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "config",
+        "report"
+      ],
+      "note": "Concrete architecture, lineage and supported capabilities; removes unsupported efficiency and agent marketing."
+    }
+  },
+  "patch": {
+    "license": "NVIDIA Open Model License",
+    "parameters_b": 8.888227328,
+    "parameters_source": "primary_source",
+    "architecture": "hybrid-ssm-transformer",
+    "description": "Text model pruned and distilled from Nemotron Nano 12B v2, combining Mamba-2, attention and dense MLP layers with configurable reasoning and tool calling.",
+    "source_url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-9B-v2/blob/6533e8de2c68e4536bf7c411d7a3ce5734111476/README.md",
+    "source_type": "primary",
+    "notes": "Complete BF16 checkpoint contains 8.888227328B learned parameters, consistent with the technical report\u2019s rounded 8.89B candidate. Active parameters are not separately specified. August 18 is the explicit checkpoint/API release date and announcement date; an experimental NGC container lists August 15 without corroborating earlier public availability.",
+    "sources": [
+      {
+        "label": "Pinned Nemotron Nano 9B v2 model card",
+        "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-9B-v2/blob/6533e8de2c68e4536bf7c411d7a3ce5734111476/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned Nano 9B v2 checkpoint configuration",
+        "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-9B-v2/blob/6533e8de2c68e4536bf7c411d7a3ce5734111476/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned exact-model implementation",
+        "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-9B-v2/blob/6533e8de2c68e4536bf7c411d7a3ce5734111476/modeling_nemotron_h.py",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned checkpoint tensor index",
+        "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-9B-v2/blob/6533e8de2c68e4536bf7c411d7a3ce5734111476/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Nano 2 technical report, revision 4",
+        "url": "https://arxiv.org/html/2508.14444v4",
+        "type": "primary"
+      },
+      {
+        "label": "August 18 Nano 2 release announcement",
+        "url": "https://research.nvidia.com/labs/adlr/NVIDIA-Nemotron-Nano-2/",
+        "type": "primary"
+      },
+      {
+        "label": "NVIDIA Open Model License Agreement",
+        "url": "https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-open-model-license/",
+        "type": "primary"
+      }
+    ]
+  },
+  "checkpoint_reconstruction": {
+    "repository": "nvidia/NVIDIA-Nemotron-Nano-9B-v2",
+    "revision": "6533e8de2c68e4536bf7c411d7a3ce5734111476",
+    "learned_parameters": 8888227328,
+    "learned_tensors": 341,
+    "buffer_tensors": 0,
+    "components": {
+      "input_embedding": 587202560,
+      "output_head": 587202560,
+      "norms": 255360,
+      "mamba": 3981045888,
+      "mlp": 3512320000,
+      "attention": 220200960
+    },
+    "layer_pattern": {
+      "M": 27,
+      "-": 25,
+      "*": 4
+    },
+    "shards": [
+      {
+        "file": "model-00001-of-00004.safetensors",
+        "header_bytes": 9704,
+        "payload_bytes": 4924813824,
+        "file_bytes": 4924823528
+      },
+      {
+        "file": "model-00002-of-00004.safetensors",
+        "header_bytes": 12376,
+        "payload_bytes": 4937494784,
+        "file_bytes": 4937507160
+      },
+      {
+        "file": "model-00003-of-00004.safetensors",
+        "header_bytes": 11472,
+        "payload_bytes": 4871551744,
+        "file_bytes": 4871563216
+      },
+      {
+        "file": "model-00004-of-00004.safetensors",
+        "header_bytes": 4304,
+        "payload_bytes": 3042594304,
+        "file_bytes": 3042598608
+      }
+    ],
+    "header_bytes_read": 37856,
+    "payload_bytes": 17776454656,
+    "all_names_shapes_dtypes_offsets_sizes_match": true,
+    "index_metadata": {
+      "total_size": 17776454656
+    },
+    "definition": "Complete learned unique BF16 checkpoint; untied input/output embeddings counted separately, Mamba A_log/D/dt_bias learned, no stored buffers/quantization/MTP.",
+    "reproduction": "/tmp/model-audit-393/count.py",
+    "runtime_constructor_review": "Static review of all enabled constructors found no additional learned module weights beyond the 341 reconstructed checkpoint tensors. Mamba gated RMSNorm and block/final norms each have one learned vector; attention and MLP bias flags are false, convolution bias true; input and output matrices are untied. No external model constructor dependency or extra head is active."
+  },
+  "summary": "Audited all 14 fields. Replaced nominal 9B with independently reconstructed complete 8.888227328B count, added hybrid SSM/Transformer architecture and exact governing license, and rewrote description. Confirmed 131072 context, text, reasoning and tools. Active count remains undisclosed. Retained August 18 release with experimental NGC August 15 discrepancy documented."
+}
