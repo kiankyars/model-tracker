@@ -1,7 +1,7 @@
 {
   "index": 367,
   "model_id": "morph/morph-v3-large",
-  "reviewed_at": "2026-10-27T00:08:35.324639Z",
+  "reviewed_at": "2026-10-27T07:17:49.300Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Morph public model metadata",
       "publisher": "Morph",
       "accessed": true,
-      "evidence": "Exact morph-v3-large entry names v3 Large Apply, describes complex code editing, and declares text input/output, 262144 input-context tokens and 131072 output tokens. Its created timestamp is shared across current entries, so is not treated as a launch date."
+      "evidence": "Exact morph-v3-large entry names v3 Large Apply, describes complex code editing, and declares text input/output, 262144 input-context tokens and 131072 output tokens. Its created timestamp is shared across current entries, so is not treated as a launch date. Reopened for the October 27 parameter re-audit: the exact Large entry still contains neither a total/active parameter count nor a named base-model or Hugging Face lineage identifier."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "Morph complete API documentation: Apply API and Code Apply API",
       "publisher": "Morph",
       "accessed": true,
-      "evidence": "Apply tables explicitly distinguish morph-v3-large from morph-v3-fast and auto. Large is for complex changes; requests carry original code, edit snippet and optional instructions, and return merged code. Full-document exact-variant occurrences were inspected; no exact-variant parameter count, backbone classification or explicit negative reasoning/tool capability classification was found."
+      "evidence": "Reopened and searched the complete documentation for exact Large mentions, nominal counts, base-model and fine-tuning statements on October 27. Apply tables distinguish morph-v3-large from morph-v3-fast and auto; Large is for complex changes. The Apply Model page repeats a generic 7B speed claim, while the CLI explicitly calls Large the larger model. No exact Large total/active count or named base-model lineage was found. The earlier capability assessment remains unchanged."
     },
     {
       "id": "s3",
@@ -25,7 +25,7 @@
       "title": "Fast Apply: Code Merging at 10,500 tok/s for AI Agents",
       "publisher": "Morph",
       "accessed": true,
-      "evidence": "March 5, 2026 page distinguishes Large at 5000+ tok/s from Fast at 10500+ tok/s, with both listed at 262K context. Describes external agent planning and code merging. Generic 7B statements accompany the 10500 tok/s offering and do not explicitly assign a count to the Large row."
+      "evidence": "Reopened March 5, 2026 guide for the October 27 re-audit. Its developer-published 7B nominal count accompanies 10500 tok/s and $0.80/M input, matching the Fast row. The separate Large row gives 5000+ tok/s and $0.90/M input without a parameter count. The architecture and FAQ repeat the generic 7B claim but do not explicitly map it to Large or identify a base checkpoint."
     },
     {
       "id": "s4",
@@ -49,7 +49,7 @@
       "title": "Optimizing Models to Be Fast at Codegen",
       "publisher": "Morph",
       "accessed": true,
-      "evidence": "June 19, 2026 first-party research discusses Fast Apply, trained speculators and optimized serving. It gives no morph-v3-large total/active count or exact backbone. Counts for hosted open models and example drafters are not Large specifications."
+      "evidence": "Reopened June 19, 2026 first-party research. It describes trained speculators and optimized serving, including an under-30B small-model discussion, but gives no exact morph-v3-large count or named backbone. Its Qwen weights statement concerns hosted open-model serving and does not identify Large as a particular Qwen fine-tune. Neither those examples nor drafter sizes support an inherited Large count."
     },
     {
       "id": "s7",
@@ -82,6 +82,22 @@
       "publisher": "Models.dev",
       "accessed": true,
       "evidence": "Baseline lead was inspected. Its comment says lab metadata was carried over from the OpenRouter catalog; it asserts July 7 and false reasoning/tools without cited primary capability classification, and contains the unsupported generic flagship description."
+    },
+    {
+      "id": "s11",
+      "url": "https://docs.morphllm.com/models/apply",
+      "title": "Apply Model - Morph Documentation",
+      "publisher": "Morph",
+      "accessed": true,
+      "evidence": "Freshly inspected October 27. The overview attributes 10500-token/s code merging to a nominal 7B model. The adjacent table lists morph-v3-fast at 10500+ tok/sec and morph-v3-large at 2500+ tok/sec, and its example selects morph-v3-fast. No Large-specific total/active count or explicit named base-model lineage is given."
+    },
+    {
+      "id": "s12",
+      "url": "https://docs.morphllm.com/cli",
+      "title": "morph CLI - Morph Documentation",
+      "publisher": "Morph",
+      "accessed": true,
+      "evidence": "Freshly fetched directly with HTTP 200 and cross-checked against llms-full.txt on October 27 after the web extractor could not open this URL. The Apply an edit section calls morph-v3-large the larger model. This supports treating it as a distinct size option, but supplies no numeric count, dense/MoE classification or named base checkpoint."
     }
   ],
   "fields": {
@@ -148,9 +164,11 @@
         "s1",
         "s2",
         "s3",
-        "s6"
+        "s6",
+        "s11",
+        "s12"
       ],
-      "note": "The generic Fast Apply 7B claim cannot be assigned confidently to v3 Large: the same page ties it to 10500 tok/s and lists Large separately at 5000+. Exact model tables and later research do not resolve the mapping. No sibling count transferred."
+      "note": "Fresh October 27 search did not establish a nominal total for morph-v3-large or explicit fine-tune/post-training lineage to a named base model. Morph publishes 7B for generic Fast Apply beside the 10500 tok/s and $0.80/M offering, while its tables separate Large and its CLI calls Large the larger model. The unresolved issue is exact-variant attribution, not a missing tensor census; neither the sibling 7B claim nor an illustrative Qwen/drafter size is transferred."
     },
     "active_parameters_b": {
       "value": null,
@@ -159,9 +177,11 @@
         "s1",
         "s2",
         "s3",
-        "s6"
+        "s6",
+        "s11",
+        "s12"
       ],
-      "note": "No active-parameter count is disclosed for v3 Large in the reviewed primary model tables, API documentation or later research. Neither dense structure nor total-equals-active is assumed."
+      "note": "Rechecked separately on October 27: no active-parameter count or active counting convention for morph-v3-large appears in the exact metadata, complete docs, Apply Model page or later inference research. No exact Large dense/MoE classification or named-base lineage was established, so active parameters are not inferred from the generic 7B total or from serving speed."
     },
     "architecture": {
       "value": null,
@@ -278,9 +298,22 @@
         "label": "OpenRouter provider listing",
         "url": "https://openrouter.ai/morph/morph-v3-large",
         "type": "catalog"
+      },
+      {
+        "label": "Morph Apply model specification",
+        "url": "https://docs.morphllm.com/models/apply",
+        "type": "primary"
+      },
+      {
+        "label": "Morph CLI Large model distinction",
+        "url": "https://docs.morphllm.com/cli",
+        "type": "primary"
       }
     ],
-    "notes": "V3 Large is a specialized code-apply model, distinct from V3 Fast and Morph-hosted general coding models. Generic Fast Apply 7B statements are not clearly assigned to Large; total parameters and backbone remain unverified, and active parameters are not disclosed in reviewed sources. July 7, 2025 is a provider-catalog date, not a verified original release. Reasoning/tool-call support remains unverified because absent metadata is not a negative classification. Current documented specifications were checked; endpoint operation was not tested."
+    "notes": "V3 Large is a specialized code-apply model, distinct from V3 Fast and Morph-hosted general coding models. The October 27 parameter re-audit reopened exact metadata, full documentation, the Fast Apply guide and later inference research, and searched for nominal counts and explicit base-model lineage. The generic developer 7B claim accompanies the Fast-speed/pricing offering; the CLI explicitly calls V3 Large the larger model. No nominal Large total or named base checkpoint was established, so total remains unverified and active count undisclosed. This is an attribution limitation, not a requirement for an exact tensor census. Backbone remains unverified. July 7, 2025 is a provider-catalog date, not a verified original release. Reasoning/tool-call support remains unverified because absent metadata is not a negative classification. Current documented specifications were checked; endpoint operation was not tested.",
+    "parameters_b": null,
+    "active_parameters_b": null,
+    "parameters_source": null
   },
-  "summary": "Corrects the description to specialized code editing and adds proprietary licensing. Confirms exact first-party 262144-token context and text modalities. Clears unsupported exact release date and negative reasoning/tool-call assertions. Total size and architecture remain unresolved because generic Fast Apply disclosures do not identify v3 Large; active count remains undisclosed in reviewed sources."
+  "summary": "October 27 parameter re-audit leaves total parameters unverified and active parameters undisclosed after fresh primary-source and lineage searches. Newly checked Apply Model and CLI documentation distinguish the generic 7B Fast offering from V3 Large, explicitly described as the larger model, without giving Large a numeric size or named base. Preserves the earlier specialized-code-editing description, proprietary licensing, verified context/modalities and unresolved release/capability assessments."
 }
