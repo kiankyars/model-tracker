@@ -1,7 +1,7 @@
 {
   "index": 407,
   "model_id": "openai/gpt-4.1-nano",
-  "reviewed_at": "2026-10-27T01:35:34.525396Z",
+  "reviewed_at": "2026-10-27T01:42:03.667055Z",
   "sources": [
     {
       "id": "s1",
@@ -73,7 +73,7 @@
       "title": "Prompt Caching 201",
       "publisher": "OpenAI",
       "accessed": true,
-      "evidence": "Discusses Transformer attention in general and lists full GPT-4.1 in a pricing table; it never names GPT-4.1 nano. This was checked as an architecture lead and does not establish the exact nano architecture."
+      "evidence": "February 18, 2026 OpenAI guide describes pre-GPT-5.6 API prompt caching through Transformer attention layers and key/value tensors. Although its examples name full GPT-4.1 rather than nano, the exact nano model documentation independently lists prompt_caching support; combining that explicit support with the documented mechanism supports a broad operational architecture inference, not complete block structure or routing."
     }
   ],
   "fields": {
@@ -150,16 +150,13 @@
       "note": "No per-token active count disclosed for this variant; no assumed equality with total or sibling count."
     },
     "architecture": {
-      "value": null,
-      "status": "unverified",
+      "value": "transformer",
+      "status": "verified",
       "source_ids": [
-        "s1",
         "s2",
-        "s7",
-        "s8",
         "s9"
       ],
-      "note": "Exact-name searches across first-party architecture, training and interpretability material found no supported nano structure. General Transformer explanations and sibling names are insufficient to assign dense, MoE or broad Transformer here."
+      "note": "Cross-source operational inference: exact nano documentation explicitly supports prompt_caching, and OpenAI describes the applicable pre-GPT-5.6 mechanism as Transformer attention and key/value caching. This establishes a Transformer attention stack, not exclusively Transformer layers, a complete block inventory, dense/MoE routing or parameter counts. It does not depend on transferring the full GPT-4.1 table row."
     },
     "context_window": {
       "value": 1047576,
@@ -270,9 +267,15 @@
         "label": "Supervised fine-tuning",
         "url": "https://developers.openai.com/api/docs/guides/supervised-fine-tuning",
         "type": "primary"
+      },
+      {
+        "label": "Prompt Caching 201",
+        "url": "https://developers.openai.com/cookbook/examples/prompt_caching_201",
+        "type": "primary"
       }
     ],
-    "notes": "Release date is the April 14, 2025 API launch. The last documented default snapshot is gpt-4.1-nano-2025-04-14; OpenAI lists both it and the alias as shut down on October 23, 2026. Specifications describe the historical model. PDF denotes API file input processed as extracted text and page images. Total and active parameter counts remain undisclosed, and exact architecture was not verified."
+    "notes": "Release date is the April 14, 2025 API launch. The last documented default snapshot is gpt-4.1-nano-2025-04-14; OpenAI lists both it and the alias as shut down on October 23, 2026. Specifications describe the historical model. PDF denotes API file input processed as extracted text and page images. Explicit nano prompt-caching support and OpenAI's documented pre-GPT-5.6 caching mechanism support a broad Transformer-attention inference. Complete structure, dense/MoE routing and total/active parameter counts remain undisclosed.",
+    "architecture": "transformer"
   },
-  "summary": "Reviewed all 14 fields. Correct family and license, add supported PDF API input, and replace promotional description. Preserve exact context, release date, non-reasoning and function-calling classifications. Record the nano-specific October 2026 shutdown; no supported size or architecture disclosure found."
+  "summary": "Reviewed all 14 fields. Correct family and license, add supported PDF API input, and replace promotional description. Preserve exact context, release date, non-reasoning and function-calling classifications. Record the nano-specific October 2026 shutdown; size and routing remain undisclosed. A later cross-source review adds broad Transformer attention from exact nano prompt-caching support and OpenAI's documented mechanism, with inference limits explicit."
 }
