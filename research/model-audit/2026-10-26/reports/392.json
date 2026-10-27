@@ -1,7 +1,7 @@
 {
   "index": 392,
   "model_id": "nvidia/nemotron-nano-12b-v2-vl",
-  "reviewed_at": "2026-10-27T01:02:23.830312Z",
+  "reviewed_at": "2026-10-27T16:07:26.529771Z",
   "sources": [
     {
       "id": "card",
@@ -146,6 +146,62 @@
       "publisher": "Hugging Face / timm",
       "accessed": true,
       "evidence": "The standard Mlp has two biased linear layers, hidden dimension four times vision width, with no additional learned normalization for this constructor configuration."
+    },
+    {
+      "id": "reaudit-current-card",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-12B-v2-VL-BF16/raw/main/README.md",
+      "title": "Current NVIDIA Nemotron Nano 12B v2 VL BF16 model card, rechecked October 27",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Fresh full-card read on October 27, 2026 still states 12.6B model parameters and explicitly names the CRadioV2-H vision encoder and NVIDIA-Nemotron-Nano-12B-v2 language encoder. It does not separately state active parameters. This nominal label does not replace the existing verified complete BF16 checkpoint count."
+    },
+    {
+      "id": "reaudit-build",
+      "url": "https://build.nvidia.com/nvidia/nemotron-nano-12b-v2-vl",
+      "title": "NVIDIA Build exact Nemotron Nano 12B v2 VL specifications",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Fresh exact-model page lists Parameters 13B, context 131K, and text/image/video inputs. Its rounded 13B total is consistent with the retained 13.181860352B complete checkpoint count. The specifications contain no separate active-parameter figure."
+    },
+    {
+      "id": "reaudit-base-card",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-12B-v2-Base/raw/main/README.md",
+      "title": "Named Nemotron Nano 12B v2 Base language-model card",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Fresh full-card read identifies the named text backbone as a Mamba2-Transformer hybrid with nominal 12.31B parameters and 62 layers: 28 MLP, 28 Mamba-2 and six attention. No separate active count is given. This is component-lineage evidence only; neither its nominal total nor density supplies a complete-VL active count."
+    },
+    {
+      "id": "reaudit-omni",
+      "url": "https://arxiv.org/html/2604.24954v1",
+      "title": "Nemotron 3 Nano Omni report, predecessor comparison",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Fresh full-report inspection: Section 1 explicitly replaces the dense Nemotron Nano V2 12B backbone with the different 30B-A3B MoE backbone. Table 7 identifies the exact predecessor Nemotron Nano V2 VL as 12B in a Size row, alongside 30B-A3B successors, but does not give an explicit activated-parameter column or define predecessor activity. Its throughput comparison likewise supplies no predecessor active count."
+    },
+    {
+      "id": "reaudit-nano3",
+      "url": "https://arxiv.org/html/2512.20848v1",
+      "title": "Nemotron 3 Nano report, later active-count comparison check",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Fresh full-text search and architecture-section inspection find explicit active counts for the new 30B-A3B model, not for Nemotron Nano 12B v2 VL. The abstract says the new model activates less than half the parameters of the previous generation Nemotron 2 Nano, without identifying an exact VL active count; this relative statement cannot establish one."
+    },
+    {
+      "id": "reaudit-super3",
+      "url": "https://arxiv.org/html/2604.12374v1",
+      "title": "Nemotron 3 Super report, later active-count comparison check",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Fresh full-text and parameter-section inspection find the Super model active-budget specification but no explicit active-count entry for Nemotron Nano 12B v2 VL or its named 12B text backbone. Counts for the new MoE model are not transferred to this dense multimodal predecessor."
+    },
+    {
+      "id": "reaudit-35",
+      "url": "https://research.nvidia.com/labs/nemotron/files/NVIDIA-Nemotron-3.5-Super-and-Lightning-Technical-Report.pdf",
+      "title": "Nemotron 3.5 Super and Lightning technical report, October 21, 2026",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Opened the current 79-page original NVIDIA report and searched its extracted full text for Nano V2, Nano 2 and 12B-v2; no exact predecessor entry was found. Its explicit 120B/12B-active and 30B/3B-active specifications describe new Super and Lightning releases, not this model."
     }
   ],
   "fields": {
@@ -218,9 +274,14 @@
         "radio-conditioner",
         "timm",
         "timm-attention",
-        "timm-mlp"
+        "timm-mlp",
+        "reaudit-current-card",
+        "reaudit-build",
+        "reaudit-base-card",
+        "report",
+        "reaudit-omni"
       ],
-      "note": "Complete unique learned BF16 checkpoint count 13181860352, independently reconstructed for every tensor. Language 12320486912 + vision 651653120 + connector 209720320. Excludes 6 persistent normalization-buffer elements. The card\u2019s 12.6B is a conflicting nominal label, not this full checkpoint census. No packed weights, quantization scales, MTP or tied duplication."
+      "note": "Retain the previously verified complete BF16 learned checkpoint count of 13181860352: language 12320486912 + vision 651653120 + connector 209720320, excluding six normalization-buffer elements. Fresh NVIDIA Build specifications round the total to 13B; the current BF16 card still gives a differing nominal 12.6B and the original/later reports use the 12B model label. The named text backbone card gives nominal 12.31B, a component count rather than the complete VL model. No new tensor census or weight retrieval was performed in this re-audit."
     },
     "active_parameters_b": {
       "value": null,
@@ -229,9 +290,16 @@
         "card",
         "report",
         "config",
-        "language"
+        "language",
+        "reaudit-current-card",
+        "reaudit-build",
+        "reaudit-base-card",
+        "reaudit-omni",
+        "reaudit-nano3",
+        "reaudit-super3",
+        "reaudit-35"
       ],
-      "note": "No separate active-parameter count or phase convention is reported for this dense hybrid multimodal model. Do not equate complete learned total with per-token activity: vision encoding and text decoding are separate phases."
+      "note": "Still undisclosed after fresh original-card/report, named-backbone and later NVIDIA comparison searches. Nano Omni Table 7 lists this exact predecessor as 12B under Size, without an explicit active-count convention. The newer Nano 3, Super 3 and 3.5 active counts describe different models. Neither the 12B/12.31B backbone labels nor dense architecture establishes a complete-VL active count or its vision-versus-text phase accounting."
     },
     "architecture": {
       "value": "hybrid-ssm-transformer",
@@ -351,9 +419,30 @@
         "label": "NVIDIA Open Model License Agreement",
         "url": "https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-open-model-license/",
         "type": "primary"
+      },
+      {
+        "label": "Current NVIDIA Nemotron Nano 12B v2 VL BF16 model card, rechecked October 27",
+        "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-12B-v2-VL-BF16/raw/main/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "NVIDIA Build exact Nemotron Nano 12B v2 VL specifications",
+        "url": "https://build.nvidia.com/nvidia/nemotron-nano-12b-v2-vl",
+        "type": "primary"
+      },
+      {
+        "label": "Named Nemotron Nano 12B v2 Base language-model card",
+        "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-12B-v2-Base/raw/main/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Nemotron 3 Nano Omni report, predecessor comparison",
+        "url": "https://arxiv.org/html/2604.24954v1",
+        "type": "primary"
       }
     ],
-    "notes": "Complete BF16 checkpoint has 13.181860352B learned parameters, including vision encoder and connector; the model card\u2019s 12.6B label differs from the reconstructed tensor inventory. Normalization buffers are excluded. Separate active parameters are not reported. Supported context is 131072 input-plus-output tokens; the larger 311296-token training sequence length is not advertised as the inference context. Reasoning is supported for text/image inputs; the pinned chat template disables reasoning for video."
+    "notes": "Complete BF16 checkpoint has 13.181860352B learned parameters, including vision encoder and connector and excluding normalization buffers. NVIDIA Build rounds this to 13B; the BF16 card instead labels it 12.6B. Separate active parameters remain undisclosed; later comparisons give only a 12B size label for this model. Supported context is 131072 input-plus-output tokens; the larger 311296-token training sequence length is not advertised as the inference context. Reasoning is supported for text/image inputs; the pinned chat template disables reasoning for video.",
+    "active_parameters_b": null
   },
   "proposed_fields": {
     "parameter_components_b": {
@@ -406,5 +495,5 @@
     },
     "formula": "D5120,V132096,I10240,C12288,H128,F20480. Language:2*V*D+63*D+28*(D*(I+C+H)+D*I+C*4+C+I+3*H)+28*(2*D*F)+6*(2*D*5120+2*D*1024). Vision:32*(4*1280^2+4*1280+2*1280*5120+5120+1280+4*1280)+1280*768+16384*1280+16*1280. Connector:5120+5120*20480+20480*5120."
   },
-  "summary": "All 14 fields audited. Correct total to independently reconstructed complete 13.181860352B, architecture to hybrid SSM/Transformer, governing license and exact 131072 context. Confirm Oct 28 release, text/image/video,reasoning and tool training. Keep active unknown because no separate activity accounting is published; record nominal-card size discrepancy, training-context distinction and video reasoning restriction."
+  "summary": "October 27 parameter re-audit preserves the verified complete 13.181860352B BF16 total and all other field assessments. Fresh exact-card, NVIDIA Build, named-backbone and original/later-report checks distinguish current nominal labels of 12.6B/13B from the retained complete count. Active parameters remain undisclosed: the Nano Omni predecessor table reports Size 12B without an active convention, and the newer Nano 3, Super 3 and 3.5 specifications apply to different models. No new shards or tensor census were requested."
 }
