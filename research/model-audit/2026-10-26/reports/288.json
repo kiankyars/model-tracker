@@ -1,7 +1,7 @@
 {
   "index": 288,
   "model_id": "meta/opt-1.3b",
-  "reviewed_at": "2026-10-26T21:58:57.340874Z",
+  "reviewed_at": "2026-10-27T14:30:49.607Z",
   "sources": [
     {
       "id": "s1",
@@ -17,7 +17,7 @@
       "title": "OPT: Open Pre-trained Transformer Language Models",
       "publisher": "Meta AI authors / arXiv",
       "accessed": true,
-      "evidence": "Table 1 specifies the 1.3B variant with 24 layers, 32 attention heads and width 2048. Section 2 describes decoder-only Transformers, ReLU and 2048-token training sequences. Appendix D confirms that smaller baselines share the noncommercial model license."
+      "evidence": "Table 1 specifies the 1.3B variant with 24 layers, 32 attention heads and width 2048. Section 2 describes decoder-only Transformers, ReLU and 2048-token training sequences. Appendix D confirms that smaller baselines share the noncommercial model license. Reopened October 27, 2026: Table 1 still gives nominal 1.3B; no separate activated-parameter specification is provided."
     },
     {
       "id": "s3",
@@ -25,7 +25,7 @@
       "title": "OPT pretrained model weights",
       "publisher": "Meta AI / facebookresearch",
       "accessed": true,
-      "evidence": "Lists OPT-1.3B with its nominal 1.3B size and direct pretrained-weight download, identifies the OPT family as text-trained NLP models, and links the model-specific license."
+      "evidence": "Lists OPT-1.3B with its nominal 1.3B size and direct pretrained-weight download, identifies the OPT family as text-trained NLP models, and links the model-specific license. Reopened October 27, 2026: the official weights table still lists OPT-1.3B as 1.3B parameters."
     },
     {
       "id": "s4",
@@ -33,7 +33,7 @@
       "title": "facebook/opt-1.3b exact checkpoint configuration",
       "publisher": "Meta AI / Hugging Face repository",
       "accessed": true,
-      "evidence": "OPTForCausalLM; 24 layers, hidden and word embedding width 2048, FFN width 8192, 32 heads, vocabulary 50272, maximum positions 2048, pre-layer normalization and float16. No quantization configuration."
+      "evidence": "OPTForCausalLM; 24 layers, hidden and word embedding width 2048, FFN width 8192, 32 heads, vocabulary 50272, maximum positions 2048, pre-layer normalization and float16. No quantization configuration. Reopened October 27, 2026 at this exact revision; configuration is unchanged."
     },
     {
       "id": "s5",
@@ -82,6 +82,14 @@
       "publisher": "Meta AI / facebookresearch",
       "accessed": true,
       "evidence": "Original OPT baseline launcher sets 2048 sequence length, learned positional embeddings and shared decoder input/output embeddings; its settings corroborate the checkpoint implementation."
+    },
+    {
+      "id": "s11",
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2025/file/7efe88bb4138d602e56637cfcf713654-Paper-Conference.pdf",
+      "title": "MoE++: Accelerating Mixture-of-Experts Methods with Zero-Computation Experts, Table 4",
+      "publisher": "Peng Jin et al. / MoE++ team (Skywork AI and collaborators), ICLR 2025",
+      "accessed": true,
+      "evidence": "Reopened October 27, 2026. Table 4 (PDF page 8) explicitly reports OPT-1.3B as 1.3B activated / 1.3B total, citing Zhang et al. (2022), the original OPT paper. It separates this baseline from the pruned Sheared-LLaMA variants. This establishes the MoE++ research team's nominal benchmark convention, not a Meta active-count specification or an exact component-level per-token measurement."
     }
   ],
   "fields": {
@@ -144,23 +152,24 @@
       "value": 1.31575808,
       "status": "verified",
       "source_ids": [
+        "s2",
+        "s3",
         "s4",
         "s5",
         "s6",
         "s10"
       ],
-      "note": "Exact unique checkpoint count: 50272*2048 token embeddings + 2050*2048 learned positions + 24*(4*2048^2 + 2*2048*8192 + 9*2048 + 8192) decoder parameters + 2*2048 final layer norm = 1,315,758,080. Includes all linear biases and affine norms; tied output embeddings counted once. Every header tensor matches; all are FP16 parameter tensors, with no additional buffers or quantization metadata. Nominal paper/release size is 1.3B."
+      "note": "Retain the prior verified exact unique checkpoint count of 1,315,758,080 (1.31575808B), including positional embeddings, biases and affine norms and counting tied token/output embeddings once. The original metadata audit and configuration support this precision. The fresh review reopened the original OPT paper, official downloads table and pinned configuration; the published nominal size remains 1.3B. No weights were downloaded or tensor census repeated in this pass."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 1.3,
+      "status": "verified",
       "source_ids": [
+        "s11",
         "s2",
-        "s4",
-        "s5",
-        "s6"
+        "s3"
       ],
-      "note": "The primary sources do not separately define or report an active-parameter count. Dense topology and total parameter metadata do not by themselves establish an active-count convention; retain null."
+      "note": "MoE++ Table 4 explicitly assigns the original OPT-1.3B baseline a nominal 1.3B activated count. Attribute this convention to Jin et al. / the Skywork AI research team, not Meta. Keep its published precision alongside the precise total; the source does not establish exact per-token participation or component scope."
     },
     "architecture": {
       "value": "dense",
@@ -235,7 +244,7 @@
   "patch": {
     "parameters_b": 1.31575808,
     "parameters_source": "primary_source",
-    "notes": "OPT-1.3B is the nominal size name; the exact checkpoint has 1,315,758,080 unique parameters, counting tied token/output embeddings once and including positional embeddings, biases and layer norms. Active parameters are not separately reported. This is a pretrained text-completion checkpoint with no documented native reasoning mode or tool-call protocol. The May 3, 2022 public release predates its May 11 Hugging Face repository creation. Weights use the custom OPT noncommercial research license.",
+    "notes": "OPT-1.3B is the nominal size name; the exact checkpoint has 1,315,758,080 unique parameters, counting tied token/output embeddings once and including positional embeddings, biases and layer norms. The nominal 1.3B active count follows Jin et al. / Skywork AI's MoE++ Table 4 benchmark convention; it is not a Meta specification or exact per-token tensor count. This is a pretrained text-completion checkpoint with no documented native reasoning mode or tool-call protocol. The May 3, 2022 public release predates its May 11 Hugging Face repository creation. Weights use the custom OPT noncommercial research license.",
     "sources": [
       {
         "label": "Original OPT release announcement",
@@ -271,8 +280,14 @@
         "label": "OPT model license",
         "url": "https://huggingface.co/facebook/opt-1.3b/raw/main/LICENSE.md",
         "type": "primary"
+      },
+      {
+        "label": "MoE++ original benchmark active-parameter convention (Table 4)",
+        "url": "https://proceedings.iclr.cc/paper_files/paper/2025/file/7efe88bb4138d602e56637cfcf713654-Paper-Conference.pdf",
+        "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": 1.3
   },
-  "summary": "Verified all 14 fields for the exact OPT-1.3B baseline. Refined nominal 1.3B to the complete checkpoint count of 1.31575808B after deduplicating tied embeddings, and documented the count, base-model capability scope and release/Hub-date distinction. Confirmed dense architecture, 2048 context, public weights and custom noncommercial research license. Active parameters remain undisclosed; native reasoning mode and tool calling are not separately documented for the base checkpoint."
+  "summary": "Fresh parameter re-audit retained the verified exact 1.31575808B total after reopening Meta's original paper, weights table and pinned configuration. Replaced the undisclosed active count with nominal 1.3B from Jin et al. / Skywork AI's original MoE++ Table 4 comparison of the exact OPT-1.3B baseline. This is a published benchmark convention, not an exact per-token count. The other 12 field assessments are unchanged."
 }
