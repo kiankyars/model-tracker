@@ -1,7 +1,7 @@
 {
   "index": 481,
   "model_id": "relace/relace-search",
-  "reviewed_at": "2026-10-27T04:07:15.415751Z",
+  "reviewed_at": "2026-10-27T17:45:09.357348Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Exploiting parallel tool calls to make agentic search 4x faster",
       "publisher": "Relace",
       "accessed": true,
-      "evidence": "Dated December 8, 2025; announces public model/API availability. Describes an on-policy RL-trained search model, explicit reasoning between parallel tool calls, fixed search tools and a separate execution harness. Gives training data, hardware and reward design but no exact backbone or parameter counts."
+      "evidence": "Reopened in full from the October 27, 2026 fresh fetch. The December 8, 2025 launch describes on-policy RL, an unnamed base model, 8 H200 GPUs, three epochs on 3.2k examples and a separate search harness. It reports no nominal total or activated parameter count. Its numerical evaluation tables concern latency, accuracy and token usage, not model parameters; inspiration from SWE-grep does not identify a base checkpoint."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "Search Code",
       "publisher": "Relace",
       "accessed": true,
-      "evidence": "Identifies relace-search as the language model behind FAS. Its chat-completions endpoint returns tool calls; callers execute them and append results. Documents text messages and function arguments, but no numeric native context maximum. OpenAPI MIT metadata licenses the specification, not model weights."
+      "evidence": "Reopened October 27, 2026. Identifies relace-search as the language model behind FAS. Its chat-completions endpoint returns tool calls; callers execute them and append results. The Models table lists the model ID and tools, without total/active sizes or named-base lineage. Documents text messages and function arguments, but no numeric native context maximum. OpenAPI MIT metadata licenses the specification, not model weights."
     },
     {
       "id": "s3",
@@ -25,7 +25,7 @@
       "title": "Fast Agentic Search: Overview",
       "publisher": "Relace",
       "accessed": true,
-      "evidence": "Publishes the exact trained prompt and schemas for view_file, view_directory, grep_search, bash and report_back. Model-generated tool selections are distinct from backend execution. Describes the relace-search model and its search harness separately."
+      "evidence": "Reopened October 27, 2026. Publishes the trained prompt and schemas for view_file, view_directory, grep_search, bash and report_back. Model-generated tool selections are distinct from backend execution. Describes the relace-search model and search harness separately, without a parameter count or named underlying checkpoint."
     },
     {
       "id": "s4",
@@ -49,7 +49,7 @@
       "title": "Relace Blog",
       "publisher": "Relace",
       "accessed": true,
-      "evidence": "Current research index links the original FAS training article and a later July 2026 Compact article. The later article concerns another model; it does not supply Search counts or a backbone."
+      "evidence": "Reopened October 27, 2026. The research index still lists the original December 2025 FAS training article and the July 13, 2026 Compact release as the newer model research article. Followed and read that later original article (s9); it supplies no Search count or shared-base relationship."
     },
     {
       "id": "s7",
@@ -57,7 +57,7 @@
       "title": "Relace complete documentation",
       "publisher": "Relace",
       "accessed": true,
-      "evidence": "Current documentation keeps Search, Apply, Compact and hosted open models separate. Search sections supply API and agent harness details but no exact total/active parameter counts, neural architecture or native maximum context."
+      "evidence": "Reopened from the successful October 27, 2026 fresh fetch. Read the Search API/harness and model-catalog sections and searched the complete document for total/active counts and base-model names. Search, Apply, Compact and hosted open models remain separate. No Search parameter count or named-base lineage is given; the catalog describes prices, context, modalities and API request parameters, not neural parameter counts."
     },
     {
       "id": "s8",
@@ -66,6 +66,14 @@
       "publisher": "Relace",
       "accessed": false,
       "evidence": "Unauthenticated request returned HTTP 401; no model-specific metadata was read from this endpoint."
+    },
+    {
+      "id": "s9",
+      "url": "https://relace.ai/old/blog/compact",
+      "title": "Relace Compact: 50k TPS for 50% cost savings",
+      "publisher": "Relace",
+      "accessed": true,
+      "evidence": "Read in full from the October 27, 2026 fresh fetch. This July 13, 2026 original research/release article identifies Compact as a modified LLM for token-level classification and evaluates compaction speed and cost. It gives no Search total/active parameter count, no Search comparison parameter column and no named shared backbone from which Search size could be inherited."
     }
   ],
   "fields": {
@@ -126,19 +134,26 @@
       "status": "undisclosed",
       "source_ids": [
         "s1",
+        "s2",
+        "s3",
         "s6",
-        "s7"
+        "s7",
+        "s9"
       ],
-      "note": "Exact total parameters are absent from the detailed training article and later first-party research/documentation checked. Training hardware does not determine model size; Apply and other-model counts are not transferred."
+      "note": "Fresh October 27 review found neither a developer-published nominal total nor an explicitly named base model supporting a lineage inference. Reopened the full FAS training article, current Search API/harness, complete docs and later Compact article. Separate searches for Relace Search/relace-search/FAS total parameters, billion-scale size, Qwen/Llama base lineage and later research comparisons found no supported count. Training hardware, throughput, SWE-grep inspiration and other Relace products do not establish Search size."
     },
     "active_parameters_b": {
       "value": null,
       "status": "undisclosed",
       "source_ids": [
         "s1",
-        "s7"
+        "s2",
+        "s3",
+        "s6",
+        "s7",
+        "s9"
       ],
-      "note": "No per-token active count or routing topology is disclosed. Tool-call parallelism is not parameter activation."
+      "note": "Independently rechecked activated/active parameters on October 27. The original FAS evaluation tables contain latency, accuracy and token usage, not an active-parameter column; current docs and the later Compact research article add no Search count. Targeted active/activated-parameter and later original-paper searches found no usable exact-model comparison or named-base lineage. Parallel tool execution is unrelated to parameter activation; no dense-equals-active inference is made."
     },
     "architecture": {
       "value": null,
@@ -247,9 +262,17 @@
         "label": "Relace complete documentation",
         "url": "https://docs.relace.ai/llms-full.txt",
         "type": "primary"
+      },
+      {
+        "label": "Relace Compact: 50k TPS for 50% cost savings",
+        "url": "https://relace.ai/old/blog/compact",
+        "type": "primary"
       }
     ],
-    "notes": "Relace Search is the separately callable RL-trained model behind Fast Agentic Search, not the embedding/rerank retrieval service or the managed execution harness. It emits explicit reasoning and model-selected search-tool calls; no separate thinking-token interface is established. Exact total/active parameters and neural architecture are undisclosed. OpenRouter advertises a 256,000-token Relace endpoint context and 128,000-token completion limit; the context field records that serving limit, while the native model maximum is unverified. Public SDK/harness or OpenAPI licenses are not model-weight licenses."
+    "notes": "Relace Search is the separately callable RL-trained model behind Fast Agentic Search, distinct from embedding retrieval and the execution harness. Total and active parameter counts remain undisclosed; no named base model supports an inherited size. It emits reasoning and model-selected tool calls, without a separately documented thinking-token interface. OpenRouter advertises a 256,000-token Relace endpoint context and 128,000-token completion limit; native context and neural architecture remain undisclosed. SDK/harness and OpenAPI licenses are not model-weight licenses.",
+    "parameters_b": null,
+    "active_parameters_b": null,
+    "parameters_source": null
   },
-  "summary": "Confirmed December 8, 2025 public release, proprietary hosted text model and native tool selection. Corrected reasoning to true and replaced the generic description. Total/active parameters and backbone remain undisclosed; retained the explicit256000 hosted context limit with a note distinguishing serving capacity from an undisclosed native maximum."
+  "summary": "October 27 parameter re-audit retained undisclosed total and active counts after fresh original launch, Search API/harness, complete documentation and later Compact research checks, plus separate size, activation and named-base searches. No nominal count or supported lineage was found. The other 12 field assessments are unchanged."
 }
