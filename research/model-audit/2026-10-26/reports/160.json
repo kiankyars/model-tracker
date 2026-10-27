@@ -1,7 +1,7 @@
 {
   "index": 160,
   "model_id": "cohere/tiny-aya-water",
-  "reviewed_at": "2026-10-26T18:41:08.921375Z",
+  "reviewed_at": "2026-10-27T12:33:11.336109+00:00",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Tiny Aya Water model card",
       "publisher": "Cohere Labs",
       "accessed": true,
-      "evidence": "Exact Water card identifies Cohere/Cohere Labs, tiny-aya-it-water, 3.35B, open weights, CC-BY-NC-4.0, text generation, and European/Asia-Pacific specialization. Public card is readable; model files require accepting access conditions."
+      "evidence": "Exact Water card identifies Cohere/Cohere Labs, tiny-aya-it-water, 3.35B, open weights, CC-BY-NC-4.0, text generation, and European/Asia-Pacific specialization. Public card is readable; model files require accepting access conditions. Reopened October 27: the summary and Model Size both state 3.35B, while Terms of Use contains an inconsistent 111B sentence. The exact specification, original technical report and current metadata consistently support 3.35B; the isolated terms sentence is not accepted as the model size. No active count is stated."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "Tiny Aya: Bridging Scale and Multilingual Depth",
       "publisher": "Cohere Labs and Cohere",
       "accessed": true,
-      "evidence": "March 12, 2026 developer report names Water for Asia-Pacific/Europe. Table 1 distinguishes regional language groups. Section 3.1 describes a dense decoder-only Transformer; Table 2 gives 3.35B total, 36 layers and 8192 input/output tokens. Section 5.4 evaluates prompted chain-of-thought, not a dedicated reasoning API."
+      "evidence": "March 12, 2026 developer report names Water for Asia-Pacific/Europe. Table 1 distinguishes regional language groups. Section 3.1 describes a dense decoder-only Transformer; Table 2 gives 3.35B total, 36 layers and 8192 input/output tokens. Section 5.4 evaluates prompted chain-of-thought, not a dedicated reasoning API. Independently inspected the complete report from the fresh October 27 fetch, including architecture, regional post-training/merging and comparison tables. Table 2 labels 2.8B as non-embedding, 0.5B as embedding and 3.35B as total; it does not define an active count. Regional checkpoints are merged with the global model after post-training; no routed expert expansion is claimed."
     },
     {
       "id": "s3",
@@ -41,7 +41,7 @@
       "title": "Exact Tiny Aya Water repository metadata and chat template",
       "publisher": "Cohere Labs via Hugging Face",
       "accessed": true,
-      "evidence": "Public API retrieved directly at repository revision 41a99216d12b3ef4881df762934186e5e4d2bbc1. Exposes Cohere2ForCausalLM, cohere2, base_model tiny-aya-base, license, and one default chat template. Template serializes system/user/assistant/chatbot content; no tools, tool_calls, tool-role handling, thinking branch, or reasoning switch. BF16 aggregate 3349227520 is hosting metadata, not an independently audited learned-tensor count."
+      "evidence": "Public API retrieved directly at repository revision 41a99216d12b3ef4881df762934186e5e4d2bbc1. Exposes Cohere2ForCausalLM, cohere2, base_model tiny-aya-base, license, and one default chat template. Template serializes system/user/assistant/chatbot content; no tools, tool_calls, tool-role handling, thinking branch, or reasoning switch. BF16 aggregate 3349227520 is hosting metadata, not an independently audited learned-tensor count. Fresh October 27 retrieval returns the same revision, 3,349,227,520 BF16 aggregate and named tiny-aya-base relationship. This corroborates the nominal total without supplying active parameters."
     },
     {
       "id": "s6",
@@ -82,6 +82,38 @@
       "publisher": "Cohere",
       "accessed": true,
       "evidence": "Explains dedicated thinking content and switches with Command A Reasoning; does not explicitly establish Tiny Aya Water support or non-support."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/CohereLabs/tiny-aya-base",
+      "title": "Tiny Aya Base model card",
+      "publisher": "Cohere Labs",
+      "accessed": true,
+      "evidence": "Reopened October 27 the exact base named by Water metadata. The card specifies 3.35B and lists Water as its European/Asia-Pacific chat variant. It provides no active-count definition; named ancestry does not resolve an active count absent from both cards."
+    },
+    {
+      "id": "s12",
+      "url": "https://arxiv.org/html/2609.10445v1",
+      "title": "Building Multilingual Bridges: Data Mixing as the Pillar of Generalization for In-Language Reasoning",
+      "publisher": "Cohere Labs and Cohere",
+      "accessed": true,
+      "evidence": "Independently inspected the complete September 2026 report from the fresh October 27 fetch, including section 3.1, parameter terminology and comparison headings. It identifies Tiny Aya Base at 3.35B and compares benchmark performance and generated-token efficiency. No Water/base active-parameter count or dense-count convention is given; later Thinker context and capabilities are not transferred."
+    },
+    {
+      "id": "s13",
+      "url": "https://cohere.com/blog/building-multilingual-bridges",
+      "title": "Multilingual Bridges: How Data Mixing Unlocks In-Language Reasoning",
+      "publisher": "Cohere Labs",
+      "accessed": true,
+      "evidence": "Fresh October 27 read of the October 6 first-party article confirms the later Tiny Aya L2-Thinker at 3.35B and its Tiny Aya Base 32K starting point. It does not report active parameters for Water or its base; inference token efficiency is not a parameter count."
+    },
+    {
+      "id": "s14",
+      "url": "https://cohere.com/blog/how-small-models-can-make-a-big-impact-for-enterprises",
+      "title": "How small AI models can make a big impact for enterprises",
+      "publisher": "Cohere",
+      "accessed": true,
+      "evidence": "Fresh exact-family active-count search found and read this September 2, 2026 comparison. It lists Tiny Aya at 3.35B but explicitly distinguishes total and active only for North Mini Code at 30B/3B. That separate MoE count is not a Tiny Aya active-count convention."
     }
   ],
   "fields": {
@@ -143,17 +175,24 @@
         "s1",
         "s2",
         "s3",
-        "s5"
+        "s5",
+        "s11",
+        "s14"
       ],
-      "note": "Nominal total in billions from exact card and developer report. HF aggregate corroborates rounding only; gated shards were not independently counted."
+      "note": "Fresh October 27 exact-card, metadata and original/later developer checks confirm the published nominal 3.35B total. The 3.349227520B Hub aggregate corroborates its rounding; no repeat tensor census is required. The isolated 111B terms sentence conflicts with the exact size specification and independent first-party report and is not adopted."
     },
     "active_parameters_b": {
       "value": null,
       "status": "undisclosed",
       "source_ids": [
-        "s2"
+        "s1",
+        "s2",
+        "s11",
+        "s12",
+        "s13",
+        "s14"
       ],
-      "note": "No separately defined active-parameter count. Dense architecture does not justify copying the total."
+      "note": "Fresh exact-model total/active/lineage searches and original/later first-party comparisons found no separately defined active count. Table 2 explicitly calls 2.8B non-embedding; neither that value nor the dense total is copied into active. The named Tiny Aya Base relationship supplies no missing convention, and later Thinker or North Mini Code figures do not establish a Water count."
     },
     "architecture": {
       "value": "dense",
@@ -230,7 +269,7 @@
     "tool_call": null,
     "source_url": "https://cohere.com/blog/cohere-labs-tiny-aya",
     "source_type": "primary",
-    "notes": "3.35B is the developer-reported nominal total. Active parameters are not separately defined. Exact checkpoint metadata exposes an ordinary chat template without native tool or thinking handling; hosted API support for those features remains unverified. Direct configuration and weight access is gated; no independent tensor count was performed.",
+    "notes": "3.35B is Cohere’s nominal total; active parameters are not separately disclosed. The report’s 2.8B figure excludes embeddings and is not an active count. The released chat template has no native tool or thinking handling; hosted API support for those features remains unverified.",
     "sources": [
       {
         "label": "Cohere Labs launch announcement",
@@ -261,8 +300,14 @@
         "label": "Cohere model overview",
         "url": "https://docs.cohere.com/docs/models",
         "type": "primary"
+      },
+      {
+        "label": "Building Multilingual Bridges: Data Mixing as the Pillar of Generalization for In-Language Reasoning",
+        "url": "https://arxiv.org/html/2609.10445v1",
+        "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": null
   },
-  "summary": "Verified exact Water identity and February 17 launch. Adds Tiny Aya family, nominal 3.35B total and dense architecture; corrects context from 8000 to 8192. Clears unsupported reasoning=false and tool_call=true to unknown. Active count remains undisclosed; gated tensor files were not independently counted."
+  "summary": "October 27 parameter re-audit confirms nominal 3.35B and retains an undisclosed active count. Reopened the exact Water/base cards and current metadata, ran fresh count/lineage searches, and inspected the original report and later Thinker and small-model comparisons. Resolved the card’s isolated 111B terms inconsistency against its exact specification and corroborating evidence; did not reinterpret non-embedding 2.8B as active. Added explicit parameter patches and preserved unrelated assessments."
 }
