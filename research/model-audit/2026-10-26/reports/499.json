@@ -1,7 +1,7 @@
 {
   "index": 499,
   "model_id": "swiss-ai/apertus-8b",
-  "reviewed_at": "2026-10-27T04:44:00.281Z",
+  "reviewed_at": "2026-10-27T17:59:54.820Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Apertus-8B-Instruct-2509 model card",
       "publisher": "Swiss AI Initiative",
       "accessed": true,
-      "evidence": "Identifies the 2509 instruction checkpoint and its base model; states nominal 8B scale, Apache-2.0, open weights, decoder-only Transformer, 65,536-token context and tool use."
+      "evidence": "Identifies the 2509 instruction checkpoint and its base model; states nominal 8B scale, Apache-2.0, open weights, decoder-only Transformer, 65,536-token context and tool use. Reopened October 27: the current card still identifies swiss-ai/Apertus-8B-2509 as its base and describes supervised fine-tuning plus QRPO; it provides no separate active-parameter count."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "Apertus v1 Technical Report, Sections 1, 2.1 and Table 1",
       "publisher": "Project Apertus / Swiss AI Initiative",
       "accessed": true,
-      "evidence": "Lists the exact 8B Instruct checkpoint. Describes language-only models and a dense decoder-only Transformer; the 8B configuration has 32 layers, width 4096, MLP width 21504, 32 query/8 KV heads, xIELU, and untied embeddings."
+      "evidence": "Lists the exact 8B Instruct checkpoint. Describes language-only models and a dense decoder-only Transformer; the 8B configuration has 32 layers, width 4096, MLP width 21504, 32 query/8 KV heads, xIELU, and untied embeddings. Reopened for the parameter re-audit: Table 1 retains the nominal 8B size and the full report does not separately state an active count for this checkpoint."
     },
     {
       "id": "s3",
@@ -25,7 +25,7 @@
       "title": "Apertus-8B-Instruct-2509 configuration",
       "publisher": "Swiss AI Initiative",
       "accessed": true,
-      "evidence": "ApertusForCausalLM with 32 layers, xIELU, grouped-query attention, max_position_embeddings 65536 and untied word embeddings. Downloaded from the corresponding raw/main URL."
+      "evidence": "ApertusForCausalLM with 32 layers, xIELU, grouped-query attention, max_position_embeddings 65536 and untied word embeddings. Downloaded from the corresponding raw/main URL. Fresh October 27 configuration fetch confirms the same 131072-token vocabulary and provides no active-parameter specification."
     },
     {
       "id": "s4",
@@ -58,6 +58,38 @@
       "publisher": "Swiss National AI Institute",
       "accessed": true,
       "evidence": "First-party release documentation identifies Apertus family, September 2 2025 release, nominal total sizes 8B/70B, text-only input/output, Apache 2.0 and distribution of both base and instruct models."
+    },
+    {
+      "id": "s8",
+      "url": "https://arxiv.org/html/2602.20052v1",
+      "title": "Entropy in Large Language Models, Table 1",
+      "publisher": "Marco Scharringhausen / Carl von Ossietzky University of Oldenburg",
+      "accessed": true,
+      "evidence": "Freshly read October 27. This original empirical study names the exact Apertus-8B-Instruct-2509 checkpoint with 8B total parameters, but leaves its separate active-parameters column blank. It therefore corroborates nominal total size without establishing an active count."
+    },
+    {
+      "id": "s9",
+      "url": "https://arxiv.org/html/2610.15542v1",
+      "title": "Apertus v1.5 Technical Report, Section 2.1 and Table I.2",
+      "publisher": "Project Apertus / Swiss AI Initiative",
+      "accessed": true,
+      "evidence": "Freshly read October 27. The successor continues from Apertus 1.0 but adds image/audio inputs and expands the input embedding matrix beyond the original 131072 rows; its size cannot be transferred unchanged to the original checkpoint. Table I.2 explicitly reports active counts only for MoE response models and contains no Apertus row. Original 8B/70B performance comparisons do not add an active count."
+    },
+    {
+      "id": "s10",
+      "url": "https://arxiv.org/pdf/2610.31945v1",
+      "title": "Kolibri technical report, Tables 28 and 48",
+      "publisher": "Aleph Alpha research team",
+      "accessed": true,
+      "evidence": "Reopened October 27, including the complete PDF text. Table 28 explicitly gives 70B total and active parameters for Apertus 70B Instruct, and Table 48 identifies swiss-ai/Apertus-70B-Instruct-2509. The report does not give an Apertus 8B counterpart, so this original research convention cannot establish the smaller checkpoint's active count."
+    },
+    {
+      "id": "s11",
+      "url": "https://arxiv.org/html/2512.13961v2",
+      "title": "Olmo 3 technical report, original Apertus comparisons",
+      "publisher": "Allen Institute for AI / Team Olmo",
+      "accessed": true,
+      "evidence": "Freshly read and full text searched October 27. The paper compares Apertus 8B base stages and Apertus 8B Instruct performance, including the Instruct evaluation table, without an explicit activated-parameter count for either. Its active-sampling terminology describes training data selection, not parameter participation."
     }
   ],
   "fields": {
@@ -118,9 +150,10 @@
       "status": "verified",
       "source_ids": [
         "s1",
-        "s7"
+        "s2",
+        "s4"
       ],
-      "note": "Developer-reported nominal total of 8 billion parameters, not an exact checkpoint tensor count."
+      "note": "Reconfirmed the developer-published nominal total of 8 billion parameters for the exact 2509 instruction checkpoint. Its card explicitly names Apertus-8B-2509 as the base and describes post-training; no exact tensor census is required to retain this published size."
     },
     "active_parameters_b": {
       "value": null,
@@ -128,9 +161,13 @@
       "source_ids": [
         "s1",
         "s2",
-        "s7"
+        "s3",
+        "s8",
+        "s9",
+        "s10",
+        "s11"
       ],
-      "note": "The inspected model card, technical report and release documentation do not separately report an active count. Dense architecture alone does not establish this value."
+      "note": "Searched total and active counts separately, including exact-name active/activated-parameter queries, named base/post-training lineage, and later original comparison papers. No supported active count was found: Entropy Table 1 leaves the exact 8B row blank; Kolibri establishes a convention only for 70B; Olmo 3 provides performance comparisons without an active count. Apertus 1.5 changes modalities and input embeddings. Dense architecture and the nominal total do not independently establish an active value."
     },
     "architecture": {
       "value": "dense",
@@ -232,9 +269,31 @@
         "label": "Apertus release documentation",
         "url": "https://huggingface.co/swiss-ai/Apertus-70B-2509/blob/main/Apertus_EU_Code_of_Practice.pdf",
         "type": "docs"
+      },
+      {
+        "label": "Original entropy study: exact 8B comparison",
+        "url": "https://arxiv.org/html/2602.20052v1",
+        "type": "paper"
+      },
+      {
+        "label": "Apertus 1.5 architecture and comparison report",
+        "url": "https://arxiv.org/html/2610.15542v1",
+        "type": "paper"
+      },
+      {
+        "label": "Kolibri original comparison: Apertus 70B only",
+        "url": "https://arxiv.org/pdf/2610.31945v1",
+        "type": "paper"
+      },
+      {
+        "label": "Olmo 3 original Apertus comparisons",
+        "url": "https://arxiv.org/html/2512.13961v2",
+        "type": "paper"
       }
     ],
-    "notes": "The 8B parameter count is the developer's nominal total. Active parameters are not separately reported. This entry refers to Apertus-8B-Instruct-2509, not the base checkpoint or Apertus v1.5."
+    "notes": "The 8B parameter count is the developer's nominal total for Apertus-8B-Instruct-2509. Active parameters are not separately established by the original documentation or later comparisons checked. Apertus 1.5 has a different multimodal vocabulary and checkpoint.",
+    "parameters_b": 8,
+    "active_parameters_b": null
   },
-  "summary": "Disambiguated the 2509 Instruct checkpoint, added the Apertus family and dense Transformer architecture, and replaced the compliance-heavy description. Confirmed the September 2 2025 release, nominal 8B total, Apache-2.0 weights, text modalities, 65,536-token context, tool use and non-thinking classification. Active parameters remain undisclosed."
+  "summary": "Fresh parameter re-audit preserves the developer-published nominal 8B total and explicitly retains null active parameters after separate original-source and later-comparison searches. The exact 8B entropy-study row leaves active parameters blank; Kolibri's explicit 70B convention does not cover 8B, and Apertus 1.5 changes the architecture. All other twelve audited fields remain unchanged."
 }
