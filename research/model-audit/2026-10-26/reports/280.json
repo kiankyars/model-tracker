@@ -1,7 +1,7 @@
 {
   "index": 280,
   "model_id": "meta/llama-guard-4-12b",
-  "reviewed_at": "2026-10-26T21:46:54.877710Z",
+  "reviewed_at": "2026-10-27T14:18:30.624127Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Llama Guard 4 model card",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "Reports 12B total parameters, dense early-fusion architecture, pruning of Scout routed experts and routers, text/multiple-image classification, and text safety labels."
+      "evidence": "Reopened October 27: Model Architecture explicitly reports nominal 12 billion total parameters. Pretraining and Pruning removes every routed expert and router from Scout while retaining the shared expert, yielding dense early-fusion feedforward layers. Text and multiple-image inputs produce textual safety labels. No active-parameter count is separately specified."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "Llama Guard 4 architecture and prompt format",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "Documents text-plus-image classification; output is a safe/unsafe label and optional violated-category list. Prompt roles are user and assistant."
+      "evidence": "Reopened October 27: Architecture explicitly reports 12 billion total parameters, dense early fusion, and the same vision encoder as Scout/Maverick; it gives no separate active count. Documents text-plus-image classification, safe/unsafe output with optional category list, and user/assistant prompt roles."
     },
     {
       "id": "s3",
@@ -74,6 +74,30 @@
       "publisher": "Meta",
       "accessed": true,
       "evidence": "Identifies the model as Meta Llama Guard 4, a fine-tuned Llama 4 model, and offers model/weights for researchers and commercial entities under its license."
+    },
+    {
+      "id": "s10",
+      "url": "https://huggingface.co/meta-llama/Llama-Guard-4-12B",
+      "title": "Official Llama Guard 4 12B model card",
+      "publisher": "Meta",
+      "accessed": true,
+      "evidence": "Reopened October 27: repeats 12 billion parameters in total and the Scout pruning procedure, with all routed experts and routers removed. Covers text-only and mixed text/image classification. Neither Model Architecture nor Model Training gives a separately defined active-parameter count."
+    },
+    {
+      "id": "s11",
+      "url": "https://arxiv.org/html/2510.14276v1",
+      "title": "Qwen3Guard Technical Report, original comparison tables",
+      "publisher": "Qwen Team / Alibaba",
+      "accessed": true,
+      "evidence": "Fresh October 27 search for a later explicit active-count convention: Section 3.4.1 and Tables 2-6 identify LlamaGuard4-12B, but their columns report safety-classification F1 scores. The full report provides no active/activated-parameter definition or count for this comparison model; the 12B label is not an active-count disclosure."
+    },
+    {
+      "id": "s12",
+      "url": "https://arxiv.org/html/2602.03328v1",
+      "title": "GuardReasoner-Omni: A Reasoning-based Multi-modal Guardrail for Text, Image, and Video",
+      "publisher": "GuardReasoner-Omni research team",
+      "accessed": true,
+      "evidence": "Fresh October 27 comparison-source check: Tables 1, 2 and 4 identify LLaMA Guard 4 12B, and Appendix A.1 describes its pruned dense multimodal architecture. These are performance tables, with no active/activated-parameter column or count; they do not establish active=total."
     }
   ],
   "fields": {
@@ -132,17 +156,23 @@
       "value": 12,
       "status": "verified",
       "source_ids": [
-        "s1"
+        "s1",
+        "s2",
+        "s10"
       ],
-      "note": "Developer-reported nominal total in billions for the multimodal model. No exact storage-element aggregate is substituted for learned parameters."
+      "note": "Meta explicitly reports a nominal 12B total for the complete multimodal model. The October 27 recheck confirms this published count; a tensor census is not required to retain it."
     },
     "active_parameters_b": {
       "value": null,
       "status": "undisclosed",
       "source_ids": [
-        "s1"
+        "s1",
+        "s2",
+        "s10",
+        "s11",
+        "s12"
       ],
-      "note": "No separate active count is defined. Dense architecture does not establish active=total, particularly across text-only and image processing."
+      "note": "No separate active count found in the reopened Meta sources or later Qwen3Guard and GuardReasoner-Omni comparison reports. Their 12B model labels do not define activated parameters. Dense architecture alone does not establish active=total across text and vision processing, and pruning prevents inheriting Scout's 17B active count."
     },
     "architecture": {
       "value": "dense",
@@ -249,9 +279,16 @@
         "label": "Official checkpoint",
         "url": "https://huggingface.co/meta-llama/Llama-Guard-4-12B/tree/main",
         "type": "weights"
+      },
+      {
+        "label": "Official Llama Guard 4 model card on Hugging Face",
+        "url": "https://huggingface.co/meta-llama/Llama-Guard-4-12B",
+        "type": "primary"
       }
     ],
-    "notes": "Meta reports nominal 12B total parameters for a dense early-fusion Transformer pruned from Scout. Active parameters are not separately defined. Meta\u2019s model registry sets maximum sequence length to 8192; the original HF configuration was inaccessible. No exact tensor count is asserted. The classifier evaluates tool-related content, but native tool calling and a dedicated reasoning mode are not disclosed. Original release is April 29, 2025; the custom license incorporates multimodal EU restrictions with an end-user exception."
+    "notes": "Meta reports nominal 12B total parameters for the dense multimodal model pruned from Scout; active parameters are not separately reported. Scout's active count does not transfer after routed experts and routers are removed. Meta’s model registry sets maximum sequence length to 8192; the original HF configuration was inaccessible. The classifier evaluates tool-related content, but native tool calling and a dedicated reasoning mode are not disclosed. Original release is April 29, 2025; the custom license incorporates multimodal EU restrictions with an end-user exception.",
+    "parameters_b": 12,
+    "active_parameters_b": null
   },
-  "summary": "Confirmed nominal 12B multimodal total, Meta attribution, original April 29 release and Llama 4 license. Set dense architecture and corrected documented context from 163840 to 8192. Kept active count unknown and cleared unsupported reasoning/tool-calling booleans; the tool-related safety category does not establish native tool calling."
+  "summary": "October 27 parameter re-audit retains Meta's explicit nominal 12B multimodal total. Reopened Meta GitHub/Hugging Face cards and architecture documentation, and checked later Qwen3Guard and GuardReasoner-Omni comparison reports; none defines a separate active count for this model, so active_parameters_b remains null. Scout's 17B active count cannot transfer through the documented pruning. Preserved the other 12 field assessments, including dense architecture, 8192 context, original April 29 release, license, and undisclosed reasoning/tool calling."
 }
