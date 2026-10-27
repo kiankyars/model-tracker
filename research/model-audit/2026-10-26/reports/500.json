@@ -1,7 +1,7 @@
 {
   "index": 500,
   "model_id": "tencent/hy-mt2-1.8b",
-  "reviewed_at": "2026-10-27T04:48:03.165041Z",
+  "reviewed_at": "2026-10-27T18:01:29.005353Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Hy-MT2-1.8B model card, pinned revision",
       "publisher": "Tencent",
       "accessed": true,
-      "evidence": "Names Hy-MT2-1.8B within the Hy-MT2 translation family, reports the nominal 1.8B scale and translation among 33 languages, and explicitly says the exact model was open-sourced on 2026-05-21."
+      "evidence": "Names Hy-MT2-1.8B within the Hy-MT2 translation family, reports the nominal 1.8B scale and translation among 33 languages, and explicitly says the exact model was open-sourced on 2026-05-21. Fresh October 27 re-read of current main matches the pinned card and still explicitly lists this variant as the Hy 1.8B translation model; it does not separately state active parameters."
     },
     {
       "id": "s2",
@@ -25,7 +25,7 @@
       "title": "Hy-MT2 technical report, revised 25 May 2026",
       "publisher": "Tencent Hunyuan Team",
       "accessed": true,
-      "evidence": "Later v2 report describes the 1.8B, 7B and 30B-A3B translation models, nominal model sizes and training pipeline. It does not separately define an active-parameter count for the exact 1.8B model."
+      "evidence": "Fresh October 27 re-read of the latest v2 report retains the 1.8B, 7B and 30B-A3B nominal sizes. Sections 2 and 2.1 describe a general Hy-series pretraining model, while Section 2.2 identifies Hy3-preview as a teacher, not the exact student checkpoint. The full report and its benchmark tables do not separately state active parameters for Hy-MT2-1.8B; that general lineage does not establish an inherited active count."
     },
     {
       "id": "s4",
@@ -33,7 +33,7 @@
       "title": "Hy-MT2-1.8B checkpoint configuration",
       "publisher": "Tencent",
       "accessed": true,
-      "evidence": "HunYuanDenseV1ForCausalLM; 32 layers, hidden size 2048, intermediate size 6144, 16 query and 4 KV heads, head dimension 128, QK normalization, vocab 120818, BF16, tie_word_embeddings:true, max_position_embeddings:262144. No quantization_config."
+      "evidence": "HunYuanDenseV1ForCausalLM; 32 layers, hidden size 2048, intermediate size 6144, 16 query and 4 KV heads, head dimension 128, QK normalization, vocab 120818, BF16, tie_word_embeddings:true, max_position_embeddings:262144. No quantization_config. Fresh current configuration matches this pinned revision and still requests tied word embeddings; configuration alone does not prove equality of the separately serialized weights."
     },
     {
       "id": "s5",
@@ -49,7 +49,7 @@
       "title": "Official model repository file inventory",
       "publisher": "Tencent / Hugging Face",
       "accessed": true,
-      "evidence": "Inspected revision 9a341cd1b679d3efd23b46e847b01745a71ed792. Complete sibling list has one unsharded model.safetensors and no safetensors shard index. Hub automatic count is 2038515712 BF16 storage elements; this is not independently a unique-parameter count."
+      "evidence": "Fresh October 27 API response confirms current revision 9a341cd1b679d3efd23b46e847b01745a71ed792, one unsharded model.safetensors and no safetensors shard index. Hub automatic count remains 2038515712 BF16 storage elements; this does not independently establish a unique learned-parameter count."
     },
     {
       "id": "s7",
@@ -90,6 +90,46 @@
       "publisher": "Tencent",
       "accessed": true,
       "evidence": "Explicitly labels Hy-MT2-1.8B as Dense, separately from the 30B-A3B MoE model."
+    },
+    {
+      "id": "s12",
+      "url": "https://arxiv.org/abs/2605.22064",
+      "title": "Hy-MT2 technical report version history, rechecked October 27",
+      "publisher": "Tencent Hunyuan Team / arXiv",
+      "accessed": true,
+      "evidence": "Version history still identifies v2, revised May 25, 2026, as the latest report. No later report version supplying a separate 1.8B-model active count was available in this record."
+    },
+    {
+      "id": "s13",
+      "url": "https://flex.ai/models/hy-mt2-1-8b",
+      "title": "FlexAI Hy-MT2 1.8B deployment catalog, checked but not adopted",
+      "publisher": "FlexAI",
+      "accessed": true,
+      "evidence": "Names the exact tencent/Hy-MT2-1.8B checkpoint and displays Active parameters 2B of 2.038516B. The complete page supplies no original measurement, active-count methodology or research comparison. Its total matches the rounded serialized-element count, so 2B may likewise be a rounded storage count; this is an inference, not a documented method. This unsupported provider listing does not establish a developer or original research-team active-count convention."
+    },
+    {
+      "id": "s14",
+      "url": "https://aclanthology.org/2026.wmt-main.203.pdf",
+      "title": "SubVision WMT26 original QLoRA study, October 2026",
+      "publisher": "Prajwal Ghimire and Aashish Mahato / ACL Anthology",
+      "accessed": true,
+      "evidence": "Full 16-page paper identifies exact tencent/Hy-MT2-1.8B in Section 4.1 and calls it a 1.8B-parameter model. Table 1 reports 19398656 trainable / 1810479104 total parameters for its QLoRA-adapted model. Those are adaptation training counts, not a separately stated inference-active count or a proof of equality between the original checkpoint embedding/output tensors. No active-parameter column or numerical active convention appears."
+    },
+    {
+      "id": "s15",
+      "url": "https://aclanthology.org/2026.wmt-main.205.pdf",
+      "title": "paramanandaAI WMT26 original translation adaptation study, October 2026",
+      "publisher": "Shiv Saud, Sundeep Dawadi and Sunil Regmi / ACL Anthology",
+      "accessed": true,
+      "evidence": "Full seven-page paper names tencent/Hy-MT2-1.8B as its base. Table 1 reports 6.5M trainable adapter parameters, 0.36% of nominal 1.8B; Table 5 compares original 1.8B and 7B models. These trainable-adapter counts are not inference-active counts, and the paper supplies no active-parameter convention."
+    },
+    {
+      "id": "s16",
+      "url": "https://aclanthology.org/2026.wmt-main.184.pdf",
+      "title": "WMT26 staged multilingual adaptation of Hy-MT2-1.8B, October 2026",
+      "publisher": "Ma Ziwei / ACL Anthology",
+      "accessed": true,
+      "evidence": "Full eight-page original study compares LoRA and full-parameter adaptation of Hy-MT2-1.8B. Tables 3 and 4 distinguish trainable attention adapters from all model parameters; performance and efficiency tables do not supply a numerical inference-active count."
     }
   ],
   "fields": {
@@ -156,9 +196,11 @@
         "s6",
         "s7",
         "s8",
-        "s9"
+        "s9",
+        "s12",
+        "s14"
       ],
-      "note": "Developer-reported nominal 1.8 billion parameters, not an exact unique-parameter count. The complete single-file header contains 2,038,515,712 BF16 storage elements, including two separately stored 247,435,264-element embedding/output matrices. Configuration requests tying; the recommended loader ties them only if their tensor values agree. Header metadata cannot establish equality, so neither the storage sum nor a deduplicated 1,791,080,448 figure is asserted as the exact total. No complete weight tensor was downloaded."
+      "note": "Fresh developer card and latest technical report confirm nominal 1.8 billion parameters; retain their precision rather than replace it with storage metadata. The prior complete 355-tensor census contains 2,038,515,712 BF16 elements, including separately stored 247,435,264-element embedding and output matrices. Configuration requests tying, but the loader checks tensor equality; metadata does not prove equality, so neither the storage sum nor the deduplicated 1,791,080,448 hypothesis is asserted as the exact unique total. The later SubVision table counts its QLoRA-adapted model, not this unchanged release. No weight shards were downloaded in this re-audit."
     },
     "active_parameters_b": {
       "value": null,
@@ -166,9 +208,15 @@
       "source_ids": [
         "s1",
         "s3",
-        "s4"
+        "s4",
+        "s11",
+        "s12",
+        "s13",
+        "s14",
+        "s15",
+        "s16"
       ],
-      "note": "The examined card and later technical report do not separately report active parameters for the exact 1.8B model. Dense architecture is not used to equate active and total parameters."
+      "note": "No separate active count was found in the freshly reopened original card, latest report, configuration or training guide, or the later original WMT26 studies. The general Hy-series pretraining relationship and Hy3-preview teacher do not establish exact base-model active lineage. Dense architecture and trainable LoRA-parameter counts do not define inference-active parameters. FlexAI lists 2B active without methodology; its 2.038516B total matches serialized storage, so the listing is insufficient to establish an original counting convention. Retain null rather than infer active=total or non-embedding parameters."
     },
     "architecture": {
       "value": "dense",
@@ -301,9 +349,31 @@
         "label": "Official training guide for the exact dense variant",
         "url": "https://huggingface.co/tencent/Hy-MT2-1.8B/blob/9a341cd1b679d3efd23b46e847b01745a71ed792/train/README.md",
         "type": "primary"
+      },
+      {
+        "label": "Hy-MT2 technical report version history, rechecked October 27",
+        "url": "https://arxiv.org/abs/2605.22064",
+        "type": "primary"
+      },
+      {
+        "label": "SubVision WMT26 original QLoRA study, October 2026",
+        "url": "https://aclanthology.org/2026.wmt-main.203.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "paramanandaAI WMT26 original translation adaptation study, October 2026",
+        "url": "https://aclanthology.org/2026.wmt-main.205.pdf",
+        "type": "primary"
+      },
+      {
+        "label": "WMT26 staged multilingual adaptation of Hy-MT2-1.8B, October 2026",
+        "url": "https://aclanthology.org/2026.wmt-main.184.pdf",
+        "type": "primary"
       }
     ],
-    "notes": "Tencent reports a nominal 1.8B model. Complete BF16 header storage is 2.038515712B elements, but duplicated embedding/output entries and conditional loader tying prevent an exact unique-total claim without tensor-equality evidence. Active parameters are not separately disclosed. Official supported deployment context is 8192 tokens despite a 262144 positional configuration. Reasoning-mode and tool-calling support remain unverified."
+    "notes": "Tencent reports nominal 1.8B parameters. The 2.038515712B serialized-element count includes separately stored embedding/output weights; their equality and exact unique total remain unresolved. Active parameters are not separately established. Official deployment context is 8192 tokens despite the 262144 positional configuration. Reasoning-mode and tool-calling support remain unverified.",
+    "parameters_b": 1.8,
+    "active_parameters_b": null
   },
   "evidence_cache": {
     "directory": "/tmp/model-audit-500-evidence",
@@ -327,5 +397,36 @@
       "hf-train-dense.py"
     ]
   },
-  "summary": "Confirmed the exact Tencent Hy-MT2-1.8B BF16 release on 2026-05-21, open weights and documented 8192-token context. Add Apache-2.0 and dense architecture, identify Hy-MT2 family, and correct the description to multilingual translation. Keep explicitly qualified developer-nominal 1.8B with primary provenance; the complete bounded header reveals duplicate embedding/output storage whose equality cannot be proved from metadata, so no exact unique total is asserted. Active count remains undisclosed. Clear unsupported categorical reasoning/tool booleans to null."
+  "summary": "Fresh parameter re-audit retains Tencent nominal 1.8B with primary provenance and explicitly patches active parameters to null. Current original card/config/API and latest report were reopened; three later original WMT26 studies add no inference-active convention. FlexAI 2B active is an unsupported provider listing consistent with rounded storage, not a supported replacement. Preserve the prior complete tensor census without asserting embedding/output equality or a unique exact total, and preserve all 12 other field assessments.",
+  "parameter_reaudit": {
+    "agent": "/root/parameters_500",
+    "reviewed_at": "2026-10-27T18:01:29.005353Z",
+    "outcome": "Nominal total 1.8B verified; active count remains undisclosed.",
+    "evidence_directory": "/tmp/parameter-500-reaudit",
+    "evidence_files": [
+      "fetch-manifest.json",
+      "current-card.md",
+      "current-config.json",
+      "current-model-api.json",
+      "report-v2.html",
+      "report-v2.txt",
+      "report-versions.html",
+      "report-versions.txt",
+      "flex-provider.html",
+      "flex-provider.txt",
+      "later-research-fetch.json",
+      "wmt-184.pdf",
+      "wmt-184.txt",
+      "wmt-203.pdf",
+      "wmt-203.txt",
+      "wmt-205.pdf",
+      "wmt-205.txt"
+    ],
+    "searches": [
+      "Exact Hy-MT2-1.8B active/activated parameters and original Tencent parameter/base lineage searches.",
+      "Exact Hy-MT2-1.8B later research searches restricted to arXiv and ACL Anthology, including original October WMT26 studies 184, 203 and 205.",
+      "Chinese activation terminology and original Tencent/Hugging Face/GitHub sources checked for missed active disclosures."
+    ],
+    "limitations": "No complete tensor values downloaded or compared; prior header census retained. Searches did not establish a supported inference-active count. Provider storage-count rounding is a plausible explanation, not a verified methodology."
+  }
 }
