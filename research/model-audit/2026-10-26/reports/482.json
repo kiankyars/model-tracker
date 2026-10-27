@@ -1,7 +1,7 @@
 {
   "index": 482,
   "model_id": "sakana/fugu",
-  "reviewed_at": "2026-10-27T04:10:07.353487Z",
+  "reviewed_at": "2026-10-27T17:46:19.723627Z",
   "sources": [
     {
       "id": "s1",
@@ -17,7 +17,7 @@
       "title": "Sakana Fugu Technical Report, v2, sections 3.1 and4",
       "publisher": "Sakana AI / arXiv",
       "accessed": true,
-      "evidence": "Exact Fugu uses a pretrained language-model backbone with a lightweight worker-selection head and singular-value-scale adaptation. It selects one worker per input without role assignment; training combines supervised fine-tuning and sep-CMA-ES. Total backbone/head and active counts are not reported."
+      "evidence": "Freshly reopened October 27, 2026. Section 3.1 names an unspecified pretrained LM backbone, a lightweight worker-selection head and singular-value-scale adaptation; neither nominal backbone/complete-model size nor active count is given. Fugu scales and adapts the Trinity method, removes its role-assignment outputs and adds supervised routing training. The small trainable subset is not an active-inference parameter count. Section 4/Table 1 compares benchmark scores without a total or active parameter column."
     },
     {
       "id": "s3",
@@ -25,7 +25,7 @@
       "title": "Toward backbone-independent orchestration: validation of Gemma 4-based Sakana Fugu",
       "publisher": "Sakana AI",
       "accessed": true,
-      "evidence": "August 10, 2026 Japanese technical update identifies previous orchestrators as Qwen-based without version or size. A separate Gemma 4 E2B experiment demonstrates comparable routing results; it does not identify Gemma 4 E2B as the deployed bare fugu backend."
+      "evidence": "Freshly reopened October 27, 2026. August 10 update says previous orchestrators were trained from Qwen, without version or size. Its comparable-scale Gemma 4 E2B validation is explicitly a separate backbone experiment trained similarly to Fugu; it does not identify a counted Qwen checkpoint or say the bare fugu endpoint deployed Gemma 4 E2B. Hundreds-of-billions-class models describe the worker pool, not the orchestrator."
     },
     {
       "id": "s4",
@@ -33,7 +33,7 @@
       "title": "Pinned official Fugu integration model catalog",
       "publisher": "Sakana AI",
       "accessed": true,
-      "evidence": "Exact slug fugu has display_name Fugu, context_window 1000000, text/image input, high/xhigh reasoning levels and parallel tool-call support. This is an API integration contract, not a neural checkpoint configuration. Its no-reasoning-summaries flag is distinct from reasoning support."
+      "evidence": "Exact slug fugu has display_name Fugu, context_window 1000000, text/image input, high/xhigh reasoning levels and parallel tool-call support. This is an API integration contract, not a neural checkpoint configuration. Its no-reasoning-summaries flag is distinct from reasoning support. Fresh October 27 read confirms this exact-slug entry contains no nominal total, active count or named neural backbone."
     },
     {
       "id": "s5",
@@ -41,7 +41,7 @@
       "title": "Sakana API models and supported endpoints",
       "publisher": "Sakana AI",
       "accessed": true,
-      "evidence": "Bare fugu is the default variant and routes to an appropriate worker. Documents reasoning effort controls, function tools/tool_choice, text formats, and a fugu web_search example. Ultra versions and Max are separate identifiers. Current underlying pool membership is not fully disclosed."
+      "evidence": "Bare fugu is the default variant and routes to an appropriate worker. Documents reasoning effort controls, function tools/tool_choice, text formats, and a fugu web_search example. Ultra versions and Max are separate identifiers. Current underlying pool membership is not fully disclosed. Fresh October 27 read found performance, pricing and API-argument tables, but no total or active learned-parameter count for bare fugu."
     },
     {
       "id": "s6",
@@ -81,7 +81,7 @@
       "title": "Introducing Fugu Max and Fugu Ultra v2",
       "publisher": "Sakana AI",
       "accessed": true,
-      "evidence": "September 11 later announcement recounts April beta and June general availability, introduces separate Max and Ultra v2 variants, and stresses modular pools. It does not disclose bare fugu backbone size or dense/MoE topology."
+      "evidence": "Freshly reopened October 27, 2026. September 11 announcement introduces separate Max and Ultra v2 variants with the same core orchestration architecture and modular worker pools; it names no counted base for bare Fugu. Its multi-trillion-parameter sentence is a generic inefficiency example, not a Fugu specification. Later comparison charts report benchmark scores and token prices, not total or active parameters."
     },
     {
       "id": "s11",
@@ -90,6 +90,22 @@
       "publisher": "Sakana AI / arXiv",
       "accessed": true,
       "evidence": "Version 1 was submitted June 19, 2026 and version 2 June 23. Both full HTML versions were checked for an explicit Mini-to-Fugu rename or exact revision mapping; none was found. These are paper dates, not independently verified API availability dates."
+    },
+    {
+      "id": "s12",
+      "url": "https://arxiv.org/html/2512.04695v2",
+      "title": "Trinity: An Evolved LLM Coordinator, original report v2, abstract and Table 6",
+      "publisher": "Sakana AI / arXiv",
+      "accessed": true,
+      "evidence": "Fresh October 27 original-source follow-up to secondary 0.6B Fugu claims. Trinity identifies an approximately 0.6B Qwen3-0.6B coordinator and approximately 10K head; Table 6 reports 9,216 singular-value and 10,240 linear-head trainable parameters. This is the named Trinity research model, predating Fugu. The later Fugu paper explicitly changes the method and head outputs without identifying an unchanged Qwen3-0.6B backbone. Trinity counts therefore do not establish bare Fugu total or active parameters."
+    },
+    {
+      "id": "s13",
+      "url": "https://arxiv.org/html/2610.12176v1",
+      "title": "Recursive Self-Improvement through Multi-Agent Self-Supervision, original report, section 4.1 and comparison results",
+      "publisher": "Sakana AI and UC Berkeley / arXiv",
+      "accessed": true,
+      "evidence": "Freshly opened October 27, 2026 as a later original research comparison/lineage check, alongside the official MASS announcement and detailed research blog. Section 4.1 identifies Qwen3.6-27B-FP8 as the MASS experiment base; reported comparisons concern its shared-model training generations. Fugu is cited for orchestration background, not identified as this 27B model. No explicit active-parameter column or counted bare-Fugu comparison was found. MASS does not supply a size or unchanged-base relationship for Fugu."
     }
   ],
   "fields": {
@@ -157,10 +173,13 @@
       "source_ids": [
         "s2",
         "s3",
-        "s8",
-        "s10"
+        "s4",
+        "s5",
+        "s10",
+        "s12",
+        "s13"
       ],
-      "note": "No exact deployed orchestrator or system total is published in the examined technical evidence. Qwen variant is unspecified; Gemma 4 E2B is a separate validation experiment. Trinity and Conductor research sizes do not establish Fugu size."
+      "note": "Fresh October 27 re-audit found no published nominal total or identified counted base for bare Fugu. The original report leaves its LM backbone unnamed; the later Qwen-family statement lacks a checkpoint/size. Trinity Qwen3-0.6B, separate Gemma 4 E2B validation and MASS Qwen3.6-27B research do not establish unchanged deployed-model lineage. Generic worker-pool scale and the successor post's multi-trillion example are not Fugu counts."
     },
     "active_parameters_b": {
       "value": null,
@@ -168,9 +187,12 @@
       "source_ids": [
         "s2",
         "s3",
-        "s5"
+        "s5",
+        "s10",
+        "s12",
+        "s13"
       ],
-      "note": "No active learned-weight count or counting convention is published. One worker per request is a system routing rule, not a numeric per-token active parameter count."
+      "note": "Checked active counts separately in the original report, later Sakana research/release comparisons and a fresh bounded search for Fugu active/activated-parameter tables. No nominal active count for this exact model was found. A single selected worker, a small trainable head/subset and named experimental backbone sizes do not specify inference-active learned parameters; no pool sum or total-equals-active inference is used."
     },
     "architecture": {
       "value": null,
@@ -281,7 +303,10 @@
         "type": "announcement"
       }
     ],
-    "notes": "June 22, 2026 is the explicitly documented general release of bare Fugu; the April 24 family beta used the Fugu Mini name. The earlier June 15 catalog date is unverified. Fugu is a learned router over independently supplied worker models. Its technical report describes one worker selected per input, a lightweight selection head and singular-value adaptation; an August update identifies earlier Qwen-based orchestrators without naming their size or version. The Gemma 4 E2B experiment does not identify the deployed backend. Total/active parameters and exact neural topology remain undisclosed. The 1M context, text/image input, reasoning and tools describe the service interface, not a single checkpoint. No authenticated API request was made."
+    "notes": "June 22, 2026 is the documented general release of bare Fugu; the April 24 beta used the Fugu Mini name, whose revision continuity is unconfirmed. Fugu is a learned router that selects one worker per input. Its earlier backbone is identified only as Qwen-based; Trinity's 0.6B coordinator and the separate Gemma 4 E2B validation do not establish Fugu's deployed size. Total and active parameter counts and exact neural topology remain undisclosed. The 1M context, text/image input, reasoning and tool support describe the hosted service interface.",
+    "parameters_b": null,
+    "active_parameters_b": null,
+    "parameters_source": null
   },
-  "summary": "Corrects the unsupported June 15 date to the explicitly documented June 22 general release, records proprietary hosted access, and replaces the vague description with exact Fugu routing behavior. Preserves primary-verified 1M interface context, text/image input, reasoning controls and tool calls. Exact counts and neural topology remain undisclosed after original report, later Qwen/Gemma 4 research, successor announcement, API docs and public repository checks; earlier beta identity and current authenticated operation are not asserted."
+  "summary": "Fresh October 27 parameter re-audit retains undisclosed total and active counts, with explicit null patch values and parameters_source. Reopened the original Fugu report, release, exact integration config, API model documentation, August Gemma 4 validation and September successor release; followed secondary 0.6B claims to original Trinity and checked October MASS research/comparisons. Neither an exact counted base relationship nor a nominal active-count convention for bare Fugu was established. Preserves the other 12 field assessments, including June 22 general availability and service-interface capabilities; current authenticated operation remains untested."
 }
