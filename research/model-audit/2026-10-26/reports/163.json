@@ -1,7 +1,7 @@
 {
   "index": 163,
   "model_id": "deepreinforce/ornith-1.0-397b",
-  "reviewed_at": "2026-10-26T18:48:41.058472+00:00",
+  "reviewed_at": "2026-10-27T12:36:17.590764+00:00",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Ornith-1.0-397B model card",
       "publisher": "DeepReinforce / Ornith",
       "accessed": true,
-      "evidence": "Names this model and family, credits DeepReinforce Team, labels 397B MoE and MIT, and explicitly documents reasoning blocks, native function calls and serving. The lightweight single-GPU sentence is a copy error contradicted by its own 8-GPU recipe."
+      "evidence": "Names this model and family, credits DeepReinforce Team, labels 397B MoE and MIT, and explicitly documents reasoning blocks, native function calls and serving. The lightweight single-GPU sentence is a copy error contradicted by its own 8-GPU recipe. Reopened October 27, 2026: the exact card explicitly describes the family as post-trained on Gemma 4 and Qwen 3.5; its 397B MoE checkpoint retains the Qwen3.5 architecture. This documented lineage, rather than shape resemblance alone, supports the nominal-size inference."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "Exact 397B checkpoint configuration",
       "publisher": "DeepReinforce / Ornith",
       "accessed": true,
-      "evidence": "Qwen3_5MoeForConditionalGeneration, BF16, 60 text layers, hidden width 4096, 512 routed experts with 10 selected per token and a shared expert. Forty-five linear-attention and fifteen full-attention layers; max_position_embeddings 262144; explicit image/video tokens and vision configuration."
+      "evidence": "Qwen3_5MoeForConditionalGeneration, BF16, 60 text layers, hidden width 4096, 512 routed experts with 10 selected per token and a shared expert. Forty-five linear-attention and fifteen full-attention layers; max_position_embeddings 262144; explicit image/video tokens and vision configuration. Reopened the pinned configuration October 27 and compared it with the current original Qwen3.5-397B-A17B configuration. Every learned text/vision dimension, all 60 layer types and top-10-of-512 routing match; differences are dtype/default/version metadata and vision model-type naming. No language-layer pruning, expert expansion, changed routing or added modality is evident."
     },
     {
       "id": "s3",
@@ -25,7 +25,7 @@
       "title": "Exact BF16 checkpoint index and indexed tensor headers",
       "publisher": "DeepReinforce / Ornith",
       "accessed": true,
-      "evidence": "At revision 5e3e761811e804c295c1d3c0ce68b21da6154209, fetched only bounded HTTP Range header data from all 122 indexed safetensors shards. All 1371 indexed tensors match headers; shape products total 396802360816 BF16 learned scalars, matching 793604721632 bytes / 2. No quantization scale/packed tensors, buffers, or MTP tensors occur. Includes 456010480 vision parameters."
+      "evidence": "At revision 5e3e761811e804c295c1d3c0ce68b21da6154209, fetched only bounded HTTP Range header data from all 122 indexed safetensors shards. All 1371 indexed tensors match headers; shape products total 396802360816 BF16 learned scalars, matching 793604721632 bytes / 2. No quantization scale/packed tensors, buffers, or MTP tensors occur. Includes 456010480 vision parameters. October 27 re-audit reread the current index at the unchanged revision, without repeating shard/header downloads. Its 1,371 names exactly equal the original Qwen index after removing mtp.* names; the original Qwen index has 1,553 additional MTP entries. The previously verified complete learned total is preserved."
     },
     {
       "id": "s4",
@@ -33,7 +33,7 @@
       "title": "Hugging Face metadata for official checkpoint",
       "publisher": "DeepReinforce / Hugging Face",
       "accessed": true,
-      "evidence": "Official repository is public and currently contains 122 BF16 shards. Hub metadata independently reports 396802360816 BF16 scalar parameters at revision 5e3e761811e804c295c1d3c0ce68b21da6154209. Repository createdAt June 23 is distinct from its June 25 weight-upload history."
+      "evidence": "Official repository is public and currently contains 122 BF16 shards. Hub metadata independently reports 396802360816 BF16 scalar parameters at revision 5e3e761811e804c295c1d3c0ce68b21da6154209. Repository createdAt June 23 is distinct from its June 25 weight-upload history. Fresh October 27 metadata retains revision 5e3e761811e804c295c1d3c0ce68b21da6154209 and total 396,802,360,816; this corroborates the prior census without repeating it."
     },
     {
       "id": "s5",
@@ -57,7 +57,7 @@
       "title": "Ornith-1.0 announcement",
       "publisher": "DeepReinforce / Ornith",
       "accessed": true,
-      "evidence": "June 2026 developer announcement includes exact 397B MoE model and explains joint reinforcement learning of scaffolds and solution rollouts for agentic coding."
+      "evidence": "June 2026 developer announcement includes exact 397B MoE model and explains joint reinforcement learning of scaffolds and solution rollouts for agentic coding. Reopened October 27: explicitly says the models are built on pretrained Gemma 4 and Qwen 3.5 and describes RL post-training, not a newly sized/pruned architecture."
     },
     {
       "id": "s8",
@@ -81,7 +81,7 @@
       "title": "Later first-party comparison table",
       "publisher": "DeepReinforce / Ornith",
       "accessed": true,
-      "evidence": "Later 1.5 model card contains an exact Ornith-1.0-397B comparison column with benchmark results, but does not disclose a distinct active-parameter count for that column. The 1.5 model specifications were not transferred to 1.0."
+      "evidence": "Later 1.5 model card contains an exact Ornith-1.0-397B comparison column with benchmark results, but does not disclose a distinct active-parameter count for that column. The 1.5 model specifications were not transferred to 1.0. Reopened October 27; the exact 1.0 comparison still supplies no separate active count. The accepted count is instead a labeled inference from the documented Qwen base."
     },
     {
       "id": "s11",
@@ -113,7 +113,7 @@
       "title": "Later developer announcement and comparison tables",
       "publisher": "DeepReinforce / Ornith",
       "accessed": true,
-      "evidence": "The later announcement retains the exact Ornith-1.0 397B comparison column; it supplies no 1.0 397B active-parameter disclosure. Its explicit 3B activation statement applies to 35B, not 397B."
+      "evidence": "The later announcement retains the exact Ornith-1.0 397B comparison column; it supplies no 1.0 397B active-parameter disclosure. Its explicit 3B activation statement applies to 35B, not 397B. Reopened October 27: it explicitly describes continued pretraining, mid-training and post-training on Qwen3.5/Gemma 4. The 397B comparison does not supersede the original base count; its 35B/3B figures are not transferred."
     },
     {
       "id": "s15",
@@ -122,6 +122,46 @@
       "publisher": "DeepReinforce / Ornith",
       "accessed": true,
       "evidence": "Inspected every README-changing revision in the exact repository history. June 23 ca780 has a copied comparison header Ornith-1.0-397B-A3B beside 35B comparators, while later June 25 revisions omit A3B; no revision states an explicit active-parameter count or A17B label. The historical A3B label contradicts the final checkpoint dimensions: top-10 routed experts alone contain 7549747200 parameters before shared weights."
+    },
+    {
+      "id": "s16",
+      "url": "https://huggingface.co/Qwen/Qwen3.5-397B-A17B",
+      "title": "Original Qwen3.5-397B-A17B model card",
+      "publisher": "Qwen / Alibaba",
+      "accessed": true,
+      "evidence": "Fresh October 27 read of the original card explicitly gives 397B total and 17B activated under Language Model, with 60 layers, 512 routed experts, top-10 routed plus one shared expert, width 4096 and expert width 1024. Its standard serving and MTP speculative-decoding recipes are separate. This supplies a nominal language-model convention for the documented Ornith post-training lineage, not an exact complete multimodal activation census."
+    },
+    {
+      "id": "s17",
+      "url": "https://huggingface.co/Qwen/Qwen3.5-397B-A17B/raw/main/config.json",
+      "title": "Original Qwen3.5-397B-A17B configuration",
+      "publisher": "Qwen / Alibaba",
+      "accessed": true,
+      "evidence": "Fresh October 27 original configuration, at repository revision 8472618112abcbd45acbcdc58436aff4233c23f7, independently compared with Ornith. All learned text and vision dimensions, attention pattern, embeddings/output dimensions, shared-expert size and top-10 routing match. Optional MTP configuration occurs in both; presence of the config entry alone does not mean Ornith distributes MTP weights."
+    },
+    {
+      "id": "s18",
+      "url": "https://huggingface.co/Qwen/Qwen3.5-397B-A17B/raw/main/model.safetensors.index.json",
+      "title": "Original Qwen3.5-397B-A17B checkpoint index",
+      "publisher": "Qwen / Alibaba",
+      "accessed": true,
+      "evidence": "Fresh October 27 metadata/index read at revision 8472618112abcbd45acbcdc58436aff4233c23f7. Qwen lists 2,924 tensors: 1,371 non-MTP names exactly match Ornith, plus 1,553 mtp.* entries absent from Ornith. Together with matching dimensions, this isolates the structural difference to optional speculative heads, not the ordinary 60-layer next-token network. No shards or headers were downloaded. The inherited 17B follows the card's nominal main language-model convention; it does not add speculative-head or image-encoding work."
+    },
+    {
+      "id": "s19",
+      "url": "https://essamamdani.com/blog/ornith-1-0-self-scaffolding-llm-coding-2026",
+      "title": "Independent Ornith release summary",
+      "publisher": "Essa Mamdani",
+      "accessed": true,
+      "evidence": "Fresh exact-model search surfaced a 37B-active claim. The opened article's variant table repeats it but gives no field-level developer source or counting derivation. It conflicts with the original Qwen 17B specification and unchanged routing/dimensions, so it is recorded as an unsupported secondary claim, not adopted."
+    },
+    {
+      "id": "s20",
+      "url": "https://localllmchecker.com/models/ornith-1-0-397b/",
+      "title": "Independent Ornith memory-estimator search lead",
+      "publisher": "LocalLLMChecker",
+      "accessed": false,
+      "evidence": "Fresh search snippet claimed 14.62B read per token. Opening the exact URL redirected to a general model index without Ornith; the claimed count and derivation could not be inspected. A memory-estimator read convention is not substituted for the original developer nominal activated count."
     }
   ],
   "fields": {
@@ -182,24 +222,30 @@
       "value": 396.802360816,
       "status": "verified",
       "source_ids": [
+        "s1",
         "s2",
         "s3",
         "s4",
         "s11"
       ],
-      "note": "Exact complete released-checkpoint total: sum of shape products over all 1371 tensors in 122 BF16 shards. Includes vision and untied output head; no MTP tensors are distributed. 397B is the nominal model label. No FP8 scales or packed storage counts were used."
+      "note": "Preserve the previously verified complete released-checkpoint total of 396.802360816B, including vision and the untied output head. Fresh October 27 metadata and unchanged revision/index corroborate it; no repeat census was performed. The developer nominal label remains 397B. MTP weights are not distributed."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 17,
+      "status": "verified",
       "source_ids": [
         "s1",
         "s2",
-        "s10",
+        "s3",
+        "s7",
         "s14",
-        "s15"
+        "s16",
+        "s17",
+        "s18",
+        "s19",
+        "s20"
       ],
-      "note": "No defensible published active count for the final exact checkpoint. Checked current/later first-party cards and all historical README changes. June 23 README has a copied 397B-A3B table heading, removed on June 25; top-10 routed tensors alone contain 7.5497472B parameters, so 3B conflicts with final dimensions. Config gives 10 of 512 experts plus a shared expert but no complete active-count definition. No exact-model A17B label found; Qwen base-model 17B is not transferred."
+      "note": "Nominal 17B active language-model parameters, inferred from the developer-documented Qwen3.5 post-training lineage and the original Qwen3.5-397B-A17B specification. Matching learned dimensions, all 60 layers, top-10-of-512 routing and identical non-MTP index names support an unchanged main network. Qwen labels the count under Language Model and separates optional MTP speculative decoding; Ornith omits those auxiliary heads, so this scope covers ordinary next-token language decoding and excludes image encoding or speculative-head work. It is not an exact tensor-derived activation count. The old copied A3B heading and unsupported 37B/14.62B secondary claims do not override this documented nominal convention."
     },
     "architecture": {
       "value": "moe",
@@ -338,18 +384,34 @@
         "label": "Qwen3.5 MoE implementation",
         "url": "https://raw.githubusercontent.com/huggingface/transformers/main/src/transformers/models/qwen3_5_moe/modeling_qwen3_5_moe.py",
         "type": "primary"
+      },
+      {
+        "label": "Original Qwen3.5-397B-A17B model card",
+        "url": "https://huggingface.co/Qwen/Qwen3.5-397B-A17B",
+        "type": "primary"
+      },
+      {
+        "label": "Original Qwen3.5-397B-A17B configuration",
+        "url": "https://huggingface.co/Qwen/Qwen3.5-397B-A17B/raw/main/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Original Qwen3.5-397B-A17B checkpoint index",
+        "url": "https://huggingface.co/Qwen/Qwen3.5-397B-A17B/raw/main/model.safetensors.index.json",
+        "type": "primary"
       }
     ],
-    "notes": "397B is nominal; the complete released BF16 checkpoint contains exactly 396,802,360,816 learned parameters, including 456,010,480 vision parameters and the untied output head. All 122 shard headers were checked without downloading weight payloads. No MTP tensors are present despite an MTP configuration entry. Active parameters remain undisclosed for this exact variant; top-10 routing is not a complete active-count definition. Text/image/video inputs are declared by this checkpoint\u2019s processor, template and architecture; practical vision quality remains unresolved due to unanswered user reports of image-input failures. The card\u2019s lightweight/single-GPU sentence conflicts with its explicit 8-GPU serving recipe and is not relied upon. MIT is the developer\u2019s stated license; the linked standalone LICENSE file is absent. A pre-release README\u2019s 397B-A3B table header is inconsistent with the final routed tensors and was removed in the release-day card; it is not accepted as an active count.",
+    "notes": "Complete released total: 396.802360816B, including 0.45601048B vision parameters. The nominal 17B active language-model count is inferred from documented Qwen3.5 post-training lineage and matching main-network architecture; it excludes image encoding and optional speculative heads. No MTP weights are distributed. Native text/image/video interfaces are present, but practical vision reliability remains unresolved. MIT is the stated license; the linked standalone license file is absent. The card\u2019s single-GPU wording and historical A3B heading conflict with the released model.",
     "source_type": "primary",
-    "source_url": "https://raw.githubusercontent.com/ornith-ai/Ornith-1/16d32b11211ac83373d37dc67234f77e77f909a1/README.md"
+    "source_url": "https://raw.githubusercontent.com/ornith-ai/Ornith-1/16d32b11211ac83373d37dc67234f77e77f909a1/README.md",
+    "active_parameters_b": 17
   },
   "proposed_fields": {
     "parameter_components_b": {
-      "language_model": 395.329231616,
-      "lm_head": 1.01711872,
+      "language_model": 396.346350336,
       "vision_encoder": 0.45601048
-    }
+    },
+    "active_parameters_scope": "language_model"
   },
-  "summary": "Assessed all 14 fields against exact checkpoint artifacts and developer announcements. Replace nominal 397B with exact 396.802360816B complete BF16 learned-parameter count; mark parameter provenance primary, identify hybrid MoE, add declared native video input and clarify the description. Keep exact-model active parameters undisclosed. June 25 release is supported by announcement and weight commits. Vision-input reliability is unresolved despite explicit native image/video interfaces; no benchmark-quality inference was made. Historical 397B-A3B table wording conflicts with final tensor dimensions and is not used as an active count."
+  "summary": "October 27 parameter re-audit adds a labeled nominal 17B active language-model count from documented Qwen3.5 post-training lineage. Fresh original cards, configurations and indexes establish matching main-network dimensions/routing and exactly matching non-MTP tensor names; Qwen\u2019s extra optional speculative heads are absent from Ornith. Preserved the prior exact 396.802360816B complete total, merged the existing language-stack/output-head components to match the active scope, and retained vision separately. Checked later first-party comparisons and conflicting secondary leads; preserved unrelated assessments and requested no weight shards."
 }
