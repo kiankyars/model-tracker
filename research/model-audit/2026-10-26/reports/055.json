@@ -1,7 +1,7 @@
 {
   "index": 55,
   "model_id": "alibaba/qwen3.5-9b-base",
-  "reviewed_at": "2026-10-26T15:02:28.369733Z",
+  "reviewed_at": "2026-10-27T09:47:11.618140Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Qwen3.5-9B-Base model card",
       "publisher": "Qwen",
       "accessed": true,
-      "evidence": "Explicitly identifies a pretrained-only checkpoint for fine-tuning and research, with a vision encoder, nominal 9B language model and 262144 native context. Generic post-training and MoE passages conflict with the exact-variant description/configuration."
+      "evidence": "Reopened October 27: exact pretrained-only Base card still publishes a nominal 9B language model with a vision encoder and MTP, but no active-parameter count. Generic post-training and MoE passages conflict with its variant-specific description and configuration."
     },
     {
       "id": "s2",
@@ -17,7 +17,7 @@
       "title": "Qwen3.5-9B-Base configuration",
       "publisher": "Qwen",
       "accessed": true,
-      "evidence": "Qwen3_5ForConditionalGeneration; 32 text layers alternate three linear-attention layers with one full-attention layer, dense FFNs, a vision encoder, image/video token IDs, one MTP layer, and 262144 positions."
+      "evidence": "Reopened October 27: Qwen3_5ForConditionalGeneration; 32 dense text layers alternate three linear-attention layers with one full-attention layer, with vision and one MTP layer. No activated-parameter specification is present."
     },
     {
       "id": "s3",
@@ -25,7 +25,7 @@
       "title": "Official checkpoint metadata and Safetensors parameter count",
       "publisher": "Qwen / Hugging Face",
       "accessed": true,
-      "evidence": "Public checkpoint metadata reports 9653100528 BF16 plus 3840 F32 parameters, totaling 9653104368; repository created February 26, 2026."
+      "evidence": "Fresh October 27 API retrieval at revision 68c46c4b3498877f3ef123c856ecfde50c39f404 reports 9653100528 BF16 plus 3840 F32 parameters, totaling 9653104368; last modified April 23, 2026. The total matches the prior independently recorded tensor-header sum; no shards were downloaded in this re-audit."
     },
     {
       "id": "s4",
@@ -82,6 +82,30 @@
       "publisher": "Qwen / Hugging Face",
       "accessed": true,
       "evidence": "The February 26 initial revision contains only .gitattributes and a 31-byte README, with no model weights."
+    },
+    {
+      "id": "s11",
+      "url": "https://huggingface.co/Qwen/Qwen3.5-9B/raw/main/README.md",
+      "title": "Qwen3.5-9B post-trained card and comparison tables",
+      "publisher": "Qwen",
+      "accessed": true,
+      "evidence": "Checked October 27 as a targeted exact-size comparison source: explicitly names Qwen3.5-9B-Base as base_model and gives nominal 9B language-model parameters. Its language and vision benchmark tables contain no activated-parameter row or column."
+    },
+    {
+      "id": "s12",
+      "url": "https://arxiv.org/html/2605.11887v1",
+      "title": "Qwen-Scope technical report, Table 1",
+      "publisher": "Qwen",
+      "accessed": true,
+      "evidence": "Checked October 27: the later first-party comparison table explicitly includes the Qwen3.5-9B-Base backbone in the Dense group, with 32 layers and hidden size 4096. Its columns describe SAE width, expansion and top-k; these are not active model parameter counts, and the report supplies no active count for this backbone."
+    },
+    {
+      "id": "s13",
+      "url": "https://local-ai-registry.vercel.app/models/qwen3-5-9b-base",
+      "title": "Secondary registry active-count claim and provenance",
+      "publisher": "Local AI Registry",
+      "accessed": true,
+      "evidence": "Targeted exact-variant searches surfaced 9.65B active, but the record expressly derives it from all-parameters-active-in-dense-model. Rejected as a secondary architecture inference, not a Qwen disclosure. The linked primary card and API provide no active count."
     }
   ],
   "fields": {
@@ -142,19 +166,23 @@
       "value": 9.653104368,
       "status": "verified",
       "source_ids": [
+        "s1",
         "s3",
         "s4"
       ],
-      "note": "Complete published checkpoint count divided by 1e9, independently matching header sums. The nominal 9B label describes the language model; vision and MTP are additional."
+      "note": "Fresh official checkpoint metadata confirms the complete 9.653104368B total and agrees with the prior tensor census. Preserve the exact component breakdown; the developer nominal 9B label is scoped to the language model."
     },
     "active_parameters_b": {
       "value": null,
       "status": "undisclosed",
       "source_ids": [
         "s1",
-        "s2"
+        "s2",
+        "s11",
+        "s12",
+        "s13"
       ],
-      "note": "No exact-variant active-parameter count is reported. Dense architecture does not justify equating active with total, especially across vision and MTP paths."
+      "note": "Fresh exact-card, configuration and targeted first-party comparison-table checks found no separately published active count. The later Qwen-Scope table identifies a dense backbone but reports SAE properties; secondary dense-equals-total claims do not establish the developer convention. No total or non-embedding count is substituted."
     },
     "architecture": {
       "value": "dense",
@@ -227,7 +255,7 @@
     "architecture": "dense",
     "reasoning": null,
     "tool_call": null,
-    "notes": "Complete checkpoint: 9.653104368B parameters, including 8.953803264B language model with output head, 0.456010480B vision and 0.243290624B MTP. Active parameters are not separately disclosed. Dense FFNs accompany hybrid DeltaNet/full attention. Base weights are pretrained-only; generic card post-training/MoE claims and chat-template branches do not establish trained reasoning or tool capabilities. February 26 is repository creation, February 27 is weight upload, and March 2 is the official small-series announcement; exact Base public release remains unverified.",
+    "notes": "Complete checkpoint: 9.653104368B parameters, including 8.953803264B language model with output head (nominally 9B), 0.456010480B vision and 0.243290624B MTP. Active parameters are not separately disclosed. Dense FFNs accompany hybrid DeltaNet/full attention. Base weights are pretrained-only; generic card claims and template branches do not establish trained reasoning or tool capabilities. February 26 is repository creation, February 27 is weight upload, and March 2 is the small-series announcement; exact Base public release remains unverified.",
     "sources": [
       {
         "label": "Exact Base model card",
@@ -268,8 +296,19 @@
         "label": "Qwen-Scope dense backbone classification",
         "url": "https://qwen.ai/blog?id=qwen-scope",
         "type": "technical_report"
+      },
+      {
+        "label": "Qwen3.5-9B comparison tables",
+        "url": "https://huggingface.co/Qwen/Qwen3.5-9B/raw/main/README.md",
+        "type": "model_card"
+      },
+      {
+        "label": "Qwen-Scope backbone comparison table",
+        "url": "https://arxiv.org/html/2605.11887v1",
+        "type": "technical_report"
       }
-    ]
+    ],
+    "active_parameters_b": null
   },
   "proposed_fields": {
     "parameter_components_b": {
@@ -278,5 +317,5 @@
       "mtp": 0.243290624
     }
   },
-  "summary": "Correct total from nominal 9B language size to the complete 9.653104368B checkpoint, verify dense hybrid architecture, and preserve undisclosed active parameters. Clear unsupported reasoning/tool-call false flags and the repository-creation release date. Confirm open weights, Apache-2.0, native 262144 context, multimodal inputs and pretrained-only description. Exact Base public release remains unresolved."
+  "summary": "October 27 parameter re-audit preserves the verified 9.653104368B complete-checkpoint total and exact components; fresh official metadata agrees with the prior tensor census. The nominal 9B language-model specification remains explicit. Exact-model and targeted later first-party table searches found no published active count, so active_parameters_b remains explicitly null/undisclosed. Other audited fields are unchanged."
 }
