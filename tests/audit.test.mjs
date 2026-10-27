@@ -1,6 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { auditFields, validateReport } from '../scripts/model-audit.mjs';
+import { auditFields, validateReport, applyAcceptedReports } from '../scripts/model-audit.mjs';
+import fs from 'node:fs/promises';
+import os from 'node:os';
+import path from 'node:path';
 import { validateModels, normalize, csv } from '../scripts/data-lib.mjs';
 import { modelSizeLabel, activeSizeLabel, missingLabel } from '../lib/parameter-labels.js';
 import { toCSV } from '../lib/model-data.js';
@@ -47,4 +50,27 @@ test('phase-dependent counts retain their scope in validation, display and both 
   validateModels([hosted]);
   assert.equal(modelSizeLabel(hosted), '35B language decoder');
   assert.throws(() => validateModels([{ ...multimodal, active_parameters_b: null }]), /active parameter scope/);
+});
+
+test('a reopened model retains its published correction until its fresh review is accepted', async () => {
+  const projectRoot = await fs.mkdtemp(path.join(os.tmpdir(), 'parameter-reaudit-'));
+  try {
+    const directory = path.join(projectRoot, 'audit');
+    await fs.mkdir(path.join(directory, 'reports'), { recursive: true });
+    await fs.mkdir(path.join(projectRoot, 'data'));
+    const write = (file, data) => fs.writeFile(file, JSON.stringify(data));
+    const models = [1, 2].map(index => ({ index, id: `lab/model-${index}`, task_name: `audit_00${index}`, agent: `/root/audit_00${index}`, state: 'accepted', review: { note: 'Original review accepted.' }, parameter_reaudit: { state: index === 1 ? 'running' : 'accepted' } }));
+    await write(path.join(directory, 'manifest.json'), { models, parameter_reaudit: { model_indices: [1, 2] } });
+    for (const entry of models) {
+      const report = { index: entry.index, model_id: entry.id, reviewed_at: '2026-10-27T07:00:00Z', sources: [{ id: 's1', url: 'https://example.org/model', title: 'Model card', accessed: true, evidence: 'Published nominal count.' }], fields: Object.fromEntries(auditFields.map(field => [field, { value: field === 'parameters_b' ? entry.index * 10 : null, status: field === 'parameters_b' ? 'verified' : 'undisclosed', source_ids: ['s1'], note: 'Reviewed.' }])), patch: { parameters_b: entry.index * 10 }, summary: 'Fresh parameter evidence.' };
+      await write(path.join(directory, 'reports', `00${entry.index}.json`), report);
+    }
+    await write(path.join(projectRoot, 'data/corrections.json'), { overrides: { 'lab/model-1': { parameters_b: 1 }, 'lab/model-2': { parameters_b: 2 } } });
+    assert.equal(await applyAcceptedReports(directory, { projectRoot }), 1);
+    const corrections = JSON.parse(await fs.readFile(path.join(projectRoot, 'data/corrections.json'), 'utf8'));
+    assert.deepEqual(corrections.overrides['lab/model-1'], { parameters_b: 1 });
+    assert.equal(corrections.overrides['lab/model-2'].parameters_b, 20);
+  } finally {
+    await fs.rm(projectRoot, { recursive: true, force: true });
+  }
 });

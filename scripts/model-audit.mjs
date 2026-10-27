@@ -69,11 +69,12 @@ export async function auditStatus(directory = auditDirectory) {
   };
 }
 
-export async function applyAcceptedReports(directory = auditDirectory) {
+export async function applyAcceptedReports(directory = auditDirectory, { projectRoot = root } = {}) {
   const manifest = await read(path.join(directory, 'manifest.json'));
-  const correctionsPath = path.join(root, 'data/corrections.json');
+  const correctionsPath = path.join(projectRoot, 'data/corrections.json');
   const corrections = await read(correctionsPath);
-  const accepted = manifest.models.filter(entry => entry.state === 'accepted');
+  const reopened = new Set(manifest.parameter_reaudit?.model_indices || []);
+  const accepted = manifest.models.filter(entry => entry.state === 'accepted' && (!reopened.has(entry.index) || entry.parameter_reaudit?.state === 'accepted'));
   const extendedFields = ['parameters_scope', 'active_parameters_scope', 'parameter_components_b', 'active_parameters_by_phase_b'];
   let reviewedAt = '';
   for (const entry of accepted) {
@@ -104,7 +105,7 @@ export async function applyAcceptedReports(directory = auditDirectory) {
   }
   if (!accepted.length) throw new Error('No reviewed reports to apply');
   await fs.writeFile(correctionsPath, `${JSON.stringify(corrections, null, 2)}\n`);
-  const metadataPath = path.join(root, 'data/research-metadata.json');
+  const metadataPath = path.join(projectRoot, 'data/research-metadata.json');
   let previous = {};
   try { previous = await read(metadataPath); } catch (error) { if (error.code !== 'ENOENT') throw error; }
   if (!previous.reviewed_at || Date.parse(reviewedAt) > Date.parse(previous.reviewed_at)) previous.reviewed_at = new Date(reviewedAt).toISOString();
