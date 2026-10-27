@@ -1,0 +1,329 @@
+{
+  "index": 540,
+  "model_id": "xiaomi/mimo-v2.5",
+  "reviewed_at": "2026-10-27T05:48:33.773150Z",
+  "sources": [
+    {
+      "id": "s1",
+      "url": "https://mimo.xiaomi.com/mimo-v2-5",
+      "title": "MiMo-V2.5 launch announcement",
+      "publisher": "Xiaomi MiMo",
+      "accessed": true,
+      "evidence": "Dated April 22, 2026 and explicitly announces MiMo-V2.5. Reports nominal 310B total/15B active sparse MoE, multimodal encoders and 1M context. The currently updated page also links the later open weights."
+    },
+    {
+      "id": "s2",
+      "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.5/blob/63651580ca774f8504f676040460aed3e1244ac1/README.md",
+      "title": "MiMo-V2.5 official checkpoint card at pinned revision",
+      "publisher": "XiaomiMiMo",
+      "accessed": true,
+      "evidence": "Exact post-trained model: MIT metadata; text/image/video/audio understanding; 1M context. Its LLM-backbone comparison column gives 310B/15B, 48 layers and 256 experts/top-8 routing. Separate descriptions give 729M vision and 261M audio encoders and three MTP layers; the card also calls 310B the model total."
+    },
+    {
+      "id": "s3",
+      "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.5/blob/63651580ca774f8504f676040460aed3e1244ac1/config.json",
+      "title": "MiMo-V2.5 checkpoint configuration",
+      "publisher": "XiaomiMiMo",
+      "accessed": true,
+      "evidence": "MiMoV2ForCausalLM; 48 layers, 47 MoE layers, 256 experts/top-8 routing; 39 sliding-window/9 full-attention layers; max_position_embeddings=1048576. Includes vision/audio component configs and mixed FP8 quantization. Exact config has four full-attention KV heads and eight SWA KV heads, reversing the card table."
+    },
+    {
+      "id": "s4",
+      "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.5/blob/63651580ca774f8504f676040460aed3e1244ac1/tokenizer_config.json",
+      "title": "MiMo-V2.5 chat template",
+      "publisher": "XiaomiMiMo",
+      "accessed": true,
+      "evidence": "Template handles multimodal input tokens, thinking/reasoning content, tool definitions, structured tool calls and tool responses. Thinking defaults on and can be disabled."
+    },
+    {
+      "id": "s5",
+      "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.5/blob/63651580ca774f8504f676040460aed3e1244ac1/modeling_mimo_v2.py",
+      "title": "MiMo-V2.5 official model implementation",
+      "publisher": "XiaomiMiMo",
+      "accessed": true,
+      "evidence": "Causal language-model head produces vocabulary logits. Vision/video and audio features feed the language model; audio tokenizer loads separately. The implementation ignores checkpoint model.mtp keys rather than instantiating those modules, so code-only enumeration would not establish the full checkpoint total."
+    },
+    {
+      "id": "s6",
+      "url": "https://mimo.mi.com/docs/en-US/news/latest/v2.5-open-sourced",
+      "title": "MiMo-V2.5 series open-weight release announcement",
+      "publisher": "Xiaomi MiMo",
+      "accessed": true,
+      "evidence": "Explicitly licenses the weights of V2.5 and Pro, including Base, under MIT for commercial deployment and further training. Distinguishes public testing from April 23 from subsequent weight release. Page updated June 29; its April 28 Orbit event date is not used as the original model launch."
+    },
+    {
+      "id": "s7",
+      "url": "https://cdn.syndication.twimg.com/tweet-result?id=2048821516079661561&lang=en&token=1",
+      "title": "XiaomiMiMo open-source announcement via X syndication",
+      "publisher": "Xiaomi MiMo",
+      "accessed": true,
+      "evidence": "Official XiaomiMiMo post 2048821516079661561 has timestamp 2026-04-27T17:48:09Z (April 28 in Beijing) and announces MiMo-V2.5 open-sourcing under MIT. Syndication supplies only the initial portion of the long post; the complete license claim is separately supported by Xiaomi documentation."
+    },
+    {
+      "id": "s8",
+      "url": "https://mimo.mi.com/docs/en-US/updates/model",
+      "title": "Xiaomi model release changelog",
+      "publisher": "Xiaomi MiMo",
+      "accessed": true,
+      "evidence": "Lists mimo-v2.5 release on April 23, 2026, with image/video/audio/text understanding and 1M context. This is one day later than the dated original research announcement; preserved as a source-date discrepancy rather than silently changing the earliest announcement."
+    },
+    {
+      "id": "s9",
+      "url": "https://huggingface.co/api/models/XiaomiMiMo/MiMo-V2.5",
+      "title": "Official MiMo-V2.5 checkpoint repository metadata",
+      "publisher": "XiaomiMiMo / Hugging Face",
+      "accessed": true,
+      "evidence": "Public ungated repository, created April 27, 2026, containing model shards, index and separate audio-tokenizer weights. Revision inspected: 63651580ca774f8504f676040460aed3e1244ac1. Automated mixed-dtype safetensors totals were not treated as learned parameter counts."
+    },
+    {
+      "id": "s10",
+      "url": "https://arxiv.org/html/2607.13095v1",
+      "title": "Full-Pipeline Inference Optimization for MiMo-V2.5 Series",
+      "publisher": "MiMo Team, Xiaomi",
+      "accessed": true,
+      "evidence": "Later first-party paper dated July 14 explicitly includes MiMo-V2.5, confirming hybrid sliding-window attention, sparse MoE, multimodal encoders and three-layer MTP. Pro-specific 70-layer examples were not transferred to this model."
+    },
+    {
+      "id": "s11",
+      "url": "https://mimo.mi.com/docs/en-US/updates/deprecate",
+      "title": "Xiaomi model deprecation notice",
+      "publisher": "Xiaomi MiMo",
+      "accessed": true,
+      "evidence": "Documents mimo-v2.5 API-name expiration on October 21, 2026 after rerouting to V2.6-Flash. Distinguishes the former default max_completion_tokens=32768 from total context length; open checkpoints remain available."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "MiMo-V2.5",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Exact post-trained V2.5 model, distinct from Base, Pro, V2-Omni, ASR and TTS variants."
+    },
+    "developer": {
+      "value": "Xiaomi",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s10"
+      ],
+      "note": "Xiaomi MiMo team; official announcement and checkpoint publisher agree."
+    },
+    "family": {
+      "value": "mimo",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Member of the Xiaomi MiMo family; normalized family identifier retained."
+    },
+    "release_date": {
+      "value": "2026-04-22",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s7",
+        "s8",
+        "s9"
+      ],
+      "note": "Retain the original research announcement date, April 22. API/public-beta documentation says April 23. Open weights were announced April 27 UTC/April 28 Beijing and do not reset the original release date."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s6",
+        "s7",
+        "s9"
+      ],
+      "note": "Public ungated weights exist for this exact post-trained model, including the separate audio tokenizer. This reflects later availability, not a claim that weights were public on April 22."
+    },
+    "license": {
+      "value": "MIT",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s6"
+      ],
+      "note": "Official announcement explicitly applies MIT to model weights; this is stronger than inferring a weights license from implementation code alone."
+    },
+    "parameters_b": {
+      "value": 310,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2"
+      ],
+      "note": "Author-reported rounded nominal count, not an exact learned-tensor inventory. The card repeats 310B in its LLM Backbone table while separately describing 0.729B vision and 0.261B audio encoders. Proposed backbone scope preserves that distinction; no sum or exact complete-system count is asserted. Three MTP modules and projectors are not reconciled, and FP8 scale/storage tensors were not counted as learned parameters."
+    },
+    "active_parameters_b": {
+      "value": 15,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "note": "Author-reported nominal active count for the language backbone, with eight selected experts out of 256 per MoE layer. Proposed language_decode phase prevents interpreting 15B as all multimodal encoder work or as a summed system-wide active count."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s5",
+        "s10"
+      ],
+      "note": "Sparse decoder MoE: one dense plus 47 MoE layers, hybrid sliding-window/full attention, dedicated vision and audio encoders. Uses exact V2.5 config rather than sibling Pro specs. README KV-head table conflicts with config; no conflicting head counts are promoted."
+    },
+    "context_window": {
+      "value": 1048576,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s8",
+        "s11"
+      ],
+      "note": "Exact checkpoint maximum is 1,048,576 positions, advertised as 1M. The card serving example sets 262144 for that invocation; it is not the model maximum. API default output length 32768 is also distinct. Native API identifier was subsequently deprecated, so this is model capacity rather than a current live-service claim."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text",
+          "image",
+          "audio",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s3",
+        "s5",
+        "s6"
+      ],
+      "note": "Dedicated visual and audio input encoders feed a causal text decoder. The separate audio tokenizer and related TTS/ASR models do not establish audio generation by this V2.5 checkpoint."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s4"
+      ],
+      "note": "Official reasoning claims and exact chat template support thinking content and a switch to disable thinking."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "s2",
+        "s4"
+      ],
+      "note": "Checkpoint template accepts function specifications, emits structured tool_call blocks and serializes tool responses; card specifies the mimo tool-call parser."
+    },
+    "description": {
+      "value": "Open-weight multimodal MoE model with text, image, audio and video input, text output, reasoning and tool calling.",
+      "status": "verified",
+      "source_ids": [
+        "s1",
+        "s2",
+        "s4",
+        "s5",
+        "s6"
+      ],
+      "note": "Uses supported capabilities without agent-performance rankings or conflating the checkpoint with its retired native API endpoint."
+    }
+  },
+  "patch": {
+    "license": "MIT",
+    "parameters_b": 310,
+    "active_parameters_b": 15,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "description": "Open-weight multimodal MoE model with text, image, audio and video input, text output, reasoning and tool calling.",
+    "source_url": "https://mimo.xiaomi.com/mimo-v2-5",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "MiMo-V2.5 launch announcement",
+        "url": "https://mimo.xiaomi.com/mimo-v2-5",
+        "type": "primary"
+      },
+      {
+        "label": "MiMo-V2.5 official checkpoint card at pinned revision",
+        "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.5/blob/63651580ca774f8504f676040460aed3e1244ac1/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "MiMo-V2.5 checkpoint configuration",
+        "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.5/blob/63651580ca774f8504f676040460aed3e1244ac1/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "MiMo-V2.5 chat template",
+        "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.5/blob/63651580ca774f8504f676040460aed3e1244ac1/tokenizer_config.json",
+        "type": "weights"
+      },
+      {
+        "label": "MiMo-V2.5 official model implementation",
+        "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.5/blob/63651580ca774f8504f676040460aed3e1244ac1/modeling_mimo_v2.py",
+        "type": "weights"
+      },
+      {
+        "label": "MiMo-V2.5 series open-weight release announcement",
+        "url": "https://mimo.mi.com/docs/en-US/news/latest/v2.5-open-sourced",
+        "type": "primary"
+      },
+      {
+        "label": "XiaomiMiMo open-source announcement via X syndication",
+        "url": "https://cdn.syndication.twimg.com/tweet-result?id=2048821516079661561&lang=en&token=1",
+        "type": "primary"
+      },
+      {
+        "label": "Xiaomi model release changelog",
+        "url": "https://mimo.mi.com/docs/en-US/updates/model",
+        "type": "primary"
+      },
+      {
+        "label": "Official MiMo-V2.5 checkpoint repository metadata",
+        "url": "https://huggingface.co/api/models/XiaomiMiMo/MiMo-V2.5",
+        "type": "weights"
+      },
+      {
+        "label": "Full-Pipeline Inference Optimization for MiMo-V2.5 Series",
+        "url": "https://arxiv.org/html/2607.13095v1",
+        "type": "primary"
+      },
+      {
+        "label": "Xiaomi model deprecation notice",
+        "url": "https://mimo.mi.com/docs/en-US/updates/deprecate",
+        "type": "primary"
+      }
+    ],
+    "notes": "Xiaomi reports nominal 310B/15B counts in its language-backbone table; the 729M vision encoder, 261M audio encoder, projectors and MTP modules are not reconciled into an exact complete-system count. Original announcement: April 22, 2026; API public-beta changelog: April 23; MIT weights announced April 27 UTC (April 28 Beijing). The checkpoint supports 1,048,576 positions; serving-example and default output limits are separate. Xiaomi documents native API identifier deprecation on October 21, 2026; open weights remain available."
+  },
+  "proposed_fields": {
+    "parameters_scope": "language_backbone",
+    "parameter_components_b": {
+      "language_backbone": 310,
+      "vision_encoder": 0.729,
+      "audio_encoder": 0.261
+    },
+    "active_parameters_scope": "language_decode",
+    "active_parameters_by_phase_b": {
+      "language_decode": 15
+    }
+  },
+  "summary": "Verified all 14 fields. Adds MIT, nominal 310B/15B backbone counts and MoE architecture, with proposed component/phase scope and a plain supported description. Retains April 22 original announcement, 1,048,576 context and multimodal-input/text-output capabilities. Records April 23 API-date discrepancy, later open-weight release and October native-API deprecation. No exact complete parameter count or MTP subtotal is claimed."
+}

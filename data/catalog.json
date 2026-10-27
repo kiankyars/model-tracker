@@ -14495,15 +14495,15 @@
     "developer": "Xiaomi",
     "developer_id": "xiaomi",
     "family": "mimo",
-    "description": "Open MiMo model for multimodal coding agents and long-context automation",
+    "description": "Open-weight multimodal MoE model with text, image, audio and video input, text output, reasoning and tool calling.",
     "release_date": "2026-04-22",
     "date_precision": "day",
     "open_weights": true,
-    "license": null,
-    "parameters_b": null,
-    "active_parameters_b": null,
-    "parameters_source": null,
-    "architecture": null,
+    "license": "MIT",
+    "parameters_b": 310,
+    "active_parameters_b": 15,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
     "context_window": 1048576,
     "modalities": {
       "input": [
@@ -14518,9 +14518,64 @@
     },
     "reasoning": true,
     "tool_call": true,
-    "source_url": "https://github.com/anomalyco/models.dev/blob/dev/models/xiaomi/mimo-v2.5.toml",
-    "source_type": "catalog",
+    "source_url": "https://mimo.xiaomi.com/mimo-v2-5",
+    "source_type": "primary",
     "sources": [
+      {
+        "label": "MiMo-V2.5 launch announcement",
+        "url": "https://mimo.xiaomi.com/mimo-v2-5",
+        "type": "primary"
+      },
+      {
+        "label": "MiMo-V2.5 official checkpoint card at pinned revision",
+        "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.5/blob/63651580ca774f8504f676040460aed3e1244ac1/README.md",
+        "type": "weights"
+      },
+      {
+        "label": "MiMo-V2.5 checkpoint configuration",
+        "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.5/blob/63651580ca774f8504f676040460aed3e1244ac1/config.json",
+        "type": "weights"
+      },
+      {
+        "label": "MiMo-V2.5 chat template",
+        "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.5/blob/63651580ca774f8504f676040460aed3e1244ac1/tokenizer_config.json",
+        "type": "weights"
+      },
+      {
+        "label": "MiMo-V2.5 official model implementation",
+        "url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.5/blob/63651580ca774f8504f676040460aed3e1244ac1/modeling_mimo_v2.py",
+        "type": "weights"
+      },
+      {
+        "label": "MiMo-V2.5 series open-weight release announcement",
+        "url": "https://mimo.mi.com/docs/en-US/news/latest/v2.5-open-sourced",
+        "type": "primary"
+      },
+      {
+        "label": "XiaomiMiMo open-source announcement via X syndication",
+        "url": "https://cdn.syndication.twimg.com/tweet-result?id=2048821516079661561&lang=en&token=1",
+        "type": "primary"
+      },
+      {
+        "label": "Xiaomi model release changelog",
+        "url": "https://mimo.mi.com/docs/en-US/updates/model",
+        "type": "primary"
+      },
+      {
+        "label": "Official MiMo-V2.5 checkpoint repository metadata",
+        "url": "https://huggingface.co/api/models/XiaomiMiMo/MiMo-V2.5",
+        "type": "weights"
+      },
+      {
+        "label": "Full-Pipeline Inference Optimization for MiMo-V2.5 Series",
+        "url": "https://arxiv.org/html/2607.13095v1",
+        "type": "primary"
+      },
+      {
+        "label": "Xiaomi model deprecation notice",
+        "url": "https://mimo.mi.com/docs/en-US/updates/deprecate",
+        "type": "primary"
+      },
       {
         "label": "Models.dev record",
         "url": "https://github.com/anomalyco/models.dev/blob/dev/models/xiaomi/mimo-v2.5.toml",
@@ -14535,7 +14590,21 @@
     "aliases": [],
     "first_seen": "2026-10-26T08:55:12.627Z",
     "last_seen": "2026-10-26T09:05:47.987Z",
-    "upstream_present": true
+    "upstream_present": true,
+    "notes": "Xiaomi reports nominal 310B/15B counts in its language-backbone table; the 729M vision encoder, 261M audio encoder, projectors and MTP modules are not reconciled into an exact complete-system count. Original announcement: April 22, 2026; API public-beta changelog: April 23; MIT weights announced April 27 UTC (April 28 Beijing). The checkpoint supports 1,048,576 positions; serving-example and default output limits are separate. Xiaomi documents native API identifier deprecation on October 21, 2026; open weights remain available.",
+    "parameters_scope": "language_backbone",
+    "parameter_components_b": {
+      "language_backbone": 310,
+      "vision_encoder": 0.729,
+      "audio_encoder": 0.261
+    },
+    "active_parameters_scope": "language_decode",
+    "active_parameters_by_phase_b": {
+      "language_decode": 15
+    },
+    "field_status": {},
+    "audited_at": "2026-10-27T05:48:33.773150Z",
+    "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/model-audit/2026-10-26/reports/540.json"
   },
   {
     "id": "xiaomi/mimo-v2.5-pro",
