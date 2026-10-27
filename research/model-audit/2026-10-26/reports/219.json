@@ -1,7 +1,7 @@
 {
   "index": 219,
   "model_id": "google/gemma-3-4b-it",
-  "reviewed_at": "2026-10-26T20:14:59.196Z",
+  "reviewed_at": "2026-10-27T13:18:31.393Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Google Gemma 3 4B IT model repository",
       "publisher": "Google",
       "accessed": true,
-      "evidence": "Exact instruction-tuned 4B repository, based on google/gemma-3-4b-pt; identifies Gemma license and demonstrates image/text input with text generation.",
+      "evidence": "Exact instruction-tuned 4B repository, based on google/gemma-3-4b-pt; identifies Gemma license and demonstrates image/text input with text generation. Reopened for the October 27 parameter pass: the official model tree explicitly identifies google/gemma-3-4b-pt as the base and this checkpoint as its fine-tune.",
       "type": "weights"
     },
     {
@@ -27,7 +27,7 @@
       "title": "Gemma 3 model card",
       "publisher": "Google DeepMind",
       "accessed": true,
-      "evidence": "Identifies Google authorship, open pretrained and instruction-tuned weights; 4B accepts text/images and produces text with 128K combined context. Reports ordinary reasoning benchmarks, without establishing a dedicated thinking-mode boolean.",
+      "evidence": "Identifies Google authorship, open pretrained and instruction-tuned weights; 4B accepts text/images and produces text with 128K combined context. Reports ordinary reasoning benchmarks, without establishing a dedicated thinking-mode boolean. Fresh parameter review found no separately defined active count for the exact 4B IT variant.",
       "type": "primary"
     },
     {
@@ -36,7 +36,7 @@
       "title": "Gemma 3 Technical Report, March 12, 2025",
       "publisher": "Google DeepMind",
       "accessed": true,
-      "evidence": "Exact 4B-IT is discussed. Section 2 describes decoder-only Transformer with GQA, RMSNorm, QK normalization and 5:1 local/global attention. Table 1 lists rounded 4B components: vision 417M, embeddings 675M, non-embeddings 3,209M. Vision encoder is shared and frozen during language-model training; no active-parameter count is defined.",
+      "evidence": "Exact 4B-IT is discussed. Section 2 describes decoder-only Transformer with GQA, RMSNorm, QK normalization and 5:1 local/global attention. Table 1 lists rounded 4B components: vision 417M, embeddings 675M, non-embeddings 3,209M. Vision encoder is shared and frozen during language-model training; no active-parameter count is defined. Freshly reread Section 3 explicitly turns the pretrained models into instruction-tuned models through post-training, including teacher knowledge distillation and reinforcement learning; this does not identify a newly resized student, pruning, expert expansion or added modality between the named 4B PT and IT checkpoints. The teacher is not used as the size source.",
       "type": "primary"
     },
     {
@@ -45,7 +45,7 @@
       "title": "Exact official checkpoint metadata",
       "publisher": "Google via Hugging Face",
       "accessed": true,
-      "evidence": "Public model API reports safetensors.parameters.BF16=4,300,079,472 and safetensors.total=4,300,079,472 for this exact repository revision; architecture Gemma3ForConditionalGeneration. Aggregate checkpoint metadata was read, not tensor headers.",
+      "evidence": "Public model API reports safetensors.parameters.BF16=4,300,079,472 and safetensors.total=4,300,079,472 for this exact repository revision; architecture Gemma3ForConditionalGeneration. Aggregate checkpoint metadata was read, not tensor headers. Re-fetched October 27: the same count and architecture remain, and cardData.base_model explicitly names google/gemma-3-4b-pt; its matching pinned metadata is s17.",
       "type": "weights"
     },
     {
@@ -137,6 +137,42 @@
       "type": "primary",
       "accessed": true,
       "evidence": "Current chronology lists March 10, 2025 for Gemma 3, conflicting with the contemporaneous March 12 announcements and technical report. Retain the contemporaneous launch date."
+    },
+    {
+      "id": "s16",
+      "url": "https://arxiv.org/html/2505.09388v1",
+      "title": "Qwen3 Technical Report, Table 7",
+      "publisher": "Qwen Team",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Freshly read the original research-team comparison. Table 7 explicitly identifies Gemma-3-4B Base as dense and lists 4B total and 4B activated parameters. This is Qwen Team's nominal comparison convention, not a separate Google disclosure or exact inference-time tensor count. The exact 4B IT model appears elsewhere in benchmark results without its own activated-count table row. Google explicitly identifies that PT checkpoint as the IT model's base, with matching released metadata and no supported structural resizing (s1, s4, s5, s17)."
+    },
+    {
+      "id": "s17",
+      "url": "https://huggingface.co/api/models/google/gemma-3-4b-pt/revision/cc012e0a6d0787b4adcc0fa2c4da74402494554d",
+      "title": "Pinned Google Gemma 3 4B PT base metadata",
+      "publisher": "Google via Hugging Face",
+      "type": "weights",
+      "accessed": true,
+      "evidence": "Freshly fetched official named-base metadata reports Gemma3ForConditionalGeneration and 4,300,079,472 BF16 parameters, matching the exact IT metadata. This corroborates the explicit PT-to-IT relationship, rather than transferring a count from an unexamined sibling. Aggregate metadata only; no weights downloaded."
+    },
+    {
+      "id": "s18",
+      "url": "https://arxiv.org/html/2504.07491v1",
+      "title": "Kimi-VL Technical Report, Figure 1",
+      "publisher": "Kimi Team",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Opened the original HTML paper, downloaded its original arXiv PDF and visually inspected page 1. Figure 1 explicitly labels Gemma-3-4B-IT on an activated-parameters axis at roughly 4B. The approximate plot corroborates the nominal convention for the exact IT model; it does not establish an exact count or Gemma-specific component scope. The caption's language-decoder qualification for Kimi-VL is not transferred to Gemma."
+    },
+    {
+      "id": "s19",
+      "url": "https://arxiv.org/html/2607.02770v1",
+      "title": "Gemma 4 Technical Report, later comparison check",
+      "publisher": "Google DeepMind",
+      "type": "primary",
+      "accessed": true,
+      "evidence": "Freshly checked later Google architecture, parameter and Gemma 3 comparison passages. Its 3.8B active statement concerns Gemma 4 26B-A4B, not Gemma 3 4B IT; it supplies no retrospective active-count definition for this exact model. The current Gemma 4 model card was also checked with the same distinction."
     }
   ],
   "fields": {
@@ -208,17 +244,21 @@
         "s9",
         "s14"
       ],
-      "note": "Complete released HF checkpoint count from aggregate BF16 metadata, independently reconciled to exact converter and architecture: text 3,880,263,168 + vision 416,866,032 + projector 2,950,272 = 4,300,079,472. Tied output embeddings count once. Includes 64 conversion-created vocabulary rows (163,840 values); original implementation count is 4,299,915,632. These added entries are not original learned weights. No packed quantization or scale tensors enter the formula; positional/RoPE buffers and pooling are excluded. Raw headers were gated: this is metadata-plus-implementation reconciliation, not a direct header census. The 4B label is nominal."
+      "note": "Complete released HF checkpoint count from aggregate BF16 metadata, independently reconciled to exact converter and architecture: text 3,880,263,168 + vision 416,866,032 + projector 2,950,272 = 4,300,079,472. Tied output embeddings count once. Includes 64 conversion-created vocabulary rows (163,840 values); original implementation count is 4,299,915,632. These added entries are not original learned weights. No packed quantization or scale tensors enter the formula; positional/RoPE buffers and pooling are excluded. Raw headers were gated: this is metadata-plus-implementation reconciliation, not a direct header census. The 4B label is nominal. Fresh October 27 pinned metadata reconfirms this total; the 4B PT base has the same aggregate count. The supported exact count and existing derivation are retained without a repeated tensor census."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 4,
+      "status": "verified",
       "source_ids": [
+        "s16",
+        "s1",
         "s4",
-        "s6",
-        "s7"
+        "s5",
+        "s17",
+        "s18",
+        "s19"
       ],
-      "note": "No separately defined active-per-token count was found. Dense text layers do not justify copying total: vision/projector work depends on image input and inference phase."
+      "note": "Nominal 4B under Qwen Team's published activated-parameter convention for Gemma-3-4B Base, applied by explicit PT-to-IT lineage: Google identifies the exact PT checkpoint as the base, describes post-training of pretrained models, and both released checkpoint metadata totals and architectures match. No structural resizing, pruning or expert expansion of this named student was established. Kimi Team's original Figure 1 also plots the exact Gemma-3-4B-IT at roughly 4B on an activated-parameters axis. This is an attributed nominal research-comparison convention, not a separately defined Google active disclosure or exact per-token census. Neither comparison defines Gemma-specific component scope; vision/projector participation varies with input and phase, so the exact 4.300079472B total is not copied into active. Fresh exact-model/base searches and later Google Gemma 4 comparison checks found no more precise exact-model active definition."
     },
     "architecture": {
       "value": "dense",
@@ -295,7 +335,7 @@
     "description": "Google's instruction-tuned Gemma 3 model with text and image input and text output.",
     "source_url": "https://blog.google/innovation-and-ai/technology/developers-tools/gemma-3/",
     "source_type": "primary",
-    "notes": "Total includes 3,880,263,168 language, 416,866,032 vision and 2,950,272 projector parameters, with tied embeddings counted once. The language count includes 163,840 entries added during Hugging Face conversion. Pinned metadata and implementation agree; raw tensor headers were inaccessible. Active parameters are not separately defined. Function calling uses prompting and output parsing. The March 12 launch announcement conflicts with a later release log saying March 10.",
+    "notes": "Total 4.300079472B includes language, vision and projector weights, with tied embeddings counted once and 163,840 entries added during Hugging Face conversion. Active 4B is nominal under Qwen Team's published base-model convention, supported by Google's explicit PT-to-IT lineage and Kimi Team's approximate exact-IT comparison plot; it is not an exact per-token count or a separate Google active disclosure. Function calling uses prompting and output parsing. The March 12 launch announcement conflicts with a later release log saying March 10.",
     "sources": [
       {
         "label": "Google Gemma 3 4B IT model repository",
@@ -366,8 +406,24 @@
         "label": "Gemma release chronology",
         "url": "https://ai.google.dev/gemma/docs/releases",
         "type": "primary"
+      },
+      {
+        "label": "Qwen3 Technical Report, Table 7",
+        "url": "https://arxiv.org/html/2505.09388v1",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned Google Gemma 3 4B PT base metadata",
+        "url": "https://huggingface.co/api/models/google/gemma-3-4b-pt/revision/cc012e0a6d0787b4adcc0fa2c4da74402494554d",
+        "type": "weights"
+      },
+      {
+        "label": "Kimi-VL Technical Report, Figure 1",
+        "url": "https://arxiv.org/html/2504.07491v1",
+        "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": 4
   },
   "proposed_fields": {
     "parameter_components_b": {
@@ -388,5 +444,5 @@
     "original_implementation": "4300079472 - 163840 = 4299915632",
     "access_limit": "Official raw configuration/index and tensor-header access require authenticated license acceptance; metadata and official source code were accessible."
   },
-  "summary": "Correct nominal 4B to the complete released checkpoint count 4.300079472B, distinguish its 64 conversion-created embedding rows, add Gemma license and dense architecture, and simplify description. Confirm exact March 12, 2025 IT release, open weights, 131072 context, image/text modalities and prompted function calling. Active count remains undisclosed; clear unsupported reasoning=false to null. Raw headers were gated, with count established by official aggregate metadata reconciled to exact converter/configuration and implementation."
+  "summary": "Fresh parameter re-audit retains the complete released checkpoint total of 4.300079472B, reconfirmed by pinned official metadata without repeating the prior census or downloading weights. Recover nominal active 4B from Qwen Team's explicit base-model comparison convention through Google's named PT-to-IT relationship and matching checkpoint metadata; Kimi Team's original Figure 1 independently corroborates roughly 4B for the exact IT model. Attribute the convention to those research teams, not Google, and do not invent component scope or exact per-token participation. Original evidence, exact-model and named-base searches, and later Google comparisons were revisited; no more precise active definition was found. Preserve all other field assessments and the prior exact count derivation."
 }
