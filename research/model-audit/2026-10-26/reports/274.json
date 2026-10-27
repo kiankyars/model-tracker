@@ -1,7 +1,7 @@
 {
   "index": 274,
   "model_id": "meta/llama-3.2-3b-instruct",
-  "reviewed_at": "2026-10-26T21:40:15.749453Z",
+  "reviewed_at": "2026-10-27T14:13:34.608Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Llama-3.2-3B-Instruct model card",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "Exact original Instruct repository: Meta developer, multilingual text input/output, 3B (3.21B), GQA, shared embeddings, original 128k context, September 25, 2024 release and custom community license. The repository explicitly contains this Instruct model for Transformers and original llama implementations."
+      "evidence": "Exact original Instruct repository: Meta developer, multilingual text input/output, 3B (3.21B), GQA, shared embeddings, original 128k context, September 25, 2024 release and custom community license. Fresh parameter recheck confirms the published nominal 3.21B and identifies the tuned models as SFT/RLHF versions, with final chat models aligned on top of the pretrained model. The card has no separate active-parameter count."
     },
     {
       "id": "s2",
@@ -65,7 +65,7 @@
       "title": "Shared Llama 3.2 model card updated for quantization",
       "publisher": "Meta",
       "accessed": true,
-      "evidence": "Shared card reports 3B (3.21B), GQA/shared embeddings and separate original 128k versus quantized 8k rows. Its October 24, 2024 release date is the later quantized update; the exact original repository and launch announcement establish September 25."
+      "evidence": "Shared card reports 3B (3.21B), GQA/shared embeddings and separate original 128k versus quantized 8k rows. Its October 24, 2024 release date is the later quantized update; the exact original repository and launch announcement establish September 25. Fresh parameter recheck confirms the same nominal total and post-training lineage, with no separate active count."
     },
     {
       "id": "s9",
@@ -82,6 +82,14 @@
       "publisher": "Meta",
       "accessed": false,
       "evidence": "Unauthenticated request returned HTTP 401. No access-gate bypass or weight download was attempted; public Meta source code supplies architecture and exact context evidence."
+    },
+    {
+      "id": "s11",
+      "url": "https://aclanthology.org/2025.findings-emnlp.837.pdf",
+      "title": "Zipf’s and Heaps’ Laws for Tokens and LLM-generated Texts, Table 3 and sections 4.1/4.4",
+      "publisher": "Nikolay Mikhaylovskiy, NTR Labs / Tomsk State University; EMNLP Findings 2025",
+      "accessed": true,
+      "evidence": "Table 3 (PDF page 4) explicitly reports Llama-3.2-3B at 3.21B Params and 3.21B Active params. Section 4.1 identifies the listed models as base and original instruction-finetuned models, evaluated with BitsAndBytes NF4 quantization. Section 4.4 and visually checked Figure 10 (PDF page 7) compare base L3 and instruction-tuned L3i, establishing 3B Instruct coverage. This is the original researcher’s nominal active-count convention, not a Meta disclosure or an exact per-token tensor census."
     }
   ],
   "fields": {
@@ -147,16 +155,16 @@
         "s1",
         "s8"
       ],
-      "note": "Meta reports 3B (3.21B), with shared embeddings. Use the published rounded total, not an independently counted checkpoint or an exact learned-parameter tally."
+      "note": "Freshly reconfirmed Meta’s published nominal 3B (3.21B) total for the original Instruct model with shared embeddings; no exact tensor census is asserted."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
+      "value": 3.21,
+      "status": "verified",
       "source_ids": [
-        "s1",
-        "s8"
+        "s11",
+        "s1"
       ],
-      "note": "Meta does not separately report an active-per-token count. Dense architecture alone is not a disclosure that active parameters equal the total."
+      "note": "Mikhaylovskiy’s Table 3 explicitly reports 3.21B active parameters; sections 4.1/4.4 and Figure 10 (L3i) establish coverage of the original 3B Instruct model. Retain the study’s nominal convention, not a Meta disclosure or exact per-token participation count."
     },
     "architecture": {
       "value": "dense",
@@ -272,9 +280,15 @@
         "label": "Llama 3.2 Community License Agreement",
         "url": "https://github.com/meta-llama/llama-models/blob/main/models/llama3_2/LICENSE",
         "type": "primary"
+      },
+      {
+        "label": "Mikhaylovskiy: Llama 3.2 nominal active-count convention (Table 3)",
+        "url": "https://aclanthology.org/2025.findings-emnlp.837.pdf",
+        "type": "primary"
       }
     ],
-    "notes": "Original BF16 Instruct model. Meta reports approximately 3.21B parameters with shared embeddings; no independent tensor count is asserted. Dense Transformer with GQA; active parameters are not separately disclosed. Original context is 131,072 tokens, while later official INT4 variants use 8,192. September 25, 2024 is the original release; October 24 is the quantized update. Custom function calling is documented; dedicated reasoning-mode support is undisclosed."
+    "notes": "Original BF16 Instruct model. Meta publishes a nominal 3.21B total with shared embeddings. The 3.21B active count follows Mikhaylovskiy’s research convention (Table 3; original Instruct coverage in sections 4.1/4.4 and Figure 10), not a Meta disclosure or exact per-token tensor census. Dense Transformer with GQA. Original context is 131,072 tokens; later official INT4 variants use 8,192. September 25, 2024 is the original release; October 24 is the quantized update. Custom function calling is documented; dedicated reasoning-mode support is undisclosed.",
+    "active_parameters_b": 3.21
   },
-  "summary": "Refine nominal 3B to Meta's published rounded 3.21B, establish dense GQA architecture and primary-source parameter provenance, and clear unsupported reasoning=false. Confirm original September 25 release, BF16 131072 context, shared embeddings, custom license and function calling. Active count and dedicated reasoning mode remain undisclosed; gated configuration was not bypassed."
+  "summary": "Fresh parameter re-audit retains Meta’s published nominal 3.21B total and establishes 3.21B nominal active parameters from Mikhaylovskiy’s original research table. Visually checked Table 3 and Figure 10, plus sections 4.1/4.4, establish original 3B Instruct coverage. Searches and reopened Meta cards found no separate Meta active-count disclosure; the accepted value is the researcher’s convention, not an exact per-token census. Preserve all twelve unrelated field assessments."
 }
