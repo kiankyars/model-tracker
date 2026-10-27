@@ -1,7 +1,7 @@
 {
   "index": 304,
   "model_id": "minimax/MiniMax-M2.5-highspeed",
-  "reviewed_at": "2026-10-26T22:39:55.717905Z",
+  "reviewed_at": "2026-10-27T10:57:51.585763+00:00",
   "sources": [
     {
       "id": "s1",
@@ -10,7 +10,8 @@
       "publisher": "MiniMax",
       "type": "primary",
       "accessed": true,
-      "evidence": "Dated 2026-02-12. Announces M2.5 and M2.5-Lightning together as equal-capability versions with different serving speed; describes reasoning, coding and tool use."
+      "evidence": "Reopened October 27, 2026. The February 12 launch identifies two M2.5 versions: standard at 50 TPS and Lightning at 100 TPS, with identical capability and different serving speed/cost. Combined with the exact highspeed product description and staff clarification, this maps the fast API version to the same underlying model, not a separate trained release.",
+      "accessed_at": "2026-10-27T10:57:51.585763+00:00"
     },
     {
       "id": "s2",
@@ -19,7 +20,8 @@
       "publisher": "MiniMax",
       "type": "primary",
       "accessed": true,
-      "evidence": "M2.5-specific body names M2.5 and M2.5-highspeed as the two API versions with identical results, and links the M2.5 Hugging Face weights. Current navigation names M3; the M2.5 body is legacy product evidence, not proof of present API availability."
+      "evidence": "Reopened October 27, 2026. The M2.5 body explicitly identifies exactly two API versions, M2.5 and M2.5-highspeed, with identical results and different speed; its 50/100 TPS description matches the launch’s standard/Lightning pair. The same page links the shared M2.5 weights. Current M3 navigation does not change this legacy product evidence or prove endpoint operation.",
+      "accessed_at": "2026-10-27T10:57:51.585763+00:00"
     },
     {
       "id": "s3",
@@ -28,7 +30,8 @@
       "publisher": "MiniMax official organization member ryanlee-dev",
       "type": "primary",
       "accessed": true,
-      "evidence": "MiniMax org reply on February 13 says Lightning uses more inference resources for speed while model parameters remain exactly the same. Together with the official two-version product descriptions, this supports shared M2.5 weights for highspeed."
+      "evidence": "Reopened October 27, 2026. MiniMax org member ryanlee-dev explicitly says Lightning trades more inference resources for speed while model parameters remain exactly the same. Together with the official exact-highspeed product page, this establishes a serving-tier relationship to M2.5.",
+      "accessed_at": "2026-10-27T10:57:51.585763+00:00"
     },
     {
       "id": "s4",
@@ -37,7 +40,8 @@
       "publisher": "MiniMax official organization member ryanlee-dev",
       "type": "primary",
       "accessed": true,
-      "evidence": "February 15 official-org reply says all M2-series models have 230B parameters and points to an M2.5 quantization. The 10B-active wording is in a community member title, not in the official reply."
+      "evidence": "Reopened October 27, 2026. The official-org reply says all M2-series models have 230B parameters. Retain that nominal total; the discussion title’s 10B active figure is a community claim and is not the active-count basis.",
+      "accessed_at": "2026-10-27T10:57:51.585763+00:00"
     },
     {
       "id": "s5",
@@ -46,7 +50,8 @@
       "publisher": "MiniMax",
       "type": "weights",
       "accessed": true,
-      "evidence": "Defines MiniMaxM2ForCausalLM: 62 layers, 3072 hidden size, 256 local experts and top-8 routing, 48 query/8 KV heads, 128 head dimension, 196608 maximum positions, and FP8 block quantization."
+      "evidence": "Independently inspected the same-day fetched official current and pinned M2.5 configurations on October 27. Both are identical; all size-bearing layer, hidden, expert, head and vocabulary dimensions and top-8-of-256 routing match the official M2 base configuration. No weight shards were downloaded.",
+      "accessed_at": "2026-10-27T10:57:51.585763+00:00"
     },
     {
       "id": "s6",
@@ -100,16 +105,18 @@
       "publisher": "MiniMax",
       "type": "primary",
       "accessed": true,
-      "evidence": "February 2026 entry explicitly names the MiniMax-M2.5/M2.5-highspeed series release. Does not provide a release day."
+      "evidence": "Reopened October 27, 2026. The February entry names the M2.5/M2.5-highspeed pair; later entries identify M2.7 and M3 successors, without an exact highspeed parameter comparison or a separate trained highspeed checkpoint.",
+      "accessed_at": "2026-10-27T10:57:51.585763+00:00"
     },
     {
       "id": "s12",
-      "url": "https://arxiv.org/html/2605.26494v1",
+      "url": "https://arxiv.org/html/2605.26494v2",
       "title": "The MiniMax-M2 Series: Mini Activations Unleashing Max Real-World Intelligence",
       "publisher": "MiniMax",
       "type": "primary",
       "accessed": true,
-      "evidence": "May 2026 first-party report covers evolution through M2.5/M2.7 but its explicit 229.9B total and 9.8B active architecture statement labels M2. These values are not directly assigned to M2.5-highspeed."
+      "evidence": "Reopened revised report October 27, 2026. Sections 1, 2 and 9 specify M2’s 9.8B-active backbone and identify the evolution through M2.5/M2.7 as post-training/data/RL progression. Combined with matching base/M2.5 dimensions, this supports a labeled nominal 9.8B inference for M2.5. The highspeed serving relationship preserves it. Comparison tables report benchmark scores, not an alternative highspeed count.",
+      "accessed_at": "2026-10-27T10:57:51.585763+00:00"
     },
     {
       "id": "s13",
@@ -145,6 +152,26 @@
       "type": "primary",
       "accessed": true,
       "evidence": "Exact primaryModel minimax-m2.5-highspeed with provider minimax has contextSize 204800 in embedded page data; rendered provider row rounds it to 205K. This establishes the advertised Vercel-to-MiniMax route limit, not independent native endpoint operation."
+    },
+    {
+      "id": "s17",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2/raw/main/config.json",
+      "title": "MiniMax-M2 official base configuration",
+      "publisher": "MiniMax",
+      "type": "primary",
+      "accessed": true,
+      "accessed_at": "2026-10-27T10:57:51.585763+00:00",
+      "evidence": "Independently compared the same-day fetched official JSON against current/pinned M2.5 configurations on October 27. All parameter-bearing dimensions and routing match: 62 layers, 3072 hidden, 1536 expert FFN, 256 experts/top8, 48 query and 8 KV heads, head dimension128 and vocabulary200064. Configuration identity corroborates the report’s explicit post-training lineage; it is not a new tensor census."
+    },
+    {
+      "id": "s18",
+      "url": "https://huggingface.co/MiniMaxAI/MiniMax-M3.1-Flash/raw/main/README.md",
+      "title": "MiniMax-M3.1-Flash later card and comparison table",
+      "publisher": "MiniMax",
+      "type": "primary",
+      "accessed": true,
+      "accessed_at": "2026-10-27T10:57:51.585763+00:00",
+      "evidence": "Freshly retrieved with curl on October 27 after web-reader failure. Independently read specifications and the complete HTML comparison table. Its 428B/23B counts describe M3.1-Flash; the table has benchmark scores and no M2.5/highspeed activated-parameter column. No later-model size is transferred."
     }
   ],
   "fields": {
@@ -213,26 +240,28 @@
       "value": 230,
       "status": "verified",
       "source_ids": [
+        "s1",
         "s2",
         "s3",
         "s4",
         "s5",
-        "s6",
-        "s7"
+        "s17"
       ],
-      "note": "Developer nominal 230B. Shared released checkpoint has 228.689764864B non-scale elements, including 15872 routing-bias values whose original training status is unresolved for M2.5. The reference registers 228.689748992B parameter elements. Neither storage subtotal is promoted to an exact learned count; M2-specific 229.9B is not transferred."
+      "note": "Fresh October 27 re-audit retains developer nominal 230B total. Highspeed/Lightning is the same M2.5 model served with more inference resources, not a distinct trained parameter set. Neither the earlier storage subtotal nor the base report’s 229.9B is substituted as an exact total."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "unverified",
+      "value": 9.8,
+      "status": "verified",
       "source_ids": [
-        "s4",
+        "s1",
+        "s2",
+        "s3",
         "s5",
-        "s6",
-        "s7",
-        "s12"
+        "s12",
+        "s17",
+        "s18"
       ],
-      "note": "No exact-variant developer scalar with a clear counting convention was found. Top-8 routing yields 9.801344B active non-embedding weights; counting complete embedding/output matrices gives 11.030537216B. The report explicitly assigns 9.8B to M2. These are explicitly scoped derivations, not a developer-disclosed activated count."
+      "note": "Nominal lineage inference: the developer report identifies a 9.8B-active M2 backbone and post-training evolution through M2.5; matching official configurations corroborate preserved size and routing. The exact highspeed product description plus the official Lightning clarification establish unchanged model parameters. Follow the report’s main-model activation convention rather than a new embedding-dependent tensor sum. Later comparison tables add no conflicting target count."
     },
     "architecture": {
       "value": "moe",
@@ -315,7 +344,7 @@
     "description": "Faster serving version of MiniMax M2.5 for text reasoning, coding and tool-using agents, using the same underlying model parameters.",
     "source_url": "https://www.minimax.io/news/minimax-m25",
     "source_type": "primary",
-    "notes": "Highspeed/Lightning is the faster serving mode of M2.5 with unchanged parameters. 230B is the developer nominal count. Shared checkpoint has 228.689764864B non-scale elements including 15872 routing-bias values whose original training status remains unresolved. Active count is unverified; scoped derivations differ with embedding conventions. Vercel gateway metadata advertises a 204800-token MiniMax-backed highspeed route; shared checkpoint max_position_embeddings is 196608. Native API tables removed the model. The FAQ labels it retired but also gives November 18 final pay-as-you-go retirement and October 19 access restrictions/plan rerouting. Shared downloadable weights use the MiniMax Model License; card metadata labels it modified-mit.",
+    "notes": "Highspeed/Lightning is a faster serving tier of M2.5 with unchanged model parameters. Total 230B is developer nominal; active 9.8B is inferred from the documented M2 post-training lineage and matching backbone dimensions/routing. Vercel gateway metadata advertises a 204800-token MiniMax-backed highspeed route; shared checkpoint max_position_embeddings is 196608. Native API tables removed the model. The FAQ labels it retired but also gives November 18 final pay-as-you-go retirement and October 19 access restrictions/plan rerouting. Shared downloadable weights use the MiniMax Model License; card metadata labels it modified-mit.",
     "sources": [
       {
         "label": "MiniMax M2.5: Built for Real-World Productivity",
@@ -386,8 +415,32 @@
         "label": "Vercel AI Gateway MiniMax M2.5 highspeed provider metadata",
         "url": "https://vercel.com/ai-gateway/models/minimax-m2.5-highspeed",
         "type": "primary"
+      },
+      {
+        "label": "The MiniMax-M2 Series: Mini Activations Unleashing Max Real-World Intelligence",
+        "url": "https://arxiv.org/html/2605.26494v2",
+        "type": "primary"
+      },
+      {
+        "label": "MiniMax-M2 official base configuration",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M2/raw/main/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "MiniMax-M3.1-Flash later card and comparison table",
+        "url": "https://huggingface.co/MiniMaxAI/MiniMax-M3.1-Flash/raw/main/README.md",
+        "type": "primary"
       }
-    ]
+    ],
+    "active_parameters_b": 9.8
   },
-  "summary": "Verified the shared-weight highspeed/Lightning relationship, nominal 230B, MoE, custom MiniMax Model License, native reasoning/tools and February 12 launch. Exact activated count remains unverified. Provider-specific Vercel metadata verifies 204800 hosted context, separately from the 196608 checkpoint limit. Checkpoint storage and reference-registered parameter subtotals are qualified because routing-bias training status is unresolved."
+  "summary": "October 27 parameter re-audit retains nominal 230B total and recovers nominal 9.8B active through documented M2 post-training lineage, matching configurations and the unchanged-parameter highspeed/Lightning relationship. Proposes excluding highspeed as a serving-tier duplicate of MiniMax-M2.5, consistent with the catalog’s independent-model scope. All unrelated field assessments are preserved; earlier context, license and lifecycle qualifications remain.",
+  "proposed_fields": {
+    "catalog_exclusion": {
+      "category": "service_tier",
+      "related_model_id": "minimax/MiniMax-M2.5",
+      "reason": "MiniMax identifies highspeed as the faster API version of M2.5 with identical results. Its launch names the corresponding fast version Lightning, and the official organization clarification says it uses more inference resources with exactly unchanged model parameters. No separate trained highspeed checkpoint is documented. Exclude this serving-tier duplicate from independent release counts while preserving its frozen report and parameter findings.",
+      "source_url": "https://www.minimax.io/models/text"
+    }
+  }
 }
