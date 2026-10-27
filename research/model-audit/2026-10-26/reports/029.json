@@ -1,7 +1,7 @@
 {
   "index": 29,
   "model_id": "alibaba/qwen3-32b",
-  "reviewed_at": "2026-10-26T14:22:52Z",
+  "reviewed_at": "2026-10-27T07:43:20.563Z",
   "sources": [
     {
       "id": "s1",
@@ -9,7 +9,7 @@
       "title": "Qwen3-32B model card",
       "publisher": "Qwen / Alibaba Cloud",
       "accessed": true,
-      "evidence": "Exact checkpoint card reports 32.8B total and 31.2B non-embedding parameters, text generation, thinking/non-thinking modes, tool calling and local deployment. Native context is 32,768; YaRN is validated to 131,072 tokens."
+      "evidence": "Reopened the checkpoint card and raw README on October 27: the developer still reports 32.8B total and 31.2B non-embedding parameters. The card documents text generation, thinking/non-thinking modes, tool calling and local deployment. Native context is 32,768; YaRN is validated to 131,072 tokens."
     },
     {
       "id": "s2",
@@ -50,6 +50,22 @@
       "publisher": "Qwen / Alibaba Cloud",
       "accessed": true,
       "evidence": "Shows the checkpoint upload on April 28, 2025, before the April 29 announcement. Upload history does not establish when the repository became public."
+    },
+    {
+      "id": "s7",
+      "url": "https://arxiv.org/html/2505.09388v1",
+      "title": "Qwen3 Technical Report, Tables 4, 13 and 14",
+      "publisher": "Qwen Team / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Freshly checked Tables 13 and 14: the post-trained Qwen3-32B is explicitly listed as dense with 32B activated parameters in both thinking and non-thinking modes. Table 4 reports the same nominal count for its base model. These tables also use nominal 32B totals; the checkpoint card supplies the more precise 32.8B total. The arXiv record still lists only the May 14, 2025 v1 report."
+    },
+    {
+      "id": "s8",
+      "url": "https://github.com/QwenLM/Qwen3/blob/main/docs/source/getting_started/concepts.md",
+      "title": "Qwen3 developer documentation: naming convention",
+      "publisher": "Qwen Team / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "The naming section says dense model labels use total saved parameters, while MoE labels separately identify activated parameters per token. Thus the 32B model name alone is not an active-count disclosure; the technical report provides the separate explicit figure."
     }
   ],
   "fields": {
@@ -93,13 +109,13 @@
       "value": 32.8,
       "status": "verified",
       "source_ids": ["s1"],
-      "note": "Developer-rounded total in billions; 32B is branding."
+      "note": "Retain the developer-published 32.8B total from the freshly checked model card, preserving its precision rather than replacing it with the technical report's nominal 32B total."
     },
     "active_parameters_b": {
-      "value": null,
-      "status": "undisclosed",
-      "source_ids": ["s1", "s2"],
-      "note": "No separately defined active count for this dense checkpoint; 31.2B excludes embeddings and is not an active count."
+      "value": 32,
+      "status": "verified",
+      "source_ids": ["s7", "s1", "s8"],
+      "note": "Developer-published nominal 32B activated parameters in Tables 13 and 14 for thinking and non-thinking Qwen3-32B. Preserve that published precision; do not infer 32.8B active from the total or substitute the distinct 31.2B non-embedding count."
     },
     "architecture": {
       "value": "dense",
@@ -142,19 +158,22 @@
     "release_date": "2025-04-29",
     "license": "Apache-2.0",
     "parameters_b": 32.8,
+    "active_parameters_b": 32,
     "parameters_source": "primary_source",
     "architecture": "dense",
     "source_url": "https://huggingface.co/Qwen/Qwen3-32B",
     "source_type": "primary",
-    "notes": "Developer-rounded total is 32.8B; active parameters are not separately reported. Context is 32,768 natively and 131,072 with YaRN; shipped config allows 40,960 positions without scaling. Release uses the explicit April 29 announcement; April 28 checkpoint uploads do not establish public availability.",
+    "notes": "Developer reports 32.8B total and nominal 32B activated parameters (technical report, Tables 13–14); 31.2B is the separate non-embedding count. Context is 32,768 natively and 131,072 with YaRN; shipped config allows 40,960 positions without scaling. Release uses the explicit April 29 announcement; April 28 checkpoint uploads do not establish public availability.",
     "sources": [
       {"label": "Qwen3-32B model card", "url": "https://huggingface.co/Qwen/Qwen3-32B", "type": "weights"},
       {"label": "Qwen3 launch announcement", "url": "https://qwenlm.github.io/blog/qwen3/", "type": "announcement"},
       {"label": "Qwen3-32B configuration", "url": "https://huggingface.co/Qwen/Qwen3-32B/blob/main/config.json", "type": "documentation"},
       {"label": "Qwen3 release history", "url": "https://github.com/QwenLM/Qwen3", "type": "documentation"},
       {"label": "Qwen3-32B license", "url": "https://huggingface.co/Qwen/Qwen3-32B/blob/main/LICENSE", "type": "license"},
-      {"label": "Qwen3-32B upload history", "url": "https://huggingface.co/Qwen/Qwen3-32B/commits/main", "type": "documentation"}
+      {"label": "Qwen3-32B upload history", "url": "https://huggingface.co/Qwen/Qwen3-32B/commits/main", "type": "documentation"},
+      {"label": "Qwen3 Technical Report", "url": "https://arxiv.org/html/2505.09388v1", "type": "paper"},
+      {"label": "Qwen3 naming convention", "url": "https://github.com/QwenLM/Qwen3/blob/main/docs/source/getting_started/concepts.md", "type": "documentation"}
     ]
   },
-  "summary": "Correct total parameters from 32B branding to 32.8B, fill dense architecture and Apache-2.0 license, and use the explicit April 29 release announcement. Confirm text-only, thinking and tool support. Retain 131,072 maximum with a YaRN qualification; active count remains undisclosed."
+  "summary": "Fresh parameter re-audit retains the model card's 32.8B total and resolves active parameters to the developer's nominal 32B in technical report Tables 13–14. The active figure is independently published, not inferred from dense architecture or the 31.2B non-embedding count. Existing release, license, architecture, context and capability assessments are unchanged."
 }
