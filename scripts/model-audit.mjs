@@ -58,6 +58,9 @@ export async function auditStatus(directory = auditDirectory) {
       reports.push(validateReport(report, entry));
     } catch (error) { if (error.code !== 'ENOENT') errors.push(error.message); }
   }
+  const parameterScope = new Set(manifest.parameter_reaudit?.model_indices || []);
+  const parameterEntries = manifest.models.filter(entry => parameterScope.has(entry.index));
+  if (manifest.parameter_reaudit && (parameterScope.size !== manifest.parameter_reaudit.model_count || parameterEntries.length !== parameterScope.size)) errors.push('Parameter re-audit scope is invalid');
   return {
     scope: manifest.model_count,
     spawned: manifest.models.filter(entry => entry.agent).length,
@@ -65,6 +68,7 @@ export async function auditStatus(directory = auditDirectory) {
     accepted: manifest.models.filter(entry => entry.state === 'accepted').length,
     unresolved_fields: reports.reduce((sum, report) => sum + Object.values(report.fields).filter(field => field.status === 'unverified').length, 0),
     pending: manifest.models.filter(entry => !entry.agent).map(entry => ({ index: entry.index, id: entry.id, task_name: entry.task_name })),
+    ...(manifest.parameter_reaudit ? { parameter_reaudit: { scope: parameterScope.size, spawned: parameterEntries.filter(entry => entry.parameter_reaudit?.agent).length, accepted: parameterEntries.filter(entry => entry.parameter_reaudit?.state === 'accepted').length } } : {}),
     errors,
   };
 }
@@ -124,6 +128,6 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
     if (process.argv.includes('--apply')) console.log(`Applied ${await applyAcceptedReports()} accepted individual model reports.`);
     const status = await auditStatus();
     console.log(JSON.stringify({ ...status, pending: status.pending.slice(0, 12) }, null, 2));
-    if (status.errors.length || process.argv.includes('--complete') && (status.scope !== status.spawned || status.scope !== status.reports || status.scope !== status.accepted)) process.exitCode = 1;
+    if (status.errors.length || process.argv.includes('--complete') && (status.scope !== status.spawned || status.scope !== status.reports || status.scope !== status.accepted || status.parameter_reaudit?.scope !== status.parameter_reaudit?.accepted)) process.exitCode = 1;
   }
 }
