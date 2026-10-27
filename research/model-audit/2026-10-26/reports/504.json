@@ -1,0 +1,344 @@
+{
+  "index": 504,
+  "model_id": "tencent/hy3-preview",
+  "reviewed_at": "2026-10-27T04:56:47.067065Z",
+  "sources": [
+    {
+      "id": "card",
+      "url": "https://huggingface.co/tencent/Hy3-preview/blob/549c2b3a0fd5b9a6c6059a9935bf0d59ab69d75a/README.md",
+      "title": "Hy3 preview official model card (pinned)",
+      "publisher": "Tencent Hy Team",
+      "accessed": true,
+      "evidence": "Identifies Hy3 preview as the instruct release, with nominal 295B total/core parameters, 21B active and a separately listed 3.8B MTP layer. Documents reasoning modes, tool-call serving, 80 backbone layers and one MTP layer; News explicitly announces public weights on 2026-04-23."
+    },
+    {
+      "id": "config",
+      "url": "https://huggingface.co/tencent/Hy3-preview/blob/549c2b3a0fd5b9a6c6059a9935bf0d59ab69d75a/config.json",
+      "title": "Hy3 preview checkpoint configuration (pinned)",
+      "publisher": "Tencent Hy Team",
+      "accessed": true,
+      "evidence": "HYV3ForCausalLM; 80 decoder layers plus num_nextn_predict_layers=1; one dense initial FFN; 192 routed experts, top-8, one shared expert; hidden size 4096; GQA with 64 query and 8 KV heads of dimension 128; context 262144; vocabulary 120832; tie_word_embeddings=false; no quantization configuration."
+    },
+    {
+      "id": "license",
+      "url": "https://huggingface.co/tencent/Hy3-preview/blob/549c2b3a0fd5b9a6c6059a9935bf0d59ab69d75a/LICENSE",
+      "title": "Tencent Hy Community License Agreement for Hy3 preview (pinned)",
+      "publisher": "Tencent",
+      "accessed": true,
+      "evidence": "Names the exact preview and explicitly states its release date as April 23, 2026. Grants conditional use and distribution rights under the Tencent Hy Community License Agreement; it is not Apache-2.0 and has territorial and commercial restrictions."
+    },
+    {
+      "id": "release",
+      "url": "https://cloud.tencent.com/document/product/1823/130675",
+      "title": "Tencent Cloud TokenHub product updates",
+      "publisher": "Tencent Cloud",
+      "accessed": true,
+      "evidence": "The April 2026 release log says Hy3 preview support and its Hy Token Plan became available on 2026-04-23. The April 20 entries concern other models. It separately records Hy3 on July 6."
+    },
+    {
+      "id": "announcement",
+      "url": "https://www.tencent.com/index.php/en-us/articles/2202320.html",
+      "title": "Tencent Unveils Hy3 preview; Model Enhances Agent Capabilities and Real-World Usability",
+      "publisher": "Tencent",
+      "accessed": true,
+      "evidence": "English corporate article dated April 24 describes Hy3 preview as part of the Hy/Hunyuan family, publicly open sourced and available through Tencent products and APIs, with 295B total and 21B activated MoE parameters. Its article date is later than the exact preview license/model-card release date."
+    },
+    {
+      "id": "index",
+      "url": "https://huggingface.co/tencent/Hy3-preview/blob/549c2b3a0fd5b9a6c6059a9935bf0d59ab69d75a/model.safetensors.index.json",
+      "title": "Hy3 preview complete safetensors index (pinned)",
+      "publisher": "Tencent Hy Team",
+      "accessed": true,
+      "evidence": "Maps 47138 unique tensors to 112 shards and reports 597572342272 data bytes. Every mapped shard header was retrieved and checked against this index; the index byte total includes 15360 F32 routing-buffer elements."
+    },
+    {
+      "id": "headers",
+      "url": "https://huggingface.co/tencent/Hy3-preview/tree/549c2b3a0fd5b9a6c6059a9935bf0d59ab69d75a",
+      "title": "Hy3 preview checkpoint shard headers (all 112 indexed shards, pinned)",
+      "publisher": "Tencent Hy Team",
+      "accessed": true,
+      "evidence": "Strict HTTP 206 byte ranges read only each eight-byte safetensors prefix and its bounded JSON header, totaling 5897008 header bytes. All 47138 tensors match the index and independently configured names/shapes/dtypes, with complete nonoverlapping offsets and matching file sizes. BF16 weights sum to 298786140416 elements; F32 router buffers sum to 15360. No weight payloads were downloaded."
+    },
+    {
+      "id": "implementation",
+      "url": "https://github.com/huggingface/transformers/blob/v5.6.0/src/transformers/models/hy_v3/modeling_hy_v3.py",
+      "title": "HYV3 Transformer implementation at the checkpoint-specified version",
+      "publisher": "Tencent HunYuan Team and Hugging Face",
+      "accessed": true,
+      "evidence": "Defines causal attention, RMSNorm, dense/MoE FFNs and the backbone parameter shapes; router e_score_correction_bias is a registered buffer and rotary frequencies are nonpersistent buffers. This implementation explicitly ignores MTP layer 80, so it alone cannot establish the complete checkpoint count."
+    },
+    {
+      "id": "training",
+      "url": "https://huggingface.co/tencent/Hy3-preview/blob/549c2b3a0fd5b9a6c6059a9935bf0d59ab69d75a/train/llama_factory_support/hy_v3_patches.py",
+      "title": "Tencent Hy3 preview training compatibility patches (pinned)",
+      "publisher": "Tencent Hy Team",
+      "accessed": true,
+      "evidence": "Tencent explicitly classifies e_score_correction_bias as named_buffers rather than named_parameters, and maps it to the checkpoint name mlp.expert_bias. The per-expert and fused-expert representations preserve the same weight elements."
+    },
+    {
+      "id": "mtp",
+      "url": "https://github.com/vllm-project/vllm/blob/d881812500b49bc77c8e1106664c75ffee16958e/vllm/model_executor/models/hy_v3_mtp.py",
+      "title": "HYV3 MTP implementation and weight ownership (pinned)",
+      "publisher": "vLLM project",
+      "accessed": true,
+      "evidence": "Configured MTP adds a decoder block, enorm, hnorm, final_layernorm and a 4096x8192 eh_proj. Its loader reuses the main model embedding and lm_head; no additional MTP embedding/output-head weights or intermediate norm are counted. These definitions reconcile all model.layers.80 tensors."
+    },
+    {
+      "id": "template",
+      "url": "https://huggingface.co/tencent/Hy3-preview/blob/549c2b3a0fd5b9a6c6059a9935bf0d59ab69d75a/chat_template.jinja",
+      "title": "Hy3 preview chat template (pinned)",
+      "publisher": "Tencent Hy Team",
+      "accessed": true,
+      "evidence": "Formats textual chat messages, optional tools and assistant tool_calls, plus reasoning-effort controls and thinking markers; the inspected checkpoint has no vision/audio encoder or corresponding input-processing components."
+    },
+    {
+      "id": "routing",
+      "url": "https://cloud.tencent.com/announce/detail/2384",
+      "title": "Hy Token Plan routes Hy3 preview requests to Hy3 from July 24",
+      "publisher": "Tencent Cloud",
+      "accessed": true,
+      "evidence": "The platform states that Hy Token Plan calls to hy3-preview route to the distinct Hy3 model from July 24, 2026. Current hosted behavior must not be used to infer specifications of the April preview checkpoint."
+    },
+    {
+      "id": "laterhy3",
+      "url": "https://huggingface.co/tencent/Hy3/blob/main/README.md",
+      "title": "Later Hy3 model card, checked for exact preview references",
+      "publisher": "Tencent Hy Team",
+      "accessed": true,
+      "evidence": "Describes Hy3 as a later post-training improvement after the late-April preview. Its own specifications and Apache license are not transferred to the preview."
+    },
+    {
+      "id": "laterhy4",
+      "url": "https://huggingface.co/tencent/Hy4-preview/blob/main/README.md",
+      "title": "Later Hy4 preview model card, checked for exact preview references",
+      "publisher": "Tencent Hy Team",
+      "accessed": true,
+      "evidence": "Discusses the earlier Hy3 preview as a release/feedback precedent. Its 770B backbone, 10B MTP and Gated DSA architecture describe Hy4, not Hy3 preview; no such properties are transferred."
+    }
+  ],
+  "fields": {
+    "name": {
+      "value": "Hy3 preview",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "license"
+      ],
+      "note": "Official exact preview name; retain the existing display name."
+    },
+    "developer": {
+      "value": "Tencent",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "license"
+      ],
+      "note": "Developed by the Tencent Hy Team."
+    },
+    "family": {
+      "value": "Hy",
+      "status": "verified",
+      "source_ids": [
+        "announcement"
+      ],
+      "note": "Tencent explicitly identifies this release with the Hy family, also called Hunyuan in China."
+    },
+    "release_date": {
+      "value": "2026-04-23",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "license",
+        "release",
+        "announcement"
+      ],
+      "note": "The exact license release date, explicit public-weights announcement and API availability agree on April 23. April 20 in the baseline is unsupported; repository creation/upload dates do not establish public availability. The English corporate article is dated April 24."
+    },
+    "open_weights": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "license",
+        "index",
+        "headers"
+      ],
+      "note": "The original public BF16 checkpoint and conditional distribution license are accessible; open weights does not imply an unrestricted open-source license."
+    },
+    "license": {
+      "value": "Tencent Hy Community License Agreement",
+      "status": "verified",
+      "source_ids": [
+        "license"
+      ],
+      "note": "Use the named preview-specific license; do not copy the later Hy3/Hy4 Apache license."
+    },
+    "parameters_b": {
+      "value": 298.786140416,
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "index",
+        "headers",
+        "implementation",
+        "training",
+        "mtp"
+      ],
+      "note": "Exact complete checkpoint count: 298786140416 parameters = 295033528320 backbone + 3752612096 MTP. All 112 indexed headers reconcile with all 47138 configured tensors; names, shapes, dtypes, index coverage, contiguous offsets, byte totals and file lengths were checked. Excluded 80x192=15360 F32 expert-bias buffers using the Tencent training mapping and registered-buffer definition. All remaining tensors are unpacked BF16 parameter weights; no quantization scales or packed storage. Main embeddings and output head are untied; MTP reuses those weights and adds three norms plus eh_proj and its decoder block. The card's 295B and 3.8B are rounded component counts, not an exact complete total. Only bounded headers were downloaded."
+    },
+    "active_parameters_b": {
+      "value": 21,
+      "status": "verified",
+      "source_ids": [
+        "card"
+      ],
+      "note": "Tencent-reported nominal active count for the main language model, not an exact arithmetic count or a complete backbone-plus-MTP active sum. The preview card separately lists its MTP total but does not disclose MTP active parameters."
+    },
+    "architecture": {
+      "value": "moe",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "config",
+        "implementation",
+        "mtp"
+      ],
+      "note": "Causal decoder-only Transformer with GQA, RMSNorm and gated SiLU FFNs: 80 backbone layers, first dense then 79 MoE layers; 192 routed experts with top-8 selection plus one shared expert. One separate MTP decoder layer is included. No Hy4 Gated DSA or sibling architecture is inferred."
+    },
+    "context_window": {
+      "value": 262144,
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "card"
+      ],
+      "note": "Exact released-checkpoint max_position_embeddings=262144, marketed as 256K. Replaces the baseline decimal 256000; provider-specific input/output caps and later endpoint routing are distinct."
+    },
+    "modalities": {
+      "value": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "status": "verified",
+      "source_ids": [
+        "config",
+        "template"
+      ],
+      "note": "Text causal-language-model checkpoint and chat template. No image/audio/video encoder or modality branch is present in the complete configured/tensor inventory."
+    },
+    "reasoning": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "template"
+      ],
+      "note": "Optional reasoning is explicitly supported; the card documents high/low reasoning effort and no_think direct responses."
+    },
+    "tool_call": {
+      "value": true,
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "template"
+      ],
+      "note": "The official template encodes tool definitions and tool calls, and the deployment instructions enable HYV3 tool-call parsing."
+    },
+    "description": {
+      "value": "Tencent's text-only MoE language model with optional reasoning, tool calling, and coding and agent capabilities.",
+      "status": "verified",
+      "source_ids": [
+        "card",
+        "config",
+        "template"
+      ],
+      "note": "Factual description of supported capabilities; no unverified benchmark ranking or superlative."
+    }
+  },
+  "patch": {
+    "release_date": "2026-04-23",
+    "date_precision": "day",
+    "license": "Tencent Hy Community License Agreement",
+    "parameters_b": 298.786140416,
+    "active_parameters_b": 21,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "context_window": 262144,
+    "description": "Tencent's text-only MoE language model with optional reasoning, tool calling, and coding and agent capabilities.",
+    "source_url": "https://huggingface.co/tencent/Hy3-preview/blob/549c2b3a0fd5b9a6c6059a9935bf0d59ab69d75a/README.md",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Hy3 preview official model card (pinned)",
+        "url": "https://huggingface.co/tencent/Hy3-preview/blob/549c2b3a0fd5b9a6c6059a9935bf0d59ab69d75a/README.md",
+        "type": "primary"
+      },
+      {
+        "label": "Hy3 preview checkpoint configuration (pinned)",
+        "url": "https://huggingface.co/tencent/Hy3-preview/blob/549c2b3a0fd5b9a6c6059a9935bf0d59ab69d75a/config.json",
+        "type": "primary"
+      },
+      {
+        "label": "Tencent Hy Community License Agreement for Hy3 preview (pinned)",
+        "url": "https://huggingface.co/tencent/Hy3-preview/blob/549c2b3a0fd5b9a6c6059a9935bf0d59ab69d75a/LICENSE",
+        "type": "primary"
+      },
+      {
+        "label": "Tencent Cloud TokenHub product updates",
+        "url": "https://cloud.tencent.com/document/product/1823/130675",
+        "type": "primary"
+      },
+      {
+        "label": "Hy3 preview complete safetensors index (pinned)",
+        "url": "https://huggingface.co/tencent/Hy3-preview/blob/549c2b3a0fd5b9a6c6059a9935bf0d59ab69d75a/model.safetensors.index.json",
+        "type": "primary"
+      },
+      {
+        "label": "Hy3 preview checkpoint shard headers (all 112 indexed shards, pinned)",
+        "url": "https://huggingface.co/tencent/Hy3-preview/tree/549c2b3a0fd5b9a6c6059a9935bf0d59ab69d75a",
+        "type": "primary"
+      },
+      {
+        "label": "HYV3 Transformer implementation at the checkpoint-specified version",
+        "url": "https://github.com/huggingface/transformers/blob/v5.6.0/src/transformers/models/hy_v3/modeling_hy_v3.py",
+        "type": "primary"
+      },
+      {
+        "label": "Tencent Hy3 preview training compatibility patches (pinned)",
+        "url": "https://huggingface.co/tencent/Hy3-preview/blob/549c2b3a0fd5b9a6c6059a9935bf0d59ab69d75a/train/llama_factory_support/hy_v3_patches.py",
+        "type": "primary"
+      },
+      {
+        "label": "HYV3 MTP implementation and weight ownership (pinned)",
+        "url": "https://github.com/vllm-project/vllm/blob/d881812500b49bc77c8e1106664c75ffee16958e/vllm/model_executor/models/hy_v3_mtp.py",
+        "type": "primary"
+      },
+      {
+        "label": "Hy3 preview chat template (pinned)",
+        "url": "https://huggingface.co/tencent/Hy3-preview/blob/549c2b3a0fd5b9a6c6059a9935bf0d59ab69d75a/chat_template.jinja",
+        "type": "primary"
+      },
+      {
+        "label": "Hy Token Plan routes Hy3 preview requests to Hy3 from July 24",
+        "url": "https://cloud.tencent.com/announce/detail/2384",
+        "type": "primary"
+      }
+    ],
+    "notes": "Complete checkpoint total 298.786140416B includes 295.033528320B backbone and 3.752612096B MTP weights; Tencent rounds those to 295B and 3.8B. Excludes 15360 routing-buffer entries. Active 21B is Tencent's nominal backbone figure; MTP active parameters are undisclosed. Configured context is 262144 tokens. The April 23, 2026 preview uses the Tencent Hy Community License Agreement. Hy Token Plan has routed hy3-preview calls to the separate Hy3 since July 24; these findings describe the original released preview checkpoint."
+  },
+  "proposed_fields": {
+    "active_parameters_scope": "language_backbone",
+    "parameter_components_b": {
+      "language_backbone": 295.03352832,
+      "mtp": 3.752612096
+    },
+    "active_parameters_by_phase_b": {
+      "language_backbone": 21
+    }
+  },
+  "summary": "Correct release to 2026-04-23, identify the preview community license, fill the complete verified parameter total of 298.786140416B and nominal backbone active count of 21B, identify the MoE Transformer architecture, and correct configured context to 262144. All 112 bounded shard headers and the configured backbone/MTP modules reconcile; routing buffers are excluded. Later Hy3 and Hy4 specifications are not transferred. No current preview endpoint behavior is claimed."
+}
