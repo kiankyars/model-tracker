@@ -1,7 +1,7 @@
 {
   "index": 35,
   "model_id": "alibaba/qwen3-coder-plus",
-  "reviewed_at": "2026-10-27T07:52:15.704067Z",
+  "reviewed_at": "2026-10-28T08:13:49.514266+00:00",
   "sources": [
     {
       "id": "s1",
@@ -22,7 +22,7 @@
     {
       "id": "s3",
       "url": "https://help.aliyun.com/en/model-studio/model-pricing",
-      "title": "Model Studio pricing \u2014 historical search-index copy",
+      "title": "Model Studio pricing — historical search-index copy",
       "publisher": "Alibaba Cloud",
       "accessed": true,
       "evidence": "Fresh search-index evidence still maps qwen3-coder-plus to qwen3-coder-plus-2025-09-23; the current live pricing page no longer includes the alias. The dated Alibaba update notices s9 and s10 independently establish that mapping without relying only on the stale index."
@@ -30,7 +30,7 @@
     {
       "id": "s4",
       "url": "https://docs.modelstudio.console.alibabacloud.com/id/model-studio/qwen3-coder-plus",
-      "title": "qwen3-coder-plus model card \u2014 historical search-index copy",
+      "title": "qwen3-coder-plus model card — historical search-index copy",
       "publisher": "Alibaba Cloud",
       "accessed": true,
       "evidence": "Indexed exact-model card lists text input/output, Context Window 1000000 and maximum output 65536. Function Calling is supported for China but marked unsupported in international/global sections. Live fetch exceeded the web parser limit; a direct English-page fetch showed redirects to the model overview. Treat the card as historical only."
@@ -38,7 +38,7 @@
     {
       "id": "s5",
       "url": "https://www.alibabacloud.com/help/en/model-studio/text-generation-model/",
-      "title": "Text generation \u2014 historical indexed table and current page",
+      "title": "Text generation — historical indexed table and current page",
       "publisher": "Alibaba Cloud",
       "accessed": true,
       "evidence": "Search-index copy dated September 11, 2026 lists qwen3-coder-plus with 1M context and supported Thinking mode and Function Calling. Live page updated October 15 omits Plus. The historical thinking claim conflicts with the Dataphin model-specific table."
@@ -90,6 +90,30 @@
       "publisher": "Qwen Team",
       "accessed": true,
       "evidence": "Fresh review of the current README finds the open 480B-A35B, 30B-A3B and Next variants. It explicitly attributes the newer Next model to Qwen3-Next-80B-A3B-Base and its hybrid architecture, but does not map that structural change onto Coder Plus. Targeted English/Chinese searches for the Plus alias and both snapshots found no developer disclosure of a changed total, active count, pruning, distillation or expert expansion."
+    },
+    {
+      "id": "availability_exact_20261028",
+      "url": "https://huggingface.co/api/models?author=Qwen&search=qwen3-coder-plus&limit=100",
+      "title": "Official Qwen inventory search for the exact hosted model",
+      "publisher": "Qwen / Hugging Face",
+      "accessed": true,
+      "evidence": "The live official organization search returned no checkpoint under the exact hosted model name. Related family releases were checked separately."
+    },
+    {
+      "id": "availability_family_20261028",
+      "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen3-Coder&limit=1000",
+      "title": "Official Qwen Qwen3-Coder weight inventory",
+      "publisher": "Qwen / Hugging Face",
+      "accessed": true,
+      "evidence": "The official Qwen organization query returned eight Qwen3-Coder repositories: the 480B and 30B Instruct releases and their FP8 variants, plus Next variants. No separate September 23 checkpoint appears in the returned inventory."
+    },
+    {
+      "id": "availability_docs_20261028",
+      "url": "https://help.aliyun.com/en/model-studio/newly-released-models",
+      "title": "Original developer documentation checked for model availability",
+      "publisher": "Qwen / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "The release-history table lists qwen3-coder-plus-2025-09-23 on September 23, 2025 and describes improved downstream robustness, function calling and code security compared with the July 22 version."
     }
   ],
   "fields": {
@@ -128,14 +152,17 @@
       "note": "Earliest explicit availability is July 22 in China; international/global service followed July 23."
     },
     "open_weights": {
-      "value": null,
-      "status": "unverified",
+      "value": false,
+      "status": "verified",
       "source_ids": [
-        "s1",
+        "availability_exact_20261028",
+        "availability_family_20261028",
+        "availability_docs_20261028",
         "s2",
-        "s3"
+        "s9",
+        "s10"
       ],
-      "note": "Launch instructions associate the API with an open checkpoint, but later documentation maps the alias to the September snapshot. No exact downloadable weights or explicit equivalence for that snapshot was established; neither true nor false is fully verified."
+      "note": "The initial Coder-Plus launch used the open 480B checkpoint, but the rolling API alias later changed to the September 23 snapshot. The official released-weight inventory has no corresponding September checkpoint; classify the current hosted revision as closed. Classified closed under the public-download availability rule at review time; an explicit proprietary declaration is not required."
     },
     "license": {
       "value": null,
@@ -232,11 +259,11 @@
     }
   },
   "patch": {
-    "open_weights": null,
+    "open_weights": false,
     "context_window": 1000000,
     "reasoning": null,
     "description": "Hosted Qwen3 coding model for code generation and tool-driven programming.",
-    "notes": "Nominal 480B total / 35B active MoE inferred from Qwen\u2019s explicit launch mapping to Qwen3-Coder-480B-A35B-Instruct and the documented September snapshot update; no structural change is disclosed, but the later snapshot has no separate count publication. Exact hosted weights and license remain unresolved. Context and modalities use historical official documentation; current pages omit or redirect this alias, and present endpoint operation is unverified. Official sources conflict on thinking mode and regional tool-calling support. Release date is earliest China availability; international/global service followed July 23.",
+    "notes": "Nominal 480B total / 35B active MoE inferred from Qwen’s explicit launch mapping to Qwen3-Coder-480B-A35B-Instruct and the documented September snapshot update; no structural change is disclosed, but the later snapshot has no separate count publication. The current hosted September revision has no identified public weight release; its weight license remains undisclosed. Context and modalities use historical official documentation; current pages omit or redirect this alias, and present endpoint operation is unverified. Official sources conflict on thinking mode and regional tool-calling support. Release date is earliest China availability; international/global service followed July 23. Classified as closed weights: no public release of this hosted variant was found in the developer documentation and weight inventory.",
     "sources": [
       {
         "label": "Alibaba model lifecycle and release dates",
@@ -282,6 +309,21 @@
         "label": "Alibaba regional Coder Plus alias mapping",
         "url": "https://www.alibabacloud.com/en/notice/model_studio_update_of_qwen3coderplus_60c?_p_lc=1",
         "type": "primary"
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=qwen3-coder-plus&limit=100",
+        "label": "Official Qwen inventory search for the exact hosted model",
+        "type": "primary"
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen3-Coder&limit=1000",
+        "label": "Official Qwen Qwen3-Coder weight inventory",
+        "type": "primary"
+      },
+      {
+        "url": "https://help.aliyun.com/en/model-studio/newly-released-models",
+        "label": "Original developer documentation checked for model availability",
+        "type": "primary"
       }
     ],
     "release_date": "2025-07-22",
@@ -291,5 +333,58 @@
     "architecture": "moe",
     "parameters_source": "primary_source"
   },
-  "summary": "October 27 parameter re-audit restores nominal 480B total, 35B active and MoE through the explicit Qwen launch mapping plus Alibaba\u2019s documented July-to-September snapshot continuity. Fresh primary-source checks found no changed size, pruning, distillation, expert expansion or added modality for Plus; the later snapshot does not separately publish a count. Preserve the prior context correction and non-parameter assessments. Exact hosted weight identity, license, conflicting thinking-mode documentation and current endpoint operation remain unresolved."
+  "summary": "Resolved weight availability. The initial Coder-Plus launch used the open 480B checkpoint, but the rolling API alias later changed to the September 23 snapshot. The official released-weight inventory has no corresponding September checkpoint; classify the current hosted revision as closed. All unrelated field assessments and previous parameter/date evidence are preserved.",
+  "availability_resolution": {
+    "agent": "/root",
+    "reviewed_at": "2026-10-28T08:13:49.514266+00:00",
+    "fields": [
+      "open_weights"
+    ],
+    "searches": [
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=qwen3-coder-plus&limit=100",
+        "results": []
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen3-Coder&limit=1000",
+        "results": [
+          "Qwen/Qwen3-Coder-Next",
+          "Qwen/Qwen3-Coder-30B-A3B-Instruct",
+          "Qwen/Qwen3-Coder-30B-A3B-Instruct-FP8",
+          "Qwen/Qwen3-Coder-Next-FP8",
+          "Qwen/Qwen3-Coder-480B-A35B-Instruct",
+          "Qwen/Qwen3-Coder-480B-A35B-Instruct-FP8",
+          "Qwen/Qwen3-Coder-Next-GGUF",
+          "Qwen/Qwen3-Coder-Next-Base"
+        ]
+      }
+    ],
+    "accessed_originals": [
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=qwen3-coder-plus&limit=100",
+        "evidence": "The live official organization search returned no checkpoint under the exact hosted model name. Related family releases were checked separately."
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen3-Coder&limit=1000",
+        "evidence": "The official Qwen organization query returned eight Qwen3-Coder repositories: the 480B and 30B Instruct releases and their FP8 variants, plus Next variants. No separate September 23 checkpoint appears in the returned inventory."
+      },
+      {
+        "url": "https://help.aliyun.com/en/model-studio/newly-released-models",
+        "evidence": "The release-history table lists qwen3-coder-plus-2025-09-23 on September 23, 2025 and describes improved downstream robustness, function calling and code security compared with the July 22 version."
+      },
+      {
+        "url": "https://www.alibabacloud.com/en/notice/model_studio_update_of_qwen3coderplus_5c3?_p_lc=1",
+        "evidence": "Reopened the original Alibaba notice. It schedules the qwen3-coder-plus stable alias to change from qwen3-coder-plus-2025-07-22 to qwen3-coder-plus-2025-09-23 beginning October 22, 2025."
+      },
+      {
+        "url": "https://www.alibabacloud.com/en/notice/model_studio_update_of_qwen3coderplus_60c?_p_lc=1",
+        "evidence": "Reopened the original regional notice. It maps qwen3-coder-plus from the July 22 snapshot to the September 23 snapshot in Beijing and Singapore on December 4, 2025."
+      }
+    ],
+    "outcome": {
+      "open_weights": false
+    },
+    "rule": "Publicly downloadable model weights or explicitly identified equivalent checkpoint => open. No such release found after original documentation and developer inventory checks => closed. API serving extras and weight licenses are separate.",
+    "reviewed_by": "/root/date_checkpoints"
+  }
 }
