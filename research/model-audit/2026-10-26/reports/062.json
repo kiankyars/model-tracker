@@ -1,7 +1,7 @@
 {
   "index": 62,
   "model_id": "alibaba/qwen3.6-plus",
-  "reviewed_at": "2026-10-27T09:52:07.429686Z",
+  "reviewed_at": "2026-10-28T08:01:10.205724+00:00",
   "sources": [
     {
       "id": "s1",
@@ -74,6 +74,30 @@
       "publisher": "Alibaba Cloud / Qwen Team",
       "accessed": true,
       "evidence": "June 3, 2026 later first-party comparison, checked October 27. Visually inspected both linked benchmark tables (817cdbe5b3bfd8649e492d3e03e7ab3ce98a37a8.png and 4bf3dfa024483ccbc02411ad9382c7544c3b0e21.png). They explicitly include Qwen3.6-Plus but report benchmark scores only, with no total or activated-parameter row. The article supplies no quantified base relationship for Qwen3.6-Plus."
+    },
+    {
+      "id": "availability_exact_20261028",
+      "url": "https://huggingface.co/api/models?author=Qwen&search=qwen3.6-plus&limit=100",
+      "title": "Official Qwen inventory search for the exact hosted model",
+      "publisher": "Qwen / Hugging Face",
+      "accessed": true,
+      "evidence": "The live official organization search returned no checkpoint under the exact hosted model name. Related family releases were checked separately."
+    },
+    {
+      "id": "availability_family_20261028",
+      "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen3.6&limit=1000",
+      "title": "Official Qwen Qwen3.6 weight inventory",
+      "publisher": "Qwen / Hugging Face",
+      "accessed": true,
+      "evidence": "The live query returned 4 repositories. The official Plus announcement offers hosted access and separately promises smaller open models. The current Qwen3.6 weight inventory contains 27B and 35B-A3B, not Plus."
+    },
+    {
+      "id": "availability_docs_20261028",
+      "url": "https://www.alibabacloud.com/en/press-room/alibaba-unveils-qwen3-6-plus-to-accelerate-agentic?_p_lc=1",
+      "title": "Original developer documentation checked for model availability",
+      "publisher": "Qwen / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "The official Plus announcement offers hosted access and separately promises smaller open models. The current Qwen3.6 weight inventory contains 27B and 35B-A3B, not Plus."
     }
   ],
   "fields": {
@@ -111,14 +135,14 @@
       "note": "The official lifecycle tables explicitly record April 1 availability for the alias and snapshot across regional deployments. Use the earliest documented release; the April 2 public announcement and snapshot label do not establish that availability began later."
     },
     "open_weights": {
-      "value": null,
-      "status": "unverified",
+      "value": false,
+      "status": "verified",
       "source_ids": [
-        "s1",
-        "s2",
-        "s5"
+        "availability_exact_20261028",
+        "availability_family_20261028",
+        "availability_docs_20261028"
       ],
-      "note": "Exact-model sources establish hosted access and promise open releases of selected smaller variants, not weight availability of Plus. The generic proprietary Qwen Plus documentation predates this revision. Clear the baseline false pending exact primary classification."
+      "note": "The official Plus announcement offers hosted access and separately promises smaller open models. The current Qwen3.6 weight inventory contains 27B and 35B-A3B, not Plus. Classified closed under the public-download availability rule at review time; an explicit proprietary declaration is not required."
     },
     "license": {
       "value": null,
@@ -219,9 +243,9 @@
   "patch": {
     "release_date": "2026-04-01",
     "date_precision": "day",
-    "open_weights": null,
+    "open_weights": false,
     "description": "Alibaba Qwen model for agentic coding and multimodal understanding, with a one-million-token context window.",
-    "notes": "Model Studio records April 1, 2026 availability, preceding the April 2 launch announcement. The alias maps to qwen3.6-plus-2026-04-02. Total and active parameters remain undisclosed, with no established lineage to a quantified base; the published 35B/3B figures identify the separate Flash/35B-A3B model. Architecture and weight license are undisclosed; open-weight status remains unverified.",
+    "notes": "Model Studio records April 1, 2026 availability, preceding the April 2 launch announcement. The alias maps to qwen3.6-plus-2026-04-02. Total and active parameters remain undisclosed, with no established lineage to a quantified base; the published 35B/3B figures identify the separate Flash/35B-A3B model. Architecture and weight license are undisclosed. No public Plus weight release is available. Classified as closed weights: no public release of this hosted variant was found in the developer documentation and weight inventory.",
     "sources": [
       {
         "label": "Alibaba Unveils Qwen3.6-Plus to Accelerate Agentic AI Deployment for Enterprises and Alibaba’s AI Applications",
@@ -262,11 +286,66 @@
         "label": "Qwen3.7-Plus: Multimodal Agent Intelligence",
         "url": "https://www.alibabacloud.com/blog/qwen3-7-plus-multimodal-agent-intelligence_603206",
         "type": "primary"
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=qwen3.6-plus&limit=100",
+        "label": "Official Qwen inventory search for the exact hosted model",
+        "type": "primary"
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen3.6&limit=1000",
+        "label": "Official Qwen Qwen3.6 weight inventory",
+        "type": "primary"
+      },
+      {
+        "url": "https://www.alibabacloud.com/en/press-room/alibaba-unveils-qwen3-6-plus-to-accelerate-agentic?_p_lc=1",
+        "label": "Original developer documentation checked for model availability",
+        "type": "primary"
       }
     ],
     "parameters_b": null,
     "active_parameters_b": null,
     "parameters_source": null
   },
-  "summary": "October 27 parameter re-audit retains undisclosed total and active counts after reopening original primary evidence and checking the exact card, Qwen3.6 sibling releases and later Qwen3.7-Plus text/vision comparison tables. No published nominal size or explicit quantified base relationship establishes Plus counts; the 35B/3B disclosure belongs to Flash/35B-A3B, and 27B is separately released. Original non-parameter assessments are preserved. No weights were downloaded."
+  "summary": "Resolved weight availability. The official Plus announcement offers hosted access and separately promises smaller open models. The current Qwen3.6 weight inventory contains 27B and 35B-A3B, not Plus. All unrelated field assessments and previous parameter/date evidence are preserved.",
+  "availability_resolution": {
+    "agent": "/root",
+    "reviewed_at": "2026-10-28T08:01:10.205724+00:00",
+    "fields": [
+      "open_weights"
+    ],
+    "searches": [
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=qwen3.6-plus&limit=100",
+        "results": []
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen3.6&limit=1000",
+        "results": [
+          "Qwen/Qwen3.6-35B-A3B",
+          "Qwen/Qwen3.6-27B",
+          "Qwen/Qwen3.6-35B-A3B-FP8",
+          "Qwen/Qwen3.6-27B-FP8"
+        ]
+      }
+    ],
+    "accessed_originals": [
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=qwen3.6-plus&limit=100",
+        "evidence": "The live official organization search returned no checkpoint under the exact hosted model name. Related family releases were checked separately."
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen3.6&limit=1000",
+        "evidence": "The live query returned 4 repositories. The official Plus announcement offers hosted access and separately promises smaller open models. The current Qwen3.6 weight inventory contains 27B and 35B-A3B, not Plus."
+      },
+      {
+        "url": "https://www.alibabacloud.com/en/press-room/alibaba-unveils-qwen3-6-plus-to-accelerate-agentic?_p_lc=1",
+        "evidence": "The official Plus announcement offers hosted access and separately promises smaller open models. The current Qwen3.6 weight inventory contains 27B and 35B-A3B, not Plus."
+      }
+    ],
+    "outcome": {
+      "open_weights": false
+    },
+    "rule": "Publicly downloadable model weights or explicitly identified equivalent checkpoint => open. No such release found after original documentation and developer inventory checks => closed. API serving extras and weight licenses are separate."
+  }
 }
