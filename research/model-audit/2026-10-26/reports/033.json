@@ -1,7 +1,7 @@
 {
   "index": 33,
   "model_id": "alibaba/qwen3-coder-flash",
-  "reviewed_at": "2026-10-27T09:38:10.143987+00:00",
+  "reviewed_at": "2026-10-28T08:13:49.514266+00:00",
   "sources": [
     {
       "id": "s1",
@@ -74,6 +74,46 @@
       "publisher": "Qwen",
       "accessed": true,
       "evidence": "Current README reopened October 27, 2026 lists Qwen3-Coder-30B-A3B-Instruct and its FP8 variant, alongside separate 480B and Next models. It does not identify Flash as a structurally changed or newly replaced model. Fresh first-party searches across Qwen and Alibaba sources found no conflicting nominal parameter disclosure or documented structural change for the exact Flash alias."
+    },
+    {
+      "id": "availability_exact_20261028",
+      "url": "https://huggingface.co/api/models?author=Qwen&search=qwen3-coder-flash&limit=100",
+      "title": "Official Qwen inventory search for the exact hosted model",
+      "publisher": "Qwen / Hugging Face",
+      "accessed": true,
+      "evidence": "The live official organization search returned no checkpoint under the exact hosted model name. Related family releases were checked separately."
+    },
+    {
+      "id": "availability_family_20261028",
+      "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen3-Coder&limit=1000",
+      "title": "Official Qwen Qwen3-Coder weight inventory",
+      "publisher": "Qwen / Hugging Face",
+      "accessed": true,
+      "evidence": "The official Qwen organization query returned eight Qwen3-Coder repositories, including Qwen3-Coder-30B-A3B-Instruct and its FP8 variant, the 480B variant, and Next releases."
+    },
+    {
+      "id": "availability_docs_20261028",
+      "url": "https://docs.modelstudio.console.alibabacloud.com/en/model-studio/qwen3-coder-flash",
+      "title": "Original developer documentation checked for model availability",
+      "publisher": "Qwen / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "The current exact API card says qwen3-coder-flash is functionally equivalent to qwen3-coder-flash-2025-07-28 and describes that snapshot as dated July 28, 2025."
+    },
+    {
+      "id": "availability_launch_20261028",
+      "url": "https://x.com/Alibaba_Qwen/status/1950925444057792808",
+      "title": "Qwen identifies Coder-Flash and links its public checkpoint",
+      "publisher": "Qwen",
+      "accessed": true,
+      "evidence": "The complete original post names Qwen3-Coder-Flash: Qwen3-Coder-30B-A3B-Instruct and links the official Hugging Face and ModelScope weights. Full publisher-post text read through its FxTwitter representation."
+    },
+    {
+      "id": "availability_weights_20261028",
+      "url": "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct",
+      "title": "Public Qwen3-Coder-30B-A3B-Instruct checkpoint",
+      "publisher": "Qwen",
+      "accessed": true,
+      "evidence": "The exact official repository is public and its API metadata lists all 16 model safetensors shards."
     }
   ],
   "fields": {
@@ -111,14 +151,16 @@
       "note": "First explicit Global/International release date; July 28 is the snapshot date, not the listed service release date."
     },
     "open_weights": {
-      "value": null,
-      "status": "unverified",
+      "value": true,
+      "status": "verified",
       "source_ids": [
-        "s1",
-        "s5",
-        "s6"
+        "availability_exact_20261028",
+        "availability_family_20261028",
+        "availability_docs_20261028",
+        "availability_launch_20261028",
+        "availability_weights_20261028"
       ],
-      "note": "Qwen explicitly identifies Flash with the published Qwen3-Coder-30B-A3B-Instruct nominal model, supporting parameter and architecture inference. Exact equivalence of the currently served checkpoint to downloadable weights remains unverified; retain the hosted-alias weight-status assessment."
+      "note": "Qwen explicitly introduces Qwen3-Coder-Flash as Qwen3-Coder-30B-A3B-Instruct and links its downloadable checkpoint. The current API card still maps Flash to the July 28 snapshot. The named model has public weights; API limits and serving features are separate."
     },
     "license": {
       "value": null,
@@ -214,7 +256,7 @@
   "patch": {
     "release_date": "2025-07-29",
     "description": "Qwen3-based code generation model for repository understanding and multi-turn tool interaction.",
-    "notes": "30.5B total and 3.3B activated are nominal counts inferred from Qwen's explicit identification of Coder-Flash as Qwen3-Coder-30B-A3B-Instruct, a MoE model. Alibaba still maps the API alias to its July 28 snapshot; Global/International service release was July 29, 2025. Exact served-checkpoint weight equivalence remains unverified. Official thinking-mode and regional function-calling documentation conflict.",
+    "notes": "30.5B total and 3.3B activated are nominal counts inferred from Qwen's explicit identification of Coder-Flash as Qwen3-Coder-30B-A3B-Instruct, a MoE model. Alibaba still maps the API alias to its July 28 snapshot; Global/International service release was July 29, 2025. Qwen explicitly identifies Flash with the publicly downloadable Qwen3-Coder-30B-A3B-Instruct checkpoint. Official thinking-mode and regional function-calling documentation conflict.",
     "sources": [
       {
         "label": "Alibaba Cloud exact model card",
@@ -255,14 +297,92 @@
         "label": "Qwen identified model configuration",
         "url": "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct/raw/main/config.json",
         "type": "primary"
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=qwen3-coder-flash&limit=100",
+        "label": "Official Qwen inventory search for the exact hosted model",
+        "type": "primary"
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen3-Coder&limit=1000",
+        "label": "Official Qwen Qwen3-Coder weight inventory",
+        "type": "primary"
+      },
+      {
+        "url": "https://docs.modelstudio.console.alibabacloud.com/en/model-studio/qwen3-coder-flash",
+        "label": "Original developer documentation checked for model availability",
+        "type": "primary"
+      },
+      {
+        "url": "https://x.com/Alibaba_Qwen/status/1950925444057792808",
+        "label": "Qwen identifies Coder-Flash and links its public checkpoint",
+        "type": "primary"
+      },
+      {
+        "url": "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct",
+        "label": "Public Qwen3-Coder-30B-A3B-Instruct checkpoint",
+        "type": "primary"
       }
     ],
-    "open_weights": null,
+    "open_weights": true,
     "reasoning": null,
     "parameters_b": 30.5,
     "active_parameters_b": 3.3,
     "parameters_source": "primary_source",
     "architecture": "moe"
   },
-  "summary": "Fresh parameter re-audit establishes nominal 30.5B total, 3.3B activated and MoE through Qwen's explicit July 31 identification of Coder-Flash as Qwen3-Coder-30B-A3B-Instruct plus that model's developer card/configuration. Reopened original Flash/API announcements, current hosted model card, lifecycle history and developer repository; searched first-party sources for newer disclosures and structural changes. Current alias remains tied to the July 28 snapshot, with no conflicting count or documented structural replacement found. Preserve July 29 service release, 1M hosted context and other original assessments. Exact hosted weight equivalence/license and conflicting thinking-mode documentation remain unresolved; absence of a hosted tensor census does not erase the supported nominal counts."
+  "summary": "Resolved weight availability. Qwen explicitly introduces Qwen3-Coder-Flash as Qwen3-Coder-30B-A3B-Instruct and links its downloadable checkpoint. The current API card still maps Flash to the July 28 snapshot. The named model has public weights; API limits and serving features are separate. All unrelated field assessments and previous parameter/date evidence are preserved.",
+  "availability_resolution": {
+    "agent": "/root",
+    "reviewed_at": "2026-10-28T08:13:49.514266+00:00",
+    "fields": [
+      "open_weights"
+    ],
+    "searches": [
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=qwen3-coder-flash&limit=100",
+        "results": []
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen3-Coder&limit=1000",
+        "results": [
+          "Qwen/Qwen3-Coder-Next",
+          "Qwen/Qwen3-Coder-30B-A3B-Instruct",
+          "Qwen/Qwen3-Coder-30B-A3B-Instruct-FP8",
+          "Qwen/Qwen3-Coder-Next-FP8",
+          "Qwen/Qwen3-Coder-480B-A35B-Instruct",
+          "Qwen/Qwen3-Coder-480B-A35B-Instruct-FP8",
+          "Qwen/Qwen3-Coder-Next-GGUF",
+          "Qwen/Qwen3-Coder-Next-Base"
+        ]
+      }
+    ],
+    "accessed_originals": [
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=qwen3-coder-flash&limit=100",
+        "evidence": "The live official organization search returned no checkpoint under the exact hosted model name. Related family releases were checked separately."
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen3-Coder&limit=1000",
+        "evidence": "The official Qwen organization query returned eight Qwen3-Coder repositories, including Qwen3-Coder-30B-A3B-Instruct and its FP8 variant, the 480B variant, and Next releases."
+      },
+      {
+        "url": "https://docs.modelstudio.console.alibabacloud.com/en/model-studio/qwen3-coder-flash",
+        "evidence": "The current exact API card says qwen3-coder-flash is functionally equivalent to qwen3-coder-flash-2025-07-28 and describes that snapshot as dated July 28, 2025."
+      },
+      {
+        "url": "https://x.com/Alibaba_Qwen/status/1950925444057792808",
+        "evidence": "The complete original post names Qwen3-Coder-Flash: Qwen3-Coder-30B-A3B-Instruct and links the official Hugging Face and ModelScope weights. Full publisher-post text read through its FxTwitter representation."
+      },
+      {
+        "url": "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct",
+        "evidence": "The exact official repository is public and its API metadata lists all 16 model safetensors shards."
+      }
+    ],
+    "outcome": {
+      "open_weights": true
+    },
+    "rule": "Publicly downloadable model weights or explicitly identified equivalent checkpoint => open. No such release found after original documentation and developer inventory checks => closed. API serving extras and weight licenses are separate.",
+    "reviewed_by": "/root/date_checkpoints"
+  }
 }
