@@ -1,7 +1,7 @@
 {
   "index": 294,
   "model_id": "microsoft/mai-code-1.1-flash",
-  "reviewed_at": "2026-10-26T22:08:41.516Z",
+  "reviewed_at": "2026-10-28T07:59:43.648773Z",
   "sources": [
     {
       "id": "s1",
@@ -98,6 +98,30 @@
       "publisher": "Microsoft AI",
       "accessed": true,
       "evidence": "The predecessor card states June 2, 2026, text-only input, 137B total / 5B active and sparse MoE Transformer. These are not the exact 1.1 card specifications."
+    },
+    {
+      "id": "availability_20261028_1",
+      "url": "https://raw.githubusercontent.com/microsoft/vscode-docs/main/docs/agent-customization/language-models.md",
+      "title": "Microsoft instructions for MAI Code 1.1 Flash local weight download",
+      "publisher": "Microsoft",
+      "accessed": true,
+      "evidence": "Current official docs explicitly identify the MAI Code 1.1 Flash on-device model, Azure ML registry source, local llama.cpp serving, and downloaded files stored under ~/.copilot/azureml-models. This is a model-weight download, not remote inference."
+    },
+    {
+      "id": "availability_20261028_2",
+      "url": "https://api.catalog.azureml.ms/modelregistry/v1.0/registry/models/nonazureaccount?assetId=azureml://registries/azureml/models/MAI-Code-1.1-Flash-On-Device/versions/1",
+      "title": "Microsoft public Azure ML MAI Code 1.1 Flash on-device weight registry",
+      "publisher": "Microsoft",
+      "accessed": true,
+      "evidence": "Unauthenticated public registry GET returned HTTP 200 with exact MAI-Code-1.1-Flash-On-Device identity, Microsoft publisher, GGUF format, MIT metadata and a working public download URL. Container listing exposed MAI-Code-1.1-Flash-Q2-XS.gguf (56,307,620,832 bytes), a DFlash file and runtime configuration. HEAD of the model weight file returned HTTP 200 with that length. No model weights were downloaded; temporary signed URLs were omitted from saved evidence."
+    },
+    {
+      "id": "availability_20261028_3",
+      "url": "https://github.com/microsoft/MAI-Code/issues/10",
+      "title": "Official MAI-Code repository discussion linking public distribution",
+      "publisher": "Microsoft repository / community contributors",
+      "accessed": true,
+      "evidence": "Original repository discussion provides a discovery lead to the public Azure registry. The weight availability finding is independently verified against Microsoft’s registry and blob service, not based only on a commenter’s claim."
     }
   ],
   "fields": {
@@ -138,14 +162,14 @@
       "note": "Explicit first release date, corroborated by the same-day GitHub rollout; October 7 is the local-distribution update."
     },
     "open_weights": {
-      "value": null,
-      "status": "unverified",
+      "value": true,
+      "status": "verified",
       "source_ids": [
-        "s4",
-        "s7",
-        "s8"
+        "availability_20261028_1",
+        "availability_20261028_2",
+        "availability_20261028_3"
       ],
-      "note": "Local weight downloads are now documented, so a blanket closed-weight assertion is no longer sufficiently supported. Public independent weight distribution and its license were not verified; product-managed access alone does not settle the open-weight classification."
+      "note": "Open weights: Microsoft’s exact MAI Code 1.1 Flash on-device GGUF is publicly downloadable through its unauthenticated Azure ML registry. Direct registry read, complete file listing and successful HEAD on the 56.3 GB model file verify actual public distribution. Official VS Code docs bind it to the named model. This establishes the released quantized variant, not byte-identical weights to the hosted full-precision backend or its separate parameter figures."
     },
     "license": {
       "value": "proprietary",
@@ -243,7 +267,7 @@
     }
   },
   "patch": {
-    "open_weights": null,
+    "open_weights": true,
     "license": "proprietary",
     "parameters_b": 138,
     "active_parameters_b": 5,
@@ -276,10 +300,63 @@
         "label": "Microsoft Foundry model listing",
         "url": "https://ai.azure.com/catalog/models/mai-code-1.1-flash",
         "type": "primary"
+      },
+      {
+        "label": "Microsoft instructions for MAI Code 1.1 Flash local weight download",
+        "url": "https://raw.githubusercontent.com/microsoft/vscode-docs/main/docs/agent-customization/language-models.md",
+        "type": "primary"
+      },
+      {
+        "label": "Microsoft public Azure ML MAI Code 1.1 Flash on-device weight registry",
+        "url": "https://api.catalog.azureml.ms/modelregistry/v1.0/registry/models/nonazureaccount?assetId=azureml://registries/azureml/models/MAI-Code-1.1-Flash-On-Device/versions/1",
+        "type": "primary"
+      },
+      {
+        "label": "Official MAI-Code repository discussion linking public distribution",
+        "url": "https://github.com/microsoft/MAI-Code/issues/10",
+        "type": "primary"
       }
     ],
-    "notes": "138B total / 5B active are the exact hosted 1.1 card figures; the later local version is reported as 137B / 6.8B, an unresolved discrepancy. The 1.1 landing page links the predecessor card. Context is nominal 256K, normalized to 256000. Commercial service terms apply to hosted use; Copilot-managed local downloads are documented, but a standalone weight release and local license were not verified, so openness remains unknown.",
+    "notes": "138B total / 5B active are the exact hosted 1.1 card figures; the later local version is reported as 137B / 6.8B, an unresolved discrepancy. The 1.1 landing page links the predecessor card. Context is nominal 256K, normalized to 256000. Commercial service terms apply to hosted use. Microsoft publicly distributes the on-device GGUF through Azure ML; the registry labels it MIT. Direct unauthenticated registry and file checks verify the downloadable quantized weights, without asserting identity to the hosted full-precision checkpoint. Public Microsoft on-device GGUF distribution is verified; open_weights is true.",
     "description": "Microsoft's coding model with text and image input, adaptive reasoning and tool use."
   },
-  "summary": "Adds exact-version hosted-card parameters, MoE architecture and proprietary hosted licensing. Confirms August 11 release, native vision, reasoning and tool use. Local parameter discrepancy remains unresolved; clears closed-weight assertion because current product downloads exist without verified standalone distribution terms. No weights downloaded."
+  "summary": "Adds exact-version hosted-card parameters, MoE architecture and proprietary hosted licensing. Confirms August 11 release, native vision, reasoning and tool use. Local parameter discrepancy remains unresolved; clears closed-weight assertion because current product downloads exist without verified standalone distribution terms. No weights downloaded. October 28 availability review: Public Microsoft on-device GGUF distribution is verified; open_weights is true. All thirteen unrelated field assessments and prior research metadata are preserved.",
+  "availability_resolution": {
+    "agent": "/root/date_hosted",
+    "reviewed_at": "2026-10-28T07:59:43.648773Z",
+    "scope": [
+      "open_weights"
+    ],
+    "classification_rule": "Open means an identified public downloadable checkpoint for this exact model or a developer-documented equivalent; otherwise closed under the user-requested practical availability rule. This is not a legal ownership or perpetual-closure finding.",
+    "searches": [
+      "MAI-Code 1.1 Flash local weights download Microsoft GitHub Hugging Face",
+      "site:huggingface.co/microsoft \"MAI-Code-1.1\"",
+      "site:github.com/microsoft \"MAI-Code-1.1\" \"azureml\"",
+      "\"mai-code-1.1-flash\" \"gguf\"",
+      "Read microsoft/MAI-Code issue 10 and linked llama.cpp comment 6156650527, then independently verify official public registry and weight HEAD"
+    ],
+    "accessed_originals": [
+      {
+        "url": "https://raw.githubusercontent.com/microsoft/vscode-docs/main/docs/agent-customization/language-models.md",
+        "evidence": "Current official docs explicitly identify the MAI Code 1.1 Flash on-device model, Azure ML registry source, local llama.cpp serving, and downloaded files stored under ~/.copilot/azureml-models. This is a model-weight download, not remote inference.",
+        "accessed": true
+      },
+      {
+        "url": "https://api.catalog.azureml.ms/modelregistry/v1.0/registry/models/nonazureaccount?assetId=azureml://registries/azureml/models/MAI-Code-1.1-Flash-On-Device/versions/1",
+        "evidence": "Unauthenticated public registry GET returned HTTP 200 with exact MAI-Code-1.1-Flash-On-Device identity, Microsoft publisher, GGUF format, MIT metadata and a working public download URL. Container listing exposed MAI-Code-1.1-Flash-Q2-XS.gguf (56,307,620,832 bytes), a DFlash file and runtime configuration. HEAD of the model weight file returned HTTP 200 with that length. No model weights were downloaded; temporary signed URLs were omitted from saved evidence.",
+        "accessed": true
+      },
+      {
+        "url": "https://github.com/microsoft/MAI-Code/issues/10",
+        "evidence": "Original repository discussion provides a discovery lead to the public Azure registry. The weight availability finding is independently verified against Microsoft’s registry and blob service, not based only on a commenter’s claim.",
+        "accessed": true
+      }
+    ],
+    "outcome": "open_weights=true",
+    "limitations": [
+      "No 56.3 GB model download or local inference test was performed; metadata, file listing and HTTP HEAD verified distribution.",
+      "The hosted and on-device parameter discrepancy remains preserved. Existing license assessment concerns hosted terms and is untouched; public registry labels the local package MIT."
+    ],
+    "evidence_directory": "/tmp/model-tracker-gap-resolution/evidence-294"
+  }
 }
