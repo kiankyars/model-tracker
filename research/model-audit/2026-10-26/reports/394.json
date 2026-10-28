@@ -1,7 +1,7 @@
 {
   "index": 394,
   "model_id": "nvidia/nemotron-voicechat",
-  "reviewed_at": "2026-10-27T16:10:04Z",
+  "reviewed_at": "2026-10-28T08:03:07.166394Z",
   "sources": [
     {
       "id": "s1",
@@ -106,6 +106,30 @@
       "publisher": "OpenReview submission authors",
       "accessed": false,
       "evidence": "The search index exposes Table 26 with Nemotron-Nano-9B at 9B total/9B active, but the full primary PDF request encounters a browser-verification challenge. The same indexed table incorrectly labels GPT-OSS-20B as dense with 20B active, undermining its parameter convention. This unverified, internally suspect lead is not adopted."
+    },
+    {
+      "id": "availability_20261028_1",
+      "url": "https://developer.nvidia.com/nemotron-voicechat-early-access",
+      "title": "NVIDIA Nemotron 3 VoiceChat early-access conditions",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Current developer page identifies the 12B VoiceChat model and restricts hands-on weight/container access to qualified developers through an early-access application."
+    },
+    {
+      "id": "availability_20261028_2",
+      "url": "https://build.nvidia.com/nvidia/nemotron-voicechat.md",
+      "title": "Exact 12B Nemotron VoiceChat model card",
+      "publisher": "NVIDIA",
+      "accessed": true,
+      "evidence": "Current original card identifies 12B early-access evaluation-only model distribution governed by NVIDIA evaluation terms; it provides no general public weight download."
+    },
+    {
+      "id": "availability_20261028_3",
+      "url": "https://huggingface.co/api/models?author=nvidia&search=VoiceChat&limit=100",
+      "title": "NVIDIA public VoiceChat weight inventory",
+      "publisher": "NVIDIA / Hugging Face",
+      "accessed": true,
+      "evidence": "Fresh official public search returns only NVIDIA-NemotronLabs-VoiceChat-11B. That later different checkpoint does not establish public distribution of the exact 12B early-access model."
     }
   ],
   "fields": {
@@ -145,15 +169,14 @@
       "note": "The model card explicitly dates the original NGC release March 16, 2026. This is an early-access evaluation release, not the later public NemotronLabs release."
     },
     "open_weights": {
-      "value": null,
-      "status": "unverified",
+      "value": false,
+      "status": "verified",
       "source_ids": [
-        "s1",
-        "s2",
-        "s4",
-        "s5"
+        "availability_20261028_1",
+        "availability_20261028_2",
+        "availability_20261028_3"
       ],
-      "note": "The official early-access program advertises inspectable weights but restricts hands-on access to qualified developers. Public availability of the exact March checkpoint was not verified; the original registry could not be read. The public later 11B checkpoint is not a substitute, and an access failure does not justify asserting closed weights. Clear the unsupported public-open assertion."
+      "note": "Closed under the user-requested public-availability convention: the exact 12B March VoiceChat is available through a qualified-developer early-access program, and no general public download was found. NVIDIA’s inspectable-weights statement describes that program. The later public 11B NemotronLabs checkpoint is a distinct release and is not substituted. This is an access classification, not permanent closure or a licensing inference."
     },
     "license": {
       "value": "NVIDIA Software and Model Evaluation License",
@@ -255,7 +278,7 @@
   },
   "patch": {
     "name": "Nemotron 3 VoiceChat",
-    "open_weights": null,
+    "open_weights": false,
     "license": "NVIDIA Software and Model Evaluation License",
     "parameters_b": 12,
     "parameters_source": "primary_source",
@@ -295,10 +318,50 @@
         "label": "NVIDIA March 2026 VoiceChat launch details",
         "url": "https://developer.nvidia.com/blog/building-nvidia-nemotron-3-agents-for-reasoning-multimodal-rag-voice-and-safety/",
         "type": "primary"
+      },
+      {
+        "label": "NVIDIA public VoiceChat weight inventory",
+        "url": "https://huggingface.co/api/models?author=nvidia&search=VoiceChat&limit=100",
+        "type": "primary"
       }
     ],
-    "notes": "March 2026 early-access Nemotron 3 VoiceChat: NVIDIA reports 12B total parameters, including a named 9B Nano v2 language backbone. An active count is not disclosed. The later public 11B NemotronLabs release is distinct. Training audio context is up to two minutes; a token limit, public availability of the exact early-access weights and supported tool calling remain unverified.",
+    "notes": "March 2026 early-access Nemotron 3 VoiceChat: NVIDIA reports 12B total parameters, including a named 9B Nano v2 language backbone. An active count is not disclosed. The later public 11B NemotronLabs release is distinct. Training audio context is up to two minutes; a token limit and supported tool calling remain unverified. Exact 12B weights remain restricted to the qualified-developer early-access program. Classified closed because no public download of the exact 12B early-access checkpoint was found.",
     "active_parameters_b": null
   },
-  "summary": "Fresh October 27 parameter review retains the directly published nominal 12B integrated total from the exact March 16 card, early-access page and March 24 launch article. Active parameters remain undisclosed after reviewing the Nano 2 backbone, original speech-model methods, later NemotronLabs report and two insufficiently supported active-count leads. The later 11B model and predecessor/component totals are not substituted. The other twelve field assessments are preserved."
+  "summary": "Fresh October 27 parameter review retains the directly published nominal 12B integrated total from the exact March 16 card, early-access page and March 24 launch article. Active parameters remain undisclosed after reviewing the Nano 2 backbone, original speech-model methods, later NemotronLabs report and two insufficiently supported active-count leads. The later 11B model and predecessor/component totals are not substituted. The other twelve field assessments are preserved. October 28 availability review: Classified closed because no public download of the exact 12B early-access checkpoint was found. All thirteen unrelated field assessments and prior research metadata are preserved.",
+  "availability_resolution": {
+    "agent": "/root/date_hosted",
+    "reviewed_at": "2026-10-28T08:03:07.166394Z",
+    "scope": [
+      "open_weights"
+    ],
+    "classification_rule": "Open means an identified public downloadable checkpoint for this exact model or a developer-documented equivalent; otherwise closed under the user-requested practical availability rule. This is not a legal ownership or perpetual-closure finding.",
+    "searches": [
+      "NVIDIA Nemotron Voicechat 12B early access weights download",
+      "GET official NVIDIA VoiceChat weight inventory",
+      "Read exact 12B Build card and developer early-access program"
+    ],
+    "accessed_originals": [
+      {
+        "url": "https://developer.nvidia.com/nemotron-voicechat-early-access",
+        "evidence": "Current developer page identifies the 12B VoiceChat model and restricts hands-on weight/container access to qualified developers through an early-access application.",
+        "accessed": true
+      },
+      {
+        "url": "https://build.nvidia.com/nvidia/nemotron-voicechat.md",
+        "evidence": "Current original card identifies 12B early-access evaluation-only model distribution governed by NVIDIA evaluation terms; it provides no general public weight download.",
+        "accessed": true
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=nvidia&search=VoiceChat&limit=100",
+        "evidence": "Fresh official public search returns only NVIDIA-NemotronLabs-VoiceChat-11B. That later different checkpoint does not establish public distribution of the exact 12B early-access model.",
+        "accessed": true
+      }
+    ],
+    "outcome": "open_weights=false",
+    "limitations": [
+      "The search is bounded; classification reflects currently verified public availability and can change with a new release."
+    ],
+    "evidence_directory": "/tmp/model-tracker-gap-resolution/evidence-394"
+  }
 }
