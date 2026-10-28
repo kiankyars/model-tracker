@@ -1,7 +1,7 @@
 {
   "index": 76,
   "model_id": "alibaba/qwq-plus",
-  "reviewed_at": "2026-10-27T09:59:31.852138Z",
+  "reviewed_at": "2026-10-28T08:01:10.208022+00:00",
   "sources": [
     {
       "id": "s1",
@@ -90,6 +90,30 @@
       "publisher": "Segmind",
       "accessed": true,
       "evidence": "Secondary reseller lead claims a 32.5B QwQ-32B-based production variant, but supplies no cited developer evidence for that relationship. Rechecking original Qwen launch material, repository and model-card history did not corroborate it; the claim is not adopted as a verified model specification."
+    },
+    {
+      "id": "availability_exact_20261028",
+      "url": "https://huggingface.co/api/models?author=Qwen&search=qwq-plus&limit=100",
+      "title": "Official Qwen inventory search for the exact hosted model",
+      "publisher": "Qwen / Hugging Face",
+      "accessed": true,
+      "evidence": "The live official organization search returned no checkpoint under the exact hosted model name. Related family releases were checked separately."
+    },
+    {
+      "id": "availability_family_20261028",
+      "url": "https://huggingface.co/api/models?author=Qwen&search=QwQ&limit=1000",
+      "title": "Official Qwen QwQ weight inventory",
+      "publisher": "Qwen / Hugging Face",
+      "accessed": true,
+      "evidence": "The live query returned 4 repositories. The public QwQ repository and weight inventory contain QwQ-32B and 32B-Preview, not QwQ-Plus. No developer statement equating the hosted Plus model to either checkpoint was found; no downloadable Plus release was identified."
+    },
+    {
+      "id": "availability_redirect_20261028",
+      "url": "https://www.alibabacloud.com/help/en/model-studio/qwq-plus",
+      "title": "Former exact model documentation",
+      "publisher": "Alibaba Cloud",
+      "accessed": true,
+      "evidence": "The request redirects to https://www.alibabacloud.com/help/en/model-studio/models; it no longer returns the exact historical model card. The redirect is not treated as a new model-specific availability statement."
     }
   ],
   "fields": {
@@ -129,14 +153,13 @@
       "note": "Explicit release-table date for qwq-plus in both regional sections."
     },
     "open_weights": {
-      "value": null,
-      "status": "unverified",
+      "value": false,
+      "status": "verified",
       "source_ids": [
-        "s1",
-        "s4",
-        "s5"
+        "availability_exact_20261028",
+        "availability_family_20261028"
       ],
-      "note": "No exact first-party closed-weights declaration or mapping to a released checkpoint was verified. API availability alone cannot establish false; the QwQ-32B release cannot establish true."
+      "note": "The public QwQ repository and weight inventory contain QwQ-32B and 32B-Preview, not QwQ-Plus. No developer statement equating the hosted Plus model to either checkpoint was found; no downloadable Plus release was identified. Classified closed under the public-download availability rule at review time; an explicit proprietary declaration is not required."
     },
     "license": {
       "value": null,
@@ -236,10 +259,10 @@
     }
   },
   "patch": {
-    "open_weights": null,
+    "open_weights": false,
     "source_url": "https://www.alibabacloud.com/help/en/model-studio/newly-released-models",
     "source_type": "primary",
-    "notes": "QwQ-Plus has documented Qwen2.5 family lineage but no verified size-bearing base relation; total and active parameter counts remain undisclosed. QwQ-32B counts are not transferable from the available primary evidence. Weight openness and architecture remain unresolved. Function Calling was documented for Beijing but not Singapore. Context and modalities are last-documented values from the October 10, 2026 page, which now redirects. Alibaba announced October 10, 2026 retirement; current operation was not tested.",
+    "notes": "QwQ-Plus has documented Qwen2.5 family lineage but no verified size-bearing base relation; total and active parameter counts remain undisclosed. QwQ-32B counts are not transferable from the available primary evidence. Architecture remains undisclosed. No public Plus weight release was found. Function Calling was documented for Beijing but not Singapore. Context and modalities are last-documented values from the October 10, 2026 page, which now redirects. Alibaba announced October 10, 2026 retirement; current operation was not tested. Classified as closed weights: no public release of this hosted variant was found in the developer documentation and weight inventory.",
     "sources": [
       {
         "label": "Alibaba Cloud explicit release table",
@@ -280,10 +303,60 @@
         "label": "Original QwQ-32B model-card README",
         "url": "https://huggingface.co/Qwen/QwQ-32B/raw/20dea38711d9a58b751574a2e34a5fb782e75513/README.md",
         "type": "primary"
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=qwq-plus&limit=100",
+        "label": "Official Qwen inventory search for the exact hosted model",
+        "type": "primary"
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=QwQ&limit=1000",
+        "label": "Official Qwen QwQ weight inventory",
+        "type": "primary"
       }
     ],
     "parameters_b": null,
     "active_parameters_b": null
   },
-  "summary": "Fresh October 27 parameter re-audit leaves total and active counts undisclosed. Reopened exact-model documentation, release chronology, Qwen3 Tables 13/15 and later card; checked original English/Chinese QwQ launch sources plus repository and model-card history. QwQ-32B publishes nominal 32.5B total and later 32B active, but launch-era API examples name qwq-32b, not qwq-plus. Qwen2.5 family-only lineage and an uncited reseller mapping do not support a count inference. Other audited fields are preserved."
+  "summary": "Resolved weight availability. The public QwQ repository and weight inventory contain QwQ-32B and 32B-Preview, not QwQ-Plus. No developer statement equating the hosted Plus model to either checkpoint was found; no downloadable Plus release was identified. All unrelated field assessments and previous parameter/date evidence are preserved.",
+  "availability_resolution": {
+    "agent": "/root",
+    "reviewed_at": "2026-10-28T08:01:10.208022+00:00",
+    "fields": [
+      "open_weights"
+    ],
+    "searches": [
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=qwq-plus&limit=100",
+        "results": []
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=QwQ&limit=1000",
+        "results": [
+          "Qwen/QwQ-32B-GGUF",
+          "Qwen/QwQ-32B-AWQ",
+          "Qwen/QwQ-32B-Preview",
+          "Qwen/QwQ-32B"
+        ]
+      }
+    ],
+    "accessed_originals": [
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=qwq-plus&limit=100",
+        "evidence": "The live official organization search returned no checkpoint under the exact hosted model name. Related family releases were checked separately."
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=QwQ&limit=1000",
+        "evidence": "The live query returned 4 repositories. The public QwQ repository and weight inventory contain QwQ-32B and 32B-Preview, not QwQ-Plus. No developer statement equating the hosted Plus model to either checkpoint was found; no downloadable Plus release was identified."
+      },
+      {
+        "url": "https://www.alibabacloud.com/help/en/model-studio/qwq-plus",
+        "evidence": "The request redirects to https://www.alibabacloud.com/help/en/model-studio/models; it no longer returns the exact historical model card. The redirect is not treated as a new model-specific availability statement."
+      }
+    ],
+    "outcome": {
+      "open_weights": false
+    },
+    "rule": "Publicly downloadable model weights or explicitly identified equivalent checkpoint => open. No such release found after original documentation and developer inventory checks => closed. API serving extras and weight licenses are separate."
+  }
 }
