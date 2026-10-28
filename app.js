@@ -1,16 +1,16 @@
 import { defaults, filterModels, sortModels, isMultimodal, toCSV } from './lib/model-data.js';
 import { renderChart } from './lib/chart-view.js';
 import { billions, missingLabel, modelSizeLabel, activeSizeLabel, hasReportedSize } from './lib/parameter-labels.js';
+import { paginationDefaults, readPagination, pageWindow, pageForIndex } from './lib/pagination.js';
 
 const $ = id => document.getElementById(id);
 const number = new Intl.NumberFormat('en');
-const pageSize = 50;
 let catalog = null;
 let state = { ...defaults };
 const chartDefaults = { view: 'releases', interval: 'month', metric: 'total' };
 let chartState = { ...chartDefaults };
 let filtered = [];
-let shown = pageSize;
+let paginationState = { ...paginationDefaults };
 let searchTimer;
 const expanded = new Set();
 
@@ -89,6 +89,7 @@ function syncControls() {
   for (const button of document.querySelectorAll('[data-chart-view]')) button.setAttribute('aria-pressed', String(button.dataset.chartView === chartState.view));
   $('chart-interval').value = chartState.interval;
   $('chart-metric').value = chartState.metric;
+  $('page-size').value = paginationState.rows;
   const filterCount = ['from', 'to', 'developer', 'access', 'type', 'size'].filter(key => state[key]).length;
   $('filter-toggle').textContent = filterCount ? `Filters (${filterCount})` : 'Filters';
   if (catalog) for (const button of document.querySelectorAll('[data-range]')) {
@@ -108,8 +109,8 @@ function revealActiveFilters() {
 
 function writeURL(replace = false) {
   const url = new URL(location.href);
-  for (const [key, value] of Object.entries({ ...state, ...chartState })) {
-    if (value && value !== { ...defaults, ...chartDefaults }[key]) url.searchParams.set(key, value);
+  for (const [key, value] of Object.entries({ ...state, ...chartState, ...paginationState })) {
+    if (value && value !== { ...defaults, ...chartDefaults, ...paginationDefaults }[key]) url.searchParams.set(key, value);
     else url.searchParams.delete(key);
   }
   if (url.href !== location.href) history[replace ? 'replaceState' : 'pushState']({}, '', url);
@@ -118,7 +119,7 @@ function writeURL(replace = false) {
 function changeState(patch, replace = false) {
   clearTimeout(searchTimer);
   state = { ...state, ...patch };
-  shown = pageSize;
+  paginationState.page = 1;
   expanded.clear();
   syncControls();
   writeURL(replace);
@@ -163,8 +164,9 @@ function renderVisualization() {
     onModel: id => {
       const index = filtered.findIndex(model => model.id === id);
       if (index < 0) return;
-      shown = Math.max(shown, Math.ceil((index + 1) / pageSize) * pageSize);
+      paginationState.page = pageForIndex(index, paginationState.rows);
       expanded.add(id);
+      writeURL();
       renderRows();
       const row = $(`release-${filtered[index].slug}`);
       row.scrollIntoView({ behavior: 'auto', block: 'center' });
@@ -242,8 +244,13 @@ function detailRow(model, id) {
 }
 
 function renderRows() {
+  const window = pageWindow(filtered.length, paginationState);
+  if (paginationState.page !== window.page) {
+    paginationState.page = window.page;
+    writeURL(true);
+  }
   const fragment = document.createDocumentFragment();
-  for (const [index, model] of filtered.slice(0, shown).entries()) {
+  for (const [index, model] of filtered.slice(window.start, window.end).entries()) {
     const open = expanded.has(model.id);
     const row = element('tr', `model-row${open ? ' expanded' : ''}`);
     row.id = `release-${model.slug}`;
@@ -251,8 +258,7 @@ function renderRows() {
     const toggle = element('button', 'model-toggle');
     toggle.type = 'button';
     toggle.setAttribute('aria-expanded', String(open));
-    const detailId = `model-detail-${index}`;
-    toggle.setAttribute('aria-controls', detailId);
+    const detailId = `model-detail-${window.start + index}`;
     const chevron = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     chevron.setAttribute('viewBox', '0 0 12 12');
     chevron.setAttribute('class', 'chevron');
@@ -274,23 +280,45 @@ function renderRows() {
     const weights = element('td', 'weights-cell');
     weights.append(element('span', `weight-label${model.open_weights === true ? ' open' : model.open_weights == null ? ' unknown-value' : ''}`, model.open_weights === true ? 'Open' : model.open_weights === false ? 'Closed' : '—'));
     row.append(modelCell, element('td', 'developer-name', model.developer), date, type, size, weights);
-    const details = detailRow(model, detailId);
-    details.hidden = !open;
+    let details = open ? detailRow(model, detailId) : null;
+    if (details) toggle.setAttribute('aria-controls', detailId);
     toggle.addEventListener('click', () => {
       const next = toggle.getAttribute('aria-expanded') !== 'true';
+      if (next && !details) {
+        details = detailRow(model, detailId);
+        toggle.setAttribute('aria-controls', detailId);
+        row.after(details);
+      }
       toggle.setAttribute('aria-expanded', String(next));
       row.classList.toggle('expanded', next);
-      details.hidden = !next;
+      if (details) details.hidden = !next;
       if (next) expanded.add(model.id); else expanded.delete(model.id);
     });
-    fragment.append(row, details);
+    fragment.append(row);
+    if (details) fragment.append(details);
   }
   $('release-rows').replaceChildren(fragment);
   $('table-scroll').hidden = !filtered.length;
   $('empty-state').hidden = !!filtered.length;
-  $('shown-count').textContent = filtered.length ? `Showing ${number.format(Math.min(shown, filtered.length))} of ${number.format(filtered.length)}` : '';
-  $('show-more').hidden = shown >= filtered.length;
-  $('show-more').textContent = `Show ${Math.min(pageSize, Math.max(0, filtered.length - shown))} more`;
+  $('pagination').hidden = !filtered.length;
+  $('shown-count').textContent = filtered.length ? `${number.format(window.start + 1)}–${number.format(window.end)} of ${number.format(filtered.length)}` : '';
+  $('previous-page').disabled = window.page === 1;
+  $('next-page').disabled = window.page === window.pages;
+  $('previous-page').parentElement.hidden = window.pages === 1;
+}
+
+function focusReleases() {
+  $('release-heading').scrollIntoView({ behavior: 'auto', block: 'start' });
+  $('release-heading').focus({ preventScroll: true });
+}
+
+function changePage(delta) {
+  const window = pageWindow(filtered.length, { ...paginationState, page: paginationState.page + delta });
+  if (window.page === paginationState.page) return;
+  paginationState.page = window.page;
+  writeURL();
+  renderRows();
+  focusReleases();
 }
 
 function render() {
@@ -338,6 +366,7 @@ async function load() {
     $('developer').replaceChildren(new Option('All developers', ''), ...developers.map(([id, name]) => new Option(name, id)));
     state = readState();
     chartState = readChartState();
+    paginationState = readPagination(new URLSearchParams(location.search));
     syncControls();
     revealActiveFilters();
     writeURL(true);
@@ -374,11 +403,15 @@ $('filter-toggle').addEventListener('click', () => {
 $('reset').addEventListener('click', reset);
 $('empty-reset').addEventListener('click', reset);
 $('retry').addEventListener('click', load);
-$('show-more').addEventListener('click', () => {
-  const firstNew = shown;
-  shown += pageSize;
+$('previous-page').addEventListener('click', () => changePage(-1));
+$('next-page').addEventListener('click', () => changePage(1));
+$('page-size').addEventListener('change', () => {
+  const firstVisible = pageWindow(filtered.length, paginationState).start;
+  paginationState.rows = $('page-size').value;
+  paginationState.page = pageForIndex(firstVisible, paginationState.rows);
+  writeURL();
   renderRows();
-  $('release-rows').querySelectorAll('.model-toggle')[firstNew]?.focus();
+  focusReleases();
 });
 $('download-csv').addEventListener('click', () => download('csv'));
 $('download-json').addEventListener('click', () => download('json'));
@@ -386,8 +419,8 @@ window.addEventListener('popstate', () => {
   clearTimeout(searchTimer);
   state = readState();
   chartState = readChartState();
+  paginationState = readPagination(new URLSearchParams(location.search));
   writeURL(true);
-  shown = pageSize;
   expanded.clear();
   syncControls();
   revealActiveFilters();

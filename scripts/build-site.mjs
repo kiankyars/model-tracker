@@ -37,7 +37,7 @@ function markdown(source) {
   return blocks.join('\n');
 }
 
-for (const [page, title] of [['about', 'About the data'], ['api', 'Data API']]) {
+for (const [page, title] of [['about', 'About'], ['api', 'Data API']]) {
   const source = await readFile(resolve(root, 'public', `${page}.md`), 'utf8');
   const html = `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
@@ -46,7 +46,7 @@ for (const [page, title] of [['about', 'About the data'], ['api', 'Data API']]) 
 <link rel="icon" href="./favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="./docs.css">
 <link rel="canonical" href="https://kiankyars.github.io/model-tracker/${page}.html">
 <link rel="alternate" type="text/markdown" href="./${page}.md"><link rel="describedby" href="./llms.txt">
-</head><body><main class="document"><nav aria-label="Main navigation"><a href="./">← Model releases</a><a href="./about.html">About the data</a><a href="./api.html">API</a><a href="https://github.com/kiankyars/model-tracker">GitHub ↗</a></nav>
+</head><body><main class="document"><nav aria-label="Main navigation"><a href="./">← Model releases</a><a href="./about.html">About</a><a href="./api.html">API</a><a href="https://github.com/kiankyars/model-tracker">GitHub ↗</a></nav>
 ${markdown(source)}
 <footer><a href="./">Releases</a> · <a href="./${page}.md">Markdown</a> · <a href="./llms.txt">llms.txt</a></footer></main></body></html>\n`;
   await writeFile(resolve(root, 'public', `${page}.html`), html);
