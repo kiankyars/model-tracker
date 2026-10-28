@@ -1,7 +1,7 @@
 {
   "index": 123,
   "model_id": "baidu/cobuddy",
-  "reviewed_at": "2026-10-27T10:47:56.078269Z",
+  "reviewed_at": "2026-10-28T07:53:40.412749Z",
   "sources": [
     {
       "id": "s1",
@@ -118,6 +118,30 @@
       "accessed": true,
       "accessed_at": "2026-10-27T10:47:56.078269Z",
       "evidence": "Opened October 27, 2026. The current provider comparison table lists Cobuddy, ERNIE 4.5 VL 424B A47B and ERNIE 4.5 21B A3B separately. Its columns give context and prices, not Cobuddy total or active parameters; proximity to a size-bearing ERNIE name is not model lineage."
+    },
+    {
+      "id": "availability_20261028_1",
+      "url": "https://cloud.baidu.com/article/8387535",
+      "title": "Baidu Comate article identifying Cobuddy",
+      "publisher": "Baidu Comate",
+      "accessed": true,
+      "evidence": "Fresh original developer article describes Cobuddy as Baidu's code-generation model integrated through Comate into Lightmate. Local enterprise deployment is mentioned for Comate, but no public Cobuddy checkpoint download is provided."
+    },
+    {
+      "id": "availability_20261028_2",
+      "url": "https://huggingface.co/api/models?search=cobuddy&limit=100",
+      "title": "Exact Cobuddy Hugging Face weight search",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "Fresh exact-name public model search returned an empty array."
+    },
+    {
+      "id": "availability_20261028_3",
+      "url": "https://huggingface.co/api/models?author=baidu&limit=100",
+      "title": "Baidu official public model inventory",
+      "publisher": "Baidu / Hugging Face",
+      "accessed": true,
+      "evidence": "Fresh official inventory contains ERNIE, Qianfan, OCR and image releases but no Cobuddy checkpoint. No developer mapping equates Cobuddy with any of those public releases."
     }
   ],
   "fields": {
@@ -159,14 +183,14 @@
       "note": "Earliest documented public availability in the accessed evidence: OpenRouter explicitly labels this exact model released May6,2026. Baidu confirms the model has launched and is available on that exact OpenRouter endpoint in a May9 first-party post. Retain the provider-documented release date with this provenance; the original developer announcement date remains unresolved and the later May9/June9 reports are not substituted for it."
     },
     "open_weights": {
-      "value": null,
-      "status": "unverified",
+      "value": false,
+      "status": "verified",
       "source_ids": [
-        "s1",
-        "s2",
-        "s5"
+        "availability_20261028_1",
+        "availability_20261028_2",
+        "availability_20261028_3"
       ],
-      "note": "No exact weight distribution or explicit developer statement of non-distribution was located. A hosted API and an empty Hugging Face search do not prove closed weights; clear the baseline false assertion."
+      "note": "Closed under the user-requested availability rule: Baidu documents Cobuddy integration and hosted access, but no public downloadable Cobuddy checkpoint was located in its official inventory or exact-name weight search. Enterprise local deployment and other open ERNIE/Qianfan models do not establish public Cobuddy weights. This is current availability, not a proprietary-ownership determination."
     },
     "license": {
       "value": null,
@@ -277,7 +301,7 @@
   "patch": {
     "release_date": "2026-05-06",
     "date_precision": "day",
-    "open_weights": null,
+    "open_weights": false,
     "description": "Baidu code-generation model offered through a text chat API for coding and agent workflows.",
     "sources": [
       {
@@ -304,14 +328,59 @@
         "label": "Baidu confirms CoBuddy launch and OpenRouter availability",
         "url": "https://x.com/Baidu_ERNIE/status/2052975339387990391",
         "type": "primary"
+      },
+      {
+        "label": "Exact Cobuddy Hugging Face weight search",
+        "url": "https://huggingface.co/api/models?search=cobuddy&limit=100",
+        "type": "primary"
+      },
+      {
+        "label": "Baidu official public model inventory",
+        "url": "https://huggingface.co/api/models?author=baidu&limit=100",
+        "type": "primary"
       }
     ],
-    "notes": "Baidu identifies Cobuddy as a code-generation model; Novita documents its served capabilities. Nominal total and active counts remain undisclosed; the 21B/3B estimate has no developer-confirmed base lineage. Architecture, weight distribution, license and family remain unresolved. May 6, 2026 is the earliest provider-documented public release, corroborated by Baidu confirming availability on May 9; the original developer announcement date remains unresolved.",
+    "notes": "Baidu identifies Cobuddy as a code-generation model; Novita documents its served capabilities. Nominal total and active counts remain undisclosed; the 21B/3B estimate has no developer-confirmed base lineage. Architecture, license and family remain unresolved. May 6, 2026 is the earliest provider-documented public release, corroborated by Baidu confirming availability on May 9; the original developer announcement date remains unresolved. Classified closed because no public downloadable Cobuddy checkpoint was found.",
     "source_url": "https://openrouter.ai/baidu/cobuddy",
     "source_type": "secondary",
     "parameters_b": null,
     "active_parameters_b": null,
     "parameters_source": null
   },
-  "summary": "October 27 parameter re-audit retains null/undisclosed total and active counts after fresh developer and provider checks, Chinese/English nominal-size and lineage searches, and later comparison review. Resolved the concrete 21B/3B lead to an explicitly speculative estimate based on related ERNIE models, with no developer mapping. Reverified the Comate article byline and original developer post. All other field assessments are preserved."
+  "summary": "October 27 parameter re-audit retains null/undisclosed total and active counts after fresh developer and provider checks, Chinese/English nominal-size and lineage searches, and later comparison review. Resolved the concrete 21B/3B lead to an explicitly speculative estimate based on related ERNIE models, with no developer mapping. Reverified the Comate article byline and original developer post. All other field assessments are preserved. October 28 availability review: Classified closed because no public downloadable Cobuddy checkpoint was found. All thirteen unrelated field assessments and prior research metadata are preserved.",
+  "availability_resolution": {
+    "agent": "/root/date_hosted",
+    "reviewed_at": "2026-10-28T07:53:40.412749Z",
+    "scope": [
+      "open_weights"
+    ],
+    "classification_rule": "Open means an identified public downloadable checkpoint for this exact model or a developer-documented equivalent; otherwise closed under the user-requested practical availability rule. This is not a legal ownership or perpetual-closure finding.",
+    "searches": [
+      "Baidu Cobuddy open weights Hugging Face GitHub",
+      "GET Hugging Face exact Cobuddy search",
+      "GET Baidu official Hugging Face model inventory"
+    ],
+    "accessed_originals": [
+      {
+        "url": "https://cloud.baidu.com/article/8387535",
+        "evidence": "Fresh original developer article describes Cobuddy as Baidu's code-generation model integrated through Comate into Lightmate. Local enterprise deployment is mentioned for Comate, but no public Cobuddy checkpoint download is provided.",
+        "accessed": true
+      },
+      {
+        "url": "https://huggingface.co/api/models?search=cobuddy&limit=100",
+        "evidence": "Fresh exact-name public model search returned an empty array.",
+        "accessed": true
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=baidu&limit=100",
+        "evidence": "Fresh official inventory contains ERNIE, Qianfan, OCR and image releases but no Cobuddy checkpoint. No developer mapping equates Cobuddy with any of those public releases.",
+        "accessed": true
+      }
+    ],
+    "outcome": "open_weights=false",
+    "limitations": [
+      "The search is bounded; classification reflects currently verified public availability and can change with a new release."
+    ],
+    "evidence_directory": "/tmp/model-tracker-gap-resolution/evidence-123"
+  }
 }
