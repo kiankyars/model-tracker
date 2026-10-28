@@ -1,7 +1,7 @@
 {
   "index": 7,
   "model_id": "aion-labs/aion-3.0",
-  "reviewed_at": "2026-10-27T07:25:19.270Z",
+  "reviewed_at": "2026-10-28T07:53:08.492317Z",
   "sources": [
     {
       "id": "s1",
@@ -66,6 +66,22 @@
       "publisher": "Aion Labs",
       "accessed": true,
       "evidence": "Checked 2026-10-27 through the GitHub link on the official Hugging Face organization. The profile lists zero public repositories and no Aion 3.0 technical report, configuration or model card. This search produced no additional parameter or named-base evidence."
+    },
+    {
+      "id": "availability_20261028_1",
+      "url": "https://www.aionlabs.ai/docs/models/",
+      "title": "Aion Labs exact API model lineup",
+      "publisher": "Aion Labs",
+      "accessed": true,
+      "evidence": "Fresh October 28 developer documentation identifies Aion 3.0 as an API-hosted collaborative system built on GLM-family components. It provides no downloadable Aion 3.0 checkpoint or mapping to one released component."
+    },
+    {
+      "id": "availability_20261028_2",
+      "url": "https://huggingface.co/api/models?author=aion-labs&limit=100",
+      "title": "Aion Labs official Hugging Face model inventory",
+      "publisher": "Aion Labs / Hugging Face",
+      "accessed": true,
+      "evidence": "Fresh public inventory returned only Aion-RP-Llama-3.1-8B and its GGUF variant. It contains no Aion 3.0 model or multi-model-system weight release."
     }
   ],
   "fields": {
@@ -107,14 +123,13 @@
       "note": "Original developer explicitly reports May 5. OpenRouter reports July 7; retain the developer date and record the platform discrepancy."
     },
     "open_weights": {
-      "value": null,
-      "status": "unverified",
+      "value": false,
+      "status": "verified",
       "source_ids": [
-        "s1",
-        "s4",
-        "s5"
+        "availability_20261028_1",
+        "availability_20261028_2"
       ],
-      "note": "API access is verified, but the inspected primary pages do not explicitly classify this exact system as closed. No Aion 3.0 weights/card were found in the official Hugging Face listing; absence alone does not prove non-release."
+      "note": "Closed under the user-requested availability rule: Aion 3.0 is documented as a hosted multi-model API, and no public exact-system checkpoint was located in the developer weight inventory or exact-name web search. The public Aion-RP Llama weights and underlying GLM family are different releases. This is an availability classification, not a claim of proprietary ownership or permanent non-release."
     },
     "license": {
       "value": null,
@@ -211,7 +226,7 @@
     "name": "Aion 3.0",
     "family": "glm",
     "architecture": "multi-model",
-    "open_weights": null,
+    "open_weights": false,
     "description": "GLM-based multi-model system for narrative generation, with collaborative response generation, reasoning, and tool calling.",
     "source_url": "https://www.aionlabs.ai/docs/models/",
     "source_type": "primary",
@@ -250,12 +265,47 @@
         "label": "Aion Labs public code profile",
         "url": "https://github.com/aionlabsai",
         "type": "primary"
+      },
+      {
+        "label": "Aion Labs official Hugging Face model inventory",
+        "url": "https://huggingface.co/api/models?author=aion-labs&limit=100",
+        "type": "primary"
       }
     ],
-    "notes": "GLM-family collaborative multi-model system; specific component models and total/active parameter counts are undisclosed. Family-level lineage does not identify a base from which to inherit nominal counts. No Aion 3.0 weight release or weight license was verified. Developer release date is 2026-05-05; OpenRouter labels 2026-07-07.",
+    "notes": "GLM-family collaborative multi-model system; specific component models and total/active parameter counts are undisclosed. Family-level lineage does not identify a base from which to inherit nominal counts. No public Aion 3.0 weight release was located; its weight license remains undisclosed. Developer release date is 2026-05-05; OpenRouter labels 2026-07-07. Classified closed because no public downloadable Aion 3.0 system weights were found.",
     "parameters_b": null,
     "active_parameters_b": null,
     "parameters_source": null
   },
-  "summary": "Fresh parameter re-audit on 2026-10-27 retains undisclosed total and active counts after reopening developer documentation, live API, official Hugging Face and GitHub profiles, and the OpenRouter listing, plus searches for exact-model counts and named GLM bases. No nominal specification or named-base relationship was found; the documented multi-model structure does not disclose component identity or activation. Explicit null parameter patches preserve that uncertainty. Other audited fields and prior corrections are unchanged."
+  "summary": "Fresh parameter re-audit on 2026-10-27 retains undisclosed total and active counts after reopening developer documentation, live API, official Hugging Face and GitHub profiles, and the OpenRouter listing, plus searches for exact-model counts and named GLM bases. No nominal specification or named-base relationship was found; the documented multi-model structure does not disclose component identity or activation. Explicit null parameter patches preserve that uncertainty. Other audited fields and prior corrections are unchanged. October 28 availability review: Classified closed because no public downloadable Aion 3.0 system weights were found. All thirteen unrelated field assessments and prior research metadata are preserved.",
+  "availability_resolution": {
+    "agent": "/root/date_hosted",
+    "reviewed_at": "2026-10-28T07:53:08.492317Z",
+    "scope": [
+      "open_weights"
+    ],
+    "classification_rule": "Open means an identified public downloadable checkpoint for this exact model or a developer-documented equivalent; otherwise closed under the user-requested practical availability rule. This is not a legal ownership or perpetual-closure finding.",
+    "searches": [
+      "Aion 3.0 weights Hugging Face GitHub Aion Labs",
+      "GET official aion-labs Hugging Face inventory",
+      "GET github.com org aionlabsai repos returned 404; not treated as proof of nonexistence"
+    ],
+    "accessed_originals": [
+      {
+        "url": "https://www.aionlabs.ai/docs/models/",
+        "evidence": "Fresh October 28 developer documentation identifies Aion 3.0 as an API-hosted collaborative system built on GLM-family components. It provides no downloadable Aion 3.0 checkpoint or mapping to one released component.",
+        "accessed": true
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=aion-labs&limit=100",
+        "evidence": "Fresh public inventory returned only Aion-RP-Llama-3.1-8B and its GGUF variant. It contains no Aion 3.0 model or multi-model-system weight release.",
+        "accessed": true
+      }
+    ],
+    "outcome": "open_weights=false",
+    "limitations": [
+      "The search is bounded; classification reflects currently verified public availability and can change with a new release."
+    ],
+    "evidence_directory": "/tmp/model-tracker-gap-resolution/evidence-007"
+  }
 }
