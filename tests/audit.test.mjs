@@ -93,9 +93,9 @@ test('published lower bounds remain distinct from point counts across display, f
   const model = { ...normalize('lab/bounded', { name: 'Bounded', modalities: { input: ['text'], output: ['text'] } }, '2026-10-27T09:00:00Z'), release_date: '2026-01-01', date_precision: 'day', parameters_lower_bound_b: 1000, parameters_lower_bound_exclusive: true };
   validateModels([model]);
   assert.equal(model.parameters_b, null);
-  assert.equal(modelSizeLabel(model), '>1,000B');
-  assert.equal(missingLabel(model, 'parameters_b'), '>1,000B');
-  assert.equal(modelSizeLabel({ ...model, parameters_lower_bound_exclusive: false }), '≥1,000B');
+  assert.equal(modelSizeLabel(model), '>1T');
+  assert.equal(missingLabel(model, 'parameters_b'), '>1T');
+  assert.equal(modelSizeLabel({ ...model, parameters_lower_bound_exclusive: false }), '≥1T');
   assert.equal(filterModels([model], { size: '100plus' }).length, 1);
   for (const size of ['unknown', 'under3', '3to10', '10to30', '30to100']) assert.equal(filterModels([model], { size }).length, 0);
   assert.equal(sizePoints([model]).length, 0);

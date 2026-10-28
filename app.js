@@ -1,6 +1,6 @@
 import { defaults, filterModels, sortModels, isMultimodal, toCSV } from './lib/model-data.js';
 import { renderChart } from './lib/chart-view.js';
-import { billions, missingLabel, modelSizeLabel, activeSizeLabel, hasReportedSize } from './lib/parameter-labels.js';
+import { parameterLabel, missingLabel, modelSizeLabel, activeSizeLabel, hasReportedSize } from './lib/parameter-labels.js';
 import { paginationDefaults, readPagination, pageWindow, pageForIndex } from './lib/pagination.js';
 
 const $ = id => document.getElementById(id);
@@ -38,11 +38,6 @@ function dateLabel(value, precision) {
   const date = new Date(`${value.length === 7 ? `${value}-01` : value.slice(0, 10)}T00:00:00Z`);
   if (Number.isNaN(date.getTime())) return value;
   return date.toLocaleDateString('en-GB', { ...(precision === 'month' || value.length === 7 ? {} : { day: 'numeric' }), month: 'short', year: 'numeric', timeZone: 'UTC' });
-}
-
-function parameterLabel(value) {
-  if (value == null) return '—';
-  return `${number.format(value)}B`;
 }
 
 function compactNumber(value) {
@@ -211,7 +206,7 @@ function detailRow(model, id) {
   addDetail(list, 'Active parameters', activeSizeLabel(model));
   addDetail(list, 'Architecture', { moe: 'Mixture of experts', dense: 'Dense', transformer: 'Transformer', 'hybrid-ssm-transformer-moe': 'Hybrid Mamba–Transformer (MoE)' }[model.architecture] || model.architecture || missingLabel(model, 'architecture'));
   for (const [component, size] of Object.entries(model.parameter_components_b || {})) {
-    if (component !== model.parameters_scope) addDetail(list, `${component.charAt(0).toUpperCase() + component.slice(1).replaceAll('_', ' ')} parameters`, size < 0.001 ? compactNumber(Math.round(size * 1e9)) : billions(size));
+    if (component !== model.parameters_scope) addDetail(list, `${component.charAt(0).toUpperCase() + component.slice(1).replaceAll('_', ' ')} parameters`, size < 0.001 ? compactNumber(Math.round(size * 1e9)) : parameterLabel(size));
   }
   addDetail(list, 'Context window', model.context_window ? `${compactNumber(model.context_window)} tokens` : 'Unknown');
   addDetail(list, 'License', typeof model.license === 'string' ? model.license : model.license?.name || 'Not specified');
@@ -275,7 +270,7 @@ function renderRows() {
     if (model.reasoning) type.append(element('span', 'reasoning-label', 'Reasoning'));
     const size = element('td', `numeric parameter-count${!hasReportedSize(model) ? ' unknown-value' : ''}`, modelSizeLabel(model));
     if (!hasReportedSize(model)) size.title = 'Parameter count not recorded in this catalog';
-    else if (model.parameters_lower_bound_b != null) size.title = `Published lower bound; the total ${model.parameters_lower_bound_exclusive ? 'exceeds' : 'is at least'} ${billions(model.parameters_lower_bound_b)}`;
+    else if (model.parameters_lower_bound_b != null) size.title = `Published lower bound; the total ${model.parameters_lower_bound_exclusive ? 'exceeds' : 'is at least'} ${parameterLabel(model.parameters_lower_bound_b)}`;
     else if (model.parameters_source === 'model_name') size.title = 'Nominal parameter count from the model name';
     const weights = element('td', 'weights-cell');
     weights.append(element('span', `weight-label${model.open_weights === true ? ' open' : model.open_weights == null ? ' unknown-value' : ''}`, model.open_weights === true ? 'Open' : model.open_weights === false ? 'Closed' : '—'));
