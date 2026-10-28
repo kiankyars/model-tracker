@@ -1,7 +1,7 @@
 {
   "index": 65,
   "model_id": "alibaba/qwen3.7-plus",
-  "reviewed_at": "2026-10-26T15:44:56.658841+00:00",
+  "reviewed_at": "2026-10-28T08:01:10.206539+00:00",
   "sources": [
     {
       "id": "s1",
@@ -66,6 +66,30 @@
       "publisher": "Qwen Team",
       "accessed": true,
       "evidence": "The official Language benchmark table explicitly lists Qwen3.7-Plus at 397B parameters and 17B activated parameters. These are nominal language-model figures, not a complete deployment tensor count."
+    },
+    {
+      "id": "availability_exact_20261028",
+      "url": "https://huggingface.co/api/models?author=Qwen&search=qwen3.7-plus&limit=100",
+      "title": "Official Qwen inventory search for the exact hosted model",
+      "publisher": "Qwen / Hugging Face",
+      "accessed": true,
+      "evidence": "The live official organization search returned no checkpoint under the exact hosted model name. Related family releases were checked separately."
+    },
+    {
+      "id": "availability_family_20261028",
+      "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen3.7&limit=1000",
+      "title": "Official Qwen Qwen3.7 weight inventory",
+      "publisher": "Qwen / Hugging Face",
+      "accessed": true,
+      "evidence": "The live query returned 0 repositories. The exact model card maps Plus to its May 26 API snapshot. Neither the developer Qwen3.7 inventory nor the exact Plus search contains released weights."
+    },
+    {
+      "id": "availability_docs_20261028",
+      "url": "https://www.alibabacloud.com/help/en/model-studio/qwen3-7-plus",
+      "title": "Original developer documentation checked for model availability",
+      "publisher": "Qwen / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "The exact model card maps Plus to its May 26 API snapshot. Neither the developer Qwen3.7 inventory nor the exact Plus search contains released weights."
     }
   ],
   "fields": {
@@ -104,13 +128,14 @@
       "note": "Earliest explicit public regional release located; May 26 is the snapshot date, and June 3 is the later announcement mirror date."
     },
     "open_weights": {
-      "value": null,
-      "status": "unverified",
+      "value": false,
+      "status": "verified",
       "source_ids": [
-        "s1",
-        "s3"
+        "availability_exact_20261028",
+        "availability_family_20261028",
+        "availability_docs_20261028"
       ],
-      "note": "API availability alone does not establish closed weights. No explicit exact-Plus proprietary statement or official open-checkpoint mapping verified; Max wording cannot be transferred."
+      "note": "The exact model card maps Plus to its May 26 API snapshot. Neither the developer Qwen3.7 inventory nor the exact Plus search contains released weights. Classified closed under the public-download availability rule at review time; an explicit proprietary declaration is not required."
     },
     "license": {
       "value": null,
@@ -199,9 +224,9 @@
   },
   "patch": {
     "release_date": "2026-06-01",
-    "open_weights": null,
+    "open_weights": false,
     "description": "Qwen3.7 multimodal model with a 1M-token context, text, image and video inputs, thinking mode, and function calling for coding and agent workflows.",
-    "notes": "The alias maps to qwen3.7-plus-2026-05-26; June 1 is the documented public release. The later official Flash-Next Language comparison table explicitly reports 397B parameters and 17B active for Qwen3.7-Plus. These are nominal language-model counts; complete hosted components are not quantified. Internal architecture, exact-model weight availability and weight license remain unverified.",
+    "notes": "The alias maps to qwen3.7-plus-2026-05-26; June 1 is the documented public release. The later official Flash-Next Language comparison table explicitly reports 397B parameters and 17B active for Qwen3.7-Plus. These are nominal language-model counts; complete hosted components are not quantified. Internal architecture and weight license remain unverified. No public Plus weight release is available. Classified as closed weights: no public release of this hosted variant was found in the developer documentation and weight inventory.",
     "sources": [
       {
         "label": "Alibaba Cloud exact model documentation",
@@ -232,18 +257,68 @@
         "label": "Qwen official parameter comparison table",
         "url": "https://huggingface.co/Qwen/Qwen3.8-Flash-Next/raw/de4b8e4d43b917e7706784d8bb445c9af86a3540/README.md",
         "type": "primary"
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=qwen3.7-plus&limit=100",
+        "label": "Official Qwen inventory search for the exact hosted model",
+        "type": "primary"
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen3.7&limit=1000",
+        "label": "Official Qwen Qwen3.7 weight inventory",
+        "type": "primary"
+      },
+      {
+        "url": "https://www.alibabacloud.com/help/en/model-studio/qwen3-7-plus",
+        "label": "Original developer documentation checked for model availability",
+        "type": "primary"
       }
     ],
     "active_parameters_b": 17,
     "parameters_b": 397,
     "parameters_source": "primary_source"
   },
-  "summary": "Corrected release to June 1 and confirmed hosted capabilities. Parent review found later first-party comparison-table disclosure of 397B language-model parameters and 17B active. Internal architecture and exact weight availability remain unresolved.",
+  "summary": "Resolved weight availability. The exact model card maps Plus to its May 26 API snapshot. Neither the developer Qwen3.7 inventory nor the exact Plus search contains released weights. All unrelated field assessments and previous parameter/date evidence are preserved.",
   "proposed_fields": {
     "active_parameters_scope": "language_model",
     "parameters_scope": "language_model",
     "parameter_components_b": {
       "language_model": 397
     }
+  },
+  "availability_resolution": {
+    "agent": "/root",
+    "reviewed_at": "2026-10-28T08:01:10.206539+00:00",
+    "fields": [
+      "open_weights"
+    ],
+    "searches": [
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=qwen3.7-plus&limit=100",
+        "results": []
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen3.7&limit=1000",
+        "results": []
+      }
+    ],
+    "accessed_originals": [
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=qwen3.7-plus&limit=100",
+        "evidence": "The live official organization search returned no checkpoint under the exact hosted model name. Related family releases were checked separately."
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen3.7&limit=1000",
+        "evidence": "The live query returned 0 repositories. The exact model card maps Plus to its May 26 API snapshot. Neither the developer Qwen3.7 inventory nor the exact Plus search contains released weights."
+      },
+      {
+        "url": "https://www.alibabacloud.com/help/en/model-studio/qwen3-7-plus",
+        "evidence": "The exact model card maps Plus to its May 26 API snapshot. Neither the developer Qwen3.7 inventory nor the exact Plus search contains released weights."
+      }
+    ],
+    "outcome": {
+      "open_weights": false
+    },
+    "rule": "Publicly downloadable model weights or explicitly identified equivalent checkpoint => open. No such release found after original documentation and developer inventory checks => closed. API serving extras and weight licenses are separate."
   }
 }
