@@ -1,7 +1,7 @@
 {
   "index": 74,
   "model_id": "alibaba/qwen3.8-omni-flash",
-  "reviewed_at": "2026-10-27T09:56:55.983739+00:00",
+  "reviewed_at": "2026-10-28T08:01:10.207758+00:00",
   "sources": [
     {
       "id": "s1",
@@ -74,6 +74,30 @@
       "publisher": "Qwen Team",
       "accessed": true,
       "evidence": "Accessed October 27: report cited by Omni's initialization statement identifies Qwen3.8-Flash-Next. Abstract and Table 11 publish 125B main parameters, 6B activated, and 51B additional n-gram embeddings; the n-gram tables are outside the backbone. This connects the named initialization source to its published nominal counts."
+    },
+    {
+      "id": "availability_exact_20261028",
+      "url": "https://huggingface.co/api/models?author=Qwen&search=qwen3.8-omni-flash&limit=100",
+      "title": "Official Qwen inventory search for the exact hosted model",
+      "publisher": "Qwen / Hugging Face",
+      "accessed": true,
+      "evidence": "The live official organization search returned no checkpoint under the exact hosted model name. Related family releases were checked separately."
+    },
+    {
+      "id": "availability_family_20261028",
+      "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen3.8&limit=1000",
+      "title": "Official Qwen Qwen3.8 weight inventory",
+      "publisher": "Qwen / Hugging Face",
+      "accessed": true,
+      "evidence": "The live query returned 6 repositories. The original model card offers Omni-Flash through an API. The Qwen3.8 inventory contains text models and no Omni-Flash checkpoint; no downloadable complete multimodal release was found."
+    },
+    {
+      "id": "availability_docs_20261028",
+      "url": "https://help.aliyun.com/en/model-studio/qwen3-8-omni-flash",
+      "title": "Original developer documentation checked for model availability",
+      "publisher": "Qwen / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "The original model card offers Omni-Flash through an API. The Qwen3.8 inventory contains text models and no Omni-Flash checkpoint; no downloadable complete multimodal release was found."
     }
   ],
   "fields": {
@@ -116,14 +140,14 @@
       "note": "Earliest explicit first-party public release found: September 17 in Alibaba Cloud regional/global tables. QwenCloud and the launch article show September 18; preserve that discrepancy rather than replace the earlier endpoint release with article or paper dates."
     },
     "open_weights": {
-      "value": null,
-      "status": "unverified",
+      "value": false,
+      "status": "verified",
       "source_ids": [
-        "s1",
-        "s5",
-        "s6"
+        "availability_exact_20261028",
+        "availability_family_20261028",
+        "availability_docs_20261028"
       ],
-      "note": "The exact hosted variant is documented, but no exact released weights or explicit primary closed-weight classification was verified. A separate checkpoint or an unsuccessful repository search does not prove this variant is closed."
+      "note": "The original model card offers Omni-Flash through an API. The Qwen3.8 inventory contains text models and no Omni-Flash checkpoint; no downloadable complete multimodal release was found. Classified closed under the public-download availability rule at review time; an explicit proprietary declaration is not required."
     },
     "license": {
       "value": null,
@@ -258,21 +282,78 @@
         "label": "Qwen3.8-Next architecture and parameter table",
         "url": "https://arxiv.org/html/2608.30320v1",
         "type": "primary"
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=qwen3.8-omni-flash&limit=100",
+        "label": "Official Qwen inventory search for the exact hosted model",
+        "type": "primary"
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen3.8&limit=1000",
+        "label": "Official Qwen Qwen3.8 weight inventory",
+        "type": "primary"
+      },
+      {
+        "url": "https://help.aliyun.com/en/model-studio/qwen3-8-omni-flash",
+        "label": "Original developer documentation checked for model availability",
+        "type": "primary"
       }
     ],
-    "notes": "Nominal 125B main-language parameters and 6B active are inferred from the technical report's explicit Qwen3.8-Next initialization. Both counts cover the main language model only; they exclude encoders and the base's separately counted n-gram/MTP components. Full Omni total and full multimodal active count remain undisclosed. This endpoint outputs text; Realtime handles speech generation. Earliest official release-table date is September 17, 2026; the launch article shows September 18. Exact weight-release status and license remain unverified.",
-    "open_weights": null,
+    "notes": "Nominal 125B main-language parameters and 6B active are inferred from the technical report's explicit Qwen3.8-Next initialization. Both counts cover the main language model only; they exclude encoders and the base's separately counted n-gram/MTP components. Full Omni total and full multimodal active count remain undisclosed. This endpoint outputs text; Realtime handles speech generation. Earliest official release-table date is September 17, 2026; the launch article shows September 18. No public weights for the complete Omni-Flash model were found; its weight license remains undisclosed. Classified as closed weights: no public release of this hosted variant was found in the developer documentation and weight inventory.",
+    "open_weights": false,
     "license": null,
     "parameters_b": 125,
     "active_parameters_b": 6,
     "parameters_source": "primary_source"
   },
-  "summary": "October 27 parameter re-audit found missed explicit LLM initialization in Omni report section 3. Infer nominal 125B main-language parameters and 6B active from the named Next base, with component scopes and primary-source provenance. Reviewed encoder additions and distillation; no backbone resizing is stated. Reopened launch/API guides and searched later first-party reports, cards and comparisons; none supplies a complete Omni total or multimodal active count. Other audited fields are preserved.",
+  "summary": "Resolved weight availability. The original model card offers Omni-Flash through an API. The Qwen3.8 inventory contains text models and no Omni-Flash checkpoint; no downloadable complete multimodal release was found. All unrelated field assessments and previous parameter/date evidence are preserved.",
   "proposed_fields": {
     "parameters_scope": "main_language_model",
     "active_parameters_scope": "main_language_model",
     "parameter_components_b": {
       "main_language_model": 125
     }
+  },
+  "availability_resolution": {
+    "agent": "/root",
+    "reviewed_at": "2026-10-28T08:01:10.207758+00:00",
+    "fields": [
+      "open_weights"
+    ],
+    "searches": [
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=qwen3.8-omni-flash&limit=100",
+        "results": []
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen3.8&limit=1000",
+        "results": [
+          "Qwen/Qwen3.8-27B",
+          "Qwen/Qwen3.8-Flash-Next",
+          "Qwen/Qwen3.8-2.4T-A95B",
+          "Qwen/Qwen3.8-27B-FP8",
+          "Qwen/Qwen3.8-Flash-Next-FP8",
+          "Qwen/Qwen3.8-2.4T-A95B-FP8"
+        ]
+      }
+    ],
+    "accessed_originals": [
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=qwen3.8-omni-flash&limit=100",
+        "evidence": "The live official organization search returned no checkpoint under the exact hosted model name. Related family releases were checked separately."
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen3.8&limit=1000",
+        "evidence": "The live query returned 6 repositories. The original model card offers Omni-Flash through an API. The Qwen3.8 inventory contains text models and no Omni-Flash checkpoint; no downloadable complete multimodal release was found."
+      },
+      {
+        "url": "https://help.aliyun.com/en/model-studio/qwen3-8-omni-flash",
+        "evidence": "The original model card offers Omni-Flash through an API. The Qwen3.8 inventory contains text models and no Omni-Flash checkpoint; no downloadable complete multimodal release was found."
+      }
+    ],
+    "outcome": {
+      "open_weights": false
+    },
+    "rule": "Publicly downloadable model weights or explicitly identified equivalent checkpoint => open. No such release found after original documentation and developer inventory checks => closed. API serving extras and weight licenses are separate."
   }
 }
