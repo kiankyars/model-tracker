@@ -1,7 +1,7 @@
 {
   "index": 350,
   "model_id": "mistral/pixtral-large-2502",
-  "reviewed_at": "2026-10-27T19:34:30.020948Z",
+  "reviewed_at": "2026-10-28T07:55:54.893674Z",
   "sources": [
     {
       "id": "s1",
@@ -249,6 +249,46 @@
       "publisher": "AWS",
       "accessed": true,
       "evidence": "Original April 8, 2025 article verified again. First-provider claim is qualified to fully managed serverless deployment; this does not exclude earlier native API or self-hosted availability."
+    },
+    {
+      "id": "availability_s1",
+      "url": "https://aws.amazon.com/blogs/aws/aws-announces-pixtral-large-25-02-model-in-amazon-bedrock-serverless/",
+      "title": "AWS announces Pixtral Large 25.02 model in Amazon Bedrock serverless",
+      "publisher": "AWS",
+      "accessed": true,
+      "evidence": "The April 8, 2025 launch announcement explicitly makes Pixtral Large 25.02 available and supplies model ID mistral.pixtral-large-2502-v1:0."
+    },
+    {
+      "id": "availability_s2",
+      "url": "https://huggingface.co/api/models?author=mistralai&search=Pixtral&limit=100",
+      "title": "Current official Mistral Pixtral weights inventory",
+      "publisher": "Mistral AI / Hugging Face",
+      "accessed": true,
+      "evidence": "The official account lists Pixtral-Large-Instruct-2411 and two 12B 2409 repositories; no 2502 repository is listed."
+    },
+    {
+      "id": "availability_s3",
+      "url": "https://huggingface.co/api/models?search=pixtral-large-2502&limit=100",
+      "title": "Exact Pixtral Large 2502 repository search",
+      "publisher": "Hugging Face",
+      "accessed": true,
+      "evidence": "An exact-name public model repository search returns an empty array."
+    },
+    {
+      "id": "availability_s4",
+      "url": "https://docs.mistral.ai/models",
+      "title": "Current Mistral model index",
+      "publisher": "Mistral AI",
+      "accessed": true,
+      "evidence": "The Pixtral Large entry identifies 24.11 and pixtral-large-2411; no exact 2502 public weight release or equivalence is documented."
+    },
+    {
+      "id": "availability_s5",
+      "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-mistral-pixtral-large.html",
+      "title": "Pixtral Large 25.02 API documentation revisited",
+      "publisher": "AWS",
+      "accessed": true,
+      "evidence": "Documents hosted invocation of the exact 25.02 model; it does not provide downloadable model weights."
     }
   ],
   "fields": {
@@ -280,29 +320,25 @@
       "note": "Pixtral Large is identified as a Mistral model family; retain the normalized pixtral family key."
     },
     "release_date": {
-      "value": null,
-      "status": "unverified",
+      "value": "2025-04-08",
+      "status": "verified",
       "source_ids": [
+        "availability_s1",
         "date_s1",
-        "date_s2",
-        "date_s3",
-        "date_s4",
         "date_s5"
       ],
-      "note": "Still unresolved after original joint AWS/Mistral announcement, Bedrock history and Mistral native release chronology. April 8, 2025 is verified as first major-cloud managed/serverless availability, while Mistral's own dated original release identifies 2411. No primary exact 2502 first-release day or month was established."
+      "note": "AWS announced public availability of the exact Pixtral Large 25.02 revision on April 8, 2025, with model ID mistral.pixtral-large-2502-v1:0. This is an original release announcement for the tracked revision. The older 2411 family release does not invalidate the exact 2502 launch; no unsupported equivalence is assumed."
     },
     "open_weights": {
-      "value": null,
-      "status": "unverified",
+      "value": false,
+      "status": "verified",
       "source_ids": [
-        "s2",
-        "s5",
-        "s7",
-        "s8",
-        "s10",
-        "s11"
+        "availability_s2",
+        "availability_s3",
+        "availability_s4",
+        "availability_s5"
       ],
-      "note": "AWS’s MRL statement establishes a license classification, not downloadable 2502 weights. The official schema and repository inventory identify 2411 weights only. No exact equivalence or explicit closed-weight statement was found; clear false rather than infer either answer from the sibling."
+      "note": "Classified as closed under the tracker's availability rule: no public downloadable weights for the exact 2502 revision were found in the official Mistral inventory, native model index or exact-name public repository search. Hosted API access is documented. The downloadable 2411 checkpoint is not proven equivalent. This records current weight availability, not proprietary ownership or a permanent restriction."
     },
     "license": {
       "value": "Mistral Research License",
@@ -402,14 +438,14 @@
     }
   },
   "patch": {
-    "release_date": null,
-    "date_precision": null,
-    "open_weights": null,
+    "release_date": "2025-04-08",
+    "date_precision": "day",
+    "open_weights": false,
     "license": "Mistral Research License",
     "parameters_b": 124,
     "parameters_source": "primary_source",
     "reasoning": null,
-    "notes": "AWS documents a nominal 124B multimodal total (123B decoder plus 1B vision encoder). The 123B active count covers only the language decoder and is inferred from AWS’s explicit Mistral Large 2 lineage and Mistral’s published 123B active convention; whole-model active parameters remain unspecified. Provider context is 128,000 tokens with Mistral Research License. April 8, 2025 is the Bedrock rollout; the revision’s first release, exact weight availability, architecture and dedicated reasoning-mode classification remain unresolved. Release-date re-audit checked Amazon's original announcement quoting Mistral's CEO and the Bedrock document history. Both scope April 8, 2025 to Bedrock availability; they do not establish the first release of the 2502 revision.",
+    "notes": "AWS documents a nominal 124B multimodal total (123B decoder plus 1B vision encoder). The 123B active count covers only the language decoder and is inferred from AWS’s explicit Mistral Large 2 lineage and Mistral’s published 123B active convention; whole-model active parameters remain unspecified. Provider context is 128,000 tokens with Mistral Research License. The exact 25.02 API revision launched on April 8, 2025. No public downloadable 2502 weights were found, so weight access is closed; the 2411 download is not assumed equivalent. Architecture and dedicated reasoning-mode classification remain unresolved.",
     "sources": [
       {
         "label": "Amazon Bedrock now offers Pixtral Large 25.02",
@@ -540,11 +576,38 @@
         "label": "Original exact 25.02 Bedrock rollout revisited",
         "url": "https://aws.amazon.com/about-aws/whats-new/2025/04/amazon-bedrock-pixtral-large-25-02-mistral-ai/",
         "type": "primary"
+      },
+      {
+        "label": "AWS announces Pixtral Large 25.02 model in Amazon Bedrock serverless",
+        "url": "https://aws.amazon.com/blogs/aws/aws-announces-pixtral-large-25-02-model-in-amazon-bedrock-serverless/",
+        "type": "primary"
+      },
+      {
+        "label": "Current official Mistral Pixtral weights inventory",
+        "url": "https://huggingface.co/api/models?author=mistralai&search=Pixtral&limit=100",
+        "type": "primary"
+      },
+      {
+        "label": "Exact Pixtral Large 2502 repository search",
+        "url": "https://huggingface.co/api/models?search=pixtral-large-2502&limit=100",
+        "type": "primary"
+      },
+      {
+        "label": "Current Mistral model index",
+        "url": "https://docs.mistral.ai/models",
+        "type": "primary"
+      },
+      {
+        "label": "Pixtral Large 25.02 API documentation revisited",
+        "url": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-mistral-pixtral-large.html",
+        "type": "primary"
       }
     ],
-    "active_parameters_b": 123
+    "active_parameters_b": 123,
+    "source_type": "primary",
+    "source_url": "https://aws.amazon.com/blogs/aws/aws-announces-pixtral-large-25-02-model-in-amazon-bedrock-serverless/"
   },
-  "summary": "October 27 follow-up retains the exact-2502 nominal 124B total and establishes a labeled 123B active inference scoped to its language decoder. AWS explicitly identifies that decoder and separate 1B vision encoder, states the model is built on Mistral Large 2, and links the original 24.07 release; Mistral’s 24.07 metadata publishes 123B active. Proposes language_decoder active scope and nominal component counts. The whole-model active count remains unspecified; the unproven 2411-to-2502 mapping is unnecessary for this decoder inference. Preserves the other 12 assessments. No weight shards were requested. Fresh release-date audit read the original Amazon/Mistral announcement, Bedrock document history, native Mistral chronology and launch page. It confirms April 8, 2025 Bedrock availability but cannot identify 2502's initial release or a supported 2411 equivalence; release_date remains null.",
+  "summary": "October 27 follow-up retains the exact-2502 nominal 124B total and establishes a labeled 123B active inference scoped to its language decoder. AWS explicitly identifies that decoder and separate 1B vision encoder, states the model is built on Mistral Large 2, and links the original 24.07 release; Mistral’s 24.07 metadata publishes 123B active. Proposes language_decoder active scope and nominal component counts. The whole-model active count remains unspecified; the unproven 2411-to-2502 mapping is unnecessary for this decoder inference. Preserves the other 12 assessments. No weight shards were requested. Availability review resolves the exact 2502 release to April 8, 2025 using the original AWS launch announcement and classifies weight access as closed after checking the official inventory, model index and exact-name repository search. This changes only the date and weight-access assessments; parameter metadata and the other 12 assessments are preserved.",
   "proposed_fields": {
     "active_parameters_scope": "language_decoder",
     "parameter_components_b": {
@@ -583,5 +646,39 @@
       "The 2502 suffix cannot independently establish February 2025 availability.",
       "A provider rollout is a valid dated event, but the catalog field asks model first release; no confirmed equivalence or earlier original launch resolves that distinction."
     ]
+  },
+  "availability_resolution": {
+    "reviewed_at": "2026-10-28T07:55:54.893674Z",
+    "assigned_fields": [
+      "release_date",
+      "open_weights"
+    ],
+    "searches": [
+      "\"Pixtral Large 25.02\" weights release Mistral",
+      "\"pixtral-large-2502\" download weights",
+      "Hugging Face official author=mistralai search=Pixtral",
+      "Hugging Face exact public model search=pixtral-large-2502"
+    ],
+    "original_sources_read": [
+      "https://aws.amazon.com/blogs/aws/aws-announces-pixtral-large-25-02-model-in-amazon-bedrock-serverless/",
+      "https://huggingface.co/api/models?author=mistralai&search=Pixtral&limit=100",
+      "https://huggingface.co/api/models?search=pixtral-large-2502&limit=100",
+      "https://docs.mistral.ai/models",
+      "https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters-mistral-pixtral-large.html"
+    ],
+    "evidence": {
+      "release_date": "The original April 8 AWS News Blog launch explicitly identifies Pixtral Large 25.02 and its exact API model ID. This resolves the tracked revision independently of the earlier 2411 family release.",
+      "open_weights": "Fresh official account inventory contains only the 2411 Large and 2409 12B releases. Exact public repository search is empty. Native Mistral index lists 2411 and AWS documents hosted 2502 access without a download."
+    },
+    "outcome": {
+      "release_date": "2025-04-08",
+      "date_precision": "day",
+      "open_weights": false
+    },
+    "limitations": [
+      "The exact 2502-to-2411 checkpoint relationship remains unproven.",
+      "Closed describes the absence of a public downloadable exact revision at review time, not legal ownership or future availability."
+    ],
+    "evidence_directory": "/tmp/model-tracker-gap-resolution/evidence-350"
   }
 }
