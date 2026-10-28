@@ -1,7 +1,7 @@
 {
   "index": 358,
   "model_id": "moonshotai/kimi-k2-thinking-turbo",
-  "reviewed_at": "2026-10-27T07:09:56.351706Z",
+  "reviewed_at": "2026-10-28T08:02:38.262553Z",
   "sources": [
     {
       "id": "s1",
@@ -90,6 +90,30 @@
       "publisher": "Moonshot AI",
       "accessed": true,
       "evidence": "The December 22, 2025 first-party guide explicitly recommends kimi-k2-thinking-turbo for speed and describes it as optimized for high-speed generation, reaching up to 100 tokens/s. This later serving-oriented description corroborates the launch-day named high-speed-version relationship; it does not report pruning, distillation, expert expansion or added modalities."
+    },
+    {
+      "id": "availability_20261028_1",
+      "url": "https://platform.kimi.ai/docs/models",
+      "title": "Moonshot exact API model inventory",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Fresh developer docs separately list kimi-k2-thinking and kimi-k2-thinking-turbo as deprecated API identifiers."
+    },
+    {
+      "id": "availability_20261028_2",
+      "url": "https://platform.kimi.ai/blog/posts/coding_with_kimi_agents_setup",
+      "title": "Moonshot high-speed endpoint guidance",
+      "publisher": "Moonshot AI",
+      "accessed": true,
+      "evidence": "Developer guide describes Thinking Turbo as optimized for high-speed generation, but supplies no separate downloadable Turbo checkpoint."
+    },
+    {
+      "id": "availability_20261028_3",
+      "url": "https://huggingface.co/api/models?author=moonshotai&limit=100",
+      "title": "Moonshot public model-weight inventory",
+      "publisher": "Moonshot AI / Hugging Face",
+      "accessed": true,
+      "evidence": "Fresh complete public inventory includes Kimi-K2-Thinking but no Thinking Turbo repository. The standard checkpoint does not identify the exact hosted Turbo artifact."
     }
   ],
   "fields": {
@@ -134,15 +158,14 @@
       "note": "Official release log explicitly dates both K2 Think and its turbo version to November 6; this is not inferred from the standard checkpoint date."
     },
     "open_weights": {
-      "value": null,
-      "status": "unverified",
+      "value": false,
+      "status": "verified",
       "source_ids": [
-        "s3",
-        "s5",
-        "s6",
-        "s7"
+        "availability_20261028_1",
+        "availability_20261028_2",
+        "availability_20261028_3"
       ],
-      "note": "The standard Thinking weights are public, but no accessed first-party source establishes exact checkpoint equivalence for the hosted Turbo variant. High-speed version alone does not prove identical released weights; clear the baseline true."
+      "note": "Closed under the user-requested availability rule for this exact hosted variant: no public Turbo checkpoint or developer-documented exact weight mapping was found. The standard Kimi K2 Thinking weights are public; the high-speed endpoint relationship supports the existing nominal lineage assessment but is not a separately identified downloadable Turbo release. This does not assert proprietary ownership of the base model."
     },
     "license": {
       "value": null,
@@ -243,11 +266,11 @@
   },
   "patch": {
     "family": "kimi-k2",
-    "open_weights": null,
+    "open_weights": false,
     "description": "High-speed Kimi K2 Thinking API variant for text reasoning and tool calling; the original Moonshot endpoint is deprecated.",
     "source_url": "https://platform.kimi.ai/blog/posts/changelog",
     "source_type": "primary",
-    "notes": "Historical Moonshot API speed variant, released November 6, 2025 and listed as deprecated since May 25, 2026. Its advertised 256K context is represented as 262144 tokens; always-thinking and tool calling are explicit. Parameter re-audit on October 27, 2026 accepts nominal 1T total/32B activated parameters through the official identification of this endpoint as the high-speed version of Kimi K2 Thinking and that named model's developer-published specification. Later first-party speed guidance corroborates this relationship; fresh searches found no Turbo-specific pruning, distillation, changed expert selection or added modalities. These are nominal model counts inferred from explicit lineage, not an exact tensor census, whole-service inventory or proof of byte-identical hosted weights. MoE architecture follows the same explicit lineage. Openness and license assessments are unchanged; a public standard Thinking weights link is not a verified Turbo checkpoint.",
+    "notes": "Historical Moonshot API speed variant, released November 6, 2025 and listed as deprecated since May 25, 2026. Its advertised 256K context is represented as 262144 tokens; always-thinking and tool calling are explicit. Parameter re-audit on October 27, 2026 accepts nominal 1T total/32B activated parameters through the official identification of this endpoint as the high-speed version of Kimi K2 Thinking and that named model's developer-published specification. Later first-party speed guidance corroborates this relationship; fresh searches found no Turbo-specific pruning, distillation, changed expert selection or added modalities. These are nominal model counts inferred from explicit lineage, not an exact tensor census, whole-service inventory or proof of byte-identical hosted weights. MoE architecture follows the same explicit lineage. A public standard Thinking weights link is not a verified Turbo checkpoint; the existing license assessment remains unchanged. Classified closed for the exact Turbo variant because no matching public weight release was found.",
     "sources": [
       {
         "label": "Moonshot official release log",
@@ -283,6 +306,11 @@
         "label": "Moonshot exact-model high-speed generation guidance",
         "url": "https://platform.kimi.ai/blog/posts/coding_with_kimi_agents_setup",
         "type": "primary"
+      },
+      {
+        "label": "Moonshot public model-weight inventory",
+        "url": "https://huggingface.co/api/models?author=moonshotai&limit=100",
+        "type": "primary"
       }
     ],
     "parameters_b": 1000,
@@ -290,5 +318,40 @@
     "parameters_source": "primary_source",
     "architecture": "moe"
   },
-  "summary": "Parameter re-audit verified nominal 1000B total and 32B activated parameters, plus coupled MoE architecture, by combining the official exact-endpoint identification as a high-speed version of Kimi K2 Thinking with that named model's developer specifications. Reopened launch, model-card and later first-party sources and searched for structural changes; no Turbo-specific pruning, distillation or expert-selection change was found. Exact hosted checkpoint identity remains unproven and is not required for these labeled lineage inferences. Unrelated field assessments are preserved; openness and license remain unverified."
+  "summary": "Parameter re-audit verified nominal 1000B total and 32B activated parameters, plus coupled MoE architecture, by combining the official exact-endpoint identification as a high-speed version of Kimi K2 Thinking with that named model's developer specifications. Reopened launch, model-card and later first-party sources and searched for structural changes; no Turbo-specific pruning, distillation or expert-selection change was found. Exact hosted checkpoint identity remains unproven and is not required for these labeled lineage inferences. Unrelated field assessments are preserved; openness and license remain unverified. October 28 availability review: Classified closed for the exact Turbo variant because no matching public weight release was found. All thirteen unrelated field assessments and prior research metadata are preserved.",
+  "availability_resolution": {
+    "agent": "/root/date_hosted",
+    "reviewed_at": "2026-10-28T08:02:38.262553Z",
+    "scope": [
+      "open_weights"
+    ],
+    "classification_rule": "Open means an identified public downloadable checkpoint for this exact model or a developer-documented equivalent; otherwise closed under the user-requested practical availability rule. This is not a legal ownership or perpetual-closure finding.",
+    "searches": [
+      "Kimi K2 Thinking Turbo weights download official",
+      "GET complete Moonshot official Hugging Face inventory",
+      "Read current official API model list, standard Thinking card and high-speed endpoint guidance"
+    ],
+    "accessed_originals": [
+      {
+        "url": "https://platform.kimi.ai/docs/models",
+        "evidence": "Fresh developer docs separately list kimi-k2-thinking and kimi-k2-thinking-turbo as deprecated API identifiers.",
+        "accessed": true
+      },
+      {
+        "url": "https://platform.kimi.ai/blog/posts/coding_with_kimi_agents_setup",
+        "evidence": "Developer guide describes Thinking Turbo as optimized for high-speed generation, but supplies no separate downloadable Turbo checkpoint.",
+        "accessed": true
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=moonshotai&limit=100",
+        "evidence": "Fresh complete public inventory includes Kimi-K2-Thinking but no Thinking Turbo repository. The standard checkpoint does not identify the exact hosted Turbo artifact.",
+        "accessed": true
+      }
+    ],
+    "outcome": "open_weights=false",
+    "limitations": [
+      "The search is bounded; classification reflects currently verified public availability and can change with a new release."
+    ],
+    "evidence_directory": "/tmp/model-tracker-gap-resolution/evidence-358"
+  }
 }
