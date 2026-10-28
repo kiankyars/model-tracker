@@ -10,6 +10,8 @@ Check first-party announcements, release notes, official Hugging Face organizati
 
 Check the exact release date, available variants, total and active parameter counts, weight availability, license, modalities, and context length. Distinguish public availability from an announcement, preview identifier, training cutoff, or a provider adding an existing model. Keep missing values null. Do not infer closed-model sizes.
 
+For weight access, check the developer's model documentation and public weight repositories. Mark `open_weights` true when a downloadable release exists for the model, including an explicitly documented equivalent checkpoint. Otherwise mark it false and record the sources checked. This describes public availability at review time; it does not require an explicit proprietary declaration. Do not leave weight access unresolved merely because the developer has not announced that it is closed, and do not assume a hosted revision is open solely because its base model is open.
+
 ## Update
 
 Inspect the working tree and upstream branch first; preserve unrelated work. Use `npm run refresh` to import current Models.dev metadata when useful, then independently review candidate releases and changed fields. The importer is optional and does not replace research.
