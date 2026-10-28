@@ -1,7 +1,7 @@
 {
   "index": 15,
   "model_id": "alibaba/qwen-omni-turbo",
-  "reviewed_at": "2026-10-27T07:51:46.871073+00:00",
+  "reviewed_at": "2026-10-28T08:13:49.514266+00:00",
   "sources": [
     {
       "id": "s1",
@@ -90,6 +90,38 @@
       "publisher": "Qwen Team",
       "accessed": true,
       "evidence": "Parent reopened October 27, 2026. Table 6 lists Qwen2.5-7B Base and Table 18 Qwen2.5-7B-Instruct as 7B activated. Omni report section 3 initializes its LLM from Qwen2.5, and the existing exact text-config comparison identifies the 7B decoder. This supports an inherited nominal 7B active Thinker decoder, not full multimodal service activity."
+    },
+    {
+      "id": "availability_exact_20261028",
+      "url": "https://huggingface.co/api/models?author=Qwen&search=qwen-omni-turbo&limit=100",
+      "title": "Official Qwen inventory search for the exact hosted model",
+      "publisher": "Qwen / Hugging Face",
+      "accessed": true,
+      "evidence": "The live official organization search returned no checkpoint under the exact hosted model name. Related family releases were checked separately."
+    },
+    {
+      "id": "availability_family_20261028",
+      "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen2.5-Omni&limit=1000",
+      "title": "Official Qwen Qwen2.5-Omni weight inventory",
+      "publisher": "Qwen / Hugging Face",
+      "accessed": true,
+      "evidence": "The official Qwen organization query returned four Qwen2.5-Omni repositories: 7B, 3B, 7B-GPTQ-Int4 and 7B-AWQ."
+    },
+    {
+      "id": "availability_redirect_20261028",
+      "url": "https://www.alibabacloud.com/help/ja/model-studio/qwen-omni-turbo",
+      "title": "Former exact model documentation",
+      "publisher": "Alibaba Cloud",
+      "accessed": true,
+      "evidence": "The request redirects to https://www.alibabacloud.com/help/ja/model-studio/models; it no longer returns the exact historical model card. The redirect is not treated as a new model-specific availability statement."
+    },
+    {
+      "id": "availability_weights_20261028",
+      "url": "https://huggingface.co/Qwen/Qwen2.5-Omni-7B",
+      "title": "Public Qwen2.5-Omni-7B checkpoint",
+      "publisher": "Qwen / Hugging Face",
+      "accessed": true,
+      "evidence": "The official repository API metadata is public and ungated and lists all five model safetensors shards. This is the downloadable checkpoint named in the immutable launch announcement."
     }
   ],
   "fields": {
@@ -126,13 +158,16 @@
       "note": "Earliest explicitly listed release of this undated API ID is Beijing, February 14. Baseline January 19 is a snapshot date, not the documented release of this alias. International launch followed July 18."
     },
     "open_weights": {
-      "value": null,
-      "status": "unverified",
+      "value": true,
+      "status": "verified",
       "source_ids": [
         "s1",
-        "s3"
+        "s5",
+        "s6",
+        "availability_family_20261028",
+        "availability_weights_20261028"
       ],
-      "note": "No downloadable weights for this exact hosted ID were established. Open Qwen2.5-Omni checkpoints exist, but the API example is insufficient proof of checkpoint identity. Baseline false is plausible and left unchanged, with this verification limitation."
+      "note": "The immutable Qwen2.5-Omni launch announcement offers the named Omni-7B model on Hugging Face and DashScope. The launch README identifies qwen-omni-turbo as API access to that model; retained official documentation maps the alias to its March 26 snapshot. The official Omni-7B repository contains public downloadable weights. Classified open by this named-model mapping; API voice choices and serving features do not establish byte-identical deployed tensors."
     },
     "license": {
       "value": null,
@@ -295,21 +330,92 @@
         "label": "Qwen3 Technical Report, Qwen2.5-7B nominal activated count",
         "url": "https://arxiv.org/html/2505.09388v1",
         "type": "primary"
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=qwen-omni-turbo&limit=100",
+        "label": "Official Qwen inventory search for the exact hosted model",
+        "type": "primary"
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen2.5-Omni&limit=1000",
+        "label": "Official Qwen Qwen2.5-Omni weight inventory",
+        "type": "primary"
+      },
+      {
+        "url": "https://huggingface.co/Qwen/Qwen2.5-Omni-7B",
+        "label": "Public Qwen2.5-Omni-7B checkpoint",
+        "type": "primary"
       }
     ],
-    "open_weights": null,
-    "notes": "Nominal 7B total and active cover the Thinker language decoder, inferred from the Qwen2.5-Omni-7B launch, Turbo API example, matching Qwen2.5-7B text configuration and the base\u2019s published activated count. Full multimodal total and active counts remain unspecified. Dense Thinker-Talker architecture is inherited from the named model; the alias maps to the March 26, 2025 snapshot.",
+    "open_weights": true,
+    "notes": "Nominal 7B total and active cover the Thinker language decoder, inferred from the Qwen2.5-Omni-7B launch, Turbo API example, matching Qwen2.5-7B text configuration and the base’s published activated count. Full multimodal total and active counts remain unspecified. Dense Thinker-Talker architecture is inherited from the named model; the alias maps to the March 26, 2025 snapshot. Open weights through the developer's explicit mapping to downloadable Qwen2.5-Omni-7B. API voice choices and serving features may differ from local inference.",
     "parameters_b": 7,
     "active_parameters_b": 7,
     "parameters_source": "primary_source",
     "architecture": "dense"
   },
-  "summary": "Fresh re-audit establishes inherited nominal 7B total and active for the Thinker language decoder. The launch names Qwen2.5-Omni-7B, same-day API code names Turbo, and the report/configuration identify the Qwen2.5-7B language component. Parent additionally verified Qwen3 report Tables 6/18 for the base\u2019s nominal active convention. Full multimodal counts remain unspecified; dense architecture is supported. Original unrelated assessments remain unchanged.",
+  "summary": "Resolved weight availability. The immutable Qwen2.5-Omni launch announcement offers the named Omni-7B model on Hugging Face and DashScope. The launch README identifies qwen-omni-turbo as API access to that model; retained official documentation maps the alias to its March 26 snapshot. The official Omni-7B repository contains public downloadable weights. Classified open by this named-model mapping; API voice choices and serving features do not establish byte-identical deployed tensors. All unrelated field assessments and previous parameter/date evidence are preserved.",
   "proposed_fields": {
     "parameters_scope": "thinker_decoder",
     "parameter_components_b": {
       "thinker_decoder": 7
     },
     "active_parameters_scope": "thinker_decoder"
+  },
+  "availability_resolution": {
+    "agent": "/root",
+    "reviewed_at": "2026-10-28T08:13:49.514266+00:00",
+    "fields": [
+      "open_weights"
+    ],
+    "searches": [
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=qwen-omni-turbo&limit=100",
+        "results": []
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen2.5-Omni&limit=1000",
+        "results": [
+          "Qwen/Qwen2.5-Omni-7B",
+          "Qwen/Qwen2.5-Omni-3B",
+          "Qwen/Qwen2.5-Omni-7B-GPTQ-Int4",
+          "Qwen/Qwen2.5-Omni-7B-AWQ"
+        ]
+      }
+    ],
+    "accessed_originals": [
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=qwen-omni-turbo&limit=100",
+        "evidence": "The live official organization search returned no checkpoint under the exact hosted model name. Related family releases were checked separately."
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen2.5-Omni&limit=1000",
+        "evidence": "The official Qwen organization query returned four Qwen2.5-Omni repositories: 7B, 3B, 7B-GPTQ-Int4 and 7B-AWQ."
+      },
+      {
+        "url": "https://www.alibabacloud.com/help/ja/model-studio/qwen-omni-turbo",
+        "evidence": "The request redirects to https://www.alibabacloud.com/help/ja/model-studio/models; it no longer returns the exact historical model card. The redirect is not treated as a new model-specific availability statement."
+      },
+      {
+        "url": "https://github.com/QwenLM/qwenlm.github.io/blob/989b611991a7196bd868d5a88c6caca526ca50a5/content/blog/qwen2.5-omni/index.md",
+        "evidence": "Reopened the immutable developer launch post through its raw GitHub source. It names Qwen2.5-Omni-7B and offers the model on Hugging Face, ModelScope, DashScope and GitHub."
+      },
+      {
+        "url": "https://github.com/QwenLM/Qwen2.5-Omni/blob/006e089ff593a88d4b116c3454f7e2255d71a242/README.md",
+        "evidence": "Reopened the immutable launch README through its raw GitHub source. The API Inference section presents interaction with Qwen2.5-Omni using model=\"qwen-omni-turbo\"; the released checkpoint is Omni-7B."
+      },
+      {
+        "url": "https://huggingface.co/Qwen/Qwen2.5-Omni-7B",
+        "evidence": "The official repository API metadata is public and ungated and lists all five model safetensors shards. This is the downloadable checkpoint named in the immutable launch announcement."
+      }
+    ],
+    "outcome": {
+      "open_weights": true
+    },
+    "rule": "Publicly downloadable model weights or explicitly identified equivalent checkpoint => open. No such release found after original documentation and developer inventory checks => closed. API serving extras and weight licenses are separate.",
+    "limitations": [
+      "The classification uses the developer's named-model mapping and the retained March 26 alias mapping; it does not claim byte-identical deployed tensors or identical API and local serving features."
+    ],
+    "reviewed_by": "/root/date_checkpoints"
   }
 }
