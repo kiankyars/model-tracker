@@ -1,7 +1,7 @@
 {
   "index": 63,
   "model_id": "alibaba/qwen3.7-flash",
-  "reviewed_at": "2026-10-27T09:52:01.135618Z",
+  "reviewed_at": "2026-10-28T08:01:10.206144+00:00",
   "sources": [
     {
       "id": "s1",
@@ -98,6 +98,30 @@
       "publisher": "QwenCloud / Alibaba Cloud",
       "accessed": true,
       "evidence": "Checked October 27. The exact qwen3.7-flash release entry describes improved capabilities over 3.6-Flash; the October 8 entry adds US availability. Neither entry publishes total/active parameters or identifies a size-bearing base model. Newer Qwen3.8 entries concern different models."
+    },
+    {
+      "id": "availability_exact_20261028",
+      "url": "https://huggingface.co/api/models?author=Qwen&search=qwen3.7-flash&limit=100",
+      "title": "Official Qwen inventory search for the exact hosted model",
+      "publisher": "Qwen / Hugging Face",
+      "accessed": true,
+      "evidence": "The live official organization search returned no checkpoint under the exact hosted model name. Related family releases were checked separately."
+    },
+    {
+      "id": "availability_family_20261028",
+      "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen3.7&limit=1000",
+      "title": "Official Qwen Qwen3.7 weight inventory",
+      "publisher": "Qwen / Hugging Face",
+      "accessed": true,
+      "evidence": "The live query returned 0 repositories. The exact model card documents the hosted Flash API. The developer Qwen3.7 weight inventory is empty and no exact Flash release was found."
+    },
+    {
+      "id": "availability_docs_20261028",
+      "url": "https://www.alibabacloud.com/help/en/model-studio/qwen3-7-flash",
+      "title": "Original developer documentation checked for model availability",
+      "publisher": "Qwen / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "The exact model card documents the hosted Flash API. The developer Qwen3.7 weight inventory is empty and no exact Flash release was found."
     }
   ],
   "fields": {
@@ -140,13 +164,14 @@
       "note": "Earliest explicit public release found is July 21 in both Beijing and Singapore tables. July 15 is a snapshot date. Unlabeled console-index July 20 metadata remains unresolved; later reseller and US-scope dates are not the original release."
     },
     "open_weights": {
-      "value": null,
-      "status": "unverified",
+      "value": false,
+      "status": "verified",
       "source_ids": [
-        "s1",
-        "s5"
+        "availability_exact_20261028",
+        "availability_family_20261028",
+        "availability_docs_20261028"
       ],
-      "note": "Hosted API access alone does not establish closed weights. No exact-model primary statement of proprietary/closed weights or downloadable checkpoint mapping was found; clear baseline false."
+      "note": "The exact model card documents the hosted Flash API. The developer Qwen3.7 weight inventory is empty and no exact Flash release was found. Classified closed under the public-download availability rule at review time; an explicit proprietary declaration is not required."
     },
     "license": {
       "value": null,
@@ -251,9 +276,9 @@
   "patch": {
     "release_date": "2026-07-21",
     "date_precision": "day",
-    "open_weights": null,
+    "open_weights": false,
     "description": "Qwen3.7 vision-language model supporting text, image, and video inputs, text output, thinking mode, and function calling, with a 1,000,000-token context window.",
-    "notes": "July 21, 2026 is the earliest explicit Model Studio release-table date found in both Beijing and Singapore; July 15 is the named snapshot date. A partially indexed console shows an unlabeled July 20 date, whose meaning/timezone remains unresolved. Total and active parameters remain undisclosed: the capability comparison with 3.6-Flash establishes no size-bearing base, and later Qwen3.7-Plus counts do not apply to Flash. Dense/MoE architecture, weight availability and weight license remain unestablished. Official pricing maps the alias to the July 15 API snapshot.",
+    "notes": "July 21, 2026 is the earliest explicit Model Studio release-table date found in both Beijing and Singapore; July 15 is the named snapshot date. A partially indexed console shows an unlabeled July 20 date, whose meaning/timezone remains unresolved. Total and active parameters remain undisclosed: the capability comparison with 3.6-Flash establishes no size-bearing base, and later Qwen3.7-Plus counts do not apply to Flash. Dense/MoE architecture and weight license remain unestablished. No public Flash weight release is available. Official pricing maps the alias to the July 15 API snapshot. Classified as closed weights: no public release of this hosted variant was found in the developer documentation and weight inventory.",
     "sources": [
       {
         "label": "Models.dev record",
@@ -304,11 +329,61 @@
         "label": "QwenCloud model release notes",
         "url": "https://docs.qwencloud.com/changelog/models",
         "type": "primary"
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=qwen3.7-flash&limit=100",
+        "label": "Official Qwen inventory search for the exact hosted model",
+        "type": "primary"
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen3.7&limit=1000",
+        "label": "Official Qwen Qwen3.7 weight inventory",
+        "type": "primary"
+      },
+      {
+        "url": "https://www.alibabacloud.com/help/en/model-studio/qwen3-7-flash",
+        "label": "Original developer documentation checked for model availability",
+        "type": "primary"
       }
     ],
     "parameters_b": null,
     "active_parameters_b": null,
     "parameters_source": null
   },
-  "summary": "October 27 parameter re-audit retains explicit null total and active counts after reopening exact-model documentation and pricing, searching named-base disclosures, and checking later developer comparison tables. Qwen3.6-Flash is a capability comparator; Qwen3.7-Plus has a separately published size that does not apply to Flash. No structural lineage supports a count inference. The user-contributed Alibaba comparison is only a search lead and supplies no count. Preserve the prior release-date and capability corrections and unresolved architecture/weight/license fields."
+  "summary": "Resolved weight availability. The exact model card documents the hosted Flash API. The developer Qwen3.7 weight inventory is empty and no exact Flash release was found. All unrelated field assessments and previous parameter/date evidence are preserved.",
+  "availability_resolution": {
+    "agent": "/root",
+    "reviewed_at": "2026-10-28T08:01:10.206144+00:00",
+    "fields": [
+      "open_weights"
+    ],
+    "searches": [
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=qwen3.7-flash&limit=100",
+        "results": []
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen3.7&limit=1000",
+        "results": []
+      }
+    ],
+    "accessed_originals": [
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=qwen3.7-flash&limit=100",
+        "evidence": "The live official organization search returned no checkpoint under the exact hosted model name. Related family releases were checked separately."
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen3.7&limit=1000",
+        "evidence": "The live query returned 0 repositories. The exact model card documents the hosted Flash API. The developer Qwen3.7 weight inventory is empty and no exact Flash release was found."
+      },
+      {
+        "url": "https://www.alibabacloud.com/help/en/model-studio/qwen3-7-flash",
+        "evidence": "The exact model card documents the hosted Flash API. The developer Qwen3.7 weight inventory is empty and no exact Flash release was found."
+      }
+    ],
+    "outcome": {
+      "open_weights": false
+    },
+    "rule": "Publicly downloadable model weights or explicitly identified equivalent checkpoint => open. No such release found after original documentation and developer inventory checks => closed. API serving extras and weight licenses are separate."
+  }
 }
