@@ -1,7 +1,7 @@
 {
   "index": 161,
   "model_id": "deepreinforce/ornith-1.0-31b",
-  "reviewed_at": "2026-10-27T12:35:25.100965+00:00",
+  "reviewed_at": "2026-10-28T07:54:23.586828Z",
   "sources": [
     {
       "id": "s1",
@@ -106,6 +106,30 @@
       "publisher": "Ornith.site, independent unofficial guide",
       "accessed": true,
       "evidence": "Fresh exact-model active-count search found and read this July guide. It assigns Ornith-1.0-31B 31B active parameters per token and a Gemma 4 base, without a field-level developer derivation. Its footer explicitly disclaims affiliation with DeepReinforce. Its claim of four public checkpoints also conflicts with the current official listing. Recorded as an uncorroborated lead, not a verified specification."
+    },
+    {
+      "id": "availability_20261028_1",
+      "url": "https://raw.githubusercontent.com/ornith-ai/Ornith-1/main/README.md",
+      "title": "Ornith official distribution and serving instructions",
+      "publisher": "Ornith / DeepReinforce",
+      "accessed": true,
+      "evidence": "Fresh developer README links public checkpoints for the 9B, 35B and 397B lines and its current serving table lists these sizes. No 1.0 31B download appears, despite earlier family-level open-source and MIT announcements."
+    },
+    {
+      "id": "availability_20261028_2",
+      "url": "https://huggingface.co/api/models?author=ornith-ai&limit=100",
+      "title": "Ornith official public weight inventory",
+      "publisher": "Ornith / Hugging Face",
+      "accessed": true,
+      "evidence": "Fresh inventory returned 36 public repositories across 1.0 and 1.5, including 1.0 9B, 35B and 397B and quantizations, but no 1.0 31B checkpoint."
+    },
+    {
+      "id": "availability_20261028_3",
+      "url": "https://huggingface.co/api/models/ornith-ai/Ornith-1.0-31B",
+      "title": "Exact Ornith 1.0 31B repository check",
+      "publisher": "Ornith / Hugging Face",
+      "accessed": false,
+      "evidence": "Fresh exact metadata request returned HTTP 401. This failure does not independently prove nonexistence; the official public inventory and distribution instructions also supply no public 31B download."
     }
   ],
   "fields": {
@@ -145,16 +169,14 @@
       "note": "Developer-announced release date: the June 25 README says the family is releasing today and explicitly lists 31B as available. Retain this last-documented announcement date despite current availability uncertainty; it does not prove a 31B checkpoint was downloadable."
     },
     "open_weights": {
-      "value": null,
-      "status": "unverified",
+      "value": false,
+      "status": "verified",
       "source_ids": [
-        "s2",
-        "s3",
-        "s4",
-        "s5",
-        "s6"
+        "availability_20261028_1",
+        "availability_20261028_2",
+        "availability_20261028_3"
       ],
-      "note": "Original announcement calls the family open source, but current official distribution omits 31B and exact endpoints are inaccessible. Public availability is unverified, not established false."
+      "note": "Closed under the user-requested practical availability rule: no public downloadable Ornith 1.0 31B checkpoint was located. Current developer distribution instructions and complete public model inventory publish other sizes but omit 31B; the exact repository request is inaccessible. Preserve the original MIT/open-family announcement as separate licensing/history evidence. Closed here means no verified public download, not proprietary ownership or a claim that the announcement never occurred."
     },
     "license": {
       "value": "MIT",
@@ -186,7 +208,7 @@
         "s12",
         "s13"
       ],
-      "note": "Fresh exact-model total/active/lineage searches and original/later primary comparisons yield no separately defined active count. The announced Gemma 4/Qwen 3.5 family lineage does not supply a count-bearing exact base; Google\u2019s dense 31B totals are not labeled active. The unofficial 31B-active guide lacks a developer derivation. Dense classification alone does not establish this field."
+      "note": "Fresh exact-model total/active/lineage searches and original/later primary comparisons yield no separately defined active count. The announced Gemma 4/Qwen 3.5 family lineage does not supply a count-bearing exact base; Google’s dense 31B totals are not labeled active. The unofficial 31B-active guide lacks a developer derivation. Dense classification alone does not establish this field."
     },
     "architecture": {
       "value": "dense",
@@ -258,7 +280,7 @@
   },
   "patch": {
     "description": "Announced 31B dense Ornith 1.0 variant for agentic coding; public checkpoint availability remains unverified.",
-    "open_weights": null,
+    "open_weights": false,
     "parameters_source": "primary_source",
     "architecture": "dense",
     "context_window": null,
@@ -307,13 +329,54 @@
         "label": "Announcement README history",
         "url": "https://api.github.com/repos/ornith-ai/Ornith-1/commits?path=README.md&per_page=100",
         "type": "primary"
+      },
+      {
+        "label": "Ornith official distribution and serving instructions",
+        "url": "https://raw.githubusercontent.com/ornith-ai/Ornith-1/main/README.md",
+        "type": "primary"
       }
     ],
-    "notes": "31B is the developer-announced nominal total; active parameters are not separately disclosed. June 25, 2026 is the announced release date, with MIT licensing. Public checkpoint availability remains unverified: current official lists omit 31B and its metadata endpoint is inaccessible. Context, image input, dedicated thinking and native tool calling remain unverified for this variant.",
+    "notes": "31B is the developer-announced nominal total; active parameters are not separately disclosed. June 25, 2026 is the announced release date, with MIT licensing. No public 31B checkpoint was found: current official distribution lists omit it and its metadata endpoint is inaccessible. Context, image input, dedicated thinking and native tool calling remain unverified for this variant. Classified closed for current public-download availability; the announced MIT license is preserved.",
     "source_url": "https://raw.githubusercontent.com/ornith-ai/Ornith-1/16d32b11211ac83373d37dc67234f77e77f909a1/README.md",
     "source_type": "primary",
     "parameters_b": 31,
     "active_parameters_b": null
   },
-  "summary": "October 27 parameter re-audit retained the published nominal 31B total and an undisclosed active count. Reopened original and current developer evidence, reran exact-model total/active/lineage searches, checked later Ornith comparisons and the Gemma 4 report/card, and documented an unsupported independent 31B-active claim. Added explicit parameter patches and preserved unrelated assessments; no weight shards or repeat census requested."
+  "summary": "October 27 parameter re-audit retained the published nominal 31B total and an undisclosed active count. Reopened original and current developer evidence, reran exact-model total/active/lineage searches, checked later Ornith comparisons and the Gemma 4 report/card, and documented an unsupported independent 31B-active claim. Added explicit parameter patches and preserved unrelated assessments; no weight shards or repeat census requested. October 28 availability review: Classified closed for current public-download availability; the announced MIT license is preserved. All thirteen unrelated field assessments and prior research metadata are preserved.",
+  "availability_resolution": {
+    "agent": "/root/date_hosted",
+    "reviewed_at": "2026-10-28T07:54:23.586828Z",
+    "scope": [
+      "open_weights"
+    ],
+    "classification_rule": "Open means an identified public downloadable checkpoint for this exact model or a developer-documented equivalent; otherwise closed under the user-requested practical availability rule. This is not a legal ownership or perpetual-closure finding.",
+    "searches": [
+      "Ornith 1.0 31B download weights",
+      "GET current ornith-ai/Ornith-1 README",
+      "GET complete official ornith-ai Hugging Face model inventory",
+      "GET exact ornith-ai/Ornith-1.0-31B metadata returned 401"
+    ],
+    "accessed_originals": [
+      {
+        "url": "https://raw.githubusercontent.com/ornith-ai/Ornith-1/main/README.md",
+        "evidence": "Fresh developer README links public checkpoints for the 9B, 35B and 397B lines and its current serving table lists these sizes. No 1.0 31B download appears, despite earlier family-level open-source and MIT announcements.",
+        "accessed": true
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=ornith-ai&limit=100",
+        "evidence": "Fresh inventory returned 36 public repositories across 1.0 and 1.5, including 1.0 9B, 35B and 397B and quantizations, but no 1.0 31B checkpoint.",
+        "accessed": true
+      },
+      {
+        "url": "https://huggingface.co/api/models/ornith-ai/Ornith-1.0-31B",
+        "evidence": "Fresh exact metadata request returned HTTP 401. This failure does not independently prove nonexistence; the official public inventory and distribution instructions also supply no public 31B download.",
+        "accessed": false
+      }
+    ],
+    "outcome": "open_weights=false",
+    "limitations": [
+      "The search is bounded; classification reflects currently verified public availability and can change with a new release."
+    ],
+    "evidence_directory": "/tmp/model-tracker-gap-resolution/evidence-161"
+  }
 }
