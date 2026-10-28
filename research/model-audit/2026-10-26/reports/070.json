@@ -1,7 +1,7 @@
 {
   "index": 70,
   "model_id": "alibaba/qwen3.8-max",
-  "reviewed_at": "2026-10-26T15:53:40.034719+00:00",
+  "reviewed_at": "2026-10-28T08:01:10.206859+00:00",
   "sources": [
     {
       "id": "s1",
@@ -90,6 +90,30 @@
       "publisher": "Models.dev",
       "accessed": true,
       "evidence": "Original catalog source followed as a discovery lead; its open_weights=false assertion is not accepted as primary evidence."
+    },
+    {
+      "id": "availability_exact_20261028",
+      "url": "https://huggingface.co/api/models?author=Qwen&search=qwen3.8-max&limit=100",
+      "title": "Official Qwen inventory search for the exact hosted model",
+      "publisher": "Qwen / Hugging Face",
+      "accessed": true,
+      "evidence": "The live official organization search returned no checkpoint under the exact hosted model name. Related family releases were checked separately."
+    },
+    {
+      "id": "availability_family_20261028",
+      "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen3.8&limit=1000",
+      "title": "Official Qwen Qwen3.8 weight inventory",
+      "publisher": "Qwen / Hugging Face",
+      "accessed": true,
+      "evidence": "The live query returned 6 repositories. The released 2.4T-A95B card explicitly distinguishes its text-only weights from the hosted Max version with added vision and non-thinking support. No weights for the complete hosted Max variant were found; the open text model remains a separate catalog release."
+    },
+    {
+      "id": "availability_docs_20261028",
+      "url": "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B/raw/main/README.md",
+      "title": "Original developer documentation checked for model availability",
+      "publisher": "Qwen / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "The released 2.4T-A95B card explicitly distinguishes its text-only weights from the hosted Max version with added vision and non-thinking support. No weights for the complete hosted Max variant were found; the open text model remains a separate catalog release."
     }
   ],
   "fields": {
@@ -130,14 +154,14 @@
       "note": "Earliest verified primary release of the non-preview qwen3.8-max identifier. The earlier Max-Preview is separate; its linked X announcement was inaccessible. September snapshot and October US rollout do not replace the initial release date."
     },
     "open_weights": {
-      "value": null,
-      "status": "unverified",
+      "value": false,
+      "status": "verified",
       "source_ids": [
-        "s3",
-        "s4",
-        "s9"
+        "availability_exact_20261028",
+        "availability_family_20261028",
+        "availability_docs_20261028"
       ],
-      "note": "The open text-only checkpoint is verified, but equivalence to the complete hosted multimodal model, currently mapped to 0902, is not. No explicit primary closed-weight statement was located; API hosting alone does not establish false. Clear the baseline assertion."
+      "note": "The released 2.4T-A95B card explicitly distinguishes its text-only weights from the hosted Max version with added vision and non-thinking support. No weights for the complete hosted Max variant were found; the open text model remains a separate catalog release. Classified closed under the public-download availability rule at review time; an explicit proprietary declaration is not required."
     },
     "license": {
       "value": null,
@@ -235,14 +259,14 @@
     }
   },
   "patch": {
-    "open_weights": null,
+    "open_weights": false,
     "parameters_b": 2400,
     "active_parameters_b": 95,
     "parameters_source": "primary_source",
     "architecture": "moe",
     "source_url": "https://www.alibabacloud.com/en/press-room/alibaba-unveils-qwen3-8-max?_p_lc=1",
     "source_type": "primary",
-    "notes": "Alibaba directly reports nominal 2.4T total / 95B active for hosted Qwen3.8-Max, with sparse MoE and hybrid attention; these are not exact checkpoint tensor counts. Since September 5, 2026 the endpoint maps to qwen3.8-max-0902; August 3 remains the original non-preview release. The open Qwen3.8-2.4T-A95B checkpoint is text-only and the hosted model adds vision and non-thinking support; complete hosted-weight availability and license mapping remain unverified. PDF input is supported through Chat Completions/DashScope, not Responses. API callability was not tested.",
+    "notes": "Alibaba directly reports nominal 2.4T total / 95B active for hosted Qwen3.8-Max, with sparse MoE and hybrid attention; these are not exact checkpoint tensor counts. Since September 5, 2026 the endpoint maps to qwen3.8-max-0902; August 3 remains the original non-preview release. The open Qwen3.8-2.4T-A95B checkpoint is text-only and the hosted model adds vision and non-thinking support; the complete hosted variant has no identified public weight release, and its weight license remains undisclosed. PDF input is supported through Chat Completions/DashScope, not Responses. API callability was not tested. Classified as closed weights: no public release of this hosted variant was found in the developer documentation and weight inventory.",
     "sources": [
       {
         "label": "Alibaba Qwen3.8-Max launch and nominal counts",
@@ -268,9 +292,66 @@
         "label": "Official PDF input support",
         "url": "https://docs.qwencloud.com/developer-guides/tool-calling/pdf-understanding",
         "type": "primary"
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=qwen3.8-max&limit=100",
+        "label": "Official Qwen inventory search for the exact hosted model",
+        "type": "primary"
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen3.8&limit=1000",
+        "label": "Official Qwen Qwen3.8 weight inventory",
+        "type": "primary"
+      },
+      {
+        "url": "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B/raw/main/README.md",
+        "label": "Original developer documentation checked for model availability",
+        "type": "primary"
       }
     ],
     "description": "Qwen3.8 model with 2.4 trillion nominal parameters, sparse MoE architecture, a one-million-token context, and text, image, video and PDF input."
   },
-  "summary": "Verified all capability and identity fields except complete hosted-weight availability and license mapping. Fill nominal total/active parameters with 2400/95 and architecture with moe from explicit hosted-model primary disclosure; clear unsupported open_weights=false. Preserve August 3 release and 1M multimodal specification, while documenting September 5 alias upgrade and the distinct open text-only checkpoint."
+  "summary": "Resolved weight availability. The released 2.4T-A95B card explicitly distinguishes its text-only weights from the hosted Max version with added vision and non-thinking support. No weights for the complete hosted Max variant were found; the open text model remains a separate catalog release. All unrelated field assessments and previous parameter/date evidence are preserved.",
+  "availability_resolution": {
+    "agent": "/root",
+    "reviewed_at": "2026-10-28T08:01:10.206859+00:00",
+    "fields": [
+      "open_weights"
+    ],
+    "searches": [
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=qwen3.8-max&limit=100",
+        "results": []
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen3.8&limit=1000",
+        "results": [
+          "Qwen/Qwen3.8-27B",
+          "Qwen/Qwen3.8-Flash-Next",
+          "Qwen/Qwen3.8-2.4T-A95B",
+          "Qwen/Qwen3.8-27B-FP8",
+          "Qwen/Qwen3.8-Flash-Next-FP8",
+          "Qwen/Qwen3.8-2.4T-A95B-FP8"
+        ]
+      }
+    ],
+    "accessed_originals": [
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=qwen3.8-max&limit=100",
+        "evidence": "The live official organization search returned no checkpoint under the exact hosted model name. Related family releases were checked separately."
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen3.8&limit=1000",
+        "evidence": "The live query returned 6 repositories. The released 2.4T-A95B card explicitly distinguishes its text-only weights from the hosted Max version with added vision and non-thinking support. No weights for the complete hosted Max variant were found; the open text model remains a separate catalog release."
+      },
+      {
+        "url": "https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B/raw/main/README.md",
+        "evidence": "The released 2.4T-A95B card explicitly distinguishes its text-only weights from the hosted Max version with added vision and non-thinking support. No weights for the complete hosted Max variant were found; the open text model remains a separate catalog release."
+      }
+    ],
+    "outcome": {
+      "open_weights": false
+    },
+    "rule": "Publicly downloadable model weights or explicitly identified equivalent checkpoint => open. No such release found after original documentation and developer inventory checks => closed. API serving extras and weight licenses are separate."
+  }
 }
