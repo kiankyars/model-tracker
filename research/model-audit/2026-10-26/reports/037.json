@@ -1,7 +1,7 @@
 {
   "index": 37,
   "model_id": "alibaba/qwen3-max-preview",
-  "reviewed_at": "2026-10-27T09:38:29Z",
+  "reviewed_at": "2026-10-28T08:13:49.514266+00:00",
   "sources": [
     {
       "id": "s1",
@@ -74,6 +74,38 @@
       "publisher": "Alibaba Cloud",
       "accessed": true,
       "evidence": "October 27 fresh indexed primary lifecycle table retains the September 5, 2025 qwen3-max-preview row and separately describes the September 24 official Qwen3-Max release as upgraded from the preview. Neither row discloses total or activated counts. Later qwen3.8-max rows disclose 2.4T with native visual understanding and are distinct releases; that count cannot be transferred to qwen3-max-preview."
+    },
+    {
+      "id": "availability_exact_20261028",
+      "url": "https://huggingface.co/api/models?author=Qwen&search=qwen3-max-preview&limit=100",
+      "title": "Official Qwen inventory search for the exact hosted model",
+      "publisher": "Qwen / Hugging Face",
+      "accessed": true,
+      "evidence": "The live official organization search returned no checkpoint under the exact hosted model name. Related family releases were checked separately."
+    },
+    {
+      "id": "availability_family_20261028",
+      "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen3.8&limit=1000",
+      "title": "Official Qwen Qwen3.8 weight inventory",
+      "publisher": "Qwen / Hugging Face",
+      "accessed": true,
+      "evidence": "The later-generation Qwen3.8 inventory contains six repositories: 27B, Flash-Next and 2.4T-A95B, each with an FP8 variant. These repository names identify Qwen3.8 releases, not the earlier Qwen3-Max-Preview model."
+    },
+    {
+      "id": "availability_docs_20261028",
+      "url": "https://www.linkedin.com/posts/qwen_big-news-introducing-qwen3-max-preview-activity-7369757496581763073-SYEF",
+      "title": "Original developer documentation checked for model availability",
+      "publisher": "Qwen / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "The original developer announcement introduces Qwen3-Max-Preview and offers access through Qwen Chat and Alibaba Cloud API."
+    },
+    {
+      "id": "availability_max_family_20261028",
+      "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen3-Max&limit=1000",
+      "title": "Official Qwen3-Max family weight inventory",
+      "publisher": "Qwen / Hugging Face",
+      "accessed": true,
+      "evidence": "The live official Qwen organization search for the Qwen3-Max family returned no repositories."
     }
   ],
   "fields": {
@@ -112,13 +144,15 @@
       "note": "Exact identifier and explicit date in the official release table."
     },
     "open_weights": {
-      "value": null,
-      "status": "unverified",
+      "value": false,
+      "status": "verified",
       "source_ids": [
-        "s1",
-        "s4"
+        "availability_exact_20261028",
+        "availability_family_20261028",
+        "availability_docs_20261028",
+        "availability_max_family_20261028"
       ],
-      "note": "Primary material establishes hosted Chat/API access. No exact-preview weight release or explicit primary closed-weight declaration was located; API access alone does not prove weights are unavailable. Baseline false is not contradicted."
+      "note": "The original developer announcement offers Preview through Qwen Chat and Alibaba Cloud API. Neither the exact Qwen3-Max-Preview search nor the Qwen3-Max family search returned downloadable weights. The later Qwen3.8 open model is a different generation. Classified closed under the public-download availability rule at review time; an explicit proprietary declaration is not required."
     },
     "license": {
       "value": null,
@@ -216,7 +250,7 @@
   "patch": {
     "reasoning": true,
     "description": "Hosted preview of Alibaba's Qwen3-Max model, announced with more than one trillion parameters for text generation, instruction following, and agentic tasks.",
-    "notes": "Qwen disclosed more than 1 trillion total parameters (>1000B) for Preview Instruct; no nominal point total or active count is disclosed. MoE is inferred from the developer’s explicit Qwen3-Max-Instruct preview lineage and Max-Base architecture. The indexed preview card documents 262144 context, thinking/non-thinking support and no native Function Calling. Weight availability remains unverified; later Max generations are separate.",
+    "notes": "Qwen disclosed more than 1 trillion total parameters (>1000B) for Preview Instruct; no nominal point total or active count is disclosed. MoE is inferred from the developer’s explicit Qwen3-Max-Instruct preview lineage and Max-Base architecture. The indexed preview card documents 262144 context, thinking/non-thinking support and no native Function Calling. No public Preview weight release is available; later Max generations are separate. Classified as closed weights: no public release of this hosted variant was found in the developer documentation and weight inventory.",
     "sources": [
       {
         "label": "Qwen exact-preview announcement",
@@ -247,19 +281,90 @@
         "label": "Qwen3.5 later Max parameter comparison",
         "url": "https://qwen.ai/blog?id=qwen3.5",
         "type": "primary"
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=qwen3-max-preview&limit=100",
+        "label": "Official Qwen inventory search for the exact hosted model",
+        "type": "primary"
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen3.8&limit=1000",
+        "label": "Official Qwen Qwen3.8 weight inventory",
+        "type": "primary"
+      },
+      {
+        "url": "https://www.linkedin.com/posts/qwen_big-news-introducing-qwen3-max-preview-activity-7369757496581763073-SYEF",
+        "label": "Original developer documentation checked for model availability",
+        "type": "primary"
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen3-Max&limit=1000",
+        "label": "Official Qwen3-Max family weight inventory",
+        "type": "primary"
       }
     ],
     "context_window": 262144,
     "tool_call": false,
-    "open_weights": null,
+    "open_weights": false,
     "parameters_b": null,
     "active_parameters_b": null,
     "parameters_source": "primary_source",
     "architecture": "moe"
   },
-  "summary": "October 27 parameter re-audit reconfirmed the exact-preview >1000B lower bound, proposed explicit exclusive-bound fields, and found no supported nominal point total or active count in fresh first-party searches and later comparison tables. Both point-value fields remain explicitly null with primary provenance. The explicit named-preview relationship supports a coupled MoE architecture correction. Other field assessments are preserved.",
+  "summary": "Resolved weight availability. The original developer announcement offers Preview through Qwen Chat and Alibaba Cloud API. Neither the exact Qwen3-Max-Preview search nor the Qwen3-Max family search returned downloadable weights. The later Qwen3.8 open model is a different generation. All unrelated field assessments and previous parameter/date evidence are preserved.",
   "proposed_fields": {
     "parameters_lower_bound_b": 1000,
     "parameters_lower_bound_exclusive": true
+  },
+  "availability_resolution": {
+    "agent": "/root",
+    "reviewed_at": "2026-10-28T08:13:49.514266+00:00",
+    "fields": [
+      "open_weights"
+    ],
+    "searches": [
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=qwen3-max-preview&limit=100",
+        "results": []
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen3.8&limit=1000",
+        "results": [
+          "Qwen/Qwen3.8-27B",
+          "Qwen/Qwen3.8-Flash-Next",
+          "Qwen/Qwen3.8-2.4T-A95B",
+          "Qwen/Qwen3.8-27B-FP8",
+          "Qwen/Qwen3.8-Flash-Next-FP8",
+          "Qwen/Qwen3.8-2.4T-A95B-FP8"
+        ]
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen3-Max&limit=1000",
+        "results": []
+      }
+    ],
+    "accessed_originals": [
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=qwen3-max-preview&limit=100",
+        "evidence": "The live official organization search returned no checkpoint under the exact hosted model name. Related family releases were checked separately."
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen3.8&limit=1000",
+        "evidence": "The later-generation Qwen3.8 inventory contains six repositories: 27B, Flash-Next and 2.4T-A95B, each with an FP8 variant. These repository names identify Qwen3.8 releases, not the earlier Qwen3-Max-Preview model."
+      },
+      {
+        "url": "https://www.linkedin.com/posts/qwen_big-news-introducing-qwen3-max-preview-activity-7369757496581763073-SYEF",
+        "evidence": "The original developer announcement introduces Qwen3-Max-Preview and offers access through Qwen Chat and Alibaba Cloud API."
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen3-Max&limit=1000",
+        "evidence": "The live official Qwen organization search for the Qwen3-Max family returned no repositories."
+      }
+    ],
+    "outcome": {
+      "open_weights": false
+    },
+    "rule": "Publicly downloadable model weights or explicitly identified equivalent checkpoint => open. No such release found after original documentation and developer inventory checks => closed. API serving extras and weight licenses are separate.",
+    "reviewed_by": "/root/date_checkpoints"
   }
 }
