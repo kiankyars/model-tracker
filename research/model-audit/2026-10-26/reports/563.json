@@ -1,7 +1,7 @@
 {
   "index": 563,
   "model_id": "zhipuai/glm-5v-turbo",
-  "reviewed_at": "2026-10-27T18:41:15.795533+00:00",
+  "reviewed_at": "2026-10-28T08:06:49.472255Z",
   "sources": [
     {
       "id": "s1",
@@ -164,6 +164,30 @@
       "accessed": true,
       "accessed_at": "2026-10-27T18:38:52.327459+00:00",
       "evidence": "Fresh current README names GLM-5V-Turbo in the April 2 update and links its API guide. The download table contains GLM-4.6V, GLM-4.5V and GLM-4.1V models; no exact target checkpoint mapping or numerical production size appears."
+    },
+    {
+      "id": "availability_20261028_1",
+      "url": "https://docs.z.ai/guides/vlm/glm-5v-turbo.md",
+      "title": "Z.ai exact GLM 5V Turbo API guide",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "Fresh original docs describe GLM-5V-Turbo through native API access; no public weight artifact or download is provided."
+    },
+    {
+      "id": "availability_20261028_2",
+      "url": "https://raw.githubusercontent.com/zai-org/GLM-V/main/README.md",
+      "title": "Z.ai GLM-V official repository release and download table",
+      "publisher": "Z.ai",
+      "accessed": true,
+      "evidence": "The official repository lists the GLM-5V-Turbo release with an API-documentation link. Its downloadable checkpoint table lists other vision models, not 5V Turbo."
+    },
+    {
+      "id": "availability_20261028_3",
+      "url": "https://huggingface.co/api/models?author=zai-org&limit=1000",
+      "title": "Z.ai complete public model inventory",
+      "publisher": "Z.ai / Hugging Face",
+      "accessed": true,
+      "evidence": "Fresh complete inventory provides other GLM/V checkpoints but no GLM-5V-Turbo weights."
     }
   ],
   "fields": {
@@ -208,15 +232,14 @@
       "note": "Original corporate announcement explicitly dates public API/chat availability April 1; native X confirms the same UTC day. BigModel and GLM-V repository use April 2. The separately limited Coding Plan trial is not the only release channel."
     },
     "open_weights": {
-      "value": null,
-      "status": "unverified",
+      "value": false,
+      "status": "verified",
       "source_ids": [
-        "s1",
-        "s8",
-        "s9",
-        "s14"
+        "availability_20261028_1",
+        "availability_20261028_2",
+        "availability_20261028_3"
       ],
-      "note": "Documented distribution is hosted API/chat. No exact public checkpoint or explicit alias mapping was verified in the accessed original inventories. Clear baseline false rather than treating absence as conclusive proof of closed weights; do not inherit the language base’s distribution status."
+      "note": "Closed under the user-requested availability convention: exact original API docs, official GLM-V download table and public model inventory supply no downloadable GLM-5V-Turbo checkpoint. The language-base family and other released multimodal models are not treated as this exact release. The classification concerns current public download availability, not a legal ownership finding."
     },
     "license": {
       "value": "proprietary",
@@ -328,7 +351,7 @@
     }
   },
   "patch": {
-    "open_weights": null,
+    "open_weights": false,
     "license": "proprietary",
     "architecture": "transformer",
     "context_window": 202752,
@@ -345,7 +368,7 @@
     "description": "Vision-language Transformer with CogViT, multimodal token prediction, reasoning and tool calling.",
     "source_url": "https://www.zhipuai.cn/zh/research/156",
     "source_type": "primary",
-    "notes": "Released April 1, 2026 via native API and chat; BigModel and the GLM-V repository use April 2. Production total/active counts remain undisclosed. The report names GLM-5-Turbo as its language-only base but adds CogViT/MLP and multimodal MTP; the base family's 744B/40B cannot establish this model's counts. Its 0.5B ablation is not the released model. Exact open-weight status is unverified; proprietary describes hosted API terms. Native-provider context is 202752 tokens, advertised as 200K, with a separate 131072 output cap. Files contain text and visual inputs; output is text.",
+    "notes": "Released April 1, 2026 via native API and chat; BigModel and the GLM-V repository use April 2. Production total/active counts remain undisclosed. The report names GLM-5-Turbo as its language-only base but adds CogViT/MLP and multimodal MTP; the base family's 744B/40B cannot establish this model's counts. Its 0.5B ablation is not the released model. No exact public 5V Turbo checkpoint was found; proprietary describes hosted API terms. Native-provider context is 202752 tokens, advertised as 200K, with a separate 131072 output cap. Files contain text and visual inputs; output is text. Classified closed because no public downloadable GLM-5V-Turbo checkpoint was found.",
     "sources": [
       {
         "label": "Original GLM-5V-Turbo release announcement",
@@ -441,13 +464,18 @@
         "label": "Current official GLM-V release history and downloads",
         "url": "https://raw.githubusercontent.com/zai-org/GLM-V/main/README.md",
         "type": "docs"
+      },
+      {
+        "label": "Z.ai exact GLM 5V Turbo API guide",
+        "url": "https://docs.z.ai/guides/vlm/glm-5v-turbo.md",
+        "type": "primary"
       }
     ],
     "parameters_b": null,
     "active_parameters_b": null,
     "parameters_source": null
   },
-  "summary": "Preserved the other twelve field assessments, including April 1 public release, Transformer architecture with CogViT/MLP/MMTP, proprietary hosted terms, native served context 202752 and unverified exact open-weight status. October 27 parameter re-audit separately rechecked total and active counts, the original report and launch, named GLM-5-Turbo/GLM-5 lineage, later GLM cards and P3D-Bench Table 2. Both counts remain undisclosed: new vision components and MMTP prevent direct transfer of the base family's MTP-inclusive 744B/40B convention, and no countable scoped subtotal is supplied. The 0.5B ablation is not the released model.",
+  "summary": "Preserved the other twelve field assessments, including April 1 public release, Transformer architecture with CogViT/MLP/MMTP, proprietary hosted terms, native served context 202752 and unverified exact open-weight status. October 27 parameter re-audit separately rechecked total and active counts, the original report and launch, named GLM-5-Turbo/GLM-5 lineage, later GLM cards and P3D-Bench Table 2. Both counts remain undisclosed: new vision components and MMTP prevent direct transfer of the base family's MTP-inclusive 744B/40B convention, and no countable scoped subtotal is supplied. The 0.5B ablation is not the released model. October 28 availability review: Classified closed because no public downloadable GLM-5V-Turbo checkpoint was found. All thirteen unrelated field assessments and prior research metadata are preserved.",
   "parameter_reaudit": {
     "agent": "/root/parameters_563",
     "reviewed_at": "2026-10-27T18:41:15.795533+00:00",
@@ -565,5 +593,40 @@
     "preserved_other_assessments": true,
     "no_weight_shards_downloaded": true,
     "local_fetch_manifest": "/tmp/parameter-563-independent/manifest.json"
+  },
+  "availability_resolution": {
+    "agent": "/root/date_hosted",
+    "reviewed_at": "2026-10-28T08:06:49.472255Z",
+    "scope": [
+      "open_weights"
+    ],
+    "classification_rule": "Open means an identified public downloadable checkpoint for this exact model or a developer-documented equivalent; otherwise closed under the user-requested practical availability rule. This is not a legal ownership or perpetual-closure finding.",
+    "searches": [
+      "GLM 5V Turbo open weights download Z AI",
+      "GET complete zai-org public model inventory",
+      "Read official GLM-V release/download table and exact 5V Turbo API guide"
+    ],
+    "accessed_originals": [
+      {
+        "url": "https://docs.z.ai/guides/vlm/glm-5v-turbo.md",
+        "evidence": "Fresh original docs describe GLM-5V-Turbo through native API access; no public weight artifact or download is provided.",
+        "accessed": true
+      },
+      {
+        "url": "https://raw.githubusercontent.com/zai-org/GLM-V/main/README.md",
+        "evidence": "The official repository lists the GLM-5V-Turbo release with an API-documentation link. Its downloadable checkpoint table lists other vision models, not 5V Turbo.",
+        "accessed": true
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=zai-org&limit=1000",
+        "evidence": "Fresh complete inventory provides other GLM/V checkpoints but no GLM-5V-Turbo weights.",
+        "accessed": true
+      }
+    ],
+    "outcome": "open_weights=false",
+    "limitations": [
+      "The search is bounded; classification reflects currently verified public availability and can change with a new release."
+    ],
+    "evidence_directory": "/tmp/model-tracker-gap-resolution/evidence-563"
   }
 }
