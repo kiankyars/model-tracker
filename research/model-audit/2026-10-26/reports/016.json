@@ -1,7 +1,7 @@
 {
   "index": 16,
   "model_id": "alibaba/qwen-plus",
-  "reviewed_at": "2026-10-27T19:31:03.854148Z",
+  "reviewed_at": "2026-10-28T07:57:33.380048Z",
   "sources": [
     {
       "id": "s1",
@@ -74,6 +74,38 @@
       "publisher": "Qwen Team / Alibaba Cloud",
       "accessed": true,
       "evidence": "The official repository commit is timestamped October 16, 2023. Inspection of earlier October 14 README and this revision locates the documentation addition; a documentation commit timestamp alone does not establish the model launch date."
+    },
+    {
+      "id": "s10",
+      "url": "https://developer.aliyun.com/article/1326924",
+      "title": "Alibaba Cloud opens Tongyi Qianwen to the public and API customers (September 13, 2023)",
+      "publisher": "Alibaba Cloud",
+      "accessed": true,
+      "evidence": "Alibaba Cloud’s own author account (阿里云) announces public availability on September 13, 2023 and expressly states enterprise users can call the Tongyi Qianwen API through DashScope. It contrasts this with the earlier April invitation-only test. The matching September 13 SDK release supplies the exact API-name bridge."
+    },
+    {
+      "id": "s11",
+      "url": "https://pypi.org/pypi/dashscope/1.10.0/json",
+      "title": "Alibaba DashScope SDK 1.10.0: published API identifiers",
+      "publisher": "Alibaba (DashScope Python SDK)",
+      "accessed": true,
+      "evidence": "The developer distribution adds the exact qwen-plus and qwen-turbo model constants in both Generation and Conversation, and the README gives a working Turbo quick-start. Its September 13, 2023 publication aligns with the public/API launch announcement."
+    },
+    {
+      "id": "s12",
+      "url": "https://pypi.org/pypi/dashscope/1.9.1/json",
+      "title": "Alibaba DashScope SDK 1.9.1: published API identifiers",
+      "publisher": "Alibaba (DashScope Python SDK)",
+      "accessed": true,
+      "evidence": "The preceding September 11, 2023 release exposes qwen-v1 and qwen-plus-v1, without the unversioned qwen-plus or qwen-turbo constants. This distinguishes the earlier invitation-test identifiers from the public-release names."
+    },
+    {
+      "id": "s13",
+      "url": "https://pypi.org/pypi/dashscope/1.11.0/json",
+      "title": "Alibaba DashScope SDK 1.11.0: published API identifiers",
+      "publisher": "Alibaba (DashScope Python SDK)",
+      "accessed": true,
+      "evidence": "The September 22, 2023 release explicitly deprecates qwen-v1 in favor of qwen-turbo and qwen-plus-v1 in favor of qwen-plus, confirming the identity transition rather than borrowing the date of an unrelated open Qwen checkpoint."
     }
   ],
   "fields": {
@@ -104,13 +136,15 @@
       "note": "Legacy Qwen language-model family."
     },
     "release_date": {
-      "value": null,
-      "status": "unverified",
+      "value": "2023-09-13",
+      "status": "verified",
       "source_ids": [
-        "s8",
-        "s9"
+        "s10",
+        "s11",
+        "s12",
+        "s13"
       ],
-      "note": "The original Qwen README revision dated October 16, 2023 explicitly offers qwen-plus through DashScope and supplies API onboarding instructions. This establishes availability by that day, materially earlier than the prior catalog date, but the documentation addition does not say the model was launched that day. No primary source establishing its initial launch date was located; later dated alias targets remain distinct."
+      "note": "Alibaba’s September 13, 2023 public/API launch is linked to the exact qwen-plus identifier by its same-day DashScope SDK 1.10.0, which introduces both qwen-plus and qwen-turbo. The previous September 11 SDK retains only the older qwen-v1/qwen-plus-v1 names; September 22 explicitly deprecates those names in favor of the public aliases. This establishes the public API product release, distinct from earlier invitation-only testing and later backing-model upgrades."
     },
     "open_weights": {
       "value": false,
@@ -213,11 +247,11 @@
     }
   },
   "patch": {
-    "release_date": null,
-    "date_precision": null,
+    "release_date": "2023-09-13",
+    "date_precision": "day",
     "license": "Proprietary",
     "description": "Proprietary Qwen text model for multilingual chat and thinking, with function calling availability varying by deployment region.",
-    "notes": "The qwen-plus alias maps to qwen-plus-2025-12-01. Total and active parameters remain undisclosed: no nominal size or named sized-base lineage was found. Architecture and original alias launch date remain unresolved. Function calling availability varies by deployment region. Fresh repository-history research establishes qwen-plus API availability by October 16, 2023, but no original launch date is verified.",
+    "notes": "The qwen-plus alias maps to qwen-plus-2025-12-01. Total and active parameters remain undisclosed: no nominal size or named sized-base lineage was found. Architecture remains unresolved. Function calling availability varies by deployment region. The public qwen-plus API launched on September 13, 2023: Alibaba’s public-opening announcement and same-day SDK identify the released alias, replacing the earlier invitation-test qwen-plus-v1 name.",
     "sources": [
       {
         "label": "Alibaba Cloud Qwen Plus model documentation",
@@ -248,13 +282,35 @@
         "label": "Qwen original API documentation commit metadata",
         "url": "https://api.github.com/repos/QwenLM/Qwen/commits/235aa8f71efd5218323e53a98c065554aeb41272",
         "type": "primary"
+      },
+      {
+        "label": "Alibaba Cloud opens Tongyi Qianwen to the public and API customers (September 13, 2023)",
+        "url": "https://developer.aliyun.com/article/1326924",
+        "type": "primary"
+      },
+      {
+        "label": "Alibaba DashScope SDK 1.10.0: published API identifiers",
+        "url": "https://pypi.org/pypi/dashscope/1.10.0/json",
+        "type": "primary"
+      },
+      {
+        "label": "Alibaba DashScope SDK 1.9.1: published API identifiers",
+        "url": "https://pypi.org/pypi/dashscope/1.9.1/json",
+        "type": "primary"
+      },
+      {
+        "label": "Alibaba DashScope SDK 1.11.0: published API identifiers",
+        "url": "https://pypi.org/pypi/dashscope/1.11.0/json",
+        "type": "primary"
       }
     ],
     "parameters_b": null,
     "active_parameters_b": null,
-    "parameters_source": null
+    "parameters_source": null,
+    "source_type": "primary",
+    "source_url": "https://developer.aliyun.com/article/1326924"
   },
-  "summary": "October 27 parameter re-audit reconfirmed the December 1, 2025 alias target and checked its release history against primary Qwen3 and Qwen3-Next specifications. No developer nominal total/active count or explicit named sized-base lineage was found for that target. Both counts remain undisclosed with explicit null patches; distinct open-model sizes and architectures are not inherited from family membership or matching release dates. Other audited fields are preserved. The release-date re-audit checked original 2023 repository history and developer searches: qwen-plus was documented as an available API by October 16, 2023, but no dated launch announcement was found. The release date remains null instead of substituting a documentation edit or a later snapshot date.",
+  "summary": "October 27 parameter re-audit reconfirmed the December 1, 2025 alias target and checked its release history against primary Qwen3 and Qwen3-Next specifications. No developer nominal total/active count or explicit named sized-base lineage was found for that target. Both counts remain undisclosed with explicit null patches; distinct open-model sizes and architectures are not inherited from family membership or matching release dates. Other audited fields are preserved. The availability audit resolves the public qwen-plus launch to September 13, 2023. Alibaba’s public/API opening announcement is corroborated by the same-day SDK introduction of the exact alias and the next SDK’s explicit replacement mapping for the invitation-test name.",
   "release_date_reaudit": {
     "agent": "/root/date_aliases",
     "reviewed_at": "2026-10-27T19:31:03.854148Z",
@@ -287,6 +343,57 @@
     },
     "limitations": [
       "No primary launch day or month was verified. The by-date is an availability bound and is not placed into release_date."
+    ]
+  },
+  "availability_resolution": {
+    "agent": "/root/date_aliases",
+    "reviewed_at": "2026-10-28T07:57:33.380048Z",
+    "searches": [
+      "通义千问 API qwen-plus qwen-turbo 2023 9月 商用",
+      "通义千问 2023年9月13日 qwen-plus qwen-turbo",
+      "灵积 模型服务 公测 2023 qwen",
+      "site:aliyun.com 通义千问 9月13日 plus",
+      "Alibaba DashScope PyPI release history and distribution source comparison: versions1.7,1.8,1.9,1.9.1,1.10,1.11,1.12"
+    ],
+    "accessed_originals": [
+      {
+        "url": "https://developer.aliyun.com/article/1326924",
+        "evidence": "Alibaba Cloud’s own author account (阿里云) announces public availability on September 13, 2023 and expressly states enterprise users can call the Tongyi Qianwen API through DashScope. It contrasts this with the earlier April invitation-only test. The matching September 13 SDK release supplies the exact API-name bridge.",
+        "local_evidence": "/tmp/model-tracker-gap-resolution/evidence-016/s10.html"
+      },
+      {
+        "url": "https://pypi.org/pypi/dashscope/1.10.0/json",
+        "distribution_url": "https://files.pythonhosted.org/packages/2e/fc/6fc60fb97d85b64f253ebb79b56ebcdc18a90f5e38492b7b486fd43dc28f/dashscope-1.10.0-py3-none-any.whl",
+        "published_at": "2023-09-13T12:56:21.172774Z",
+        "evidence": "The developer distribution adds the exact qwen-plus and qwen-turbo model constants in both Generation and Conversation, and the README gives a working Turbo quick-start. Its September 13, 2023 publication aligns with the public/API launch announcement.",
+        "local_evidence": "/tmp/model-tracker-gap-resolution/evidence-016/s11-distribution.json"
+      },
+      {
+        "url": "https://pypi.org/pypi/dashscope/1.9.1/json",
+        "distribution_url": "https://files.pythonhosted.org/packages/5b/f6/9ba6c964f2ce73e6de9988848b2dcde7c1b66b9badb52886f66728c9c3f1/dashscope-1.9.1-py3-none-any.whl",
+        "published_at": "2023-09-11T11:19:24.691560Z",
+        "evidence": "The preceding September 11, 2023 release exposes qwen-v1 and qwen-plus-v1, without the unversioned qwen-plus or qwen-turbo constants. This distinguishes the earlier invitation-test identifiers from the public-release names.",
+        "local_evidence": "/tmp/model-tracker-gap-resolution/evidence-016/s12-distribution.json"
+      },
+      {
+        "url": "https://pypi.org/pypi/dashscope/1.11.0/json",
+        "distribution_url": "https://files.pythonhosted.org/packages/0c/b8/132e3112cd1d70b7636b9dcb6360298444e885b0564a49fc108032a2692d/dashscope-1.11.0-py3-none-any.whl",
+        "published_at": "2023-09-22T01:32:30.864069Z",
+        "evidence": "The September 22, 2023 release explicitly deprecates qwen-v1 in favor of qwen-turbo and qwen-plus-v1 in favor of qwen-plus, confirming the identity transition rather than borrowing the date of an unrelated open Qwen checkpoint.",
+        "local_evidence": "/tmp/model-tracker-gap-resolution/evidence-016/s13-distribution.json"
+      }
+    ],
+    "findings": [
+      "The original announcement expressly opens public and enterprise API access on September13.",
+      "The exact aliases are introduced in the original vendor SDK published that same day. The previous release uses older invitation-test IDs; the following release documents their replacement."
+    ],
+    "outcome": {
+      "release_date": "2023-09-13",
+      "date_precision": "day",
+      "status": "verified"
+    },
+    "limitations": [
+      "This dates public availability of the named API product, not private invitation testing or the later checkpoint currently served by the rolling alias. No API inference was performed."
     ]
   }
 }
