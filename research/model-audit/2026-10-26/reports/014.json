@@ -1,7 +1,7 @@
 {
   "index": 14,
   "model_id": "alibaba/qwen-mt-plus",
-  "reviewed_at": "2026-10-27T19:29:43.402990Z",
+  "reviewed_at": "2026-10-28T08:01:10.202601+00:00",
   "sources": [
     {
       "id": "s1",
@@ -74,6 +74,30 @@
       "publisher": "Alibaba Cloud",
       "accessed": true,
       "evidence": "Directly fetched the complete Traditional Chinese release history. Qwen-MT Plus appears on July 22, 2025 for Beijing and July 24 for international/global deployment, described as an upgrade based on Qwen3. These later upgrade entries do not displace the December 2024 original launch."
+    },
+    {
+      "id": "availability_exact_20261028",
+      "url": "https://huggingface.co/api/models?author=Qwen&search=qwen-mt-plus&limit=100",
+      "title": "Official Qwen inventory search for the exact hosted model",
+      "publisher": "Qwen / Hugging Face",
+      "accessed": true,
+      "evidence": "The live official organization search returned no checkpoint under the exact hosted model name. Related family releases were checked separately."
+    },
+    {
+      "id": "availability_family_20261028",
+      "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen-MT&limit=1000",
+      "title": "Official Qwen Qwen-MT weight inventory",
+      "publisher": "Qwen / Hugging Face",
+      "accessed": true,
+      "evidence": "The live query returned 0 repositories. The official model card documents the hosted translation API. Neither the exact Plus search nor the developer Qwen-MT weight inventory contains a downloadable release."
+    },
+    {
+      "id": "availability_docs_20261028",
+      "url": "https://help.aliyun.com/en/model-studio/qwen-mt-plus",
+      "title": "Original developer documentation checked for model availability",
+      "publisher": "Qwen / Alibaba Cloud",
+      "accessed": true,
+      "evidence": "The official model card documents the hosted translation API. Neither the exact Plus search nor the developer Qwen-MT weight inventory contains a downloadable release."
     }
   ],
   "fields": {
@@ -113,13 +137,14 @@
       "note": "Alibaba Cloud Bailian’s official December 2024 product newsletter lists qwen-mt-turbo and qwen-mt-plus as newly launched multilingual translation models. It was posted January 2, 2025 but explicitly covers December 2024 releases. The source supports month precision only. July 22/24, 2025 are the later Qwen3 upgrade dates."
     },
     "open_weights": {
-      "value": null,
-      "status": "unverified",
+      "value": false,
+      "status": "verified",
       "source_ids": [
-        "s1",
-        "s2"
+        "availability_exact_20261028",
+        "availability_family_20261028",
+        "availability_docs_20261028"
       ],
-      "note": "Reviewed primary sources document hosted API access but do not explicitly establish closed weights or provide a downloadable Plus checkpoint. API access alone does not prove weight availability; baseline false is not independently verified."
+      "note": "The official model card documents the hosted translation API. Neither the exact Plus search nor the developer Qwen-MT weight inventory contains a downloadable release. Classified closed under the public-download availability rule at review time; an explicit proprietary declaration is not required."
     },
     "license": {
       "value": null,
@@ -213,7 +238,7 @@
     }
   },
   "patch": {
-    "open_weights": null,
+    "open_weights": false,
     "source_url": "https://developer.aliyun.com/article/1647733",
     "sources": [
       {
@@ -255,9 +280,24 @@
         "label": "Alibaba Cloud model release history: Qwen-MT 2025 upgrades",
         "url": "https://www.alibabacloud.com/help/tc/model-studio/newly-released-models",
         "type": "primary"
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=qwen-mt-plus&limit=100",
+        "label": "Official Qwen inventory search for the exact hosted model",
+        "type": "primary"
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen-MT&limit=1000",
+        "label": "Official Qwen Qwen-MT weight inventory",
+        "type": "primary"
+      },
+      {
+        "url": "https://help.aliyun.com/en/model-studio/qwen-mt-plus",
+        "label": "Original developer documentation checked for model availability",
+        "type": "primary"
       }
     ],
-    "notes": "Total and active parameter counts are undisclosed. Qwen3 lineage is documented without a size-specific base; Plus dense/MoE architecture and weight availability remain unestablished. The official December 2024 product newsletter lists Qwen-MT Plus as newly launched, establishing 2024-12 at month precision. July 22 (Beijing) and July 24 (international/global), 2025 describe the later Qwen3 upgrade.",
+    "notes": "Total and active parameter counts are undisclosed. Qwen3 lineage is documented without a size-specific base; Plus dense/MoE architecture remains unestablished. The official December 2024 product newsletter lists Qwen-MT Plus as newly launched, establishing 2024-12 at month precision. July 22 (Beijing) and July 24 (international/global), 2025 describe the later Qwen3 upgrade. Classified as closed weights: no public release of this hosted variant was found in the developer documentation and weight inventory.",
     "release_date": "2024-12",
     "date_precision": "month",
     "parameters_b": null,
@@ -265,7 +305,7 @@
     "parameters_source": null,
     "source_type": "primary"
   },
-  "summary": "October 27 parameter re-audit reopened English/Chinese Plus documentation, the updated translation guide, lifecycle entries and the Qwen-MT launch post, then searched for nominal counts and named-base lineage. Neither total nor active count is supported: Qwen3 names a family, and the launch post covers Turbo with Qwen3 sizes used only as comparators. Explicit null parameter patches retained. The release-date re-audit found the official December 2024 product newsletter announcing Plus as newly launched; release_date is corrected to 2024-12 with month precision. Other field assessments preserved.",
+  "summary": "Resolved weight availability. The official model card documents the hosted translation API. Neither the exact Plus search nor the developer Qwen-MT weight inventory contains a downloadable release. All unrelated field assessments and previous parameter/date evidence are preserved.",
   "release_date_reaudit": {
     "agent": "/root/date_aliases",
     "reviewed_at": "2026-10-27T19:29:43.402990Z",
@@ -299,5 +339,40 @@
     "limitations": [
       "The located primary source does not identify an exact day, so no day is invented."
     ]
+  },
+  "availability_resolution": {
+    "agent": "/root",
+    "reviewed_at": "2026-10-28T08:01:10.202601+00:00",
+    "fields": [
+      "open_weights"
+    ],
+    "searches": [
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=qwen-mt-plus&limit=100",
+        "results": []
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen-MT&limit=1000",
+        "results": []
+      }
+    ],
+    "accessed_originals": [
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=qwen-mt-plus&limit=100",
+        "evidence": "The live official organization search returned no checkpoint under the exact hosted model name. Related family releases were checked separately."
+      },
+      {
+        "url": "https://huggingface.co/api/models?author=Qwen&search=Qwen-MT&limit=1000",
+        "evidence": "The live query returned 0 repositories. The official model card documents the hosted translation API. Neither the exact Plus search nor the developer Qwen-MT weight inventory contains a downloadable release."
+      },
+      {
+        "url": "https://help.aliyun.com/en/model-studio/qwen-mt-plus",
+        "evidence": "The official model card documents the hosted translation API. Neither the exact Plus search nor the developer Qwen-MT weight inventory contains a downloadable release."
+      }
+    ],
+    "outcome": {
+      "open_weights": false
+    },
+    "rule": "Publicly downloadable model weights or explicitly identified equivalent checkpoint => open. No such release found after original documentation and developer inventory checks => closed. API serving extras and weight licenses are separate."
   }
 }
