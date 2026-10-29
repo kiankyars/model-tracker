@@ -1,0 +1,55 @@
+{
+  "reviewed_at": "2026-10-29T11:28:27.065Z",
+  "model_id": "cognitivecomputations/dolphin-mistral-24b-venice-edition",
+  "finding": "The existing row combines the original April 2025 first release with the separate April 2026 version 1.2 specifications. Split the trained revision and restore original text-only fields.",
+  "original": {
+    "release_date": "2025-04-28",
+    "weights_first_uploaded": "2025-06-12",
+    "revision": "853f87026d587889137c814bb56bba60f033e747",
+    "parameters_b": 23.5724032,
+    "context_window": 32768,
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "basis": "Original launch explicitly says available now and 32K. The June upload precedes the July 3 retrained 1.1 announcement. Initial and September text indexes are identical and contain 363 learned weight tensors; retained prior header census is 23,572,403,200 parameters. Current config and index were re-read; no full weight download."
+  },
+  "v1_2": {
+    "release_date": "2026-04",
+    "date_precision": "month",
+    "weights_first_uploaded": "2026-04-16",
+    "revision": "b23ff40b4a25e4f93de432bd896d4464479a9f79",
+    "parameters_b": 24.01136128,
+    "context_window": 131072,
+    "distinct_training_evidence": "Official developer post describes supervised fine-tuning followed by KTO reinforcement learning. April 16 commit replaces all ten weight shards, adds vision and changes the architecture to Mistral3ForConditionalGeneration.",
+    "date_evidence": "Native publisher datasheet explicitly says April 1; live API created is 1775001600. The live announcement and complete weight publication are April 16. Retain month precision pending proof of first served access.",
+    "source_caution": "The current model datasheet misdates the 1.1 predecessor to February 2026, whereas the original release article explicitly dates its retraining to July 3, 2025. The visible generic capabilities list also includes audio/video/reasoning despite those live API flags being false. Use pinned configs and exact API flags for capabilities."
+  },
+  "additional_revision_lead": {
+    "name": "Venice Uncensored 1.1",
+    "release_date": "2025-07-03",
+    "source": "https://venice.ai/blog/introducing-dolphin-mistral-24b-venice-edition-the-most-uncensored-ai-model-yet",
+    "evidence": "The dated update explicitly announces retraining using new datasets and reinforcement learning. A separately pinned weight identity and precise parameters are not established by the inspected repository history; do not silently equate the original June checkpoint with 1.1."
+  },
+  "primary_sources": [
+    "https://venice.ai/blog/introducing-dolphin-mistral-24b-venice-edition-the-most-uncensored-ai-model-yet",
+    "https://huggingface.co/dphn/Dolphin-Mistral-24B-Venice-Edition/blob/853f87026d587889137c814bb56bba60f033e747/README.md",
+    "https://huggingface.co/dphn/Dolphin-Mistral-24B-Venice-Edition/blob/853f87026d587889137c814bb56bba60f033e747/config.json",
+    "https://huggingface.co/dphn/Dolphin-Mistral-24B-Venice-Edition/blob/853f87026d587889137c814bb56bba60f033e747/model.safetensors.index.json",
+    "https://huggingface.co/api/models/dphn/Dolphin-Mistral-24B-Venice-Edition/commits/main",
+    "https://docs.mistral.ai/models/mistral-small-3-0-25-01",
+    "https://venice.ai/models/venice-uncensored-1-2",
+    "https://huggingface.co/dphn/Dolphin-Mistral-24B-Venice-Edition/commit/337ce042026e598256f4bbb8178116b59c9e302d",
+    "https://huggingface.co/dphn/Dolphin-Mistral-24B-Venice-Edition/blob/b23ff40b4a25e4f93de432bd896d4464479a9f79/README.md",
+    "https://huggingface.co/dphn/Dolphin-Mistral-24B-Venice-Edition/blob/b23ff40b4a25e4f93de432bd896d4464479a9f79/config.json",
+    "https://huggingface.co/dphn/Dolphin-Mistral-24B-Venice-Edition/blob/b23ff40b4a25e4f93de432bd896d4464479a9f79/model.safetensors.index.json",
+    "https://www.linkedin.com/posts/veniceai_venice-uncensored-12-is-now-live-developed-activity-7450602742793859075-II3o",
+    "https://api.venice.ai/api/v1/models"
+  ],
+  "recommended_correction_file": "venice-original-correction.json",
+  "recommended_proposal_file": "venice-v12-proposal.json"
+}
