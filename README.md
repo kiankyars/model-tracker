@@ -36,7 +36,7 @@ Bump `package.json`'s version when changing the frontend. The build uses it in C
 
 ## Data
 
-The primary source is the MIT-licensed [Models.dev](https://github.com/anomalyco/models.dev) canonical model catalog, supplemented by source-linked historical releases and corrections. The dataset is broad but incomplete. Open weights does not mean open source. Unknown fields are null; explicitly named parameter sizes are labeled as name-derived. Known aliases are merged; separately released revisions remain distinct. Read [methodology](public/about.md) before interpreting statistics.
+The catalog combines MIT-licensed [Models.dev](https://github.com/anomalyco/models.dev) metadata with primary-source research. It includes verified announcements separately from availability; charts count recorded release dates. The dataset is broad but incomplete. Open weights does not mean open source. Unknown fields are null; explicitly named parameter sizes are labeled as name-derived. Known aliases are merged; separately released revisions remain distinct. Read [methodology](public/about.md) before interpreting statistics.
 
 Parameter notes identify nominal counts and their source conventions. A nominal active count can round above a more precise total, such as T5's 3B versus 2.851598336B. Validation permits differences explained by rounding the total to the reported active count's decimal precision; it rejects larger discrepancies.
 
@@ -45,6 +45,9 @@ Parameter notes identify nominal counts and their source conventions. A nominal 
 - `data/historical.json`: Primary-source historical additions.
 - `data/corrections.json`: Explicit corrections and aliases.
 - `data/research-metadata.json`: Research completion timestamp, created after the first research run.
+- `data/candidates.json`: Persistent discovery queue and review decisions.
+- `research/sources.json`, `research/discovery/`: Source registry and enumeration diagnostics.
+- `research/backfill/`: Historical candidate inventory, monthly review coverage and remaining work.
 - `public/api/`: Generated, untracked API artifacts.
 - `public/api-schema.json`, `public/openapi.json`: Machine-readable contracts.
 - `public/api.md`, `public/about.md`: Human- and agent-readable documentation.
@@ -56,6 +59,8 @@ To contribute, include a primary source for dates, sizes, or licensing claims. D
 Enable **Settings → Pages → Source → GitHub Actions**. The `Publish tracker` workflow builds, tests, and deploys pushes to `main` and manual dispatches. Pull requests build and test. It does not fetch data, commit changes, or run on a schedule.
 
 A Codex automation in the project chat researches releases daily at 09:00 Europe/Helsinki. It follows [RESEARCH.md](RESEARCH.md), searches developer announcements and model cards, adds verified records and corrections, and pushes after validation. The desktop app and computer need to be running. The automation is configured in Codex, outside this repository.
+
+`npm run discover` enumerates independent catalogs, global model repositories and publisher feeds into a persistent review queue. It does not publish models. Run `npm run discover -- --help` for source selection, pagination continuation and candidate review. The researcher follows up failed or manual source checks and verifies candidates against original sources. Historical research uses the [Models.dev Git inventory and monthly audit](research/backfill/README.md) alongside publisher and model-family searches.
 
 `npm run refresh` remains an optional manual import from Models.dev. It supplements independent research. Source snapshots, additions, and corrections are tracked in Git.
 

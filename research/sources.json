@@ -1,0 +1,185 @@
+{
+  "schema_version": "1.0",
+  "note": "Discovery leads are not verified releases. Source coverage and per-run failures are recorded separately; none of these lists is exhaustive.",
+  "sources": [
+    {
+      "id": "modelsdev",
+      "name": "Models.dev",
+      "adapter": "modelsdev",
+      "url": "https://models.dev/models.json",
+      "fallback_url": "https://api.github.com/repos/anomalyco/models.dev/git/trees/dev?recursive=1",
+      "documentation": "https://github.com/anomalyco/models.dev",
+      "role": "Canonical model IDs, current inventory and Git history for historical backfill.",
+      "note": "The GitHub fallback enumerates canonical model TOMLs; it does not import unverified metadata. Catalog dates require primary-source verification."
+    },
+    {
+      "id": "openrouter",
+      "name": "OpenRouter",
+      "adapter": "openrouter",
+      "url": "https://openrouter.ai/api/v1/models",
+      "documentation": "https://openrouter.ai/docs/api/api-reference/models/list-all-models-and-their-properties",
+      "role": "Independent hosted-model inventory, including smaller developers.",
+      "note": "created is a provider listing timestamp, not the model release date. Delisted and never-hosted models are absent."
+    },
+    {
+      "id": "huggingface",
+      "name": "Hugging Face",
+      "adapter": "huggingface",
+      "url": "https://huggingface.co/api/models",
+      "tasks": [
+        "text-generation",
+        "text2text-generation",
+        "image-text-to-text",
+        "any-to-any"
+      ],
+      "documentation": "https://huggingface.co/docs/huggingface_hub/en/package_reference/hf_api#huggingface_hub.HfApi.list_models",
+      "role": "Global new and updated repositories, without an author or popularity whitelist.",
+      "note": "Enumerates each task in createdAt and lastModified order. Missing or incorrect task tags, private/deleted repositories, and historical repositories updated after the target month remain coverage gaps. Repository timestamps do not prove public availability."
+    },
+    {
+      "id": "modelscope",
+      "name": "ModelScope",
+      "adapter": "modelscope",
+      "url": "https://modelscope.cn/openapi/v1/models",
+      "documentation": "https://github.com/modelscope/modelscope_hub/blob/main/src/modelscope_hub/_openapi.py",
+      "role": "Global recent repository changes, including releases absent from Hugging Face.",
+      "note": "The public API supports last_modified ordering and at most 3,000 results. Live probes ignored task filters, so task classification is local and untagged rows remain candidates. Older windows need owner/search partitions or manual review."
+    },
+    {
+      "id": "artificialanalysis",
+      "name": "Artificial Analysis",
+      "adapter": "artificialanalysis",
+      "url": "https://artificialanalysis.ai/api/v2/data/llms/models",
+      "review_url": "https://artificialanalysis.ai/models",
+      "documentation": "https://artificialanalysis.ai/api-reference",
+      "role": "Benchmark and provider cross-check.",
+      "note": "Optional API requires ARTIFICIAL_ANALYSIS_API_KEY. The benchmark API is selective and never treated as a complete release census. Credit Artificial Analysis when publishing its benchmark data."
+    },
+    {
+      "id": "arena",
+      "name": "Arena",
+      "adapter": "manual",
+      "url": "https://arena.ai/leaderboard/text",
+      "role": "Independent benchmark names and preview leads.",
+      "note": "Manual sentinel: no stable documented public inventory API is integrated. Review the leaderboard and announcements; anonymous previews and aliases need developer confirmation."
+    },
+    {
+      "id": "epoch",
+      "name": "Epoch AI",
+      "adapter": "manual",
+      "url": "https://epoch.ai/data/ai-models",
+      "role": "Historical notable-model inventory and date cross-check.",
+      "note": "Manual historical sentinel: review the official downloadable data and its source links. This selective dataset is not a census of small releases. No automatic adapter is claimed."
+    },
+    {
+      "id": "google-feed",
+      "name": "Google models and research",
+      "adapter": "rss",
+      "url": "https://blog.google/innovation-and-ai/models-and-research/rss/",
+      "role": "First-party announcements, including models not yet available.",
+      "note": "Review every new article for model announcements; the feed has a finite archive."
+    },
+    {
+      "id": "openai-feed",
+      "name": "OpenAI news",
+      "adapter": "rss",
+      "url": "https://openai.com/news/rss.xml",
+      "role": "First-party announcements and research.",
+      "note": "HTTP access can be blocked. A failed fetch remains failed; use the news archive and developer changelog manually."
+    },
+    {
+      "id": "huggingface-feed",
+      "name": "Hugging Face blog",
+      "adapter": "rss",
+      "url": "https://huggingface.co/blog/feed.xml",
+      "role": "Community and developer release leads beyond the known publisher list.",
+      "note": "Articles include non-release content; verify publisher identity and original model sources."
+    },
+    {
+      "id": "nvidia-feed",
+      "name": "NVIDIA deep learning",
+      "adapter": "rss",
+      "url": "https://blogs.nvidia.com/blog/category/deep-learning/feed/",
+      "role": "First-party release leads.",
+      "note": "The category feed is selective; also review model cards and research pages."
+    }
+  ],
+  "publisher_sentinels": [
+    {
+      "name": "OpenAI",
+      "url": "https://developers.openai.com/api/docs/changelog"
+    },
+    {
+      "name": "Anthropic",
+      "url": "https://platform.claude.com/docs/en/release-notes/overview"
+    },
+    {
+      "name": "Google API",
+      "url": "https://ai.google.dev/gemini-api/docs/changelog"
+    },
+    {
+      "name": "Google DeepMind",
+      "url": "https://deepmind.google/discover/blog/"
+    },
+    {
+      "name": "Meta",
+      "url": "https://ai.meta.com/blog/"
+    },
+    {
+      "name": "Qwen",
+      "url": "https://qwenlm.github.io/blog/"
+    },
+    {
+      "name": "DeepSeek",
+      "url": "https://api-docs.deepseek.com/updates"
+    },
+    {
+      "name": "Mistral",
+      "url": "https://mistral.ai/news/"
+    },
+    {
+      "name": "xAI",
+      "url": "https://docs.x.ai/developers/release-notes"
+    },
+    {
+      "name": "Cohere",
+      "url": "https://cohere.com/blog"
+    },
+    {
+      "name": "Microsoft",
+      "url": "https://microsoft.ai/news/"
+    },
+    {
+      "name": "Amazon",
+      "url": "https://aws.amazon.com/ai/generative-ai/nova/"
+    },
+    {
+      "name": "Moonshot",
+      "url": "https://www.kimi.com/en/blog"
+    },
+    {
+      "name": "MiniMax",
+      "url": "https://www.minimax.io/news"
+    },
+    {
+      "name": "Z.ai",
+      "url": "https://docs.z.ai/release-notes/new-released"
+    },
+    {
+      "name": "Baidu",
+      "url": "https://huggingface.co/baidu"
+    },
+    {
+      "name": "Tencent",
+      "url": "https://huggingface.co/tencent"
+    },
+    {
+      "name": "ByteDance",
+      "url": "https://seed.bytedance.com/en/"
+    },
+    {
+      "name": "NVIDIA",
+      "url": "https://huggingface.co/nvidia"
+    }
+  ]
+}

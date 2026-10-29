@@ -1,0 +1,190 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {
+  collectArtificialAnalysis, collectHuggingFace, collectModelsDev, collectModelScope, collectOpenRouter,
+  dateWindow, dueCandidates, enumeratePages, mergeCandidates, modelObservation, parseFeed,
+  parseModelsDev, reviewCandidate, seedFromReports,
+} from '../scripts/discovery-lib.mjs';
+
+const now = '2026-10-29T10:00:00.000Z';
+const old = '2026-10-01T00:00:00.000Z';
+const options = { since: '2026-10-15T00:00:00.000Z', through: now, maxPages: 2, pageSize: 2 };
+const empty = () => ({ schema_version: '1.0', updated_at: now, candidates: [] });
+const response = (body, headers = {}, status = 200) => new Response(JSON.stringify(body), { status, headers });
+const source = id => ({ id, url: `https://example.com/${id}` });
+
+function fetchPages(pages) {
+  const requests = [];
+  return { requests, fetcher: async (url, init) => {
+    requests.push({ url, headers: init.headers });
+    if (!pages.length) throw new Error('Unexpected request');
+    const page = pages.shift();
+    if (page instanceof Error) throw page;
+    return page;
+  } };
+}
+
+test('pagination follows links, records explicit truncation and resumes without discarding observations', async () => {
+  const pages = {
+    'https://example.com/1': { items: [{ key: 'a' }], next: '/2', total: 3, expectTotal: true },
+    'https://example.com/2': { items: [{ key: 'b' }], next: '/3', total: 3, expectTotal: true },
+    'https://example.com/3': { items: [{ key: 'c' }], next: null, total: 3, expectTotal: true },
+  };
+  const first = await enumeratePages({ startUrl: 'https://example.com/1', maxPages: 2, readPage: async url => pages[url] });
+  assert.equal(first.status, 'truncated');
+  assert.equal(first.cursor.next_url, 'https://example.com/3');
+  assert.equal(first.observations.length, 2);
+  const next = await enumeratePages({ startUrl: 'https://example.com/1', resume: first.cursor, readPage: async url => pages[url] });
+  assert.equal(next.status, 'complete');
+  assert.equal(next.items_seen, 3);
+});
+
+test('pagination detects failures, count mismatch, cycles and foreign continuation origins', async () => {
+  const partial = await enumeratePages({ startUrl: 'https://example.com/1', readPage: async url => {
+    if (url.endsWith('/2')) throw new Error('HTTP 429');
+    return { items: [{ key: 'a' }], next: '/2' };
+  } });
+  assert.equal(partial.status, 'failed');
+  assert.equal(partial.observations.length, 1);
+  assert.equal(partial.cursor.next_url, 'https://example.com/2');
+  for (const next of ['https://example.com/1', 'https://other.example/2']) {
+    const result = await enumeratePages({ startUrl: 'https://example.com/1', readPage: async () => ({ items: [{ key: 'a' }], next }) });
+    assert.equal(result.status, 'failed');
+  }
+  const mismatch = await enumeratePages({ startUrl: 'https://example.com/1', readPage: async () => ({ items: [], examined: 1, total: 2, expectTotal: true }) });
+  assert.equal(mismatch.status, 'failed');
+  assert.equal(mismatch.cursor, null);
+});
+
+test('date windows retain undated evidence and only stop on a known descending boundary', () => {
+  const window = dateWindow([{ at: now }, { at: old }], { ...options, field: 'at', sorted: true });
+  assert.equal(window.boundary, true);
+  assert.equal(window.items.length, 1);
+  assert.equal(dateWindow([{ at: now }, {} , { at: old }], { ...options, field: 'at', sorted: true }).boundary, false);
+  assert.equal(dateWindow([{ at: old }, { at: now }], { ...options, field: 'at', sorted: true }).boundary, false);
+});
+
+test('Hugging Face discovers all authors, both new and updated streams, and resumes only unfinished streams', async () => {
+  const fake = fetchPages([
+    response([{ id: 'new-lab/tiny', createdAt: now, lastModified: now, tags: [], pipeline_tag: 'text-generation' }], { link: '<https://example.com/huggingface?cursor=2>; rel="next"' }),
+    response([{ id: 'old-lab/model', createdAt: old, lastModified: old }]),
+    response([{ id: 'new-lab/tiny', createdAt: now, lastModified: now }]),
+  ]);
+  const result = await collectHuggingFace({ ...source('huggingface'), tasks: ['text-generation'] }, { ...options, ...fake });
+  assert.deepEqual(result.map(stream => stream.status), ['complete', 'complete']);
+  assert.equal(result[0].observations[0].publisher, 'new-lab');
+  assert.equal(result[0].observations[0].date_kind, 'repository_created');
+  assert.equal(result[1].observations[0].date_kind, 'repository_updated');
+  const resumed = await collectHuggingFace({ ...source('huggingface'), tasks: ['text-generation'] }, { ...options, resuming: true, resume: { 'text-generation:lastModified': { next_url: 'https://example.com/huggingface?cursor=3' } }, fetcher: async () => response([]) });
+  assert.deepEqual(resumed.map(stream => stream.stream_id), ['text-generation:lastModified']);
+});
+
+test('Models.dev rejects provider-shaped JSON and uses a validated canonical Git tree fallback', async () => {
+  assert.throws(() => parseModelsDev({ data: [{ id: 'lab/model' }] }, 'modelsdev'), /schema/);
+  const fake = fetchPages([response({}, {}, 403), response({ sha: 'revision', truncated: false, tree: [{ type: 'blob', path: 'models/new-lab/model.toml', sha: 'blob' }] })]);
+  const result = await collectModelsDev({ ...source('modelsdev'), fallback_url: 'https://example.com/tree' }, fake);
+  assert.equal(result[0].status, 'complete');
+  assert.equal(result[0].attempts[0].reason, 'HTTP 403');
+  assert.equal(result[0].observations[0].canonical_id, 'new-lab/model');
+  assert.equal(result[0].observations[0].source_date, null);
+  const truncated = await collectModelsDev({ ...source('modelsdev'), fallback_url: 'https://example.com/tree' }, { fetcher: async url => url.endsWith('tree') ? response({ truncated: true, tree: [{ type: 'blob', path: 'models/lab/model.toml' }] }) : response({}, {}, 403) });
+  assert.equal(truncated[0].status, 'truncated');
+});
+
+test('OpenRouter follows provider pagination and counts non-text rows without treating listing dates as releases', async () => {
+  const fake = fetchPages([
+    response({ data: [{ id: 'lab/model', created: 1793268000 }, { id: 'lab/image', architecture: { output_modalities: ['image'] } }], total_count: 3, links: { next: '/next' } }),
+    response({ data: [{ id: 'lab/model2' }], total_count: 3, links: { next: null } }),
+  ]);
+  const [result] = await collectOpenRouter(source('openrouter'), { ...options, ...fake });
+  assert.equal(result.status, 'complete');
+  assert.equal(result.observations.length, 2);
+  assert.equal(result.items_seen, 3);
+  assert.equal(result.observations[0].date_kind, 'provider_listing');
+  const [missing] = await collectOpenRouter(source('openrouter'), { ...options, fetcher: async () => response({ data: [], total_count: 2, links: { next: null } }) });
+  assert.equal(missing.status, 'failed');
+});
+
+test('ModelScope public result cap is explicitly incomplete, not a resumable impossible page', async () => {
+  const [result] = await collectModelScope(source('modelscope'), { ...options, resume: { updated: { next_url: 'https://example.com/modelscope?page_number=30&page_size=100' } }, fetcher: async () => response({ success: true, data: { page_number: 30, page_size: 100, total_count: 10000, models: [{ id: 'newlab/model', tasks: ['text-generation'], last_modified: now }] } }) });
+  assert.equal(result.status, 'truncated');
+  assert.match(result.reason, /3,000/);
+  assert.equal(result.cursor, null);
+});
+
+test('RSS requires a valid feed and keeps first-party article evidence distinct from a release', () => {
+  const [item] = parseFeed('<rss><channel><item><title><![CDATA[New A &amp; B]]></title><link>https://example.com/new</link><pubDate>Thu, 29 Oct 2026 08:00:00 GMT</pubDate></item></channel></rss>', 'publisher');
+  assert.equal(item.kind, 'article');
+  assert.equal(item.name, 'New A & B');
+  assert.equal(item.date_kind, 'article_published');
+  assert.throws(() => parseFeed('<html>Blocked</html>', 'publisher'), /RSS/);
+});
+
+test('Artificial Analysis reports absent credentials without making a request or inventing coverage', async () => {
+  const [result] = await collectArtificialAnalysis(source('artificialanalysis'), { env: {}, fetcher: () => { throw new Error('Must not fetch'); } });
+  assert.equal(result.status, 'needs_credentials');
+});
+
+test('queue deduplicates source identities, preserves provenance and all pending leads across empty windows', () => {
+  const observation = modelObservation('huggingface', 'new-lab/model', 'Model', 'https://huggingface.co/new-lab/model', { source_date: now, date_kind: 'repository_created' });
+  let queue = mergeCandidates(empty(), [observation, observation, { ...observation, date_kind: 'repository_updated' }], [], now);
+  assert.equal(queue.candidates.length, 1);
+  assert.equal(queue.candidates[0].sources.length, 2);
+  const later = '2026-11-20T00:00:00.000Z';
+  queue = mergeCandidates(queue, [], [], later);
+  assert.deepEqual(dueCandidates(queue, later), ['huggingface:new-lab/model']);
+  assert.equal(queue.candidates[0].first_seen, now);
+  assert.equal(queue.candidates[0].last_seen, now);
+});
+
+test('exact identities can close a missing-model lead; similar names never merge and dispositions survive', () => {
+  const catalog = [{ id: 'lab/model', aliases: [], source_url: 'https://huggingface.co/Lab/Model', sources: [] }];
+  const observation = modelObservation('huggingface', 'Lab/Model', 'Model', 'https://huggingface.co/Lab/Model');
+  let queue = mergeCandidates(empty(), [observation], catalog, now);
+  assert.equal(queue.candidates[0].model_id, 'lab/model');
+  assert.equal(queue.candidates[0].status, 'tracked');
+  queue = mergeCandidates(queue, [modelObservation('huggingface', 'other/Model', 'Model', 'https://huggingface.co/other/Model')], catalog, now);
+  assert.equal(queue.candidates.find(item => item.id === 'huggingface:other/Model').status, 'pending');
+  reviewCandidate(queue, 'huggingface:other/Model', { status: 'excluded', reason: 'Image-only model.', reviewed_at: now });
+  queue = mergeCandidates(queue, [modelObservation('huggingface', 'other/Model', 'New display name', 'https://huggingface.co/other/Model')], catalog, now);
+  assert.equal(queue.candidates.find(item => item.id === 'huggingface:other/Model').status, 'excluded');
+});
+
+test('changed tracked sources reopen review and are not immediately closed by their existing catalog match', () => {
+  const catalog = [{ id: 'lab/model', aliases: [], sources: [] }];
+  const observation = modelObservation('modelsdev', 'lab/model', 'Model', 'https://example.com/model', { canonical_id: 'lab/model', revision: 'one' });
+  let queue = mergeCandidates(empty(), [observation], catalog, now);
+  queue = mergeCandidates(queue, [{ ...observation, revision: 'two' }, { ...observation, revision: 'two' }], catalog, now);
+  assert.equal(queue.candidates[0].status, 'pending');
+  assert.equal(queue.candidates[0].model_id, 'lab/model');
+});
+
+test('manual review requires a reason and canonical identity; unresolved reviews get a future check', () => {
+  const queue = mergeCandidates(empty(), [modelObservation('s', 'a', 'A', 'https://example.com/a')], [], now);
+  assert.throws(() => reviewCandidate(queue, 's:a', { status: 'excluded', reviewed_at: now }), /reason/);
+  assert.throws(() => reviewCandidate(queue, 's:a', { status: 'duplicate', reason: 'Same model', reviewed_at: now }), /canonical/);
+  reviewCandidate(queue, 's:a', { status: 'pending', reason: 'Launch date not established.', reviewed_at: now });
+  assert.equal(queue.candidates[0].next_check, '2026-10-30T10:00:00.000Z');
+});
+
+test('all old reports seed unresolved leads; later explicit decisions win and an empty report does not erase them', () => {
+  const reports = [
+    { research_date: '2026-10-01', unresolved_candidates: [{ id: 'lab/model', uncertainty: 'Exact launch date unknown.' }, { candidate: 'Preview', uncertainty: 'Not available yet.' }] },
+    { research_date: '2026-10-02', excluded_candidates: [{ candidate: 'Preview', reason: 'Image-only model.' }] },
+    { research_date: '2026-10-03', unresolved_candidates: [] },
+  ];
+  let queue = seedFromReports(empty(), reports, [{ id: 'lab/model', name: 'Model', sources: [] }], now);
+  assert.equal(queue.candidates.length, 2);
+  assert.equal(queue.candidates.find(item => item.id === 'research:lab/model').status, 'pending');
+  assert.equal(queue.candidates.find(item => item.id === 'research:lab/model').model_id, 'lab/model');
+  assert.equal(queue.candidates.find(item => item.id === 'research:preview').status, 'excluded');
+  reviewCandidate(queue, 'research:lab/model', { status: 'tracked', reason: 'Verified launch date.', model_id: 'lab/model', reviewed_at: now });
+  queue = seedFromReports(queue, reports, [], now);
+  assert.equal(queue.candidates.find(item => item.id === 'research:lab/model').status, 'tracked');
+});
+
+test('Hugging Face registry includes encoder-decoder text generation', async () => {
+  const { readFile } = await import('node:fs/promises');
+  const registry = JSON.parse(await readFile(new URL('../research/sources.json', import.meta.url), 'utf8'));
+  assert.ok(registry.sources.find(item => item.id === 'huggingface').tasks.includes('text2text-generation'));
+});
