@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://kiankyars.github.io/model-tracker/api-schema.json",
-  "title": "Language model release",
-  "description": "A model record; additional fields may be added without changing the v1 API. Unknown values are null.",
+  "title": "Language model",
+  "description": "A released or officially announced model. Additional fields may be added without changing the v1 API. Unknown values are null; optional lifecycle fields may be absent on older records.",
   "type": "object",
   "required": [
     "id",
@@ -67,7 +67,8 @@
         "string",
         "null"
       ],
-      "pattern": "^\\d{4}-\\d{2}(-\\d{2})?$"
+      "pattern": "^\\d{4}-\\d{2}(-\\d{2})?$",
+      "description": "First verified external availability, including limited access; not the announcement date. Null when not released or when the date is unknown. ISO day or month; preserve date_precision."
     },
     "date_precision": {
       "enum": [
@@ -258,6 +259,27 @@
     "parameters_lower_bound_exclusive": {
       "type": "boolean",
       "description": "True means strictly greater than the lower bound; false means at least. Required with parameters_lower_bound_b."
+    },
+    "announcement_date": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^\\d{4}-\\d{2}(-\\d{2})?$",
+      "description": "Official announcement day or month, separately recorded from first external availability. Optional on older records."
+    },
+    "availability": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "announced",
+        "limited",
+        "public",
+        null
+      ],
+      "description": "Latest verified availability: announced with no external access verified; limited for restricted external access; public for generally available access. Omitted or null means not reviewed, never inferred public. Public access does not imply open weights."
     }
   },
   "additionalProperties": true

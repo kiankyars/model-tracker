@@ -18,7 +18,7 @@
     <script type="module" src="./app.js"></script>
   </head>
   <body>
-    <a class="skip-link" href="#releases">Skip to releases</a>
+    <a class="skip-link" href="#releases">Skip to models</a>
     <div class="page">
       <header class="site-header">
         <a class="wordmark" href="./" aria-label="Model Tracker home"><svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22"><path d="M3 18V9m6 9V3m6 15v-6m6 6V6" fill="none" stroke="currentColor" stroke-width="2.5"/></svg>Model Tracker</a>
@@ -28,7 +28,7 @@
       <main>
         <h1 class="visually-hidden">Model Tracker</h1>
 
-        <section class="explorer" aria-label="Explore model releases">
+        <section class="explorer" aria-label="Explore language models">
           <form id="filters" class="filters" role="search">
             <div class="search-row">
               <label class="search-field"><span class="visually-hidden">Search models</span><svg aria-hidden="true" width="18" height="18" viewBox="0 0 20 20"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.5"/></svg><input id="search" name="q" type="search" placeholder="Search models" autocomplete="off" spellcheck="false"></label>
@@ -37,10 +37,11 @@
             </div>
             <div id="filter-options" class="filter-options" hidden>
               <div class="filter-row">
-                <div class="filter-group date-filter"><label for="from">Released from</label><input id="from" name="from" type="month" aria-label="Released from month"></div>
-                <div class="filter-group date-filter"><label for="to">Through</label><input id="to" name="to" type="month" aria-label="Released through month"></div>
+                <div class="filter-group date-filter"><label for="from">Date from</label><input id="from" name="from" type="month" aria-label="Release or announcement from month"></div>
+                <div class="filter-group date-filter"><label for="to">Through</label><input id="to" name="to" type="month" aria-label="Release or announcement through month"></div>
                 <div class="filter-group developer-filter"><label for="developer">Developer</label><select id="developer" name="developer"><option value="">All developers</option></select></div>
                 <div class="filter-group"><label for="access">Weights</label><select id="access" name="access"><option value="">All weights</option><option value="open">Open weights</option><option value="closed">Closed weights</option></select></div>
+                <div class="filter-group"><label for="availability">Availability</label><select id="availability" name="availability"><option value="">All records</option><option value="announced">Announced</option><option value="limited">Limited access</option><option value="public">Publicly available</option></select></div>
                 <div class="filter-group"><label for="type">Type</label><select id="type" name="type"><option value="">All types</option><option value="text">Text only</option><option value="multimodal">Multimodal</option><option value="reasoning">Reasoning</option></select></div>
                 <div class="filter-group"><label for="size">Parameters</label><select id="size" name="size"><option value="">All sizes</option><option value="under3">Under 3B</option><option value="3to10">3 to &lt;10B</option><option value="10to30">10 to &lt;30B</option><option value="30to100">30 to &lt;100B</option><option value="100plus">100B and up</option><option value="unknown">Unknown</option></select></div>
               </div>
@@ -48,14 +49,14 @@
             </div>
           </form>
 
-          <div id="loading" class="status-message" role="status">Loading releases…</div>
-          <div id="error" class="status-message error-message" role="alert" hidden><p>Release data could not be loaded.</p><button type="button" class="outline-button" id="retry">Try again</button><a href="./api/v1/models.json">Open the raw data</a></div>
+          <div id="loading" class="status-message" role="status">Loading models…</div>
+          <div id="error" class="status-message error-message" role="alert" hidden><p>Model data could not be loaded.</p><button type="button" class="outline-button" id="retry">Try again</button><a href="./api/v1/models.json">Open the raw data</a></div>
 
           <div id="explorer-content" hidden>
-            <section class="statistics" aria-label="Statistics for the filtered releases">
+            <section class="statistics" aria-label="Statistics for recorded releases">
               <div class="chart-toolbar">
                 <div class="chart-tabs" role="group" aria-label="Chart view">
-                  <button type="button" data-chart-view="releases" aria-pressed="true">Releases</button>
+                  <button type="button" data-chart-view="releases" aria-pressed="true">Recorded releases</button>
                   <button type="button" data-chart-view="cumulative" aria-pressed="false">Cumulative</button>
                   <button type="button" data-chart-view="developers" aria-pressed="false">Developers</button>
                   <button type="button" data-chart-view="sizes" aria-pressed="false">Model sizes</button>
@@ -65,35 +66,36 @@
                   <label id="metric-control" hidden>Parameters <select id="chart-metric" aria-label="Parameter measure"><option value="total">Model size</option><option value="active">Active</option></select></label>
                 </div>
               </div>
-              <h2 id="chart-title" class="visually-hidden">Releases by month</h2>
+              <h2 id="chart-title" class="visually-hidden">Recorded releases by month</h2>
               <div id="chart" class="chart" aria-labelledby="chart-title"></div>
-              <p id="chart-keyboard-help" class="visually-hidden">Use arrow keys to move through the chart, Home or End to jump, and Enter to select. Press Tab to continue to the releases.</p>
+              <p id="chart-keyboard-help" class="visually-hidden">Use arrow keys to move through the chart, Home or End to jump, and Enter to select. Press Tab to continue to the models.</p>
               <div class="chart-caption"><div class="chart-key-row"><div id="chart-legend" class="chart-legend"></div><span id="chart-scope"></span></div><div class="chart-feedback"><p id="chart-note"></p><p id="chart-detail" aria-live="polite" aria-atomic="true"></p></div></div>
               <dl class="stat-list" id="stats"></dl>
+              <details id="coverage" class="coverage"><summary>Coverage</summary><p>Charts count models with a recorded release date. Announcements and undated models remain in the table. Coverage varies by month; a zero count does not establish that no models were released.</p><p id="coverage-status" role="status"></p><div id="coverage-table" class="coverage-table" hidden></div><p><a href="./api/v1/coverage.json">Audit data</a> · <a href="./api/v1/candidates.json">Discovery queue</a></p></details>
             </section>
 
             <section id="releases" class="release-section" aria-labelledby="release-heading">
               <div class="results-toolbar">
-                <h2 id="release-heading" tabindex="-1"><span id="result-count" aria-live="polite" aria-atomic="true">Releases</span></h2>
-                <div class="table-actions"><label for="sort" class="visually-hidden">Sort releases</label><select id="sort" name="sort" aria-label="Sort releases"><option value="newest">Newest first</option><option value="oldest">Oldest first</option><option value="name">Name A–Z</option><option value="size">Largest first</option><option value="context">Longest context</option></select><details class="download-menu"><summary>Export</summary><div><button type="button" id="download-csv">Download CSV</button><button type="button" id="download-json">Download JSON</button></div></details></div>
+                <h2 id="release-heading" tabindex="-1"><span id="result-count" aria-live="polite" aria-atomic="true">Models</span></h2>
+                <div class="table-actions"><label for="sort" class="visually-hidden">Sort models</label><select id="sort" name="sort" aria-label="Sort models"><option value="newest">Newest first</option><option value="oldest">Oldest first</option><option value="name">Name A–Z</option><option value="size">Largest first</option><option value="context">Longest context</option></select><details class="download-menu"><summary>Export</summary><div><button type="button" id="download-csv">Download CSV</button><button type="button" id="download-json">Download JSON</button></div></details></div>
               </div>
-              <div id="empty-state" class="empty-state" hidden><h3>No matching releases.</h3><p>Try a broader search or clear the filters.</p><button type="button" class="outline-button" id="empty-reset">Clear all filters</button></div>
+              <div id="empty-state" class="empty-state" hidden><h3>No matching models.</h3><p>Try a broader search or clear the filters.</p><button type="button" class="outline-button" id="empty-reset">Clear all filters</button></div>
               <div class="table-scroll" id="table-scroll">
                 <table id="release-table">
-                  <caption class="visually-hidden">Model releases. Select a model for details and sources.</caption>
-                  <thead><tr><th scope="col">Model</th><th scope="col">Developer</th><th scope="col">Released</th><th scope="col">Type</th><th scope="col" class="numeric">Parameters</th><th scope="col">Weights</th></tr></thead>
+                  <caption class="visually-hidden">Model releases and announcements. Select a model for details and sources.</caption>
+                  <thead><tr><th scope="col">Model</th><th scope="col">Developer</th><th scope="col">Date</th><th scope="col">Type</th><th scope="col" class="numeric">Parameters</th><th scope="col">Weights</th></tr></thead>
                   <tbody id="release-rows"></tbody>
                 </table>
               </div>
               <div id="pagination" class="pagination">
                 <span id="shown-count" role="status" aria-atomic="true"></span>
                 <label class="page-size-control" for="page-size">Rows <select id="page-size" aria-label="Rows per page"><option value="50">50</option><option value="100" selected>100</option><option value="200">200</option><option value="all">All</option></select></label>
-                <nav class="page-controls" aria-label="Release pages"><button type="button" id="previous-page" class="outline-button" aria-label="Previous page">Previous</button><button type="button" id="next-page" class="outline-button" aria-label="Next page">Next</button></nav>
+                <nav class="page-controls" aria-label="Model pages"><button type="button" id="previous-page" class="outline-button" aria-label="Previous page">Previous</button><button type="button" id="next-page" class="outline-button" aria-label="Next page">Next</button></nav>
               </div>
             </section>
           </div>
         </section>
-        <noscript><p class="status-message">Filtering requires JavaScript. <a href="./api/v1/models.json">download all model releases as JSON</a> or read the <a href="./api.html">API documentation</a>.</p></noscript>
+        <noscript><p class="status-message">Filtering requires JavaScript. <a href="./api/v1/models.json">download all model records as JSON</a> or read the <a href="./api.html">API documentation</a>.</p></noscript>
       </main>
       <footer class="site-footer"><nav aria-label="Footer navigation"><a href="./api/v1/models.json">JSON data</a><a href="./llms.txt">llms.txt</a><a href="https://github.com/kiankyars/model-tracker/issues/new">Report a correction</a></nav><p class="data-note" id="data-note"></p></footer>
     </div>

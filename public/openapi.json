@@ -3,7 +3,7 @@
   "info": {
     "title": "Model releases API",
     "version": "1.0.0",
-    "description": "Static read-only JSON resources. Query parameters do not filter responses. No authentication required. Coverage is incomplete; unknown data is null.",
+    "description": "Static read-only JSON resources. Query parameters do not filter responses. No authentication required. Coverage is incomplete; unknown data is null. The catalog includes verified announcements. Release aggregates require a recorded release_date; availability is never inferred for legacy records.",
     "license": {
       "name": "MIT",
       "url": "https://kiankyars.github.io/model-tracker/LICENSE"
@@ -38,11 +38,11 @@
     },
     "/models.json": {
       "get": {
-        "summary": "Read all catalogued model releases",
+        "summary": "Read all catalogued models, including announcements",
         "operationId": "models",
         "responses": {
           "200": {
-            "description": "Read all catalogued model releases",
+            "description": "Complete model catalog with lifecycle fields and provenance",
             "content": {
               "application/json": {
                 "schema": {
@@ -221,6 +221,42 @@
             }
           }
         ]
+      }
+    },
+    "/candidates.json": {
+      "get": {
+        "summary": "Read the discovery review queue",
+        "operationId": "candidates",
+        "responses": {
+          "200": {
+            "description": "Unverified discovery candidates and recorded decisions. Queue entries are not verified catalog models.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/coverage.json": {
+      "get": {
+        "summary": "Read historical audit coverage",
+        "operationId": "coverage",
+        "responses": {
+          "200": {
+            "description": "Month-level source review status and outstanding candidate counts. Reviewed does not mean exhaustive.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
       }
     }
   }

@@ -8,7 +8,9 @@ Base URL: `https://kiankyars.github.io/model-tracker/api/v1/`
 
 - [index.json](./api/v1/index.json): Endpoint discovery and available partitions.
 - [models.json](./api/v1/models.json): Complete catalog, metadata, and coverage information. Records are in the `models` array.
-- [stats.json](./api/v1/stats.json): Aggregates for the complete catalog.
+- [stats.json](./api/v1/stats.json): Catalog counts and recorded-release aggregates.
+- [candidates.json](./api/v1/candidates.json): Discovery candidates and review decisions; unverified entries are not catalog models.
+- [coverage.json](./api/v1/coverage.json): Historical source review by month, outstanding candidates, and last review dates. Reviewed months are not claims of exhaustive coverage.
 - `months/YYYY-MM.json`: Records released in one calendar month.
 - `developers/DEVELOPER_ID.json`: Records from one model developer.
 - `models/SLUG.json`: One record. Read `slug` from the catalog; do not construct it from a display name.
@@ -48,7 +50,9 @@ curl -fsSL https://kiankyars.github.io/model-tracker/api/v1/models.json \
 - `id`: Stable canonical model identifier, including developer namespace.
 - `slug`: Filename-safe identifier for the individual model endpoint.
 - `developer`, `developer_id`: Model creator, independent of hosting provider.
-- `release_date`: ISO day or month, or `null`. Respect `date_precision`.
+- `announcement_date`: Official announcement day or month, when verified.
+- `availability`: `announced`, `limited`, or `public` at the latest review. Missing or `null` means not recorded, not public access. Public access does not imply open weights.
+- `release_date`: First verified external availability, including limited access. ISO day or month, or `null`; respect `date_precision`. Announcements have no release date until external access is verified. A released model can still have an unresolved date.
 - `open_weights`: `true` when downloadable weights are publicly available for the model; `false` when no public weight release is available at the latest review. This is not an open-source license classification. A hosted variant can be closed even when its base model has open weights. Clients should tolerate `null` for records awaiting review.
 - `parameters_b`: Reported model parameters in billions, or `null`. Normally total model parameters; `parameters_scope` identifies a reported subset, such as `backbone` or `language_decoder`.
 - `parameters_lower_bound_b`, `parameters_lower_bound_exclusive`: A published lower bound when the point count is `null`; `true` means strictly greater, `false` means at least. Bounds display in the table and qualify for the 100B+ filter when at least 100B, but are excluded from point charts and `known_parameters` statistics. Size sorting uses the published bound.
@@ -61,6 +65,12 @@ curl -fsSL https://kiankyars.github.io/model-tracker/api/v1/models.json \
 - `reasoning`, `tool_call`: Source-reported capability flags; unknown values remain `null`.
 - `source_url`, `sources`: Provenance for the record and source-backed corrections.
 - `upstream_present`: Whether a record is in the current upstream snapshot. Removed models are retained in the historical catalog.
+
+A model keeps the same canonical `id` as it moves from announcement to availability. Missing dates or sizes do not exclude a verified model from the catalog.
+
+`total_models` and developer `count` include all catalog records. `recorded_releases`, `by_month`, and developer `recorded_releases` require a release date and exclude announcements. `unknown_release_dates` excludes models still marked announced. The `availability` counts report explicit reviewed states and `not_recorded` separately. Other top-level counts describe the complete catalog. Months with no recorded releases have no API partition; the UI fills empty months with zero. Neither zero nor a high recent count measures completeness.
+
+The website date filter and date sort use the release date, falling back to the announcement date. All charts and the summary beneath them count only recorded releases.
 
 Models can have overlapping types: a model may be both multimodal and reasoning-capable. Unknown numerical values are not zero and should be excluded from numerical averages. Use the catalog's coverage counts to disclose missingness in your own analysis.
 

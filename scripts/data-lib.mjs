@@ -1,3 +1,5 @@
+import { isRecordedRelease } from '../lib/model-data.js';
+
 export const SOURCE_URL = 'https://models.dev/models.json';
 export const SCHEMA_VERSION = '1.0';
 const LABS = {
@@ -101,7 +103,7 @@ export function catalogTimestamps(retrievedAt, reviewedAt = null) {
 }
 
 function confirmedRelease(record) {
-  return record?.source_type === 'primary' && validDate(record.release_date) &&
+  return record?.source_type === 'primary' && (validDate(record.release_date) || validDate(record.announcement_date)) &&
     /^https:\/\//.test(record.source_url || '') && record.sources?.some(source => /^https:\/\//.test(source.url || ''));
 }
 
@@ -122,7 +124,8 @@ export function mergeCatalog({ upstream, previous = [], historical = [], correct
     if (isFuture(model.release_date, sourceAsOf) && !confirmed) { future++; map.delete(id); continue; }
     const old = map.get(id);
     const observedAt = isFuture(model.release_date, sourceAsOf) && confirmed ? timestamps.review : retrievedAt;
-    map.set(id, { ...model, first_seen: old?.first_seen || observedAt, last_seen: observedAt });
+    const lifecycle = Object.fromEntries(['announcement_date', 'availability'].filter(key => old && Object.hasOwn(old, key)).map(key => [key, old[key]]));
+    map.set(id, { ...model, ...lifecycle, first_seen: old?.first_seen || observedAt, last_seen: observedAt });
   }
   for (const item of historical) {
     const old = map.get(item.id);
@@ -182,7 +185,7 @@ export function mergeCatalog({ upstream, previous = [], historical = [], correct
       merged_aliases: Object.keys(corrections.aliases || {}).length,
       excluded_mutable_aliases: excludedMutableAliases,
       excluded_service_tiers: excludedServiceTiers,
-      date_basis: 'First public release, as recorded by sources. Month precision is preserved.',
+      date_basis: 'First external availability, including limited access, as recorded by sources. Announcement dates are separate. Month precision is preserved.',
       limitation: 'A growing source-backed catalog, not an exhaustive census. Coverage depends on upstream and contributed records. Model variants count separately; explicitly identified aliases are merged.',
     },
   };
@@ -205,6 +208,15 @@ export function validateModels(models, asOf = '9999-12-31') {
     if (model.slug !== slugFor(model.id)) throw new Error(`Invalid slug: ${model.id}`);
     if (model.release_date && (!validDate(model.release_date) || isFuture(model.release_date, asOf))) throw new Error(`Invalid/future date: ${model.id}`);
     if (model.release_date && model.date_precision !== (model.release_date.length === 7 ? 'month' : 'day')) throw new Error(`Date precision mismatch: ${model.id}`);
+    if (model.announcement_date != null && (!validDate(model.announcement_date) || isFuture(model.announcement_date, asOf))) throw new Error(`Invalid/future announcement date: ${model.id}`);
+    if (model.availability != null && !['announced', 'limited', 'public'].includes(model.availability)) throw new Error(`Invalid availability: ${model.id}`);
+    if (model.availability === 'announced' && model.release_date) throw new Error(`Announcement has a release date: ${model.id}`);
+    if (model.availability === 'announced' && !model.announcement_date) throw new Error(`Announcement date missing: ${model.id}`);
+    if (model.announcement_date && model.release_date) {
+      const announcementStart = model.announcement_date.length === 7 ? `${model.announcement_date}-01` : model.announcement_date;
+      const releaseEnd = model.release_date.length === 7 ? new Date(Date.UTC(Number(model.release_date.slice(0, 4)), Number(model.release_date.slice(5, 7)), 0)).toISOString().slice(0, 10) : model.release_date;
+      if (releaseEnd < announcementStart) throw new Error(`Release precedes announcement: ${model.id}`);
+    }
     for (const key of ['parameters_b', 'active_parameters_b', 'context_window']) {
       if (model[key] !== null && (!Number.isFinite(model[key]) || model[key] <= 0)) throw new Error(`Invalid ${key}: ${model.id}`);
     }
@@ -235,28 +247,39 @@ export function validateModels(models, asOf = '9999-12-31') {
 }
 
 export function statistics(models) {
+  const releases = models.filter(isRecordedRelease);
   const months = new Map();
   const developers = new Map();
   for (const model of models) {
-    const month = model.release_date?.slice(0, 7) || 'unknown';
-    const bucket = months.get(month) || { month, total: 0, open: 0, closed: 0, unknown: 0 };
-    bucket.total++;
-    bucket[model.open_weights === true ? 'open' : model.open_weights === false ? 'closed' : 'unknown']++;
-    months.set(month, bucket);
-    const developer = developers.get(model.developer_id) || { id: model.developer_id, name: model.developer, count: 0 };
+    if (isRecordedRelease(model)) {
+      const month = model.release_date.slice(0, 7);
+      const bucket = months.get(month) || { month, total: 0, open: 0, closed: 0, unknown: 0 };
+      bucket.total++;
+      bucket[model.open_weights === true ? 'open' : model.open_weights === false ? 'closed' : 'unknown']++;
+      months.set(month, bucket);
+    }
+    const developer = developers.get(model.developer_id) || { id: model.developer_id, name: model.developer, count: 0, recorded_releases: 0 };
     developer.count++;
+    if (isRecordedRelease(model)) developer.recorded_releases++;
     developers.set(model.developer_id, developer);
   }
-  const dates = models.map(model => model.release_date).filter(Boolean).sort();
+  const dates = releases.map(model => model.release_date).sort();
   return {
     total_models: models.length,
+    recorded_releases: releases.length,
+    availability: {
+      announced: models.filter(model => model.availability === 'announced').length,
+      limited: models.filter(model => model.availability === 'limited').length,
+      public: models.filter(model => model.availability === 'public').length,
+      not_recorded: models.filter(model => model.availability == null).length,
+    },
     developers: developers.size,
     open_weights: models.filter(model => model.open_weights === true).length,
     closed_weights: models.filter(model => model.open_weights === false).length,
     unknown_openness: models.filter(model => model.open_weights === null).length,
     known_parameters: models.filter(model => model.parameters_b !== null).length,
     unknown_parameters: models.filter(model => model.parameters_b === null).length,
-    unknown_release_dates: models.filter(model => model.release_date === null).length,
+    unknown_release_dates: models.filter(model => !model.release_date && model.availability !== 'announced').length,
     earliest_release: dates[0] || null,
     latest_release: dates.at(-1) || null,
     by_month: [...months.values()].sort((a, b) => a.month.localeCompare(b.month)),
@@ -265,7 +288,7 @@ export function statistics(models) {
 }
 
 export function csv(models) {
-  const columns = ['id', 'name', 'developer', 'family', 'release_date', 'date_precision', 'open_weights', 'license', 'parameters_b', 'active_parameters_b', 'parameters_source', 'parameters_scope', 'active_parameters_scope', 'parameter_components_b', 'active_parameters_by_phase_b', 'parameters_lower_bound_b', 'parameters_lower_bound_exclusive', 'architecture', 'context_window', 'reasoning', 'tool_call', 'source_url'];
+  const columns = ['id', 'name', 'developer', 'family', 'announcement_date', 'availability', 'release_date', 'date_precision', 'open_weights', 'license', 'parameters_b', 'active_parameters_b', 'parameters_source', 'parameters_scope', 'active_parameters_scope', 'parameter_components_b', 'active_parameters_by_phase_b', 'parameters_lower_bound_b', 'parameters_lower_bound_exclusive', 'architecture', 'context_window', 'reasoning', 'tool_call', 'source_url'];
   const cell = value => {
     let text = value == null ? '' : typeof value === 'object' ? JSON.stringify(value) : String(value);
     if (/^[-=+@\t\r]/.test(text)) text = `'${text}`;

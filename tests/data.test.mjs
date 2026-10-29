@@ -217,7 +217,7 @@ test('published API counts reconcile and every index route exists', async () => 
   validateModels(full.models, full.updated_at.slice(0, 10));
   assert.equal(full.models.length, stats.total_models);
   assert.equal(full.models.length, index.models.length);
-  assert.equal(full.models.length, index.months.reduce((sum, month) => sum + month.count, 0));
+  assert.equal(stats.recorded_releases, index.months.reduce((sum, month) => sum + month.count, 0));
   assert.equal(full.models.length, index.developers.reduce((sum, developer) => sum + developer.count, 0));
   const byId = new Map(full.models.map(model => [model.id, model]));
   for (const entry of [...index.models, ...index.months, ...index.developers]) {
@@ -232,4 +232,78 @@ test('published API counts reconcile and every index route exists', async () => 
     }
     if (partition.model) assert.deepEqual(partition.model, byId.get(entry.id));
   }
+});
+
+
+test('verified announcements survive without a release date or size and retain their identity through release', () => {
+  const record = {
+    ...normalize('lab/upcoming', { ...upstream('Upcoming'), release_date: null }, at),
+    announcement_date: '2026-10-28', availability: 'announced', source_type: 'primary',
+    source_url: 'https://example.org/announcement', sources: [{ label: 'Announcement', url: 'https://example.org/announcement', type: 'announcement' }],
+  };
+  const options = { upstream: {}, historical: [record], retrievedAt: at, reviewedAt: '2026-10-29T09:00:00Z' };
+  const first = mergeCatalog(options).models;
+  assert.equal(first.length, 1);
+  assert.equal(first[0].release_date, null);
+  assert.equal(first[0].parameters_b, null);
+  assert.equal(first[0].first_seen, '2026-10-29T09:00:00.000Z');
+  const released = mergeCatalog({ ...options, previous: first, historical: [{ ...record, availability: 'limited', release_date: '2026-10-29' }] }).models;
+  assert.equal(released.length, 1);
+  assert.equal(released[0].id, first[0].id);
+  assert.equal(released[0].announcement_date, first[0].announcement_date);
+  assert.equal(released[0].first_seen, first[0].first_seen);
+  assert.equal(statistics(released).recorded_releases, 1);
+  assert.throws(() => validateModels([{ ...released[0], availability: 'announced' }]));
+  assert.throws(() => validateModels([{ ...released[0], availability: 'unknown' }]));
+  assert.throws(() => validateModels([{ ...record, announcement_date: '2026-02-30' }]));
+  assert.throws(() => validateModels([record], '2026-10-27'));
+  assert.throws(() => validateModels([{ ...record, announcement_date: null }]));
+  assert.throws(() => validateModels([{ ...released[0], release_date: '2026-09', date_precision: 'month' }]));
+  assert.doesNotThrow(() => validateModels([{ ...released[0], announcement_date: '2026-10', release_date: '2026-10-01' }]));
+  assert.doesNotThrow(() => validateModels([{ ...released[0], release_date: '2026-10', date_precision: 'month' }]));
+});
+
+test('lifecycle statistics preserve catalog counts without inventing public availability', () => {
+  const records = [
+    normalize('lab/released', upstream(), at),
+    normalize('lab/undated', { ...upstream(), release_date: null }, at),
+    { ...normalize('lab/announced', { ...upstream(), release_date: null }, at), availability: 'announced', announcement_date: '2026-10-25' },
+  ];
+  const stats = statistics(records);
+  assert.equal(stats.total_models, 3);
+  assert.equal(stats.recorded_releases, 1);
+  assert.equal(stats.by_month.reduce((total, month) => total + month.total, 0), 1);
+  assert.equal(stats.by_developer[0].count, 3);
+  assert.equal(stats.by_developer[0].recorded_releases, 1);
+  assert.equal(stats.unknown_release_dates, 1);
+  assert.deepEqual(stats.availability, { announced: 1, limited: 0, public: 0, not_recorded: 2 });
+  assert.equal(Object.hasOwn(records[0], 'availability'), false);
+});
+
+test('build publishes announcements, candidates and coverage without private queue fields', async () => {
+  const root = await fs.mkdtemp(path.join(tmpdir(), 'model-tracker-lifecycle-'));
+  try {
+    await fs.mkdir(path.join(root, 'data/source'), { recursive: true });
+    await fs.mkdir(path.join(root, 'research/backfill'), { recursive: true });
+    const write = (name, value) => fs.writeFile(path.join(root, name), JSON.stringify(value));
+    await write('data/source/models.dev.json', { 'lab/released': upstream() });
+    await write('data/source/metadata.json', { retrieved_at: at });
+    await write('data/historical.json', [{ ...normalize('lab/announced', { ...upstream('Upcoming'), release_date: null }, at), availability: 'announced', announcement_date: '2026-10-25' }]);
+    await write('data/candidates.json', { schema_version: '1.0', local_path: '/private', candidates: [{ id: 'source:new', name: 'Candidate', status: 'pending', local_path: '/private', sources: [{ url: 'https://example.org/new', local_path: '/private' }, { url: 'file:///private' }] }] });
+    await write('research/backfill/coverage.json', { schema_version: '1.0', local_path: '/private', months: [{ month: '2022-01', status: 'unreviewed', outstanding_candidates: 2, last_reviewed: null, local_path: '/private' }] });
+    await buildData({ root });
+    const read = async name => JSON.parse(await fs.readFile(path.join(root, 'public/api/v1', name), 'utf8'));
+    assert.equal((await read('models.json')).models.length, 2);
+    assert.equal((await read('models/lab--announced.json')).model.availability, 'announced');
+    assert.equal((await read('developers/lab.json')).count, 2);
+    assert.equal((await read('stats.json')).recorded_releases, 1);
+    const index = await read('index.json');
+    assert.equal(index.months.reduce((total, month) => total + month.count, 0), 1);
+    for (const endpoint of ['candidates', 'coverage']) {
+      const content = await read(index.endpoints[endpoint]);
+      assert.equal(JSON.stringify(content).includes('/private'), false);
+    }
+    assert.equal((await read('candidates.json')).candidates[0].sources.length, 1);
+    assert.equal((await read('coverage.json')).months[0].status, 'unreviewed');
+  } finally { await fs.rm(root, { recursive: true, force: true }); }
 });

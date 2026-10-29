@@ -1,4 +1,4 @@
-import { defaults, filterModels, sortModels, isMultimodal, toCSV } from './lib/model-data.js';
+import { defaults, filterModels, sortModels, isMultimodal, toCSV, recordDate, isRecordedRelease, availabilityLabel } from './lib/model-data.js';
 import { renderChart } from './lib/chart-view.js';
 import { parameterLabel, missingLabel, modelSizeLabel, activeSizeLabel, hasReportedSize } from './lib/parameter-labels.js';
 import { paginationDefaults, readPagination, pageWindow, pageForIndex } from './lib/pagination.js';
@@ -85,7 +85,7 @@ function syncControls() {
   $('chart-interval').value = chartState.interval;
   $('chart-metric').value = chartState.metric;
   $('page-size').value = paginationState.rows;
-  const filterCount = ['from', 'to', 'developer', 'access', 'type', 'size'].filter(key => state[key]).length;
+  const filterCount = ['from', 'to', 'developer', 'access', 'availability', 'type', 'size'].filter(key => state[key]).length;
   $('filter-toggle').textContent = filterCount ? `Filters (${filterCount})` : 'Filters';
   if (catalog) for (const button of document.querySelectorAll('[data-range]')) {
     const range = presetRange(button.dataset.range);
@@ -99,7 +99,7 @@ function showFilters(open) {
 }
 
 function revealActiveFilters() {
-  if (['from', 'to', 'developer', 'access', 'type', 'size'].some(key => state[key])) showFilters(true);
+  if (['from', 'to', 'developer', 'access', 'availability', 'type', 'size'].some(key => state[key])) showFilters(true);
 }
 
 function writeURL(replace = false) {
@@ -127,10 +127,11 @@ function reset() {
 }
 
 function renderStats() {
+  const releases = filtered.filter(isRecordedRelease);
   const values = [
-    ['Developers', new Set(filtered.map(model => model.developer_id)).size],
-    ['Open weights', filtered.filter(model => model.open_weights === true).length],
-    ['Known sizes', filtered.filter(model => model.parameters_b != null).length],
+    ['Recorded releases', releases.length],
+    ['Open weights', releases.filter(model => model.open_weights === true).length],
+    ['Known sizes', releases.filter(model => model.parameters_b != null).length],
   ];
   const fragment = document.createDocumentFragment();
   for (const [label, value] of values) {
@@ -198,7 +199,9 @@ function detailRow(model, id) {
   addDetail(list, 'Model ID', model.id);
   addDetail(list, 'Family', model.family || 'Not specified');
   addDetail(list, 'Developer', model.developer);
-  addDetail(list, 'Released', dateLabel(model.release_date, model.date_precision));
+  addDetail(list, 'Availability', availabilityLabel(model));
+  if (model.announcement_date) addDetail(list, 'Announced', dateLabel(model.announcement_date));
+  addDetail(list, 'First external availability', model.availability === 'announced' ? 'No external access verified' : dateLabel(model.release_date, model.date_precision));
   addDetail(list, 'Type', isMultimodal(model) ? 'Multimodal' : 'Text');
   addDetail(list, 'Weights', model.open_weights === true ? 'Open' : model.open_weights === false ? 'Closed' : 'Not specified');
   const scope = model.parameters_scope;
@@ -263,7 +266,10 @@ function renderRows() {
     chevron.append(path);
     toggle.append(chevron, element('span', 'model-name', model.name));
     modelCell.append(toggle, element('span', 'mobile-developer', model.developer));
-    const date = element('td', `release-date${model.release_date ? '' : ' unknown-value'}`, dateLabel(model.release_date, model.date_precision));
+    if (model.availability === 'limited') modelCell.append(element('span', 'availability-note', availabilityLabel(model)));
+    const date = element('td', `release-date${recordDate(model) ? '' : ' unknown-value'}`, dateLabel(recordDate(model), model.release_date ? model.date_precision : null));
+    if (!model.release_date && model.announcement_date) date.append(element('span', 'date-kind', 'Announced'));
+    else if (model.availability === 'announced') date.textContent = 'Announced';
     if (model.date_precision === 'month') date.title = 'Only the release month is known.';
     const type = element('td', 'type-cell');
     type.append(element('span', 'model-type', isMultimodal(model) ? 'Multimodal' : 'Text'));
@@ -324,7 +330,7 @@ function render() {
   $('filter-note').hidden = !invalidRange;
   $('filter-note').textContent = invalidRange ? 'The start month is after the end month. Choose an earlier start or a later end.' : '';
   const count = $('result-count');
-  count.replaceChildren(document.createTextNode(`${number.format(filtered.length)} release${filtered.length === 1 ? '' : 's'}`));
+  count.replaceChildren(document.createTextNode(`${number.format(filtered.length)} model${filtered.length === 1 ? '' : 's'}`));
   if (filtered.length !== catalog.models.length) count.append(element('span', 'count-context', ` of ${number.format(catalog.models.length)}`));
   $('download-csv').disabled = !filtered.length;
   $('download-json').disabled = !filtered.length;
@@ -355,7 +361,7 @@ async function load() {
     const response = await fetch('./api/v1/models.json', { cache: 'no-cache' });
     if (!response.ok) throw new Error(`Data request returned ${response.status}`);
     const data = await response.json();
-    if (!Array.isArray(data.models) || !data.models.length) throw new Error('Invalid or empty release index');
+    if (!Array.isArray(data.models) || !data.models.length) throw new Error('Invalid or empty model index');
     catalog = data;
     const developers = [...new Map(catalog.models.map(model => [model.developer_id, model.developer])).entries()].sort((a, b) => a[1].localeCompare(b[1]));
     $('developer').replaceChildren(new Option('All developers', ''), ...developers.map(([id, name]) => new Option(name, id)));
@@ -371,9 +377,46 @@ async function load() {
   } catch (error) {
     $('error').hidden = false;
     $('data-note').textContent = 'The data is temporarily unavailable. Please try again.';
-    console.error('Unable to load model releases:', error);
+    console.error('Unable to load models:', error);
   } finally { $('loading').hidden = true; }
 }
+
+let coverageLoaded = false;
+let coverageLoading = false;
+$('coverage').addEventListener('toggle', async () => {
+  if (!$('coverage').open || coverageLoaded || coverageLoading) return;
+  coverageLoading = true;
+  $('coverage-status').textContent = 'Loading audit coverage…';
+  try {
+    const response = await fetch('./api/v1/coverage.json');
+    if (!response.ok) throw new Error(`Coverage request returned ${response.status}`);
+    const coverage = await response.json();
+    if (!Array.isArray(coverage.months)) throw new Error('Invalid coverage data');
+    const table = element('table');
+    const caption = element('caption', 'visually-hidden', 'Historical source review by release month');
+    const head = element('thead');
+    const labels = element('tr');
+    for (const label of ['Month', 'Review', 'Pending', 'Last reviewed']) {
+      const cell = element('th', '', label);
+      cell.scope = 'col';
+      labels.append(cell);
+    }
+    head.append(labels);
+    const body = element('tbody');
+    for (const month of [...coverage.months].sort((a, b) => b.month.localeCompare(a.month))) {
+      const row = element('tr');
+      for (const value of [dateLabel(month.month), { unreviewed: 'Not reviewed', reviewed_with_gaps: 'Gaps remain', audited: 'Reviewed' }[month.status] || 'Not reviewed', number.format(month.outstanding_candidates ?? 0), month.last_reviewed ? dateLabel(month.last_reviewed) : '—']) row.append(element('td', '', value));
+      body.append(row);
+    }
+    table.append(caption, head, body);
+    $('coverage-table').replaceChildren(table);
+    $('coverage-table').hidden = !coverage.months.length;
+    $('coverage-status').textContent = coverage.months.length ? 'Reviewed means the listed source checks are complete, not that every release has been found. Pending candidates have not yet been verified.' : 'Historical source review has not been recorded yet.';
+    coverageLoaded = true;
+  } catch {
+    $('coverage-status').textContent = 'Audit coverage could not be loaded. Reopen Coverage to retry, or use the audit data link.';
+  } finally { coverageLoading = false; }
+});
 
 $('filters').addEventListener('submit', event => { event.preventDefault(); changeState({ q: $('search').value }); });
 $('search').addEventListener('input', () => {
