@@ -35,6 +35,32 @@ test('a related base-model citation cannot silently catalog a missing base as it
   assert.equal(result.candidates.find(row => row.name === 'Instruct').status, 'tracked');
 });
 
+test('automatic inherited identity is checked before exclusion while explicitly reviewed aliases survive', () => {
+  const catalog = [{ id: 'lab/base', source_url: 'https://huggingface.co/lab/Base', aliases: [], sources: [] }];
+  const corrections = { exclude: { 'community/tuned': { reason: 'Community derivative.', source_url: 'https://huggingface.co/community/Tuned' } } };
+  const source = { key: 'lab/Base', url: 'https://huggingface.co/lab/Base' };
+  const queue = { candidates: [
+    { id: 'wrong', status: 'tracked', model_id: 'community/tuned', reason: 'Exact catalog ID or weight-repository match.', sources: [source] },
+    { id: 'manual-alias', status: 'tracked', model_id: 'community/tuned', reason: 'Publisher confirms this provider alias identifies the tuned model.', sources: [{ key: 'provider/alias', url: 'https://provider.example/alias' }] },
+    { id: 'correct', status: 'tracked', model_id: 'community/tuned', reason: 'Exact catalog ID or weight-repository match.', sources: [{ key: 'community/tuned', url: 'https://huggingface.co/community/Tuned' }] },
+  ] };
+  const result = reconcileCatalogCandidates(queue, catalog, corrections, now);
+  assert.equal(result.candidates[0].status, 'tracked');
+  assert.equal(result.candidates[0].model_id, 'lab/base');
+  assert.equal(result.candidates[1].status, 'excluded');
+  assert.equal(result.candidates[1].model_id, 'community/tuned');
+  assert.equal(result.candidates[2].status, 'excluded');
+});
+
+test('provider-declared repository identity remains available for later queue reconciliation', () => {
+  const catalog = [{ id: 'lab/model', source_url: 'https://huggingface.co/lab/Model', aliases: [], sources: [] }];
+  const observation = modelObservation('openrouter', 'provider/model:free', 'Model', 'https://openrouter.ai/provider/model:free', { identity_urls: ['https://huggingface.co/lab/Model'] });
+  const queue = mergeCandidates(empty(), [observation], catalog, now);
+  assert.equal(queue.candidates[0].status, 'tracked');
+  assert.deepEqual(queue.candidates[0].sources[0].identity_urls, observation.identity_urls);
+  assert.deepEqual(mergeCandidates(queue, [], catalog, now), queue);
+});
+
 function fetchPages(pages) {
   const requests = [];
   return { requests, fetcher: async (url, init) => {
@@ -244,23 +270,51 @@ test('Epoch preserves primary links and lineage/access claims without converting
   assert.equal((await collectEpoch(source('epoch'), { ...options, fetcher: async () => new Response('error') }))[0].status, 'failed');
 });
 
-test('metadata triage excludes only explicit quantization/foreign-base relations and retains unfamiliar original publishers', () => {
+test('metadata triage excludes quantization copies while company and unknown-publisher adaptations stay pending', () => {
   const obs = modelObservation('huggingface', 'new-lab/New', 'New', 'https://huggingface.co/new-lab/New', { publisher: 'new-lab', tasks: ['text-generation'], lineage_tags: [] });
   assert.equal(metadataDisposition(obs), null);
   assert.equal(metadataDisposition({ ...obs, name: 'Llama-Quantized', lineage_tags: [] }), null);
   assert.equal(metadataDisposition({ ...obs, lineage_tags: ['base_model:finetune:new-lab/Base'] }), null);
-  assert.equal(metadataDisposition({ ...obs, lineage_tags: ['base_model:finetune:Qwen/Base'] }).status, 'excluded');
+  assert.equal(metadataDisposition({ ...obs, lineage_tags: ['base_model:finetune:Qwen/Base'] }), null);
+  assert.equal(metadataDisposition({ ...obs, publisher: 'nvidia', lineage_tags: ['base_model:finetune:meta-llama/Base'] }), null);
+  assert.equal(metadataDisposition({ ...obs, lineage_tags: ['base_model:merge:Qwen/Base', 'base_model:merge:google/Base'] }), null);
   assert.equal(metadataDisposition({ ...obs, lineage_tags: ['base_model:quantized:new-lab/Base'] }).status, 'excluded');
   assert.equal(metadataDisposition({ ...obs, tasks: ['image-text-to-text'], lineage_tags: ['base_model:finetune:google/siglip'] }), null);
   const derived = { ...obs, lineage_tags: ['base_model:finetune:Qwen/Base'] };
   let queue = mergeCandidates(empty(), [derived], [], now);
-  assert.equal(queue.candidates[0].status, 'excluded');
+  assert.equal(queue.candidates[0].status, 'pending');
   assert.deepEqual(queue.candidates[0].sources[0].lineage_tags, derived.lineage_tags);
+  queue = mergeCandidates(queue, [{ ...obs, lineage_tags: ['base_model:quantized:new-lab/Base'] }], [], now);
+  assert.equal(queue.candidates[0].status, 'excluded');
   queue = mergeCandidates(queue, [obs], [], now);
   assert.equal(queue.candidates[0].status, 'pending');
-  reviewCandidate(queue, obs.source_id + ':' + obs.key, { status: 'pending', reason: 'Publisher clarified an independently pretrained checkpoint; verify date.', reviewed_at: now });
+  reviewCandidate(queue, obs.source_id + ':' + obs.key, { status: 'excluded', reason: 'Primary source confirms a community derivative.', reviewed_at: now });
   queue = mergeCandidates(queue, [derived], [], now);
-  assert.equal(queue.candidates[0].status, 'pending');
+  assert.equal(queue.candidates[0].status, 'excluded');
+  assert.equal(queue.candidates[0].reason, 'Primary source confirms a community derivative.');
+});
+
+test('scope change reopens old automatic derivative exclusions without fresh observations and preserves quantization and manual decisions', () => {
+  const item = (id, relation, automatic = true) => ({
+    id, name: id, status: 'excluded', reason: 'Previous scope decision.',
+    last_reviewed: old, next_check: null,
+    ...(automatic ? { review_method: 'publisher_metadata' } : {}),
+    sources: [{ source_id: 'huggingface', key: id, url: `https://huggingface.co/${id}`, lineage_tags: [`base_model:${relation}:other/Base`] }],
+  });
+  const queue = { ...empty(), candidates: [item('company/Tuned', 'finetune'), item('unknown/Merged', 'merge'), item('quantizer/Q4', 'quantized'), item('community/Tuned', 'finetune', false)] };
+  const result = mergeCandidates(queue, [], [], now);
+  for (const id of ['company/Tuned', 'unknown/Merged']) {
+    const entry = result.candidates.find(row => row.id === id);
+    assert.equal(entry.status, 'pending');
+    assert.equal(entry.next_check, now);
+    assert.match(entry.reason, /Verify the publisher/);
+    assert.equal(entry.review_method, undefined);
+    assert.deepEqual(entry.sources, queue.candidates.find(row => row.id === id).sources);
+  }
+  assert.equal(result.candidates.find(row => row.id === 'quantizer/Q4').status, 'excluded');
+  assert.equal(result.candidates.find(row => row.id === 'community/Tuned').status, 'excluded');
+  assert.equal(queue.candidates[0].status, 'excluded');
+  assert.deepEqual(mergeCandidates(result, [], [], now), result);
 });
 
 test('Epoch retains a nameless source row under its reference title and reports the source defect', async () => {

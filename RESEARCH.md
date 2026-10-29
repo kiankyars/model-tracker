@@ -10,7 +10,7 @@ Read those diagnostics. Resume unfinished pagination with `npm run discover -- -
 
 Search beyond that registry: unfamiliar authors, new labs, GitHub releases, research reports, community leads and non-English announcements. A fixed source union reduces omissions but does not establish complete coverage. Repository changes, provider listing dates and benchmark appearances are leads, not release dates.
 
-Review every due candidate, including older unresolved leads. Preserve a specific question and `next_check` when evidence is missing. Record `tracked`, `duplicate` or `excluded` with a reason and canonical model ID where applicable:
+Review due candidates, prioritizing company/lab releases and rollout checks while rotating through older unresolved leads. Keep unreviewed leads pending; preserve a specific question and `next_check` when evidence is missing. Record `tracked`, `duplicate` or `excluded` with a reason and canonical model ID where applicable:
 
 ```sh
 npm run discover -- --review CANDIDATE_ID --status pending --reason "First external availability remains unverified" --next-check YYYY-MM-DD
@@ -26,7 +26,7 @@ Keep an announced or limited model's availability follow-up pending in the queue
 
 Check official documentation and weight repositories before setting `open_weights`. It is true for an available downloadable checkpoint or explicitly documented equivalent; otherwise false at review time. Open weights does not imply an unrestricted license. A hosted revision does not inherit its base model's weight availability.
 
-Track original publishers' models and their own trained variants. Exclude third-party fine-tunes, merges and distillations initialized from another publisher's pretrained language model; independently pretrained models remain eligible. This rule applies equally to companies and individual authors.
+Include company and institutional lab releases, including continued pretraining, fine-tuning, distillation and trained variants of another publisher's model. Preserve independently pretrained research releases. Exclude community derivatives. Verify the publishing organization from primary sources; a Hugging Face organization or an external-base tag alone does not establish company or community status. Keep uncertain cases pending.
 
 Add models to `data/historical.json`; use `data/corrections.json` for overrides, aliases and exclusions. Include primary URLs and concise evidence notes. Count independently trained sizes, base/instruct variants and released revisions separately. Merge documented aliases; exclude mirrors, quantizations, intermediate training checkpoints and serving/reasoning tiers of the same model.
 

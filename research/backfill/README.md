@@ -2,7 +2,7 @@
 
 The target is every month from January 2022 through October 2026: 58 months. Earlier models found during research remain eligible. The first source sweep is recorded for all 58 months. Every month retains explicit gaps; this is not a complete release census.
 
-Scope is original publisher releases, including their own base, instruction, chat and trained-size variants. Third-party adaptations of another publisher’s pretrained checkpoint are excluded. Dedicated ASR/OCR, embeddings, rerankers, classifiers, media-only generators, routing endpoints and serving tiers are outside the language-generation catalog. Conversational audio and multimodal models that generate language remain eligible.
+Scope includes company and institutional lab releases, including continued pretraining, fine-tuning, distillation and trained variants of another publisher’s model. Independently pretrained research releases remain eligible; community derivatives are excluded. Verify publisher status from primary sources rather than a hosting account type or base-model tag, and keep uncertain cases pending. Dedicated ASR/OCR, embeddings, rerankers, classifiers, media-only generators, routing endpoints and serving tiers are outside the language-generation catalog. Conversational audio and multimodal models that generate language remain eligible.
 
 `coverage.json` records month-level review status. `unreviewed` means the required source sweep has not been completed. `reviewed_with_gaps` means some primary-source review has occurred with work remaining. `audited` means the prescribed review has been completed and outstanding gaps recorded, not that every release is known. A month with zero candidates is not an audited month.
 

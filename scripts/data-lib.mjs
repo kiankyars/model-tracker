@@ -168,7 +168,7 @@ export function mergeCatalog({ upstream, previous = [], historical = [], correct
     if (exclusion.category === 'non_language_model') {
       if (map.has(id)) excludedTypes++;
     } else if (exclusion.category === 'service_tier') excludedServiceTiers++;
-    else if (exclusion.category === 'third_party_derivative') excludedDerivatives++;
+    else if (['community_derivative', 'third_party_derivative'].includes(exclusion.category)) excludedDerivatives++;
     else excludedMutableAliases++;
     map.delete(id);
   }

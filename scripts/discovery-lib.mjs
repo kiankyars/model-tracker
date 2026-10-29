@@ -374,39 +374,39 @@ export function metadataDisposition(observation) {
   if (observation.source_id !== 'huggingface' || !Array.isArray(observation.lineage_tags)) return null;
   const quantized = observation.lineage_tags.filter(tag => tag.startsWith('base_model:quantized:'));
   if (quantized.length) return { status: 'excluded', reason: `Publisher metadata identifies a quantized copy, not a newly trained model: ${quantized.join(', ')}.` };
-  const publisherAliases = { thudm: 'zai-org', cohereforai: 'coherelabs', huggingfaceh4: 'huggingfacetb', bigcode: 'huggingfacetb' };
-  const publisher = value => publisherAliases[value.toLowerCase()] || value.toLowerCase();
-  const own = publisher((observation.publisher || observation.key.split('/')[0]));
-  const relations = observation.lineage_tags.map(tag => tag.match(/^base_model:(finetune|adapter|merge):([^/]+\/[^:]+)$/)).filter(Boolean);
-  const foreign = relations.filter(match => publisher(match[2].split('/')[0]) !== own);
-  // Multiple components can include an external vision/audio encoder. Leave those for review.
-  if (foreign.length && (relations.every(match => match[1] === 'merge') || (relations.length === 1 && ['text-generation', 'text2text-generation'].some(task => observation.tasks?.includes(task))))) {
-    return { status: 'excluded', reason: `Publisher metadata identifies a third-party derivative of an external pretrained checkpoint: ${foreign.map(match => match[0]).join(', ')}.` };
-  }
   return null;
 }
 
 export function reconcileCatalogCandidates(queue, catalog, corrections, now) {
   const result = structuredClone(queue);
   const index = catalogIndex(catalog);
+  const excludedIdentities = Object.entries(corrections.exclude || {}).map(([id, exclusion]) => ({
+    id, source_url: exclusion.source_url,
+    aliases: Object.entries(corrections.aliases || {}).filter(([, target]) => target === id).map(([alias]) => alias),
+  }));
+  const knownIdentities = catalogIndex([...catalog, ...excludedIdentities]);
   for (const entry of result.candidates) {
+    if (entry.status === 'tracked' && /^Exact catalog ID/.test(entry.reason || '') && !(entry.sources || []).some(source => matchCatalog({ canonical_id: source.key, url: source.url, identity_urls: source.identity_urls }, knownIdentities) === entry.model_id)) {
+      Object.assign(entry, { status: 'pending', model_id: null, reason: 'The source does not establish this exact checkpoint identity; inspect whether it cites a base model or a distinct variant.', next_check: now });
+    }
     const exclusion = corrections.exclude?.[entry.model_id];
     if (exclusion) {
       Object.assign(entry, { status: 'excluded', reason: exclusion.reason, last_reviewed: now, next_check: null });
       delete entry.review_method;
       continue;
     }
+    if (entry.status === 'excluded' && entry.review_method === 'publisher_metadata' && !(entry.sources || []).some(metadataDisposition)) {
+      Object.assign(entry, { status: 'pending', reason: 'External-base lineage alone does not establish a community derivative. Verify the publisher and trained release under the company-release scope.', next_check: now });
+      delete entry.review_method;
+    }
     if (entry.model_id) {
       const canonical = index.ids.get(entry.model_id);
       if (canonical) entry.model_id = canonical;
       else if (['tracked', 'duplicate'].includes(entry.status)) Object.assign(entry, { status: 'pending', reason: 'Previously linked catalog identity is absent; review its replacement or exclusion.', next_check: now });
-      if (entry.status === 'tracked' && /^Exact catalog ID/.test(entry.reason || '') && !(entry.sources || []).some(source => matchCatalog({ canonical_id: source.key, url: source.url }, index) === entry.model_id)) {
-        Object.assign(entry, { status: 'pending', model_id: null, reason: 'The linked repository does not establish this exact checkpoint identity; inspect whether it cites a base model or a distinct variant.', next_check: now });
-      }
       continue;
     }
     if (entry.status !== 'pending' && entry.review_method !== 'publisher_metadata') continue;
-    const matches = new Set((entry.sources || []).map(source => matchCatalog({ canonical_id: source.key, url: source.url }, index)).filter(Boolean));
+    const matches = new Set((entry.sources || []).map(source => matchCatalog({ canonical_id: source.key, url: source.url, identity_urls: source.identity_urls }, index)).filter(Boolean));
     if (matches.size === 1) {
       Object.assign(entry, { status: 'tracked', model_id: [...matches][0], reason: 'Exact catalog ID, curated alias or primary weight-repository match.', last_reviewed: now, next_check: null });
       delete entry.review_method;
@@ -427,6 +427,7 @@ export function mergeCandidates(queue, observations, catalog, now, corrections =
       first_seen: existing?.sources?.find(item => item.source_id === observation.source_id && item.key === observation.key && item.date_kind === (observation.date_kind || null))?.first_seen || now,
       last_seen: now, source_date: observation.source_date || null, date_kind: observation.date_kind || null,
       ...(observation.revision ? { revision: observation.revision } : {}),
+      ...(observation.identity_urls?.length ? { identity_urls: observation.identity_urls } : {}),
       ...(Array.isArray(observation.lineage_tags) ? { lineage_tags: observation.lineage_tags } : {}),
       ...(observation.source_metadata ? { metadata: observation.source_metadata } : {}),
     };

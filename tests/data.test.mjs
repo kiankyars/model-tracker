@@ -100,12 +100,12 @@ test('explicit alias corrections collapse aliases while preserving distinct vers
   assert.equal(result.models.find(model => model.id === 'lab/model').release_date, '2025-02-28');
 });
 
-test('third-party derivatives stay excluded across refreshes without inflating alias counts', () => {
+test('reviewed community derivatives stay excluded across refreshes without inflating alias counts', () => {
   const result = mergeCatalog({
     upstream: { 'lab/base': upstream(), 'other/tuned': upstream() },
     historical: [normalize('other/tuned', upstream(), at)],
     previous: [normalize('other/tuned', upstream(), at)],
-    corrections: { exclude: { 'other/tuned': { category: 'third_party_derivative', reason: 'Fine-tune of lab/base' } } },
+    corrections: { exclude: { 'other/tuned': { category: 'community_derivative', reason: 'Community fine-tune of lab/base' } } },
     retrievedAt: at, asOf: '2026-10-26',
   });
   assert.deepEqual(result.models.map(model => model.id), ['lab/base']);
