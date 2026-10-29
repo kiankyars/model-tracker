@@ -1,0 +1,106 @@
+{
+  "reviewed_at": "2026-10-29",
+  "input": "approved-root.json",
+  "reviewed_records": 51,
+  "passing_records": 50,
+  "scope_exclusions": [
+    {
+      "id": "databricks/dolly-v2-12b",
+      "finding": "Exclude under original-publisher lineage scope: Databricks fine-tuned an EleutherAI Pythia checkpoint. Already known to root.",
+      "source": "https://www.databricks.com/blog/2023/04/12/dolly-first-open-commercially-viable-instruction-tuned-llm"
+    }
+  ],
+  "blocking_factual_findings": [],
+  "groups": [
+    {
+      "prefix": "cerebras/",
+      "ids": [
+        "cerebras/cerebras-gpt-111m",
+        "cerebras/cerebras-gpt-256m",
+        "cerebras/cerebras-gpt-590m",
+        "cerebras/cerebras-gpt-1.3b",
+        "cerebras/cerebras-gpt-2.7b",
+        "cerebras/cerebras-gpt-6.7b",
+        "cerebras/cerebras-gpt-13b"
+      ],
+      "review": "Seven models, date and nominal counts verified against dated publisher release; 2048 context in pinned model-card architecture table."
+    },
+    {
+      "prefix": "mosaicml/",
+      "ids": [
+        "mosaicml/mpt-7b",
+        "mosaicml/mpt-7b-instruct",
+        "mosaicml/mpt-7b-chat",
+        "mosaicml/mpt-7b-storywriter",
+        "mosaicml/mpt-30b",
+        "mosaicml/mpt-30b-instruct",
+        "mosaicml/mpt-30b-chat",
+        "mosaicml/mpt-7b-8k",
+        "mosaicml/mpt-7b-8k-instruct",
+        "mosaicml/mpt-7b-8k-chat"
+      ],
+      "review": "Ten models verified against three dated publisher launch articles and official Foundry context table. 8K base license CC-BY-SA-3.0 is intentional. Earlier 7B sizes use 6.7B from original launch; later 8K uses publisher nominal 7B."
+    },
+    {
+      "prefix": "stabilityai/",
+      "ids": [
+        "stabilityai/stablelm-base-alpha-3b",
+        "stabilityai/stablelm-tuned-alpha-3b",
+        "stabilityai/stablelm-base-alpha-7b",
+        "stabilityai/stablelm-tuned-alpha-7b",
+        "stabilityai/stablelm-base-alpha-3b-v2",
+        "stabilityai/stablelm-base-alpha-7b-v2"
+      ],
+      "review": "Six models verified against publisher launch/changelog and individual pinned cards/configs. April 19/20 primary-source discrepancy is already disclosed. v2 exact counts match cards, so they should not be overwritten by slightly different safetensors metadata."
+    },
+    {
+      "prefix": "eleutherai/",
+      "ids": [
+        "eleutherai/pythia-70m",
+        "eleutherai/pythia-70m-deduped",
+        "eleutherai/pythia-160m",
+        "eleutherai/pythia-160m-deduped",
+        "eleutherai/pythia-410m",
+        "eleutherai/pythia-410m-deduped",
+        "eleutherai/pythia-1b",
+        "eleutherai/pythia-1b-deduped",
+        "eleutherai/pythia-1.4b",
+        "eleutherai/pythia-1.4b-deduped",
+        "eleutherai/pythia-2.8b",
+        "eleutherai/pythia-2.8b-deduped",
+        "eleutherai/pythia-6.9b",
+        "eleutherai/pythia-6.9b-deduped",
+        "eleutherai/pythia-12b",
+        "eleutherai/pythia-12b-deduped",
+        "eleutherai/pythia-14m",
+        "eleutherai/pythia-31m"
+      ],
+      "review": "18 models verified against publisher changelog and pinned model cards/configs. April 3 is the retrained release, not the original v0; November 2 is only 14M/31M. Exact totals include embeddings and match publisher tables; HF safetensors totals differ and are not a reason to replace documented counts."
+    },
+    {
+      "prefix": "together/",
+      "ids": [
+        "together/redpajama-incite-base-3b-v1",
+        "together/redpajama-incite-chat-3b-v1",
+        "together/redpajama-incite-instruct-3b-v1",
+        "together/redpajama-incite-7b-base-v1",
+        "together/redpajama-incite-7b-chat-v1",
+        "together/redpajama-incite-7b-instruct-v1"
+      ],
+      "review": "Six records verified against May 5 and June 6 publisher releases and individual pinned cards. 7B v1 is distinct from May preview checkpoint, as notes state."
+    },
+    {
+      "prefix": "tiiuae/",
+      "ids": [
+        "tiiuae/falcon-180b",
+        "tiiuae/falcon-180b-chat",
+        "tiiuae/falcon-40b"
+      ],
+      "review": "Three Falcon records verified against dated TII releases and coauthored Falcon launch documentation. May 25 Falcon40B is public weights release; March unveiling is not substituted."
+    }
+  ],
+  "limits": [
+    "This is a review of the 51 proposed records, not evidence that all 2023 releases have been found.",
+    "Freshly opened primary announcements and changelogs were compared with the fetched pinned model-card/config evidence in this directory. No weights were downloaded."
+  ]
+}
