@@ -1,4 +1,4 @@
-# Weekly release research
+# Daily release research
 
 Research new language model releases and correct existing records. This is a browsing and source-verification task. Refreshing Models.dev alone does not complete it.
 

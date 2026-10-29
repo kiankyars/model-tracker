@@ -68,7 +68,7 @@ Models can have overlapping types: a model may be both multimodal and reasoning-
 
 The `/v1/` contract supports additive fields. Clients should ignore unfamiliar fields and tolerate nulls. Data corrections can change historical aggregates; pin a repository commit when you need a reproducible dataset.
 
-Releases are researched weekly. GitHub Pages publishes changes after validation. `updated_at` is the later of source retrieval and completed research. `source.retrieved_at` dates the Models.dev snapshot; optional `research.reviewed_at` dates the latest research review.
+Releases are researched daily. GitHub Pages publishes changes after validation. `updated_at` is the later of source retrieval and completed research. `source.retrieved_at` dates the Models.dev snapshot; optional `research.reviewed_at` dates the latest research review.
 
 Cache downloads and use conditional requests with `ETag` or `Last-Modified` when provided. GitHub Pages caching and hosting limits apply.
 

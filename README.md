@@ -55,7 +55,7 @@ To contribute, include a primary source for dates, sizes, or licensing claims. D
 
 Enable **Settings → Pages → Source → GitHub Actions**. The `Publish tracker` workflow builds, tests, and deploys pushes to `main` and manual dispatches. Pull requests build and test. It does not fetch data, commit changes, or run on a schedule.
 
-A Codex automation in the project chat researches releases weekly on Monday at 09:00 Europe/Helsinki. It follows [RESEARCH.md](RESEARCH.md), searches developer announcements and model cards, adds verified records and corrections, and pushes after validation. The desktop app and computer need to be running. The automation is configured in Codex, outside this repository.
+A Codex automation in the project chat researches releases daily at 09:00 Europe/Helsinki. It follows [RESEARCH.md](RESEARCH.md), searches developer announcements and model cards, adds verified records and corrections, and pushes after validation. The desktop app and computer need to be running. The automation is configured in Codex, outside this repository.
 
 `npm run refresh` remains an optional manual import from Models.dev. It supplements independent research. Source snapshots, additions, and corrections are tracked in Git.
 
