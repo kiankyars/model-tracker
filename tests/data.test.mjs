@@ -68,6 +68,15 @@ test('an upstream date corrected into the future removes an earlier mistaken rel
   assert.equal(result.coverage.excluded_future_releases, 1);
 });
 
+test('curated text-generating models retain observation dates when upstream calls them image-only', () => {
+  const historical = [{ ...normalize('lab/multimodal', upstream(), at), source_type: 'primary', source_url: 'https://example.org/model', sources: [{ url: 'https://example.org/model' }], modalities: { input: ['text'], output: ['text', 'image'] } }];
+  const options = { upstream: { 'lab/multimodal': { ...upstream(), type: 'image' } }, historical, retrievedAt: at, asOf: '2026-10-26' };
+  const first = mergeCatalog({ ...options, reviewedAt: at });
+  const refreshed = mergeCatalog({ ...options, previous: first.models, reviewedAt: '2026-10-29T12:00:00Z' });
+  assert.deepEqual(refreshed.models, first.models);
+  assert.equal(refreshed.models[0].upstream_present, false);
+});
+
 test('service tiers do not reappear as releases after refresh or inflate alias counts', () => {
   const options = {
     upstream: { 'lab/model': upstream(), 'lab/model-fast': upstream() },
@@ -89,6 +98,19 @@ test('explicit alias corrections collapse aliases while preserving distinct vers
   assert.equal(result.models.length, 2);
   assert.deepEqual(result.models.find(model => model.id === 'lab/model').aliases, ['lab/model-2025']);
   assert.equal(result.models.find(model => model.id === 'lab/model').release_date, '2025-02-28');
+});
+
+test('third-party derivatives stay excluded across refreshes without inflating alias counts', () => {
+  const result = mergeCatalog({
+    upstream: { 'lab/base': upstream(), 'other/tuned': upstream() },
+    historical: [normalize('other/tuned', upstream(), at)],
+    previous: [normalize('other/tuned', upstream(), at)],
+    corrections: { exclude: { 'other/tuned': { category: 'third_party_derivative', reason: 'Fine-tune of lab/base' } } },
+    retrievedAt: at, asOf: '2026-10-26',
+  });
+  assert.deepEqual(result.models.map(model => model.id), ['lab/base']);
+  assert.equal(result.coverage.excluded_third_party_derivatives, 1);
+  assert.equal(result.coverage.excluded_mutable_aliases, 0);
 });
 
 test('an incorrect weights link stays removed after upstream refresh', () => {

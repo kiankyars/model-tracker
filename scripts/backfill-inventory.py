@@ -345,6 +345,7 @@ def build(args):
             handle.write(json.dumps(row, ensure_ascii=False, separators=(",", ":")) + "\n")
     write_json(destination / "models-dev-parse-errors.json", failures)
     write_json(destination / "coverage.json", coverage)
+    subprocess.run(["node", str(ROOT / "scripts/reconcile-backfill.mjs"), str(destination)], check=True)
     print(json.dumps(metadata["counts"], indent=2))
 
 

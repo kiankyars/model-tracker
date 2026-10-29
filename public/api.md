@@ -51,7 +51,7 @@ curl -fsSL https://kiankyars.github.io/model-tracker/api/v1/models.json \
 - `slug`: Filename-safe identifier for the individual model endpoint.
 - `developer`, `developer_id`: Model creator, independent of hosting provider.
 - `announcement_date`: Official announcement day or month, when verified.
-- `availability`: `announced`, `limited`, or `public` at the latest review. Missing or `null` means not recorded, not public access. Public access does not imply open weights.
+- `availability`: Verified release stage reached: `announced`, `limited`, or `public`. This does not assert that a historical service still runs. Missing or `null` means not recorded. Public release does not imply open weights.
 - `release_date`: First verified external availability, including limited access. ISO day or month, or `null`; respect `date_precision`. Announcements have no release date until external access is verified. A released model can still have an unresolved date.
 - `open_weights`: `true` when downloadable weights are publicly available for the model; `false` when no public weight release is available at the latest review. This is not an open-source license classification. A hosted variant can be closed even when its base model has open weights. Clients should tolerate `null` for records awaiting review.
 - `parameters_b`: Reported model parameters in billions, or `null`. Normally total model parameters; `parameters_scope` identifies a reported subset, such as `backbone` or `language_decoder`.

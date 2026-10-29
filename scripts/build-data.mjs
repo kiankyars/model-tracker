@@ -10,8 +10,11 @@ function publicCandidates(queue) {
   return {
     ...pick(queue, ['schema_version', 'updated_at']),
     candidates: (queue.candidates || []).map(candidate => ({
-      ...pick(candidate, ['id', 'name', 'kind', 'publisher', 'model_id', 'status', 'reason', 'first_seen', 'last_seen', 'last_reviewed', 'next_check']),
-      sources: (candidate.sources || []).filter(source => /^https:\/\//.test(source.url || '')).map(source => pick(source, ['source_id', 'key', 'url', 'first_seen', 'last_seen', 'source_date', 'date_kind', 'revision'])),
+      ...pick(candidate, ['id', 'name', 'kind', 'publisher', 'model_id', 'status', 'reason', 'review_method', 'first_seen', 'last_seen', 'last_reviewed', 'next_check']),
+      sources: (candidate.sources || []).filter(source => /^https:\/\//.test(source.url || '')).map(source => ({
+        ...pick(source, ['source_id', 'key', 'url', 'first_seen', 'last_seen', 'source_date', 'date_kind', 'revision', 'lineage_tags']),
+        ...(source.metadata ? { metadata: pick(source.metadata, ['model_name', 'organization', 'domain', 'task', 'publication_date', 'base_model', 'accessibility', 'reference', 'source_links']) } : {}),
+      })),
     })),
   };
 }

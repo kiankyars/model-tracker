@@ -113,6 +113,7 @@ export function mergeCatalog({ upstream, previous = [], historical = [], correct
   const researchAsOf = timestamps.review?.slice(0, 10) || sourceAsOf;
   const publicationAsOf = researchAsOf > sourceAsOf ? researchAsOf : sourceAsOf;
   const reviewedIds = new Set(timestamps.review ? previous.filter(confirmedRelease).map(model => model.id) : []);
+  const previousById = new Map(previous.map(model => [model.id, model]));
   const map = new Map(previous.map(model => [model.id, { ...model, upstream_present: false }]));
   let excludedTypes = 0;
   let future = 0;
@@ -128,7 +129,8 @@ export function mergeCatalog({ upstream, previous = [], historical = [], correct
     map.set(id, { ...model, ...lifecycle, first_seen: old?.first_seen || observedAt, last_seen: observedAt });
   }
   for (const item of historical) {
-    const old = map.get(item.id);
+    const retained = map.get(item.id);
+    const old = retained || previousById.get(item.id);
     const confirmed = timestamps.review && confirmedRelease(item);
     if (confirmed) reviewedIds.add(item.id);
     const observedAt = confirmed ? timestamps.review : retrievedAt;
@@ -137,7 +139,7 @@ export function mergeCatalog({ upstream, previous = [], historical = [], correct
       ...defaults, ...old, ...item, slug: slugFor(item.id),
       date_precision: item.release_date ? (item.release_date.length === 7 ? 'month' : 'day') : null,
       first_seen: old?.first_seen || observedAt, last_seen: old?.last_seen || observedAt,
-      upstream_present: old?.upstream_present || false,
+      upstream_present: retained?.upstream_present || false,
     });
   }
   for (const [id, fields] of Object.entries(corrections.overrides || {})) {
@@ -161,10 +163,12 @@ export function mergeCatalog({ upstream, previous = [], historical = [], correct
   }
   let excludedMutableAliases = 0;
   let excludedServiceTiers = 0;
+  let excludedDerivatives = 0;
   for (const [id, exclusion] of Object.entries(corrections.exclude || {})) {
     if (exclusion.category === 'non_language_model') {
       if (map.has(id)) excludedTypes++;
     } else if (exclusion.category === 'service_tier') excludedServiceTiers++;
+    else if (exclusion.category === 'third_party_derivative') excludedDerivatives++;
     else excludedMutableAliases++;
     map.delete(id);
   }
@@ -185,6 +189,7 @@ export function mergeCatalog({ upstream, previous = [], historical = [], correct
       merged_aliases: Object.keys(corrections.aliases || {}).length,
       excluded_mutable_aliases: excludedMutableAliases,
       excluded_service_tiers: excludedServiceTiers,
+      excluded_third_party_derivatives: excludedDerivatives,
       date_basis: 'First external availability, including limited access, as recorded by sources. Announcement dates are separate. Month precision is preserved.',
       limitation: 'A growing source-backed catalog, not an exhaustive census. Coverage depends on upstream and contributed records. Model variants count separately; explicitly identified aliases are merged.',
     },

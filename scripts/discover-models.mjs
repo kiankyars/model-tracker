@@ -16,7 +16,7 @@ if (flags.help) {
   console.log(`Usage: node scripts/discover-models.mjs [--since YYYY-MM-DD] [--through YYYY-MM-DD]
   --sources modelsdev,openrouter,huggingface,modelscope,google-feed
   --max-pages 20       Pages per stream; 0 means unlimited. Incomplete streams retain cursors.
-  --page-size 100      Rows per page for Hugging Face and ModelScope (1–100).
+  --page-size 100      Rows per page (1–100); ModelScope is capped at its API maximum of 50.
   --resume REPORT     Continue incomplete streams in a saved report and its original window.
   --report PATH       Save a report at this path instead of research/discovery/<timestamp>.json.
   --dry-run           Fetch and report without writing the candidate queue or report.
@@ -78,7 +78,7 @@ const datedReports = (await readdir(resolve(root, 'research'))).filter(name => /
 const manualReports = await Promise.all(datedReports.map(name => readJson(`research/${name}`)));
 queue = seedFromReports(queue, manualReports, catalog, now);
 const beforeIds = new Set(queue.candidates.map(item => item.id));
-queue = mergeCandidates(queue, observations, catalog, now);
+queue = mergeCandidates(queue, observations, catalog, now, await readJson('data/corrections.json'));
 const due = dueCandidates(queue, now);
 const byStatus = Object.fromEntries(['pending', 'tracked', 'duplicate', 'excluded'].map(status => [status, queue.candidates.filter(item => item.status === status).length]));
 const report = {

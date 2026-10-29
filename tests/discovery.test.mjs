@@ -1,9 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  collectArtificialAnalysis, collectHuggingFace, collectModelsDev, collectModelScope, collectOpenRouter,
+  collectArtificialAnalysis, collectHuggingFace, collectModelsDev, collectModelScope, collectOpenRouter, collectEpoch,
   dateWindow, dueCandidates, enumeratePages, mergeCandidates, modelObservation, parseFeed,
-  parseModelsDev, reviewCandidate, seedFromReports,
+  parseModelsDev, reviewCandidate, seedFromReports, parseCsv, metadataDisposition, reconcileCatalogCandidates,
 } from '../scripts/discovery-lib.mjs';
 
 const now = '2026-10-29T10:00:00.000Z';
@@ -12,6 +12,28 @@ const options = { since: '2026-10-15T00:00:00.000Z', through: now, maxPages: 2, 
 const empty = () => ({ schema_version: '1.0', updated_at: now, candidates: [] });
 const response = (body, headers = {}, status = 200) => new Response(JSON.stringify(body), { status, headers });
 const source = id => ({ id, url: `https://example.com/${id}` });
+
+test('catalog reconciliation closes newly verified identities and respects exclusions and pending rollout checks', () => {
+  const queue = { candidates: [
+    { id: 'new', status: 'pending', sources: [{ key: 'lab/model', url: 'https://example.org' }] },
+    { id: 'old', status: 'tracked', model_id: 'other/tuned', sources: [] },
+    { id: 'rollout', status: 'pending', model_id: 'lab/model', reason: 'External availability unverified', sources: [] },
+  ] };
+  const result = reconcileCatalogCandidates(queue, [{ id: 'lab/model', aliases: [], sources: [] }], { exclude: { 'other/tuned': { reason: 'External base fine-tune' } } }, now);
+  assert.equal(result.candidates[0].status, 'tracked');
+  assert.equal(result.candidates[1].status, 'excluded');
+  assert.equal(result.candidates[2].status, 'pending');
+  assert.equal(queue.candidates[0].status, 'pending');
+});
+
+test('a related base-model citation cannot silently catalog a missing base as its instruction variant', () => {
+  const catalog = [{ id: 'lab/model-instruct', aliases: [], source_url: 'https://example.org/launch', sources: [{ url: 'https://huggingface.co/Lab/Model' }, { url: 'https://huggingface.co/Lab/Model-Instruct' }] }];
+  const base = modelObservation('huggingface', 'Lab/Model', 'Base', 'https://huggingface.co/Lab/Model');
+  const instruct = modelObservation('huggingface', 'Lab/Model-Instruct', 'Instruct', 'https://huggingface.co/Lab/Model-Instruct');
+  const result = mergeCandidates(empty(), [base, instruct], catalog, now);
+  assert.equal(result.candidates.find(row => row.name === 'Base').status, 'pending');
+  assert.equal(result.candidates.find(row => row.name === 'Instruct').status, 'tracked');
+});
 
 function fetchPages(pages) {
   const requests = [];
@@ -187,4 +209,67 @@ test('Hugging Face registry includes encoder-decoder text generation', async () 
   const { readFile } = await import('node:fs/promises');
   const registry = JSON.parse(await readFile(new URL('../research/sources.json', import.meta.url), 'utf8'));
   assert.ok(registry.sources.find(item => item.id === 'huggingface').tasks.includes('text2text-generation'));
+  for (const task of ['audio-text-to-text', 'video-text-to-text', 'image-to-text', 'visual-question-answering']) assert.ok(registry.sources.find(item => item.id === 'huggingface').tasks.includes(task));
+});
+
+test('ModelScope honors the live 50-row maximum and migrates failed old pagination without skipping offsets', async () => {
+  const urls = [];
+  const fetcher = async url => {
+    urls.push(new URL(url));
+    return response({ success: true, data: { page_number: 1, page_size: 50, total_count: 0, models: [] } });
+  };
+  await collectModelScope(source('modelscope'), { ...options, pageSize: 100, fetcher });
+  assert.equal(urls[0].searchParams.get('page_size'), '50');
+  await collectModelScope(source('modelscope'), { ...options, pageSize: 100, fetcher, resume: { updated: { next_url: 'https://example.com/modelscope?page_number=3&page_size=100', items_seen: 200 } } });
+  assert.equal(urls[1].searchParams.get('page_number'), '5');
+  assert.equal(urls[1].searchParams.get('page_size'), '50');
+});
+
+test('CSV handles quoted commas, newlines, escaped quotes and rejects truncation', () => {
+  assert.deepEqual(parseCsv('\uFEFFname,note\r\nA,"one, two\nthree ""four"""\r\n'), [{ name: 'A', note: 'one, two\nthree "four"' }]);
+  for (const text of ['a,b\n1,"oops', 'a,b\n1', 'a,b\n1,"two"tail']) assert.throws(() => parseCsv(text), /CSV/);
+});
+
+test('Epoch preserves primary links and lineage/access claims without converting publication to release', async () => {
+  const csv = 'Model,Organization,Publication date,Domain,Task,Link,Base model,Model accessibility,Last modified\nCarbon,Google,2026-10-28,"Language,Multimodal",Language modeling,https://google.example/carbon,,Unreleased,2026-10-28\nOld model,Lab,2024-01-01,Language,Language modeling,https://lab.example/old,Other/Base,Open weights,2026-10-28\nImage,Lab,2026-10-28,Vision,Image generation,https://lab.example/image,,Open weights,2026-10-28\n';
+  const [result] = await collectEpoch({ ...source('epoch'), documentation: 'https://epoch.ai/data/ai-models' }, { ...options, fetcher: async () => new Response(csv) });
+  assert.equal(result.status, 'complete');
+  assert.equal(result.items_seen, 3);
+  assert.equal(result.observations.length, 3);
+  const carbon = result.observations.find(row => row.name === 'Carbon');
+  assert.equal(carbon.date_kind, 'catalog_publication');
+  assert.equal(carbon.source_metadata.accessibility, 'Unreleased');
+  assert.deepEqual(carbon.source_metadata.source_links, ['https://google.example/carbon']);
+  assert.equal(result.observations.find(row => row.name === 'Old model').date_kind, 'catalog_updated');
+  assert.equal((await collectEpoch(source('epoch'), { ...options, fetcher: async () => new Response('error') }))[0].status, 'failed');
+});
+
+test('metadata triage excludes only explicit quantization/foreign-base relations and retains unfamiliar original publishers', () => {
+  const obs = modelObservation('huggingface', 'new-lab/New', 'New', 'https://huggingface.co/new-lab/New', { publisher: 'new-lab', tasks: ['text-generation'], lineage_tags: [] });
+  assert.equal(metadataDisposition(obs), null);
+  assert.equal(metadataDisposition({ ...obs, name: 'Llama-Quantized', lineage_tags: [] }), null);
+  assert.equal(metadataDisposition({ ...obs, lineage_tags: ['base_model:finetune:new-lab/Base'] }), null);
+  assert.equal(metadataDisposition({ ...obs, lineage_tags: ['base_model:finetune:Qwen/Base'] }).status, 'excluded');
+  assert.equal(metadataDisposition({ ...obs, lineage_tags: ['base_model:quantized:new-lab/Base'] }).status, 'excluded');
+  assert.equal(metadataDisposition({ ...obs, tasks: ['image-text-to-text'], lineage_tags: ['base_model:finetune:google/siglip'] }), null);
+  const derived = { ...obs, lineage_tags: ['base_model:finetune:Qwen/Base'] };
+  let queue = mergeCandidates(empty(), [derived], [], now);
+  assert.equal(queue.candidates[0].status, 'excluded');
+  assert.deepEqual(queue.candidates[0].sources[0].lineage_tags, derived.lineage_tags);
+  queue = mergeCandidates(queue, [obs], [], now);
+  assert.equal(queue.candidates[0].status, 'pending');
+  reviewCandidate(queue, obs.source_id + ':' + obs.key, { status: 'pending', reason: 'Publisher clarified an independently pretrained checkpoint; verify date.', reviewed_at: now });
+  queue = mergeCandidates(queue, [derived], [], now);
+  assert.equal(queue.candidates[0].status, 'pending');
+});
+
+test('Epoch retains a nameless source row under its reference title and reports the source defect', async () => {
+  const csv = 'Model,Organization,Publication date,Domain,Task,Link,Reference\n,Lab,2026-10-28,Language,Language modeling,https://lab.example/model,Developer announcement\n';
+  const [result] = await collectEpoch({ ...source('epoch'), documentation: 'https://epoch.ai/data/ai-models' }, { ...options, fetcher: async () => new Response(csv) });
+  assert.equal(result.status, 'complete');
+  assert.equal(result.issues.length, 1);
+  assert.equal(result.observations[0].name, 'Developer announcement');
+  assert.equal(result.observations[0].source_metadata.model_name, null);
+  const queue = mergeCandidates(empty(), result.observations, [], now);
+  assert.equal(queue.candidates[0].sources[0].metadata.model_name, null);
 });

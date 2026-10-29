@@ -30,11 +30,15 @@
         "text-generation",
         "text2text-generation",
         "image-text-to-text",
-        "any-to-any"
+        "any-to-any",
+        "audio-text-to-text",
+        "video-text-to-text",
+        "image-to-text",
+        "visual-question-answering"
       ],
       "documentation": "https://huggingface.co/docs/huggingface_hub/en/package_reference/hf_api#huggingface_hub.HfApi.list_models",
       "role": "Global new and updated repositories, without an author or popularity whitelist.",
-      "note": "Enumerates each task in createdAt and lastModified order. Missing or incorrect task tags, private/deleted repositories, and historical repositories updated after the target month remain coverage gaps. Repository timestamps do not prove public availability."
+      "note": "Enumerates each task in createdAt and lastModified order. Missing or incorrect task tags, private/deleted repositories, and historical repositories updated after the target month remain coverage gaps. Repository timestamps do not prove public availability. Explicit quantized-copy and single external-language-base derivative tags produce reversible exclusions with recorded metadata; unfamiliar publishers and ambiguous multimodal lineage remain pending."
     },
     {
       "id": "modelscope",
@@ -43,7 +47,7 @@
       "url": "https://modelscope.cn/openapi/v1/models",
       "documentation": "https://github.com/modelscope/modelscope_hub/blob/main/src/modelscope_hub/_openapi.py",
       "role": "Global recent repository changes, including releases absent from Hugging Face.",
-      "note": "The public API supports last_modified ordering and at most 3,000 results. Live probes ignored task filters, so task classification is local and untagged rows remain candidates. Older windows need owner/search partitions or manual review."
+      "note": "The public API supports last_modified ordering and a maximum page size of 50 and at most 3,000 results. Live probes ignored task filters, so task classification is local and untagged rows remain candidates. Older windows need owner/search partitions or manual review."
     },
     {
       "id": "artificialanalysis",
@@ -66,10 +70,13 @@
     {
       "id": "epoch",
       "name": "Epoch AI",
-      "adapter": "manual",
-      "url": "https://epoch.ai/data/ai-models",
-      "role": "Historical notable-model inventory and date cross-check.",
-      "note": "Manual historical sentinel: review the official downloadable data and its source links. This selective dataset is not a census of small releases. No automatic adapter is claimed."
+      "adapter": "epoch",
+      "url": "https://epoch.ai/data/all_ai_models.csv",
+      "role": "Public historical AI-model inventory with source links, lineage and accessibility leads.",
+      "note": "The adapter parses the full public CSV and selects language/domain/task leads in publication or update windows. Publication dates, access and base-model fields are catalog claims, not primary release verification. The curated data is not a census of small models. Attribute Epoch AI under CC BY 4.0.",
+      "documentation": "https://epoch.ai/data/ai-models",
+      "license": "CC-BY-4.0",
+      "attribution": "Epoch AI, Data on AI Models"
     },
     {
       "id": "google-feed",
@@ -127,7 +134,13 @@
     },
     {
       "name": "Qwen",
-      "url": "https://qwenlm.github.io/blog/"
+      "url": "https://qwen.ai/blog",
+      "archive_urls": [
+        "https://qwen.ai/api/v2/article/retrieval?type=qwen_ai&language=en-US",
+        "https://qwen.ai/api/page_config?code=research.research-list",
+        "https://github.com/QwenLM/qwenlm.github.io"
+      ],
+      "note": "The legacy qwenlm.github.io index is incomplete after September2025; check current publisher articles and the legacy archive."
     },
     {
       "name": "DeepSeek",

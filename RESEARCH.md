@@ -20,11 +20,13 @@ npm run discover -- --review CANDIDATE_ID --status pending --reason "First exter
 
 Check the original announcement, official model card, weight repository, API changelog or technical report. Verify identity, first availability, trained variants, total and active parameters, license, modalities and context. Keep unsupported values null; never infer closed-model sizes.
 
-An official announcement is enough to list a model: record `announcement_date`, `availability: "announced"` and a null `release_date` until external access is verified. Use `limited` for restricted external access and `public` for general availability. Keep one canonical ID through these stages. `release_date` means first verified external availability; preserve month precision when the day is unresolved. Missing sizes or dates must not hide a verified model.
+An official announcement is enough to list a model: record `announcement_date`, `availability: "announced"` and a null `release_date` until external access is verified. Use `limited` after restricted external access and `public` after general availability. This records the release stage reached; it does not assert that a historical service still runs. Keep one canonical ID through these stages. `release_date` means first verified external availability; preserve month precision when the day is unresolved. Missing sizes or dates must not hide a verified model.
 
 Keep an announced or limited model's availability follow-up pending in the queue, linked to its published `model_id`, until the relevant rollout is resolved.
 
 Check official documentation and weight repositories before setting `open_weights`. It is true for an available downloadable checkpoint or explicitly documented equivalent; otherwise false at review time. Open weights does not imply an unrestricted license. A hosted revision does not inherit its base model's weight availability.
+
+Track original publishers' models and their own trained variants. Exclude third-party fine-tunes, merges and distillations initialized from another publisher's pretrained language model; independently pretrained models remain eligible. This rule applies equally to companies and individual authors.
 
 Add models to `data/historical.json`; use `data/corrections.json` for overrides, aliases and exclusions. Include primary URLs and concise evidence notes. Count independently trained sizes, base/instruct variants and released revisions separately. Merge documented aliases; exclude mirrors, quantizations, intermediate training checkpoints and serving/reasoning tiers of the same model.
 

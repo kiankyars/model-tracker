@@ -199,7 +199,7 @@ function detailRow(model, id) {
   addDetail(list, 'Model ID', model.id);
   addDetail(list, 'Family', model.family || 'Not specified');
   addDetail(list, 'Developer', model.developer);
-  addDetail(list, 'Availability', availabilityLabel(model));
+  addDetail(list, 'Release status', availabilityLabel(model));
   if (model.announcement_date) addDetail(list, 'Announced', dateLabel(model.announcement_date));
   addDetail(list, 'First external availability', model.availability === 'announced' ? 'No external access verified' : dateLabel(model.release_date, model.date_precision));
   addDetail(list, 'Type', isMultimodal(model) ? 'Multimodal' : 'Text');
@@ -231,12 +231,7 @@ function detailRow(model, id) {
   }
   if (seen.size) cell.append(sources);
   if (model.aliases?.length) cell.append(element('p', 'detail-note', `Also indexed as: ${model.aliases.join(', ')}`));
-  const notes = [];
-  if (model.parameters_source === 'model_name') notes.push('Parameter count is the nominal size published in the model name; it may be rounded.');
-  if (!hasReportedSize(model)) notes.push('Parameter count is not recorded in this catalog.');
-  if (model.open_weights === true) notes.push('Weights are available; usage rights depend on the model license.');
-  if (model.upstream_present === false || model.in_current_source === false) notes.push('Retained from an earlier catalog snapshot or historical supplement.');
-  if (notes.length) cell.append(element('p', 'detail-note', notes.join(' ')));
+  if (model.parameters_source === 'model_name') cell.append(element('p', 'detail-note', 'Parameter count comes from the model name and may be rounded.'));
   row.append(cell);
   return row;
 }
@@ -411,7 +406,7 @@ $('coverage').addEventListener('toggle', async () => {
     table.append(caption, head, body);
     $('coverage-table').replaceChildren(table);
     $('coverage-table').hidden = !coverage.months.length;
-    $('coverage-status').textContent = coverage.months.length ? 'Reviewed means the listed source checks are complete, not that every release has been found. Pending candidates have not yet been verified.' : 'Historical source review has not been recorded yet.';
+    $('coverage-status').textContent = coverage.months.length ? 'Source reviews do not establish complete coverage. Pending entries include unverified aliases and repository leads, not confirmed missing models.' : 'Historical source review has not been recorded yet.';
     coverageLoaded = true;
   } catch {
     $('coverage-status').textContent = 'Audit coverage could not be loaded. Reopen Coverage to retry, or use the audit data link.';

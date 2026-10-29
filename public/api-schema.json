@@ -68,7 +68,7 @@
         "null"
       ],
       "pattern": "^\\d{4}-\\d{2}(-\\d{2})?$",
-      "description": "First verified external availability, including limited access; not the announcement date. Null when not released or when the date is unknown. ISO day or month; preserve date_precision."
+      "description": "First verified external availability, including limited access; not the announcement date. Null when external access is not verified or when its first date is unknown. ISO day or month; preserve date_precision."
     },
     "date_precision": {
       "enum": [
@@ -279,8 +279,35 @@
         "public",
         null
       ],
-      "description": "Latest verified availability: announced with no external access verified; limited for restricted external access; public for generally available access. Omitted or null means not reviewed, never inferred public. Public access does not imply open weights."
+      "description": "Verified release stage: announced with no external access verified; limited after restricted access; public after general access. This records the stage reached, not current service availability; models may later be retired. Omitted or null means not reviewed. Public release does not imply open weights."
     }
   },
-  "additionalProperties": true
+  "additionalProperties": true,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "availability": {
+            "const": "announced"
+          }
+        },
+        "required": [
+          "availability"
+        ]
+      },
+      "then": {
+        "required": [
+          "announcement_date"
+        ],
+        "properties": {
+          "announcement_date": {
+            "type": "string"
+          },
+          "release_date": {
+            "type": "null"
+          }
+        }
+      }
+    }
+  ]
 }
