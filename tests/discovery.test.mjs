@@ -160,6 +160,21 @@ test('ModelScope public result cap is explicitly incomplete, not a resumable imp
   assert.equal(result.cursor, null);
 });
 
+test('ModelScope retains translation and speech-tagged language-model leads for review', async () => {
+  const tasks = ['translation', 'audio-to-audio', 'text-to-speech', 'image-classification'];
+  const [result] = await collectModelScope(source('modelscope'), {
+    ...options, pageSize: 50,
+    fetcher: async () => response({ success: true, data: {
+      page_number: 1, page_size: 50, total_count: tasks.length,
+      models: tasks.map(task => ({ id: `lab/${task}`, tasks: [task], last_modified: now })),
+    } }),
+  });
+  assert.equal(result.status, 'complete');
+  assert.deepEqual(result.observations.map(item => item.key), tasks.slice(0, 3).map(task => `lab/${task}`));
+  const queue = mergeCandidates(empty(), result.observations, [], now);
+  assert.ok(queue.candidates.every(candidate => candidate.status === 'pending'));
+});
+
 test('RSS requires a valid feed and keeps first-party article evidence distinct from a release', () => {
   const [item] = parseFeed('<rss><channel><item><title><![CDATA[New A &amp; B]]></title><link>https://example.com/new</link><pubDate>Thu, 29 Oct 2026 08:00:00 GMT</pubDate></item></channel></rss>', 'publisher');
   assert.equal(item.kind, 'article');

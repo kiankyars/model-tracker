@@ -1,6 +1,6 @@
 const DAY = 86_400_000;
 export const QUEUE_STATUSES = new Set(['pending', 'tracked', 'duplicate', 'excluded']);
-const TEXT_TASKS = new Set(['text-generation', 'text2text-generation', 'image-text-to-text', 'any-to-any', 'multimodal-dialogue', 'audio-text-to-text', 'video-text-to-text', 'image-to-text', 'visual-question-answering']);
+const TEXT_TASKS = new Set(['text-generation', 'text2text-generation', 'image-text-to-text', 'any-to-any', 'multimodal-dialogue', 'audio-text-to-text', 'audio-to-audio', 'text-to-speech', 'translation', 'video-text-to-text', 'image-to-text', 'visual-question-answering']);
 
 export function isoDate(value) {
   if (value === null || value === undefined || value === '') return null;
