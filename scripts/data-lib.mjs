@@ -244,7 +244,8 @@ export function validateModels(models, asOf = '9999-12-31') {
       if (model.active_parameters_by_phase_b && phaseCount === undefined && !Object.hasOwn(model.parameter_components_b || {}, model.active_parameters_scope)) throw new Error(`Unknown active parameter scope: ${model.id}`);
     }
     if (![true, false, null].includes(model.open_weights)) throw new Error(`Invalid openness: ${model.id}`);
-    if (!Array.isArray(model.modalities?.input) || !Array.isArray(model.modalities?.output) || !model.modalities.output.includes('text')) throw new Error(`Not a language model: ${model.id}`);
+    const spokenLanguage = model.source_type === 'primary' && model.modalities?.input?.includes('audio') && model.modalities?.output?.includes('audio');
+    if (!Array.isArray(model.modalities?.input) || !Array.isArray(model.modalities?.output) || !(model.modalities.output.includes('text') || spokenLanguage)) throw new Error(`Not a language model: ${model.id}`);
     for (const url of [model.source_url, ...model.sources.map(source => source.url)]) {
       if (!/^https:\/\//.test(url)) throw new Error(`Unsafe source URL: ${model.id}`);
     }

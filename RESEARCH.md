@@ -28,6 +28,8 @@ Check official documentation and weight repositories before setting `open_weight
 
 Include company and institutional lab releases, including continued pretraining, fine-tuning, distillation and trained variants of another publisher's model. Preserve independently pretrained research releases. Exclude community derivatives. Verify the publishing organization from primary sources; a Hugging Face organization or an external-base tag alone does not establish company or community status. Keep uncertain cases pending.
 
+Include speech-native conversational language models when primary sources verify generative dialogue, even without text input or output. Review them manually; dedicated synthesis, transcription, voice conversion and audio classification remain outside scope.
+
 Add models to `data/historical.json`; use `data/corrections.json` for overrides, aliases and exclusions. Include primary URLs and concise evidence notes. Count independently trained sizes, base/instruct variants and released revisions separately. Merge documented aliases; exclude mirrors, quantizations, intermediate training checkpoints and serving/reasoning tiers of the same model.
 
 ## Historical coverage

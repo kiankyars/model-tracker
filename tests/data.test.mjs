@@ -37,6 +37,16 @@ test('catalog scope excludes embeddings and image-generation models', () => {
   assert.equal(eligibleModel({ ...upstream(), modalities: { input: ['text'], output: ['image'] } }), false);
 });
 
+test('curated spoken-language models retain audio-only modalities without importing speech utilities', () => {
+  const audio = { ...upstream(), modalities: { input: ['audio'], output: ['audio'] } };
+  const speech = { ...normalize('lab/dialogue', audio, at), source_type: 'primary', source_url: 'https://example.org/dialogue', sources: [{ url: 'https://example.org/dialogue' }] };
+  const result = mergeCatalog({ upstream: { 'lab/tts': { ...audio, type: 'speech' } }, historical: [speech], retrievedAt: at, asOf: '2026-10-26' });
+  assert.deepEqual(result.models.map(model => model.id), ['lab/dialogue']);
+  assert.deepEqual(result.models[0].modalities, { input: ['audio'], output: ['audio'] });
+  assert.throws(() => validateModels([{ ...speech, modalities: { input: ['text'], output: ['audio'] } }]), /Not a language model/);
+  assert.throws(() => validateModels([{ ...speech, modalities: { input: ['audio'], output: ['image'] } }]), /Not a language model/);
+});
+
 test('refresh retains removed records and first-seen dates; future releases are not counted', () => {
   const previous = [normalize('lab/old', upstream(), '2026-01-01T00:00:00.000Z'), normalize('lab/current', upstream(), '2026-01-01T00:00:00.000Z')];
   const result = mergeCatalog({ upstream: { 'lab/current': upstream(), 'lab/future': { ...upstream(), release_date: '2027-01-01' } }, previous, retrievedAt: at, asOf: '2026-10-26' });
