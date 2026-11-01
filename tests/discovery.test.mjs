@@ -262,6 +262,21 @@ test('report replay preserves queue IDs, field questions, deadlines and duplicat
   assert.doesNotThrow(() => mergeCandidates(queue, [], catalog, now));
 });
 
+test('report replay reopens closed decisions whose canonical model is missing', () => {
+  const reports = [{ research_date: '2026-10-28', excluded_candidates: [
+    { id: 'research:copy', model_id: 'removed/model', status: 'duplicate', reason: 'Same trained checkpoint.' },
+    { id: 'research:original', model_id: 'removed/model', status: 'tracked', reason: 'Verified original checkpoint.' },
+  ] }];
+  const seeded = seedFromReports(empty(), reports, [], now);
+  assert.ok(seeded.candidates.every(item => item.model_id === 'removed/model'));
+  const queue = mergeCandidates(seeded, [], [], now);
+  for (const item of queue.candidates) {
+    assert.equal(item.status, 'pending');
+    assert.equal(item.next_check, now);
+    assert.match(item.reason, /catalog identity is absent/);
+  }
+});
+
 test('Hugging Face registry includes encoder-decoder text generation', async () => {
   const { readFile } = await import('node:fs/promises');
   const registry = JSON.parse(await readFile(new URL('../research/sources.json', import.meta.url), 'utf8'));

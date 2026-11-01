@@ -504,7 +504,7 @@ export function seedFromReports(queue, reports, catalog, now) {
         if (!reason?.trim()) throw new Error(`Research report contains no review reason: ${id}`);
         const urls = [...new Set([...(previous?.sources || []).map(source => source.url), ...(lead.sources || []).map(source => typeof source === 'string' ? source : source.url), lead.source_url, ...(model?.sources || []).map(source => source.url)].filter(Boolean))];
         items.set(id, {
-          id, name, kind: 'model', status: disposition, model_id: model?.id || previous?.model_id || null,
+          id, name, kind: 'model', status: disposition, model_id: model?.id || lead.model_id || previous?.model_id || null,
           reason, first_seen: previous?.first_seen || reviewed,
           last_seen: reviewed, last_reviewed: reviewed, next_check: disposition === 'pending' ? isoDate(lead.next_check) || now : null,
           sources: urls.map(url => ({ source_id: 'manual-research', key: url, url, first_seen: previous?.sources?.find(source => source.url === url)?.first_seen || reviewed, last_seen: reviewed, source_date: null, date_kind: null })),
