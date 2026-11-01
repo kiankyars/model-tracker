@@ -492,17 +492,21 @@ export function seedFromReports(queue, reports, catalog, now) {
     const reviewed = isoDate(report.completed_at || report.research_date) || now;
     for (const [field, status] of [['unresolved_candidates', 'pending'], ['excluded_candidates', 'excluded']]) {
       for (const lead of report[field] || []) {
-        const model = models.get(lead.id);
+        const key = lead.id?.replace(/^research:/, '');
+        const model = models.get(lead.model_id || key);
         const name = lead.candidate || lead.name || model?.name || lead.id;
         if (!name) throw new Error('Research report contains an unnamed candidate');
-        const id = `research:${lead.id || name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`;
+        const id = `research:${key || name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`;
         const previous = items.get(id);
         if (previous?.last_reviewed && previous.last_reviewed >= reviewed) continue;
-        const urls = [...new Set([...(previous?.sources || []).map(source => source.url), ...(lead.sources || []).map(source => typeof source === 'string' ? source : source.url), ...(model?.sources || []).map(source => source.url)].filter(Boolean))];
+        const disposition = QUEUE_STATUSES.has(lead.status) ? lead.status : status;
+        const reason = lead.uncertainty || lead.reason || lead.question;
+        if (!reason?.trim()) throw new Error(`Research report contains no review reason: ${id}`);
+        const urls = [...new Set([...(previous?.sources || []).map(source => source.url), ...(lead.sources || []).map(source => typeof source === 'string' ? source : source.url), lead.source_url, ...(model?.sources || []).map(source => source.url)].filter(Boolean))];
         items.set(id, {
-          id, name, kind: 'model', status, model_id: model?.id || previous?.model_id || null,
-          reason: lead.uncertainty || lead.reason, first_seen: previous?.first_seen || reviewed,
-          last_seen: reviewed, last_reviewed: reviewed, next_check: status === 'pending' ? now : null,
+          id, name, kind: 'model', status: disposition, model_id: model?.id || previous?.model_id || null,
+          reason, first_seen: previous?.first_seen || reviewed,
+          last_seen: reviewed, last_reviewed: reviewed, next_check: disposition === 'pending' ? isoDate(lead.next_check) || now : null,
           sources: urls.map(url => ({ source_id: 'manual-research', key: url, url, first_seen: previous?.sources?.find(source => source.url === url)?.first_seen || reviewed, last_seen: reviewed, source_date: null, date_kind: null })),
         });
       }

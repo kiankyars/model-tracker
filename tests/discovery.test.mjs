@@ -246,6 +246,22 @@ test('all old reports seed unresolved leads; later explicit decisions win and an
   assert.equal(queue.candidates.find(item => item.id === 'research:lab/model').status, 'tracked');
 });
 
+test('report replay preserves queue IDs, field questions, deadlines and duplicate identities', () => {
+  const catalog = [{ id: 'lab/model', name: 'Model', sources: [] }];
+  const reports = [{ research_date: '2026-10-28',
+    unresolved_candidates: [{ id: 'research:model-date', model_id: 'lab/model', question: 'Verify the first access day.', next_check: '2026-11-07', sources: ['https://example.com/model'] }],
+    excluded_candidates: [{ id: 'research:quantization', model_id: 'lab/model', status: 'duplicate', reason: 'Same trained checkpoint.' }],
+  }];
+  const queue = seedFromReports(empty(), reports, catalog, now);
+  const pending = queue.candidates.find(item => item.id === 'research:model-date');
+  assert.equal(pending.model_id, 'lab/model');
+  assert.equal(pending.reason, 'Verify the first access day.');
+  assert.equal(pending.next_check, '2026-11-07T00:00:00.000Z');
+  assert.equal(queue.candidates.find(item => item.id === 'research:quantization').status, 'duplicate');
+  assert.deepEqual(seedFromReports(queue, reports, catalog, now), queue);
+  assert.doesNotThrow(() => mergeCandidates(queue, [], catalog, now));
+});
+
 test('Hugging Face registry includes encoder-decoder text generation', async () => {
   const { readFile } = await import('node:fs/promises');
   const registry = JSON.parse(await readFile(new URL('../research/sources.json', import.meta.url), 'utf8'));
