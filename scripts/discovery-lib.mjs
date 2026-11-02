@@ -490,8 +490,12 @@ export function seedFromReports(queue, reports, catalog, now) {
   const models = new Map(catalog.map(model => [model.id, model]));
   for (const report of [...reports].sort((a, b) => (a.research_date || '').localeCompare(b.research_date || ''))) {
     const reviewed = isoDate(report.completed_at || report.research_date) || now;
-    for (const [field, status] of [['unresolved_candidates', 'pending'], ['excluded_candidates', 'excluded']]) {
+    for (const [field, status] of [['candidate_dispositions', null], ['unresolved_candidates', 'pending'], ['excluded_candidates', 'excluded']]) {
       for (const lead of report[field] || []) {
+        if (field === 'candidate_dispositions') {
+          if (!lead.id?.startsWith('research:')) continue;
+          if (!QUEUE_STATUSES.has(lead.status)) throw new Error(`Invalid research disposition: ${lead.id}`);
+        }
         const key = lead.id?.replace(/^research:/, '');
         const model = models.get(lead.model_id || key);
         const name = lead.candidate || lead.name || model?.name || lead.id;

@@ -277,6 +277,35 @@ test('report replay reopens closed decisions whose canonical model is missing', 
   }
 });
 
+test('report dispositions close family and date questions without wrapping collector IDs or overriding newer reviews', () => {
+  const catalog = [{ id: 'lab/model', name: 'Model', sources: [] }];
+  const reports = [
+    { research_date: '2026-10-27', unresolved_candidates: [
+      { id: 'research:lab/family', question: 'Check remaining family releases.', next_check: '2026-11-01' },
+      { id: 'research:lab/model-date', model_id: 'lab/model', question: 'Verify first availability.', next_check: '2026-11-01' },
+    ] },
+    { research_date: '2026-10-28', candidate_dispositions: [
+      { id: 'research:lab/family', status: 'tracked', model_id: 'lab/model', reason: 'Verified the family releases.' },
+      { id: 'research:lab/model-date', status: 'tracked', model_id: 'lab/model', reason: 'Verified the dated release.' },
+      { id: 'huggingface:community/copy', status: 'excluded', reason: 'Quantized copy.' },
+    ] },
+  ];
+  const queue = seedFromReports(empty(), reports, catalog, now);
+  assert.deepEqual(queue.candidates.map(item => item.id), ['research:lab/family', 'research:lab/model-date']);
+  for (const item of queue.candidates) {
+    assert.equal(item.status, 'tracked');
+    assert.equal(item.model_id, 'lab/model');
+    assert.equal(item.next_check, null);
+  }
+  assert.deepEqual(seedFromReports(queue, reports, catalog, now), queue);
+  assert.deepEqual(mergeCandidates(queue, [], catalog, now).candidates, queue.candidates);
+  reviewCandidate(queue, 'research:lab/model-date', {
+    status: 'pending', model_id: 'lab/model', reason: 'New primary evidence conflicts with the date.',
+    reviewed_at: now, next_check: '2026-11-02',
+  });
+  assert.deepEqual(seedFromReports(queue, reports, catalog, now), queue);
+});
+
 test('Hugging Face registry includes encoder-decoder text generation', async () => {
   const { readFile } = await import('node:fs/promises');
   const registry = JSON.parse(await readFile(new URL('../research/sources.json', import.meta.url), 'utf8'));
