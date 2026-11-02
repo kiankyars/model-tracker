@@ -146,8 +146,11 @@ export function mergeCatalog({ upstream, previous = [], historical = [], correct
     if (!map.has(id)) throw new Error(`Correction targets missing model: ${id}`);
     const model = map.get(id);
     if (timestamps.review && confirmedRelease(fields)) reviewedIds.add(id);
-    const { remove_source_urls = [], ...values } = fields;
-    map.set(id, { ...model, ...values, sources: [...(fields.sources || []), ...model.sources].filter(source => !remove_source_urls.includes(source.url)) });
+    const { remove_source_urls = [], remove_fields = [], ...values } = fields;
+    if (!Array.isArray(remove_fields) || remove_fields.some(key => typeof key !== 'string' || !/^[a-z][a-z0-9_]*$/.test(key) || Object.hasOwn(values, key))) throw new Error(`Invalid correction field removal: ${id}`);
+    const corrected = { ...model, ...values, sources: [...(fields.sources || []), ...model.sources].filter(source => !remove_source_urls.includes(source.url)) };
+    for (const key of remove_fields) delete corrected[key];
+    map.set(id, corrected);
   }
   for (const [alias, target] of Object.entries(corrections.aliases || {})) {
     if (Object.hasOwn(corrections.aliases, target)) throw new Error(`Alias chains must be flattened: ${alias}`);

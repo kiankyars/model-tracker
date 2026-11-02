@@ -135,6 +135,21 @@ test('an incorrect weights link stays removed after upstream refresh', () => {
   assert.ok(refreshed.models[0].sources.length);
 });
 
+test('a complete parameter count removes stale component scope across regeneration', () => {
+  const historical = [{ ...normalize('lab/model', upstream(), at), parameters_b: 3, parameters_scope: 'language', parameter_components_b: { language: 3, vision: 0.3 } }];
+  const options = { upstream: {}, historical, corrections: { overrides: { 'lab/model': { parameters_b: 3.3, remove_fields: ['parameters_scope'] } } }, retrievedAt: at };
+  const first = mergeCatalog(options);
+  const regenerated = mergeCatalog({ ...options, previous: first.models });
+  assert.deepEqual(regenerated.models, first.models);
+  assert.equal(regenerated.models[0].parameters_b, 3.3);
+  assert.equal(Object.hasOwn(regenerated.models[0], 'parameters_scope'), false);
+  assert.equal(Object.hasOwn(regenerated.models[0], 'remove_fields'), false);
+  assert.deepEqual(regenerated.models[0].parameter_components_b, { language: 3, vision: 0.3 });
+  for (const removal of ['parameters_scope', [null], ['parameters_b']]) {
+    assert.throws(() => mergeCatalog({ ...options, corrections: { overrides: { 'lab/model': { parameters_b: 3.3, remove_fields: removal } } } }), /Invalid correction field removal/);
+  }
+});
+
 test('corrections and exclusions survive refresh and offline regeneration is idempotent', () => {
   const options = {
     upstream: { 'lab/model': upstream(), 'lab/alias': upstream(), 'lab/model-latest': upstream() },
