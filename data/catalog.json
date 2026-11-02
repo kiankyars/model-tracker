@@ -613,9 +613,9 @@
     "date_precision": "day",
     "open_weights": true,
     "license": "MIT",
-    "parameters_b": 3,
+    "parameters_b": 3.34397824,
     "active_parameters_b": null,
-    "parameters_source": "primary_source",
+    "parameters_source": "checkpoint_metadata",
     "architecture": "moe",
     "context_window": 131072,
     "modalities": {
@@ -656,16 +656,31 @@
         "label": "Public checkpoint inventory",
         "url": "https://huggingface.co/api/models/baidu/Unlimited-OCR-2/revision/5632329a32e103d5f1add270681e0f5c1233c6e4",
         "type": "primary"
+      },
+      {
+        "label": "Current official card",
+        "url": "https://huggingface.co/baidu/Unlimited-OCR-2/blob/0480966938291445591f69f08a13b041c073a96a/README.md",
+        "type": "model_card"
+      },
+      {
+        "label": "Current released configuration",
+        "url": "https://huggingface.co/baidu/Unlimited-OCR-2/blob/0480966938291445591f69f08a13b041c073a96a/config.json",
+        "type": "config"
+      },
+      {
+        "label": "Full checkpoint tensor headers",
+        "url": "https://huggingface.co/baidu/Unlimited-OCR-2/tree/0480966938291445591f69f08a13b041c073a96a",
+        "type": "weights"
       }
     ],
     "aliases": [],
     "first_seen": "2026-10-29T08:32:56.967Z",
     "last_seen": "2026-10-29T08:32:56.967Z",
     "upstream_present": false,
-    "notes": "Baidu’s dated release notes establish October 27, independently of repository creation. The nominal 3B figure is scoped to the language decoder in technical-report Figure 3 and is not the complete multimodal model size. The report prose gives 500M activated parameters, while Figure 3 labels the decoder A570M; the active count remains unset because the discrepancy is unexplained. Released config sets 131072 positions; unlimited-horizon parsing uses bounded sliding/reference windows, not an infinite token context.",
-    "parameters_scope": "language_backbone",
+    "notes": "Baidu’s dated release notes establish October 27, independently of repository creation. Complete released BF16 headers total 3.34397824B learned parameters: 2.94260608B language backbone and 0.40137216B vision encoders, projector and image separators. Excludes the 257-element integer position_ids buffer. This replaces the nominal decoder-only 3B figure with the full multimodal checkpoint count. The report gives 500M active parameters in prose and labels the decoder A570M in Figure 3; active count remains null because the discrepancy is unexplained. Released config sets 131072 positions; unlimited-horizon parsing uses bounded sliding/reference windows.",
     "parameter_components_b": {
-      "language_backbone": 3
+      "language_backbone": 2.94260608,
+      "vision_and_projector": 0.40137216
     }
   },
   {
