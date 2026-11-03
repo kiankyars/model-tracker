@@ -377,6 +377,10 @@ export function metadataDisposition(observation) {
   return null;
 }
 
+function hasPendingManualReview(entry) {
+  return entry.status === 'pending' && entry.last_reviewed && entry.review_method !== 'publisher_metadata';
+}
+
 export function reconcileCatalogCandidates(queue, catalog, corrections, now) {
   const result = structuredClone(queue);
   const index = catalogIndex(catalog);
@@ -406,6 +410,7 @@ export function reconcileCatalogCandidates(queue, catalog, corrections, now) {
       continue;
     }
     if (entry.status !== 'pending' && entry.review_method !== 'publisher_metadata') continue;
+    if (hasPendingManualReview(entry)) continue;
     const matches = new Set((entry.sources || []).map(source => matchCatalog({ canonical_id: source.key, url: source.url, identity_urls: source.identity_urls }, index)).filter(Boolean));
     if (matches.size === 1) {
       Object.assign(entry, { status: 'tracked', model_id: [...matches][0], reason: 'Exact catalog ID, curated alias or primary weight-repository match.', last_reviewed: now, next_check: null });
@@ -443,7 +448,7 @@ export function mergeCandidates(queue, observations, catalog, now, corrections =
     if (entry.status === 'tracked' && changed) {
       entry.status = 'pending'; entry.reason = 'Source metadata changed; review the existing model for corrections.'; entry.next_check = now;
     }
-    if (entry.status === 'pending' && modelId && !entry.model_id) {
+    if (entry.status === 'pending' && modelId && !entry.model_id && !hasPendingManualReview(entry)) {
       entry.status = 'tracked'; entry.model_id = modelId; entry.reason = 'Exact catalog ID or weight-repository match.'; entry.next_check = null;
     }
     if (!entry.model_id && (!entry.last_reviewed || entry.review_method === 'publisher_metadata')) {
@@ -497,22 +502,32 @@ export function seedFromReports(queue, reports, catalog, now) {
           if (!QUEUE_STATUSES.has(lead.status)) throw new Error(`Invalid research disposition: ${lead.id}`);
         }
         const key = lead.id?.replace(/^research:/, '');
-        const model = models.get(lead.model_id || key);
+        const model = models.get(Object.hasOwn(lead, 'model_id') ? lead.model_id : key);
         const name = lead.candidate || lead.name || model?.name || lead.id;
         if (!name) throw new Error('Research report contains an unnamed candidate');
-        const id = `research:${key || name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`;
+        const id = /^[a-z][a-z0-9_-]*:/i.test(lead.id || '') ? lead.id
+          : `research:${key || name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`;
         const previous = items.get(id);
         if (previous?.last_reviewed && previous.last_reviewed >= reviewed) continue;
         const disposition = QUEUE_STATUSES.has(lead.status) ? lead.status : status;
         const reason = lead.uncertainty || lead.reason || lead.question;
         if (!reason?.trim()) throw new Error(`Research report contains no review reason: ${id}`);
         const urls = [...new Set([...(previous?.sources || []).map(source => source.url), ...(lead.sources || []).map(source => typeof source === 'string' ? source : source.url), lead.source_url, ...(model?.sources || []).map(source => source.url)].filter(Boolean))];
-        items.set(id, {
-          id, name, kind: 'model', status: disposition, model_id: model?.id || lead.model_id || previous?.model_id || null,
+        const sources = structuredClone(previous?.sources || []);
+        const knownUrls = new Set(sources.map(source => source.url));
+        for (const url of urls) {
+          if (!knownUrls.has(url)) sources.push({ source_id: 'manual-research', key: url, url, first_seen: reviewed, last_seen: reviewed, source_date: null, date_kind: null });
+        }
+        const entry = {
+          ...previous, id, name, kind: previous?.kind || 'model', status: disposition,
+          model_id: model?.id || (Object.hasOwn(lead, 'model_id') ? lead.model_id : previous?.model_id) || null,
           reason, first_seen: previous?.first_seen || reviewed,
-          last_seen: reviewed, last_reviewed: reviewed, next_check: disposition === 'pending' ? isoDate(lead.next_check) || now : null,
-          sources: urls.map(url => ({ source_id: 'manual-research', key: url, url, first_seen: previous?.sources?.find(source => source.url === url)?.first_seen || reviewed, last_seen: reviewed, source_date: null, date_kind: null })),
-        });
+          last_seen: previous?.last_seen > reviewed ? previous.last_seen : reviewed,
+          last_reviewed: reviewed, next_check: disposition === 'pending' ? isoDate(lead.next_check) || now : null,
+          sources,
+        };
+        delete entry.review_method;
+        items.set(id, entry);
       }
     }
   }

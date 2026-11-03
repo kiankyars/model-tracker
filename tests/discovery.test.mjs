@@ -262,6 +262,82 @@ test('report replay preserves queue IDs, field questions, deadlines and duplicat
   assert.doesNotThrow(() => mergeCandidates(queue, [], catalog, now));
 });
 
+test('unresolved report replay retains collector IDs without creating research copies', () => {
+  const catalog = [{ id: 'lab/model', name: 'Model', sources: [] }];
+  const ids = ['huggingface:Lab/Model-BF16', 'modelscope:Lab/Model-Q4_K_M', 'epoch:Lab/Model'];
+  const reports = [{ research_date: '2026-10-28', unresolved_candidates: ids.map(id => ({
+    id, model_id: 'lab/model', question: 'Verify whether these weights are a trained revision.',
+    next_check: '2026-11-07', sources: ['https://example.com/model'],
+  })) }];
+  for (const initial of [empty(), { ...empty(), candidates: ids.map(id => ({
+    id, name: 'Model', status: 'pending', model_id: null, reason: 'Awaiting review.',
+    first_seen: old, last_reviewed: null, sources: [],
+  })) }]) {
+    const queue = seedFromReports(initial, reports, catalog, now);
+    assert.deepEqual(queue.candidates.map(item => item.id), ids);
+    for (const item of queue.candidates) {
+      assert.equal(item.model_id, 'lab/model');
+      assert.equal(item.next_check, '2026-11-07T00:00:00.000Z');
+    }
+    assert.deepEqual(seedFromReports(queue, reports, catalog, now), queue);
+    assert.deepEqual(mergeCandidates(queue, [], catalog, now).candidates.map(item => item.id).sort(), [...ids].sort());
+  }
+});
+
+test('manual identity questions survive matching citations and fresh observations until explicitly resolved', () => {
+  const catalog = [{ id: 'lab/model', name: 'Model', source_url: 'https://huggingface.co/Lab/Model', sources: [] }];
+  const reason = 'Determine whether the hosted model is a separately trained revision.';
+  const reports = [
+    { research_date: '2026-10-27', candidate_dispositions: [{
+      id: 'research:hosted-model', status: 'tracked', model_id: 'lab/model', reason: 'Previously considered an alias.',
+    }] },
+    { research_date: '2026-10-28', unresolved_candidates: [{
+      id: 'research:hosted-model', model_id: null, question: reason,
+      next_check: '2026-11-07', sources: ['https://huggingface.co/Lab/Model'],
+    }] },
+  ];
+  const observation = modelObservation('research', 'hosted-model', 'Hosted model', catalog[0].source_url);
+  const seeded = seedFromReports(empty(), reports, catalog, now);
+  for (const observations of [[], [observation]]) {
+    const queue = mergeCandidates(seeded, observations, catalog, now);
+    const item = queue.candidates[0];
+    assert.equal(item.status, 'pending');
+    assert.equal(item.model_id, null);
+    assert.equal(item.reason, reason);
+    assert.equal(item.next_check, '2026-11-07T00:00:00.000Z');
+    assert.deepEqual(mergeCandidates(queue, observations, catalog, now), queue);
+    reviewCandidate(queue, item.id, { status: 'tracked', model_id: 'lab/model', reason: 'Publisher confirms identical weights.', reviewed_at: now });
+    assert.equal(mergeCandidates(queue, observations, catalog, now).candidates[0].status, 'tracked');
+  }
+});
+
+test('newer report reviews preserve collector metadata and append manual evidence', () => {
+  const observation = modelObservation('huggingface', 'Lab/Model-Q4', 'Model', 'https://huggingface.co/Lab/Model-Q4', {
+    publisher: 'Lab', tasks: ['text-generation'], revision: 'original-revision',
+    source_date: old, date_kind: 'repository_updated', lineage_tags: ['base_model:quantized:Lab/Model'],
+  });
+  const original = mergeCandidates(empty(), [observation], [], old);
+  const before = original.candidates[0];
+  assert.equal(before.review_method, 'publisher_metadata');
+  const report = { research_date: '2026-10-28', unresolved_candidates: [{
+    id: before.id, model_id: null, question: 'Publisher disputes the lineage tag; verify the checkpoint.',
+    next_check: '2026-11-07', sources: [observation.url, 'https://lab.example/checkpoint-notice'],
+  }] };
+  const queue = seedFromReports(original, [report], [], now);
+  const item = queue.candidates[0];
+  assert.equal(item.id, before.id);
+  assert.equal(item.publisher, before.publisher);
+  assert.deepEqual(item.tasks, before.tasks);
+  assert.equal(item.first_seen, before.first_seen);
+  assert.equal(item.review_method, undefined);
+  assert.deepEqual(item.sources[0], before.sources[0]);
+  assert.equal(item.sources.length, 2);
+  assert.equal(item.sources[1].source_id, 'manual-research');
+  assert.equal(item.sources[1].url, 'https://lab.example/checkpoint-notice');
+  assert.equal(mergeCandidates(queue, [observation], [], now).candidates[0].status, 'pending');
+  assert.deepEqual(original.candidates[0], before);
+});
+
 test('report replay reopens closed decisions whose canonical model is missing', () => {
   const reports = [{ research_date: '2026-10-28', excluded_candidates: [
     { id: 'research:copy', model_id: 'removed/model', status: 'duplicate', reason: 'Same trained checkpoint.' },
