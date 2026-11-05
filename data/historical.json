@@ -45520,5 +45520,77 @@
     "notes": "The September 22 publisher announcement identifies a research model. The original report explicitly describes a Chinchilla-70B policy whose top layers are fine-tuned through supervised and reinforcement learning; 70B is the nominal dialogue-policy size. Auxiliary reward/value/teacher heads in the training system are not counted as deployed dialogue-policy parameters. Paid study participation and example transcripts do not establish an external product rollout. No checkpoint or external service was verified.",
     "announcement_date": "2022-09-22",
     "description": "DeepMind dialogue model trained with human feedback and web-search evidence."
+  },
+  {
+    "id": "baidu/ernie-5.5-flash-base",
+    "name": "ERNIE 5.5 Flash Base",
+    "developer": "Baidu",
+    "developer_id": "baidu",
+    "family": "ernie-5.5",
+    "release_date": "2026-11-05",
+    "date_precision": "day",
+    "availability": "public",
+    "open_weights": true,
+    "license": "ERNIE-5.5-Flash-Base-Model-License-v1.0",
+    "parameters_b": 280,
+    "active_parameters_b": 14,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "context_window": 1048576,
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "reasoning": null,
+    "tool_call": null,
+    "source_type": "primary",
+    "parameters_scope": "backbone",
+    "aliases": [
+      "baidu/ERNIE-5.5-Flash-Base",
+      "baidu/ERNIE-5.5-Flash-Base-BF16"
+    ],
+    "source_url": "https://ernie.baidu.com/release/ernie-5-5-flash-base/",
+    "description": "Base pretrained mixture-of-experts language model with hybrid compressed and latent attention.",
+    "sources": [
+      {
+        "label": "Dated weights release",
+        "url": "https://ernie.baidu.com/release/ernie-5-5-flash-base/",
+        "type": "announcement"
+      },
+      {
+        "label": "Pinned model card",
+        "url": "https://huggingface.co/baidu/ERNIE-5.5-Flash-Base-BF16/blob/dfab899dadcff8f4d08af24b75a26c6d4d2e0b09/README.md",
+        "type": "model_card"
+      },
+      {
+        "label": "Pinned model configuration",
+        "url": "https://huggingface.co/baidu/ERNIE-5.5-Flash-Base-BF16/blob/dfab899dadcff8f4d08af24b75a26c6d4d2e0b09/config.json",
+        "type": "config"
+      },
+      {
+        "label": "Complete checkpoint",
+        "url": "https://huggingface.co/baidu/ERNIE-5.5-Flash-Base-BF16/tree/dfab899dadcff8f4d08af24b75a26c6d4d2e0b09",
+        "type": "weights"
+      },
+      {
+        "label": "Model license",
+        "url": "https://huggingface.co/baidu/ERNIE-5.5-Flash-Base-BF16/blob/dfab899dadcff8f4d08af24b75a26c6d4d2e0b09/LICENSE",
+        "type": "license"
+      },
+      {
+        "label": "Publisher inference implementation",
+        "url": "https://github.com/baidu/vLLM-ERNIE/tree/34cceda13419ae3ed0e554561f01e4be0390a6b5",
+        "type": "primary"
+      }
+    ],
+    "notes": "The November 5 announcement and license explicitly date the public weights release. The publisher states 280B total backbone and 14B active parameters, excluding ECHO. All 128 BF16 shard headers contain 286,245,622,106 serialized elements; the additional exported decoder block cannot yet be reconciled with documented ECHO reuse of the final backbone layer and its nominal 0.36B overhead. Retain the published backbone count rather than equating serialized elements with unique learned parameters. The supported context is 1,048,576 tokens; 131,072 is the training context.",
+    "parameter_components_b": {
+      "backbone": 280
+    },
+    "active_parameters_scope": "backbone"
   }
 ]
