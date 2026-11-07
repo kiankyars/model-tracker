@@ -94084,9 +94084,9 @@
     "date_precision": "day",
     "open_weights": true,
     "license": "Apache-2.0",
-    "parameters_b": 11.26692864,
+    "parameters_b": 11.135332352,
     "active_parameters_b": null,
-    "parameters_source": "primary_source",
+    "parameters_source": "checkpoint_metadata",
     "architecture": "dense",
     "context_window": null,
     "modalities": {
@@ -94116,6 +94116,21 @@
         "label": "Checkpoint parameter metadata",
         "url": "https://huggingface.co/api/models/google/flan-t5-xxl",
         "type": "parameters"
+      },
+      {
+        "label": "Pinned full checkpoint tensor metadata",
+        "url": "https://huggingface.co/google/flan-t5-xxl/tree/ae7c9136adc7555eeccc78cdd960dfd60fb346ce",
+        "type": "weights"
+      },
+      {
+        "label": "Pinned untied output and shared-input configuration",
+        "url": "https://huggingface.co/google/flan-t5-xxl/blob/ae7c9136adc7555eeccc78cdd960dfd60fb346ce/config.json",
+        "type": "config"
+      },
+      {
+        "label": "T5 encoder and decoder share input embedding",
+        "url": "https://github.com/huggingface/transformers/blob/v4.27.0/src/transformers/models/t5/modeling_t5.py",
+        "type": "primary"
       }
     ],
     "aliases": [],
@@ -94123,7 +94138,7 @@
     "last_seen": "2026-10-29T09:44:55.983Z",
     "upstream_present": false,
     "availability": "public",
-    "notes": "Date follows the original T5X commit publishing the checkpoint links, before the Hugging Face conversion. Parameter count is the unique safetensors total reported for the official checkpoint."
+    "notes": "Release date follows the original T5X commit publishing the checkpoint links, before the Hugging Face conversion. The complete five-file safetensors set contains 11,266,928,640 serialized elements, including both decoder.embed_tokens.weight and shared.weight for the same 131,596,288-element embedding. The published T5 constructor shares this embedding between encoder and decoder; the separate language-output head is untied and remains counted. Deduplicating the shared input embedding gives 11,135,332,352 unique learned parameters. November 7 corrects the earlier raw serialized-element count; release date is unchanged."
   },
   {
     "id": "bigscience/bloomz",

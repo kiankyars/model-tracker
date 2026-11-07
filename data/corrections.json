@@ -41047,6 +41047,43 @@
         }
       ],
       "notes": "The August 29 repository revision provides the pretrained checkpoint download; the later paper and Transformers conversion are not used as its first release. The complete published checkpoint stores 390,164,480 tensor elements. Its documented architecture ties input embeddings and output projection, so the 43,401,216-element serialized output copy is counted once, giving 346,763,264 unique learned parameters. An independent full configuration calculation agrees."
+    },
+    "google/flan-t5-xxl": {
+      "parameters_b": 11.135332352,
+      "parameters_source": "checkpoint_metadata",
+      "sources": [
+        {
+          "label": "Release evidence",
+          "url": "https://github.com/google-research/t5x/commit/a998a4814f9f5413630cdcb5067483b9c12252c6",
+          "type": "announcement"
+        },
+        {
+          "label": "Official model card",
+          "url": "https://huggingface.co/google/flan-t5-xxl",
+          "type": "model_card"
+        },
+        {
+          "label": "Checkpoint parameter metadata",
+          "url": "https://huggingface.co/api/models/google/flan-t5-xxl",
+          "type": "parameters"
+        },
+        {
+          "label": "Pinned full checkpoint tensor metadata",
+          "url": "https://huggingface.co/google/flan-t5-xxl/tree/ae7c9136adc7555eeccc78cdd960dfd60fb346ce",
+          "type": "weights"
+        },
+        {
+          "label": "Pinned untied output and shared-input configuration",
+          "url": "https://huggingface.co/google/flan-t5-xxl/blob/ae7c9136adc7555eeccc78cdd960dfd60fb346ce/config.json",
+          "type": "config"
+        },
+        {
+          "label": "T5 encoder and decoder share input embedding",
+          "url": "https://github.com/huggingface/transformers/blob/v4.27.0/src/transformers/models/t5/modeling_t5.py",
+          "type": "primary"
+        }
+      ],
+      "notes": "Release date follows the original T5X commit publishing the checkpoint links, before the Hugging Face conversion. The complete five-file safetensors set contains 11,266,928,640 serialized elements, including both decoder.embed_tokens.weight and shared.weight for the same 131,596,288-element embedding. The published T5 constructor shares this embedding between encoder and decoder; the separate language-output head is untied and remains counted. Deduplicating the shared input embedding gives 11,135,332,352 unique learned parameters. November 7 corrects the earlier raw serialized-element count; release date is unchanged."
     }
   },
   "aliases": {
