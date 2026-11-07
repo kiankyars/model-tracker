@@ -47924,5 +47924,104 @@
       }
     ],
     "notes": "The publisher chronology states a January 2023 model release, and the contemporaneous model table/configuration explicitly supplies this trained variant. January is verified; the exact first public day is not inferred from the commit or later Hugging Face upload. Count 7,753,274,752 unique parameters across the original deployment components, including the frozen language model and vision encoder. Original released Qformer metadata includes a 512-element position-id buffer, which is excluded. The frozen EVA checkpoint has 40 blocks and a classification head, while the actual BLIP-2 constructor loads only 39 blocks without its final norm/head; those unused weights are excluded. The attached vision layer norm is included. Shared language embeddings count once. Later Hugging Face conversions add padded embeddings and/or serialized fixed zero key biases, so their raw element counts are not substituted for the original model. The COCO fine-tune updates the visual encoder and query components and uses 364-pixel images; it is distinct from the pretrained checkpoint. Model-weight license is left unresolved: original source code is BSD-3-Clause, the HF-authored card advertises MIT, and frozen backbones carry their own terms. The OPT backend documents a 2048-token position limit including image-prefix positions."
+  },
+  {
+    "id": "salesforce/blip2-flan-t5-xl-coco",
+    "name": "BLIP-2 Flan-T5 XL COCO",
+    "developer": "Salesforce",
+    "developer_id": "salesforce",
+    "family": "blip-2",
+    "release_date": "2023-01",
+    "date_precision": "month",
+    "availability": "public",
+    "open_weights": true,
+    "license": null,
+    "parameters_b": 3.94298304,
+    "active_parameters_b": null,
+    "parameters_source": "checkpoint_metadata",
+    "architecture": "dense",
+    "context_window": null,
+    "modalities": {
+      "input": [
+        "text",
+        "image"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "reasoning": null,
+    "tool_call": null,
+    "source_type": "primary",
+    "aliases": [
+      "Salesforce/blip2-flan-t5-xl-coco"
+    ],
+    "parameter_components_b": {
+      "language": 2.849757184,
+      "vision": 0.986488704,
+      "qformer": 0.105137664,
+      "query_tokens": 2.4576e-05,
+      "projection": 0.001574912
+    },
+    "source_url": "https://github.com/salesforce/LAVIS/tree/main/projects/blip2",
+    "description": "Salesforce BLIP-2 trained on COCO captioning with a frozen Flan-T5 XL language model.",
+    "sources": [
+      {
+        "label": "Original released model table",
+        "url": "https://github.com/salesforce/LAVIS/blob/bd7cac14ee664a3390b9a74de432fd492091ae67/projects/blip2/README.md",
+        "type": "release"
+      },
+      {
+        "label": "Publisher release chronology",
+        "url": "https://github.com/salesforce/LAVIS/blob/main/README.md",
+        "type": "announcement"
+      },
+      {
+        "label": "Original variant configuration",
+        "url": "https://github.com/salesforce/LAVIS/blob/bd7cac14ee664a3390b9a74de432fd492091ae67/lavis/configs/models/blip2/blip2_caption_flant5xl.yaml",
+        "type": "config"
+      },
+      {
+        "label": "Original trained variant checkpoint",
+        "url": "https://storage.googleapis.com/sfr-vision-language-research/LAVIS/models/BLIP2/blip2_caption_flant5xl.pth",
+        "type": "weights"
+      },
+      {
+        "label": "Original vision architecture and frozen checkpoint",
+        "url": "https://github.com/salesforce/LAVIS/blob/bd7cac14ee664a3390b9a74de432fd492091ae67/lavis/models/eva_vit.py",
+        "type": "primary"
+      },
+      {
+        "label": "Original language-model and projection construction",
+        "url": "https://github.com/salesforce/LAVIS/blob/bd7cac14ee664a3390b9a74de432fd492091ae67/lavis/models/blip2_models/blip2_t5.py",
+        "type": "primary"
+      },
+      {
+        "label": "Qformer buffer definition",
+        "url": "https://github.com/salesforce/LAVIS/blob/bd7cac14ee664a3390b9a74de432fd492091ae67/lavis/models/blip2_models/Qformer.py",
+        "type": "primary"
+      },
+      {
+        "label": "Complete frozen language checkpoint",
+        "url": "https://huggingface.co/google/flan-t5-xl/tree/7d6315df2c2fb742f0f5b556879d730926ca9001",
+        "type": "weights"
+      },
+      {
+        "label": "Model configuration",
+        "url": "https://huggingface.co/google/flan-t5-xl/blob/7d6315df2c2fb742f0f5b556879d730926ca9001/config.json",
+        "type": "config"
+      },
+      {
+        "label": "Official conversion model card",
+        "url": "https://huggingface.co/Salesforce/blip2-flan-t5-xl-coco/blob/c9ae253c75005208861ffa6743b245a30a69a98a/README.md",
+        "type": "model_card"
+      },
+      {
+        "label": "LAVIS repository code license",
+        "url": "https://github.com/salesforce/LAVIS/blob/bd7cac14ee664a3390b9a74de432fd492091ae67/LICENSE.txt",
+        "type": "license"
+      }
+    ],
+    "notes": "The publisher chronology states a January 2023 model release, and the contemporaneous model table/configuration explicitly supplies this trained variant. January is verified; the exact first public day is not inferred from the commit or later Hugging Face upload. Count 3,942,983,040 unique parameters across the original deployment components, including the frozen language model and vision encoder. Original released Qformer metadata includes a 512-element position-id buffer, which is excluded. The frozen EVA checkpoint has 40 blocks and a classification head, while the actual BLIP-2 constructor loads only 39 blocks without its final norm/head; those unused weights are excluded. The attached vision layer norm is included. Shared language embeddings count once. Later Hugging Face conversions add padded embeddings and/or serialized fixed zero key biases, so their raw element counts are not substituted for the original model. The COCO fine-tune updates the visual encoder and query components and uses 364-pixel images; it is distinct from the pretrained checkpoint. Model-weight license is left unresolved: original source code is BSD-3-Clause, the HF-authored card advertises MIT, and frozen backbones carry their own terms. No hard maximum text context for the combined relative-position T5 system is established by the reviewed sources."
   }
 ]
