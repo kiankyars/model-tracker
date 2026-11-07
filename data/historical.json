@@ -46012,5 +46012,66 @@
       }
     ],
     "notes": "All eight FP32 shard headers contain 8,768,019,913 elements. Excluding the one-element rate_bias buffer explicitly registered in the implementation gives 8,768,019,912 learned parameters: 4,729,023,880 in the VAE and 4,038,996,032 in the latent DiT. Input and output embeddings are untied; the decoder mask embedding is learned. The model was trained in three stages, initializing its decoder and encoder embedding from Qwen3-4B-Base. The paper announcement is dated October 22; first external checkpoint access remains undated. Context is the configuration limit, not a quality guarantee. Code is Apache-2.0, but the publisher explicitly separates model-weight terms, which were not found."
+  },
+  {
+    "id": "alibaba/mnn-pocket-0.3b",
+    "name": "MNN-Pocket-0.3B",
+    "developer": "Alibaba",
+    "developer_id": "alibaba",
+    "family": "mnn-pocket",
+    "release_date": "2026-11-04",
+    "date_precision": "day",
+    "availability": "public",
+    "open_weights": true,
+    "license": "Apache-2.0",
+    "parameters_b": 0.302830976,
+    "active_parameters_b": null,
+    "parameters_source": "checkpoint_metadata",
+    "architecture": "dense",
+    "context_window": 32768,
+    "modalities": {
+      "input": [
+        "text"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "reasoning": null,
+    "tool_call": null,
+    "source_type": "primary",
+    "source_url": "https://huggingface.co/taobao-mnn/MNN-Pocket-0.3B",
+    "aliases": [
+      "taobao-mnn/MNN-Pocket-0.3B"
+    ],
+    "description": "Instruction-tuned compact Chinese and English language model developed by Alibaba’s Taobao MNN team.",
+    "sources": [
+      {
+        "label": "Dated publisher release notice",
+        "url": "https://github.com/alibaba/MNN#news-",
+        "type": "announcement"
+      },
+      {
+        "label": "Pinned model card",
+        "url": "https://huggingface.co/taobao-mnn/MNN-Pocket-0.3B/blob/087a52fd9ff0dee9a2a0b2605172fd55d8af9e85/README.md",
+        "type": "model_card"
+      },
+      {
+        "label": "Pinned architecture and tied embeddings",
+        "url": "https://huggingface.co/taobao-mnn/MNN-Pocket-0.3B/blob/087a52fd9ff0dee9a2a0b2605172fd55d8af9e85/config.json",
+        "type": "config"
+      },
+      {
+        "label": "Complete BF16 checkpoint",
+        "url": "https://huggingface.co/taobao-mnn/MNN-Pocket-0.3B/tree/087a52fd9ff0dee9a2a0b2605172fd55d8af9e85",
+        "type": "weights"
+      },
+      {
+        "label": "Weight license",
+        "url": "https://huggingface.co/taobao-mnn/MNN-Pocket-0.3B/blob/087a52fd9ff0dee9a2a0b2605172fd55d8af9e85/LICENSE.txt",
+        "type": "license"
+      }
+    ],
+    "notes": "The complete BF16 checkpoint stores 361,551,232 elements across 311 tensors. Both the model card and configuration specify tied input/output embeddings; subtract the 58,720,256-element duplicate output head to obtain 302,830,976 unique learned parameters. The card supports 32K context; the 40,960 architectural position limit is not used. Alibaba’s release notice explicitly dates MNN-Pocket-0.3B to November 4, 2026. The final model applies SFT Loop Engine and multi-teacher on-policy distillation after SFT. Quantized deployment builds and speculative draft models are not separate catalog releases."
   }
 ]
