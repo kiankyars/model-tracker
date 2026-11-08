@@ -48293,5 +48293,89 @@
       }
     ],
     "notes": "The February 9, 2023 original paper announces a trained tool-using language model. This is the main GPT-J-based model, which the original paper labels 6.7B; that is a publisher nominal backbone figure, not a reconstructed checkpoint count. The count is scoped to the language backbone; external question-answering/search/translation services are not included. No exact publisher checkpoint, model license or first external access was verified, so release_date stays null and availability remains announced. The original paper does not establish a deployment context limit."
+  },
+  {
+    "id": "sensetime/sensenova-u1.5-8b-mot",
+    "name": "SenseNova-U1.5-8B-MoT",
+    "developer": "SenseTime",
+    "developer_id": "sensetime",
+    "family": "sensenova-u",
+    "release_date": "2026-08-20",
+    "date_precision": "day",
+    "announcement_date": "2026-08-20",
+    "availability": "public",
+    "open_weights": true,
+    "license": "Apache-2.0",
+    "parameters_b": 17.532854464,
+    "active_parameters_b": null,
+    "parameters_source": "checkpoint_metadata",
+    "parameter_components_b": {
+      "visual_generation": 8.166871744,
+      "language": 9.348413952,
+      "visual_input": 0.017568768
+    },
+    "architecture": "mixture-of-transformers",
+    "context_window": 32768,
+    "modalities": {
+      "input": [
+        "text",
+        "image"
+      ],
+      "output": [
+        "text",
+        "image"
+      ]
+    },
+    "reasoning": true,
+    "tool_call": null,
+    "source_type": "primary",
+    "source_url": "https://huggingface.co/sensenova/SenseNova-U1.5-8B-MoT",
+    "aliases": [
+      "sensenova/SenseNova-U1.5-8B-MoT"
+    ],
+    "description": "Unified text and image model with separate understanding and generation branches.",
+    "sources": [
+      {
+        "label": "Dated publisher release history",
+        "url": "https://github.com/OpenSenseNova/SenseNova-U1/blob/48bf8275478f2216d2e846f48bf7627bf56b1301/README.md",
+        "type": "announcement"
+      },
+      {
+        "label": "Exact U1.5 technical report",
+        "url": "https://arxiv.org/html/2609.11929v1",
+        "type": "paper"
+      },
+      {
+        "label": "Pinned model card",
+        "url": "https://huggingface.co/sensenova/SenseNova-U1.5-8B-MoT/blob/a2462cc1b549bace2c0896143bbbcbb3fa217c76/README.md",
+        "type": "model_card"
+      },
+      {
+        "label": "Pinned architecture configuration",
+        "url": "https://huggingface.co/sensenova/SenseNova-U1.5-8B-MoT/blob/a2462cc1b549bace2c0896143bbbcbb3fa217c76/config.json",
+        "type": "config"
+      },
+      {
+        "label": "Complete eight-shard checkpoint",
+        "url": "https://huggingface.co/sensenova/SenseNova-U1.5-8B-MoT/tree/a2462cc1b549bace2c0896143bbbcbb3fa217c76",
+        "type": "weights"
+      },
+      {
+        "label": "Native language and visual implementation",
+        "url": "https://github.com/OpenSenseNova/SenseNova-U1/blob/48bf8275478f2216d2e846f48bf7627bf56b1301/src/sensenova_u1/models/neo_unify/modeling_neo_chat.py",
+        "type": "primary"
+      },
+      {
+        "label": "Native transformer implementation",
+        "url": "https://github.com/OpenSenseNova/SenseNova-U1/blob/48bf8275478f2216d2e846f48bf7627bf56b1301/src/sensenova_u1/models/neo_unify/modeling_qwen3.py",
+        "type": "primary"
+      },
+      {
+        "label": "Apache 2.0 license",
+        "url": "https://github.com/OpenSenseNova/SenseNova-U1/blob/48bf8275478f2216d2e846f48bf7627bf56b1301/LICENSE",
+        "type": "license"
+      }
+    ],
+    "notes": "Publisher release history dates this exact final checkpoint to August 20. The U1.5 report explicitly trains autoregressive target-text generation and evaluates language instruction following, establishing language-model scope. Its 8B label describes the generation component, not the complete model. All eight BF16 shard headers contain 17,532,854,464 learned parameters across 1,116 unique tensors; embeddings and output head are untied. Registered rotary-position buffers are nonpersistent and absent from the checkpoint. Context records the 32,768-token unified training length; the larger configured position capacity is not asserted as a validated context limit."
   }
 ]
