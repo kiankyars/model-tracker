@@ -88910,6 +88910,124 @@
     "notes": "The publisher dates CodeGen2 to May 2023; exact launch day remains unresolved. The original Hugging Face endpoint now redirects to a publisher repository with the _P suffix."
   },
   {
+    "id": "salesforce/instructblip-vicuna-7b",
+    "slug": "salesforce--instructblip-vicuna-7b",
+    "name": "InstructBLIP Vicuna 7B",
+    "developer": "Salesforce",
+    "developer_id": "salesforce",
+    "family": "instructblip",
+    "description": "Salesforce visual instruction-tuned model with a frozen Vicuna 7B language backbone and instruction-aware Qformer.",
+    "release_date": "2023-05",
+    "date_precision": "month",
+    "open_weights": true,
+    "license": "Research only",
+    "parameters_b": 7.913155712,
+    "active_parameters_b": null,
+    "parameters_source": "checkpoint_metadata",
+    "architecture": "dense",
+    "context_window": 2048,
+    "modalities": {
+      "input": [
+        "text",
+        "image"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "reasoning": null,
+    "tool_call": null,
+    "source_url": "https://github.com/salesforce/LAVIS/tree/main/projects/instructblip",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Original model zoo and model-use terms",
+        "url": "https://github.com/salesforce/LAVIS/blob/05cb670f47296522e24e7727e366b4a997d28582/projects/instructblip/README.md",
+        "type": "release"
+      },
+      {
+        "label": "Publisher May2023 release chronology",
+        "url": "https://github.com/salesforce/LAVIS/blob/05cb670f47296522e24e7727e366b4a997d28582/README.md",
+        "type": "announcement"
+      },
+      {
+        "label": "Released variant configuration",
+        "url": "https://github.com/salesforce/LAVIS/blob/05cb670f47296522e24e7727e366b4a997d28582/lavis/configs/models/blip2/blip2_instruct_vicuna7b.yaml",
+        "type": "config"
+      },
+      {
+        "label": "Original trained query/projection checkpoint",
+        "url": "https://storage.googleapis.com/sfr-vision-language-research/LAVIS/models/InstructBLIP/instruct_blip_vicuna7b_trimmed.pth",
+        "type": "weights"
+      },
+      {
+        "label": "Original model construction and embedding sizes",
+        "url": "https://github.com/salesforce/LAVIS/blob/05cb670f47296522e24e7727e366b4a997d28582/lavis/models/blip2_models/blip2_vicuna_instruct.py",
+        "type": "primary"
+      },
+      {
+        "label": "Original frozen vision construction",
+        "url": "https://github.com/salesforce/LAVIS/blob/05cb670f47296522e24e7727e366b4a997d28582/lavis/models/eva_vit.py",
+        "type": "primary"
+      },
+      {
+        "label": "Complete original frozen vision checkpoint",
+        "url": "https://storage.googleapis.com/sfr-vision-language-research/LAVIS/models/BLIP2/eva_vit_g.pth",
+        "type": "weights"
+      },
+      {
+        "label": "Query-transformer buffer definition",
+        "url": "https://github.com/salesforce/LAVIS/blob/05cb670f47296522e24e7727e366b4a997d28582/lavis/models/blip2_models/Qformer.py",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned official model card",
+        "url": "https://huggingface.co/lmsys/vicuna-7b-v1.1/blob/694d39416b1744d939760f5257c4bb08b2fae400/README.md",
+        "type": "model_card"
+      },
+      {
+        "label": "Pinned model configuration",
+        "url": "https://huggingface.co/lmsys/vicuna-7b-v1.1/blob/694d39416b1744d939760f5257c4bb08b2fae400/config.json",
+        "type": "config"
+      },
+      {
+        "label": "Complete checkpoint tensor metadata",
+        "url": "https://huggingface.co/lmsys/vicuna-7b-v1.1/resolve/694d39416b1744d939760f5257c4bb08b2fae400/pytorch_model-00001-of-00002.bin",
+        "type": "weights"
+      },
+      {
+        "label": "Complete checkpoint tensor metadata",
+        "url": "https://huggingface.co/lmsys/vicuna-7b-v1.1/resolve/694d39416b1744d939760f5257c4bb08b2fae400/pytorch_model-00002-of-00002.bin",
+        "type": "weights"
+      },
+      {
+        "label": "Pinned official model card",
+        "url": "https://huggingface.co/Salesforce/instructblip-vicuna-7b/blob/19103d0c5b5263c8a7891012e08573439fb6607f/README.md",
+        "type": "model_card"
+      },
+      {
+        "label": "Pinned model configuration",
+        "url": "https://huggingface.co/Salesforce/instructblip-vicuna-7b/blob/19103d0c5b5263c8a7891012e08573439fb6607f/config.json",
+        "type": "config"
+      }
+    ],
+    "aliases": [
+      "Salesforce/instructblip-vicuna-7b"
+    ],
+    "first_seen": "2026-11-07T07:19:03.874Z",
+    "last_seen": "2026-11-07T07:19:03.874Z",
+    "upstream_present": false,
+    "availability": "public",
+    "parameter_components_b": {
+      "language": 6.738423808,
+      "vision": 0.985897344,
+      "qformer": 0.18566016,
+      "query_tokens": 0.000024576,
+      "projection": 0.003149824
+    },
+    "notes": "The publisher chronology states a May2023 release and its original model zoo names all four variants. Exact first public day remains unresolved; the May11 paper and earlier repository commits are not substituted for a launch date. Count 7,913,155,712 unique learned parameters in the original complete deployment, including frozen backbones. The Qformer keeps instruction embeddings/feedforward layers; its 512-element position-id buffer is excluded. EVA uses 39 loaded blocks without the pretrained final norm/classifier; the attached vision layer norm counts. Vicuna embeddings are untied; the original loader adds one PAD token to its 32,000-token vocabulary. Later HF conversions pad to32,064 and serialize fixed zero vision key biases, which are not original learned parameters. The original model notice licenses research use only and requires compliance with underlying model/data terms. Vicuna documents a2,048-token position limit."
+  },
+  {
     "id": "lmsys/fastchat-t5-3b-v1.0",
     "slug": "lmsys--fastchat-t5-3b-v1.0",
     "name": "FastChat-T5 3B v1.0",
