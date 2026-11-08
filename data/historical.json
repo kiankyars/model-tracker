@@ -50427,5 +50427,112 @@
       }
     ],
     "notes": "The publisher chronology states a May2023 release and its original model zoo names all four variants. Exact first public day remains unresolved; the May11 paper and earlier repository commits are not substituted for a launch date. Count 12,310,064,256 unique learned parameters in the original complete deployment, including frozen backbones. The Qformer keeps instruction embeddings/feedforward layers; its 512-element position-id buffer is excluded. EVA uses 39 loaded blocks without the pretrained final norm/classifier; the attached vision layer norm counts. T5 encoder/decoder input embeddings are shared and counted once; the language output head is untied. Later HF conversions serialize fixed zero vision key biases, excluded here. The original model notice licenses research use only and requires compliance with underlying model/data terms. The reviewed relative-position T5 deployment does not establish a hard combined-model context maximum."
+  },
+  {
+    "id": "llava/llava-1.5-7b",
+    "name": "LLaVA-1.5 7B",
+    "developer": "University of Wisconsin-Madison / Microsoft Research",
+    "developer_id": "llava",
+    "family": "llava",
+    "release_date": "2023-10-05",
+    "date_precision": "day",
+    "availability": "public",
+    "open_weights": true,
+    "license": "Llama 2 Community License",
+    "parameters_b": 7.062902784,
+    "active_parameters_b": null,
+    "parameters_source": "checkpoint_metadata",
+    "architecture": "dense",
+    "context_window": 4096,
+    "modalities": {
+      "input": [
+        "text",
+        "image"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "reasoning": null,
+    "tool_call": null,
+    "source_type": "primary",
+    "aliases": [
+      "liuhaotian/llava-v1.5-7b"
+    ],
+    "parameter_components_b": {
+      "language": 6.738415616,
+      "vision": 0.303507456,
+      "projection": 0.020979712
+    },
+    "source_url": "https://llava-vl.github.io/",
+    "description": "LLaVA research-team visual instruction tuning of Vicuna1.5 with CLIP-L/336 and a two-layer image projector.",
+    "sources": [
+      {
+        "label": "Publisher dated model availability announcement",
+        "url": "https://github.com/haotian-liu/LLaVA/blob/c121f0432da27facab705978f83c4ada465e46fd/README.md",
+        "type": "announcement"
+      },
+      {
+        "label": "Original model zoo identifies full fine-tune and base",
+        "url": "https://github.com/haotian-liu/LLaVA/blob/c121f0432da27facab705978f83c4ada465e46fd/docs/MODEL_ZOO.md",
+        "type": "release"
+      },
+      {
+        "label": "Research-team affiliations",
+        "url": "https://llava-vl.github.io/",
+        "type": "primary"
+      },
+      {
+        "label": "Original CLIP vision-only model loading",
+        "url": "https://github.com/haotian-liu/LLaVA/blob/c121f0432da27facab705978f83c4ada465e46fd/llava/model/multimodal_encoder/clip_encoder.py",
+        "type": "primary"
+      },
+      {
+        "label": "Language and projection architecture",
+        "url": "https://github.com/haotian-liu/LLaVA/blob/c121f0432da27facab705978f83c4ada465e46fd/llava/model/llava_arch.py",
+        "type": "primary"
+      },
+      {
+        "label": "Pinned official model card",
+        "url": "https://huggingface.co/liuhaotian/llava-v1.5-7b/blob/4481d270cc22fd5c4d1bb5df129622006ccd9234/README.md",
+        "type": "model_card"
+      },
+      {
+        "label": "Pinned model configuration",
+        "url": "https://huggingface.co/liuhaotian/llava-v1.5-7b/blob/4481d270cc22fd5c4d1bb5df129622006ccd9234/config.json",
+        "type": "config"
+      },
+      {
+        "label": "Complete checkpoint tensor metadata",
+        "url": "https://huggingface.co/liuhaotian/llava-v1.5-7b/resolve/4481d270cc22fd5c4d1bb5df129622006ccd9234/pytorch_model-00001-of-00002.bin",
+        "type": "weights"
+      },
+      {
+        "label": "Complete checkpoint tensor metadata",
+        "url": "https://huggingface.co/liuhaotian/llava-v1.5-7b/resolve/4481d270cc22fd5c4d1bb5df129622006ccd9234/pytorch_model-00002-of-00002.bin",
+        "type": "weights"
+      },
+      {
+        "label": "Pinned official model card",
+        "url": "https://huggingface.co/openai/clip-vit-large-patch14-336/blob/ce19dc912ca5cd21c8a653c79e251e808ccabcd1/README.md",
+        "type": "model_card"
+      },
+      {
+        "label": "Pinned model configuration",
+        "url": "https://huggingface.co/openai/clip-vit-large-patch14-336/blob/ce19dc912ca5cd21c8a653c79e251e808ccabcd1/config.json",
+        "type": "config"
+      },
+      {
+        "label": "Complete checkpoint tensor metadata",
+        "url": "https://huggingface.co/openai/clip-vit-large-patch14-336/resolve/ce19dc912ca5cd21c8a653c79e251e808ccabcd1/pytorch_model.bin",
+        "type": "weights"
+      },
+      {
+        "label": "RoPE buffer registration",
+        "url": "https://github.com/huggingface/transformers/blob/v4.31.0/src/transformers/models/llama/modeling_llama.py",
+        "type": "primary"
+      }
+    ],
+    "notes": "The project chronology explicitly dates LLaVA1.5 and available model-zoo weights to October5,2023. The model-card September training date is not the release date. Count 7,062,902,784 parameters across the full original model: trained language/projector checkpoint plus the separately loaded frozen CLIP vision encoder. Exclude 2048 serialized RoPE-frequency buffer elements, CLIP text tower and CLIP contrastive projection/logit scale. Count all learned weights of the complete loaded CLIPVisionModel, including its final layer/norm even though image features are selected from the penultimate hidden state. Input/output language embeddings are untied. The official card names the Llama2 license and the project requires compliance with original model/data terms. The LoRA-trained variants are separate unresolved candidates, not aliases of these full fine-tunes."
   }
 ]
