@@ -367,19 +367,95 @@ test('report dispositions close family and date questions without wrapping colle
     ] },
   ];
   const queue = seedFromReports(empty(), reports, catalog, now);
-  assert.deepEqual(queue.candidates.map(item => item.id), ['research:lab/family', 'research:lab/model-date']);
-  for (const item of queue.candidates) {
+  assert.deepEqual(queue.candidates.map(item => item.id), ['research:lab/family', 'research:lab/model-date', 'huggingface:community/copy']);
+  for (const item of queue.candidates.filter(item => item.id.startsWith('research:'))) {
     assert.equal(item.status, 'tracked');
     assert.equal(item.model_id, 'lab/model');
     assert.equal(item.next_check, null);
   }
+  assert.equal(queue.candidates.find(item => item.id === 'huggingface:community/copy').status, 'excluded');
   assert.deepEqual(seedFromReports(queue, reports, catalog, now), queue);
-  assert.deepEqual(mergeCandidates(queue, [], catalog, now).candidates, queue.candidates);
+  assert.deepEqual(mergeCandidates(queue, [], catalog, now).candidates, [...queue.candidates].sort((a, b) => a.id.localeCompare(b.id)));
   reviewCandidate(queue, 'research:lab/model-date', {
     status: 'pending', model_id: 'lab/model', reason: 'New primary evidence conflicts with the date.',
     reviewed_at: now, next_check: '2026-11-02',
   });
   assert.deepEqual(seedFromReports(queue, reports, catalog, now), queue);
+});
+
+test('report replay resolves external discovery leads with their original metadata and respects newer decisions', () => {
+  const catalog = [{ id: 'lab/model', name: 'Model', sources: [] }];
+  const observations = ['epoch', 'huggingface', 'openrouter'].map(sourceId => modelObservation(
+    sourceId, 'provider/alias', 'Provider alias', `https://${sourceId}.example/alias`, {
+      publisher: 'Lab', tasks: ['text-generation'], revision: 'collector-revision',
+      source_date: old, date_kind: 'repository_updated',
+    },
+  ));
+  const before = mergeCandidates(empty(), observations, [], old);
+  assert.ok(before.candidates.every(item => item.status === 'pending'));
+  const report = { research_date: '2026-10-28', candidate_dispositions: observations.map(observation => ({
+    id: `${observation.source_id}:${observation.key}`, model_id: 'lab/model',
+    status: observation.source_id === 'openrouter' ? 'duplicate' : 'tracked',
+    reason: 'Publisher confirms this exact checkpoint identity.',
+    sources: [observation.url, { url: 'https://lab.example/launch', type: 'announcement' }],
+  })) };
+  const replayed = seedFromReports(before, [report], catalog, now);
+  for (const item of replayed.candidates) {
+    const previous = before.candidates.find(candidate => candidate.id === item.id);
+    assert.ok(previous);
+    assert.equal(item.model_id, 'lab/model');
+    assert.equal(item.status, item.id.startsWith('openrouter:') ? 'duplicate' : 'tracked');
+    assert.equal(item.reason, 'Publisher confirms this exact checkpoint identity.');
+    assert.equal(item.next_check, null);
+    assert.equal(item.first_seen, previous.first_seen);
+    assert.equal(item.name, previous.name);
+    assert.equal(item.publisher, previous.publisher);
+    assert.deepEqual(item.tasks, previous.tasks);
+    assert.deepEqual(item.sources[0], previous.sources[0]);
+    assert.equal(item.sources[1].url, 'https://lab.example/launch');
+  }
+  assert.deepEqual(seedFromReports(replayed, [report], catalog, now), replayed);
+  assert.deepEqual(reconcileCatalogCandidates(replayed, catalog, {}, now).candidates, replayed.candidates);
+  reviewCandidate(replayed, observations[0].source_id + ':provider/alias', {
+    status: 'pending', model_id: null, reason: 'New publisher evidence disputes this alias.',
+    reviewed_at: now, next_check: '2026-11-02',
+  });
+  assert.deepEqual(seedFromReports(replayed, [report], catalog, now), replayed);
+  assert.ok(before.candidates.every(item => item.status === 'pending'));
+});
+
+test('report replay preserves explicitly automatic dispositions so changed lineage can reopen them', () => {
+  const observation = modelObservation('huggingface', 'Lab/Model-Q4', 'Model Q4', 'https://huggingface.co/Lab/Model-Q4', {
+    lineage_tags: ['base_model:quantized:Lab/Model'], revision: 'quantized-revision',
+  });
+  const automatic = mergeCandidates(empty(), [observation], [], old).candidates[0];
+  const report = { research_date: '2026-10-28', candidate_dispositions: [automatic] };
+  const replayed = seedFromReports(empty(), [report], [], now);
+  assert.equal(replayed.candidates[0].review_method, 'publisher_metadata');
+  assert.deepEqual(replayed.candidates[0].sources, automatic.sources);
+  assert.equal(reconcileCatalogCandidates(replayed, [], {}, now).candidates[0].status, 'excluded');
+  const changed = { ...observation, lineage_tags: [], revision: 'unclassified-revision' };
+  assert.equal(mergeCandidates(replayed, [changed], [], now).candidates[0].status, 'pending');
+
+  const manualReport = { research_date: '2026-10-29', candidate_dispositions: [{
+    id: automatic.id, status: 'excluded', reason: 'Publisher confirms these are quantized copies.', sources: ['https://lab.example/notice'],
+  }] };
+  const manual = seedFromReports(replayed, [manualReport], [], now);
+  assert.equal(manual.candidates[0].review_method, undefined);
+  assert.equal(mergeCandidates(manual, [changed], [], now).candidates[0].status, 'excluded');
+});
+
+test('report dispositions skip legacy non-ID rows and reject invalid explicit decisions', () => {
+  const legacy = { research_date: '2026-10-28', candidate_dispositions: [
+    { candidate: 'A model family', reason: 'Legacy summary only.' },
+    { id: 'lab/model', reason: 'Legacy catalog summary only.' },
+  ] };
+  assert.deepEqual(seedFromReports(empty(), [legacy], [], now), empty());
+  for (const id of ['research:lab/model', 'epoch:Lab/Model', 'huggingface:Lab/Model']) {
+    assert.throws(() => seedFromReports(empty(), [{ research_date: '2026-10-28', candidate_dispositions: [
+      { id, status: 'unverified', reason: 'Not a valid decision.' },
+    ] }], [], now), /Invalid research disposition/);
+  }
 });
 
 test('Hugging Face registry includes encoder-decoder text generation', async () => {

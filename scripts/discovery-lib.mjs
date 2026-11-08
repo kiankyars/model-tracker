@@ -498,17 +498,19 @@ export function seedFromReports(queue, reports, catalog, now) {
     for (const [field, status] of [['candidate_dispositions', null], ['unresolved_candidates', 'pending'], ['excluded_candidates', 'excluded']]) {
       for (const lead of report[field] || []) {
         if (field === 'candidate_dispositions') {
-          if (!lead.id?.startsWith('research:')) continue;
+          if (typeof lead.id !== 'string' || !/^[a-z][a-z0-9_-]*:\S/i.test(lead.id)) continue;
           if (!QUEUE_STATUSES.has(lead.status)) throw new Error(`Invalid research disposition: ${lead.id}`);
         }
         const key = lead.id?.replace(/^research:/, '');
         const model = models.get(Object.hasOwn(lead, 'model_id') ? lead.model_id : key);
-        const name = lead.candidate || lead.name || model?.name || lead.id;
-        if (!name) throw new Error('Research report contains an unnamed candidate');
+        const reportedName = lead.candidate || lead.name;
+        const fallbackName = reportedName || model?.name || lead.id;
+        if (!fallbackName) throw new Error('Research report contains an unnamed candidate');
         const id = /^[a-z][a-z0-9_-]*:/i.test(lead.id || '') ? lead.id
-          : `research:${key || name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`;
+          : `research:${key || fallbackName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`;
         const previous = items.get(id);
         if (previous?.last_reviewed && previous.last_reviewed >= reviewed) continue;
+        const name = reportedName || previous?.name || fallbackName;
         const disposition = QUEUE_STATUSES.has(lead.status) ? lead.status : status;
         const reason = lead.uncertainty || lead.reason || lead.question;
         if (!reason?.trim()) throw new Error(`Research report contains no review reason: ${id}`);
@@ -516,7 +518,10 @@ export function seedFromReports(queue, reports, catalog, now) {
         const sources = structuredClone(previous?.sources || []);
         const knownUrls = new Set(sources.map(source => source.url));
         for (const url of urls) {
-          if (!knownUrls.has(url)) sources.push({ source_id: 'manual-research', key: url, url, first_seen: reviewed, last_seen: reviewed, source_date: null, date_kind: null });
+          if (!knownUrls.has(url)) {
+            const recorded = (lead.sources || []).find(source => typeof source === 'object' && source?.url === url && source.source_id && source.key);
+            sources.push({ source_id: 'manual-research', key: url, url, first_seen: reviewed, last_seen: reviewed, source_date: null, date_kind: null, ...structuredClone(recorded || {}) });
+          }
         }
         const entry = {
           ...previous, id, name, kind: previous?.kind || 'model', status: disposition,
@@ -526,7 +531,8 @@ export function seedFromReports(queue, reports, catalog, now) {
           last_reviewed: reviewed, next_check: disposition === 'pending' ? isoDate(lead.next_check) || now : null,
           sources,
         };
-        delete entry.review_method;
+        if (lead.review_method === 'publisher_metadata') entry.review_method = lead.review_method;
+        else delete entry.review_method;
         items.set(id, entry);
       }
     }
