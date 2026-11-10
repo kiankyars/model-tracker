@@ -40,7 +40,7 @@ Work by month and by publisher/model family. Apply the same scope to every year,
 
 ## Publish
 
-Save a structured `research/YYYY-MM-DD.json` report with the search window, checks, additions, corrections and unresolved questions. Set `data/research-metadata.json`'s `reviewed_at` to the research completion time; keep source retrieval timestamps tied to actual imports.
+Save a structured `research/YYYY-MM-DD.json` report with the search window, checks, additions, corrections and unresolved questions. Set `data/research-metadata.json`'s `reviewed_at` to the research completion time; keep source retrieval timestamps tied to actual imports. Write `data/candidates.json` with `formatCandidateQueue` from `scripts/discovery-lib.mjs`, keeping one candidate per line.
 
 Run `npm run check` and `git diff --check`. Make one commit per model addition or correction, including its evidence and generated catalog change. Commit workflow/interface changes separately. Push to `main`, verify the remote commit and successful Pages deployment, and read back changed live API records. A build failure or ambiguous claim is not a completed publication.
 

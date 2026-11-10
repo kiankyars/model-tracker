@@ -1,7 +1,7 @@
 import { readFile, writeFile, mkdir, readdir } from 'node:fs/promises';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { collectSource, dueCandidates, isoDate, mergeCandidates, reviewCandidate, seedFromReports } from './discovery-lib.mjs';
+import { collectSource, dueCandidates, formatCandidateQueue, isoDate, mergeCandidates, reviewCandidate, seedFromReports } from './discovery-lib.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
@@ -105,5 +105,5 @@ console.log(JSON.stringify({ report: flags['dry-run'] ? null : reportPath, candi
 async function writeJson(path, value) {
   const target = resolve(root, path);
   await mkdir(dirname(target), { recursive: true });
-  await writeFile(target, `${JSON.stringify(value, null, 2)}\n`);
+  await writeFile(target, path === 'data/candidates.json' ? formatCandidateQueue(value) : `${JSON.stringify(value, null, 2)}\n`);
 }

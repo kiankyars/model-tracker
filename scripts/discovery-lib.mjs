@@ -473,6 +473,11 @@ export function mergeCandidates(queue, observations, catalog, now, corrections =
   return reconcileCatalogCandidates({ schema_version: '1.0', updated_at: now, candidates: [...candidates.values()].sort((a, b) => a.id.localeCompare(b.id)) }, catalog, corrections, now);
 }
 
+export function formatCandidateQueue({ candidates, ...metadata }) {
+  const fields = Object.entries(metadata).map(([key, value]) => `  ${JSON.stringify(key)}: ${JSON.stringify(value)},`);
+  return `{\n${fields.join('\n')}\n  "candidates": [\n${candidates.map(item => `    ${JSON.stringify(item)}`).join(',\n')}\n  ]\n}\n`;
+}
+
 export function dueCandidates(queue, now) {
   return queue.candidates.filter(item => item.status === 'pending' && (!item.next_check || item.next_check <= now)).map(item => item.id);
 }
