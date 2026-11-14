@@ -24935,16 +24935,51 @@
           "label": "Model-specific license",
           "url": "https://huggingface.co/moonshotai/Kimi-K3.1-Pro/blob/d9e99b0792a5e93b78ea9bea62a68167e36ddd9e/LICENSE",
           "type": "license"
+        },
+        {
+          "label": "Models.dev record",
+          "url": "https://github.com/anomalyco/models.dev/blob/dev/models/moonshotai/kimi-k3.1-pro.toml",
+          "type": "catalog"
+        },
+        {
+          "label": "Complete indexed tensor logical shapes",
+          "url": "https://huggingface.co/moonshotai/Kimi-K3.1-Pro/blob/d9e99b0792a5e93b78ea9bea62a68167e36ddd9e/model.safetensors.index.json",
+          "type": "weights"
+        },
+        {
+          "label": "Native KDA head allocation and padded-weight loader",
+          "url": "https://github.com/vllm-project/vllm/blob/2fb6d0b75d3e803a2d27c640b5c45be47af0029c/vllm/model_executor/layers/mamba/gdn/kimi_gdn_linear_attn.py",
+          "type": "primary"
+        },
+        {
+          "label": "Kimi K3 expert and residual implementation",
+          "url": "https://github.com/vllm-project/vllm/blob/2fb6d0b75d3e803a2d27c640b5c45be47af0029c/vllm/models/kimi_k3/nvidia/model.py",
+          "type": "primary"
+        },
+        {
+          "label": "Learned spatial and fixed temporal vision positions",
+          "url": "https://github.com/vllm-project/vllm/blob/2fb6d0b75d3e803a2d27c640b5c45be47af0029c/vllm/model_executor/models/kimi_k25_vit.py",
+          "type": "primary"
+        },
+        {
+          "label": "Native MXFP4 packed tensor format",
+          "url": "https://github.com/vllm-project/compressed-tensors/blob/70e7167581860af0807546879e3cd0357085e246/src/compressed_tensors/compressors/mxfp4/base.py",
+          "type": "primary"
+        },
+        {
+          "label": "Inherited two-nibble packed-weight implementation",
+          "url": "https://github.com/vllm-project/compressed-tensors/blob/70e7167581860af0807546879e3cd0357085e246/src/compressed_tensors/compressors/nvfp4/base.py",
+          "type": "primary"
         }
       ],
-      "notes": "Moonshot now directly reports nominal 2.8T total and 104B active for the exact Pro model. These replace the previous lineage-only inference; a full unique tensor census of the packed MXFP4 checkpoint is not asserted. The exact Pro card/config describe 69 KDA and 24 Gated DSA layers, replacing K3’s Gated MLA layers. All 96 indexed weight shards are publicly readable. Weights use the Kimi K3.1-Pro License, which has commercial serving and attribution conditions; it is distinct from API service terms. October 23 remains the first verified hosted release. Image/video capability follows the official API guide; the checkpoint card lists text and image.",
+      "notes": "Complete 96-shard checkpoint census and independent architecture arithmetic give 2,780,110,361,184 unique learned parameters: 2,779,663,002,208 language, 401,214,464 vision and 46,144,512 projector. MXFP4 expert bytes encode two learned weights each; 85,085,650,944 quantization-scale entries are excluded. All 69 KDA A_log tensors were read: 32 unused zero-padding entries per layer (2,208 total) are excluded, matching the native 96-head allocation and narrowing loader. Spatial vision positions and adaptive routing biases are learned state; no MTP tensors are shipped. Moonshot’s 2.8T total and 104B active remain nominal publisher figures; 104B active is not an exact independently reconstructed activation count. The exact Pro card/config describe 69 KDA and 24 Gated DSA layers, replacing K3’s Gated MLA layers. All 96 indexed weight shards are publicly readable. Weights use the Kimi K3.1-Pro License, which has commercial serving and attribution conditions; it is distinct from API service terms. October 23 remains the first verified hosted release. Image/video capability follows the official API guide; the checkpoint card lists text and image.",
       "field_status": {},
       "audited_at": "2026-11-07T07:13:06.783144+00:00",
       "audit_url": "https://github.com/kiankyars/model-tracker/blob/main/research/2026-11-07.json",
       "architecture": "moe",
-      "parameters_b": 2800,
+      "parameters_b": 2780.110361184,
       "active_parameters_b": 104,
-      "parameters_source": "primary_source",
+      "parameters_source": "checkpoint_metadata",
       "open_weights": true,
       "context_window": 1048576
     },
