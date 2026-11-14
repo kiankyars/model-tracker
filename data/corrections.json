@@ -42052,6 +42052,43 @@
       ],
       "source_type": "primary",
       "source_url": "https://www.sii.edu.cn/2026/1112/c27a1274/page.htm"
+    },
+    "nvidia/nemotron-labs-dory1.0-4b": {
+      "parameters_b": 3.97522944,
+      "parameters_source": "checkpoint_metadata",
+      "sources": [
+        {
+          "label": "Official model card and downloadable weights",
+          "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-Labs-Dory1.0-4B-BF16/blob/48e0c3faac0aaa8b93fc4e68256d7e58b183645e/README.md",
+          "type": "primary"
+        },
+        {
+          "label": "Pinned publisher model card",
+          "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-Labs-Dory1.0-4B-BF16/blob/ee517dd388a9b348890ae1e00dacc5eb4d0c750d/README.md",
+          "type": "model_card"
+        },
+        {
+          "label": "Pinned exact configuration",
+          "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-Labs-Dory1.0-4B-BF16/blob/ee517dd388a9b348890ae1e00dacc5eb4d0c750d/config.json",
+          "type": "config"
+        },
+        {
+          "label": "Pinned complete repository inventory",
+          "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-Labs-Dory1.0-4B-BF16/tree/ee517dd388a9b348890ae1e00dacc5eb4d0c750d",
+          "type": "weights"
+        },
+        {
+          "label": "Pinned implementation declares learned nGPT scales",
+          "url": "https://github.com/shan18/vllm/blob/876edc971507f602b18d1ec523c174a068cc02d7/vllm/model_executor/models/dory.py",
+          "type": "code"
+        },
+        {
+          "label": "Publisher-linked Dory implementation review",
+          "url": "https://github.com/vllm-project/vllm/pull/60149",
+          "type": "code"
+        }
+      ],
+      "notes": "Looped latent-recurrent normalized-GPT with shared recurrent layers. Repeating layers changes inference compute, not the number of stored parameters. Official card gives the October 16 release date and 4B nominal parameters. Complete BF16 header census and architecture reconstruction verify 3,975,229,440 unique learned parameters: 671,219,712 embedding/head/logit-scale, 1,321,592,832 attention and 1,982,416,896 MLP parameters. The 72 configured sublayers represent 36 attention/MLP pairs; shared recurrent passes are counted once. nGPT alpha, sqk, s_gate, suv and logit_scale values are learned nn.Parameter tensors, not quantization metadata. Latest repository changes affect chat/response parsing only, with unchanged checkpoint and architecture."
     }
   },
   "aliases": {
