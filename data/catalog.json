@@ -1138,6 +1138,75 @@
     "notes": "The dated publisher launch identifies this as the second version of its hosted decision model, selected by the distinct celeris-1.1-decision model ID. It reads text and images and generates optional natural-language explanations in addition to decision probabilities. The November 5 release documents the hosted upgrade and current docs specify a 131072-token context ceiling, including reserved answer space. Architecture is not independently specified for this revision. Training details, total and active parameters are not disclosed. No open checkpoint is documented. Optional explanations do not establish a separate reasoning-token mode or tool calling."
   },
   {
+    "id": "inclusionai/ling-3.2-flash",
+    "slug": "inclusionai--ling-3.2-flash",
+    "name": "Ling 3.2 Flash",
+    "developer": "InclusionAI",
+    "developer_id": "inclusionai",
+    "family": "ling",
+    "description": "Native multimodal language model for visual reasoning, long-running agents, 3D tasks and medical understanding.",
+    "release_date": "2026-11-05",
+    "date_precision": "day",
+    "open_weights": false,
+    "license": null,
+    "parameters_b": 560,
+    "active_parameters_b": 25,
+    "parameters_source": "primary_source",
+    "architecture": "moe",
+    "context_window": 1048576,
+    "modalities": {
+      "input": [
+        "text",
+        "image",
+        "video"
+      ],
+      "output": [
+        "text"
+      ]
+    },
+    "reasoning": true,
+    "tool_call": true,
+    "source_url": "https://developer.ant-ling.com/zh-CN/docs/getting-started/changelog/",
+    "source_type": "primary",
+    "sources": [
+      {
+        "label": "Publisher November 5 release and API availability",
+        "url": "https://developer.ant-ling.com/zh-CN/docs/getting-started/changelog/",
+        "type": "announcement"
+      },
+      {
+        "label": "Exact Ling 3.2 specifications",
+        "url": "https://developer.ant-ling.com/zh-CN/docs/models/ling/",
+        "type": "documentation"
+      },
+      {
+        "label": "Publisher current supported models",
+        "url": "https://developer.ant-ling.com/zh-CN/docs/models/deprecation/",
+        "type": "documentation"
+      },
+      {
+        "label": "Publisher pricing and initial-access terms",
+        "url": "https://developer.ant-ling.com/zh-CN/docs/models/price/",
+        "type": "documentation"
+      },
+      {
+        "label": "OpenRouter serving alias",
+        "url": "https://openrouter.ai/inclusionai/ling-3.2-flash:free",
+        "type": "documentation"
+      }
+    ],
+    "aliases": [
+      "Ling-3.2-flash",
+      "inclusionai/ling-3.2-flash:free"
+    ],
+    "first_seen": "2026-11-14T07:24:10.855Z",
+    "last_seen": "2026-11-14T07:24:10.855Z",
+    "upstream_present": false,
+    "announcement_date": "2026-11-05",
+    "availability": "public",
+    "notes": "Ant Ling explicitly records the November 5 launch with web chat and compatible APIs. Total 560B and active 25B are publisher-rounded figures for this exact version. The publisher native documentation states only 1M; 1,048,576 is the verified hosted limit documented by OpenRouter for the Ant Digital endpoint. The later November 13 free-route listing is not the first release. Exact official Hugging Face endpoint was unavailable at review; no downloadable weights or exact-version license was verified. OpenRouter endpoint enumeration returned an empty list, so its listing is not used to establish first access."
+  },
+  {
     "id": "openai/gpt-6-cyber",
     "slug": "openai--gpt-6-cyber",
     "name": "GPT-6 Cyber",
@@ -16379,7 +16448,7 @@
       "dspark": 19.845851751,
       "vision_encoder": 0.41184256,
       "vision_aligner": 0.054534144,
-      "image_embeddings": 0.000016384
+      "image_embeddings": 1.6384e-05
     },
     "field_status": {},
     "audited_at": "2026-10-26T19:16:39.554392Z",
@@ -31880,7 +31949,7 @@
       "input_embeddings": 0.614989824,
       "output_head": 0.614989824,
       "other_norms": 0.000740352,
-      "expert_balancing_bias": 0.000013824
+      "expert_balancing_bias": 1.3824e-05
     },
     "field_status": {},
     "audited_at": "2026-10-26T17:21:35.053129Z",
@@ -34668,7 +34737,7 @@
       "input_embeddings": 1.073741824,
       "output_head": 1.073741824,
       "decoder_layers": 30.00516032,
-      "final_norm": 0.000004096
+      "final_norm": 4.096e-06
     },
     "active_parameters_scope": "non_embedding",
     "active_parameters_by_phase_b": {
@@ -39438,7 +39507,7 @@
       "input_embeddings": 0.614989824,
       "output_head": 0.614989824,
       "normalization": 0.000740352,
-      "frozen_routing_bias": 0.000013824
+      "frozen_routing_bias": 1.3824e-05
     },
     "field_status": {},
     "audited_at": "2026-10-26T17:21:26.569139+00:00",
@@ -39551,7 +39620,7 @@
       "vision_tokenizer": 0.094979328,
       "vision_causal_encoder": 0.358256512,
       "projector": 0.00114816,
-      "view_separator": 0.00000128
+      "view_separator": 1.28e-06
     },
     "active_parameters_by_phase_b": {
       "decoder": 0.5
@@ -44610,7 +44679,7 @@
       "other_norms": 0.000264192,
       "dense_mlp": 0.075497472,
       "attention_including_qk_norms": 0.872423424,
-      "expert_balancing_bias": 0.00000384,
+      "expert_balancing_bias": 3.84e-06,
       "routed_experts": 24.15919104,
       "router_weights": 0.00786432,
       "shared_experts": 0.18874368
@@ -44726,7 +44795,7 @@
     "upstream_present": true,
     "notes": "Full checkpoint contains 6.120003328B learned parameters, including 6912 expert-balancing biases updated outside backpropagation. Approximately 1B active is the developer nominal per-token figure; exact full-module accounting is 1.023923968B, with eight routed experts plus the shared/dense/attention components. Configured context is 131072 tokens. Nano Preview is explicitly non-thinking despite a generic reasoning-parser flag in its card. Current OpenMDW-1.1 superseded launch Apache-2.0 in May 2026.",
     "parameter_components_b": {
-      "expert_balancing_bias": 0.000006912,
+      "expert_balancing_bias": 6.912e-06,
       "input_embeddings": 0.204996608,
       "other_norms": 0.0002304,
       "dense_mlp": 0.018874368,
@@ -58564,7 +58633,7 @@
       "attention": 8.153726976,
       "embeddings_and_head": 1.694498816,
       "routers": 0.026738688,
-      "routing_biases": 0.000003264,
+      "routing_biases": 3.264e-06,
       "norms": 0.000892928
     },
     "field_status": {
@@ -63245,7 +63314,7 @@
     "parameter_components_b": {
       "input_embeddings": 0.67108864,
       "decoder_layers": 22.2302208,
-      "final_norm": 0.00000512,
+      "final_norm": 5.12e-06,
       "output_head": 0.67108864
     },
     "field_status": {},
@@ -68590,7 +68659,7 @@
       "input_embedding": 0.616562688,
       "output_head": 0.616562688,
       "decoder_layers": 19.67235072,
-      "final_rmsnorm": 0.000006144
+      "final_rmsnorm": 6.144e-06
     },
     "field_status": {
       "active_parameters_b": "undisclosed"
@@ -105479,7 +105548,7 @@
       "language": 2.849757184,
       "vision": 0.985897344,
       "qformer": 0.18566016,
-      "query_tokens": 0.000024576,
+      "query_tokens": 2.4576e-05,
       "projection": 0.001574912
     },
     "notes": "The publisher chronology states a May2023 release and its original model zoo names all four variants. Exact first public day remains unresolved; the May11 paper and earlier repository commits are not substituted for a launch date. Count 4,022,914,176 unique learned parameters in the original complete deployment, including frozen backbones. The Qformer keeps instruction embeddings/feedforward layers; its 512-element position-id buffer is excluded. EVA uses 39 loaded blocks without the pretrained final norm/classifier; the attached vision layer norm counts. T5 encoder/decoder input embeddings are shared and counted once; the language output head is untied. Later HF conversions serialize fixed zero vision key biases, excluded here. The original model notice licenses research use only and requires compliance with underlying model/data terms. The reviewed relative-position T5 deployment does not establish a hard combined-model context maximum."
@@ -105612,7 +105681,7 @@
       "language": 11.135332352,
       "vision": 0.985897344,
       "qformer": 0.18566016,
-      "query_tokens": 0.000024576,
+      "query_tokens": 2.4576e-05,
       "projection": 0.003149824
     },
     "notes": "The publisher chronology states a May2023 release and its original model zoo names all four variants. Exact first public day remains unresolved; the May11 paper and earlier repository commits are not substituted for a launch date. Count 12,310,064,256 unique learned parameters in the original complete deployment, including frozen backbones. The Qformer keeps instruction embeddings/feedforward layers; its 512-element position-id buffer is excluded. EVA uses 39 loaded blocks without the pretrained final norm/classifier; the attached vision layer norm counts. T5 encoder/decoder input embeddings are shared and counted once; the language output head is untied. Later HF conversions serialize fixed zero vision key biases, excluded here. The original model notice licenses research use only and requires compliance with underlying model/data terms. The reviewed relative-position T5 deployment does not establish a hard combined-model context maximum."
@@ -105735,7 +105804,7 @@
       "language": 13.01587456,
       "vision": 0.985897344,
       "qformer": 0.18566016,
-      "query_tokens": 0.000024576,
+      "query_tokens": 2.4576e-05,
       "projection": 0.00393728
     },
     "notes": "The publisher chronology states a May2023 release and its original model zoo names all four variants. Exact first public day remains unresolved; the May11 paper and earlier repository commits are not substituted for a launch date. Count 14,191,393,920 unique learned parameters in the original complete deployment, including frozen backbones. The Qformer keeps instruction embeddings/feedforward layers; its 512-element position-id buffer is excluded. EVA uses 39 loaded blocks without the pretrained final norm/classifier; the attached vision layer norm counts. Vicuna embeddings are untied; the original loader adds one PAD token to its 32,000-token vocabulary. Later HF conversions pad to32,064 and serialize fixed zero vision key biases, which are not original learned parameters. The original model notice licenses research use only and requires compliance with underlying model/data terms. Vicuna documents a2,048-token position limit."
@@ -105853,7 +105922,7 @@
       "language": 6.738423808,
       "vision": 0.985897344,
       "qformer": 0.18566016,
-      "query_tokens": 0.000024576,
+      "query_tokens": 2.4576e-05,
       "projection": 0.003149824
     },
     "notes": "The publisher chronology states a May2023 release and its original model zoo names all four variants. Exact first public day remains unresolved; the May11 paper and earlier repository commits are not substituted for a launch date. Count 7,913,155,712 unique learned parameters in the original complete deployment, including frozen backbones. The Qformer keeps instruction embeddings/feedforward layers; its 512-element position-id buffer is excluded. EVA uses 39 loaded blocks without the pretrained final norm/classifier; the attached vision layer norm counts. Vicuna embeddings are untied; the original loader adds one PAD token to its 32,000-token vocabulary. Later HF conversions pad to32,064 and serialize fixed zero vision key biases, which are not original learned parameters. The original model notice licenses research use only and requires compliance with underlying model/data terms. Vicuna documents a2,048-token position limit."
@@ -109085,7 +109154,7 @@
       "language": 2.849757184,
       "vision": 0.985897344,
       "qformer": 0.105137664,
-      "query_tokens": 0.000024576,
+      "query_tokens": 2.4576e-05,
       "projection": 0.001574912
     },
     "notes": "The publisher chronology states a January 2023 model release, and the contemporaneous model table/configuration explicitly supplies this trained variant. January is verified; the exact first public day is not inferred from the commit or later Hugging Face upload. Count 3,942,391,680 unique parameters across the original deployment components, including the frozen language model and vision encoder. Original released Qformer metadata includes a 512-element position-id buffer, which is excluded. The frozen EVA checkpoint has 40 blocks and a classification head, while the actual BLIP-2 constructor loads only 39 blocks without its final norm/head; those unused weights are excluded. The attached vision layer norm is included. Shared language embeddings count once. Later Hugging Face conversions add padded embeddings and/or serialized fixed zero key biases, so their raw element counts are not substituted for the original model. Model-weight license is left unresolved: original source code is BSD-3-Clause, the HF-authored card advertises MIT, and frozen backbones carry their own terms. No hard maximum text context for the combined relative-position T5 system is established by the reviewed sources."
@@ -109188,7 +109257,7 @@
       "language": 2.849757184,
       "vision": 0.986488704,
       "qformer": 0.105137664,
-      "query_tokens": 0.000024576,
+      "query_tokens": 2.4576e-05,
       "projection": 0.001574912
     },
     "notes": "The publisher chronology states a January 2023 model release, and the contemporaneous model table/configuration explicitly supplies this trained variant. January is verified; the exact first public day is not inferred from the commit or later Hugging Face upload. Count 3,942,983,040 unique parameters across the original deployment components, including the frozen language model and vision encoder. Original released Qformer metadata includes a 512-element position-id buffer, which is excluded. The frozen EVA checkpoint has 40 blocks and a classification head, while the actual BLIP-2 constructor loads only 39 blocks without its final norm/head; those unused weights are excluded. The attached vision layer norm is included. Shared language embeddings count once. Later Hugging Face conversions add padded embeddings and/or serialized fixed zero key biases, so their raw element counts are not substituted for the original model. The COCO fine-tune updates the visual encoder and query components and uses 364-pixel images; it is distinct from the pretrained checkpoint. Model-weight license is left unresolved: original source code is BSD-3-Clause, the HF-authored card advertises MIT, and frozen backbones carry their own terms. No hard maximum text context for the combined relative-position T5 system is established by the reviewed sources."
@@ -109291,7 +109360,7 @@
       "language": 11.135332352,
       "vision": 0.985897344,
       "qformer": 0.105137664,
-      "query_tokens": 0.000024576,
+      "query_tokens": 2.4576e-05,
       "projection": 0.003149824
     },
     "notes": "The publisher chronology states a January 2023 model release, and the contemporaneous model table/configuration explicitly supplies this trained variant. January is verified; the exact first public day is not inferred from the commit or later Hugging Face upload. Count 12,229,541,760 unique parameters across the original deployment components, including the frozen language model and vision encoder. Original released Qformer metadata includes a 512-element position-id buffer, which is excluded. The frozen EVA checkpoint has 40 blocks and a classification head, while the actual BLIP-2 constructor loads only 39 blocks without its final norm/head; those unused weights are excluded. The attached vision layer norm is included. Shared language embeddings count once. Later Hugging Face conversions add padded embeddings and/or serialized fixed zero key biases, so their raw element counts are not substituted for the original model. Model-weight license is left unresolved: original source code is BSD-3-Clause, the HF-authored card advertises MIT, and frozen backbones carry their own terms. No hard maximum text context for the combined relative-position T5 system is established by the reviewed sources."
@@ -109394,7 +109463,7 @@
       "language": 2.6515968,
       "vision": 0.985897344,
       "qformer": 0.105137664,
-      "query_tokens": 0.000024576,
+      "query_tokens": 2.4576e-05,
       "projection": 0.00196864
     },
     "notes": "The publisher chronology states a January 2023 model release, and the contemporaneous model table/configuration explicitly supplies this trained variant. January is verified; the exact first public day is not inferred from the commit or later Hugging Face upload. Count 3,744,625,024 unique parameters across the original deployment components, including the frozen language model and vision encoder. Original released Qformer metadata includes a 512-element position-id buffer, which is excluded. The frozen EVA checkpoint has 40 blocks and a classification head, while the actual BLIP-2 constructor loads only 39 blocks without its final norm/head; those unused weights are excluded. The attached vision layer norm is included. Shared language embeddings count once. Later Hugging Face conversions add padded embeddings and/or serialized fixed zero key biases, so their raw element counts are not substituted for the original model. Model-weight license is left unresolved: original source code is BSD-3-Clause, the HF-authored card advertises MIT, and frozen backbones carry their own terms. The OPT backend documents a 2048-token position limit including image-prefix positions."
@@ -109497,7 +109566,7 @@
       "language": 2.6515968,
       "vision": 0.986488704,
       "qformer": 0.105137664,
-      "query_tokens": 0.000024576,
+      "query_tokens": 2.4576e-05,
       "projection": 0.00196864
     },
     "notes": "The publisher chronology states a January 2023 model release, and the contemporaneous model table/configuration explicitly supplies this trained variant. January is verified; the exact first public day is not inferred from the commit or later Hugging Face upload. Count 3,745,216,384 unique parameters across the original deployment components, including the frozen language model and vision encoder. Original released Qformer metadata includes a 512-element position-id buffer, which is excluded. The frozen EVA checkpoint has 40 blocks and a classification head, while the actual BLIP-2 constructor loads only 39 blocks without its final norm/head; those unused weights are excluded. The attached vision layer norm is included. Shared language embeddings count once. Later Hugging Face conversions add padded embeddings and/or serialized fixed zero key biases, so their raw element counts are not substituted for the original model. The COCO fine-tune updates the visual encoder and query components and uses 364-pixel images; it is distinct from the pretrained checkpoint. Model-weight license is left unresolved: original source code is BSD-3-Clause, the HF-authored card advertises MIT, and frozen backbones carry their own terms. The OPT backend documents a 2048-token position limit including image-prefix positions."
@@ -109600,7 +109669,7 @@
       "language": 6.658473984,
       "vision": 0.985897344,
       "qformer": 0.105137664,
-      "query_tokens": 0.000024576,
+      "query_tokens": 2.4576e-05,
       "projection": 0.003149824
     },
     "notes": "The publisher chronology states a January 2023 model release, and the contemporaneous model table/configuration explicitly supplies this trained variant. January is verified; the exact first public day is not inferred from the commit or later Hugging Face upload. Count 7,752,683,392 unique parameters across the original deployment components, including the frozen language model and vision encoder. Original released Qformer metadata includes a 512-element position-id buffer, which is excluded. The frozen EVA checkpoint has 40 blocks and a classification head, while the actual BLIP-2 constructor loads only 39 blocks without its final norm/head; those unused weights are excluded. The attached vision layer norm is included. Shared language embeddings count once. Later Hugging Face conversions add padded embeddings and/or serialized fixed zero key biases, so their raw element counts are not substituted for the original model. Model-weight license is left unresolved: original source code is BSD-3-Clause, the HF-authored card advertises MIT, and frozen backbones carry their own terms. The OPT backend documents a 2048-token position limit including image-prefix positions."
@@ -109703,7 +109772,7 @@
       "language": 6.658473984,
       "vision": 0.986488704,
       "qformer": 0.105137664,
-      "query_tokens": 0.000024576,
+      "query_tokens": 2.4576e-05,
       "projection": 0.003149824
     },
     "notes": "The publisher chronology states a January 2023 model release, and the contemporaneous model table/configuration explicitly supplies this trained variant. January is verified; the exact first public day is not inferred from the commit or later Hugging Face upload. Count 7,753,274,752 unique parameters across the original deployment components, including the frozen language model and vision encoder. Original released Qformer metadata includes a 512-element position-id buffer, which is excluded. The frozen EVA checkpoint has 40 blocks and a classification head, while the actual BLIP-2 constructor loads only 39 blocks without its final norm/head; those unused weights are excluded. The attached vision layer norm is included. Shared language embeddings count once. Later Hugging Face conversions add padded embeddings and/or serialized fixed zero key biases, so their raw element counts are not substituted for the original model. The COCO fine-tune updates the visual encoder and query components and uses 364-pixel images; it is distinct from the pretrained checkpoint. Model-weight license is left unresolved: original source code is BSD-3-Clause, the HF-authored card advertises MIT, and frozen backbones carry their own terms. The OPT backend documents a 2048-token position limit including image-prefix positions."
