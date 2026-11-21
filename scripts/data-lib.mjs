@@ -247,7 +247,13 @@ export function validateModels(models, asOf = '9999-12-31') {
       if (model.active_parameters_by_phase_b && phaseCount === undefined && !Object.hasOwn(model.parameter_components_b || {}, model.active_parameters_scope)) throw new Error(`Unknown active parameter scope: ${model.id}`);
     }
     if (![true, false, null].includes(model.open_weights)) throw new Error(`Invalid openness: ${model.id}`);
-    const spokenLanguage = model.source_type === 'primary' && model.modalities?.input?.includes('audio') && model.modalities?.output?.includes('audio');
+    if (model.spoken_dialogue_source !== undefined && (
+      typeof model.spoken_dialogue_source !== 'string' || !/^https:\/\//.test(model.spoken_dialogue_source) ||
+      model.source_type !== 'primary' || !model.sources.some(source => source.url === model.spoken_dialogue_source) ||
+      !model.modalities?.output?.includes('audio') || !model.modalities?.input?.some(modality => ['text', 'audio'].includes(modality))
+    )) throw new Error(`Invalid spoken dialogue evidence: ${model.id}`);
+    const spokenLanguage = model.source_type === 'primary' && model.modalities?.output?.includes('audio') &&
+      (model.modalities?.input?.includes('audio') || model.spoken_dialogue_source !== undefined);
     if (!Array.isArray(model.modalities?.input) || !Array.isArray(model.modalities?.output) || !(model.modalities.output.includes('text') || spokenLanguage)) throw new Error(`Not a language model: ${model.id}`);
     for (const url of [model.source_url, ...model.sources.map(source => source.url)]) {
       if (!/^https:\/\//.test(url)) throw new Error(`Unsafe source URL: ${model.id}`);

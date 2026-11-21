@@ -62,6 +62,7 @@ curl -fsSL https://kiankyars.github.io/model-tracker/api/v1/models.json \
 - `parameters_source`: Where the size came from. Name-derived sizes are not independently measured.
 - `context_window`: Maximum context tokens in the model catalog, or `null`.
 - `modalities`: Input and output modality arrays.
+- `spoken_dialogue_source`: Optional primary source verifying generated spoken conversation, including text-prompted dialogue without text output. Dedicated speech synthesis remains outside scope.
 - `reasoning`, `tool_call`: Source-reported capability flags; unknown values remain `null`.
 - `source_url`, `sources`: Provenance for the record and source-backed corrections.
 - `upstream_present`: Whether a record is in the current upstream snapshot. Removed models are retained in the historical catalog.

@@ -47,6 +47,23 @@ test('curated spoken-language models retain audio-only modalities without import
   assert.throws(() => validateModels([{ ...speech, modalities: { input: ['audio'], output: ['image'] } }]), /Not a language model/);
 });
 
+test('text-prompted spoken dialogue requires explicit primary evidence and preserves actual modalities', () => {
+  const url = 'https://example.org/dialogue';
+  const model = { ...normalize('lab/world', upstream(), at), source_type: 'primary', source_url: url, sources: [{ url }], spoken_dialogue_source: url, modalities: { input: ['text', 'image'], output: ['audio', 'video'] } };
+  const result = mergeCatalog({ upstream: { 'lab/tts': { ...upstream(), type: 'speech', modalities: { input: ['text'], output: ['audio'] } } }, historical: [model], retrievedAt: at });
+  assert.deepEqual(result.models.map(model => model.id), ['lab/world']);
+  assert.deepEqual(result.models[0].modalities, model.modalities);
+  assert.equal(result.models[0].spoken_dialogue_source, url);
+  const { spoken_dialogue_source, ...unreviewed } = model;
+  assert.throws(() => validateModels([unreviewed]), /Not a language model/);
+  for (const fields of [
+    { spoken_dialogue_source: true }, { spoken_dialogue_source: 'http://example.org/dialogue' },
+    { spoken_dialogue_source: 'https://example.org/unlisted' }, { source_type: 'catalog' },
+    { modalities: { input: ['image'], output: ['audio', 'video'] } },
+    { modalities: { input: ['text'], output: ['video'] } },
+  ]) assert.throws(() => validateModels([{ ...model, ...fields }]), /Invalid spoken dialogue evidence/);
+});
+
 test('refresh retains removed records and first-seen dates; future releases are not counted', () => {
   const previous = [normalize('lab/old', upstream(), '2026-01-01T00:00:00.000Z'), normalize('lab/current', upstream(), '2026-01-01T00:00:00.000Z')];
   const result = mergeCatalog({ upstream: { 'lab/current': upstream(), 'lab/future': { ...upstream(), release_date: '2027-01-01' } }, previous, retrievedAt: at, asOf: '2026-10-26' });
